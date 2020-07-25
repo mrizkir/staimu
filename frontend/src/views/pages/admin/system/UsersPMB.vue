@@ -87,6 +87,9 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
+                                            <v-card-subtitle>
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data pmb.
+                                            </v-card-subtitle>
                                             <v-card-text>     
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
@@ -126,8 +129,7 @@
                                                     item-text="text"
                                                     item-value="id"
                                                     multiple 
-                                                    small-chips
-                                                    :rules="rule_user_prodi">                                                                                
+                                                    small-chips>                                                                                
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -151,6 +153,9 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
+                                            <v-card-subtitle>
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data pmb
+                                            </v-card-subtitle>
                                             <v-card-text>                                                                                                
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
@@ -190,8 +195,7 @@
                                                     item-text="text"
                                                     item-value="id"
                                                     multiple 
-                                                    small-chips
-                                                    :rules="rule_user_prodi">                                                                                
+                                                    small-chips>                                                                                
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -370,9 +374,6 @@ export default {
                     return true;
                 }
             }
-        ], 
-        rule_user_prodi:[
-            value => value.length>0||"Mohon untuk dipilih program studi dari User ini !!!",
         ],
     }),
     methods: {
@@ -384,7 +385,7 @@ export default {
                     Authorization:this.TOKEN
                 }
             }).then(({data})=>{               
-                this.daftar_users = data.userspmb;
+                this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading=false;
             });          

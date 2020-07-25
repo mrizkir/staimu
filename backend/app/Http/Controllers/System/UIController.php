@@ -66,8 +66,11 @@ class UIController extends Controller {
         elseif($this->hasRole('pmb'))
         {
             $userid=$this->getUserid();
+            $daftar_prodi=$this->guard()->user()->prodi;
 
-            $daftar_fakultas=FakultasModel::select(\DB::raw('kode_fakultas,nama_fakultas'))
+            if ($daftar_prodi->count()>0)
+            {
+                $daftar_fakultas=FakultasModel::select(\DB::raw('kode_fakultas,nama_fakultas'))
                             ->whereExists(function ($query) use ($userid) {
                                 $query->select(\DB::raw(1))
                                     ->from('usersprodi')
@@ -76,10 +79,45 @@ class UIController extends Controller {
                             })
                             ->get();
                             
-            $fakultas_id=$config['DEFAULT_FAKULTAS'];
-            
+                $fakultas_id=$config['DEFAULT_FAKULTAS'];            
+                $prodi_id=$daftar_prodi[0]->id;
+            }
+            else
+            {
+                $daftar_fakultas=FakultasModel::all();
+                $fakultas_id=$config['DEFAULT_FAKULTAS'];        
+
+                $daftar_prodi=ProgramStudiModel::all();
+                $prodi_id=$config['DEFAULT_PRODI'];     
+            }            
+        }
+        elseif ($this->hasRole('keuangan'))
+        {
+            $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
-            $prodi_id=$daftar_prodi->count()>0?$daftar_prodi[0]->id:$config['DEFAULT_PRODI'];   
+
+            if ($daftar_prodi->count()>0)
+            {
+                $daftar_fakultas=FakultasModel::select(\DB::raw('kode_fakultas,nama_fakultas'))
+                            ->whereExists(function ($query) use ($userid) {
+                                $query->select(\DB::raw(1))
+                                    ->from('usersprodi')
+                                    ->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+                                    ->where('user_id',$userid);
+                            })
+                            ->get();
+                            
+                $fakultas_id=$config['DEFAULT_FAKULTAS'];            
+                $prodi_id=$daftar_prodi[0]->id;
+            }
+            else
+            {
+                $daftar_fakultas=FakultasModel::all();
+                $fakultas_id=$config['DEFAULT_FAKULTAS'];        
+
+                $daftar_prodi=ProgramStudiModel::all();
+                $prodi_id=$config['DEFAULT_PRODI'];     
+            }            
         }
         elseif ($this->hasRole('mahasiswabaru'))
         {

@@ -21,7 +21,7 @@
                     colored-border
                     type="info"
                     >
-                     User dengan role Keuangan bertanggungjawab terhadap proses keuangan di perguruan tinggi.
+                     User dengan role Keuangan bertanggungjawab terhadap proses keuangan.
                 </v-alert>
             </template>
         </ModuleHeader>        
@@ -87,6 +87,9 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
+                                            <v-card-subtitle>
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data keuangan mahasiswa
+                                            </v-card-subtitle>
                                             <v-card-text>     
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
@@ -118,7 +121,16 @@
                                                     :type="'password'"
                                                     filled
                                                     :rules="rule_user_password">
-                                                </v-text-field>                                                
+                                                </v-text-field>
+                                                <v-autocomplete 
+                                                    :items="daftar_prodi" 
+                                                    v-model="editedItem.prodi_id"
+                                                    label="PROGRAM STUDI" 
+                                                    item-text="text"
+                                                    item-value="id"
+                                                    multiple 
+                                                    small-chips>                                                                                
+                                                </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -141,6 +153,9 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
+                                            <v-card-subtitle>
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data keuangan mahasiswa
+                                            </v-card-subtitle>
                                             <v-card-text>                                                                                                
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
@@ -172,7 +187,16 @@
                                                     :type="'password'"
                                                     filled
                                                     :rules="rule_user_passwordEdit">
-                                                </v-text-field>                                                   
+                                                </v-text-field>   
+                                                <v-autocomplete 
+                                                    :items="daftar_prodi" 
+                                                    v-model="editedItem.prodi_id"
+                                                    label="PROGRAM STUDI" 
+                                                    item-text="text"
+                                                    item-value="id"
+                                                    multiple 
+                                                    small-chips>                                                                                
+                                                </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -295,14 +319,16 @@ export default {
         dialog: false,
         dialogEdit: false,
         dialogUserPermission: false,
-        editedIndex: -1,        
+        editedIndex: -1,
+        daftar_prodi:[],
         editedItem: {
             id:0,
             username: '',           
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp:'',                       
+            nomor_hp:'',           
+            prodi_id:[],
             created_at: '',           
             updated_at: '',   
         },
@@ -312,7 +338,8 @@ export default {
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp: '',              
+            nomor_hp: '',  
+            prodi_id:[],                            
             created_at: '',           
             updated_at: '',        
         },
@@ -335,9 +362,11 @@ export default {
         ], 
         rule_user_password:[
             value => !!value||"Mohon untuk di isi password User !!!",
-            value => {                
-                if (typeof value !== 'undefined' && value)
-                { 
+            value => value.length >= 8 || 'Minimial Password 8 karaketer',
+        ], 
+        rule_user_passwordEdit:[
+            value => {
+                if (value.length > 0){
                     return value.length >= 8 || 'Minimial Password 8 karaketer';
                 }
                 else
@@ -346,18 +375,6 @@ export default {
                 }
             }
         ], 
-        rule_user_passwordEdit:[
-            value => {                
-                if (typeof value !== 'undefined' && value)
-                { 
-                    return value.length >= 8 || 'Minimial Password 8 karaketer';
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        ],        
     }),
     methods: {
         initialize:async function () 
@@ -390,7 +407,7 @@ export default {
             this.btnLoading=true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
-                    role_name:'KEUANGAN',                    
+                    role_name:'keuangan',                    
                 },
                 {
                     headers:{
@@ -405,12 +422,29 @@ export default {
         },
         showDialogTambahUserKEUANGAN:async function ()
         {
+            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
             this.dialog = true;            
         },
         editItem:async function (item) {
-            this.editedIndex = this.daftar_users.indexOf(item);                                  
-            this.dialogEdit = true;
+            this.editedIndex = this.daftar_users.indexOf(item)
+            item.password='';            
             this.editedItem = Object.assign({}, item);      
+            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
+            await this.$ajax.get('/system/users/'+item.id+'/prodi',               
+                {
+                    headers:{
+                        Authorization:this.TOKEN
+                    }
+                }
+            ).then(({data})=>{                                   
+                let daftar_prodi = data.daftar_prodi;
+                var prodi=[];
+                daftar_prodi.forEach(element => {
+                    prodi.push(element.id);                        
+                });   
+                this.editedItem.prodi_id=prodi;                 
+            });                         
+            this.dialogEdit = true;
         },
         setPermission: async function (item) {          
             this.btnLoading=true;  
@@ -468,7 +502,8 @@ export default {
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
-                            password:this.editedItem.password,                               
+                            password:this.editedItem.password,   
+                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                                                          
                         },
                         {
                             headers:{
@@ -489,7 +524,8 @@ export default {
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
-                            password:this.editedItem.password,                                        
+                            password:this.editedItem.password,            
+                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
                         },
                         {
                             headers:{

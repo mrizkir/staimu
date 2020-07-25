@@ -28,7 +28,7 @@ class UsersPMBController extends Controller {
                                 'status'=>1,
                                 'pid'=>'fetchdata',
                                 'role'=>$role,
-                                'userspmb'=>$data,
+                                'users'=>$data,
                                 'message'=>'Fetch data users PMB berhasil diperoleh'
                             ],200);  
     }    
