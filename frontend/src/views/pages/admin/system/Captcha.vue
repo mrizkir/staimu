@@ -78,6 +78,16 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
+                text:'SYSTEM',
+                disabled:false,
+                href:'#'
+            },
+            {
+                text:'KONFIGURASI',
+                disabled:false,
+                href:'#'
+            },
+            {
                 text:'SERVER',
                 disabled:false,
                 href:'#'

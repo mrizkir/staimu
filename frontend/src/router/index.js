@@ -184,15 +184,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/spmb/ReportProdi.vue'),		
 	},
-	//system
+	//system	
 	{
-		path: '/system-users',
-		name: 'SystemUsers',
+		path: '/system-setting/identitasdiri',
+		name: 'IdentitasDiri',
 		meta:{
-			title: "SYSTEM - USERS",
+			title: "SETTING - IDENTITAS DIRI",
 			requiresAuth:true,
         },
-		component: () => import('../views/pages/admin/system/SystemUsers.vue'),		
+		component: () => import('../views/pages/admin/system/IdentitasDiri.vue'),		
 	},
 	{
 		path: '/system-setting/permissions',
@@ -220,6 +220,15 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/Captcha.vue'),		
+	},
+	{
+		path: '/system-users',
+		name: 'SystemUsers',
+		meta:{
+			title: "SYSTEM - USERS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/SystemUsers.vue'),		
 	},
 	{
 		path: '/system-users/pmb',

@@ -73,7 +73,7 @@ import {mapGetters} from 'vuex';
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name: 'Captcha',
+    name: 'IdentitasDiri',
     created()
     {
         this.breadcrumbs = [
@@ -83,12 +83,22 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'SERVER',
+                text:'SYSTEM',
                 disabled:false,
                 href:'#'
             },
             {
-                text:'CAPTCHA',
+                text:'KONFIGURASI',
+                disabled:false,
+                href:'#'
+            },
+            {
+                text:'PERGURUAN TINGGI',
+                disabled:false,
+                href:'#'
+            },
+            {
+                text:'IDENTITAS DIRI',
                 disabled:true,
                 href:'#'
             }
