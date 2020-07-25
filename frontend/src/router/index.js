@@ -240,6 +240,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/UsersPMB.vue'),		
 	},
 	{
+		path: '/system-users/keuangan',
+		name: 'UsersKeuangan',
+		meta:{
+			title: "USERS - KEUANGAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/UsersKeuangan.vue'),		
+	},
+	{
 		path: '/system-users/profil',
 		name: 'UsersProfil',
 		meta:{

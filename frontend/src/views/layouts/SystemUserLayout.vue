@@ -175,6 +175,16 @@
                         <v-list-item-title>MODULE USER SISTEM</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-KEUANGAN')" to="/system-users/keuangan">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            KEUANGAN
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>    
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PMB')" to="/system-users/pmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
