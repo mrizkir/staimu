@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 class PassingGradeController extends Controller {  
     /**
-     * daftar soal
+     * daftar passing grade
      */
     public function index(Request $request)
     {
@@ -24,15 +24,15 @@ class PassingGradeController extends Controller {
         $tahun_pendaftaran=$request->input('tahun_pendaftaran');
         $semester_pendaftaran=$request->input('semester_pendaftaran');
 
-        $soal=PassingGradeModel::where('ta',$tahun_pendaftaran)
+        $passinggrade=PassingGradeModel::where('ta',$tahun_pendaftaran)
                             ->where('semester',$semester_pendaftaran)
                             ->get();
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'soal'=>$soal,                                                                                                                                   
-                                    'message'=>'Fetch data soal pmb berhasil.'
+                                    'passinggrade'=>$passinggrade,                                                                                                                                   
+                                    'message'=>'Fetch data nilai passing grade berhasil.'
                                 ],200);     
     }  
     /**

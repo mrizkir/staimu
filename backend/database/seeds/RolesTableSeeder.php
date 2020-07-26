@@ -118,5 +118,27 @@ class RolesTableSeeder extends Seeder
             'SPMB-PMB-UJIAN-ONLINE_UPDATE',                      
         ];
         $role->syncPermissions($records);
+
+        $role = Role::findByName('keuangan');
+        $records=[
+            'DASHBOARD_SHOW',
+            'KEUANGAN-GROUP',                          
+            'KEUANGAN-KOMPONEN-BIAYA_BROWSE',                          
+
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',           
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_STORE',           
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_SHOW',           
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_STORE',              
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_UPDATE',              
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_DESTROY',              
+            
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE',           
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE',           
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_SHOW',           
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE',              
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE',              
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_DESTROY',              
+        ];
+        $role->syncPermissions($records);
     }
 }

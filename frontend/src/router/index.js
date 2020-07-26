@@ -184,6 +184,27 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/spmb/ReportProdi.vue'),		
 	},
+	
+	//keuangan
+	{
+		path: '/keuangan',
+		name: 'KEUANGAN',
+		meta:{
+			title: "KEUANGAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/Keuangan.vue'),		
+	},	
+	{
+		path: '/keuangan/biayakomponen',
+		name: 'KeuanganBiayaKomponen',
+		meta:{
+			title: "KEUANGAN - BIAYA KOMPONEN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/BiayaKomponen.vue'),		
+	},	
+
 	//system	
 	{
 		path: '/system-setting/identitasdiri',

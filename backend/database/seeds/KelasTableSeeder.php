@@ -16,17 +16,17 @@ class KelasTableSeeder extends Seeder
         
         \DB::table('pe3_kelas')->insert([
             'idkelas'=>"A",
-            'nkelas'=>'REGULER (S1)',
+            'nkelas'=>'PAGI (S1)',
         ]);               
 
         \DB::table('pe3_kelas')->insert([
             'idkelas'=>"B",
-            'nkelas'=>'KARYAWAN (S1)',
+            'nkelas'=>'SORE (S1)',
         ]);               
 
         \DB::table('pe3_kelas')->insert([
             'idkelas'=>"C",
-            'nkelas'=>'EKSTENSI (S1)',
+            'nkelas'=>'MALAM (S1)',
         ]);               
     }
 }
