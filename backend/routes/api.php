@@ -50,6 +50,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/auth/me',['uses'=>'AuthController@me','as'=>'auth.me']);
 
     // dashboard
+    $router->post('/dashboard/keuangan',['uses'=>'DashboardController@keuanganindex','as'=>'dashboard.keuanganindex']);
     $router->post('/dashboard/pmb',['uses'=>'DashboardController@pmbindex','as'=>'dashboard.pmbindex']);
 
     //data master - persyaratan    
@@ -138,8 +139,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/spmb/pmbpersyaratan/verifikasipersyaratan/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPersyaratanController@verifikasipersyaratan','as'=>'pmbpersyaratan.verifikasipersyaratan']);
     $router->delete('/spmb/pmbpersyaratan/hapusfilepersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@hapusfilepersyaratan','as'=>'pmbpersyaratan.hapusfilepersyaratan']);    
 
-    //keuangan
+    //keuangan - komponen biaya
     $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);            
+    
+    //keuangan - biaya komponen periode
+    $router->post('/keuangan/biayakomponenperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@index','as'=>'biayakomponenperiode.index']);            
+    $router->post('/keuangan/biayakomponenperiode/loadkombiperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@loadkombiperiode','as'=>'biayakomponenperiode.loadkombiperiode']);            
+    $router->post('/keuangan/biayakomponenperiode/updatebiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@updatebiaya','as'=>'biayakomponenperiode.updatebiaya']);            
     
     //kemahasiswaan
     $router->post('/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Kemahasiswaan\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            

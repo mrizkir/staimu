@@ -86,11 +86,21 @@
                 </v-list-item>   
                 <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KOMPONEN-BIAYA_BROWSE')" to="/keuangan/biayakomponen">
                     <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-head-question-outline</v-icon>
+                        <v-icon>mdi-video-input-component</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>
                             BIAYA KOMPONEN
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>        
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE')" to="/keuangan/biayakomponenperiode">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-triforce</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            BIAYA KOMPONEN PERIODE
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>        

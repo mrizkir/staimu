@@ -64,6 +64,10 @@ class UsersPMBController extends Controller {
         $role='pmb';   
         $user->assignRole($role);               
         
+        $permission=Role::findByName('pmb')->permissions;
+        $permissions=$permission->pluck('name');
+        $user->givePermissionTo($permissions);
+
         $user_id=$user->id;
         $daftar_prodi=json_decode($request->input('prodi_id'),true);
         foreach($daftar_prodi as $v)

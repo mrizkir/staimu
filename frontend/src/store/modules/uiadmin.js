@@ -299,6 +299,10 @@ const actions = {
     {
         commit('setSemesterPendaftaran',semester);
     },
+    updateIDKelas({commit},idkelas)
+    {
+        commit('setIDKelas',idkelas);
+    },
     reinit ({ commit }) 
     {
         commit('resetState');

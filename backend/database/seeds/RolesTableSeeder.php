@@ -122,9 +122,11 @@ class RolesTableSeeder extends Seeder
         $role = Role::findByName('keuangan');
         $records=[
             'DASHBOARD_SHOW',
-            'KEUANGAN-GROUP',                          
-            'KEUANGAN-KOMPONEN-BIAYA_BROWSE',                          
+            'KEUANGAN-GROUP',  
+            'KEUANGAN-RINGKASAN_BROWSE', 
 
+            'KEUANGAN-KOMPONEN-BIAYA_BROWSE',                          
+            
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',           
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE_STORE',           
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE_SHOW',           

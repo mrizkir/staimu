@@ -38,6 +38,12 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
         \DB::table('permissions')->insert([
+            'name'=>"KEUANGAN-RINGKASAN_BROWSE",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        \DB::table('permissions')->insert([
             'name'=>"KEUANGAN-KOMPONEN-BIAYA_BROWSE",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
@@ -94,7 +100,7 @@ class PermissionsTableSeeder extends Seeder
             'SPMB-PMB-PASSING-GRADE',     
             'SPMB-PMB-UJIAN-ONLINE',     
             'SPMB-PMB-NILAI-UJIAN',   
-
+            
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE',                 
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
 

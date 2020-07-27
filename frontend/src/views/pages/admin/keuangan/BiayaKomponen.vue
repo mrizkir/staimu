@@ -2,7 +2,7 @@
     <KeuanganLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-account-cash
+                mdi-video-input-component
             </template>
             <template v-slot:name>
                 BIAYA KOMPONEN
@@ -35,7 +35,7 @@
                         :headers="headers"
                         :items="datatable"                        
                         item-key="id"
-                        sort-by="nama"
+                        sort-by="id"
                         show-expand
                         :disable-pagination="true"
                         :hide-default-footer="true"

@@ -64,6 +64,10 @@ class UsersKeuanganController extends Controller {
         $role='keuangan';   
         $user->assignRole($role);               
         
+        $permission=Role::findByName('keuangan')->permissions;
+        $permissions=$permission->pluck('name');
+        $user->givePermissionTo($permissions);
+
         $user_id=$user->id;
         $daftar_prodi=json_decode($request->input('prodi_id'),true);
         foreach($daftar_prodi as $v)

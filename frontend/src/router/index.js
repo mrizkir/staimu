@@ -204,6 +204,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/keuangan/BiayaKomponen.vue'),		
 	},	
+	{
+		path: '/keuangan/biayakomponenperiode',
+		name: 'KeuanganBiayaKomponenPeriode',
+		meta:{
+			title: "KEUANGAN - BIAYA KOMPONEN PERIODE",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/BiayaKomponenPeriode.vue'),		
+	},	
 
 	//system	
 	{

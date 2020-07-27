@@ -56,7 +56,7 @@ export default {
 				href:'#'
 			}
         ];				
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
     },
     mounted()
     {

@@ -48,7 +48,7 @@
                         :items="datatable"
                         :search="search"
                         item-key="idkelas"
-                        sort-by="nkelas"
+                        sort-by="idkelas"
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
