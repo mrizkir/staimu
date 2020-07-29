@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Rules\IgnoreIfDataIsEqualValidation;
 use App\Models\User;
 use App\Helpers\Helper;
+use Ramsey\Uuid\Uuid;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller {         
@@ -19,10 +21,16 @@ class UsersController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-SUPERADMIN_BROWSE');
-        $data = User::role('superadmin')->get();
+        $data = User::role('superadmin')
+                    ->orderBy('username','ASC')
+                    ->get();
+
+        $role = Role::findByName('superadmin');
+
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'fetchdata',
+                                'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data users berhasil diperoleh'
                             ],200);  
@@ -39,18 +47,20 @@ class UsersController extends Controller {
         $this->validate($request, [
             'name'=>'required',
             'email'=>'required|string|email|unique:users',
+            'nomor_hp'=>'required|string|unique:users',
             'username'=>'required|string|unique:users',
             'password'=>'required',
         ]);
         $now = \Carbon\Carbon::now()->toDateTimeString();        
         $user=User::create([
+            'id'=>Uuid::uuid4()->toString(),
             'name'=>$request->input('name'),
             'email'=>$request->input('email'),
+            'nomor_hp'=>$request->input('nomor_hp'),
             'username'=> $request->input('username'),
             'password'=>Hash::make($request->input('password')),
             'email_verified_at'=>\Carbon\Carbon::now(),
-            'theme'=>$request->input('theme'),
-            'payload'=>'{}',
+            'theme'=>'default',            
             'created_at'=>$now, 
             'updated_at'=>$now
         ]);            
@@ -205,37 +215,50 @@ class UsersController extends Controller {
         $this->hasPermissionTo('SYSTEM-USERS-SUPERADMIN_UPDATE');
 
         $user = User::find($id);
-        $this->validate($request, [
-            'username'=>['required',new IgnoreIfDataIsEqualValidation('users',$user->username)],           
-            'name'=>'required',            
-            'email'=>'required|string|email|unique:users,email,'.$id              
-        ]); 
-        
-        
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->username = $request->input('username');
-        $user->theme = $request->input('theme');
-        $user->payload = '{}';
-        if (!empty(trim($request->input('password')))) {
-            $user->password = Hash::make($request->input('password'));
-        }    
-        $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-        $user->save();
-
-        \App\Models\System\ActivityLog::log($request,[
-                                                        'object' => $this->guard()->user(), 
-                                                        'object_id' => $this->guard()->user()->id, 
-                                                        'user_id' => $this->guard()->user()->id, 
-                                                        'message' => 'Mengubah data user ('.$user->username.') berhasil'
-                                                    ]);
-
-        return Response()->json([
+        if (is_null($user))
+        {
+            return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'update',
-                                    'user'=>$user,                                    
-                                    'message'=>'Data user '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                    'pid'=>'update',                
+                                    'message'=>["User ID ($id) gagal diupdate"]
+                                ],422); 
+        }
+        else
+        {
+             $this->validate($request, [
+                                        'username'=>[
+                                                        'required',
+                                                        'unique:users,username,'.$user->id
+                                                    ],           
+                                        'name'=>'required',            
+                                        'email'=>'required|string|email|unique:users,email,'.$user->id,
+                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                                   
+                                    ]);  
+            
+            
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->username = $request->input('username');                        
+            if (!empty(trim($request->input('password')))) {
+                $user->password = Hash::make($request->input('password'));
+            }    
+            $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
+            $user->save();
+
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $this->guard()->user(), 
+                                                            'object_id' => $this->guard()->user()->id, 
+                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'message' => 'Mengubah data user ('.$user->username.') berhasil'
+                                                        ]);
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update',
+                                        'user'=>$user,                                    
+                                        'message'=>'Data user '.$user->username.' berhasil diubah.'
+                                    ],200); 
+        }
     }
     /**
      * Update the specified resource in storage.

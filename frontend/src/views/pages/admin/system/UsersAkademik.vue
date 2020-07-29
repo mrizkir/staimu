@@ -5,7 +5,7 @@
                 mdi-account
             </template>
             <template v-slot:name>
-                USERS KEUANGAN
+                USERS AKADEMIK
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -21,7 +21,7 @@
                     colored-border
                     type="info"
                     >
-                     User dengan role Keuangan bertanggungjawab terhadap proses keuangan.
+                     User dengan role AKADEMIK bertanggungjawab terhadap proses akademik mahasiswa.
                 </v-alert>
             </template>
         </ModuleHeader>        
@@ -59,7 +59,7 @@
                     >
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR USERS KEUANGAN</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR USERS AKADEMIK</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
@@ -78,7 +78,7 @@
                                     class="mb-2" 
                                     :loading="btnLoading"
                                     :disabled="btnLoading"
-                                    @click.stop="showDialogTambahUserKeuangan">
+                                    @click.stop="showDialogTambahUserAkademik">
                                     TAMBAH
                                 </v-btn>
                                 <v-dialog v-model="dialog" max-width="500px" persistent>                                    
@@ -88,7 +88,7 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-subtitle>
-                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data keuangan mahasiswa
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data akademik.
                                             </v-card-subtitle>
                                             <v-card-text>     
                                                 <v-text-field 
@@ -154,7 +154,7 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-subtitle>
-                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data keuangan mahasiswa
+                                                Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data akademik
                                             </v-card-subtitle>
                                             <v-card-text>                                                                                                
                                                 <v-text-field 
@@ -273,7 +273,7 @@ import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
 export default {
-    name: 'UsersKeuangan',  
+    name: 'UsersAkademik',  
     created () {
         this.breadcrumbs = [
             {
@@ -287,7 +287,7 @@ export default {
                 href:'system-users'
             },
             {
-                text:'USERS KEUANGAN',
+                text:'USERS AKADEMIK',
                 disabled:true,
                 href:'#'
             }
@@ -374,13 +374,13 @@ export default {
                     return true;
                 }
             }
-        ], 
+        ],
     }),
     methods: {
         initialize:async function () 
         {
             this.datatableLoading=true;
-            await this.$ajax.get('/system/userskeuangan',{
+            await this.$ajax.get('/system/usersakademik',{
                 headers: {
                     Authorization:this.TOKEN
                 }
@@ -407,7 +407,7 @@ export default {
             this.btnLoading=true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
-                    role_name:'keuangan',                    
+                    role_name:'akademik',                    
                 },
                 {
                     headers:{
@@ -420,7 +420,7 @@ export default {
                 this.btnLoading=false;
             });     
         },
-        showDialogTambahUserKeuangan:async function ()
+        showDialogTambahUserAkademik:async function ()
         {
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
             this.dialog = true;            
@@ -495,7 +495,7 @@ export default {
                 this.btnLoading=true;
                 if (this.editedIndex > -1) 
                 {
-                    this.$ajax.post('/system/userskeuangan/'+this.editedItem.id,
+                    this.$ajax.post('/system/usersakademik/'+this.editedItem.id,
                         {
                             '_method':'PUT',
                             name:this.editedItem.name,
@@ -518,7 +518,7 @@ export default {
                     });                    
                     
                 } else {
-                    this.$ajax.post('/system/userskeuangan/store',
+                    this.$ajax.post('/system/usersakademik/store',
                         {
                             name:this.editedItem.name,
                             email:this.editedItem.email,
@@ -546,7 +546,7 @@ export default {
                 if (confirm)
                 {
                     this.btnLoading=true;
-                    this.$ajax.post('/system/userskeuangan/'+item.id,
+                    this.$ajax.post('/system/usersakademik/'+item.id,
                         {
                             '_method':'DELETE',
                         },
@@ -568,7 +568,7 @@ export default {
     },
     computed: {
         formTitle () {
-            return this.editedIndex === -1 ? 'TAMBAH USER KEUANGAN' : 'EDIT USER KEUANGAN'
+            return this.editedIndex === -1 ? 'TAMBAH USER AKADEMIK' : 'EDIT USER AKADEMIK'
         },
         ...mapGetters('auth',{            
             ACCESS_TOKEN:'AccessToken',          

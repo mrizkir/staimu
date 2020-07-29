@@ -1,5 +1,5 @@
 <template>
-    <SPMBLayout>
+    <KeuanganLayout>
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-account-cash
@@ -81,11 +81,11 @@
                 </v-col>
             </v-row>
         </v-container>
-    </SPMBLayout>
+    </KeuanganLayout>
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name: 'KonfirmasiPembayaran', 
@@ -160,7 +160,7 @@ export default {
         }
     },
     components:{
-        SPMBLayout,
+        KeuanganLayout,
         ModuleHeader,        
     },
 }
