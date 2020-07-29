@@ -14,7 +14,8 @@ class ProgramStudiTableSeeder extends Seeder
     {
         //kode pt 213452
         \DB::statement('DELETE FROM pe3_prodi');
-        
+        \DB::statement('ALTER TABLE pe3_prodi AUTO_INCREMENT = 1;');
+
         \DB::table('pe3_prodi')->insert([            
             'kode_prodi'=>'60202',
             'nama_prodi'=>'Ekonomi Syariah',

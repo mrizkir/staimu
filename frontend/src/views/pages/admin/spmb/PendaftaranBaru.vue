@@ -135,7 +135,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogdetailitem" max-width="500px" persistent>
+                                <v-dialog v-model="dialogdetailitem" max-width="750px" persistent>
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">DETAIL DATA</span>
@@ -164,7 +164,7 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAME :</v-card-title>
+                                                        <v-card-title>NAMA MAHASISWA :</v-card-title>
                                                         <v-card-subtitle>
                                                             {{formdata.name}}
                                                         </v-card-subtitle>

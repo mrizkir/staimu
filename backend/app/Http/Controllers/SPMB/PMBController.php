@@ -200,7 +200,7 @@ class PMBController extends Controller {
                 'theme'=>'default',  
                 'code'=>$code,          
                 'active'=>1,         
-                'foto'=>'images/no_photo.png', 
+                'foto'=>'storage/images/users/no_photo.png', 
                 'created_at'=>$now, 
                 'updated_at'=>$now
             ]);            
