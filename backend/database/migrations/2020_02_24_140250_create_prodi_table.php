@@ -16,7 +16,7 @@ class CreateProdiTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('pe3_prodi', function (Blueprint $table) {
             $table->increments('id');                        
-            $table->string('kode_prodi',5);                        
+            $table->string('kode_prodi',5)->unique();                        
             $table->string('kode_fakultas',10)->nullable();                        
             $table->string('nama_prodi',50);
             $table->string('nama_prodi_alias',50);

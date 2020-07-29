@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PersyaratanTableSeeder::class);
         
         $this->call(KomponenBiayaTableSeeder::class);
+        $this->call(ProgramStudiTableSeeder::class);     
     }
 }
