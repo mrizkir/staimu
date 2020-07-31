@@ -111,16 +111,7 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/spmb/PendaftaranBaru.vue'),		
-	},
-	{
-		path: '/spmb/konfirmasipembayaran',
-		name: 'SPMBKonfirmasiPembayaran',
-		meta:{
-			title: "SPMB - KONFIRMASI PEMBAYARAN",
-			requiresAuth:true,
-        },
-		component: () => import('../views/pages/admin/keuangan/KonfirmasiPembayaran.vue'),		
-	},
+	},	
 	{
 		path: '/spmb/formulirpendaftaran',
 		name: 'SPMBFormulirPendaftaran',
@@ -213,7 +204,33 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/keuangan/BiayaKomponenPeriode.vue'),		
 	},	
-
+	{
+		path: '/keuangan/transaksi',
+		name: 'KeuanganTransaksi',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/Transaksi.vue'),		
+	},
+	{
+		path: '/keuangan/transaksi-baru',
+		name: 'KeuanganTransaksiBaru',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI BARU",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiBaru.vue'),		
+	},
+	{
+		path: '/keuangan/konfirmasipembayaran',
+		name: 'KeuanganKonfirmasiPembayaran',
+		meta:{
+			title: "KEUANGAN - KONFIRMASI PEMBAYARAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/KonfirmasiPembayaran.vue'),		
+	},
 	//system	
 	{
 		path: '/system-setting/identitasdiri',
@@ -286,6 +303,15 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/UsersAkademik.vue'),		
+	},
+	{
+		path: '/system-users/prodi',
+		name: 'UsersProdi',
+		meta:{
+			title: "USERS - PROGRAM STUDI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/UsersProdi.vue'),		
 	},
 	{
 		path: '/system-users/dosen',

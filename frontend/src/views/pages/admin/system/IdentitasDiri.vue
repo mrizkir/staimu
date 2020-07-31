@@ -51,6 +51,12 @@
                                     <v-radio label="SEKOLAH TINGGI" value="sekolahtinggi"></v-radio>
                                     <v-radio label="UNIVERSITAS" value="universitas"></v-radio>
                                 </v-radio-group>
+                                <v-text-field 
+                                    v-model="formdata.kode_pt" 
+                                    label="KODE PERGURUAN TINGGI"
+                                    filled
+                                    :rules="rule_kode_pt">
+                                </v-text-field>                                                                                               
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>                                
@@ -114,7 +120,8 @@ export default {
         formdata: {
             nama_pt:'',
             nama_alias_pt:'',
-            bentuk_pt:''
+            bentuk_pt:'',
+            kode_pt:0,
         },
         //form rules        
         rule_nama_pt:[
@@ -138,6 +145,7 @@ export default {
                 this.formdata.nama_pt=setting.NAMA_PT;
                 this.formdata.nama_alias_pt=setting.NAMA_PT_ALIAS;
                 this.formdata.bentuk_pt=setting.BENTUK_PT;
+                this.formdata.kode_pt=setting.kode_pt;
             });          
             
         },
@@ -153,6 +161,7 @@ export default {
                             101:this.formdata.nama_pt,
                             102:this.formdata.nama_alias_pt,
                             103:this.formdata.bentuk_pt,
+                            104:this.formdata.kode_pt,
                         }),                                                                                                                            
                     },
                     {

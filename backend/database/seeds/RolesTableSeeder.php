@@ -135,6 +135,13 @@ class RolesTableSeeder extends Seeder
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE_UPDATE',              
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE_DESTROY',              
             
+            'KEUANGAN-TRANSAKSI_BROWSE',           
+            'KEUANGAN-TRANSAKSI_STORE',           
+            'KEUANGAN-TRANSAKSI_SHOW',           
+            'KEUANGAN-TRANSAKSI_STORE',              
+            'KEUANGAN-TRANSAKSI_UPDATE',              
+            'KEUANGAN-TRANSAKSI_DESTROY',              
+
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE',           
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE',           
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_SHOW',           

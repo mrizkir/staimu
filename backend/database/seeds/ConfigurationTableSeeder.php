@@ -43,6 +43,15 @@ class ConfigurationTableSeeder extends Seeder
         ]);
 
         \DB::table('pe3_configuration')->insert([
+            'config_id'=>"104",
+            'config_group'=>'identitas',
+            'config_key'=>'kode_pt',
+            'config_value'=>'0',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
             'config_id'=>"201",
             'config_group'=>'basic',
             'config_key'=>'DEFAULT_TA',

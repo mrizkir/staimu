@@ -125,7 +125,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                    
-                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')" to="/spmb/konfirmasipembayaran">
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')" to="/keuangan/konfirmasipembayaran">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-cash</v-icon>
                     </v-list-item-icon>

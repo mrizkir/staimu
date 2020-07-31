@@ -104,8 +104,28 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>        
-                <v-divider v-if="CAN_ACCESS('KEUANGAN-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'"></v-divider>                                  
-                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')" to="/spmb/konfirmasipembayaran">
+                <v-subheader>TRANSAKSI</v-subheader>
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI_BROWSE')" to="/keuangan/transaksi">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-cash</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            DAFTAR TRANSAKSI
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item> 
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI_STORE')" to="/keuangan/transaksi-baru">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-cash</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            TRANSAKSI BARU
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item> 
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')" to="/keuangan/konfirmasipembayaran">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-cash</v-icon>
                     </v-list-item-icon>
@@ -114,8 +134,7 @@
                             KONFIRMASI PEMBAYARAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>              
-                <v-divider></v-divider>                
+                </v-list-item>                                            
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

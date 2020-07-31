@@ -67,6 +67,7 @@ class CreateFormulirPendaftaranTable extends Migration
             $table->string('descr')->nullable(); 
             $table->timestamps();            
             
+            $table->index('no_formulir');
             $table->index('idkelas');
             $table->index('kjur1');
             $table->index('kjur2');
