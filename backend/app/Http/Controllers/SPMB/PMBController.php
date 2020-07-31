@@ -425,7 +425,6 @@ class PMBController extends Controller {
                 'address1_kelurahan'=>'required',
                 'alamat_rumah'=>'required',
                 
-                
                 'kjur1'=>'required',
                 'idkelas'=>'required',            
             ]);
