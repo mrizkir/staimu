@@ -141,12 +141,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/spmb/pmbpersyaratan/hapusfilepersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@hapusfilepersyaratan','as'=>'pmbpersyaratan.hapusfilepersyaratan']);    
 
     //keuangan - komponen biaya
-    $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);            
+    $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);            
     
     //keuangan - biaya komponen periode
-    $router->post('/keuangan/biayakomponenperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@index','as'=>'biayakomponenperiode.index']);            
-    $router->post('/keuangan/biayakomponenperiode/loadkombiperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@loadkombiperiode','as'=>'biayakomponenperiode.loadkombiperiode']);            
-    $router->post('/keuangan/biayakomponenperiode/updatebiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'keuangan\BiayaKomponenPeriodeController@updatebiaya','as'=>'biayakomponenperiode.updatebiaya']);            
+    $router->post('/keuangan/biayakomponenperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@index','as'=>'biayakomponenperiode.index']);            
+    $router->post('/keuangan/biayakomponenperiode/loadkombiperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@loadkombiperiode','as'=>'biayakomponenperiode.loadkombiperiode']);            
+    $router->post('/keuangan/biayakomponenperiode/updatebiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@updatebiaya','as'=>'biayakomponenperiode.updatebiaya']);            
     
     //kemahasiswaan
     $router->post('/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Kemahasiswaan\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
