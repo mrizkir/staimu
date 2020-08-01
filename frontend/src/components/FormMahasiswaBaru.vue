@@ -164,6 +164,7 @@
                 </v-card>
                 <v-card class="mb-4">                    
                     <v-card-actions>
+                        Kode Billing: <strong>{{kode_billing}}</strong>
                         <v-spacer></v-spacer>                        
                         <v-btn 
                             color="blue darken-1" 
@@ -190,7 +191,9 @@ export default {
         btnLoadingKab:false,
         btnLoadingKec:false,
         btnLoadingFakultas:false,
+
         //form
+        kode_billing:'N.A',
         form_valid:true,
 
         menuTanggalLahir:false,
@@ -326,6 +329,7 @@ export default {
                 this.formdata.kjur1=data.formulir.kjur1;    
                 this.formdata.idkelas=data.formulir.idkelas;    
                 
+                this.kode_billing=data.no_transaksi;
                 this.$refs.frmdata.resetValidation();       
             });
         },        
@@ -360,7 +364,8 @@ export default {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-                ).then(()=>{                    
+                ).then(({data})=>{               
+                    this.kode_billing=data.no_transaksi;
                     this.btnLoading=false;                        
                 }).catch(() => {                                   
                     this.btnLoading=false;

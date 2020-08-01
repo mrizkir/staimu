@@ -114,6 +114,7 @@ class RolesTableSeeder extends Seeder
             'SPMB-PMB-PERSYARATAN_SHOW',  
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_SHOW',           
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE',  
+            'SPMB-PMB-JADWAL-UJIAN_BROWSE',
             'SPMB-PMB-UJIAN-ONLINE_SHOW',              
             'SPMB-PMB-UJIAN-ONLINE_STORE',              
             'SPMB-PMB-UJIAN-ONLINE_UPDATE',                      

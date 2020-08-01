@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\SPMB\FormulirPendaftaranModel;
 use App\Models\System\ConfigurationModel;
+use App\Models\Keuangan\TransaksiModel;
+use App\Models\Keuangan\TransaksiDetailModel;
+
 use App\Helpers\Helper;
 use App\Mail\MahasiswaBaruRegistered;
 use App\Mail\VerifyEmailAddress;
@@ -300,6 +303,7 @@ class PMBController extends Controller {
     {
         $formulir=FormulirPendaftaranModel::select(\DB::raw('
                                                                 users.id,
+                                                                user_id,
                                                                 nama_mhs,
                                                                 tempat_lahir,
                                                                 tanggal_lahir,
@@ -335,10 +339,17 @@ class PMBController extends Controller {
         }
         else
         {
+            $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',101)->first(); 
+            $no_transaksi='N.A';
+            if (!is_null($transaksi_detail))
+            {
+                $no_transaksi=$transaksi_detail->no_transaksi;
+            } 
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                
-                                        'formulir'=>$formulir,
+                                        'formulir'=>$formulir,                                        
+                                        'no_transaksi'=>$no_transaksi,
                                         'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
                                     ],200);        
         }
@@ -429,7 +440,7 @@ class PMBController extends Controller {
                 'idkelas'=>'required',            
             ]);
 
-            $formulir = \DB::transaction(function () use ($request,$formulir){            
+            $data_mhs = \DB::transaction(function () use ($request,$formulir){            
                 $formulir->nama_mhs=$request->input('nama_mhs');           
                 $formulir->tempat_lahir=$request->input('tempat_lahir');           
                 $formulir->tanggal_lahir=$request->input('tanggal_lahir');           
@@ -462,13 +473,59 @@ class PMBController extends Controller {
                 $permission=Role::findByName('mahasiswabaru')->permissions;
                 $user->givePermissionTo($permission->pluck('name'));             
                 
+                //buat transaksi keuangan pmb
+                $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',101)->first();                
+                if (is_null($transaksi_detail))
+                {                  
+                    $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',101)
+                                                                        ->where('idkelas',$formulir->idkelas)
+                                                                        ->where('tahun',$formulir->ta)
+                                                                        ->first();
+                    if (!is_null($kombi))
+                    {
+                        $no_transaksi='101'.date('YmdHms');
+                        $transaksi=TransaksiModel::create([
+                            'id'=>Uuid::uuid4()->toString(),
+                            'user_id'=>$formulir->user_id,
+                            'no_transaksi'=>$no_transaksi,
+                            'no_faktur'=>'',
+                            'kjur'=>$formulir->kjur1,
+                            'ta'=>$formulir->ta,
+                            'idsmt'=>$formulir->idsmt,
+                            'idkelas'=>$formulir->idkelas,
+                            'no_formulir'=>$formulir->no_formulir,
+                            'nim'=>$formulir->nim,
+                            'commited'=>0,
+                            'total'=>0,
+                            'tanggal'=>date('Y-m-d'),
+                        ]);  
+                        
+                        $transaksi_detail=TransaksiDetailModel::create([
+                            'id'=>Uuid::uuid4()->toString(),
+                            'user_id'=>$formulir->user_id,
+                            'transaksi_id'=>$transaksi->id,
+                            'no_transaksi'=>$transaksi->no_transaksi,
+                            'kombi_id'=>$kombi->kombi_id,
+                            'nama_kombi'=>$kombi->nama_kombi,
+                            'biaya'=>$kombi->biaya,
+                            'jumlah'=>1,
+                            'sub_total'=>$kombi->biaya    
+                        ]);
+                        $transaksi->total=$kombi->biaya;
+                        $transaksi->save();
+                    }                    
+                }
                 $formulir=FormulirPendaftaranModel::find($formulir->user_id);
-                return $formulir;
+                return [
+                    'formulir'=>$formulir,
+                    'no_transaksi'=>$transaksi_detail->no_transaksi
+                ];
             });
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',
-                                        'formulir'=>$formulir,                                                                                                  
+                                        'formulir'=>$data_mhs['formulir'],                                                                                                  
+                                        'no_transaksi'=>$data_mhs['no_transaksi'],                                                                                                  
                                         'message'=>'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
                                     ],200); 
         }
