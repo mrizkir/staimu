@@ -9,6 +9,7 @@ const getDefaultState = () =>
 
         daftar_ta:[],
         tahun_pendaftaran:null,
+        tahun_akademik:null,
 
         daftar_semester:[],
         semester_pendaftaran:null,
@@ -64,6 +65,10 @@ const mutations = {
     setTahunPendaftaran(state,tahun)
     {
         state.tahun_pendaftaran=tahun;
+    },  
+    setTahunAkademik(state,tahun)
+    {
+        state.tahun_akademik=tahun;
     },  
 
     setDaftarSemester(state,daftar)
@@ -130,6 +135,10 @@ const getters= {
     getTahunPendaftaran: state =>
     {
         return parseInt(state.tahun_pendaftaran);
+    },
+    getTahunAkademik: state =>
+    {
+        return parseInt(state.tahun_akademik);
     },
     
     getDaftarSemester: state => 
@@ -209,6 +218,7 @@ const actions = {
         if (!state.loaded && rootGetters['auth/Authenticated'])
         {   
             commit('setTahunPendaftaran',rootGetters['uifront/getTahunPendaftaran']);   
+            commit('setTahunAkademik',rootGetters['uifront/getTahunPendaftaran']);   
             commit('setSemesterPendaftaran',rootGetters['uifront/getSemesterPendaftaran']);   
             let token=rootGetters['auth/Token'];                                                     
             await ajax.get('/system/setting/uiadmin',               
@@ -291,14 +301,21 @@ const actions = {
     {
         commit('setProdiID',id);
     },
+    
     updateTahunPendaftaran({commit},tahun)
     {
         commit('setTahunPendaftaran',tahun);
     },
+    updateTahunAkademik({commit},tahun)
+    {
+        commit('setTahunAkademik',tahun);
+    },
+
     updateSemesterPendaftaran({commit},semester)
     {
         commit('setSemesterPendaftaran',semester);
     },
+
     updateIDKelas({commit},idkelas)
     {
         commit('setIDKelas',idkelas);

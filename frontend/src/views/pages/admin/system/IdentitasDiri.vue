@@ -53,7 +53,7 @@
                                 </v-radio-group>
                                 <v-text-field 
                                     v-model="formdata.kode_pt" 
-                                    label="KODE PERGURUAN TINGGI"
+                                    label="KODE PERGURUAN TINGGI (SESUAI FORLAP)"
                                     filled
                                     :rules="rule_kode_pt">
                                 </v-text-field>                                                                                               
@@ -130,6 +130,10 @@ export default {
         rule_nama_singkatan_pt:[
             value => !!value||"Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",             
         ],
+        rule_kode_pt:[
+            value => !!value||"Mohon untuk di isi Kode Perguruan Tinggi !!!",                     
+            value => /^[0-9]+$/.test(value) || 'Kode Perguruan Tinggi hanya boleh angka',
+        ]
     }),
     methods: {
         initialize:async function () 

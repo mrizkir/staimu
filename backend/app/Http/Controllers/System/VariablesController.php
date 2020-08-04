@@ -49,13 +49,23 @@ class VariablesController extends Controller {
         {
             \DB::table('pe3_configuration')->where('config_id',$k)->update(['config_value'=>$v]);
         }
-
+        
         ConfigurationModel::toCache();
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',                                                                      
                                     'message'=>"Data setting $pid berhasil diubah."
+                                ],200); 
+    }
+    public function clear(Request $request)
+    {
+        ConfigurationModel::clear();
+        ConfigurationModel::toCache();
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                                                                    
+                                    'message'=>"Cache sudah dikosongkan dan direload ulang setting berhasil."
                                 ],200); 
     }
 }

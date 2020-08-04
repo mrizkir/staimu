@@ -57,4 +57,9 @@ class ConfigurationModel extends Model {
             return $config[$idx];
         }
     }
+    //digunakan untuk menghapus cache
+    public static function clear()
+    {
+        Cache::flush();
+    }
 }

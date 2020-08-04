@@ -20,6 +20,7 @@ class BiayaKomponenPeriodeController extends Controller {
             'TA'=>'required',
             'idkelas'=>'required'
         ]);
+        
         $ta=$request->input('TA');
         $idkelas=$request->input('idkelas');
 

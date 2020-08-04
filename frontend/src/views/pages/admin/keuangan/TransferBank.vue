@@ -1,11 +1,11 @@
 <template>
-    <AdminLayout>
+    <KeuanganLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-file
+                mdi-google-classroom
             </template>
             <template v-slot:name>
-                PAGE
+                TRANSFER BANK
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -21,23 +21,11 @@
                     colored-border
                     type="info"
                     >
-                    Text
+                    Halaman untuk mengelola nama bank sebagai penampung dana pembayaran mahasiswa.
                 </v-alert>
             </template>
         </ModuleHeader>   
         <v-container> 
-            <v-row class="mb-4" no-gutters>
-                <v-col cols="12">
-                    <v-card>
-                        <v-card-title>
-                            FILTER
-                        </v-card-title>
-                        <v-card-text>
-                        
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>    
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -60,7 +48,7 @@
                         :items="datatable"
                         :search="search"
                         item-key="id"
-                        sort-by="name"
+                        sort-by="nama_bank"
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -71,7 +59,7 @@
 
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DATA TABLE</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR KELAS</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
@@ -89,11 +77,29 @@
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-text-field 
-                                                    v-model="formdata.name" 
-                                                    label="NAME"
+                                                    v-model="formdata.nama_bank" 
+                                                    label="NAMA BANK"
                                                     filled
-                                                    :rules="rule_name">
-                                                </v-text-field>                                             
+                                                    :rules="rule_nama_bank">
+                                                </v-text-field>                                        
+                                                <v-text-field 
+                                                    v-model="formdata.nama_cabang" 
+                                                    label="CABANG"
+                                                    filled
+                                                    :rules="rule_nama_cabang">
+                                                </v-text-field>                                        
+                                                <v-text-field 
+                                                    v-model="formdata.nomor_rekening" 
+                                                    label="NOMOR REKENING"
+                                                    filled
+                                                    :rules="rule_no_rekening">
+                                                </v-text-field>                                        
+                                                <v-text-field 
+                                                    v-model="formdata.pemilik_rekening" 
+                                                    label="PEMILIK REKENING"
+                                                    filled
+                                                    :rules="rule_pemilik">
+                                                </v-text-field>                                        
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -110,7 +116,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogdetailitem" max-width="500px" persistent>
+                                <v-dialog v-model="dialogdetailitem" max-width="750px" persistent>
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">DETAIL DATA</span>
@@ -119,7 +125,7 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>ID :</v-card-title>
+                                                        <v-card-title>ID:</v-card-title>
                                                         <v-card-subtitle>
                                                             {{formdata.id}}
                                                         </v-card-subtitle>
@@ -128,20 +134,40 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>CREATED :</v-card-title>
+                                                        <v-card-title>NAMA BANK :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{formdata.nama_bank}} A.N {{formdata.pemilik_rekening}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
+                                            </v-row>                                            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAME :</v-card-title>
+                                                        <v-card-title>CABANG:</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.name}}
+                                                            {{formdata.nama_cabang}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NOMOR REKENING :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.nomor_rekening}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>CREATED:</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -155,7 +181,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
+                                            </v-row>                                            
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -164,9 +190,6 @@
                                     </v-card>                                    
                                 </v-dialog>
                             </v-toolbar>
-                        </template>
-                        <template v-slot:item.id="{ item }">    
-                           {{item.id}}
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon
@@ -192,9 +215,9 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}
+                                    <strong>ID:</strong>{{ item.id }}     
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}                               
                                 </v-col>                                
                             </td>
                         </template>
@@ -205,27 +228,28 @@
                 </v-col>
             </v-row>
         </v-container>
-    </AdminLayout>
+    </KeuanganLayout>
 </template>
 <script>
-import AdminLayout from '@/views/layouts/AdminLayout';
+import {mapGetters} from 'vuex';
+import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'PAGE',
+    name:'Kelas',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
                 disabled:false,
-                href:'/dashboard/'+this.$store.getters['auth/AccessToken']
+                href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'PAGE_GROUP',
+                text:'DATA MASTER',
                 disabled:false,
                 href:'#'
             },
             {
-                text:'PAGE',
+                text:'KELAS',
                 disabled:true,
                 href:'#'
             }
@@ -238,7 +262,10 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: 'ID', value: 'id' },   
+            { text: 'NAMA BANK', value: 'nama_bank',width:350 },   
+            { text: 'CABANG', value: 'nama_cabang' },   
+            { text: 'NOMOR REKENING', value: 'nomor_rekening' },   
+            { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         search:'',    
@@ -247,43 +274,56 @@ export default {
         dialogfrm:false,
         dialogdetailitem:false,
 
-        //form data   
+        //form data           
         form_valid:true,         
         formdata: {
-            id:0,                        
-            name:'',                        
-            created_at: '',           
-            updated_at: '',           
-
+            id:'',                        
+            nama_bank:'',                        
+            nama_cabang:'',                        
+            nomor_rekening:'',                        
+            pemilik_rekening:'',                        
+            created_at:'',                        
+            updated_at:'',                        
         },
         formdefault: {
-            id:0,           
-            name:'',                                     
-            created_at: '',           
-            updated_at: '',       
+            id:'',                        
+            nama_bank:'',                        
+            nama_cabang:'',                        
+            nomor_rekening:'',                        
+            pemilik_rekening:'',                        
+            created_at:'',                        
+            updated_at:'',                               
         },
         editedIndex: -1,
 
         //form rules  
-        rule_user_nomorhp:[
-            value => !!value||"Kode mohon untuk diisi !!!",
-            value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode hanya boleh angka',
-        ], 
-        rule_name:[
-            value => !!value||"Mohon untuk di isi name !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',                
-        ], 
+        rule_nama_bank:[
+            value => !!value||"Mohon untuk di isi nama bank !!!",  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi',                
+        ],   
+        rule_nama_cabang:[
+            value => !!value||"Mohon untuk di isi nama cabang bank !!!",  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi',                
+        ],         
+        rule_no_rekening:[
+            value => !!value||"Mohon untuk di isi nomor rekening !!!",                     
+            value => /^[0-9]+$/.test(value) || 'Nomor rekening hanya boleh angka',
+        ],
+        rule_pemilik:[
+            value => !!value||"Mohon untuk di isi nama pemilik rekening !!!",  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama pemilik rekening hanya boleh string dan spasi',                
+        ],
     }),
     methods: {
         initialize:async function () 
         {
             this.datatableLoading=true;
-            await this.$ajax.get('/path',{
+            await this.$ajax.get('/keuangan/transferbank',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization:this.TOKEN
                 }
             }).then(({data})=>{               
-                this.datatable = data.object;
+                this.datatable = data.bank;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
@@ -302,19 +342,12 @@ export default {
         },
         viewItem (item) {
             this.formdata=item;      
-            this.dialogdetailitem=true;              
-            // this.$ajax.get('/path/'+item.id,{
-            //     headers: {
-            //         Authorization:this.$store.getters['auth/Token']
-            //     }
-            // }).then(({data})=>{               
-                                           
-            // });                      
+            this.dialogdetailitem=true;                    
         },    
         editItem (item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);
-            this.dialogfrm = true;
+            this.formdata = Object.assign({}, item);            
+            this.dialogfrm = true
         },    
         save:async function () {
             if (this.$refs.frmdata.validate())
@@ -322,18 +355,21 @@ export default {
                 this.btnLoading=true;
                 if (this.editedIndex > -1) 
                 {
-                    await this.$ajax.post('/path/'+this.formdata.id,
+                    await this.$ajax.post('/keuangan/transferbank/'+this.formdata.id,
                         {
                             '_method':'PUT',
-                            name:this.formdata.name,                       
+                            nama_bank:this.formdata.nama_bank,                            
+                            nama_cabang:this.formdata.nama_cabang,                            
+                            nomor_rekening:this.formdata.nomor_rekening,                            
+                            pemilik_rekening:this.formdata.pemilik_rekening,                            
                         },
                         {
                             headers:{
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization:this.TOKEN
                             }
                         }
                     ).then(({data})=>{   
-                        Object.assign(this.datatable[this.editedIndex], data.object);
+                        Object.assign(this.datatable[this.editedIndex], data.bank);
                         this.closedialogfrm();
                         this.btnLoading=false;
                     }).catch(()=>{
@@ -341,17 +377,20 @@ export default {
                     });                 
                     
                 } else {
-                    await this.$ajax.post('/path/store',
+                    await this.$ajax.post('/keuangan/transferbank/store',
                         {
-                            name:this.formdata.name,                            
+                            nama_bank:this.formdata.nama_bank,                            
+                            nama_cabang:this.formdata.nama_cabang,                            
+                            nomor_rekening:this.formdata.nomor_rekening,                            
+                            pemilik_rekening:this.formdata.pemilik_rekening,                            
                         },
                         {
                             headers:{
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization:this.TOKEN
                             }
                         }
                     ).then(({data})=>{   
-                        this.datatable.push(data.object);
+                        this.datatable.push(data.bank);
                         this.closedialogfrm();
                         this.btnLoading=false;
                     }).catch(()=>{
@@ -365,13 +404,13 @@ export default {
                 if (confirm)
                 {
                     this.btnLoading=true;
-                    this.$ajax.post('/path/'+item.id,
+                    this.$ajax.post('/keuangan/transferbank/'+item.id,
                         {
                             '_method':'DELETE',
                         },
                         {
                             headers:{
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization:this.TOKEN
                             }
                         }
                     ).then(()=>{   
@@ -392,23 +431,27 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm () {            
             this.dialogfrm = false;            
             setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);                
-                this.editedIndex = -1
+                this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
+                this.editedIndex = -1
                 }, 300
             );
         },
     },
-    computed: {        
+    computed: {
+        ...mapGetters('auth',{            
+            ACCESS_TOKEN:'AccessToken',          
+            TOKEN:'Token',                                  
+        }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },        
     },
     components:{
-        AdminLayout,
+        KeuanganLayout,
         ModuleHeader,        
     },
 

@@ -205,6 +205,15 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/BiayaKomponenPeriode.vue'),		
 	},	
 	{
+		path: '/keuangan/transferbank',
+		name: 'KeuanganTransferBank',
+		meta:{
+			title: "KEUANGAN - TRANSFER BANK",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransferBank.vue'),		
+	},
+	{
 		path: '/keuangan/transaksi',
 		name: 'KeuanganTransaksi',
 		meta:{

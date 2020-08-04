@@ -84,6 +84,7 @@
                         <v-list-item-title>MODULE KEUANGAN</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>   
+                <v-subheader v-if="dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">KOMPONEN</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('KEUANGAN-KOMPONEN-BIAYA_BROWSE')" to="/keuangan/biayakomponen">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-video-input-component</v-icon>
@@ -103,7 +104,18 @@
                             BIAYA KOMPONEN PERIODE
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>        
+                </v-list-item>                        
+                <v-subheader v-if="dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">METODE PEMBAYARAN</v-subheader>
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-METODE-TRANSFER-BANK_BROWSE')" to="/keuangan/transferbank">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-cash</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            TRANSFER BANK
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item> 
                 <v-subheader>TRANSAKSI</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI_BROWSE')" to="/keuangan/transaksi">
                     <v-list-item-icon class="mr-2">
