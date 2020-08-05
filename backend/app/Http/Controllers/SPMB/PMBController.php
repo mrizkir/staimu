@@ -135,6 +135,7 @@ class PMBController extends Controller {
                 'ta'=>$ta,
                 'email_verified_at'=>'',
                 'theme'=>'default',  
+                'foto'=> 'storage/images/users/no_photo.png',
                 'code'=>$code,          
                 'active'=>0,          
                 'created_at'=>$now, 

@@ -153,9 +153,9 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>CREATED :</v-card-title>
+                                                        <v-card-title>USERNAME :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{formdata.username}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -173,8 +173,9 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>UPDATED :</v-card-title>
+                                                        <v-card-title>CREATED/UPDATED :</v-card-title>
                                                         <v-card-subtitle>
+                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}} /  
                                                             {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -272,6 +273,7 @@ export default {
     name: 'PendaftaranBaru',  
     created()
     {
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];      
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -289,6 +291,8 @@ export default {
                 href:'#'
             }
         ];   
+        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id=prodi_id;
         this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
@@ -302,6 +306,7 @@ export default {
         nama_prodi:null,
         
         breadcrumbs:[],
+        dashboard:null,
         datatableLoading:false,
         btnLoading:false,    
         btnLoadingFakultas:false,

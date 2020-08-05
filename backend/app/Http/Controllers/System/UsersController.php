@@ -61,6 +61,7 @@ class UsersController extends Controller {
             'password'=>Hash::make($request->input('password')),
             'email_verified_at'=>\Carbon\Carbon::now(),
             'theme'=>'default',            
+            'foto'=> 'storage/images/users/no_photo.png',
             'created_at'=>$now, 
             'updated_at'=>$now
         ]);            
@@ -239,6 +240,7 @@ class UsersController extends Controller {
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->username = $request->input('username');                        
+            $user->nomor_hp = $request->input('nomor_hp');                        
             if (!empty(trim($request->input('password')))) {
                 $user->password = Hash::make($request->input('password'));
             }    

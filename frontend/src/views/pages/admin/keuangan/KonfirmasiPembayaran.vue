@@ -69,47 +69,102 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogdetailitem" max-width="700px" persistent v-if="dialogdetailitem">
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="headline">DETAIL TRANSAKSI</span>
-                                        </v-card-title>
+                                    <v-toolbar elevation="2"> 
+                                        <v-toolbar-title>KONFIRMASI !!!</v-toolbar-title>
+                                        <v-divider
+                                            class="mx-4"
+                                            inset
+                                            vertical
+                                        ></v-divider>
+                                        <v-spacer></v-spacer>
+                                        <v-icon                
+                                            @click.stop="closedialogdetailitem()">
+                                            mdi-close-thick
+                                        </v-icon>
+                                    </v-toolbar>
+                                    <v-card>                                        
                                         <v-card-text>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>KODE PRODI :</v-card-title>
+                                                        <v-card-title>ID :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.kode_prodi}}
+                                                            {{formdata.id}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA PRODI :</v-card-title>
+                                                        <v-card-title>KODE BILLING :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi}}
+                                                            {{formdata.no_transaksi}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA SINGKAT PRODI :</v-card-title>
+                                                        <v-card-title>NAMA MAHASISWA :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi_alias}}
+                                                            {{formdata.nama_mhs}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
-                                            </v-row>                                            
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NOMOR FORMULIR :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.no_formulir}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TANGGAL TRANSAKSI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{$date(formdata.tanggal).format('DD/MM/YYYY')}} {{$date(formdata.created_at).format('HH:mm:ss')}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NIM :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.nim}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TOTAL :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.total|formatUang}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>STATUS :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            <v-chip :color="formdata.style" dark>{{formdata.nama_status}}</v-chip>
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
                                         </v-card-text>
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
-                                        </v-card-actions>
                                     </v-card>                                    
                                 </v-dialog>
                             </v-toolbar>
@@ -128,7 +183,7 @@
                                 small
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
-                                mdi-eye
+                                mdi-send
                             </v-icon>                           
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
@@ -190,7 +245,7 @@ export default {
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:true },            
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:70 },
         ],   
         expanded:[],
         search:'',
@@ -198,6 +253,14 @@ export default {
          //dialog        
         dialogdetailitem:false,
         
+        //form data   
+        form_valid:true,                 
+        formdata: {
+            
+        },     
+        formdefault: {
+            
+        },    
     }),
     methods: {
         initialize:async function () 
@@ -228,10 +291,20 @@ export default {
                 this.expanded=[item];
             }               
         },
-        addItem ()
+        viewItem (item)
         {
-            
-        }
+            this.formdata=item;
+            console.log(this.formdata);
+            this.dialogdetailitem=true;
+        },
+        closedialogdetailitem () {
+            this.dialogdetailitem = false;            
+            setTimeout(() => {
+                this.formdata = Object.assign({}, this.formdefault)
+                this.editedIndex = -1
+                }, 300
+            );
+        },
     },
     computed: {
         TahunPendaftaran()
