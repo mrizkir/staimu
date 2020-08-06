@@ -5,11 +5,8 @@
                 mdi-video-input-component
             </template>
             <template v-slot:name>
-                BIAYA KOMPONEN PER PERIODE
-            </template>
-            <template v-slot:subtitle>
-                TAHUN PENDAFTARAN/MASUK {{tahun_pendaftaran}} - KELAS {{nama_kelas}}
-            </template>
+                STATUS TRANSAKSI
+            </template>            
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
                     <template v-slot:divider>
@@ -24,21 +21,18 @@
                     colored-border
                     type="info"
                     >
-                        Halaman ini berisi informasi biaya komponen biaya per periode yang masing-masing.
+                        Halaman ini berisi informasi status transaksi.
                     </v-alert>
             </template>
-        </ModuleHeader>
-        <template v-slot:filtersidebar>
-            <Filter10 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeIDKelas="changeIDKelas" ref="filter10" />
-        </template>
+        </ModuleHeader>        
         <v-container>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
                         :items="datatable"                        
-                        item-key="id"
-                        sort-by="id"
+                        item-key="id_status"
+                        sort-by="id_status"
                         show-expand
                         :disable-pagination="true"
                         :hide-default-footer="true"
@@ -50,49 +44,39 @@
                         loading-text="Loading... Please wait">     
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR BIAYA KOMPONEN PER PERIODE</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR STATUS TRANSAKSI</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
-                                <v-btn 
-                                    color="primary" 
-                                    class="mb-2" 
-                                    :loading="btnLoading"
-                                    :disabled="btnLoading"
-                                    @click.stop="loadkombiperiode">
-                                        GENERATE KOMPONEN BIAYA
-                                </v-btn>
+                                <v-spacer></v-spacer>                                
                             </v-toolbar>
-                        </template>
-                        <template v-slot:item.biaya="props">
+                        </template>  
+                        <template v-slot:item.style="props">
                             <v-edit-dialog
-                                :return-value.sync="props.item.biaya"
+                                :return-value.sync="props.item.style"
                                 large                                
-                                @save="saveItem({id:props.item.id,biaya:props.item.biaya})"
+                                @save="saveItem({id:props.item.id_status,style:props.item.style})"
                                 @cancel="cancelItem"
                                 @open="openItem"
-                                @close="closeItem"> 
-                                    {{ props.item.biaya|formatUang }}                                    
+                                @close="closeItem">                                     
+                                    <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>                                  
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Biaya</div>                                        
-                                        <v-currency-field 
-                                            label="BIAYA KOMPONEN" 
-                                            :min="null"
-                                            :max="null"                                            
+                                        <div class="mt-4 title">Update Style</div>                                        
+                                        <v-text-field 
+                                            label="STYLE STATUS TRANSAKSI"                                             
                                             outlined
                                             autofocus
-                                            v-model="props.item.biaya">                                        
-                                        </v-currency-field>
+                                            v-model="props.item.style">                                        
+                                        </v-text-field>
                                     </template>
                             </v-edit-dialog>
-                        </template>
+                        </template>                      
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
-                                    <strong>ID:</strong>{{ item.id }}          
+                                    <strong>ID:</strong>{{ item.id_status }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
@@ -110,9 +94,9 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter10 from '@/components/sidebar/FilterMode10';
+
 export default {
-    name:'BiayaKomponenPeriode',
+    name:'StatusTransaksi',
     created()
     {
         this.breadcrumbs = [
@@ -127,63 +111,42 @@ export default {
                 href:'/keuangan'
             },
             {
-                text:'BIAYA KOMPONEN PER PERIODE',
+                text:'STATUS TRANSAKSI',
                 disabled:true,
                 href:'#'
             }
-        ];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
-        this.idkelas=this.$store.getters['uiadmin/getIDKelas']
-        this.nama_kelas=this.$store.getters['uiadmin/getNamaKelas'](this.idkelas);
+        ];        
         this.initialize();
     },  
     data: () => ({
         firstloading:true,
-        breadcrumbs:[],  
-        tahun_pendaftaran:0,
-        idkelas:null,
-        nama_kelas:null,
+        breadcrumbs:[],         
         
         btnLoading:false,
         datatableLoading:false,
         expanded:[],
         datatable:[],
         headers: [            
-            { text: 'ID KOMPONEN', value: 'kombi_id',width:10,sortable:false },                                           
-            { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable:false},
-            { text: 'PERIODE', value: 'periode',width:150,sortable:false },            
-            { text: 'BIAYA', value: 'biaya',width:150,sortable:false },            
+            { text: 'ID', value: 'id_status',width:10,sortable:false },                                           
+            { text: 'NAMA STATUS', value: 'nama_status',sortable:false},
+            { text: 'STYLE', value: 'style',width:200,sortable:false },                        
         ],      
         
     }),
-    methods : {
-        changeTahunPendaftaran (tahun)
-        {
-            this.tahun_pendaftaran=tahun;
-        },
-        changeIDKelas (idkelas)
-        {
-            this.idkelas=idkelas;
-            this.nama_kelas=this.$store.getters['uiadmin/getNamaKelas'](idkelas);
-        },
+    methods : {        
         initialize:async function()
 		{
             this.datatableLoading=true;            
-            await this.$ajax.post('/keuangan/biayakomponenperiode',            
-            {
-                TA:this.tahun_pendaftaran,
-                idkelas:this.idkelas
-            },
+            await this.$ajax.get('/keuangan/statustransaksi',
             {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{               
-                this.datatable = data.kombi;                
+                this.datatable = data.status;                
                 this.datatableLoading=false;
             });                     
-            this.firstloading=false;            
-            this.$refs.filter10.setFirstTimeLoading(this.firstloading); 
+            this.firstloading=false;                        
         },
         dataTableRowClicked(item)
         {
@@ -195,30 +158,14 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },
-        loadkombiperiode:async function ()
+        },        
+        saveItem:async function ({id,style})
         {
-            this.btnLoading=true;            
-            await this.$ajax.post('/keuangan/biayakomponenperiode/loadkombiperiode',            
+            await this.$ajax.post('/keuangan/statustransaksi/'+id,            
             {
-                TA:this.tahun_pendaftaran,
-                idkelas:this.idkelas
-            },
-            {
-                headers: {
-                    Authorization:this.$store.getters['auth/Token']
-                }
-            }).then(({data})=>{               
-                this.datatable = data.kombi;                
-                this.btnLoading=false;
-            });   
-        },
-        saveItem:async function ({id,biaya})
-        {
-            await this.$ajax.post('/keuangan/biayakomponenperiode/updatebiaya',            
-            {
-                id:id,
-                biaya:biaya
+                _method:'put',                
+                id_status:id,
+                style:style
             },
             {
                 headers: {
@@ -240,27 +187,10 @@ export default {
         {
 
         },
-    },
-    watch:{
-        tahun_pendaftaran()
-        {
-            if (!this.firstloading)
-            {
-                this.initialize();
-            }            
-        },
-        idkelas()
-        {
-            if (!this.firstloading)
-            {
-                this.initialize();
-            }            
-        },
-    },
+    },   
     components:{
         KeuanganLayout,
-        ModuleHeader,    
-        Filter10,       
+        ModuleHeader,            
     },
 }
 </script>

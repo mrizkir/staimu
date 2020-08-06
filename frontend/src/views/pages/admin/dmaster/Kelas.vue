@@ -79,13 +79,13 @@
                                                 <v-text-field 
                                                     v-model="formdata.idkelas" 
                                                     label="KODE KELAS"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_kode_kelas">
                                                 </v-text-field>                                        
                                                 <v-text-field 
                                                     v-model="formdata.nkelas" 
                                                     label="NAMA KELAS"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_kelas">
                                                 </v-text-field>                                        
                                             </v-card-text>

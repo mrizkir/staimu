@@ -101,7 +101,7 @@
                                     <v-text-field 
                                         v-model="formkonfirmasi.code" 
                                         label="CODE"
-                                        filled
+                                        outlined
                                         :rules="rule_code">
                                     </v-text-field>                                            
                                 </v-card-text>

@@ -187,6 +187,24 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/Keuangan.vue'),		
 	},	
 	{
+		path: '/keuangan/channelpembayaran',
+		name: 'KeuanganChanelPembayaran',
+		meta:{
+			title: "KEUANGAN - CHANNEL PEMBAYARAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/ChannelPembayaran.vue'),		
+	},	
+	{
+		path: '/keuangan/statustransaksi',
+		name: 'KeuanganStatusTransaksi',
+		meta:{
+			title: "KEUANGAN - STATUS TRANSAKSI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/StatusTransaksi.vue'),		
+	},	
+	{
 		path: '/keuangan/biayakomponen',
 		name: 'KeuanganBiayaKomponen',
 		meta:{

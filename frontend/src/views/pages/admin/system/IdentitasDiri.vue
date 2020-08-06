@@ -37,13 +37,13 @@
                                 <v-text-field 
                                     v-model="formdata.nama_pt" 
                                     label="NAMA PERGURUAN TINGGI"
-                                    filled
+                                    outlined
                                     :rules="rule_nama_pt">
                                 </v-text-field>                                                                                               
                                 <v-text-field 
                                     v-model="formdata.nama_alias_pt" 
                                     label="NAMA SINGKATAN PERGURUAN TINGGI"
-                                    filled
+                                    outlined
                                     :rules="rule_nama_singkatan_pt">
                                 </v-text-field>
                                 <v-radio-group v-model="formdata.bentuk_pt" row>
@@ -54,7 +54,7 @@
                                 <v-text-field 
                                     v-model="formdata.kode_pt" 
                                     label="KODE PERGURUAN TINGGI (SESUAI FORLAP)"
-                                    filled
+                                    outlined
                                     :rules="rule_kode_pt">
                                 </v-text-field>                                                                                               
                             </v-card-text>

@@ -37,13 +37,13 @@
                                 <v-text-field 
                                     v-model="formdata.siteKey" 
                                     label="SITE KEY"
-                                    filled
+                                    outlined
                                     :rules="rule_site_key">
                                 </v-text-field>                                                                                               
                                 <v-text-field 
                                     v-model="formdata.privateKey" 
                                     label="PRIVATE KEY"
-                                    filled
+                                    outlined
                                     :rules="rule_private_key">
                                 </v-text-field>
                             </v-card-text>

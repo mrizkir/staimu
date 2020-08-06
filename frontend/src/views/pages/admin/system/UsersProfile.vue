@@ -70,7 +70,7 @@
                                     v-model="formdata.password" 
                                     label="PASSWORD BARU"
                                     :type="'password'"
-                                    filled
+                                    outlined
                                     :rules="rule_user_password">
                                 </v-text-field> 
                             </v-card-text>

@@ -79,25 +79,25 @@
                                                 <v-text-field 
                                                     v-model="formdata.nama_bank" 
                                                     label="NAMA BANK"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_bank">
                                                 </v-text-field>                                        
                                                 <v-text-field 
                                                     v-model="formdata.nama_cabang" 
                                                     label="CABANG"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_cabang">
                                                 </v-text-field>                                        
                                                 <v-text-field 
                                                     v-model="formdata.nomor_rekening" 
                                                     label="NOMOR REKENING"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_no_rekening">
                                                 </v-text-field>                                        
                                                 <v-text-field 
                                                     v-model="formdata.pemilik_rekening" 
                                                     label="PEMILIK REKENING"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_pemilik">
                                                 </v-text-field>                                        
                                             </v-card-text>

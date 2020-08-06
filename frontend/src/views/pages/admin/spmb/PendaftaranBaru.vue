@@ -90,34 +90,34 @@
                                                     v-model="formdata.name"
                                                     label="NAMA LENGKAP" 
                                                     :rules="rule_name"
-                                                    filled/>                               
+                                                    outlined/>                               
                                                 <v-text-field 
                                                     v-model="formdata.nomor_hp"
                                                     label="NOMOR HP (ex: +628123456789)" 
                                                     :rules="rule_nomorhp"
-                                                    filled/>                               
+                                                    outlined/>                               
                                                 <v-text-field 
                                                     v-model="formdata.email"
                                                     label="EMAIL" 
                                                     :rules="rule_email"
-                                                    filled/>                                                 
+                                                    outlined/>                                                 
                                                 <v-text-field 
                                                     v-model="formdata.username"
                                                     label="USERNAME" 
                                                     :rules="rule_username"
-                                                    filled />   
+                                                    outlined />   
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
                                                     type="password"                                                                             
-                                                    filled 
+                                                    outlined 
                                                     v-if="editedIndex>-1" /> 
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
                                                     type="password"         
                                                     :rules="rule_password"                
-                                                    filled 
+                                                    outlined 
                                                     v-else /> 
                                             </v-card-text>
                                             <v-card-actions>

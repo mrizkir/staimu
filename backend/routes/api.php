@@ -36,6 +36,9 @@ $router->group(['prefix'=>'v3'], function () use ($router)
     $router->post('/spmb/pmb/store',['uses'=>'SPMB\PMBController@store','as'=>'pmb.store']);
     $router->post('/spmb/pmb/konfirmasi',['uses'=>'SPMB\PMBController@konfirmasi','as'=>'pmb.konfirmasi']);
 
+    //keuangan - channel pembayaran
+    $router->get('/keuangan/channelpembayaran',['uses'=>'Keuangan\ChannelPembayaranController@index','as'=>'channelpembayaran.index']);                
+
     //untuk uifront
     $router->get('/system/setting/uifront',['uses'=>'System\UIController@frontend','as'=>'uifront.frontend']);    
 
@@ -140,6 +143,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/spmb/pmbpersyaratan/verifikasipersyaratan/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPersyaratanController@verifikasipersyaratan','as'=>'pmbpersyaratan.verifikasipersyaratan']);
     $router->delete('/spmb/pmbpersyaratan/hapusfilepersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@hapusfilepersyaratan','as'=>'pmbpersyaratan.hapusfilepersyaratan']);    
 
+    //keuangan - status transaksi
+    $router->get('/keuangan/statustransaksi',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@index','as'=>'statustransaksi.index']);            
+    $router->put('/keuangan/statustransaksi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@update','as'=>'statustransaksi.update']);            
+    
     //keuangan - komponen biaya
     $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);            
     
@@ -158,7 +165,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //keuangan - transaksi
     $router->post('/keuangan/transaksi',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@index','as'=>'transaksi.index']);            
     
-    //keuangan - transaksi
+    //keuangan - konfirmasi pembayaran
     $router->post('/keuangan/konfirmasipembayaran',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@index','as'=>'konfirmasipembayaran.index']);            
 
     //kemahasiswaan

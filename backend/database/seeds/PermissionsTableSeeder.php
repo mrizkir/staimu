@@ -101,6 +101,7 @@ class PermissionsTableSeeder extends Seeder
             'SPMB-PMB-UJIAN-ONLINE',     
             'SPMB-PMB-NILAI-UJIAN',   
             
+            'KEUANGAN-STATUS-TRANSAKSI',                 
             'KEUANGAN-BIAYA-KOMPONEN-PERIODE',                 
             'KEUANGAN-METODE-TRANSFER-BANK',                 
             'KEUANGAN-METODE-IB',                 

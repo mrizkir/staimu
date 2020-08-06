@@ -36,7 +36,7 @@
                             <v-autocomplete
                                 v-model="data_mhs"
                                 label="NAMA MAHASISWA/CALON MAHASISWAN"
-                                filled
+                                outlined
                                 clearable
                                 return-object
                                 no-filter                                

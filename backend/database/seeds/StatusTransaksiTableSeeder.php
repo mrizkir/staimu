@@ -18,19 +18,25 @@ class StatusTransaksiTableSeeder extends Seeder
         \DB::table('pe3_status_transaksi')->insert([
             'id_status'=>0,
             'nama_status'=>'UNPAID', 
-            'style'=>'amber accent-1'           
+            'style'=>'amber accent-1',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()         
         ]);        
 
         \DB::table('pe3_status_transaksi')->insert([
             'id_status'=>1,
             'nama_status'=>'PAID',
-            'style'=>'light-green lighten-1'            
+            'style'=>'light-green lighten-1',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()            
         ]);  
 
         \DB::table('pe3_status_transaksi')->insert([
             'id_status'=>2,
             'nama_status'=>'CANCELED', 
-            'style'=>'red darken-2'           
+            'style'=>'red darken-2',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()           
         ]);        
     }
 }

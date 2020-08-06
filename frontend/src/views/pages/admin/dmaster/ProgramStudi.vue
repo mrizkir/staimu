@@ -80,26 +80,26 @@
                                                     :items="daftar_fakultas"
                                                     item-text="nama_fakultas"
                                                     item-value="kode_fakultas"                                                    
-                                                    filled
+                                                    outlined
                                                     :rules="rule_kode_fakultas"
                                                     v-if="$store.getters['uifront/getBentukPT']=='universitas'">
                                                 </v-select>
                                                 <v-text-field 
                                                     v-model="formdata.kode_prodi" 
                                                     label="KODE PROGRAM STUDI"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_kode_prodi">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="formdata.nama_prodi" 
                                                     label="NAMA PROGRAM STUDI"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_prodi">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="formdata.nama_prodi_alias" 
                                                     label="NAMA SINGKAT PROGRAM STUDI"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_prodi_alias">
                                                 </v-text-field>
                                                 <v-select 
@@ -109,7 +109,7 @@
                                                     item-text="nama_jenjang"
                                                     item-value="kode_jenjang"
                                                     return-object
-                                                    filled
+                                                    outlined
                                                     :rules="rule_kode_jenjang">
                                                 </v-select>
                                             </v-card-text>

@@ -84,14 +84,14 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    filled />                                                
+                                                    outlined />                                                
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-1:</h3>  
                                                 <v-text-field
                                                     label="ISI JAWABAN"    
                                                     v-model="formdata.jawaban1"    
                                                     :rules="rule_jawaban"
-                                                    filled
+                                                    outlined
                                                 />                                                
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-2:</h3>  
@@ -99,7 +99,7 @@
                                                     label="ISI JAWABAN"    
                                                     v-model="formdata.jawaban2"    
                                                     :rules="rule_jawaban"
-                                                    filled
+                                                    outlined
                                                 />                                                
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-3:</h3>  
@@ -107,7 +107,7 @@
                                                     label="ISI JAWABAN"    
                                                     v-model="formdata.jawaban3"    
                                                     :rules="rule_jawaban"
-                                                    filled
+                                                    outlined
                                                 />                                                
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-4:</h3>  
@@ -115,7 +115,7 @@
                                                     label="ISI JAWABAN"    
                                                     v-model="formdata.jawaban4"    
                                                     :rules="rule_jawaban"
-                                                    filled
+                                                    outlined
                                                 />                                                
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>  
@@ -125,7 +125,7 @@
                                                     item-value="id"
                                                     item-text="text"                                                
                                                     label="JAWABAN BENAR"
-                                                    filled/>    
+                                                    outlined/>    
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -154,7 +154,7 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    filled />                                                
+                                                    outlined />                                                
                                                 <v-divider class="mt-2"/>
                                                 <v-radio-group v-model="formdata.jawaban_benar">
                                                     <v-data-table                                                        

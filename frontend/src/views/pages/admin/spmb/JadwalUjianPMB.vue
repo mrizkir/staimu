@@ -88,14 +88,14 @@
                                                 <v-text-field 
                                                     v-model="formdata.nama_kegiatan" 
                                                     label="NAMA UJIAN ONLINE"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_nama_kegiatan">
                                                 </v-text-field>  
                                                 Jumlah soal, pastikan lebih kecil atau sama dengan jumlah soal BANK SOAL.                                                                            
                                                 <v-text-field 
                                                     v-model="formdata.jumlah_soal" 
                                                     label="JUMLAH SOAL"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_jumlah_soal">
                                                 </v-text-field>  
                                                 <v-menu
@@ -112,7 +112,7 @@
                                                             v-model="formdata.tanggal_akhir_daftar"
                                                             label="TANGGAL AKHIR PENDAFTARAN"                                            
                                                             readonly
-                                                            filled
+                                                            outlined
                                                             v-on="on"></v-text-field>
                                                     </template>
                                                     <v-date-picker
@@ -138,7 +138,7 @@
                                                             v-model="formdata.tanggal_ujian"
                                                             label="TANGGAL UJIAN"                                            
                                                             readonly
-                                                            filled
+                                                            outlined
                                                             v-on="on">
                                                         </v-text-field>
                                                     </template>
@@ -166,7 +166,7 @@
                                                             v-model="formdata.jam_mulai_ujian"
                                                             label="JAM MULAI UJIAN"                                                            
                                                             readonly
-                                                            filled
+                                                            outlined
                                                             v-bind="attrs"
                                                             v-on="on"
                                                         ></v-text-field>
@@ -194,7 +194,7 @@
                                                             v-model="formdata.jam_selesai_ujian"
                                                             label="JAM SELESAI UJIAN"                                                            
                                                             readonly
-                                                            filled
+                                                            outlined
                                                             v-bind="attrs"
                                                             v-on="on"
                                                         ></v-text-field>
@@ -213,7 +213,7 @@
                                                     v-model="formdata.ruangkelas_id"
                                                     item-text="namaruang"
                                                     item-value="id"
-                                                    filled
+                                                    outlined
                                                 />
                                             </v-card-text>
                                             <v-card-actions>

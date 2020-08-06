@@ -94,32 +94,32 @@
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_name">
                                                 </v-text-field>                                                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_email">
                                                 </v-text-field>                                                        
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_nomorhp">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.username" 
                                                     label="USERNAME"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_username">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.password" 
                                                     label="PASSWORD"
                                                     :type="'password'"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_password">
                                                 </v-text-field>
                                                 <v-autocomplete 
@@ -160,32 +160,32 @@
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_name">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_email">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_nomorhp">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.username" 
                                                     label="USERNAME"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_username">
                                                 </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.password" 
                                                     label="PASSWORD"
                                                     :type="'password'"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_user_passwordEdit">
                                                 </v-text-field>   
                                                 <v-autocomplete 
