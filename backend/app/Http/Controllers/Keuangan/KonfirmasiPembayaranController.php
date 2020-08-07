@@ -151,6 +151,37 @@ class KonfirmasiPembayaranController extends Controller {
                                         'pid'=>'store',
                                         'message'=>["Extensi file yang diupload bukan jpg atau png."]
                                     ],422); 
-        }  
+        } 
+        
+    }
+    public function update(Request $request,$id)
+    {
+        $this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE');
+
+        $konfirmasi=KonfirmasiPembayaranModel::find($id);
+        if (is_null($konfirmasi))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                
+                                    'message'=>["Fetch data transaksi dengan ID ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            $konfirmasi->verified=true;
+            $konfirmasi->save();
+
+            $transaksi=$konfirmasi->transaksi;
+            $transaksi->status=1;
+            $transaksi->save();
+            
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update',                                          
+                                        'message'=>"Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
+                                    ],200);   
+        }
+        
     }
 }

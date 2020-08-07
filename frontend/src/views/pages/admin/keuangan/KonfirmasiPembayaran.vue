@@ -68,7 +68,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialogdetailitem" max-width="700px" persistent v-if="dialogdetailitem">
+                                <v-dialog v-model="dialogfrm" max-width="750px" persistent v-if="dialogfrm">
                                     <v-card color="grey lighten-4">
                                         <v-toolbar elevation="2"> 
                                             <v-toolbar-title>KONFIRMASI !!!</v-toolbar-title>
@@ -79,7 +79,7 @@
                                             ></v-divider>
                                             <v-spacer></v-spacer>
                                             <v-icon                
-                                                @click.stop="closedialogdetailitem()">
+                                                @click.stop="closedialogfrm()">
                                                 mdi-close-thick
                                             </v-icon>
                                         </v-toolbar>
@@ -246,7 +246,7 @@
                                                             </v-card-text>
                                                             <v-card-actions>
                                                                 <v-spacer></v-spacer>
-                                                                <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">BATAL</v-btn>
+                                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
                                                                 <v-btn 
                                                                     color="blue darken-1" 
                                                                     text 
@@ -261,6 +261,27 @@
                                                 </v-col>
                                             </v-row>
                                         </v-card-text>
+                                    </v-card>
+                                </v-dialog>
+                                <v-dialog v-model="dialogdetailitem" max-width="750px" persistent v-if="dialogdetailitem">
+                                    <v-card color="grey lighten-4">
+                                        <v-toolbar elevation="2"> 
+                                            <v-toolbar-title>DETAIL KONFIRMASI PEMBAYARAN !!!</v-toolbar-title>
+                                            <v-divider
+                                                class="mx-4"
+                                                inset
+                                                vertical
+                                            ></v-divider>
+                                            <v-spacer></v-spacer>
+                                            <v-icon                
+                                                @click.stop="closedialogdetailitem()">
+                                                mdi-close-thick
+                                            </v-icon>
+                                        </v-toolbar>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">BATAL</v-btn>                                            
+                                        </v-card-actions>
                                     </v-card>
                                 </v-dialog>
                             </v-toolbar>
@@ -278,7 +299,7 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click.stop="viewItem(item)"
+                                @click.stop="addItem(item)"
                                 v-if="item.status_konfirmasi=='N.A'">
                                 mdi-send
                             </v-icon>                           
@@ -288,7 +309,21 @@
                                 :disabled="true"
                                 v-else>
                                 mdi-send
-                            </v-icon>                           
+                            </v-icon>   
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click.stop="viewItem(item)"
+                                v-if="item.status_konfirmasi=='VERIFIED' || item.status_konfirmasi=='UNVERIFIED'">
+                                mdi-eye
+                            </v-icon>                        
+                            <v-icon
+                                small
+                                class="mr-2"
+                                :disabled="true"                                
+                                v-else>
+                                mdi-eye
+                            </v-icon>                        
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -296,7 +331,10 @@
                                     <strong>ID:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
-                                </v-col>                                
+                                </v-col>  
+                                <v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')">                          
+                                    <v-btn color="primary" @click.stop="verifikasi(item)" class="mb-2" :disabled="item.status_konfirmasi=='UNVERIFIED'?false:true" :loading="btnLoading">VERIFIKASI</v-btn>
+                                </v-col>                               
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -356,12 +394,13 @@ export default {
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS TRANSAKSI', value: 'nama_status',width:100,sortable:true },            
             { text: 'KONFIRM.', value: 'status_konfirmasi',width:100,sortable:true },            
-            { text: 'AKSI', value: 'actions', sortable: false,width:70 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:82 },
         ],   
         expanded:[],
         search:'',
 
-         //dialog        
+        //dialog        
+        dialogfrm:false,
         dialogdetailitem:false,
         
         //form data   
@@ -448,6 +487,20 @@ export default {
                 this.expanded=[item];
             }               
         },
+        async addItem (item)
+        {
+            await this.$ajax.get('/keuangan/channelpembayaran',
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{   
+                this.daftar_channel=data.channel;            
+                this.data_transaksi=item;            
+                this.dialogfrm=true;
+            });            
+            
+        },
         async viewItem (item)
         {
             await this.$ajax.get('/keuangan/channelpembayaran',
@@ -500,7 +553,7 @@ export default {
                         }
                     }
                 ).then(()=>{                       
-                    this.closedialogdetailitem();
+                    this.closedialogfrm();
                     this.initialize();
                 }).catch(()=>{
                     this.btnLoading=false;
@@ -508,12 +561,38 @@ export default {
             
             }
         },
+        async verifikasi(item)
+        {
+            this.btnLoading=true;
+            this.$ajax.post('/keuangan/konfirmasipembayaran/'+item.id,
+                {
+                    _method:'put'            
+                },                    
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token'],                        
+                    }
+                }
+            ).then(()=>{                                       
+                this.initialize();
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });
+        },
+        closedialogfrm () {            
+            this.dialogfrm = false;            
+            setTimeout(() => {
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.data_transaksi = Object.assign({}, {})                 
+                }, 300
+            );
+        },
         closedialogdetailitem () {
             this.dialogdetailitem = false;            
             setTimeout(() => {
-                this.data_transaksi = Object.assign({}, {})
-                this.editedIndex = -1,
-                this.$refs.frmdata.validate();
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.data_transaksi = Object.assign({}, {}) 
                 }, 300
             );
         },
