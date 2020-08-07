@@ -230,7 +230,7 @@ export default {
         },
         downloadImage ()
         {
-            console.log('test');
+            
         },
         previewImagePersyaratan()
         {

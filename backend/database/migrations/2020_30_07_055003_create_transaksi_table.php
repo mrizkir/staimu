@@ -27,7 +27,7 @@ class CreateTransaksiTable extends Migration
             $table->string('no_formulir',11)->nullable();
             $table->string('nim')->nullable(); 
             $table->tinyInteger('status')->default(0);   
-            $table->decimal('total',15,2)->default(0);                                                                    
+            $table->decimal('total',15,2)->default(0);
             $table->date('tanggal'); 
             $table->timestamps();      
 

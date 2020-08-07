@@ -38,8 +38,7 @@ class UIController extends Controller {
      */
     public function admin ()
     {
-        $config = ConfigurationModel::getCache();
-        $daftar_ta=TAModel::all();        
+        $config = ConfigurationModel::getCache();        
         $daftar_semester=[
                             0=>[
                                 'id'=>1,
@@ -57,6 +56,8 @@ class UIController extends Controller {
                             
         if ($this->hasRole('superadmin'))
         {
+            $daftar_ta=TAModel::all();        
+
             $daftar_fakultas=FakultasModel::all();
             $fakultas_id=$config['DEFAULT_FAKULTAS'];        
 
@@ -65,6 +66,8 @@ class UIController extends Controller {
         }
         elseif($this->hasRole('pmb'))
         {
+            $daftar_ta=TAModel::all();        
+
             $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
 
@@ -93,6 +96,8 @@ class UIController extends Controller {
         }
         elseif ($this->hasRole('keuangan'))
         {
+            $daftar_ta=TAModel::all();        
+
             $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
 
@@ -121,6 +126,8 @@ class UIController extends Controller {
         }
         elseif ($this->hasRole('mahasiswabaru'))
         {
+            $daftar_ta=TAModel::all();        
+            
             $daftar_fakultas=[];
             $fakultas_id=$config['DEFAULT_FAKULTAS'];
 

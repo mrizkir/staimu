@@ -145,8 +145,7 @@ export default {
             }).then(({data})=>{ 
                 this.datatableLoaded=true;
                 this.datatableLoading=false;
-                this.jadwal_ujian=data.jadwal_ujian;                     
-                console.log(data);
+                this.jadwal_ujian=data.jadwal_ujian;                                     
             }).catch(()=>{
                 this.datatableLoading=false;
                 this.datatableLoaded=true;
@@ -164,8 +163,7 @@ export default {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(({data})=>{             
-                console.log(data);     
+            ).then(()=>{         
                 this.btnLoading=false;
             }).catch(()=>{
                 this.btnLoading=false;

@@ -8,7 +8,7 @@
                 KONFIRMASI PEMBAYARAN
             </template>
             <template v-slot:subtitle>
-                
+                TAHUN AKADEMIK {{tahun_akademik}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                        Halaman ini berisi informasi konfirmasi pembayaran mahasiswa.
+                        Halaman ini berisi informasi konfirmasi pembayaran mahasiswa, silahkan melakukan filter tahun akademik.
                     </v-alert>
             </template>
         </ModuleHeader> 
@@ -186,20 +186,50 @@
                                                                     v-model="formdata.total_bayar">                                        
                                                                 </v-currency-field>
                                                                 <v-text-field 
-                                                                    v-model="formdata.nama_pengirim"
+                                                                    v-model="formdata.nomor_rekening_pengirim"
                                                                     label="NOMOR REKENING PENGIRIM:" 
                                                                     :rules="rule_nomor_rekening"
                                                                     outlined />  
                                                                 <v-text-field 
-                                                                    v-model="formdata.nama_pengirim"
+                                                                    v-model="formdata.nama_rekening_pengirim"
                                                                     label="NAMA PENGIRIM:" 
                                                                     :rules="rule_nama_pengirim"
                                                                     outlined />  
                                                                 <v-text-field 
-                                                                    v-model="formdata.bank_pengirim"
+                                                                    v-model="formdata.nama_bank_pengirim"
                                                                     label="BANK PENGIRIM:" 
                                                                     :rules="rule_nama_bank"
-                                                                    outlined />                                                                  
+                                                                    outlined /> 
+                                                                <v-menu
+                                                                    ref="menuTanggalBayar"
+                                                                    v-model="menuTanggalBayar"
+                                                                    :close-on-content-click="false"
+                                                                    :return-value.sync="formdata.tanggal_bayar"
+                                                                    transition="scale-transition"
+                                                                    offset-y
+                                                                    max-width="290px"
+                                                                    min-width="290px"
+                                                                >
+                                                                    <template v-slot:activator="{ on }">
+                                                                        <v-text-field
+                                                                            v-model="formdata.tanggal_bayar"
+                                                                            label="TANGGAL BAYAR/TRANSFER"                                            
+                                                                            readonly
+                                                                            outlined
+                                                                            v-on="on"
+                                                                            :rules="rule_tanggal_bayar"
+                                                                        ></v-text-field>
+                                                                    </template>
+                                                                    <v-date-picker
+                                                                        v-model="formdata.tanggal_bayar"                                        
+                                                                        no-title                                
+                                                                        scrollable
+                                                                        >
+                                                                        <v-spacer></v-spacer>
+                                                                        <v-btn text color="primary" @click="menuTanggalBayar = false">Cancel</v-btn>
+                                                                        <v-btn text color="primary" @click="$refs.menuTanggalBayar.save(formdata.tanggal_bayar)">OK</v-btn>
+                                                                    </v-date-picker>
+                                                                </v-menu>
                                                                 <v-textarea 
                                                                     v-model="formdata.desc"
                                                                     label="CATATAN:"                                                                    
@@ -212,7 +242,7 @@
                                                                     v-model="formdata.bukti_bayar"
                                                                     @change="previewImage">
                                                                 </v-file-input> 
-                                                                <v-img class="white--text align-end" height="200px" :src="photoPersyaratan"></v-img>                                                                               
+                                                                <v-img class="white--text align-end" height="200px" :src="buktiBayar"></v-img>                                                                               
                                                             </v-card-text>
                                                             <v-card-actions>
                                                                 <v-spacer></v-spacer>
@@ -248,7 +278,15 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click.stop="viewItem(item)">
+                                @click.stop="viewItem(item)"
+                                v-if="item.status_konfirmasi=='N.A'">
+                                mdi-send
+                            </v-icon>                           
+                            <v-icon
+                                small
+                                class="mr-2"
+                                :disabled="true"
+                                v-else>
                                 mdi-send
                             </v-icon>                           
                         </template>           
@@ -268,11 +306,15 @@
                 </v-col>
             </v-row>
         </v-container>
+        <template v-slot:filtersidebar>
+            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />	
+        </template>
     </KeuanganLayout>
 </template>
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
+import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'KonfirmasiPembayaran', 
     created () {
@@ -295,22 +337,25 @@ export default {
             }
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.initialize()
     },   
     data: () => ({         
         breadcrumbs:[],        
         dashboard:null,
         btnLoading:false,     
+        tahun_akademik:null,
 
         //tables
         datatableLoading:false,
         datatable:[],
         headers: [                                                
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
-            { text: 'TANGGAL', value: 'tanggal',width:120,sortable:true },
+            { text: 'TANGGAL TRANSAKSI', value: 'tanggal',width:120,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
-            { text: 'STATUS', value: 'nama_status',width:100,sortable:true },            
+            { text: 'STATUS TRANSAKSI', value: 'nama_status',width:100,sortable:true },            
+            { text: 'KONFIRM.', value: 'status_konfirmasi',width:100,sortable:true },            
             { text: 'AKSI', value: 'actions', sortable: false,width:70 },
         ],   
         expanded:[],
@@ -320,25 +365,32 @@ export default {
         dialogdetailitem:false,
         
         //form data   
-        form_valid:true,                 
+        form_valid:true,   
+        menuTanggalBayar:false,  
+        image_prev:null,            
         data_transaksi: {
             
         },   
         daftar_channel:[],
-        formdata: {
+        formdata: {            
             id_channel:1,
             total_bayar:0,
-            nama_pengirim:'',
-            bank_pengirim:'',
+            nomor_rekening_pengirim:'',
+            nama_rekening_pengirim:'',
+            nama_bank_pengirim:'',
             desc:'',
-            bukti_bayar:'',
+            tanggal_bayar:'',
+            bukti_bayar:[],
         },
-        formdefault: {
+        formdefault: {            
             id_channel:1,
             total_bayar:0,
-            nama_pengirim:'',
+            nomor_rekening_pengirim:'',
+            nama_rekening_pengirim:'',
+            nama_bank_pengirim:'',
             desc:'',
-            bukti_bayar:'',
+            tanggal_bayar:'',
+            bukti_bayar:[],
         },    
         //form rules  
         rule_channel_pembayaran:[
@@ -346,6 +398,16 @@ export default {
         ], 
         rule_nama_pengirim:[
             value => !!value||"Mohon diisi nama pengirim !!!"
+        ],        
+        rule_nomor_rekening:[
+            value => !!value||"Mohon diisi nomor rekening pengirim !!!",
+            value => /^[0-9]+$/.test(value) || 'Nomor Rekening hanya boleh angka',
+        ],
+        rule_nama_bank:[
+            value => !!value||"Mohon diisi nama bank !!!"
+        ],
+        rule_tanggal_bayar:[
+            value => !!value||"Tanggal Bayar mohon untuk diisi !!!"
         ], 
         rule_bukti_bayar:[
             value => !!value||"Mohon pilih foto !!!",  
@@ -353,12 +415,16 @@ export default {
         ],
     }),
     methods: {
+        changeTahunAkademik (tahun)
+        {
+            this.tahun_akademik=tahun;
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/konfirmasipembayaran',            
             {
-                TA:2020,
+                TA:this.tahun_akademik,
             },
             {
                 headers: {
@@ -367,8 +433,9 @@ export default {
             }).then(({data})=>{               
                 this.datatable = data.transaksi;                
                 this.datatableLoading=false;
-            });                     
-            this.firstloading=false;   
+            });                                 
+            this.firstloading=false;
+            this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
@@ -395,11 +462,58 @@ export default {
             });            
             
         },
+        previewImage (e)
+        {
+            if (typeof e === 'undefined')
+            {
+                this.image_prev=null;                
+            }
+            else
+            {
+                let reader = new FileReader();
+                reader.readAsDataURL(e);
+                reader.onload = img => {                    
+                    this.image_prev=img.target.result;
+                }                
+            }          
+        },
+        save () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;      
+                var data = new FormData();                    
+                data.append('transaksi_id',this.data_transaksi.id);
+                data.append('id_channel',this.formdata.id_channel);
+                data.append('total_bayar',this.formdata.total_bayar);
+                data.append('nomor_rekening_pengirim',this.formdata.nomor_rekening_pengirim);
+                data.append('nama_rekening_pengirim',this.formdata.nama_rekening_pengirim);
+                data.append('nama_bank_pengirim',this.formdata.nama_bank_pengirim);
+                data.append('desc',this.formdata.desc);
+                data.append('tanggal_bayar',this.formdata.tanggal_bayar);
+                data.append('bukti_bayar',this.formdata.bukti_bayar);
+
+                this.$ajax.post('/keuangan/konfirmasipembayaran/store',data,                    
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token'],
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(()=>{                       
+                    this.closedialogdetailitem();
+                    this.initialize();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            
+            }
+        },
         closedialogdetailitem () {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.data_transaksi = Object.assign({}, {})
-                this.editedIndex = -1
+                this.editedIndex = -1,
+                this.$refs.frmdata.validate();
                 }, 300
             );
         },
@@ -408,11 +522,39 @@ export default {
         TahunPendaftaran()
         {
             return this.$store.getters['uiadmin/getTahunPendaftaran'];
-        }
+        },
+        buktiBayar:{
+            get ()
+            {   
+                if (this.image_prev==null)
+                {
+                    return require('@/assets/no-image.png');
+                }
+                else
+                {
+                    return this.image_prev;
+                }
+            },
+            set (val)
+            {
+                this.image_prev=val;
+            }
+            
+        },
+    },
+    watch:{
+        tahun_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
     },
     components:{
         KeuanganLayout,
-        ModuleHeader,        
+        ModuleHeader, 
+        Filter1        
     },
 }
 </script>

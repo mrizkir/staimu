@@ -17,7 +17,7 @@ class CreateKomponenBiayaTable extends Migration
         Schema::create('pe3_kombi', function (Blueprint $table) {
             $table->smallInteger('id')->primary();                                                        
             $table->string('nama');                                                
-            $table->enum('periode',['insidental','persemester','sekali']);                                                            
+            $table->enum('periode',['insidental','persemester','perbulan','sekali']);                                                            
             $table->timestamps();            
         });
     }
