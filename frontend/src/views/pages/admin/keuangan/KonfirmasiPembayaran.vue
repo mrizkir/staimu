@@ -242,7 +242,7 @@
                                                                     v-model="formdata.bukti_bayar"
                                                                     @change="previewImage">
                                                                 </v-file-input> 
-                                                                <v-img class="white--text align-end" height="200px" :src="buktiBayar"></v-img>                                                                               
+                                                                <v-img class="white--text align-end" :src="buktiBayar"></v-img>                                                                               
                                                             </v-card-text>
                                                             <v-card-actions>
                                                                 <v-spacer></v-spacer>
@@ -278,6 +278,110 @@
                                                 mdi-close-thick
                                             </v-icon>
                                         </v-toolbar>
+                                        <v-card-text>
+                                            <v-row>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>ID :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.transaksi_id}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>KODE BILLING :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.no_transaksi}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>CHANNEL PEMBAYARAN :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.nama_channel}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TANGGAL KONFIRMASI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{$date(data_konfirmasi.tanggal_bayar).format('DD/MM/YYYY')}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NOMOR REKENING PENGIRIM :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.nomor_rekening_pengirim}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NAMA REKENING PENGIRIM :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.nama_rekening_pengirim}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NAMA BANK PENGIRIM :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.nama_bank_pengirim}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TOTAL BAYAR :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.total_bayar|formatUang}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>STATUS :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_konfirmasi.nama_status}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>CREATED/UPDATED :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{ $date(data_transaksi.created_at).format('DD/MM/YYYY HH:mm') }} - 
+                                                            {{ $date(data_transaksi.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-img class="white--text align-end" :src="buktiBayar"></v-img>                                                                               
+                                        </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">BATAL</v-btn>                                            
@@ -328,9 +432,9 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
-                                    <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>ID TRANSAKSI:</strong>{{ item.id }}          
+                                    <strong>created_at:</strong>{{ item.created_at_konfirm=='N.A'?'N.A':$date(item.created_at_konfirm).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ item.updated_at_konfirm=='N.A'?'N.A':$date(item.updated_at_konfirm).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>  
                                 <v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')">                          
                                     <v-btn color="primary" @click.stop="verifikasi(item)" class="mb-2" :disabled="item.status_konfirmasi=='UNVERIFIED'?false:true" :loading="btnLoading">VERIFIKASI</v-btn>
@@ -410,6 +514,7 @@ export default {
         data_transaksi: {
             
         },   
+        data_konfirmasi:{},
         daftar_channel:[],
         formdata: {            
             id_channel:1,
@@ -503,14 +608,14 @@ export default {
         },
         async viewItem (item)
         {
-            await this.$ajax.get('/keuangan/channelpembayaran',
+            await this.$ajax.get('/keuangan/konfirmasipembayaran/'+item.id,
             {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{   
-                this.daftar_channel=data.channel;            
-                this.data_transaksi=item;            
+            }).then(({data})=>{                              
+                this.data_konfirmasi=data.konfirmasi;   
+                this.image_prev=this.$api.url+'/'+data.konfirmasi.bukti_bayar;         
                 this.dialogdetailitem=true;
             });            
             
@@ -552,7 +657,8 @@ export default {
                             'Content-Type': 'multipart/form-data'
                         }
                     }
-                ).then(()=>{                       
+                ).then(()=>{               
+                    this.btnLoading=false;          
                     this.closedialogfrm();
                     this.initialize();
                 }).catch(()=>{
@@ -563,28 +669,34 @@ export default {
         },
         async verifikasi(item)
         {
-            this.btnLoading=true;
-            this.$ajax.post('/keuangan/konfirmasipembayaran/'+item.id,
+            this.$root.$confirm.open('Konfirmasi Pembayaran', 'Apakah sudah benar data bukti bayar kode billing '+item.no_transaksi+' ?', { color: 'primary' }).then((confirm) => {
+                if (confirm)
                 {
-                    _method:'put'            
-                },                    
-                {
-                    headers:{
-                        Authorization:this.$store.getters['auth/Token'],                        
-                    }
-                }
-            ).then(()=>{                                       
-                this.initialize();
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });
+                    this.btnLoading=true;
+                    this.$ajax.post('/keuangan/konfirmasipembayaran/'+item.id,
+                        {
+                            _method:'put'            
+                        },                    
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token'],                        
+                            }
+                        }
+                    ).then(()=>{                                       
+                        this.initialize();
+                        this.btnLoading=false;
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });            
         },
         closedialogfrm () {            
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_transaksi = Object.assign({}, {})                 
+                this.data_transaksi = Object.assign({}, {});
+                this.data_konfirmasi = Object.assign({}, {});                  
                 }, 300
             );
         },
@@ -592,7 +704,8 @@ export default {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_transaksi = Object.assign({}, {}) 
+                this.data_transaksi = Object.assign({}, {}); 
+                this.data_konfirmasi = Object.assign({}, {}); 
                 }, 300
             );
         },

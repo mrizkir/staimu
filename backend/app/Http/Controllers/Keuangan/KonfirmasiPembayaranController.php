@@ -50,7 +50,9 @@ class KonfirmasiPembayaranController extends Controller {
                                                     pe3_transaksi.total,
                                                     pe3_transaksi.tanggal,                                                
                                                     pe3_transaksi.created_at,
-                                                    pe3_transaksi.updated_at
+                                                    pe3_transaksi.updated_at,
+                                                    COALESCE(pe3_konfirmasi_pembayaran.created_at,"N.A") AS created_at_konfirm,
+                                                    COALESCE(pe3_konfirmasi_pembayaran.updated_at,"N.A") AS updated_at_konfirm
                                                 '))
                                                 ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
@@ -85,7 +87,9 @@ class KonfirmasiPembayaranController extends Controller {
                                                     pe3_transaksi.total,
                                                     pe3_transaksi.tanggal,                                                
                                                     pe3_transaksi.created_at,
-                                                    pe3_transaksi.updated_at
+                                                    pe3_transaksi.updated_at,
+                                                    COALESCE(pe3_konfirmasi_pembayaran.created_at,"N.A") AS created_at_konfirm,
+                                                    COALESCE(pe3_konfirmasi_pembayaran.updated_at,"N.A") AS updated_at_konfirm
                                                 '))
                                                 ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
@@ -101,6 +105,47 @@ class KonfirmasiPembayaranController extends Controller {
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200);     
     }  
+    public function show(Request $request,$id)
+    {
+        $konfirmasi=KonfirmasiPembayaranModel::select(\DB::raw('
+                                                transaksi_id,
+                                                no_transaksi,
+                                                nama_channel,
+                                                tanggal_bayar,
+                                                nomor_rekening_pengirim,
+                                                nama_rekening_pengirim,
+                                                nama_bank_pengirim,
+                                                total_bayar,
+                                                CASE 
+                                                    WHEN verified IS NULL THEN "N.A"
+                                                    WHEN verified=0 THEN "UNVERIFIED"
+                                                    WHEN verified=1 THEN "VERIFIED"
+                                                END AS nama_status,
+                                                bukti_bayar,
+                                                pe3_konfirmasi_pembayaran.created_at,
+                                                pe3_konfirmasi_pembayaran.updated_at
+                                            '))
+                                            ->join('pe3_channel_pembayaran','pe3_channel_pembayaran.id_channel','pe3_konfirmasi_pembayaran.id_channel')
+                                            ->find($id);
+
+        if (is_null($konfirmasi))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Fetch data transaksi dengan ID ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',  
+                                        'konfirmasi'=>$konfirmasi,                                                                                                                                   
+                                        'message'=>'Fetch data detail konfirmasi berhasil.'
+                                    ],200);     
+        }
+    }
     public function store(Request $request)
     {
         $this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE');
@@ -164,7 +209,7 @@ class KonfirmasiPembayaranController extends Controller {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',                
-                                    'message'=>["Fetch data transaksi dengan ID ($id) gagal diperoleh"]
+                                    'message'=>["Update data transaksi dengan ID ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
