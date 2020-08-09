@@ -244,12 +244,12 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text:'KEUANGAN',
                 disabled:false,
                 href:'#'
             },
             {
-                text:'KELAS',
+                text:'TRANSFER BANK',
                 disabled:true,
                 href:'#'
             }

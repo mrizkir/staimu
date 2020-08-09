@@ -390,7 +390,7 @@
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }} 
                                 </v-col>     
                                 <v-col cols="12">
-                                    <v-btn text small color="primary" :to="'/spmb/jadwalujianpmb/passinggrade/'+item.id" v-if="dashboard !='mahasiswabaru' && dashboard !='mahasiswa'">Passing Grade</v-btn>
+                                    <v-btn text small color="primary" :to="'/spmb/jadwalujianpmb/passinggrade/'+item.id" v-if="dashboard !='mahasiswabaru' && dashboard !='mahasiswa'">TENTUKAN PASSING GRADE</v-btn>
                                 </v-col>     
                             </td>
                         </template>

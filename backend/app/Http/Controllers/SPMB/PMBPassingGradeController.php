@@ -49,7 +49,7 @@ class PMBPassingGradeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function loaddatapassinggradefirsttime ()
+    public function loadprodi (Request $request)
     {   
         $this->hasPermissionTo('SPMB-PMB-PASSING-GRADE_STORE');
 
@@ -79,19 +79,43 @@ class PMBPassingGradeController extends Controller
                                         kjur 
                                     FROM 
                                         pe3_passing_grade_pmb 
-                                    WHERE jadwal_ujian_id='$jadwal_ujian'
+                                    WHERE jadwal_ujian_id='$jadwal_ujian_id'
                                 )
             ";
         \DB::statement($sql);
-
-        $data = PMBPassingGradeModel::where('jadwal_ujian_id',$jadwal_ujian_id)
-                                    ->get();
-
+        
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'fetchdata',                                
                                 'passing_grade'=>$data,
                                 'message'=>'Data nilai passing grade ujian pmb masing-masing prodi berhasil digenerate'
+                            ],200);  
+    }    
+    /**
+     * digunakan untuk meload passing grade prodi pertama kali
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update (Request $request,$id)
+    {   
+        $this->hasPermissionTo('SPMB-PMB-PASSING-GRADE_STORE');
+
+        $this->validate($request, [                       
+            'id'=>'required|exists:pe3_passing_grade_pmb,id',                       
+            'nilai'=>'required|numeric',                       
+        ]);
+        
+        $passing_id=$request->input('id');
+
+        $passing=PMBPassingGradeModel::find($passing_id);
+        $passing->nilai=$request->input('nilai');        
+        $passing->save();        
+
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'passing_grade'=>$passing,
+                                'message'=>'Data nilai passing grade ujian pmb sudah diubah'
                             ],200);  
     }
 }

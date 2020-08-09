@@ -11,6 +11,7 @@ Vue.use(VCurrencyField, {
 	autoDecimalMode: true,
 	min: null,
 	max: null,
+	valueAsInteger: true,
 	defaultValue: 0
 });
 
