@@ -86,8 +86,7 @@ class PMBPassingGradeController extends Controller
         
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                                
-                                'passing_grade'=>$data,
+                                'pid'=>'fetchdata',                                                                
                                 'message'=>'Data nilai passing grade ujian pmb masing-masing prodi berhasil digenerate'
                             ],200);  
     }    
