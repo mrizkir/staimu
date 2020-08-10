@@ -182,6 +182,19 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
+                                            <v-row no-gutters>
+                                                <v-col cols="12">
+                                                    <v-card>
+                                                        <v-card-title>KIRIM ULANG EMAIL</v-card-title>
+                                                        <v-card-subtitle>
+                                                            Klik tombol berikut ini untuk mengirim ulang email konfirmasi pendaftaran
+                                                        </v-card-subtitle>
+                                                        <v-card-text>
+                                                            <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2" :loading="btnLoading">KIRIM ULANG</v-btn>
+                                                        </v-card-text>
+                                                    </v-card>
+                                                </v-col>                                                
+                                            </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -242,13 +255,13 @@
                                 </v-col>
                                 <v-col cols="12" v-if="item.active==0">
                                     <v-btn 
-                                        icon 
+                                        small 
                                         color="warning" 
-                                        title="aktifkan"
-                                        :loading="btnLoading"
-                                        :disabled="btnLoading" 
-                                        @click.stop="aktifkan(item.id)">
-                                        <v-icon>mdi-email-check</v-icon>
+                                        @click.stop="resend(formdata.id)"                                         
+                                        :disabled="btnLoading"
+                                        :loading="btnLoading">
+                                            <v-icon>mdi-email-check</v-icon>
+                                            VERIFIFKASI EMAIL
                                     </v-btn>
                                 </v-col>
                             </td>
@@ -512,6 +525,25 @@ export default {
                     });
                 }
             }
+        },
+        async resend(id)
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/spmb/pmb/resend',
+                {
+                    id:id,                    
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(()=>{                                           
+                this.closedialogdetailitem();
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });
         },
         viewItem (item) {           
             this.formdata=item;      

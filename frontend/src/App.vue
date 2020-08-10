@@ -28,6 +28,7 @@ export default {
 				case 'store' :
 				case 'update' :
 				case 'destroy' :
+				case 'resendemail' :
 					this.snackbar_color='success';
 					this.snackbar_success=true;
 					this.page_message = data.message;

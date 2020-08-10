@@ -577,5 +577,24 @@ class PMBController extends Controller {
                                     ],200);         
         }
                   
-    }   
+    }  
+    /**
+     * digunakan untuk mengirimkan ulang emai konfirmasi pendaftaran
+     */
+    public function resend(Request $request)
+    {
+        $this->validate($request, [
+            'id'=>[
+                'required',
+                "exists:users,id"
+            ],                                         
+        ]);
+        $user = User::find($request->input('id'));
+        $name=$user->name;
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'resendemail',                
+                                'message'=>"Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
+                            ],200);         
+    } 
 }
