@@ -87,6 +87,7 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $modules = [             
+            'DMASTER-TA',     
             'DMASTER-FAKULTAS',     
             'DMASTER-PRODI',     
             'DMASTER-KELAS',     

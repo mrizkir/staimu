@@ -84,6 +84,16 @@
                         <v-list-item-title>MODULE DATA MASTER</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link v-if="CAN_ACCESS('DMASTER-TA_BROWSE')" to="/dmaster/ta">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-google-classroom</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            TAHUN AKADEMIK
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
                 <v-list-item link v-if="CAN_ACCESS('DMASTER-FAKULTAS_BROWSE') && isBentukPT('universitas')" to="/dmaster/fakultas">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-home</v-icon>

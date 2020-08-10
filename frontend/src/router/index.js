@@ -48,6 +48,15 @@ const routes = [
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),		
 	},
 	{
+		path: '/dmaster/ta',
+		name: 'DMasterTahunAkademik',
+		meta:{
+			title: "DATA MASTER - TAHUN AKADEMIK",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/TahunAkademik.vue'),		
+	},
+	{
 		path: '/dmaster/fakultas',
 		name: 'DMasterFakultas',
 		meta:{
