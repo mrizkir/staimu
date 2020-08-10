@@ -10,7 +10,7 @@ use App\Models\System\ConfigurationModel;
 
 class TahunAkademikController extends Controller {  
     /**
-     * daftar kelas
+     * daftar tahun akademik
      */
     public function index(Request $request)
     {
@@ -55,7 +55,7 @@ class TahunAkademikController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'kelas'=>$ta,                                    
+                                    'ta'=>$ta,                                    
                                     'message'=>'Data tahun akademik berhasil disimpan.'
                                 ],200); 
 
@@ -113,7 +113,7 @@ class TahunAkademikController extends Controller {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',
-                                    'kelas'=>$ta,      
+                                    'ta'=>$ta,      
                                     'message'=>'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
                                 ],200); 
         }
