@@ -156,12 +156,15 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');
-        $code='';
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
         if (!is_null($user) && $config_kirim_email==1)
         {
-            $code=$user->code;
+            $code='';
             app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
+        }
+        else
+        {
+            $code=$user->code;
         }       
 
         return Response()->json([
@@ -226,14 +229,16 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');
-        $code='';
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
         if (!is_null($user) && $config_kirim_email==1)
         {
-            $code=$user->code;
+            $code='';            
             app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
         }       
-
+        else
+        {
+            $code=$user->code;
+        }
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
@@ -384,8 +389,13 @@ class PMBController extends Controller {
             $user=User::find($user[0]->id);
             $user->code=0;
             $user->active=1;
-            $user->save();            
-            app()->mailer->to($email)->send(new MahasiswaBaruRegistered($user));
+            $user->save();   
+            
+            $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
+            if (!is_null($user) && $config_kirim_email==1)
+            {
+                app()->mailer->to($email)->send(new MahasiswaBaruRegistered($user));
+            }
 
             return Response()->json([
                                         'status'=>1,
@@ -481,6 +491,7 @@ class PMBController extends Controller {
                 $user->givePermissionTo($permission->pluck('name'));             
                 
                 //buat transaksi keuangan pmb
+                $no_transaksi='N.A';
                 $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',101)->first();                
                 if (is_null($transaksi_detail))
                 {                  
@@ -522,10 +533,14 @@ class PMBController extends Controller {
                         $transaksi->save();
                     }                    
                 }
+                else
+                {
+                    $no_transaksi=$transaksi_detail->no_transaksi;
+                }
                 $formulir=FormulirPendaftaranModel::find($formulir->user_id);
                 return [
                     'formulir'=>$formulir,
-                    'no_transaksi'=>$transaksi_detail->no_transaksi
+                    'no_transaksi'=>$no_transaksi
                 ];
             });
             return Response()->json([
@@ -591,6 +606,7 @@ class PMBController extends Controller {
         ]);
         $user = User::find($request->input('id'));
         $name=$user->name;
+        
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'resendemail',                
