@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter10 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeIDKelas="changeIDKelas" ref="filter10" />
         </template>
-        <v-container>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-data-table

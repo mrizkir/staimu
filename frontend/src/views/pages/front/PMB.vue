@@ -224,6 +224,7 @@ export default {
                     captcha_response:this.formdata.captcha_response,
                 }).then(({data})=>{
                     this.formkonfirmasi.email=data.email;
+                    this.formkonfirmasi.code=data.code;
                     this.btnLoading=false;    
                     this.dialogkonfirmasiemail=true;  
                     

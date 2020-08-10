@@ -25,7 +25,7 @@
                     </v-alert>
             </template>
         </ModuleHeader> 
-        <v-container>  
+        <v-container fluid>  
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -149,7 +149,7 @@ export default {
                 this.formdata.nama_pt=setting.NAMA_PT;
                 this.formdata.nama_alias_pt=setting.NAMA_PT_ALIAS;
                 this.formdata.bentuk_pt=setting.BENTUK_PT;
-                this.formdata.kode_pt=setting.kode_pt;
+                this.formdata.kode_pt=setting.KODE_PT;
             });          
             
         },

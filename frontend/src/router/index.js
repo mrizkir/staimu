@@ -296,6 +296,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/Captcha.vue'),		
 	},
 	{
+		path: '/system-setting/email',
+		name: 'SettingEmail',
+		meta:{
+			title: "SETTING - EMAIL",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/Email.vue'),		
+	},
+	{
 		path: '/system-users',
 		name: 'SystemUsers',
 		meta:{

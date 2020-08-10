@@ -25,7 +25,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>        
-        <v-container>    
+        <v-container fluid>    
             <v-row class="mb-4" no-gutters>
                 <v-col xs="12" sm="12" md="12">
                     <v-card>
@@ -76,7 +76,7 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-text>                                                
-                                                <v-container>
+                                                <v-container fluid>
                                                     <v-row>
                                                         <v-col cols="12" sm="12" md="12">
                                                             <v-text-field 

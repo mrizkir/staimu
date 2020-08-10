@@ -156,16 +156,19 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = 0;
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');
+        $code='';
         if (!is_null($user) && $config_kirim_email==1)
         {
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));
+            $code=$user->code;
+            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
         }       
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'email'=>$user->email,                                                                                                  
+                                    'email'=>$user->email,                              
+                                    'code'=>$code,                                                                    
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
                                 ],200); 
 
@@ -190,7 +193,7 @@ class PMBController extends Controller {
         ]);
         $user = \DB::transaction(function () use ($request){
             $now = \Carbon\Carbon::now()->toDateTimeString();                   
-            $code=0;
+            $code=mt_rand(1000,9999);
             $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
@@ -223,16 +226,19 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = 0;
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');
+        $code='';
         if (!is_null($user) && $config_kirim_email==1)
         {
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));
+            $code=$user->code;
+            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
         }       
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'pendaftar'=>$user,                                                                                                  
+                                    'pendaftar'=>$user,
+                                    'code'=>$code,                                                                                                    
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
                                 ],200); 
 

@@ -25,7 +25,7 @@
                     </v-alert>
             </template>
         </ModuleHeader> 
-        <v-container>  
+        <v-container fluid>  
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>

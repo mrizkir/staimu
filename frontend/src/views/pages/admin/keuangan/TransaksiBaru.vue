@@ -28,7 +28,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <v-container>
+        <v-container fluid>
             <v-row>
                 <v-col cols="7">
                     <v-card>

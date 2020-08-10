@@ -38,10 +38,10 @@
                     </v-alert>
             </template>
         </ModuleHeader> 
-        <v-container v-if="dashboard=='mahasiswabaru'">
+        <v-container fluid v-if="dashboard=='mahasiswabaru'">
             <FormPersyaratan :user_id="$store.getters['auth/AttributeUser']('id')" v-if="showcomponentpersyaratan"/>
         </v-container>
-        <v-container v-else>
+        <v-container fluid v-else>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>

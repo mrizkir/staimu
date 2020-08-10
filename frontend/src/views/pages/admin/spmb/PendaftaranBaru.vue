@@ -28,7 +28,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>  
-        <v-container>    
+        <v-container fluid>    
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -234,23 +234,23 @@
                             {{$date(item.created_at).format('DD/MM/YYYY HH:mm')}}
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
-                            <td colspan="5">
-                                    <strong>ID:</strong>{{ item.id }}
-                                    <strong>Username:</strong>{{ item.username }}
+                            <td :colspan="headers.length" class="text-center">
+                                <v-col cols="12">
+                                    <strong>ID:</strong>{{ item.id }}                                    
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
-                            </td>
-                            <td colspan="2" class="text-right">
-                                <v-btn 
-                                    icon 
-                                    color="warning" 
-                                    title="aktifkan"
-                                    :loading="btnLoading"
-                                    :disabled="btnLoading" 
-                                    @click.stop="aktifkan(item.id)"
-                                    v-if="item.active==0">
-                                    <v-icon>mdi-email-check</v-icon>
-                                </v-btn>
+                                </v-col>
+                                <v-col cols="12" v-if="item.active==0">
+                                    <v-btn 
+                                        icon 
+                                        color="warning" 
+                                        title="aktifkan"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading" 
+                                        @click.stop="aktifkan(item.id)">
+                                        <v-icon>mdi-email-check</v-icon>
+                                    </v-btn>
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -315,9 +315,10 @@ export default {
         headers: [                        
             { text: '', value: 'foto', width:70 },            
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
+            { text: 'USERNAME', value: 'username',sortable:true },
             { text: 'EMAIL', value: 'email',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
-            { text: 'TGL.DAFTAR', value: 'created_at',sortable:true,width:150 },     
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable:false,width:130 },                
+            { text: 'TGL.DAFTAR', value: 'created_at',sortable:true,width:100 },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         expanded:[],

@@ -101,6 +101,16 @@
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>  
+                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/email">
+                        <v-list-item-icon class="mr-2">
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                EMAIL
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>  
                 </v-list>
             </v-menu>
             <v-divider
