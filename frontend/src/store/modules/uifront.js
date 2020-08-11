@@ -72,6 +72,8 @@ const getters= {
 const actions = {
     init: async function ({commit,state},ajax)
     {        
+        //dipindahkan kesini karena ada beberapa kasus yang melaporkan ini membuat bermasalah.
+        commit('setLoaded',false);              
         if (!state.loaded)
         {            
             await ajax.get('/system/setting/uifront').then(({data})=>{                  

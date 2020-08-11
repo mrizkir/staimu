@@ -215,6 +215,8 @@ const getters= {
 const actions = {    
     init: async function ({commit,state,rootGetters},ajax)
     {   
+        //dipindahkan kesini karena ada beberapa kasus yang melaporkan ini membuat bermasalah.
+        commit('setLoaded',false);              
         if (!state.loaded && rootGetters['auth/Authenticated'])
         {   
             commit('setTahunPendaftaran',rootGetters['uifront/getTahunPendaftaran']);   
