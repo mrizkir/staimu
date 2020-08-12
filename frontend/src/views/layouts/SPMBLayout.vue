@@ -94,7 +94,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>        
-                <v-divider v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'"></v-divider>     
+                <v-subheader>DATA MHS. BARU</v-subheader>                
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB_BROWSE')" to="/spmb/pendaftaranbaru">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-plus</v-icon>
@@ -124,8 +124,8 @@
                             PERSYARATAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                
-                <v-divider></v-divider>
+                </v-list-item>            
+                <v-subheader>UJIAN PMB</v-subheader>       
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-JADWAL-UJIAN_BROWSE') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'" to="/spmb/jadwalujianpmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-calendar-account</v-icon>
@@ -135,8 +135,18 @@
                             JADWAL UJIAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                          
-                <v-divider />
+                </v-list-item>      
+                <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-NILAI-UJIAN_BROWSE') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'" to="/spmb/nilaiujian">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-calendar-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            NILAI UJIAN
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>      
+                <v-subheader v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">LAPORAN</v-subheader>                      
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-LAPORAN-FAKULTAS_BROWSE') && isBentukPT('universitas')" to="/spmb/laporanfakultas">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-file-document-edit-outline</v-icon>

@@ -31,6 +31,14 @@ class KemahasiswaanController extends Controller {
         {
             $user->active = $request->input('active');
             $user->save();
+
+            \App\Models\System\ActivityLog::log($request,[
+                                        'object' => $this->guard()->user(), 
+                                        'object_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->guard()->user()->id, 
+                                        'message' => 'Merubah status Mahasiswa baru menjadi active A.N ('.$user->username.') berhasil dilakukan'
+                                    ]);
+
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',                                                                                                                                     

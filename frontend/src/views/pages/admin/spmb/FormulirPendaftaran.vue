@@ -254,6 +254,10 @@ export default {
             this.datamhsbaru = item;
             this.dialogprofilmhsbaru = true;
         },
+        editItem(item)
+        {
+            console.log(item);
+        },
         closeProfilMahasiswaBaru ()
         {
             this.dialogprofilmhsbaru = false;                      

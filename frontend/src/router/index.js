@@ -140,6 +140,15 @@ const routes = [
 		component: () => import('../views/pages/admin/spmb/PersyaratanPMB.vue'),		
 	},
 	{
+		path: '/spmb/jadwalujianpmb',
+		name: 'SPMBJadwalUjianPMB',
+		meta:{
+			title: "SPMB - JADWAL UJIAN PMB",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/spmb/JadwalUjianPMB.vue'),		
+	},
+	{
 		path: '/spmb/ujianonline',
 		name: 'SPMBUjianOnline',
 		meta:{
@@ -149,14 +158,14 @@ const routes = [
 		component: () => import('../views/pages/admin/spmb/UjianOnline.vue'),		
 	},
 	{
-		path: '/spmb/jadwalujianpmb',
-		name: 'SPMBJadwalUjianPMB',
+		path: '/spmb/nilaiujian',
+		name: 'SPMBNilaiUjian',
 		meta:{
-			title: "SPMB - JADWAL UJIAN PMB",
+			title: "SPMB - NILAI UJIAN",
 			requiresAuth:true,
         },
-		component: () => import('../views/pages/admin/spmb/JadwalUjianPMB.vue'),		
-	},
+		component: () => import('../views/pages/admin/spmb/NilaiUjian.vue'),		
+	},	
 	{
 		path: '/spmb/jadwalujianpmb/passinggrade/:idjadwalujian',
 		name: 'SPMBPassingGrade',

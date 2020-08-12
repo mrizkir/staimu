@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Keuangan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Helpers\Helper;
 use App\Models\Keuangan\KomponenBiayaModel;
 use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 
@@ -57,7 +58,13 @@ class BiayaKomponenPeriodeController extends Controller {
         $kombi=BiayaKomponenPeriodeModel::where('tahun',$ta)
                                             ->where('idkelas',$idkelas)
                                             ->get();
-            
+        
+        \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $kombi,
+                                                        'object_id'=>'N.A', 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => 'Menyalin data kombi ke data kombi periode berhasil.'
+                                                    ]);
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',  
@@ -80,14 +87,21 @@ class BiayaKomponenPeriodeController extends Controller {
         $biaya=$request->input('biaya');
         
         $kombi_biaya=BiayaKomponenPeriodeModel::find($id);
+        $old_biaya=$kombi_biaya->biaya;
         $kombi_biaya->biaya=$biaya;
         $kombi_biaya->save();
-
+        
+        \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $kombi_biaya,
+                                                        'object_id'=>$kombi_biaya->id, 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => 'Mengubah besaran biaya Rp. '.Helper::formatUang($old_biaya).' menjadi '.Helper::formatUang($biaya).' komponen ('.$kombi_biaya->nama_kombi.') berhasil dilakukan'
+                                                    ]);
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
                                     'kombi_biaya'=>$kombi_biaya,                                                                                                                                                               
-                                    'message'=>'Mengubah biaya komponen '.$kombi_biaya->nama_kombi.'berhasil.'
+                                    'message'=>'Mengubah biaya komponen '.$kombi_biaya->nama_kombi.' berhasil.'
                                 ],200);     
     } 
 }

@@ -18,7 +18,7 @@ class CreateBiayaKomponenPeriodeTable extends Migration
             $table->uuid('id')->primary();    
             $table->smallInteger('kombi_id'); 
             $table->string('nama_kombi');  
-            $table->enum('periode',['insidental','persemester','sekali']);
+            $table->enum('periode',['insidental','persemester','perbulan','sekali']);                                                            
             $table->char('idkelas',1);                                                       
             $table->year('tahun');                                                            
             $table->decimal('biaya',15,2);                                                            

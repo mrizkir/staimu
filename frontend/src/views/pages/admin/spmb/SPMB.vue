@@ -42,9 +42,9 @@
                             <v-col xs="12" sm="6" md="3" v-for="item in daftar_prodi" v-bind:key="item.id">
                                 <v-card color="#385F73" dark>
                                     <v-card-title class="headline">
-                                        {{item.nama_prodi}}
+                                        {{item.nama_prodi_alias}}
                                     </v-card-title>
-                                    <v-card-subtitle class="headline">
+                                    <v-card-subtitle>
                                         Jenjang : {{item.nama_jenjang}}
                                     </v-card-subtitle>
                                     <v-card-text>
