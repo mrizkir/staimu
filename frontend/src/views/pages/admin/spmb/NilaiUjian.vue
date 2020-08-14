@@ -84,10 +84,10 @@
                                 <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">                                    
                                     <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />                                    
                                 </v-dialog>
-                                <v-dialog v-model="dialogfrm" max-width="750px" persistent v-if="dialogfrm">
+                                <v-dialog v-model="dialogfrm" persistent v-if="dialogfrm">
                                     <v-card color="grey lighten-4">
                                         <v-toolbar elevation="2"> 
-                                            <v-toolbar-title>KONFIRMASI !!!</v-toolbar-title>
+                                            <v-toolbar-title>KELULUSAN !!!</v-toolbar-title>
                                             <v-divider
                                                 class="mx-4"
                                                 inset
@@ -101,7 +101,7 @@
                                         </v-toolbar>
                                         <v-card-text>
                                             <v-row>
-                                                <v-col xs="12" sm="6" md="6">
+                                                <v-col xs="12" sm="3" md="3">
                                                     <v-card flat>
                                                         <v-card-title>ID :</v-card-title>
                                                         <v-card-subtitle>
@@ -110,7 +110,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
-                                                <v-col xs="12" sm="6" md="6">
+                                                <v-col xs="12" sm="3" md="3">
                                                     <v-card flat>
                                                         <v-card-title>NAMA MAHASISWA :</v-card-title>
                                                         <v-card-subtitle>
@@ -118,68 +118,26 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col xs="12" sm="6" md="6">
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="3" md="3">
                                                     <v-card flat>
-                                                        <v-card-title>KODE BILLING :</v-card-title>
+                                                        <v-card-title>NOMOR HP :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.no_transaksi}}
+                                                            {{data_nilai.nomor_hp}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                <v-col xs="12" sm="6" md="6">
+                                                <v-col xs="12" sm="3" md="3">
                                                     <v-card flat>
-                                                        <v-card-title>NOMOR FORMULIR :</v-card-title>
+                                                        <v-card-title>KELAS :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.no_formulir}}
+                                                            {{data_nilai.nkelas}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>TANGGAL TRANSAKSI :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            {{$date(data_nilai.tanggal).format('DD/MM/YYYY')}} {{$date(data_nilai.created_at).format('HH:mm:ss')}}
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>NIM :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            {{data_nilai.nim}}
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
-                                            <v-row>
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>TOTAL :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            {{data_nilai.total|formatUang}}
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>STATUS :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            <v-chip :color="data_nilai.style" dark>{{data_nilai.nama_status}}</v-chip>
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>
+                                            </v-row>                                                
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -189,31 +147,20 @@
                                                                     v-model="formdata.nilai"
                                                                     label="NILAI UJIAN:" 
                                                                     :rules="rule_nilai"
-                                                                    outlined />  
-                                                                <v-text-field 
-                                                                    v-model="formdata.nama_rekening_pengirim"
-                                                                    label="NAMA PENGIRIM:" 
-                                                                    :rules="rule_nama_pengirim"
-                                                                    outlined />  
-                                                                <v-text-field 
-                                                                    v-model="formdata.nama_bank_pengirim"
-                                                                    label="BANK PENGIRIM:" 
-                                                                    :rules="rule_nama_bank"
                                                                     outlined /> 
-                                                                
-                                                                <v-textarea 
+                                                                <v-select
+                                                                    label="DITERIMA DI PROGRAM STUDI :"
+                                                                    v-model="formdata.kjur"
+                                                                    :items="daftar_prodi"
+                                                                    item-text="nama_prodi"
+                                                                    item-value="prodi_id"
+                                                                    :rules="rule_prodi"
+                                                                    outlined
+                                                                />  
+                                                                <v-text-field 
                                                                     v-model="formdata.desc"
-                                                                    label="CATATAN:"                                                                    
-                                                                    outlined />
-                                                                <v-file-input 
-                                                                    accept="image/jpeg,image/png" 
-                                                                    label="BUKTI BAYAR (MAKS. 2MB)"
-                                                                    :rules="rule_bukti_bayar"
-                                                                    show-size
-                                                                    v-model="formdata.bukti_bayar"
-                                                                    @change="previewImage">
-                                                                </v-file-input> 
-                                                                <v-img class="white--text align-end" :src="buktiBayar"></v-img>                                                                               
+                                                                    label="CATATAN:"                                                                     
+                                                                    outlined /> 
                                                             </v-card-text>
                                                             <v-card-actions>
                                                                 <v-spacer></v-spacer>
@@ -258,7 +205,7 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click.stop="editItem(item)">
+                                @click.stop="addItem(item)">
                                 mdi-pencil
                             </v-icon>
                         </template>
@@ -352,26 +299,47 @@ export default {
         form_valid:true,   
 
         data_nilai:{},
+
+        daftar_prodi:[],
         formdata: {            
-            user_id:0,            
-            jadwal_ujian_id:1,            
-            jumlah_soal:0,            
-            jawaban_benar:0,            
-            jawaban_salah:0,            
-            soal_tidak_terjawab:0,            
-            passing_grade_1:0,            
-            passing_grade_2:0,            
-            nilai:1,            
-            ket_lulus:1,            
-            kjur:1,            
-            desc:1,            
-            created_at:1,            
-            updated_at:1,            
+            user_id:'',            
+            jadwal_ujian_id:null,            
+            jumlah_soal:null,            
+            jawaban_benar:null,            
+            jawaban_salah:null,            
+            soal_tidak_terjawab:null,            
+            passing_grade_1:null,            
+            passing_grade_2:null,            
+            nilai:0,            
+            ket_lulus:0,            
+            kjur:null,            
+            desc:'',            
+            created_at:'',            
+            updated_at:'',            
+        },
+        formdatadefault: {            
+            user_id:'',            
+            jadwal_ujian_id:null,            
+            jumlah_soal:null,            
+            jawaban_benar:null,            
+            jawaban_salah:null,            
+            soal_tidak_terjawab:null,            
+            passing_grade_1:null,            
+            passing_grade_2:null,            
+            nilai:0,            
+            ket_lulus:0,            
+            kjur:null,            
+            desc:'',            
+            created_at:'',            
+            updated_at:'',            
         },
         rule_nilai:[
-            value => !!value||"Mohon diisi nomor rekening pengirim !!!",
-            value => /^[0-9]+$/.test(value) || 'Nomor Rekening hanya boleh angka',
+            value => !!value||"Mohon diisi nomor nilai ujian !!!",
+            value => /^[0-9]+$/.test(value) || 'Nilai Ujian hanya boleh angka',
         ],
+        rule_prodi:[
+            value => !!value||"Mohon dipilih Prodi Mahasiswa ini !!!"
+        ], 
     }),
     methods : {
         changeTahunPendaftaran (tahun)
@@ -433,10 +401,61 @@ export default {
             this.datamhsbaru = item;
             this.dialogprofilmhsbaru = true;
         },
-        editItem(item)
+        async addItem(item)
         {
-            this.data_nilai=item;
-            this.dialogfrm=true;        
+            await this.$ajax.get('/spmb/nilaiujian/'+item.id,
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{   
+                if (data.transaksi_status==1)
+                {
+                    this.data_nilai=item;
+                    this.data_nilai['no_transaksi']=data.no_transaksi;                                        
+                    this.daftar_prodi=data.daftar_prodi;
+                    this.dialogfrm=true;        
+                }       
+                else
+                {
+                    this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning',width:400,action:'ok' });
+                }         
+            });              
+        },
+        save () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;                      
+                this.$ajax.post('/spmb/nilaiujian/store',
+                {
+                    no_transaksi:this.data_nilai.no_transaksi,
+                    user_id:this.data_nilai.id,
+                    nilai:this.formdata.nilai,
+                    kjur:this.formdata.kjur,
+                    desc:this.formdata.desc,
+                },                    
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token'],                        
+                    }
+                }
+                ).then(()=>{               
+                    this.btnLoading=false;          
+                    this.closedialogfrm();
+                    this.initialize();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            
+            }
+        },
+        closedialogfrm () {            
+            this.dialogfrm = false;            
+            setTimeout(() => {
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.data_nilai = Object.assign({}, {});                                  
+                }, 300
+            );
         },
         closeProfilMahasiswaBaru ()
         {

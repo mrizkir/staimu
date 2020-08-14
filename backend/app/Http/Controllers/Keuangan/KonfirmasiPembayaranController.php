@@ -182,6 +182,14 @@ class KonfirmasiPembayaranController extends Controller {
                 'bukti_bayar'=>"storage/images/buktibayar/$file_name",  
             ]);
             $bukti_bayar->move($folder,$file_name);
+
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $konfirmasi, 
+                                                            'object_id' => $konfirmasi->transaksi_id, 
+                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'message' => 'Meng-upload bukti pembayaran dan melengkapi informasi  telah berhasil dilakukan.'
+                                                        ]);
+
             return Response()->json([
                                         'status'=>0,
                                         'pid'=>'store',
@@ -221,6 +229,12 @@ class KonfirmasiPembayaranController extends Controller {
             $transaksi->status=1;
             $transaksi->save();
             
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $konfirmasi, 
+                                                            'object_id' => $konfirmasi->transaksi_id, 
+                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'message' => 'Melakukan verifikasi terhadap transaksi dengan status PAID telah berhasil dilakukan.'
+                                                        ]);
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',                                          

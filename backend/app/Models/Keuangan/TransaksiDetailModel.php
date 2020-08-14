@@ -34,6 +34,8 @@ class TransaksiDetailModel extends Model {
         'promotype',
         'promovalue',
         'jumlah',
+        // dimanfaatkan untuk pembayaran per bulan
+        'bulan',
         'sub_total',        
     ];
     /**

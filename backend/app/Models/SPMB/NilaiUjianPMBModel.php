@@ -4,7 +4,7 @@ namespace App\Models\SPMB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JawabanUjianPMBModel extends Model {    
+class NilaiUjianPMBModel extends Model {    
      /**
      * nama tabel model ini.
      *
@@ -30,6 +30,7 @@ class JawabanUjianPMBModel extends Model {
         'jawaban_salah',                               
         'soal_tidak_terjawab',                               
         'passing_grade_1',                               
+        'passing_grade_2',                               
         'nilai',                               
         'ket_lulus',                               
         'kjur',                               

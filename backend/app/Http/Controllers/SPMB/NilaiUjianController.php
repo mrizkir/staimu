@@ -4,11 +4,12 @@ namespace App\Http\Controllers\SPMB;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
-use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\SPMB\FormulirPendaftaranModel;
+use App\Models\SPMB\NilaiUjianPMBModel;
 use App\Models\System\ConfigurationModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
@@ -45,7 +46,7 @@ class NilaiUjianController extends Controller {
                         CASE
                             WHEN pe3_nilai_ujian_pmb.ket_lulus IS NULL THEN \'N.A\'
                             WHEN pe3_nilai_ujian_pmb.ket_lulus=0 THEN \'FAIL\'
-                            WHEN pe3_nilai_ujian_pmb.ket_lulus=0 THEN \'PASS\'
+                            WHEN pe3_nilai_ujian_pmb.ket_lulus=1 THEN \'PASS\'
                         END AS status,
                         pe3_kelas.nkelas,
                         users.active,
@@ -78,215 +79,51 @@ class NilaiUjianController extends Controller {
      */
     public function store(Request $request)
     {
+        $kjur=$request->input('kjur');
         $this->validate($request, [
-            'name'=>'required',            
-            'email'=>'required|string|email|unique:users',
-            'nomor_hp'=>'required|unique:users',            
-            'prodi_id'=>'required',
-            'username'=>'required|string|unique:users',
-            'password'=>'required',
-            'captcha_response'=>[
-                                'required',
-                                function ($attribute, $value, $fail) 
-                                {
-                                    $client = new Client ();
-                                    $response = $client->post(
-                                        'https://www.google.com/recaptcha/api/siteverify',
-                                        ['form_params'=>
-                                            [
-                                                'secret'=>ConfigurationModel::getCache('CAPTCHA_PRIVATE_KEY'),
-                                                'response'=>$value
-                                            ]
-                                        ]);    
-                                    $body = json_decode((string)$response->getBody());
-                                    if (!$body->success)
-                                    {
-                                        $fail('Token Google Captcha, salah !!!.');
-                                    }
-                                }
-                            ]
+            'user_id'=>[
+                        'required',
+                        Rule::exists('pe3_formulir_pendaftaran')->where(function ($query) use ($kjur) {
+                            return $query->whereNotNull('idkelas')
+                                        ->where('kjur1',$kjur);
+                        })
+                    ],            
+            'no_transaksi'=>[
+                        'required',
+                        Rule::exists('pe3_transaksi')->where(function ($query) {
+                            return $query->where('status',1);
+                        })
+                    ],   
+            'nilai'=>'required|numeric',            
+            'kjur'=>'required',            
         ]);
-        $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();                   
-            $code=mt_rand(1000,9999);
-            $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
-            $user=User::create([
-                'id'=>Uuid::uuid4()->toString(),
-                'name'=>$request->input('name'),
-                'email'=>$request->input('email'),
-                'username'=> $request->input('username'),
-                'password'=>Hash::make($request->input('password')),
-                'nomor_hp'=>$request->input('nomor_hp'),
-                'ta'=>$ta,
-                'email_verified_at'=>'',
-                'theme'=>'default',  
-                'foto'=> 'storage/images/users/no_photo.png',
-                'code'=>$code,          
-                'active'=>0,          
-                'created_at'=>$now, 
-                'updated_at'=>$now
-            ]);            
-            $role='mahasiswabaru';   
-            $user->assignRole($role);
-            $permission=Role::findByName('mahasiswabaru')->permissions;
-            $user->givePermissionTo($permission->pluck('name'));             
-            
-            FormulirPendaftaranModel::create([
-                'user_id'=>$user->id,
-                'nama_mhs'=>$request->input('name'),                
-                'telp_hp'=>$request->input('nomor_hp'),
-                'kjur1'=>$request->input('prodi_id'),
-                'ta'=>$ta,
-            ]);
 
-            return $user;
-        });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
-        if (!is_null($user) && $config_kirim_email==1)
-        {
-            $code='';
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
-        }
-        else
-        {
-            $code=$user->code;
-        }       
+        $data_nilai=NilaiUjianPMBModel::updateOrCreate([
+            'user_id'=>$request->input('user_id'),
+            'jadwal_ujian_id'=>null,
+            'jumlah_soal'=>null,
+            'jawaban_benar'=>null,
+            'jawaban_salah'=>null,
+            'soal_tidak_terjawab'=>null,
+            'passing_grade_1'=>null,
+            'passing_grade_2'=>null,
+            'nilai'=>$request->input('nilai'),
+            'kjur'=>$request->input('kjur'),
+            'ket_lulus'=>1,
+            'desc'=>$request->input('desc'),
+        ]);          
 
+        \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $data_nilai, 
+                                                        'object_id' => $data_nilai->user_id, 
+                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'message' => 'Mahasiswa berhasil dinyatakan lulus.'
+                                                    ]);
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'email'=>$user->email,                              
-                                    'code'=>$code,                                                                    
-                                    'message'=>'Data Mahasiswa baru berhasil disimpan.'
-                                ],200); 
-
-    }      
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storependaftar(Request $request)
-    {
-        $this->hasPermissionTo('SPMB-PMB_STORE');
-
-        $this->validate($request, [
-            'name'=>'required',            
-            'email'=>'required|string|email|unique:users',
-            'nomor_hp'=>'required|unique:users',            
-            'prodi_id'=>'required',
-            'username'=>'required|string|unique:users',
-            'password'=>'required',            
-        ]);
-        $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();                   
-            $code=mt_rand(1000,9999);
-            $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
-            $user=User::create([
-                'id'=>Uuid::uuid4()->toString(),
-                'name'=>$request->input('name'),
-                'email'=>$request->input('email'),
-                'username'=> $request->input('username'),
-                'password'=>Hash::make($request->input('password')),
-                'nomor_hp'=>$request->input('nomor_hp'),
-                'ta'=>$ta,
-                'email_verified_at'=>'',
-                'theme'=>'default',  
-                'code'=>$code,          
-                'active'=>1,         
-                'foto'=>'storage/images/users/no_photo.png', 
-                'created_at'=>$now, 
-                'updated_at'=>$now
-            ]);            
-            $role='mahasiswabaru';   
-            $user->assignRole($role);
-            $permission=Role::findByName('mahasiswabaru')->permissions;
-            $user->givePermissionTo($permission->pluck('name'));             
-            
-            FormulirPendaftaranModel::create([
-                'user_id'=>$user->id,
-                'nama_mhs'=>$request->input('name'),                
-                'telp_hp'=>$request->input('nomor_hp'),
-                'kjur1'=>$request->input('prodi_id'),
-                'ta'=>$ta,
-            ]);
-
-            return $user;
-        });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
-        if (!is_null($user) && $config_kirim_email==1)
-        {
-            $code='';            
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
-        }       
-        else
-        {
-            $code=$user->code;
-        }
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'pendaftar'=>$user,
-                                    'code'=>$code,                                                                                                    
-                                    'message'=>'Data Mahasiswa baru berhasil disimpan.'
-                                ],200); 
-
-    }      
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function updatependaftar(Request $request,$id)
-    {
-        $this->hasPermissionTo('SPMB-PMB_UPDATE');
-
-        $user = User::find($id);
-        if (is_null($user))
-        {
-            return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',                
-                                    'message'=>["User ID ($id) gagal diupdate"]
-                                ],422); 
-        }
-        else
-        {
-            $this->validate($request, [
-                'username'=>[
-                    'required',
-                    'unique:users,username,'.$user->id
-                ],              
-                'email'=>'required|string|email|unique:users,email,'.$user->id,
-                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                   
-            ]);
-            
-            $user = \DB::transaction(function () use ($request,$user){
-                $user->name = $request->input('name');
-                $user->email = $request->input('email');
-                $user->nomor_hp = $request->input('nomor_hp');
-                $user->username = $request->input('username');        
-                if (!empty(trim($request->input('password')))) {
-                    $user->password = Hash::make($request->input('password'));
-                }
-                $user->save();
-
-                $formulir=FormulirPendaftaranModel::find($user->id);
-                $formulir->nama_mhs=$request->input('name');
-                $formulir->telp_hp=$request->input('telp_hp');
-                $formulir->save();
-
-                return $user;
-            });
-        }
-
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'pendaftar'=>$user,                                                                                                  
-                                    'message'=>'Data Mahasiswa baru berhasil diubah.'
+                                    'data_nilai'=>$data_nilai,
+                                    'message'=>'Menyimpan status kelulusan Mahasiswa Baru berhasil dilakukan.'
                                 ],200); 
 
     }      
@@ -298,33 +135,12 @@ class NilaiUjianController extends Controller {
      */
     public function show(Request $request,$id)
     {
-        $formulir=FormulirPendaftaranModel::select(\DB::raw('
-                                                                users.id,
-                                                                user_id,
-                                                                nama_mhs,
-                                                                tempat_lahir,
-                                                                tanggal_lahir,
-                                                                jk,
-                                                                nomor_hp,
-                                                                email,
-                                                                nama_ibu_kandung,
-                                                                address1_desa_id,
-                                                                address1_kelurahan,
-                                                                address1_kecamatan_id,
-                                                                address1_kecamatan,
-                                                                address1_kabupaten_id,
-                                                                address1_kabupaten,                                                                
-                                                                address1_provinsi_id,
-                                                                address1_provinsi,                                                                
-                                                                alamat_rumah,
-                                                                pe3_prodi.kode_fakultas,
-                                                                kjur1,
-                                                                idkelas,
-                                                                users.ta,
-                                                                idsmt
-                                                            '))
+        $formulir=FormulirPendaftaranModel::select(\DB::raw('                                                          
+                                                            kjur1,
+                                                            CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
+                                                        '))
                                             ->join('users','users.id','pe3_formulir_pendaftaran.user_id')
-                                            ->leftJoin('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')
+                                            ->join('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')                                            
                                             ->find($id);
         if (is_null($formulir))
         {
@@ -336,18 +152,27 @@ class NilaiUjianController extends Controller {
         }
         else
         {
-            $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',101)->first(); 
+            $transaksi_detail=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.no_transaksi,pe3_transaksi.status'))
+                                                    ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+                                                    ->where('pe3_transaksi.user_id',$formulir->user_id)
+                                                    ->where('kombi_id',101)                                                    
+                                                    ->first(); 
+
+            $transaksi_status=0;
             $no_transaksi='N.A';
             if (!is_null($transaksi_detail))
             {
                 $no_transaksi=$transaksi_detail->no_transaksi;
+                $transaksi_status=$transaksi_detail->status;
             } 
+            $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];            
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                
-                                        'formulir'=>$formulir,                                        
-                                        'no_transaksi'=>$no_transaksi,
-                                        'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
+                                        'pid'=>'fetchdata',                                                        
+                                        'no_transaksi'=>'$no_transaksi',                                                                           
+                                        'transaksi_status'=>$transaksi_status,
+                                        'daftar_prodi'=>$daftar_prodi,                                        
+                                        'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
                                     ],200);        
         }
 
