@@ -105,7 +105,7 @@
                                                     <v-card flat>
                                                         <v-card-title>ID :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.id}}
+                                                            {{data_mhs.id}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -114,7 +114,7 @@
                                                     <v-card flat>
                                                         <v-card-title>NAMA MAHASISWA :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.name}}
+                                                            {{data_mhs.name}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -123,7 +123,7 @@
                                                     <v-card flat>
                                                         <v-card-title>NOMOR HP :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.nomor_hp}}
+                                                            {{data_mhs.nomor_hp}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -132,7 +132,7 @@
                                                     <v-card flat>
                                                         <v-card-title>KELAS :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{data_nilai.nkelas}}
+                                                            {{data_mhs.nkelas}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -142,12 +142,14 @@
                                                 <v-col cols="12">
                                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                                         <v-card>                                                            
-                                                            <v-card-text>          
-                                                                <v-text-field 
-                                                                    v-model="formdata.nilai"
+                                                            <v-card-text>                                                                      
+                                                                <v-currency-field 
                                                                     label="NILAI UJIAN:" 
-                                                                    :rules="rule_nilai"
-                                                                    outlined /> 
+                                                                    :min="null"
+                                                                    :max="null"                                            
+                                                                    outlined                                                                    
+                                                                    v-model="formdata.nilai">                                        
+                                                                </v-currency-field> 
                                                                 <v-select
                                                                     label="DITERIMA DI PROGRAM STUDI :"
                                                                     v-model="formdata.kjur"
@@ -155,8 +157,13 @@
                                                                     item-text="nama_prodi"
                                                                     item-value="prodi_id"
                                                                     :rules="rule_prodi"
-                                                                    outlined
-                                                                />  
+                                                                    outlined/>  
+                                                                <v-select
+                                                                    label="STATUS :"
+                                                                    v-model="formdata.ket_lulus"
+                                                                    :items="daftar_status"                                                                    
+                                                                    :rules="rule_status"
+                                                                    outlined/>
                                                                 <v-text-field 
                                                                     v-model="formdata.desc"
                                                                     label="CATATAN:"                                                                     
@@ -206,7 +213,7 @@
                                 small
                                 class="mr-2"
                                 @click.stop="addItem(item)" 
-                                disabled="item.status=='N.A'">
+                                :disabled="item.ket_lulus=='1'">
                                 mdi-pencil
                             </v-icon>
                         </template>
@@ -299,9 +306,20 @@ export default {
         //form data   
         form_valid:true,   
 
-        data_nilai:{},
-
+        data_mhs:{},
+        
         daftar_prodi:[],
+
+        daftar_status:[
+            {
+                value:'0',
+                text:'TIDAK LULUS',
+            },
+            {
+                value:'1',
+                text:'LULUS',
+            },
+        ],
         formdata: {            
             user_id:'',            
             jadwal_ujian_id:null,            
@@ -312,7 +330,7 @@ export default {
             passing_grade_1:null,            
             passing_grade_2:null,            
             nilai:0,            
-            ket_lulus:0,            
+            ket_lulus:'',            
             kjur:null,            
             desc:'',            
             created_at:'',            
@@ -328,18 +346,19 @@ export default {
             passing_grade_1:null,            
             passing_grade_2:null,            
             nilai:0,            
-            ket_lulus:0,            
+            ket_lulus:'',            
             kjur:null,            
             desc:'',            
             created_at:'',            
             updated_at:'',            
         },
-        rule_nilai:[
-            value => !!value||"Mohon diisi nomor nilai ujian !!!",
-            value => /^[0-9]+$/.test(value) || 'Nilai Ujian hanya boleh angka',
-        ],
+        editedItem:-1,
+
         rule_prodi:[
             value => !!value||"Mohon dipilih Prodi Mahasiswa ini !!!"
+        ], 
+        rule_status:[
+            value => !!value||"Mohon dipilih status kelulusan mahasiswan ini !!!"
         ], 
     }),
     methods : {
@@ -413,10 +432,21 @@ export default {
                 if (data.transaksi_status==1)
                 {
                     this.dialogfrm=true;        
-                    this.data_nilai=item;
-                    this.data_nilai['no_transaksi']=data.no_transaksi;                                        
+                    this.data_mhs=item;
+                    this.data_mhs['no_transaksi']=data.no_transaksi;                                        
                     this.daftar_prodi=data.daftar_prodi;
-                    this.formdata.kjur=data.kjur;                    
+                    if (JSON.stringify(data.data_nilai_ujian)=='{}')
+                    {
+                        this.formdata.kjur=data.kjur;  
+                    }
+                    else
+                    {
+                        var ket_lulus=data.data_nilai_ujian.ket_lulus.toString();
+                        this.formdata=data.data_nilai_ujian;
+                        this.formdata.ket_lulus=ket_lulus
+                        console.log(this.formdata);
+                        this.editedItem=1;
+                    }
                 }       
                 else
                 {
@@ -428,26 +458,54 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;                      
-                this.$ajax.post('/spmb/nilaiujian/store',
+                if (this.editedItem > 0)
                 {
-                    no_transaksi:this.data_nilai.no_transaksi,
-                    user_id:this.data_nilai.id,
-                    nilai:this.formdata.nilai,
-                    kjur:this.formdata.kjur,
-                    desc:this.formdata.desc,
-                },                    
-                {
-                    headers:{
-                        Authorization:this.$store.getters['auth/Token'],                        
+                    this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,
+                    {
+                        _method:'put',
+                        no_transaksi:this.data_mhs.no_transaksi,
+                        nilai:this.formdata.nilai,
+                        kjur:this.formdata.kjur,
+                        ket_lulus:this.formdata.ket_lulus,
+                        desc:this.formdata.desc,
+                    },                    
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token'],                        
+                        }
                     }
+                    ).then(()=>{               
+                        this.btnLoading=false;          
+                        this.closedialogfrm();
+                        this.initialize();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });   
                 }
-                ).then(()=>{               
-                    this.btnLoading=false;          
-                    this.closedialogfrm();
-                    this.initialize();
-                }).catch(()=>{
-                    this.btnLoading=false;
-                });
+                else
+                {
+                    this.$ajax.post('/spmb/nilaiujian/store',
+                    {
+                        no_transaksi:this.data_mhs.no_transaksi,
+                        user_id:this.data_mhs.id,
+                        nilai:this.formdata.nilai,
+                        kjur:this.formdata.kjur,
+                        ket_lulus:this.formdata.ket_lulus,
+                        desc:this.formdata.desc,
+                    },                    
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token'],                        
+                        }
+                    }
+                    ).then(()=>{               
+                        this.btnLoading=false;          
+                        this.closedialogfrm();
+                        this.initialize();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });   
+                }                
             
             }
         },
@@ -455,13 +513,15 @@ export default {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_nilai = Object.assign({}, {});                                  
+                this.data_mhs = Object.assign({}, {});   
+                this.editedItem=-1;                               
                 }, 300
             );
         },
         closeProfilMahasiswaBaru ()
         {
-            this.dialogprofilmhsbaru = false;                      
+            this.dialogprofilmhsbaru = false;         
+            this.editedItem=-1;                                   
         }        
     },
     watch:{
