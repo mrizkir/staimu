@@ -97,9 +97,9 @@ class NilaiUjianController extends Controller {
             'nilai'=>'required|numeric',            
             'kjur'=>'required',            
         ]);
-
-        $data_nilai=NilaiUjianPMBModel::updateOrCreate([
-            'user_id'=>$request->input('user_id'),
+        $user_id=$request->input('user_id');
+        $data_nilai=NilaiUjianPMBModel::create([
+            'user_id'=>$user_id,
             'jadwal_ujian_id'=>null,
             'jumlah_soal'=>null,
             'jawaban_benar'=>null,
@@ -135,7 +135,8 @@ class NilaiUjianController extends Controller {
      */
     public function show(Request $request,$id)
     {
-        $formulir=FormulirPendaftaranModel::select(\DB::raw('                                                          
+        $formulir=FormulirPendaftaranModel::select(\DB::raw('   
+                                                            pe3_formulir_pendaftaran.user_id,                                                       
                                                             kjur1,
                                                             CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
                                                         '))
@@ -164,62 +165,17 @@ class NilaiUjianController extends Controller {
             {
                 $no_transaksi=$transaksi_detail->no_transaksi;
                 $transaksi_status=$transaksi_detail->status;
-            } 
-            $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];            
+            }             
+            $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];                     
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                                                        
-                                        'no_transaksi'=>'$no_transaksi',                                                                           
+                                        'no_transaksi'=>"$no_transaksi",                                                                           
                                         'transaksi_status'=>$transaksi_status,
-                                        'daftar_prodi'=>$daftar_prodi,                                        
+                                        'daftar_prodi'=>$daftar_prodi,
+                                        'kjur'=>$formulir->kjur1,                                        
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
                                     ],200);        
-        }
-
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function konfirmasi(Request $request)
-    {
-        $this->validate($request, [            
-            'email'=>'required|string|email',
-            'code'=>'required|numeric',                        
-        ]);
-        $now = \Carbon\Carbon::now()->toDateTimeString();       
-        $email= $request->input('email');
-        $code= $request->input('code');  
-        
-        $user = \DB::table('users')->where('email',$email)->where('code',$code)->get();        
-        if ($user->count()>0)
-        {
-            $user=User::find($user[0]->id);
-            $user->code=0;
-            $user->active=1;
-            $user->save();   
-            
-            $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
-            if (!is_null($user) && $config_kirim_email==1)
-            {
-                app()->mailer->to($email)->send(new MahasiswaBaruRegistered($user));
-            }
-
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',                                                                                                                                        
-                                        'message'=>'Email Mahasiswa berhasil diverifikasi.'
-                                    ],200);
-        }
-        else
-        {
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',                                                                                                                                        
-                                        'message'=>['Email Registrasi Mahasiswa gagal diverifikasi.']
-                                    ],422);
         }
 
     }   

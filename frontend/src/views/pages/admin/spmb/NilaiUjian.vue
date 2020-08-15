@@ -205,7 +205,8 @@
                             <v-icon
                                 small
                                 class="mr-2"
-                                @click.stop="addItem(item)">
+                                @click.stop="addItem(item)" 
+                                disabled="item.status=='N.A'">
                                 mdi-pencil
                             </v-icon>
                         </template>
@@ -317,7 +318,7 @@ export default {
             created_at:'',            
             updated_at:'',            
         },
-        formdatadefault: {            
+        formdefault: {            
             user_id:'',            
             jadwal_ujian_id:null,            
             jumlah_soal:null,            
@@ -411,10 +412,11 @@ export default {
             }).then(({data})=>{   
                 if (data.transaksi_status==1)
                 {
+                    this.dialogfrm=true;        
                     this.data_nilai=item;
                     this.data_nilai['no_transaksi']=data.no_transaksi;                                        
                     this.daftar_prodi=data.daftar_prodi;
-                    this.dialogfrm=true;        
+                    this.formdata.kjur=data.kjur;                    
                 }       
                 else
                 {
