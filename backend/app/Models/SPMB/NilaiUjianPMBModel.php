@@ -48,4 +48,9 @@ class NilaiUjianPMBModel extends Model {
      * @var string
      */
     public $timestamps = true;
+
+    public function formulir()
+    {
+        return $this->belongsTo('App\Models\SPMB\FormulirPendaftaranModel','user_id','user_id');
+    }
 }

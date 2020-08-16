@@ -33,8 +33,8 @@ class CreateNilaiUjianPmbTable extends Migration
             $table->index('jadwal_ujian_id');            
 
             $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
+                    ->references('user_id')
+                    ->on('pe3_formulir_pendaftaran')
                     ->onDelete('cascade') 
                     ->onUpdate('cascade');  
 

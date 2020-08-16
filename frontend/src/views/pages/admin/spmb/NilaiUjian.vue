@@ -223,7 +223,17 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
-                                </v-col>                                
+                                </v-col>      
+                                <v-col cols="12" v-if="item.ket_lulus=='0'">                          
+                                    <v-btn 
+                                        text 
+                                        small 
+                                        color="primary" 
+                                        @click.stop="ulangujian(item)" 
+                                        class="mb-2" 
+                                        :disabled="btnLoading" 
+                                        :loading="btnLoading">ULANG UJIAN </v-btn>
+                                </v-col>                            
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -508,6 +518,29 @@ export default {
                 }                
             
             }
+        },
+        ulangujian (item)
+        {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.$ajax.post('/spmb/nilaiujian/'+item.id,
+                    {
+                        '_method':'DELETE',
+                    },                    
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token'],                        
+                        }
+                    }
+                    ).then(()=>{               
+                        this.btnLoading=false;                          
+                        this.initialize();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });   
+                }
+            });
         },
         closedialogfrm () {            
             this.dialogfrm = false;            

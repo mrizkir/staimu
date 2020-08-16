@@ -256,12 +256,12 @@
                                 <v-col cols="12" v-if="item.active==0">
                                     <v-btn 
                                         small 
-                                        color="warning" 
-                                        @click.stop="resend(formdata.id)"                                         
+                                        class="primary" 
+                                        @click.stop="aktifkan(item.id)"                                         
                                         :disabled="btnLoading"
                                         :loading="btnLoading">
                                             <v-icon>mdi-email-check</v-icon>
-                                            VERIFIFKASI EMAIL
+                                            VERIFIFIKASI EMAIL
                                     </v-btn>
                                 </v-col>
                             </td>

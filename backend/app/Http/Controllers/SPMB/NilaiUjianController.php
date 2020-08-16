@@ -3,20 +3,12 @@
 namespace App\Http\Controllers\SPMB;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\SPMB\FormulirPendaftaranModel;
 use App\Models\SPMB\NilaiUjianPMBModel;
-use App\Models\System\ConfigurationModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
-
-use App\Helpers\Helper;
-use App\Mail\MahasiswaBaruRegistered;
-use App\Mail\VerifyEmailAddress;
 
 use Ramsey\Uuid\Uuid;
 
@@ -80,6 +72,8 @@ class NilaiUjianController extends Controller {
      */
     public function store(Request $request)
     {
+        $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_STORE']);
+
         $kjur=$request->input('kjur');
         $this->validate($request, [
             'user_id'=>[
@@ -99,33 +93,47 @@ class NilaiUjianController extends Controller {
             'kjur'=>'required',            
             'ket_lulus'=>'required',            
         ]);
-        $user_id=$request->input('user_id');
-        $data_nilai=NilaiUjianPMBModel::create([
-            'user_id'=>$user_id,
-            'jadwal_ujian_id'=>null,
-            'jumlah_soal'=>null,
-            'jawaban_benar'=>null,
-            'jawaban_salah'=>null,
-            'soal_tidak_terjawab'=>null,
-            'passing_grade_1'=>null,
-            'passing_grade_2'=>null,
-            'nilai'=>$request->input('nilai'),
-            'kjur'=>$request->input('kjur'),
-            'ket_lulus'=>$request->input('ket_lulus'),
-            'desc'=>$request->input('desc'),
-        ]);          
+        $data_nilai = \DB::transaction(function () use ($request){
+            $user_id=$request->input('user_id');
+            $ket_lulus=$request->input('ket_lulus');
+            $data_nilai=NilaiUjianPMBModel::create([
+                'user_id'=>$user_id,
+                'jadwal_ujian_id'=>null,
+                'jumlah_soal'=>null,
+                'jawaban_benar'=>null,
+                'jawaban_salah'=>null,
+                'soal_tidak_terjawab'=>null,
+                'passing_grade_1'=>null,
+                'passing_grade_2'=>null,
+                'nilai'=>$request->input('nilai'),
+                'kjur'=>$request->input('kjur'),
+                'ket_lulus'=>$ket_lulus,
+                'desc'=>$request->input('desc'),
+            ]);          
+            $keterangan=$ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
 
-        \App\Models\System\ActivityLog::log($request,[
-                                                        'object' => $data_nilai, 
-                                                        'object_id' => $data_nilai->user_id, 
-                                                        'user_id' => $this->guard()->user()->id, 
-                                                        'message' => 'Mahasiswa berhasil dinyatakan lulus.'
-                                                    ]);
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $data_nilai, 
+                                                            'object_id' => $data_nilai->user_id, 
+                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
+                                                        ]);
+            if ($ket_lulus==1)
+            {        
+                $formulir=$data_nilai->formulir;       
+                $this->createTransaksiDulang($formulir);
+                $this->createTransaksiSPP($formulir);
+                
+            }
+
+            return $data_nilai;
+        });        
+        $keterangan=$data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'data_nilai'=>$data_nilai,
-                                    'message'=>'Menyimpan status kelulusan Mahasiswa Baru berhasil dilakukan.'
+                                    'data_nilai'=>$data_nilai,                                    
+                                    'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
                                 ],200); 
 
     }      
@@ -137,6 +145,8 @@ class NilaiUjianController extends Controller {
      */
     public function show(Request $request,$id)
     {
+        $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
+
         $formulir=FormulirPendaftaranModel::select(\DB::raw('   
                                                             pe3_formulir_pendaftaran.user_id,                                                       
                                                             kjur1,
@@ -191,6 +201,8 @@ class NilaiUjianController extends Controller {
      */
     public function update(Request $request,$id)
     {
+        $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_UPDATE']);
+
         $data_nilai=NilaiUjianPMBModel::find($id);
 
         if (is_null($data_nilai))
@@ -214,80 +226,176 @@ class NilaiUjianController extends Controller {
                 'kjur'=>'required',            
                 'ket_lulus'=>'required',            
             ]);
-            
-            $data_nilai->nilai=$request->input('nilai');
-            $data_nilai->kjur=$request->input('kjur');
-            $data_nilai->ket_lulus=$request->input('ket_lulus');
-            $data_nilai->desc=$request->input('desc');
-            $data_nilai->save();
+            $data_nilai = \DB::transaction(function () use ($request,$data_nilai){
+                $ket_lulus=$request->input('ket_lulus');
+                $data_nilai->nilai=$request->input('nilai');
+                $data_nilai->kjur=$request->input('kjur');
+                $data_nilai->ket_lulus=$ket_lulus;
+                $data_nilai->desc=$request->input('desc');
+                $data_nilai->save();
+                
+                $keterangan=$ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
 
+                \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $data_nilai, 
+                                                            'object_id' => $data_nilai->user_id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
+                                                        ]);
+                if ($ket_lulus==1)
+                {        
+                    $formulir=$data_nilai->formulir;       
+                    $this->createTransaksiDulang($formulir);
+                    $this->createTransaksiSPP($formulir);
+                    
+                }   
+                return $data_nilai;
+            });
+            $keterangan=$data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',
                                         'data_nilai'=>$data_nilai,
-                                        'message'=>'Data nilai ujian  berhasil diubah.'
+                                        'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
                                     ],200); 
         }
     }           
     /**
-     * Menghapus calon mahasiwa baru
+     * Menghapus data nilai ujian sekaligus pendaftaran
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('SPMB-PMB_DESTROY');
+        $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_DESTROY']);
 
-        $user = User::where('isdeleted','1')
+        $data_nilai = NilaiUjianPMBModel::where('ket_lulus',0)
                     ->find($id); 
         
-        if (is_null($user))
+        if (is_null($data_nilai))
         {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'destroy',                
-                                    'message'=>["Calon Mahasiswa Baru dengan ID ($id) gagal dihapus"]
+                                    'message'=>["Nilai Ujian dengan ID ($id) gagal dihapus"]
                                 ],422); 
         }
         else
         {
-            $name=$user->name;
-            $user->delete();
+            $name=$data_nilai->name;
+            $data_nilai->delete();
 
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->guard()->user()->id, 
-                                                                'message' => 'Menghapus Mahasiswa Baru ('.$name.') berhasil'
+                                                                'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
                                                             ]);
         
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                
-                                        'message'=>"Mahasiswa Baru ($name) berhasil dihapus"
+                                        'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
                                     ],200);         
         }
                   
-    }  
-    /**
-     * digunakan untuk mengirimkan ulang emai konfirmasi pendaftaran
-     */
-    public function resend(Request $request)
-    {
-        $this->validate($request, [
-            'id'=>[
-                'required',
-                "exists:users,id"
-            ],                                         
-        ]);
-        $user = User::find($request->input('id'));
-        $name=$user->name;
-        
-        return Response()->json([
-                                'status'=>1,
-                                'pid'=>'resendemail',                
-                                'message'=>"Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
-                            ],200);         
     } 
+    //buat transaksi keuangan daftar ulang 
+    private function createTransaksiDulang($formulir)
+    {
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();                
+        if (is_null($transaksi_detail))
+        {   
+            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
+                                                                ->where('idkelas',$formulir->idkelas)
+                                                                ->where('tahun',$formulir->ta)
+                                                                ->first();
+            if (!is_null($kombi))
+            {                
+                $no_transaksi='102'.date('YmdHms');
+                $transaksi=TransaksiModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'no_transaksi'=>$no_transaksi,
+                    'no_faktur'=>'',
+                    'kjur'=>$formulir->kjur1,
+                    'ta'=>$formulir->ta,
+                    'idsmt'=>$formulir->idsmt,
+                    'idkelas'=>$formulir->idkelas,
+                    'no_formulir'=>$formulir->no_formulir,
+                    'nim'=>$formulir->nim,
+                    'commited'=>0,
+                    'total'=>0,
+                    'tanggal'=>date('Y-m-d'),
+                ]);  
+                
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>$kombi->kombi_id,
+                    'nama_kombi'=>$kombi->nama_kombi,
+                    'biaya'=>$kombi->biaya,
+                    'jumlah'=>1,
+                    'sub_total'=>$kombi->biaya    
+                ]);
+                $transaksi->total=$kombi->biaya;
+                $transaksi->save();
+            }
+        }        
+        
+    }   
+    //buat transaksi spp      
+    private function createTransaksiSPP($formulir)
+    {            
+        $mulai_bulan_pembayaran=9;
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)
+                                                ->where('kombi_id',201)
+                                                ->where('bulan',$mulai_bulan_pembayaran)
+                                                ->first();       
+
+        if (is_null($transaksi_detail))
+        {   
+            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',201)
+                                                                ->where('idkelas',$formulir->idkelas)
+                                                                ->where('tahun',$formulir->ta)
+                                                                ->first();
+            if (!is_null($kombi))
+            {                
+                $no_transaksi='201'.date('YmdHms');
+                $transaksi=TransaksiModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'no_transaksi'=>$no_transaksi,
+                    'no_faktur'=>'',
+                    'kjur'=>$formulir->kjur1,
+                    'ta'=>$formulir->ta,
+                    'idsmt'=>$formulir->idsmt,
+                    'idkelas'=>$formulir->idkelas,
+                    'no_formulir'=>$formulir->no_formulir,
+                    'nim'=>$formulir->nim,
+                    'commited'=>0,
+                    'total'=>0,
+                    'tanggal'=>date('Y-m-d'),
+                ]);  
+                
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>$kombi->kombi_id,
+                    'nama_kombi'=>$kombi->nama_kombi,
+                    'biaya'=>$kombi->biaya,
+                    'jumlah'=>1,
+                    'bulan'=>$mulai_bulan_pembayaran,
+                    'sub_total'=>$kombi->biaya    
+                ]);
+                $transaksi->total=$kombi->biaya;
+                $transaksi->save();
+            }
+        }
+    }     
 }
