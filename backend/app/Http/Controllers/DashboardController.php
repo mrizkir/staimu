@@ -56,11 +56,4 @@ class DashboardController extends Controller
                             ],200);    
         
     }
-    /**
-     * index keuangan
-     */
-    public function keuanganindex ()
-    {
-        $this->hasPermissionTo('KEUANGAN-RINGKASAN_BROWSE');
-    }
 }

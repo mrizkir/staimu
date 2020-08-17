@@ -8,7 +8,7 @@
                 KEUANGAN 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}}
+                TAHUN AKADEMIK {{tahun_akademik}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -29,17 +29,85 @@
             </template>
         </ModuleHeader>
         <template v-slot:filtersidebar>
-            <Filter9 v-on:changeTahunPendaftaran="changeTahunPendaftaran" ref="filter9" />
+            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
         <v-container fluid>
-            
+            <v-row>
+                <v-col cols="6">
+                    <v-card class="mb-3">
+                        <v-card-title>
+                            Semester Ganjil
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Jumlah yang muncul berdasarkan transaksi yang statusnya PAID
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-data-table 
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait"
+                                :dense="true"                                                  
+                                :disable-pagination="true"
+                                :hide-default-footer="true"
+                                :headers="headers"
+                                :items="kombi_ganjil"> 
+                                <template v-slot:item.jumlah="{ item }">                            
+                                    {{  item.jumlah|formatUang }}
+                                </template>    
+                                <template v-slot:body.append v-if="kombi_ganjil.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right">TOTAL</td>
+                                        <td class="text-right">{{totalKombiGanjil|formatUang}}</td>                                                                                
+                                    </tr>
+                                </template>
+                                <template v-slot:no-data>                            
+                                    belum ada transaksi dengan status PAID.
+                                </template>                           
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                    <v-card class="mb-3">
+                        <v-card-title>
+                            Semester Genap
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Jumlah yang muncul berdasarkan transaksi yang statusnya PAID
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-data-table       
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait"      
+                                :dense="true"                   
+                                :disable-pagination="true"
+                                :hide-default-footer="true"
+                                :headers="headers"
+                                :items="kombi_genap"> 
+                                <template v-slot:item.jumlah="{ item }">                            
+                                    {{  item.jumlah|formatUang }}
+                                </template>    
+                                <template v-slot:body.append v-if="kombi_genap.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right">TOTAL</td>
+                                        <td class="text-right">{{totalKombiGenap|formatUang}}</td>                                                                                
+                                    </tr>
+                                </template>
+                                <template v-slot:no-data>                            
+                                    belum ada transaksi dengan status PAID.
+                                </template>                           
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="6">
+                    
+                </v-col>
+            </v-row>
         </v-container>
     </KeuanganLayout>
 </template>
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter9 from '@/components/sidebar/FilterMode9';
+import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Keuangan',
     created ()
@@ -56,7 +124,7 @@ export default {
 				href:'#'
 			}
         ];				
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];         
     },
     mounted()
     {
@@ -66,41 +134,66 @@ export default {
         datatableLoading:false,
         firstloading:true,
         breadcrumbs:[],        
-        tahun_pendaftaran:0,
+        tahun_akademik:0,
         
-        //statistik
-        daftar_prodi:[],
-        total_mb:0,
+        //daftar komponen biaya
+        kombi_ganjil:[],       
+        kombi_genap:[],       
+        headers: [                        
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable:false},               
+            { text: 'JUMLAH', align:'end',value: 'jumlah',width:250, sortable:false},                
+        ], 
     }),
     methods : {
-        changeTahunPendaftaran (tahun)
+        changeTahunAkademik (tahun)
         {
-            this.tahun_pendaftaran=tahun;
+            this.tahun_akademik=tahun;
         },
 		initialize:async function()
 		{	
             this.datatableLoading=true;            
             await this.$ajax.post('/dashboard/keuangan',
             {
-                TA:this.tahun_pendaftaran,                
+                TA:this.tahun_akademik,                
             },
             {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                            
-                this.daftar_prodi = data.daftar_prodi;
-                this.total_mb = data.total_mb;
+                this.kombi_ganjil=data.kombi_ganjil;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
             });
             this.firstloading=false;            
-            this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
+            this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
+        }
+    },
+    computed:{
+        totalKombiGanjil()
+        {
+            var total = 0;
+            for (var i =0; i < this.kombi_ganjil.length; i++)
+            {
+                var item = this.kombi_ganjil[i];
+                total+=item.jumlah;
+            }
+            return total;
+        },
+        totalKombiGenap()
+        {
+            var total = 0;
+            for (var i =0; i < this.kombi_genap.length; i++)
+            {
+                var item = this.kombi_genap[i];
+                total+=item.jumlah;
+            }
+            return total;
         }
     },
     watch:{
-        tahun_pendaftaran()
+        tahun_akademik()
         {
             if (!this.firstloading)
             {
@@ -111,7 +204,7 @@ export default {
     components:{
         KeuanganLayout,
         ModuleHeader,           
-        Filter9,        
+        Filter1,        
     },
 }
 </script>
