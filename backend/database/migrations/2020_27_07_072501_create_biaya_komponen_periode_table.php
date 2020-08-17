@@ -20,11 +20,13 @@ class CreateBiayaKomponenPeriodeTable extends Migration
             $table->string('nama_kombi');  
             $table->enum('periode',['insidental','persemester','perbulan','sekali']);                                                            
             $table->char('idkelas',1);                                                       
+            $table->unsignedInteger('kjur1')->nullable();                                                      
             $table->year('tahun');                                                            
             $table->decimal('biaya',15,2);                                                            
             $table->timestamps();       
             
             $table->index('kombi_id');
+            $table->index('kjur1');
 
             $table->foreign('kombi_id')
                 ->references('id')

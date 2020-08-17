@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Models\DMaster\TAModel;
 use App\Models\System\ConfigurationModel;
 
-class TahunAkademikController extends Controller {  
+class TahunAkademikController extends Controller {
     /**
      * daftar tahun akademik
      */
@@ -18,10 +18,10 @@ class TahunAkademikController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'ta'=>$ta,                                                                                                                                   
+                                    'pid'=>'fetchdata',
+                                    'ta'=>$ta,
                                     'message'=>'Fetch data tahun akademik berhasil.'
-                                ],200);     
+                                ],200);
     }
     /**
      * Store a newly created resource in storage.
@@ -33,31 +33,31 @@ class TahunAkademikController extends Controller {
     {
         $this->hasPermissionTo('DMASTER-TA_STORE');
 
-        $rule=[            
+        $rule=[
             'tahun'=>'required|numeric|unique:pe3_ta,tahun',
-            'tahun_akademik'=>'required|string|unique:pe3_ta,tahun_akademik',                     
+            'tahun_akademik'=>'required|string|unique:pe3_ta,tahun_akademik',
         ];
-    
+
         $this->validate($request, $rule);
-             
+
         $ta=TAModel::create([
-            'tahun'=>$request->input('tahun'),            
-            'tahun_akademik'=>strtoupper($request->input('tahun_akademik')),                        
-        ]);                      
-        
+            'tahun'=>$request->input('tahun'),
+            'tahun_akademik'=>strtoupper($request->input('tahun_akademik')),
+        ]);
+
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $ta,
-                                        'object_id'=>$ta->tahun, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'object_id'=>$ta->tahun,
+                                        'user_id' => $this->guard()->user()->id,
                                         'message' => 'Menambah tahun akademik baru berhasil'
                                     ]);
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'ta'=>$ta,                                    
+                                    'ta'=>$ta,
                                     'message'=>'Data tahun akademik berhasil disimpan.'
-                                ],200); 
+                                ],200);
 
     }
     /**
@@ -76,48 +76,46 @@ class TahunAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',
                                     'message'=>["Tahun Akademik ($id) gagal diupdate"]
-                                ],422); 
+                                ],422);
         }
         else
         {
             $this->validate($request, [
                                         'tahun'=>[
-                                                        'required',                                                        
-                                                        'string',
-                                                        'max:1',
-                                                        Rule::unique('pe3_ta')->ignore($ta->tahun,'tahun')                                                       
-                                                    ],           
-                                        
+                                                    'required',
+                                                    'numeric',
+                                                    Rule::unique('pe3_ta')->ignore($ta->tahun,'tahun')
+                                                ],
                                         'tahun_akademik'=>[
                                                         'required',
                                                         'string',
                                                         Rule::unique('pe3_ta')->ignore($ta->tahun_akademik,'tahun_akademik')
-                                                    ],           
-                                        
-                                    ]); 
-                        
+                                                    ],
+
+                                    ]);
+
             $ta->tahun = $request->input('tahun');
             $ta->tahun_akademik = $request->input('tahun_akademik');
-                     
+
             $ta->save();
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $ta,
-                                                        'object_id'=>$ta->tahun, 
-                                                        'user_id' => $this->guard()->user()->tahun, 
+                                                        'object_id'=>$ta->tahun,
+                                                        'user_id' => $this->guard()->user()->tahun,
                                                         'message' => 'Mengubah data tahun akademik ('.$ta->tahun_akademik.') berhasil'
                                                     ]);
 
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',
-                                    'ta'=>$ta,      
+                                    'ta'=>$ta,
                                     'message'=>'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
-                                ],200); 
+                                ],200);
         }
-    }    
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -125,34 +123,34 @@ class TahunAkademikController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request,$id)
-    { 
+    {
         $this->hasPermissionTo('DMASTER-TA_DESTROY');
 
-        $ta = TAModel::find($id); 
-        
+        $ta = TAModel::find($id);
+
         if (is_null($ta))
         {
             return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',
                                     'message'=>["Kode tahun akademik ($id) gagal dihapus"]
-                                ],422); 
+                                ],422);
         }
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $ta, 
-                                                            'object_id' => $ta->tahun, 
-                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'object' => $ta,
+                                                            'object_id' => $ta->tahun,
+                                                            'user_id' => $this->guard()->user()->id,
                                                             'message' => 'Menghapus Tahun Akademik ('.$id.') berhasil'
                                                         ]);
             $ta->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',
                                         'message'=>"Tahun Akademik dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ],200);
         }
-                  
+
     }
 }
