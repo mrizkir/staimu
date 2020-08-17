@@ -308,6 +308,7 @@ class NilaiUjianController extends Controller {
         if (is_null($transaksi_detail))
         {   
             $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
+                                                                ->where('kjur',$formulir->kjur1)
                                                                 ->where('idkelas',$formulir->idkelas)
                                                                 ->where('tahun',$formulir->ta)
                                                                 ->first();
@@ -359,6 +360,7 @@ class NilaiUjianController extends Controller {
         if (is_null($transaksi_detail))
         {   
             $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',201)
+                                                                ->where('kjur',$formulir->kjur1)
                                                                 ->where('idkelas',$formulir->idkelas)
                                                                 ->where('tahun',$formulir->ta)
                                                                 ->first();

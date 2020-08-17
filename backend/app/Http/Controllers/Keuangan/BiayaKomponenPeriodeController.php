@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Helpers\Helper;
+use App\Models\DMaster\KelasModel;
 use App\Models\Keuangan\KomponenBiayaModel;
 use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 
@@ -19,15 +20,18 @@ class BiayaKomponenPeriodeController extends Controller {
         
         $this->validate($request, [           
             'TA'=>'required',
-            'idkelas'=>'required'
+            'prodi_id'=>'required'
         ]);
         
         $ta=$request->input('TA');
-        $idkelas=$request->input('idkelas');
+        $prodi_id=$request->input('prodi_id');
 
-        $kombi=BiayaKomponenPeriodeModel::where('tahun',$ta)
-                                            ->where('idkelas',$idkelas)
-                                            ->get();
+        $kombi=BiayaKomponenPeriodeModel::join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
+                                        ->where('tahun',$ta)
+                                        ->where('kjur',$prodi_id)
+                                        ->orderBy('pe3_kombi_periode.idkelas','asc')
+                                        ->orderBy('kombi_id','asc')
+                                        ->get();
 
         return Response()->json([
                                     'status'=>1,
@@ -45,19 +49,27 @@ class BiayaKomponenPeriodeController extends Controller {
         
         $this->validate($request, [           
             'TA'=>'required',
-            'idkelas'=>'required'
+            'prodi_id'=>'required'
         ]);
         $ta=$request->input('TA');
-        $idkelas=$request->input('idkelas');
+        $prodi_id=$request->input('prodi_id');
         
-        $sql = "INSERT INTO pe3_kombi_periode (id,kombi_id,nama_kombi,periode,idkelas,tahun,biaya,created_at,updated_at)
-                SELECT UUID(),id,nama AS nama_kombi,periode,'$idkelas' AS idkelas,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND idkelas='$idkelas')";                
+        $daftar_kelas=KelasModel::all();
+        foreach ($daftar_kelas as $kelas)
+        {
+            $idkelas=$kelas->idkelas;
+            $sql = "INSERT INTO pe3_kombi_periode (id,kombi_id,nama_kombi,periode,idkelas,kjur,tahun,biaya,created_at,updated_at)
+                    SELECT UUID(),id,nama AS nama_kombi,periode,'$idkelas' AS idkelas,$prodi_id AS kjur,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND kjur=$prodi_id AND idkelas='$idkelas')";                
+                    
+            \DB::statement($sql);
+        }        
 
-        \DB::statement($sql);
-
-        $kombi=BiayaKomponenPeriodeModel::where('tahun',$ta)
-                                            ->where('idkelas',$idkelas)
-                                            ->get();
+        $kombi=BiayaKomponenPeriodeModel::join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
+                                        ->where('tahun',$ta)
+                                        ->where('kjur',$prodi_id)
+                                        ->orderBy('pe3_kombi_periode.idkelas','asc')
+                                        ->orderBy('kombi_id','asc')
+                                        ->get();
         
         \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $kombi,

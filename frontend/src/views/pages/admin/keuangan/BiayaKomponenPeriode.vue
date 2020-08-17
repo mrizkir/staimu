@@ -8,7 +8,7 @@
                 BIAYA KOMPONEN PER PERIODE
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN/MASUK {{tahun_pendaftaran}} - KELAS {{nama_kelas}}
+                TAHUN PENDAFTARAN/MASUK {{tahun_pendaftaran}} - PROGRAM STUDI {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -29,16 +29,32 @@
             </template>
         </ModuleHeader>
         <template v-slot:filtersidebar>
-            <Filter10 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeIDKelas="changeIDKelas" ref="filter10" />
+            <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
+                    <v-card>
+                        <v-card-text>
+                            <v-text-field
+                                v-model="search"
+                                append-icon="mdi-database-search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"                        
+                        :items="datatable" 
+                        :search="search"                       
                         item-key="id"
-                        sort-by="id"
+                        sort-by="idkelas"
                         show-expand
                         :disable-pagination="true"
                         :hide-default-footer="true"
@@ -89,6 +105,9 @@
                                     </template>
                             </v-edit-dialog>
                         </template>
+                        <template v-slot:item.idkelas="{item}">
+                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
@@ -110,7 +129,7 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter10 from '@/components/sidebar/FilterMode10';
+import Filter7 from '@/components/sidebar/FilterMode7';
 export default {
     name:'BiayaKomponenPeriode',
     created()
@@ -133,16 +152,16 @@ export default {
             }
         ];
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
-        this.idkelas=this.$store.getters['uiadmin/getIDKelas']
-        this.nama_kelas=this.$store.getters['uiadmin/getNamaKelas'](this.idkelas);
+        this.prodi_id=this.$store.getters['uiadmin/getProdiID']
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](this.prodi_id);
         this.initialize();
     },  
     data: () => ({
         firstloading:true,
         breadcrumbs:[],  
         tahun_pendaftaran:0,
-        idkelas:null,
-        nama_kelas:null,
+        prodi_id:null,
+        nama_prodi:null,
         
         btnLoading:false,
         datatableLoading:false,
@@ -152,8 +171,10 @@ export default {
             { text: 'ID KOMPONEN', value: 'kombi_id',width:10,sortable:false },                                           
             { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable:false},
             { text: 'PERIODE', value: 'periode',width:150,sortable:false },            
+            { text: 'KELAS', value: 'nkelas',width:120,sortable:false },            
             { text: 'BIAYA', value: 'biaya',width:150,sortable:false },            
-        ],      
+        ],    
+        search:'',      
         
     }),
     methods : {
@@ -161,10 +182,9 @@ export default {
         {
             this.tahun_pendaftaran=tahun;
         },
-        changeIDKelas (idkelas)
+        changeProdi (id)
         {
-            this.idkelas=idkelas;
-            this.nama_kelas=this.$store.getters['uiadmin/getNamaKelas'](idkelas);
+            this.prodi_id=id;
         },
         initialize:async function()
 		{
@@ -172,7 +192,7 @@ export default {
             await this.$ajax.post('/keuangan/biayakomponenperiode',            
             {
                 TA:this.tahun_pendaftaran,
-                idkelas:this.idkelas
+                prodi_id:this.prodi_id
             },
             {
                 headers: {
@@ -183,7 +203,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;            
-            this.$refs.filter10.setFirstTimeLoading(this.firstloading); 
+            this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
@@ -202,7 +222,7 @@ export default {
             await this.$ajax.post('/keuangan/biayakomponenperiode/loadkombiperiode',            
             {
                 TA:this.tahun_pendaftaran,
-                idkelas:this.idkelas
+                prodi_id:this.prodi_id
             },
             {
                 headers: {
@@ -249,10 +269,11 @@ export default {
                 this.initialize();
             }            
         },
-        idkelas()
+        prodi_id(val)
         {
             if (!this.firstloading)
             {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },
@@ -260,7 +281,7 @@ export default {
     components:{
         KeuanganLayout,
         ModuleHeader,    
-        Filter10,       
+        Filter7,       
     },
 }
 </script>
