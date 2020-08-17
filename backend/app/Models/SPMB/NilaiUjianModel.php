@@ -1,35 +1,40 @@
 <?php
 
-namespace App\Models\Keuangan;
+namespace App\Models\SPMB;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BiayaKomponenPeriodeModel extends Model {
+class NilaiUjianModel extends Model {
      /**
      * nama tabel model ini.
      *
      * @var string
      */
-    protected $table = 'pe3_kombi_periode';
+    protected $table = 'pe3_nilai_ujian_pmb';
     /**
      * primary key tabel ini.
      *
      * @var string
      */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'user_id';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id',
-        'kombi_id',
-        'nama_kombi',
-        'idkelas',
+        'user_id',
+        'jadwal_ujian_id',
+        'jumlah_soal',
+        'jawaban_benar',
+        'jawaban_salah',
+        'soal_tidak_terjawab',
+        'passing_grade_1',
+        'passing_grade_2',
+        'nilai',
+        'ket_lulus',
         'kjur',
-        'tahun',
-        'biaya',
+        'desc',
     ];
     /**
      * enable auto_increment.
