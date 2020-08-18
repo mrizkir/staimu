@@ -33,7 +33,7 @@
         </template>
         <v-container fluid>
             <v-row>
-                <v-col cols="6">
+                <v-col xs="12" sm="12" md="6">
                     <v-card class="mb-3">
                         <v-card-title>
                             Semester Ganjil
@@ -97,9 +97,11 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
-                <v-col cols="6">
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                <v-col xs="12" sm="12" md="6">
                     
                 </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
             </v-row>
         </v-container>
     </KeuanganLayout>

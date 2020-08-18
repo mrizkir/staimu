@@ -7,6 +7,7 @@
             <v-row>
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
                     <v-card 
+                        min-height="140"
                         class="clickable"
                         color="#385F73" 
                         @click.native="$router.push('/dmaster')"
@@ -22,6 +23,7 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
                     <v-card 
+                        min-height="140"
                         class="clickable"
                         color="#385F73" 
                         @click.native="$router.push('/spmb')"
@@ -30,13 +32,14 @@
                             SPMB
                         </v-card-title>                        
                         <v-card-text>
-                            Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB).
+                            Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{tahun_pendaftaran}}.
                         </v-card-text>
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEUANGAN-GROUP')">
                     <v-card 
+                        min-height="140"
                         class="clickable"
                         color="#385F73" 
                         @click.native="$router.push('/keuangan')"
@@ -52,6 +55,7 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
                     <v-card 
+                        min-height="140"
                         class="clickable"
                         color="#385F73" 
                         @click.native="$router.push('/system-users')"
@@ -96,29 +100,22 @@ export default {
         TOKEN:null,
         dashboard:null,
 
-        tahun_pendaftaran:0
+        tahun_pendaftaran:''
 	}),
 	methods : {
 		initialize:async function()
 		{	
-            let dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                                  
-            if (dashboard == null)
-            {                
-                await this.$ajax.get('/auth/me',                
-                {
-                    headers: {
-                        Authorization:'Bearer '+this.TOKEN
-                    }
-                }).then(({data})=>{          
-                    this.dashboard = data.role[0];    
-                    this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
-                });                 
-                this.$store.dispatch('uiadmin/init',this.$ajax);  
-            }                       
-            else
+            
+            await this.$ajax.get('/auth/me',                
             {
-                this.dashboard=dashboard;
-            }             
+                headers: {
+                    Authorization:'Bearer '+this.TOKEN
+                }
+            }).then(({data})=>{          
+                this.dashboard = data.role[0];    
+                this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
+            });                 
+            this.$store.dispatch('uiadmin/init',this.$ajax);              
             this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];            
 		}
 	},
