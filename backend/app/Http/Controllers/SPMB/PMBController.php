@@ -193,11 +193,12 @@ class PMBController extends Controller {
             'prodi_id'=>'required',
             'username'=>'required|string|unique:users',
             'password'=>'required',            
+            'tahun_pendaftaran'=>'required|numeric',            
         ]);
         $user = \DB::transaction(function () use ($request){
             $now = \Carbon\Carbon::now()->toDateTimeString();                   
             $code=mt_rand(1000,9999);
-            $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
+            $ta=$request->input('tahun_pendaftaran');
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),

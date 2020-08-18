@@ -509,7 +509,8 @@ export default {
                             nomor_hp:this.formdata.nomor_hp,
                             username:this.formdata.username,                                      
                             prodi_id:this.prodi_id,
-                            password:this.formdata.password,                            
+                            password:this.formdata.password,
+                            tahun_pendaftaran:this.tahun_pendaftaran                            
                         },
                         {
                             headers:{
