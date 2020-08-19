@@ -443,8 +443,20 @@
                                         color="primary" 
                                         @click.stop="verifikasi(item)" 
                                         class="mb-2" 
-                                        :disabled="(item.status_konfirmasi=='UNVERIFIED'?false:true)||btnLoading" 
-                                        :loading="btnLoading">VERIFIKASI</v-btn>
+                                        :disabled="(item.status_konfirmasi==0?false:true)||btnLoading" 
+                                        :loading="btnLoading">
+                                        VERIFIKASI
+                                    </v-btn>
+                                    <v-btn 
+                                        text 
+                                        small 
+                                        color="primary" 
+                                        @click.stop="cancel(item)" 
+                                        class="mb-2" 
+                                        :disabled="(item.status==1||item.status==2?true:false)||btnLoading" 
+                                        :loading="btnLoading">
+                                        BATALKAN
+                                    </v-btn>
                                 </v-col>                               
                             </td>
                         </template>
@@ -490,6 +502,7 @@ export default {
         this.initialize()
     },   
     data: () => ({         
+        firstloading:true,
         breadcrumbs:[],        
         dashboard:null,
         btnLoading:false,     
@@ -683,6 +696,30 @@ export default {
                     this.$ajax.post('/keuangan/konfirmasipembayaran/'+item.id,
                         {
                             _method:'put'            
+                        },                    
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token'],                        
+                            }
+                        }
+                    ).then(()=>{                                       
+                        this.initialize();
+                        this.btnLoading=false;
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });            
+        },
+        async cancel(item)
+        {
+            this.$root.$confirm.open('Batalkan Transaksi', 'Apakah Anda ingin membatalkan transaksi dengan kode billing '+item.no_transaksi+' ?', { color: 'red' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/keuangan/transaksi/cancel',
+                        {
+                            transaksi_id:item.id            
                         },                    
                         {
                             headers:{

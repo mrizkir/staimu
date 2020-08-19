@@ -51,5 +51,80 @@ class TransaksiController extends Controller {
                                     'transaksi'=>$daftar_transaksi,                                                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200);     
+    }
+    /**
+     * digunakan untuk mendapatkan detail transaksi
+     */
+    public function show(Request $request,$id)
+    {
+        $transaksi=TransaksiModel::find($id);
+        if (is_null($transaksi))        {
+            return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'fetchdata',                                          
+                                        'message'=>"Fetch data transaksi dengan id ($id) gagal diperoleh."
+                                    ],422); 
+        }
+        else
+        {
+            $transaksi_detail=$transaksi->detail;
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',  
+                                        'transaksi'=>$transaksi,                                                                                                                                   
+                                        'transaksi_detail'=>$transaksi_detail,                                                                                                                                   
+                                        'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
+                                    ],200); 
+        }
     }  
+    /**
+     * digunakan untuk membatalkan transaksi
+     */
+    public function cancel(Request $request)
+    {
+        $this->validate($request, [           
+            'transaksi_id'=>'required|exists:pe3_transaksi,id',
+        ]);
+        $transaksi_id=$request->input('transaksi_id');
+        $transaksi=TransaksiModel::find($transaksi_id);
+
+        if ($transaksi->status==1)
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'update',  
+                'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                'message'=>'Transaksi ini gagal dibatalkan karena status sudah PAID.'
+            ],422);   
+        }
+        else if ($transaksi->status==2)
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'update',  
+                'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                'message'=>'Transaksi ini gagal dibatalkan karena status sudah DIBATALKAN.'
+            ],422); 
+        }
+        else if ($transaksi->status==0)
+        {
+            $transaksi->status=2;
+            $transaksi->save();
+
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $transaksi, 
+                                                            'object_id' => $transaksi->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Melakukan pembatalan terhadap transaksi dengan id ('.$id.') telah berhasil dilakukan.'
+                                                        ]);
+                                                        
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update',  
+                                        'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                                        'message'=>'Kode billing dengan ID ('.$transaksi->no_transaksi.') berhasil DIBATALKAN.'
+                                    ],200); 
+        }
+        
+    }
 }

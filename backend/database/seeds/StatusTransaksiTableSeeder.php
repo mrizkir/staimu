@@ -33,7 +33,7 @@ class StatusTransaksiTableSeeder extends Seeder
 
         \DB::table('pe3_status_transaksi')->insert([
             'id_status'=>2,
-            'nama_status'=>'CANCELED', 
+            'nama_status'=>'CANCELLED', 
             'style'=>'red darken-2',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()           

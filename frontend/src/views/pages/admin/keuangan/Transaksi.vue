@@ -8,7 +8,7 @@
                 TRANSAKSI
             </template>
             <template v-slot:subtitle>
-                
+                TAHUN AKADEMIK {{tahun_akademik}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                        Transaksi
+                        Transaksi pembayaran mahasiswa baru atau lama dalam satu tahun.
                     </v-alert>
             </template>
         </ModuleHeader> 
@@ -80,18 +80,18 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>KODE PRODI :</v-card-title>
+                                                        <v-card-title>ID :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.kode_prodi}}
+                                                            {{data_transaksi.id}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA PRODI :</v-card-title>
+                                                        <v-card-title>KODE BILLING :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi}}
+                                                            {{data_transaksi.no_transaksi}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -100,14 +100,59 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA SINGKAT PRODI :</v-card-title>
+                                                        <v-card-title>NAMA MAHASISWA :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi_alias}}
+                                                            {{data_transaksi.nama_mhs}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TOTAL :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_transaksi.total|formatUang}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
                                             </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>TANGGAL TRANSAKSI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{$date(data_transaksi.tanggal).format('DD/MM/YYYY')}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>STATUS :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            <v-chip :color="data_transaksi.style" dark>{{data_transaksi.nama_status}}</v-chip>
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                            </v-row>  
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-data-table
+                                                        :disable-pagination="true"
+                                                        :hide-default-footer="true"
+                                                        :items="data_transaksi_detail"
+                                                        :headers="headers_detail">
+                                                        <template v-slot:item.biaya="{ item }">    
+                                                            {{item.biaya|formatUang}}
+                                                        </template>
+                                                        <template v-slot:item.sub_total="{ item }">    
+                                                            {{item.sub_total|formatUang}}
+                                                        </template>
+                                                    </v-data-table>
+                                                </v-col>
+                                            </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -159,6 +204,7 @@ import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Transaksi',
     created () {
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -176,6 +222,7 @@ export default {
                 href:'#'
             }
         ];
+        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
     },   
     mounted()
@@ -183,6 +230,7 @@ export default {
         this.initialize()
     },
     data: () => ({ 
+        firstloading:true,
         breadcrumbs:[],     
         tahun_akademik:0,
         btnLoading:false,       
@@ -196,18 +244,24 @@ export default {
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:true },            
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
         expanded:[],
         search:'', 
 
         //dialog        
         dialogdetailitem:false,
-
+        headers_detail:[
+            { text: 'KODE', value: 'kombi_id',width:50,sortable:false },
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable:false },
+            { text: 'BIAYA', value: 'biaya',width:60,sortable:false },
+            { text: 'JUMLAH', value: 'jumlah',width:60,sortable:false },
+            { text: 'BULAN', value: 'bulan',width:60,sortable:false },
+            { text: 'JUMLAH', value: 'sub_total',width:60,sortable:false },
+        ],
         //form data
-        formdata: {
-            
-        },
+        data_transaksi:{}, 
+        data_transaksi_detail:{},      
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -219,7 +273,7 @@ export default {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi',            
             {
-                TA:2020,
+                TA:this.tahun_akademik,
             },
             {
                 headers: {
@@ -229,7 +283,8 @@ export default {
                 this.datatable = data.transaksi;                
                 this.datatableLoading=false;
             });                     
-            this.firstloading=false;            
+            this.firstloading=false;
+            this.$refs.filter1.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -242,9 +297,19 @@ export default {
                 this.expanded=[item];
             }               
         },
-        viewItem (item) {
-            this.formdata=item;      
-            this.dialogdetailitem=true;                        
+        async viewItem (item) {
+            this.btnLoading=true;
+            await this.$ajax.get('/keuangan/transaksi/'+item.id,  
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                                             
+                this.data_transaksi=item;   
+                this.data_transaksi_detail=data.transaksi_detail;   
+                this.dialogdetailitem=true;
+                this.btnLoading=false;
+            });                                        
         },
         closedialogdetailitem () {
             this.dialogdetailitem = false;            
@@ -259,6 +324,15 @@ export default {
         KeuanganLayout,
         ModuleHeader,    
         Filter1    
+    },
+    watch:{
+        tahun_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
     },
 }
 </script>

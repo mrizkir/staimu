@@ -49,4 +49,9 @@ class TransaksiModel extends Model {
      * @var string
      */
     public $timestamps = true;
+
+    public function detail ()
+    {
+        return $this->hasMany('\App\Models\Keuangan\TransaksiDetailModel','transaksi_id','id');
+    }
 }
