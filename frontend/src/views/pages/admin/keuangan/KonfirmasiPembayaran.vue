@@ -439,7 +439,7 @@
                                     <strong>created_at:</strong>{{ item.created_at_konfirm=='N.A'?'N.A':$date(item.created_at_konfirm).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ item.updated_at_konfirm=='N.A'?'N.A':$date(item.updated_at_konfirm).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>  
-                                <v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')">                          
+                                <v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')&&(dashboard!='mahasiswabaru'&&dashboard!='mahasiswa')">                          
                                     <v-btn 
                                         text 
                                         small 
