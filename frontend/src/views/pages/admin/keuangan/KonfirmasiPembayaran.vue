@@ -388,6 +388,9 @@
                                         </v-card-actions>
                                     </v-card>
                                 </v-dialog>
+                                <v-dialog v-model="dialogcanceltransaksi" max-width="750px" persistent v-if="dialogcanceltransaksi">
+
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.tanggal="{ item }">    
@@ -526,6 +529,7 @@ export default {
         //dialog        
         dialogfrm:false,
         dialogdetailitem:false,
+        dialogcanceltransaksi:false,
         
         //form data   
         form_valid:true,   
