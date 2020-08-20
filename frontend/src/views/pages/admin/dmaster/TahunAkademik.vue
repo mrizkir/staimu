@@ -15,17 +15,17 @@
                 </v-breadcrumbs>
             </template>
             <template v-slot:desc>
-                <v-alert                                        
+                <v-alert
                     color="cyan"
-                    border="left"                    
+                    border="left"
                     colored-border
                     type="info"
                     >
                     Halaman untuk mengelola tahun akademik pada perguruan tinggi.
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid> 
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -76,26 +76,26 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-text>
-                                                <v-text-field 
-                                                    v-model="formdata.tahun" 
+                                                <v-text-field
+                                                    v-model="formdata.tahun"
                                                     label="TAHUN"
                                                     outlined
                                                     :rules="rule_tahun">
-                                                </v-text-field>                                        
-                                                <v-text-field 
-                                                    v-model="formdata.tahun_akademik" 
+                                                </v-text-field>
+                                                <v-text-field
+                                                    v-model="formdata.tahun_akademik"
                                                     label="TAHUN AKADEMIK"
                                                     outlined
                                                     :rules="rule_tahun_akademik">
-                                                </v-text-field>                                        
+                                                </v-text-field>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
-                                                <v-btn 
-                                                    color="blue darken-1" 
-                                                    text 
-                                                    @click.stop="save" 
+                                                <v-btn
+                                                    color="blue darken-1"
+                                                    text
+                                                    @click.stop="save"
                                                     :loading="btnLoading"
                                                     :disabled="!form_valid||btnLoading">
                                                         SIMPAN
@@ -129,13 +129,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -163,8 +163,8 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.tahun }}                                    
-                                </v-col>                                
+                                    <strong>ID:</strong>{{ item.tahun }}
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -201,119 +201,119 @@ export default {
             }
         ];
         this.initialize()
-    },  
-    data: () => ({ 
+    },
+    data: () => ({
         btnLoading:false,
         datatableLoading:false,
         expanded:[],
         datatable:[],
-        headers: [                        
-            { text: 'TA', value: 'tahun' },               
-            { text: 'TAHUN AKADEMIK', value: 'tahun_akademik' },               
+        headers: [
+            { text: 'TA', value: 'tahun' },
+            { text: 'TAHUN AKADEMIK', value: 'tahun_akademik' },
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',    
+        search:'',
 
         //dialog
         dialogfrm:false,
         dialogdetailitem:false,
 
-        //form data   
-        old_tahun:'',         
-        form_valid:true,         
+        //form data
+        old_tahun:'',
+        form_valid:true,
         formdata: {
-            tahun:'',                        
-            tahun_akademik:'',                        
+            tahun:'',
+            tahun_akademik:'',
         },
         formdefault: {
-            tahun:'',                        
-            tahun_akademik:'',                               
+            tahun:'',
+            tahun_akademik:'',
         },
         editedIndex: -1,
 
-        //form rules  
+        //form rules
         rule_tahun:[
             value => !!value||"Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
             value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',
-            value => value.length == 4 || 'Kode kelas hanya boleh 4 karakter'                
-        ], 
+            value => value.length == 4 || 'Kode kelas hanya boleh 4 karakter'
+        ],
         rule_tahun_akademik:[
-            value => !!value||"Mohon untuk di isi name !!!",                      
-        ], 
+            value => !!value||"Mohon untuk di isi nama tahun akademik !!!",
+        ],
     }),
     methods: {
-        initialize:async function () 
+        initialize:async function ()
         {
             this.datatableLoading=true;
             await this.$ajax.get('/datamaster/tahunakademik',{
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({data})=>{
                 this.datatable = data.ta;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
-            });  
+            });
         },
         dataTableRowClicked(item)
         {
             if ( item === this.expanded[0])
             {
-                this.expanded=[];                
+                this.expanded=[];
             }
             else
             {
                 this.expanded=[item];
-            }               
+            }
         },
         viewItem (item) {
-            this.formdata=item;      
-            this.dialogdetailitem=true;                    
-        },    
+            this.formdata=item;
+            this.dialogdetailitem=true;
+        },
         editItem (item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.old_tahun=item.tahun;
             this.dialogfrm = true
-        },    
+        },
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
-                if (this.editedIndex > -1) 
+                if (this.editedIndex > -1)
                 {
                     await this.$ajax.post('/datamaster/tahunakademik/'+this.old_tahun,
                         {
                             '_method':'PUT',
-                            tahun:this.formdata.tahun,                       
-                            tahun_akademik:this.formdata.tahun_akademik,                                                                       
+                            tahun:this.formdata.tahun,
+                            tahun_akademik:this.formdata.tahun_akademik,
                         },
                         {
                             headers:{
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({data})=>{
                         Object.assign(this.datatable[this.editedIndex], data.ta);
                         this.closedialogfrm();
                         this.btnLoading=false;
                     }).catch(()=>{
                         this.btnLoading=false;
-                    });                 
-                    
+                    });
+
                 } else {
                     await this.$ajax.post('/datamaster/tahunakademik/store',
                         {
-                            tahun:this.formdata.tahun,                            
-                            tahun_akademik:this.formdata.tahun_akademik,                            
+                            tahun:this.formdata.tahun,
+                            tahun_akademik:this.formdata.tahun_akademik,
                         },
                         {
                             headers:{
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({data})=>{
                         this.datatable.push(data.ta);
                         this.closedialogfrm();
                         this.btnLoading=false;
@@ -323,7 +323,7 @@ export default {
                 }
             }
         },
-        deleteItem (item) {           
+        deleteItem (item) {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.tahun+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
@@ -337,46 +337,46 @@ export default {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(()=>{
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoading=false;
                     }).catch(()=>{
                         this.btnLoading=false;
                     });
-                }                
+                }
             });
         },
         closedialogdetailitem () {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
                 }, 300
             );
         },
-        closedialogfrm () {            
-            this.dialogfrm = false;            
+        closedialogfrm () {
+            this.dialogfrm = false;
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
-                this.$refs.frmdata.reset(); 
+                this.$refs.frmdata.reset();
                 this.editedIndex = -1
                 }, 300
             );
         },
     },
     computed: {
-        ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+        ...mapGetters('auth',{
+            ACCESS_TOKEN:'AccessToken',
+            TOKEN:'Token',
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     components:{
         DataMasterLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                        Berisi pendaftar baru, silahkan melakukan filter tahun akademik dan program studi.
+                        Berisi pendaftar baru, silahkan melakukan filter tahun akademik dan program studi. CATATAN: Melakukan perubahan terhadap Prodi, Kelas, dan Tahun Pendaftaran Mahasiswa Baru tidak berpengaruh terhadap Transaksi keuangan yang telah dilakukannya.
                     </v-alert>
             </template>
         </ModuleHeader>  
@@ -83,7 +83,10 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-subtitle>
-                                                <span class="info--text">Akan tersimpan di prodi <strong>{{nama_prodi}} - {{tahun_pendaftaran}}</strong></span>
+                                                <span class="info--text">
+                                                    Secara default akan tersimpan di prodi <strong>{{nama_prodi}} - {{tahun_pendaftaran}}.</strong>
+                                                    Anda bisa merubahnya dengan memilih PRODI atau Tahun Akademik dibawah ini.
+                                                </span>
                                             </v-card-subtitle>
                                             <v-card-text>
                                                 <v-text-field 
@@ -100,7 +103,33 @@
                                                     v-model="formdata.email"
                                                     label="EMAIL" 
                                                     :rules="rule_email"
-                                                    outlined/>                                                 
+                                                    outlined/>       
+                                                <v-select
+                                                    v-model="kode_fakultas"
+                                                    label="FAKULTAS"
+                                                    outlined
+                                                    :rules="rule_fakultas"
+                                                    :items="daftar_fakultas"
+                                                    item-text="nama_fakultas"
+                                                    item-value="kode_fakultas"
+                                                    :loading="btnLoadingFakultas"
+                                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'"
+                                                />
+                                                <v-select
+                                                    label="PROGRAM STUDI"
+                                                    v-model="formdata.prodi_id"
+                                                    :items="daftar_prodi"
+                                                    item-text="nama_prodi2"
+                                                    item-value="id"
+                                                    :rules="rule_prodi"
+                                                    outlined />
+                                                <v-select
+                                                    v-model="formdata.ta"
+                                                    :items="daftar_ta"
+                                                    item-text="tahun_akademik"
+                                                    item-value="tahun"
+                                                    label="TAHUN PENDAFTARAN"
+                                                    outlined/>   
                                                 <v-text-field 
                                                     v-model="formdata.username"
                                                     label="USERNAME" 
@@ -343,13 +372,19 @@ export default {
         dialogdetailitem:false,
         
         //form data   
-        form_valid:true,                 
+        form_valid:true,     
+        daftar_fakultas:[],
+        kode_fakultas:'',
+        daftar_prodi:[],   
+        daftar_ta:[],         
         formdata: {
             name:'',
             email:'',            
             nomor_hp:'',
             username:'',
-            password:'',       
+            password:'',   
+            prodi_id:'', 
+            ta:'',   
             created_at: '',           
             updated_at: '',     
         },     
@@ -359,6 +394,8 @@ export default {
             nomor_hp:'',
             username:'',
             password:'',
+            prodi_id:'',
+            ta:'',
             created_at: '',           
             updated_at: '',              
         },    
@@ -375,7 +412,13 @@ export default {
         rule_email:[
             value => !!value||"Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
-        ],        
+        ],   
+        rule_fakultas:[
+            value => !!value||"Fakultas mohon untuk dipilih !!!"
+        ], 
+        rule_prodi:[
+            value => !!value||"Program studi mohon untuk dipilih !!!"
+        ],      
         rule_username:[
             value => !!value||"Username mohon untuk diisi !!!"
         ], 
@@ -469,8 +512,24 @@ export default {
                 this.btnLoading=false;
             });     
         },
-        addItem ()
+        async addItem ()
         {
+            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            this.formdata.ta=this.tahun_pendaftaran;
+            this.formdata.prodi_id=this.prodi_id;
+
+            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            {                
+                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                    this.daftar_fakultas=data.fakultas;
+                });
+            }
+            else
+            {
+                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                    this.daftar_prodi=data.prodi;
+                });
+            }   
             this.dialogfrm = true;                       
         },
         save:async function () {
@@ -485,6 +544,8 @@ export default {
                             name:this.formdata.name,
                             email:this.formdata.email,                    
                             nomor_hp:this.formdata.nomor_hp,
+                            prodi_id:this.formdata.prodi_id,
+                            tahun_pendaftaran:this.formdata.ta,
                             username:this.formdata.username,                                                                  
                             password:this.formdata.password,                     
                         },
@@ -493,8 +554,8 @@ export default {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(({data})=>{   
-                        Object.assign(this.datatable[this.editedIndex], data.pendaftar);
+                    ).then(()=>{   
+                        this.initialize();
                         this.closedialogfrm();
                         this.btnLoading=false;
                     }).catch(()=>{
@@ -508,9 +569,9 @@ export default {
                             email:this.formdata.email,                    
                             nomor_hp:this.formdata.nomor_hp,
                             username:this.formdata.username,                                      
-                            prodi_id:this.prodi_id,
-                            password:this.formdata.password,
-                            tahun_pendaftaran:this.tahun_pendaftaran                            
+                            prodi_id:this.formdata.prodi_id,                            
+                            tahun_pendaftaran:this.formdata.ta,
+                            password:this.formdata.password,                            
                         },
                         {
                             headers:{
@@ -520,7 +581,7 @@ export default {
                     ).then(({data})=>{                           
                         this.datatable.push(data.pendaftar);
                         this.closedialogfrm();
-                        this.btnLoading=false;
+                        this.btnLoading=false;                        
                     }).catch(()=>{
                         this.btnLoading=false;
                     });
@@ -550,9 +611,25 @@ export default {
             this.formdata=item;      
             this.dialogdetailitem=true;
         },
-        editItem (item) {
+        async editItem (item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
+            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            {                
+                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                    this.daftar_fakultas=data.fakultas;
+                });
+                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                    this.daftar_prodi=data.prodi;
+                });
+            }
+            else
+            {
+                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                    this.daftar_prodi=data.prodi;
+                });
+            }      
             this.dialogfrm = true;
         },   
         deleteItem (item) {           
@@ -583,7 +660,7 @@ export default {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
-                this.editedIndex = -1
+                this.editedIndex = -1;
                 }, 300
             );
         },
@@ -591,7 +668,7 @@ export default {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                
-                this.editedIndex = -1
+                this.editedIndex = -1;
                 this.$refs.frmdata.reset(); 
                 }, 300
             );
@@ -603,6 +680,17 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
+            }            
+        },
+        kode_fakultas (val)
+        {
+            if (val != null && val != '')
+            {
+                this.btnLoadingFakultas=true;
+                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({data})=>{                                
+                    this.daftar_prodi=data.programstudi;
+                    this.btnLoadingFakultas=false;
+                });
             }            
         },
         prodi_id(val)

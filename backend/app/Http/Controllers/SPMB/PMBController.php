@@ -38,7 +38,19 @@ class PMBController extends Controller {
         $prodi_id=$request->input('prodi_id');
 
         $data = User::role('mahasiswabaru')
-                    ->select(\DB::raw('users.id,users.username,users.name,users.email,users.nomor_hp,users.active,users.foto,users.created_at,users.updated_at'))
+                    ->select(\DB::raw('
+                                    users.id,
+                                    users.username,
+                                    users.name,
+                                    users.email,
+                                    users.nomor_hp,
+                                    users.active,
+                                    users.foto,
+                                    pe3_formulir_pendaftaran.kjur1 AS prodi_id,
+                                    pe3_formulir_pendaftaran.ta,
+                                    users.created_at,
+                                    users.updated_at'
+                                ))
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id')
                     ->where('users.ta',$ta)
                     ->where('kjur1',$prodi_id)
@@ -97,7 +109,8 @@ class PMBController extends Controller {
             'name'=>'required',            
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|unique:users',            
-            'prodi_id'=>'required',
+            'prodi_id'=>'required|numeric|exists:pe3_prodi,id',
+            'ta'=>'required|numeric',
             'username'=>'required|string|unique:users',
             'password'=>'required',
             'captcha_response'=>[
@@ -190,10 +203,10 @@ class PMBController extends Controller {
             'name'=>'required',            
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|unique:users',            
-            'prodi_id'=>'required',
-            'username'=>'required|string|unique:users',
-            'password'=>'required',            
+            'prodi_id'=>'required|numeric|exists:pe3_prodi,id',
             'tahun_pendaftaran'=>'required|numeric',            
+            'username'=>'required|string|unique:users',
+            'password'=>'required',                        
         ]);
         $user = \DB::transaction(function () use ($request){
             $now = \Carbon\Carbon::now()->toDateTimeString();                   
@@ -276,7 +289,9 @@ class PMBController extends Controller {
                     'unique:users,username,'.$user->id
                 ],              
                 'email'=>'required|string|email|unique:users,email,'.$user->id,
-                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                   
+                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,
+                'prodi_id'=>'required|numeric|exists:pe3_prodi,id',
+                'tahun_pendaftaran'=>'required|numeric'            
             ]);
             
             $user = \DB::transaction(function () use ($request,$user){
@@ -287,11 +302,14 @@ class PMBController extends Controller {
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }
+                $user->ta=$request->input('tahun_pendaftaran');
                 $user->save();
 
                 $formulir=FormulirPendaftaranModel::find($user->id);
                 $formulir->nama_mhs=$request->input('name');
                 $formulir->telp_hp=$request->input('telp_hp');
+                $formulir->kjur1=$request->input('prodi_id');
+                $formulir->ta=$request->input('tahun_pendaftaran');
                 $formulir->save();
 
                 return $user;
