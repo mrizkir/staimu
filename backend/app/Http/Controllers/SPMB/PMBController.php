@@ -312,6 +312,13 @@ class PMBController extends Controller {
                 $formulir->ta=$request->input('tahun_pendaftaran');
                 $formulir->save();
 
+                $nilai_ujian=\App\Models\SPMB\NilaiUjianModel::find($formulir->user_id);
+                if (!is_null($nilai_ujian))
+                {
+                    $nilai_ujian->kjur=$formulir->kjur1;
+                    $nilai_ujian->save();
+                }                
+                
                 return $user;
             });
         }
