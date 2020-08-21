@@ -62,7 +62,9 @@ class UIController extends Controller {
             $fakultas_id=$config['DEFAULT_FAKULTAS'];        
 
             $daftar_prodi=ProgramStudiModel::all();
-            $prodi_id=$config['DEFAULT_PRODI'];        
+            $prodi_id=$config['DEFAULT_PRODI'];    
+            
+            $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
         }
         elseif($this->hasRole('pmb'))
         {
@@ -93,6 +95,7 @@ class UIController extends Controller {
                 $daftar_prodi=ProgramStudiModel::all();
                 $prodi_id=$config['DEFAULT_PRODI'];     
             }            
+            $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
         }
         elseif ($this->hasRole('keuangan'))
         {
@@ -123,17 +126,21 @@ class UIController extends Controller {
                 $daftar_prodi=ProgramStudiModel::all();
                 $prodi_id=$config['DEFAULT_PRODI'];     
             }            
+            $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
         }
         elseif ($this->hasRole('mahasiswabaru'))
         {
-            $daftar_ta=TAModel::all();        
+            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
+            $daftar_ta=TAModel::where('tahun','=',$formulir->ta)
+                                ->get();        
             
             $daftar_fakultas=[];
             $fakultas_id=$config['DEFAULT_FAKULTAS'];
-
-            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->guard()->user()->id);
+            
             $daftar_prodi=ProgramStudiModel::where('id',$formulir->kjur1)->get();
             $prodi_id=$formulir->kjur1;
+
+            $tahun_pendaftaran = $formulir->ta;
         }        
         $daftar_kelas=\App\Models\DMaster\KelasModel::select(\DB::raw('idkelas AS id,nkelas AS text'))
                                                     ->get();
@@ -142,6 +149,7 @@ class UIController extends Controller {
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'daftar_ta'=>$daftar_ta,    
+                                    'tahun_pendaftaran'=>$tahun_pendaftaran,
                                     'daftar_semester'=>$daftar_semester,    
                                     'daftar_fakultas'=>$daftar_fakultas,
                                     'fakultas_id'=>$fakultas_id,                                    

@@ -29,6 +29,7 @@ class CreateTransaksiTable extends Migration
             $table->tinyInteger('status')->default(0);   
             $table->decimal('total',15,2)->default(0);
             $table->date('tanggal'); 
+            $table->string('desc')->nullable();
             $table->timestamps();      
 
             $table->index('kjur');            

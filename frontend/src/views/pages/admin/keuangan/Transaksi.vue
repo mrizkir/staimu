@@ -165,6 +165,9 @@
                         <template v-slot:item.tanggal="{ item }">    
                             {{$date(item.tanggal).format('DD/MM/YYYY')}}
                         </template>
+                        <template v-slot:item.idsmt="{ item }">    
+                            {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+                        </template>
                         <template v-slot:item.total="{ item }">    
                             {{item.total|formatUang}}
                         </template>
@@ -242,6 +245,7 @@ export default {
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
             { text: 'TANGGAL', value: 'tanggal',width:120,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
+            { text: 'SMT', value: 'idsmt',width:100,sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:true },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },

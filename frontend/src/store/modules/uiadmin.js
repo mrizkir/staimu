@@ -219,8 +219,6 @@ const actions = {
         commit('setLoaded',false);              
         if (!state.loaded && rootGetters['auth/Authenticated'])
         {   
-            commit('setTahunPendaftaran',rootGetters['uifront/getTahunPendaftaran']);   
-            commit('setTahunAkademik',rootGetters['uifront/getTahunPendaftaran']);   
             commit('setSemesterPendaftaran',rootGetters['uifront/getSemesterPendaftaran']);   
             let token=rootGetters['auth/Token'];                                                     
             await ajax.get('/system/setting/uiadmin',               
@@ -230,7 +228,9 @@ const actions = {
                     }
                 }
             ).then(({data})=>{                   
-                commit('setDaftarTA',data.daftar_ta);         
+                commit('setDaftarTA',data.daftar_ta); 
+                commit('setTahunPendaftaran',data.tahun_pendaftaran);   
+                commit('setTahunAkademik',data.tahun_pendaftaran);           
                 commit('setDaftarSemester',data.daftar_semester);         
 
                 let daftar_fakultas = data.daftar_fakultas;
