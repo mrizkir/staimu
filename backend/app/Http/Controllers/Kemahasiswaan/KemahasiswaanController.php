@@ -35,7 +35,7 @@ class KemahasiswaanController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                         'object' => $this->guard()->user(), 
                                         'object_id' => $this->guard()->user()->id, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Merubah status Mahasiswa baru menjadi active A.N ('.$user->username.') berhasil dilakukan'
                                     ]);
 

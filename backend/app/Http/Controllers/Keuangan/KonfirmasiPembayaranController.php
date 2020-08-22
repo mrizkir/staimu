@@ -186,7 +186,7 @@ class KonfirmasiPembayaranController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $konfirmasi, 
                                                             'object_id' => $konfirmasi->transaksi_id, 
-                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'user_id' => $this->getUserid(), 
                                                             'message' => 'Meng-upload bukti pembayaran dan melengkapi informasi  telah berhasil dilakukan.'
                                                         ]);
 
@@ -232,7 +232,7 @@ class KonfirmasiPembayaranController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $konfirmasi, 
                                                             'object_id' => $konfirmasi->transaksi_id, 
-                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'user_id' => $this->getUserid(), 
                                                             'message' => 'Melakukan verifikasi terhadap transaksi dengan status PAID telah berhasil dilakukan.'
                                                         ]);
             return Response()->json([

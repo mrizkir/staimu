@@ -74,7 +74,7 @@ class ProgramStudiController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $prodi,
                                         'object_id'=>$prodi->id, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah program studi baru berhasil'
                                     ]);
 
@@ -194,7 +194,7 @@ class ProgramStudiController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $prodi,
                                                         'object_id'=>$prodi->id, 
-                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data program studi ('.$prodi->nama_prodi.') berhasil'
                                                     ]);
 
@@ -257,7 +257,7 @@ class ProgramStudiController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $prodi, 
                                                                 'object_id' => $prodi->kode_prodi, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode Program Studi ('.$id.') berhasil'
                                                             ]);
             $prodi->delete();

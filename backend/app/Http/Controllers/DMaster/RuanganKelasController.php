@@ -49,7 +49,7 @@ class RuanganKelasController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $kelas,
                                         'object_id'=>$kelas->idkelas, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah kelas baru berhasil'
                                     ]);
 
@@ -164,7 +164,7 @@ class RuanganKelasController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $kelas, 
                                                                 'object_id' => $kelas->idkelas, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode Kelas ('.$id.') berhasil'
                                                             ]);
             $kelas->delete();

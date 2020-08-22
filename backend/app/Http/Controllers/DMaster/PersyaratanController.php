@@ -94,7 +94,7 @@ class PersyaratanController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $persyaratan, 
                                                                 'object_id' => $persyaratan->kode_persyaratan, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode Persyaratan ('.$id.') berhasil'
                                                             ]);
             $persyaratan->delete();

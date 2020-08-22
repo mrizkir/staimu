@@ -55,7 +55,7 @@ class TransferBankController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $bank,
                                         'object_id'=>$bank->id, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah bank baru berhasil'
                                     ]);
 
@@ -111,7 +111,7 @@ class TransferBankController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $bank,
                                                         'object_id'=>$bank->id, 
-                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data bank ('.$bank->nama_bank.') berhasil'
                                                     ]);
 
@@ -148,7 +148,7 @@ class TransferBankController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $bank, 
                                                                 'object_id' => $bank->id, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode Kelas ('.$id.') berhasil'
                                                             ]);
             $bank->delete();

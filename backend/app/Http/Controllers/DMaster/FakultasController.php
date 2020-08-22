@@ -44,7 +44,7 @@ class FakultasController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $fakultas,
                                         'object_id'=>$fakultas->kode_fakultas, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah fakultas baru berhasil'
                                     ]);
 
@@ -98,7 +98,7 @@ class FakultasController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $fakultas,
                                                         'object_id'=>$fakultas->kode_fakultas, 
-                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data fakultas ('.$fakultas->nama_fakultas.') berhasil'
                                                     ]);
 
@@ -161,7 +161,7 @@ class FakultasController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $fakultas, 
                                                                 'object_id' => $fakultas->kode_fakultas, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode Fakultas ('.$id.') berhasil'
                                                             ]);
             $fakultas->delete();

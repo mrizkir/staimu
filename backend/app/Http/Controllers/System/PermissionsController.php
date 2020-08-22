@@ -113,7 +113,7 @@ class PermissionsController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $permission, 
                                                         'object_id'=>$permission->id, 
-                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
                                                         'message' => 'Menghapus permission ('.$nama_permission.') berhasil'
                                                     ]);                                                                 
             return Response()->json([

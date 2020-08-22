@@ -71,7 +71,7 @@ class UsersDosenController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $this->guard()->user(), 
                                         'object_id' => $this->guard()->user()->id, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah user Dosen('.$user->username.') berhasil'
                                     ]);
 
@@ -128,7 +128,7 @@ class UsersDosenController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $this->guard()->user(), 
                                                         'object_id' => $this->guard()->user()->id, 
-                                                        'user_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data user Dosen ('.$user->username.') berhasil'
                                                     ]);
 
@@ -169,7 +169,7 @@ class UsersDosenController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus user Dosen ('.$username.') berhasil'
                                                             ]);
         

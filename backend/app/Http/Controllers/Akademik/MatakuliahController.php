@@ -65,7 +65,7 @@ class MatakuliahController extends Controller {
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $matakuliah,
                                         'object_id'=>$matakuliah->id, 
-                                        'user_id' => $this->guard()->user()->id, 
+                                        'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah matakuliah baru berhasil'
                                     ]);
 
@@ -206,7 +206,7 @@ class MatakuliahController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $matakuliah, 
                                                                 'object_id' => $matakuliah->kode_prodi, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Kode matakuliah ('.$id.') berhasil'
                                                             ]);
             $matakuliah->delete();

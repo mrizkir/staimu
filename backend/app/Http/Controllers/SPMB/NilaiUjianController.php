@@ -115,7 +115,7 @@ class NilaiUjianController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $data_nilai, 
                                                             'object_id' => $data_nilai->user_id, 
-                                                            'user_id' => $this->guard()->user()->id, 
+                                                            'user_id' => $this->getUserid(), 
                                                             'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
                                                         ]);
             if ($ket_lulus==1)
@@ -289,7 +289,7 @@ class NilaiUjianController extends Controller {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
-                                                                'user_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
                                                             ]);
         
