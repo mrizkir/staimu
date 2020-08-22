@@ -53,6 +53,22 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
+                <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('AKADEMIK-GROUP')">
+                    <v-card 
+                        min-height="140"
+                        class="clickable"
+                        color="#385F73" 
+                        @click.native="$router.push('/akademik')"
+                        dark>
+                        <v-card-title class="headline">
+                            AKADEMIK
+                        </v-card-title>                        
+                        <v-card-text>
+                            Modul ini digunakan untuk mengelola Akademik Perguruan Tinggi.
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
                     <v-card 
                         min-height="140"

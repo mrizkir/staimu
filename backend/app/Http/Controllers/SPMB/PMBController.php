@@ -109,8 +109,7 @@ class PMBController extends Controller {
             'name'=>'required',            
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|unique:users',            
-            'prodi_id'=>'required|numeric|exists:pe3_prodi,id',
-            'ta'=>'required|numeric',
+            'prodi_id'=>'required|numeric|exists:pe3_prodi,id',            
             'username'=>'required|string|unique:users',
             'password'=>'required',
             'captcha_response'=>[

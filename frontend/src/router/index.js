@@ -197,7 +197,7 @@ const routes = [
 	//keuangan
 	{
 		path: '/keuangan',
-		name: 'KEUANGAN',
+		name: 'Keuangan',
 		meta:{
 			title: "KEUANGAN",
 			requiresAuth:true,
@@ -276,6 +276,27 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/keuangan/KonfirmasiPembayaran.vue'),		
 	},
+
+	//akademik
+	{
+		path: '/akademik',
+		name: 'AKADEMIK',
+		meta:{
+			title: "AKADEMIK",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/Akademik.vue'),		
+	},	
+	{
+		path: '/akademik/matakuliah',
+		name: 'AkademikMatakuliah',
+		meta:{
+			title: "AKADEMIK - MATAKULIAH",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/Matakuliah.vue'),		
+	},	
+
 	//system	
 	{
 		path: '/system-setting/identitasdiri',

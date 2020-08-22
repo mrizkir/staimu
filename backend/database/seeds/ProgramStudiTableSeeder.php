@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Models\System\ConfigurationModel;
 class ProgramStudiTableSeeder extends Seeder
 {
     /**

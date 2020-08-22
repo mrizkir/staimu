@@ -57,6 +57,14 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+
+        //akademik
+        \DB::table('permissions')->insert([
+            'name'=>"AKADEMIK-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
         
         \DB::table('permissions')->insert([
             'name'=>"SPMB-PMB-LAPORAN-FAKULTAS_BROWSE",
@@ -109,7 +117,9 @@ class PermissionsTableSeeder extends Seeder
             'KEUANGAN-METODE-IB',                 
             'KEUANGAN-TRANSAKSI',                 
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
-
+            
+            'AKADEMIK-MATAKULIAH',
+            
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',
             'SYSTEM-SETTING-IDENTITAS-DIRI',
