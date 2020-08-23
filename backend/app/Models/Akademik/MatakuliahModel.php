@@ -48,7 +48,7 @@ class MatakuliahModel extends Model {
      *
      * @var string
      */
-    public $incrementing = true;
+    public $incrementing = false;
     /**
      * activated timestamps.
      *

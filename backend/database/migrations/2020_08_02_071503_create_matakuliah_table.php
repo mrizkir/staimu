@@ -29,7 +29,7 @@ class CreateMatakuliahTable extends Migration
             $table->tinyinteger('sks_tatap_muka');
             $table->tinyinteger('sks_praktikum');
             $table->tinyinteger('sks_praktik_lapangan');
-            $table->char('minimal_nilai',1);
+            $table->string('minimal_nilai',10);
             $table->boolean('syarat_skripsi')->default(false);
             $table->boolean('status')->default(false);
             $table->year('ta');

@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(StatusTransaksiTableSeeder::class);
         $this->call(ChannelPembayaranTableSeeder::class);
         $this->call(KomponenBiayaTableSeeder::class);
-        $this->call(ProgramStudiTableSeeder::class);     
+        $this->call(ProgramStudiTableSeeder::class); 
+        
+        $this->call(GroupMatakuliahTableSeeder::class); 
     }
 }

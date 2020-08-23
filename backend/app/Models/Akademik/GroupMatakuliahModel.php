@@ -4,7 +4,7 @@ namespace App\Models\Akademik;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MatakuliahModel extends Model {    
+class GroupMatakuliahModel extends Model {    
      /**
      * nama tabel model ini.
      *

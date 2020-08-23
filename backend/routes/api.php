@@ -195,10 +195,16 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/konfirmasipembayaran/store',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@store','as'=>'konfirmasipembayaran.store']);            
     $router->get('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@show','as'=>'konfirmasipembayaran.show']);            
     $router->put('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@update','as'=>'konfirmasipembayaran.update']);            
-
     
     //kemahasiswaan
     $router->post('/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Kemahasiswaan\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
+
+    //akademik - group matakuliah
+    $router->get('/akademik/groupmatakuliah/',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\GroupMatakuliahController@index','as'=>'groupmatakuliah.index']);            
+    
+    //akademik - matakuliah
+    $router->post('/akademik/matakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@store','as'=>'matakuliah.store']);            
+    $router->delete('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@destroy','as'=>'matakuliah.destroy']);            
 
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);    

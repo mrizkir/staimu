@@ -7,7 +7,7 @@
             <template v-slot:name>
                 MATAKULIAH
             </template>
-            <template v-slot:subtitle v-if="dashboard!='mahasiswabaru'">
+            <template v-slot:subtitle>
                 TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
@@ -50,11 +50,12 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"
-                        sort-by="nama_prodi"
+                        item-key="id"                        
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
+                        :disable-pagination="true"
+                        :hide-default-footer="true"
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
@@ -76,45 +77,94 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
-                                            <v-card-text>
-                                                 <v-select 
-                                                    v-model="formdata.kode_fakultas" 
-                                                    label="FAKULTAS"
-                                                    :items="daftar_fakultas"
-                                                    item-text="nama_fakultas"
-                                                    item-value="kode_fakultas"                                                    
+                                            <v-card-text>        
+                                                <v-select 
+                                                    v-model="formdata.id_group" 
+                                                    label="KELOMPOK MATAKULIAH"
+                                                    :items="group_matakuliah"
+                                                    item-text="group_alias"
+                                                    item-value="id_group"                                                    
                                                     outlined
-                                                    :rules="rule_kode_fakultas"
-                                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'">
-                                                </v-select>
+                                                    :rules="rule_group_matakuliah"
+                                                    v-if="group_matakuliah.length > 0">
+                                                </v-select>                                         
                                                 <v-text-field 
-                                                    v-model="formdata.kode_prodi" 
+                                                    v-model="formdata.kmatkul" 
                                                     label="KODE MATAKULIAH"
                                                     outlined
-                                                    :rules="rule_kode_prodi">
+                                                    :rules="rule_kode_matkul">
                                                 </v-text-field>
                                                 <v-text-field 
-                                                    v-model="formdata.nama_prodi" 
+                                                    v-model="formdata.nmatkul" 
                                                     label="NAMA MATAKULIAH"
                                                     outlined
-                                                    :rules="rule_nama_prodi">
-                                                </v-text-field>
-                                                <v-text-field 
-                                                    v-model="formdata.nama_prodi_alias" 
-                                                    label="NAMA SINGKAT MATAKULIAH"
-                                                    outlined
-                                                    :rules="rule_nama_prodi_alias">
+                                                    :rules="rule_nama_matakuliah">
                                                 </v-text-field>
                                                 <v-select 
-                                                    v-model="jenjang_studi" 
-                                                    label="JENJANG"
-                                                    :items="daftar_jenjang"
-                                                    item-text="nama_jenjang"
-                                                    item-value="kode_jenjang"
-                                                    return-object
+                                                    v-model="formdata.sks" 
+                                                    label="SKS"
+                                                    :items="daftar_sks"                                                    
                                                     outlined
-                                                    :rules="rule_kode_jenjang">
+                                                    :rules="rule_sks">
                                                 </v-select>
+                                                <v-select 
+                                                    v-model="formdata.sks_tatap_muka" 
+                                                    label="SKS TATAP MUKA"
+                                                    :items="daftar_sks"                                                    
+                                                    outlined
+                                                    :rules="rule_sks_tatap_muka">
+                                                </v-select>
+                                                <v-select 
+                                                    v-model="formdata.sks_praktikum" 
+                                                    label="SKS PRAKTIKUM"
+                                                    :items="daftar_sks"                                                    
+                                                    outlined>
+                                                </v-select>
+                                                <v-select 
+                                                    v-model="formdata.sks_praktik_lapangan" 
+                                                    label="SKS PRAKTIK LAPANGAN"
+                                                    :items="daftar_sks"                                                    
+                                                    outlined>
+                                                </v-select>
+                                                <v-select 
+                                                    v-model="formdata.semester" 
+                                                    label="SEMESTER"
+                                                    :items="daftar_semester"                                                    
+                                                    outlined
+                                                    :rules="rule_semester">
+                                                </v-select>
+                                                <v-select 
+                                                    v-model="formdata.minimal_nilai" 
+                                                    label="MIMIMAL NILAI"
+                                                    :items="daftar_nilai"                                                    
+                                                    outlined
+                                                    :rules="rule_minimal_nilai">
+                                                </v-select>
+                                                <v-select 
+                                                    v-model="formdata.idkonsentrasi" 
+                                                    label="KONSENTRASI"
+                                                    :items="group_matakuliah"
+                                                    item-text="nama_konsentrasi"
+                                                    item-value="id_konsentrasi"                                                    
+                                                    outlined
+                                                    v-if="daftar_konsentrasi.length > 0">
+                                                </v-select>    
+                                                <v-switch
+                                                    v-model="formdata.ispilihan"
+                                                    label="MATAKULIAH PILIHAN">
+                                                </v-switch>
+                                                <v-switch
+                                                    v-model="formdata.islintas_prodi"
+                                                    label="MATAKULIAH LINTAS PROGRAM STUDI">
+                                                </v-switch>
+                                                <v-switch
+                                                    v-model="formdata.syarat_skripsi"
+                                                    label="SYARAT SKRIPSI">
+                                                </v-switch>
+                                                <v-switch
+                                                    v-model="formdata.status"
+                                                    label="STATUS">
+                                                </v-switch>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -200,8 +250,10 @@
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}                                                                                                       
+                                <v-col cols="12">                          
+                                    <strong>ID:</strong>{{ item.id }}          
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -212,7 +264,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <template v-slot:filtersidebar v-if="dashboard!='mahasiswabaru'">
+        <template v-slot:filtersidebar>
             <Filter18 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />	
         </template>
     </AkademikLayout>
@@ -242,6 +294,10 @@ export default {
                 href:'#'
             }
         ];
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
@@ -253,7 +309,15 @@ export default {
         btnLoading:false,
         datatableLoading:false,
         expanded:[],
-        datatable:[],        
+        datatable:[],      
+        headers: [
+            { text: 'KODE', value: 'kmatkul', width:100 },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul' },               
+            { text: 'KELOMPOK', value: 'sks', width:50 },               
+            { text: 'SMT', value: 'semester', width:50 },               
+            { text: 'SMT', value: 'semester', width:50 },               
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+        ],  
         search:'',    
 
         //dialog
@@ -261,43 +325,97 @@ export default {
         dialogdetailitem:false,
 
         //form data   
-        form_valid:true,           
+        form_valid:true,   
+        group_matakuliah:[],   
+        daftar_konsentrasi:[],   
+        daftar_semester:[
+            1,2,3,4,5,6,7,8
+        ],  
+        daftar_sks:[
+            1,2,3,4,5,6,7,8,9,10,11,12
+        ],
+        daftar_nilai:[
+            'A',
+            'A-',
+            'A/B',
+            '(B+)',
+            'B',
+            'B-',
+            'B/C',
+            '(C+)',
+            'C',
+            'C-',
+            'C/D',
+            '(D+)',
+            'D',
+            'E'
+        ],
         formdata: {
-            id:0,                        
-            kode_fakultas:'',                        
-            kode_prodi:'',                        
-            nama_prodi:'', 
-            nama_prodi_alias:'',         
-            kode_jenjang:'', 
-            nama_jenjang:'', 
+            id:'',                        
+            id_group:null,                        
+            nama_group:null,                        
+            group_alias:null, 
+            kmatkul:'',         
+            nmatkul:'', 
+            sks:'', 
+            idkonsentrasi:null, 
+            ispilihan:false, 
+            islintas_prodi:false, 
+            semester:'', 
+            sks_tatap_muka:'', 
+            sks_praktikum:0, 
+            sks_praktik_lapangan:0, 
+            minimal_nilai:'C', 
+            syarat_skripsi:true, 
+            status:true, 
+            ta:'', 
+            kjur:'', 
         },
         formdefault: {
-            id:0,                        
-            kode_fakultas:'',   
-            kode_prodi:'',                        
-            nama_prodi:'',         
-            nama_prodi_alias:'',         
-            kode_jenjang:'', 
-            nama_jenjang:'', 
+            id:'',                        
+            id_group:null,                        
+            nama_group:null,                        
+            group_alias:null, 
+            kmatkul:'',         
+            nmatkul:'', 
+            sks:'', 
+            idkonsentrasi:null, 
+            ispilihan:false, 
+            islintas_prodi:false, 
+            semester:'', 
+            sks_tatap_muka:'', 
+            sks_praktikum:0, 
+            sks_praktik_lapangan:0, 
+            minimal_nilai:'C', 
+            syarat_skripsi:true, 
+            status:true, 
+            ta:'', 
+            kjur:'',  
         },
         editedIndex: -1,
 
-        //form rules         
-        rule_kode_prodi:[
-            value => !!value||"Kode Program Studi mohon untuk diisi !!!",
-            value => /^[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode Program Studi hanya boleh angka',
+        //form rules    
+        rule_group_matakuliah:[
+            value => !!value||"Mohon Group Matakuliah untuk dipilih !!!",              
+        ],      
+        rule_kode_matkul:[
+            value => !!value||"Kode Program Studi mohon untuk diisi !!!",            
         ], 
-        rule_nama_prodi:[
-            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Program Studi hanya boleh string dan spasi',                
+        rule_nama_matakuliah:[
+            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",              
         ], 
-        rule_nama_prodi_alias:[
-            value => !!value||"Mohon Nama Singkat Program Studi untuk diisi !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Singkat Program Studi hanya boleh string dan spasi',                
-        ], 
-        rule_kode_jenjang:[
-            value => !!value||"Mohon Jenjang Studi untuk dipilih !!!",              
-        ], 
+        rule_sks:[
+            value => !!value||"Mohon SKS Matakuliah untuk dipilih !!!",              
+        ],         
+        rule_sks_tatap_muka:[
+            value => !!value||"Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",              
+        ],         
+        rule_semester:[
+            value => !!value||"Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",              
+        ],         
+        rule_minimal_nilai:[
+            value => !!value||"Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
+        ],        
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -342,16 +460,14 @@ export default {
         },
         tambahItem:async function()
         {   
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
-            {                
-                await this.$ajax.get('/akademik/fakultas').then(({data})=>{
-                    this.daftar_fakultas=data.fakultas;
-                });
-            }
-            await this.$ajax.get('/akademik/matakuliah/jenjangstudi').then(({data})=>{
-                this.daftar_jenjang=data.jenjangstudi;
-            });
-
+            await this.$ajax.get('/akademik/groupmatakuliah',
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{
+                this.group_matakuliah=data.group_matakuliah;
+            });            
             this.dialogfrm=true;
         },
         viewItem (item) {
@@ -389,12 +505,24 @@ export default {
                     await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
                         {
                             '_method':'PUT',
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            kode_prodi:this.formdata.kode_prodi,                            
-                            nama_prodi:this.formdata.nama_prodi,                                                        
-                            nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
-                            kode_jenjang:this.formdata.kode_jenjang,                                                        
-                            nama_jenjang:this.formdata.nama_jenjang,                                                                                                             
+                            id_group:this.formdata.id_group,                                                    
+                            nama_group:this.formdata.nama_group,                                                    
+                            group_alias:this.formdata.group_alias,                                                    
+                            kmatkul:this.formdata.kmatkul,         
+                            nmatkul:this.formdata.nmatkul, 
+                            sks:this.formdata.sks, 
+                            idkonsentrasi:this.formdata.idkonsentrasi, 
+                            ispilihan:this.formdata.ispilihan, 
+                            islintas_prodi:this.formdata.islintas_prodi, 
+                            semester:this.formdata.semester, 
+                            sks_tatap_muka:this.formdata.sks_tatap_muka, 
+                            sks_praktikum:this.formdata.sks_praktikum, 
+                            sks_praktik_lapangan:this.formdata.sks_praktik_lapangan, 
+                            minimal_nilai:this.formdata.minimal_nilai,  
+                            syarat_skripsi:this.formdata.syarat_skripsi,   
+                            status:this.formdata.status,                             
+                            ta:this.formdata.ta,                             
+                            kjur:this.formdata.kjur,                                                         
                         },
                         {
                             headers:{
@@ -412,12 +540,24 @@ export default {
                 } else {                    
                     await this.$ajax.post('/akademik/matakuliah/store',
                         {
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            kode_prodi:this.formdata.kode_prodi,                            
-                            nama_prodi:this.formdata.nama_prodi,   
-                            nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
-                            kode_jenjang:this.jenjang_studi.kode_jenjang,                                                        
-                            nama_jenjang:this.jenjang_studi.nama_jenjang,                                                                                                             
+                            id_group:this.formdata.id_group, 
+                            nama_group:this.formdata.nama_group,                                                    
+                            group_alias:this.formdata.group_alias,                                                                                                       
+                            kmatkul:this.formdata.kmatkul,         
+                            nmatkul:this.formdata.nmatkul, 
+                            sks:this.formdata.sks, 
+                            idkonsentrasi:this.formdata.idkonsentrasi, 
+                            ispilihan:this.formdata.ispilihan, 
+                            islintas_prodi:this.formdata.islintas_prodi, 
+                            semester:this.formdata.semester, 
+                            sks_tatap_muka:this.formdata.sks_tatap_muka, 
+                            sks_praktikum:this.formdata.sks_praktikum, 
+                            sks_praktik_lapangan:this.formdata.sks_praktik_lapangan, 
+                            minimal_nilai:this.formdata.minimal_nilai,  
+                            syarat_skripsi:this.formdata.syarat_skripsi,   
+                            status:this.formdata.status,   
+                            ta:this.tahun_akademik,                             
+                            kjur:this.prodi_id,                                                                                   
                         },
                         {
                             headers:{
@@ -435,7 +575,7 @@ export default {
             }
         },
         deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah dengan kode '+item.kode_prodi+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
@@ -483,29 +623,24 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
-        headers()
+        },                
+    },
+    watch:{
+        tahun_akademik()
         {
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            if (!this.firstloading)
             {
-                return [                        
-                    { text: 'KODE MATAKULIAH', value: 'kode_prodi', width:250 },   
-                    { text: 'NAMA MATAKULIAH', value: 'nama_prodi' },   
-                    { text: 'FAKULTAS', value: 'nama_fakultas',width:200  },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:50 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width:100 },
-                ];
-            }
-            else
-            {
-                return [                        
-                    { text: 'KODE MATAKULIAH', value: 'kode_prodi', width:250 },   
-                    { text: 'NAMA MATAKULIAH', value: 'nama_prodi' },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:50 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width:100 },
-                ];
-            }
+                this.initialize();
+            }            
         },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        }
     },
     components:{
         AkademikLayout,

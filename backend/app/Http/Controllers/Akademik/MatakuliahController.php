@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Akademik\GroupMatakuliahModel;
 use App\Models\Akademik\MatakuliahModel;
+
+use Ramsey\Uuid\Uuid;
 
 class MatakuliahController extends Controller {  
     /**
@@ -25,7 +28,7 @@ class MatakuliahController extends Controller {
                                     status
                                 '))                                
                                 ->get();
-
+        
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
@@ -41,25 +44,68 @@ class MatakuliahController extends Controller {
      */
     public function store(Request $request)
     {
-        $this->hasPermissionTo('DMASTER-PRODI_STORE');
-        
+        $this->hasPermissionTo('AKADEMIK-MATAKULIAH_STORE');
+
+        $kjur=$request->input('kjur');
+        $ta=$request->input('ta');
+
         $rule=[            
-            'kode_prodi'=>'required|numeric|unique:pe3_prodi',
-            'nama_prodi'=>'required|string|unique:pe3_prodi',            
-            'nama_prodi_alias'=>'required|string|unique:pe3_prodi',            
-            'kode_jenjang'=>'required|exists:pe3_jenjang_studi,kode_jenjang',            
-            'nama_jenjang'=>'required',            
+            'id_group'=>'required',
+            'kmatkul'=>[
+                'required',
+                Rule::unique('pe3_matakuliah')->where(function ($query) use ($ta,$kjur) {
+                    $query->where('ta', $ta)
+                        ->where('kjur',$kjur);
+                })
+            ],
+            'nmatkul'=>[
+                'required',
+                Rule::unique('pe3_matakuliah')->where(function ($query) use ($ta,$kjur) {
+                    $query->where('ta', $ta)
+                        ->where('kjur',$kjur);
+                })
+            ],
+            'sks'=>'required|numeric',            
+            'semester'=>'required|numeric',            
+            'sks_tatap_muka'=>'required|numeric',            
+            'minimal_nilai'=>'required',            
+            'ta'=>'required',            
+            'kjur'=>'required',  
         ];
     
         $this->validate($request, $rule);
-             
+        
+        $id_group=$request->input('id_group');
+        $nama_group=$request->input('nama_group');
+        $group_alias=$request->input('group_alias');
+
+        $group_matakuliah=GroupMatakuliahModel::find($id_group);
+        if(!is_null($group_matakuliah))
+        {
+            $nama_group=$group_matakuliah->nama_group;
+            $group_alias=$group_matakuliah->group_alias;
+        }
+
         $matakuliah=MatakuliahModel::create([
-            'kode_prodi'=>$request->input('kode_prodi'),
-            'kode_fakultas'=>$kode_fakultas,
-            'nama_prodi'=>$request->input('nama_prodi'),            
-            'nama_prodi_alias'=>$request->input('nama_prodi_alias'),            
-            'kode_jenjang'=>$request->input('kode_jenjang'),            
-            'nama_jenjang'=>$request->input('nama_jenjang'),            
+            'id'=>Uuid::uuid4()->toString(),
+            'id_group'=>$id_group,
+            'nama_group'=>$nama_group,
+            'group_alias'=>$group_alias,
+            'kmatkul'=>strtoupper($request->input('kmatkul')),
+            'nmatkul'=>ucwords($request->input('nmatkul')),            
+            'sks'=>$request->input('sks'),            
+            'idkonsentrasi'=>$request->input('idkonsentrasi'),            
+            'ispilihan'=>$request->input('ispilihan'),            
+            'islintas_prodi'=>$request->input('islintas_prodi'),            
+            'semester'=>$request->input('semester'),            
+            'sks_tatap_muka'=>$request->input('sks_tatap_muka'),            
+            'sks_praktikum'=>$request->input('sks_praktikum'),            
+            'sks_praktik_lapangan'=>$request->input('sks_praktik_lapangan'),            
+            'minimal_nilai'=>$request->input('minimal_nilai'),            
+            'syarat_skripsi'=>$request->input('syarat_skripsi'),            
+            'status'=>$request->input('status'),            
+            'ta'=>$request->input('ta'),            
+            'kjur'=>$request->input('kjur'),            
         ]);                      
         
         \App\Models\System\ActivityLog::log($request,[
@@ -72,6 +118,7 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
+                                    'post'=>$request->all(),
                                     'matakuliah'=>$matakuliah,                                    
                                     'message'=>'Data matakuliah berhasil disimpan.'
                                 ],200); 
@@ -86,7 +133,7 @@ class MatakuliahController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
+        $this->hasPermissionTo('AKADEMIK-MATAKULIAH_UPDATE');
 
         $matakuliah = MatakuliahModel::find($id);
         if (is_null($matakuliah))
@@ -154,33 +201,7 @@ class MatakuliahController extends Controller {
                                     'message'=>'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
                                 ],200); 
         }
-    }
-    /**
-     * daftar matakuliah
-     */
-    public function programstudi(Request $request,$id)
-    {
-        $matakuliah=MatakuliahModel::find($id);
-        if (is_null($matakuliah))
-        {
-            return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',                
-                                    'message'=>["Fetch data matakuliah berdasarkan id matakuliah gagal"]
-                                ],422); 
-        }
-        else
-        {
-            $programstudi = $matakuliah->programstudi;
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'programstudi'=>$programstudi,                                                                                                                                   
-                                        'message'=>'Fetch data matakuliah berdasarkan id matakuliah berhasil.'
-                                    ],200);     
-
-        }
-    }
+    }   
     /**
      * Remove the specified resource from storage.
      *
@@ -189,7 +210,7 @@ class MatakuliahController extends Controller {
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('DMASTER-PRODI_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-MATAKULIAH_DESTROY');
 
         $matakuliah = MatakuliahModel::find($id); 
         
@@ -205,9 +226,9 @@ class MatakuliahController extends Controller {
         {
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $matakuliah, 
-                                                                'object_id' => $matakuliah->kode_prodi, 
+                                                                'object_id' => $matakuliah->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Kode matakuliah ('.$id.') berhasil'
+                                                                'message' => 'Menghapus matakuliah dengan id ('.$id.') berhasil'
                                                             ]);
             $matakuliah->delete();
             return Response()->json([
