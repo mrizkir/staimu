@@ -204,6 +204,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     //akademik - matakuliah
     $router->post('/akademik/matakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@store','as'=>'matakuliah.store']);            
+    $router->get('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@show','as'=>'matakuliah.show']);            
+    $router->put('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@update','as'=>'matakuliah.update']);            
     $router->delete('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@destroy','as'=>'matakuliah.destroy']);            
 
     //setting - permissions

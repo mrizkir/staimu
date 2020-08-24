@@ -117,13 +117,15 @@
                                                 <v-select 
                                                     v-model="formdata.sks_praktikum" 
                                                     label="SKS PRAKTIKUM"
+                                                    :clearable="true"                                                 
                                                     :items="daftar_sks"                                                    
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_praktik_lapangan" 
                                                     label="SKS PRAKTIK LAPANGAN"
-                                                    :items="daftar_sks"                                                    
+                                                    :items="daftar_sks"   
+                                                    :clearable="true"                                                 
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
@@ -181,7 +183,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogdetailitem" max-width="700px" persistent>
+                                <v-dialog v-model="dialogdetailitem" max-width="750px" persistent>
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">DETAIL DATA</span>
@@ -190,18 +192,18 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>KODE PRODI :</v-card-title>
+                                                        <v-card-title>ID :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.kode_prodi}}
+                                                            {{formdata.id}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA PRODI :</v-card-title>
+                                                        <v-card-title>SKS :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi}}
+                                                            {{formdata.sks}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -210,13 +212,102 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>NAMA SINGKAT PRODI :</v-card-title>
+                                                        <v-card-title>KODE MATAKULIAH :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi_alias}}
+                                                            {{formdata.kmatkul}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>SKS TATAP MUKA :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.sks_tatap_muka}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>NAMA MATAKULIAH :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.nmatkul}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>SKS PRAKTIKUM :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.sks_praktikum2}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>SEMESTER :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.semester}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>SKS PRAKTIK LAPANGAN :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.sks_praktik_lapangan2}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>MINIMAL NILAI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.minimal_nilai}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>SYARAT SKRIPSI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.syarat_skripsi == 1 ? 'YA' : 'TIDAK'}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>                                            
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>PRODI / TA :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.nama_prodi}} - {{formdata.tahun_akademik}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>STATUS :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.status == 1 ? 'AKTIF' : 'NON-AKTIF'}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>                                            
                                         </v-card-text>
                                         <v-card-actions>
@@ -311,11 +402,11 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', width:100 },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul' },               
-            { text: 'KELOMPOK', value: 'sks', width:50 },               
-            { text: 'SMT', value: 'semester', width:50 },               
-            { text: 'SMT', value: 'semester', width:50 },               
+            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
+            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
+            { text: 'SKS', value: 'sks',sortable:true,width:80 },               
+            { text: 'SMT', value: 'semester', sortable:true,width:80 },               
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'',    
@@ -363,8 +454,8 @@ export default {
             islintas_prodi:false, 
             semester:'', 
             sks_tatap_muka:'', 
-            sks_praktikum:0, 
-            sks_praktik_lapangan:0, 
+            sks_praktikum:null, 
+            sks_praktik_lapangan:null, 
             minimal_nilai:'C', 
             syarat_skripsi:true, 
             status:true, 
@@ -384,8 +475,8 @@ export default {
             islintas_prodi:false, 
             semester:'', 
             sks_tatap_muka:'', 
-            sks_praktikum:0, 
-            sks_praktik_lapangan:0, 
+            sks_praktikum:null, 
+            sks_praktik_lapangan:null, 
             minimal_nilai:'C', 
             syarat_skripsi:true, 
             status:true, 
@@ -470,30 +561,37 @@ export default {
             });            
             this.dialogfrm=true;
         },
-        viewItem (item) {
+        async viewItem (item) {
             this.formdata=item;      
+            await this.$ajax.get('/akademik/matakuliah/'+item.id,
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{
+                this.formdata=data.matakuliah;
+            });
             this.dialogdetailitem=true;                        
         },    
         editItem:async function (item) {            
-            this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);
+            this.editedIndex = this.datatable.indexOf(item);            
+            await this.$ajax.get('/akademik/groupmatakuliah',
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{
+                this.group_matakuliah=data.group_matakuliah;
+            });  
 
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
-            {                
-                await this.$ajax.get('/akademik/fakultas').then(({data})=>{                    
-                    this.daftar_fakultas=data.fakultas;                    
-                    this.formdata.kode_fakultas=item.kode_fakultas;
-                });
-            }
-
-            await this.$ajax.get('/akademik/matakuliah/jenjangstudi').then(({data})=>{
-                this.daftar_jenjang=data.jenjangstudi;
+            await this.$ajax.get('/akademik/matakuliah/'+item.id,
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{
+                this.formdata=data.matakuliah;
             });
-
-            this.jenjang_studi={
-                kode_jenjang:item.kode_jenjang,
-                nama_jenjang:item.nama_jenjang
-            }
             this.dialogfrm = true
         },    
         save:async function () {

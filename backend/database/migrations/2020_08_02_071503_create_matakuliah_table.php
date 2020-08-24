@@ -27,14 +27,20 @@ class CreateMatakuliahTable extends Migration
             $table->boolean('islintas_prodi')->default(false);
             $table->tinyinteger('semester');
             $table->tinyinteger('sks_tatap_muka');
-            $table->tinyinteger('sks_praktikum');
-            $table->tinyinteger('sks_praktik_lapangan');
+            $table->tinyinteger('sks_praktikum')->nullable();
+            $table->tinyinteger('sks_praktik_lapangan')->nullable();
             $table->string('minimal_nilai',10);
             $table->boolean('syarat_skripsi')->default(false);
             $table->boolean('status')->default(false);
             $table->year('ta');
             $table->tinyinteger('kjur');
-            $table->timestamps();       
+            $table->timestamps();  
+            
+            $table->index('kmatkul');
+            $table->index('nmatkul');
+            $table->index('kjur');
+            $table->index('ta');
+            $table->index('id_group');
         });
     }
 
