@@ -449,7 +449,7 @@
                                         color="primary" 
                                         @click.stop="verifikasi(item)" 
                                         class="mb-2" 
-                                        :disabled="(item.status==0?false:true)||btnLoading" 
+                                        :disabled="(item.status_konfirmasi=='UNVERIFIED'?false:true)||btnLoading"  
                                         :loading="btnLoading">
                                         VERIFIKASI
                                     </v-btn>
@@ -459,7 +459,7 @@
                                         color="primary" 
                                         @click.stop="cancel(item)" 
                                         class="mb-2" 
-                                        :disabled="(item.status==1||item.status==2?true:false)||btnLoading" 
+                                        :disabled="(item.status_konfirmasi=='N.A'||item.status_konfirmasi=='UNVERIFIED'?true:false)||btnLoading" 
                                         :loading="btnLoading">
                                         BATALKAN
                                     </v-btn>
