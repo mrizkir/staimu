@@ -459,7 +459,7 @@
                                         color="primary" 
                                         @click.stop="cancel(item)" 
                                         class="mb-2" 
-                                        :disabled="(item.status_konfirmasi=='N.A'||item.status_konfirmasi=='UNVERIFIED'?true:false)||btnLoading" 
+                                        :disabled="(item.status_konfirmasi=='UNPAID'?true:false)||btnLoading" 
                                         :loading="btnLoading">
                                         BATALKAN
                                     </v-btn>
