@@ -40,10 +40,31 @@
                         @click.native="$router.push('/spmb/pendaftaranbaru')"
                         dark>
                         <v-card-title class="headline">
-                            JUMLAH MHS. BARU
-                        </v-card-title>                        
+                            JUMLAH REGISTRASI
+                        </v-card-title>   
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang melakukan registrasi
+                        </v-card-subtitle>
                         <v-card-text>
-                            {{total_mb}}
+                            {{total_registrasi}}
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                <v-col xs="12" sm="4" md="3">
+                    <v-card                         
+                        class="clickable"
+                        color="#385F73" 
+                        @click.native="$router.push('/spmb/formulirpendaftaran')"
+                        dark>
+                        <v-card-title class="headline">
+                            JUMLAH ISI FORMULIR
+                        </v-card-title>   
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang mengisi formulir pendaftaran
+                        </v-card-subtitle>
+                        <v-card-text>
+                            {{total_isi_formulir}}
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -53,10 +74,10 @@
                 <v-col xs="12" sm="12" md="6">
                     <v-card class="mb-3">
                         <v-card-title>
-                            Pendaftaran Mahasiswa Baru
+                            Registrasi Mahasiswa Baru
                         </v-card-title>
                         <v-card-subtitle>
-                            per program studi
+                            Jumlah registrasi form pendaftaran calon mahasiswa baru per program studi.
                         </v-card-subtitle>
                         <v-card-text>
                             <v-data-table 
@@ -66,15 +87,15 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
-                                :items="daftar_prodi">                                    
-                                <template v-slot:body.append v-if="daftar_prodi.length > 0">
+                                :items="daftar_registrasi">                                    
+                                <template v-slot:body.append v-if="daftar_registrasi.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_mb}}</td>                                                                                
+                                        <td class="text-right">{{total_registrasi}}</td>                                                                                
                                     </tr>
                                 </template>
                                 <template v-slot:no-data>                            
-                                    belum ada data pendaftaran mahasiswa baru.
+                                    belum ada data calon mahasiswa baru yang mengisi formulir pendaftaran.
                                 </template>                           
                             </v-data-table>
                         </v-card-text>
@@ -82,7 +103,34 @@
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
                 <v-col xs="12" sm="12" md="6">
-                    
+                    <v-card class="mb-3">
+                        <v-card-title>
+                            Melengkapi Formulir Calon Mahasiswa Baru
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang mengisi formulir pendaftaran per program studi.
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-data-table 
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait"
+                                :dense="true"                                                  
+                                :disable-pagination="true"
+                                :hide-default-footer="true"
+                                :headers="headers"
+                                :items="daftar_isi_formulir">                                    
+                                <template v-slot:body.append v-if="daftar_isi_formulir.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL</td>
+                                        <td class="text-right">{{total_isi_formulir}}</td>                                                                                
+                                    </tr>
+                                </template>
+                                <template v-slot:no-data>                            
+                                    belum ada data calon mahasiswa baru yang mengisi formulir.
+                                </template>                           
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
             </v-row>           
@@ -122,8 +170,8 @@ export default {
         tahun_pendaftaran:0,
         
         //statistik
-        total_mb:0,
-        daftar_prodi:[],        
+        total_registrasi:0,
+        daftar_registrasi:[],        
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},               
             { text: 'JENJANG', value: 'nama_jenjang', sortable:false},               
@@ -147,8 +195,11 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                            
-                this.daftar_prodi = data.daftar_prodi;
-                this.total_mb = data.total_mb;
+                this.daftar_registrasi = data.daftar_registrasi;
+                this.total_registrasi = data.total_registrasi;
+                
+                this.daftar_isi_formulir = data.daftar_isi_formulir;
+                this.total_isi_formulir = data.total_isi_formulir;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;

@@ -60,8 +60,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/auth/me',['uses'=>'AuthController@me','as'=>'auth.me']);
 
     // dashboard
-    $router->post('/dashboard/pmb',['uses'=>'DashboardController@pmbindex','as'=>'dashboard.pmbindex']);
-    $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KeuanganController@index','as'=>'keuangan.index']);                
+    $router->post('/dashboard/pmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SPMBController@index','as'=>'dashboardspmb.index']);
+    $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KeuanganController@index','as'=>'dashboardkeuangan.index']);                
 
     //data master - tahun akademik    
     $router->post('/datamaster/tahunakademik/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@store','as'=>'tahunakademik.store']);        
