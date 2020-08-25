@@ -70,8 +70,9 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
+                                <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyMatkul">SALIN MATAKULIAH</v-btn>
                                 <v-btn color="primary" dark class="mb-2" @click.stop="tambahItem">TAMBAH</v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent v-if="dialogfrm">                                    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -316,6 +317,46 @@
                                         </v-card-actions>
                                     </v-card>                                    
                                 </v-dialog>
+                                <v-dialog v-model="dialogcopymatkul" max-width="500px" persistent v-if="dialogcopymatkul">     
+                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="headline">SALIN MATAKULIAH</span>
+                                            </v-card-title>
+                                            <v-card-subtitle>
+                                                Program Studi {{nama_prodi}}
+                                            </v-card-subtitle>
+                                            <v-card-text>       
+                                                <v-alert
+                                                    class="info"
+                                                    dark>
+                                                    Salin matakuliah dari tahun akademik berikut ke tahun akademik {{tahun_akademik}}
+                                                </v-alert>
+                                                <v-select
+                                                    v-model="dari_tahun_akademik"
+                                                    :items="daftar_ta"
+                                                    item-text="tahun_akademik"
+                                                    item-value="tahun"
+                                                    label="TAHUN AKADEMIK"
+                                                    :rules="rule_dari_tahun_akademik"
+                                                    outlined/>                                        
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-spacer></v-spacer>
+                                                    <v-btn color="blue darken-1" text @click.stop="closedialogsalinmatkul">BATAL</v-btn>
+                                                    <v-btn 
+                                                        color="blue darken-1" 
+                                                        text 
+                                                        @click.stop="salinmatkul" 
+                                                        :loading="btnLoading"
+                                                        :disabled="!form_valid||btnLoading">
+                                                            SALIN
+                                                    </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -414,9 +455,12 @@ export default {
         //dialog
         dialogfrm:false,
         dialogdetailitem:false,
+        dialogcopymatkul:false,
 
         //form data   
-        form_valid:true,   
+        form_valid:true, 
+        daftar_ta:[],         
+        dari_tahun_akademik:null,  
         group_matakuliah:[],   
         daftar_konsentrasi:[],   
         daftar_semester:[
@@ -506,7 +550,10 @@ export default {
         ],         
         rule_minimal_nilai:[
             value => !!value||"Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
-        ],        
+        ], 
+        rule_dari_tahun_akademik:[
+            value => !!value||"Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",              
+        ],             
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -594,6 +641,11 @@ export default {
             });
             this.dialogfrm = true
         },    
+        showDialogCopyMatkul()
+        {
+            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            this.dialogcopymatkul=true;
+        },
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
@@ -672,6 +724,28 @@ export default {
                 }
             }
         },
+        salinmatkul()
+        {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;
+                this.$ajax.post('/akademik/matakuliah/salinmatkul/'+this.tahun_akademik,
+                    {
+                        dari_tahun_akademik:this.dari_tahun_akademik
+                    },
+                    {
+                        headers:{
+                            Authorization:this.TOKEN
+                        }
+                    }
+                ).then(()=>{   
+
+                    this.btnLoading=false;
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });            
+            }
+        },
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
@@ -708,6 +782,14 @@ export default {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                
+                this.$refs.frmdata.reset();                                 
+                this.editedIndex = -1
+                }, 300
+            );
+        },
+        closedialogsalinmatkul () {
+            this.dialogcopymatkul = false;            
+            setTimeout(() => {                
                 this.$refs.frmdata.reset();                                 
                 this.editedIndex = -1
                 }, 300
