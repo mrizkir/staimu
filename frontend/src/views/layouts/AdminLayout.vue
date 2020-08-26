@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-system-bar app dark class="brown darken-2 white--text">
+        <v-system-bar app dark class="green lighten-2 white--text">
             
 		</v-system-bar>	
         <v-app-bar app>            

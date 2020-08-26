@@ -35,7 +35,7 @@
             <v-row dense>
                 <v-col xs="12" sm="4" md="3">
                     <v-card                         
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/spmb/pendaftaranbaru')"
                         dark>
@@ -53,7 +53,7 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                 <v-col xs="12" sm="4" md="3">
                     <v-card                         
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/spmb/formulirpendaftaran')"
                         dark>
@@ -171,7 +171,10 @@ export default {
         
         //statistik
         total_registrasi:0,
-        daftar_registrasi:[],        
+        daftar_registrasi:[], 
+
+        total_isi_formulir:0,
+        daftar_isi_formulir:[],        
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},               
             { text: 'JENJANG', value: 'nama_jenjang', sortable:false},               

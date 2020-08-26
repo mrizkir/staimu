@@ -8,7 +8,7 @@
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
                     <v-card 
                         min-height="140"
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/dmaster')"
                         dark>
@@ -24,7 +24,7 @@
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
                     <v-card 
                         min-height="140"
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/spmb')"
                         dark>
@@ -40,7 +40,7 @@
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEUANGAN-GROUP')">
                     <v-card 
                         min-height="140"
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/keuangan')"
                         dark>
@@ -56,7 +56,7 @@
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('AKADEMIK-GROUP')">
                     <v-card 
                         min-height="140"
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/akademik')"
                         dark>
@@ -72,7 +72,7 @@
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
                     <v-card 
                         min-height="140"
-                        class="clickable"
+                        class="clickable green darken-1"
                         color="#385F73" 
                         @click.native="$router.push('/system-users')"
                         dark>

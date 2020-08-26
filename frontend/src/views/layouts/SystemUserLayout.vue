@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-system-bar app dark class="brown darken-2 white--text">
+        <v-system-bar app dark class="green lighten-2 white--text">
             
 		</v-system-bar>	
         <v-app-bar app>
@@ -161,7 +161,7 @@
                 </v-list>
             </v-menu>			
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark class="brown darken-4" :temporary="isReportPage" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="isReportPage" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -177,12 +177,12 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/system-users'}" v-if="CAN_ACCESS('SYSTEM-USERS-GROUP')" link color="deep-orange darken-1" >
+                <v-list-item :to="{path:'/system-users'}" v-if="CAN_ACCESS('SYSTEM-USERS-GROUP')" link class="yellow" color="green" >
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>MODULE USER SISTEM</v-list-item-title>
+                        <v-list-item-title>DASHBOARD USERS</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-SUPERADMIN')" to="/system-users/superadmin">

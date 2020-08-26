@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-system-bar app dark class="brown darken-2 white--text">
+        <v-system-bar app dark class="green lighten-2 white--text">
             
 		</v-system-bar>	
         <v-app-bar app>
@@ -60,7 +60,7 @@
                 <v-icon>mdi-menu-open</v-icon>
 			</v-app-bar-nav-icon>            
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark class="brown darken-4" :temporary="isReportPage" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="isReportPage" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -76,12 +76,12 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/dmaster'}" v-if="CAN_ACCESS('DMASTER-GROUP')" link color="deep-orange darken-1" >
+                <v-list-item :to="{path:'/dmaster'}" v-if="CAN_ACCESS('DMASTER-GROUP')" link class="yellow" color="green" >
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-home-floor-b</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>MODULE DATA MASTER</v-list-item-title>
+                        <v-list-item-title>DASHBOARD DATA MASTER</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('DMASTER-TA_BROWSE')" to="/dmaster/ta">
