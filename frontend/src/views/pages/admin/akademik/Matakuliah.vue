@@ -569,7 +569,7 @@ export default {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/matakuliah',
             {
-                prodi_id:this.prodi,
+                prodi_id:this.prodi_id,
                 ta:this.tahun_akademik
             },
             {

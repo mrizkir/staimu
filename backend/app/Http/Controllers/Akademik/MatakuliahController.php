@@ -16,6 +16,14 @@ class MatakuliahController extends Controller {
      */
     public function index(Request $request)
     {
+        $this->validate($request, [           
+            'ta'=>'required',
+            'prodi_id'=>'required'
+        ]);
+        
+        $ta=$request->input('ta');
+        $prodi_id=$request->input('prodi_id');
+
         $matakuliah=MatakuliahModel::select(\DB::raw('
                                     id,
                                     group_alias,                                    
@@ -26,7 +34,9 @@ class MatakuliahController extends Controller {
                                     minimal_nilai,
                                     syarat_skripsi,
                                     status
-                                '))                                
+                                '))       
+                                ->where('kjur',$prodi_id)
+                                ->where('ta',$ta)                         
                                 ->get();
         
         return Response()->json([
