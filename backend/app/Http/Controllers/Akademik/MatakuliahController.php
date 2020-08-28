@@ -36,7 +36,9 @@ class MatakuliahController extends Controller {
                                     status
                                 '))       
                                 ->where('kjur',$prodi_id)
-                                ->where('ta',$ta)                         
+                                ->where('ta',$ta)   
+                                ->orderBy('semester','ASC')                      
+                                ->orderBy('kmatkul','ASC')                      
                                 ->get();
         
         return Response()->json([
@@ -169,6 +171,107 @@ class MatakuliahController extends Controller {
                                     'message'=>'Data matakuliah berhasil disimpan.'
                                 ],200); 
 
+    }
+    /**
+     * digunakan untuk menyalin matakuliah
+     */
+    public function salinmatkul (Request $request,$id)
+    {
+        $this->validate($request, [           
+            'dari_tahun_akademik'=>'required',  
+            'prodi_id'=>'required'          
+        ]);
+
+        $dari_tahun_akademik=$request->input('dari_tahun_akademik');
+        $prodi_id=$request->input('prodi_id');
+        
+        $sql = "INSERT INTO pe3_matakuliah (id,
+                                            id_group,
+                                            nama_group,
+                                            group_alias,
+                                            kmatkul,
+                                            nmatkul,
+                                            sks,
+                                            idkonsentrasi,
+                                            ispilihan,
+                                            islintas_prodi,
+                                            semester,
+                                            sks_tatap_muka,
+                                            sks_praktikum,
+                                            sks_praktik_lapangan,
+                                            minimal_nilai,
+                                            syarat_skripsi,
+                                            status,
+                                            ta,
+                                            kjur,
+                                            created_at,
+                                            updated_at
+                                        )
+                SELECT UUID(),
+                    id_group,
+                    nama_group,
+                    group_alias,
+                    kmatkul,
+                    nmatkul,
+                    sks,
+                    idkonsentrasi,
+                    ispilihan,
+                    islintas_prodi,
+                    semester,
+                    sks_tatap_muka,
+                    sks_praktikum,
+                    sks_praktik_lapangan,
+                    minimal_nilai,
+                    syarat_skripsi,
+                    status,
+                    $id AS ta,
+                    $prodi_id AS kjur,
+                    NOW() AS created_at,
+                    NOW() AS updated_at 
+                FROM pe3_matakuliah 
+                WHERE 
+                    ta=$dari_tahun_akademik AND 
+                    kjur=$prodi_id AND 
+                    kmatkul 
+                        NOT IN (
+                        SELECT 
+                            kmatkul 
+                        FROM pe3_matakuliah 
+                        WHERE ta=$id AND 
+                            kjur=$prodi_id
+            )";                
+            \DB::statement($sql);
+            
+            $matakuliah=MatakuliahModel::select(\DB::raw('
+                                    id,
+                                    group_alias,                                    
+                                    kmatkul,
+                                    nmatkul,
+                                    sks,
+                                    semester,
+                                    minimal_nilai,
+                                    syarat_skripsi,
+                                    status
+                                '))       
+                                ->where('kjur',$prodi_id)
+                                ->where('ta',$id)   
+                                ->orderBy('semester','ASC')                      
+                                ->orderBy('kmatkul','ASC')                      
+                                ->get();
+
+            \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $matakuliah,
+                                                        'object_id'=>'N.A', 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
+                                                    ]);
+                                                    
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'store',  
+                                'matakuliah'=>$matakuliah,                                                                                                                                   
+                                'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
+                            ],200);     
     }
     /**
      * Update the specified resource in storage.

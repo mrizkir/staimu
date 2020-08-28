@@ -72,7 +72,7 @@
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyMatkul">SALIN MATAKULIAH</v-btn>
                                 <v-btn color="primary" dark class="mb-2" @click.stop="tambahItem">TAMBAH</v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="500px" persistent v-if="dialogfrm">                                    
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -317,8 +317,8 @@
                                         </v-card-actions>
                                     </v-card>                                    
                                 </v-dialog>
-                                <v-dialog v-model="dialogcopymatkul" max-width="500px" persistent v-if="dialogcopymatkul">     
-                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                <v-dialog v-model="dialogcopymatkul" max-width="500px" persistent>     
+                                    <v-form ref="frmdialogcopymatkul" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">SALIN MATAKULIAH</span>
@@ -389,6 +389,14 @@
                                 </v-col>                                
                             </td>
                         </template>
+                        <template v-slot:body.append v-if="datatable.length > 0">
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="4">TOTAL</td>
+                                <td class="text-center">{{totalSKS}}</td> 
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </template>
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>
@@ -446,7 +454,7 @@ export default {
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
             { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
-            { text: 'SKS', value: 'sks',sortable:true,width:80 },               
+            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },               
             { text: 'SMT', value: 'semester', sortable:true,width:80 },               
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
@@ -643,7 +651,18 @@ export default {
         },    
         showDialogCopyMatkul()
         {
-            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];              
+            for (var i =0; i < list_ta.length; i++)
+            {
+                var item = list_ta[i];  
+                if (this.tahun_akademik!=item.tahun)
+                {
+                    this.daftar_ta.push({
+                        tahun:item.tahun,
+                        tahun_akademik:item.tahun_akademik
+                    })
+                }                              
+            }            
             this.dialogcopymatkul=true;
         },
         save:async function () {
@@ -726,21 +745,23 @@ export default {
         },
         salinmatkul()
         {
-            if (this.$refs.frmdata.validate())
+            if (this.$refs.frmdialogcopymatkul.validate())
             {
                 this.btnLoading=true;
                 this.$ajax.post('/akademik/matakuliah/salinmatkul/'+this.tahun_akademik,
                     {
-                        dari_tahun_akademik:this.dari_tahun_akademik
+                        dari_tahun_akademik:this.dari_tahun_akademik,
+                        prodi_id:this.prodi_id,
                     },
                     {
                         headers:{
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(()=>{   
-
+                ).then(({data})=>{   
+                    this.datatable=data.matakuliah;
                     this.btnLoading=false;
+                    this.closedialogsalinmatkul();
                 }).catch(()=>{
                     this.btnLoading=false;
                 });            
@@ -787,13 +808,13 @@ export default {
                 }, 300
             );
         },
-        closedialogsalinmatkul () {
-            this.dialogcopymatkul = false;            
+        closedialogsalinmatkul () {                       
+            this.dialogcopymatkul = false; 
             setTimeout(() => {                
-                this.$refs.frmdata.reset();                                 
+                this.$refs.frmdialogcopymatkul.reset();                                 
                 this.editedIndex = -1
                 }, 300
-            );
+            );           
         },
     },
     computed: {
@@ -803,7 +824,17 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },                
+        },    
+        totalSKS()
+        {
+            var total = 0;
+            for (var i =0; i < this.datatable.length; i++)
+            {
+                var item = this.datatable[i];
+                total+=item.sks;
+            }
+            return total;
+        },            
     },
     watch:{
         tahun_akademik()
