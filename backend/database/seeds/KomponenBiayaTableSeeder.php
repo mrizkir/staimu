@@ -50,7 +50,7 @@ class KomponenBiayaTableSeeder extends Seeder
         \DB::table('pe3_kombi')->insert([
             'id'=>"301",
             'nama'=>'PROGRAM PENGALAMAN LAPANGAN / PROGRAM KERJA LAPANGAN',
-            'periode'=>'perbulan',
+            'periode'=>'insidental',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);          
@@ -58,7 +58,7 @@ class KomponenBiayaTableSeeder extends Seeder
         \DB::table('pe3_kombi')->insert([
             'id'=>"401",
             'nama'=>'KULIAH KERJA NYATA',
-            'periode'=>'perbulan',
+            'periode'=>'insidental',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);          
@@ -66,7 +66,7 @@ class KomponenBiayaTableSeeder extends Seeder
         \DB::table('pe3_kombi')->insert([
             'id'=>"501",
             'nama'=>'SEMINAR',
-            'periode'=>'perbulan',
+            'periode'=>'insidental',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);          
@@ -74,7 +74,7 @@ class KomponenBiayaTableSeeder extends Seeder
         \DB::table('pe3_kombi')->insert([
             'id'=>"601",
             'nama'=>'UJIAN MUNAQASAH',
-            'periode'=>'perbulan',
+            'periode'=>'insidental',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);          
@@ -82,7 +82,7 @@ class KomponenBiayaTableSeeder extends Seeder
         \DB::table('pe3_kombi')->insert([
             'id'=>"701",
             'nama'=>'WISUDA',
-            'periode'=>'perbulan',
+            'periode'=>'sekali',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);          

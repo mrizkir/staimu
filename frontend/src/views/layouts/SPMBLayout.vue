@@ -167,6 +167,16 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                
+                <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-LAPORAN-KELULUSAN_BROWSE')" to="/spmb/laporankelulusan">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-file-document-edit-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            LAPORAN KELULUSAN
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

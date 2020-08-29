@@ -193,6 +193,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/spmb/ReportProdi.vue'),		
 	},
+	{
+		path: '/spmb/laporankelulusan',
+		name: 'SPMBReportKelulusan',
+		meta:{
+			title: "SPMB - LAPORAN KELULUSAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/spmb/ReportKelulusan.vue'),		
+	},
 	
 	//keuangan
 	{
@@ -295,6 +304,16 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/akademik/Matakuliah.vue'),		
+	},	
+	//akademik - daftarulang
+	{
+		path: '/akademik/dulang/mahasiswabarus',
+		name: 'AkademikDulangMHSBaru',
+		meta:{
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA BARU",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/DulangMahasiswaBaru.vue'),		
 	},	
 
 	//system	

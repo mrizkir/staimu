@@ -12,13 +12,13 @@ class CreateConfigurationTable extends Migration
      * @return void
      */
     public function up()
-    {   
+    {
         Schema::defaultStringLength(191);
         Schema::create('pe3_configuration', function (Blueprint $table) {
-            $table->smallInteger('config_id',1);            
+            $table->smallInteger('config_id',1);
             $table->string('config_group');
             $table->string('config_key');
-            $table->string('config_value');            
+            $table->string('config_value')->nullable();            
             $table->timestamps();
         });
     }

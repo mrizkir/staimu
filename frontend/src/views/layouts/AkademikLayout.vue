@@ -95,7 +95,16 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-subheader>DAFTAR ULANG</v-subheader>
-
+                <v-list-item link to="/akademik/dulang/mahasiswabaru">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-book</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            MAHASISWA BARU
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

@@ -69,6 +69,24 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                <v-col xs="12" sm="4" md="3">
+                    <v-card                         
+                        class="clickable green darken-1"
+                        color="#385F73" 
+                        @click.native="$router.push('/spmb/laporankelulusan')"
+                        dark>
+                        <v-card-title class="headline">
+                            JUMLAH LULUS
+                        </v-card-title>   
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang mengisi yang lulus
+                        </v-card-subtitle>
+                        <v-card-text>
+                            {{total_lulus}}
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
             </v-row>
             <v-row>
                 <v-col xs="12" sm="12" md="6">
@@ -175,6 +193,9 @@ export default {
 
         total_isi_formulir:0,
         daftar_isi_formulir:[],        
+
+        total_lulus:0,
+        daftar_lulus:[],        
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},               
             { text: 'JENJANG', value: 'nama_jenjang', sortable:false},               
