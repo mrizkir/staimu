@@ -84,7 +84,7 @@
                         <v-list-item-title>DASHBOARD KEUANGAN</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>   
-                <v-subheader>KOMPONEN</v-subheader>
+                <v-subheader>DAFTAR ULANG</v-subheader>
                 <v-list-item link to="/keuangan/channelpembayaran">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-triforce</v-icon>

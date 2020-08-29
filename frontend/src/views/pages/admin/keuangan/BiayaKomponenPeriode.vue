@@ -35,6 +35,26 @@
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
+                        <v-card-title>
+                            FILTER
+                        </v-card-title>
+                        <v-card-text>
+                            <v-select
+                                label="KELAS"
+                                v-model="filter_idkelas"
+                                :items="daftar_kelas"
+                                item-text="text"
+                                item-value="id"                                
+                                outlined
+                                clearable
+                            />
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>    
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <v-card>
                         <v-card-text>
                             <v-text-field
                                 v-model="search"
@@ -42,6 +62,7 @@
                                 label="Search"
                                 single-line
                                 hide-details
+                                outlined
                             ></v-text-field>
                         </v-card-text>
                     </v-card>
@@ -154,6 +175,7 @@ export default {
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
         this.prodi_id=this.$store.getters['uiadmin/getProdiID']
         this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](this.prodi_id);
+        this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];        
         this.initialize();
     },  
     data: () => ({
@@ -162,6 +184,8 @@ export default {
         tahun_pendaftaran:0,
         prodi_id:null,
         nama_prodi:null,
+        filter_idkelas:'',
+        daftar_kelas:[],
         
         btnLoading:false,
         datatableLoading:false,
@@ -175,7 +199,6 @@ export default {
             { text: 'BIAYA', value: 'biaya',width:150,sortable:false },            
         ],    
         search:'',      
-        
     }),
     methods : {
         changeTahunPendaftaran (tahun)
@@ -277,6 +300,35 @@ export default {
                 this.initialize();
             }            
         },
+        filter_idkelas(val)
+        {
+            console.log(val);
+            if (!this.firstloading)
+            {
+                if (typeof val !== 'undefined' && val.length > 0) 
+                {
+                    this.datatableLoading=true;            
+                    this.$ajax.post('/keuangan/biayakomponenperiode',            
+                    {
+                        TA:this.tahun_pendaftaran,
+                        prodi_id:this.prodi_id,
+                        filter_idkelas:val
+                    },
+                    {
+                        headers: {
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }).then(({data})=>{               
+                        this.datatable = data.kombi;                
+                        this.datatableLoading=false;
+                    });                     
+                }
+                else
+                {
+                    this.initialize();
+                }
+            }  
+        }
     },
     components:{
         KeuanganLayout,

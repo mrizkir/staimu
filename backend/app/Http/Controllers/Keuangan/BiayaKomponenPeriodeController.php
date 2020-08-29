@@ -25,14 +25,17 @@ class BiayaKomponenPeriodeController extends Controller {
         
         $ta=$request->input('TA');
         $prodi_id=$request->input('prodi_id');
-
+        
         $kombi=BiayaKomponenPeriodeModel::join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
                                         ->where('tahun',$ta)
                                         ->where('kjur',$prodi_id)
                                         ->orderBy('pe3_kombi_periode.idkelas','asc')
-                                        ->orderBy('kombi_id','asc')
-                                        ->get();
-
+                                        ->orderBy('kombi_id','asc');
+        if ($request->has('filter_idkelas'))
+        {
+            $kombi=$kombi->where('pe3_kombi_periode.idkelas',$request->input('filter_idkelas'));
+        }
+        $kombi=$kombi->get();
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  

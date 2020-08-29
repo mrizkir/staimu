@@ -37,6 +37,54 @@ class KomponenBiayaTableSeeder extends Seeder
             'periode'=>'perbulan',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
+        ]);       
+
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"202",
+            'nama'=>'REGISTRASI KRS',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);          
+
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"301",
+            'nama'=>'PROGRAM PENGALAMAN LAPANGAN / PROGRAM KERJA LAPANGAN',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);          
+        
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"401",
+            'nama'=>'KULIAH KERJA NYATA',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);          
+        
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"501",
+            'nama'=>'SEMINAR',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);          
+        
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"601",
+            'nama'=>'UJIAN MUNAQASAH',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);          
+        
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"701",
+            'nama'=>'WISUDA',
+            'periode'=>'perbulan',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
         ]);          
     }
 }
