@@ -33,7 +33,7 @@
         </template>
         <v-container fluid>
             <v-row dense>
-                <v-col xs="12" sm="4" md="3">
+                <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="clickable green darken-1"
                         color="#385F73" 
@@ -51,7 +51,7 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-                <v-col xs="12" sm="4" md="3">
+                <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="clickable green darken-1"
                         color="#385F73" 
@@ -69,7 +69,7 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-                <v-col xs="12" sm="4" md="3">
+                <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="clickable green darken-1"
                         color="#385F73" 
@@ -79,7 +79,7 @@
                             JUMLAH LULUS
                         </v-card-title>   
                         <v-card-subtitle>
-                            Jumlah calon mahasiswa baru yang mengisi yang lulus
+                            Jumlah calon mahasiswa baru yang dinyatakan lulus
                         </v-card-subtitle>
                         <v-card-text>
                             {{total_lulus}}
@@ -151,7 +151,39 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-            </v-row>           
+            </v-row>  
+            <v-row>
+                <v-col xs="12" sm="12" md="6">
+                    <v-card class="mb-3">
+                        <v-card-title>
+                            Mahasiswa Lulus
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang lulus per program studi.
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-data-table 
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait"
+                                :dense="true"                                                  
+                                :disable-pagination="true"
+                                :hide-default-footer="true"
+                                :headers="headers"
+                                :items="daftar_lulus">                                    
+                                <template v-slot:body.append v-if="daftar_lulus.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL</td>
+                                        <td class="text-right">{{total_lulus}}</td>                                                                                
+                                    </tr>
+                                </template>
+                                <template v-slot:no-data>                            
+                                    belum ada data calon mahasiswa baru yang lulus.
+                                </template>                           
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </SPMBLayout>
 </template>
@@ -224,6 +256,10 @@ export default {
                 
                 this.daftar_isi_formulir = data.daftar_isi_formulir;
                 this.total_isi_formulir = data.total_isi_formulir;
+                
+                this.daftar_lulus = data.daftar_lulus;
+                this.total_lulus = data.total_lulus;
+
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
