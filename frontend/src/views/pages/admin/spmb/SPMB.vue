@@ -87,6 +87,24 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                <v-col xs="12" sm="6" md="3">
+                    <v-card                         
+                        class="clickable green darken-1"
+                        color="#385F73" 
+                        @click.native="$router.push('/spmb/laporanketidaklulusan')"
+                        dark>
+                        <v-card-title class="headline">
+                            JUMLAH TIDAK LULUS
+                        </v-card-title>   
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang dinyatakan tidak lulus
+                        </v-card-subtitle>
+                        <v-card-text>
+                            {{total_tidak_lulus}}
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
             </v-row>
             <v-row>
                 <v-col xs="12" sm="12" md="6">
@@ -183,6 +201,39 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                <v-col xs="12" sm="12" md="6">
+                    <v-card class="mb-3">
+                        <v-card-title>
+                            Mahasiswa Tidak Lulus
+                        </v-card-title>
+                        <v-card-subtitle>
+                            Jumlah calon mahasiswa baru yang tidak lulus per program studi.
+                        </v-card-subtitle>
+                        <v-card-text>
+                            <v-data-table 
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait"
+                                :dense="true"                                                  
+                                :disable-pagination="true"
+                                :hide-default-footer="true"
+                                :headers="headers"
+                                :items="daftar_tidak_lulus">                                    
+                                <template v-slot:body.append v-if="daftar_lulus.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL</td>
+                                        <td class="text-right">{{total_tidak_lulus}}</td>                                                                                
+                                    </tr>
+                                </template>
+                                <template v-slot:no-data>                            
+                                    belum ada data calon mahasiswa baru yang tidak lulus.
+                                </template>                           
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+
             </v-row>
         </v-container>
     </SPMBLayout>
@@ -228,6 +279,9 @@ export default {
 
         total_lulus:0,
         daftar_lulus:[],        
+        
+        total_tidak_lulus:0,
+        daftar_tidak_lulus:[],        
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},               
             { text: 'JENJANG', value: 'nama_jenjang', sortable:false},               
@@ -259,6 +313,9 @@ export default {
                 
                 this.daftar_lulus = data.daftar_lulus;
                 this.total_lulus = data.total_lulus;
+
+                this.daftar_tidak_lulus = data.daftar_tidak_lulus;
+                this.total_tidak_lulus = data.total_tidak_lulus;
 
                 this.datatableLoading=false;
             }).catch(()=>{

@@ -32,6 +32,9 @@ class SPMBController extends Controller
         $daftar_lulus=[];
         $total_lulus=0;
 
+        $daftar_tidak_lulus=[];
+        $total_tidak_lulus=0;
+
         $subquery = \DB::table('pe3_formulir_pendaftaran')
                         ->select(\DB::raw('kjur1,COUNT(user_id) AS jumlah'))
                         ->groupBy('kjur1')
@@ -52,7 +55,7 @@ class SPMBController extends Controller
                                         })
                                         ->get();
             
-            $subquery_lulus=\DB::table('pe3_nilai_ujian_pmb')
+            $subquery_kelulusan=\DB::table('pe3_nilai_ujian_pmb')
                             ->select(\DB::raw('kjur,COUNT(pe3_nilai_ujian_pmb.user_id) AS jumlah'))
                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_nilai_ujian_pmb.user_id')
                             ->groupBy('kjur')
@@ -65,7 +68,19 @@ class SPMBController extends Controller
                             nama_jenjang,
                             COALESCE(jumlah,0) AS jumlah'
                         ))
-                        ->joinSub($subquery_lulus,'pe3_nilai_ujian_pmb',function($join){
+                        ->joinSub($subquery_kelulusan->where('ket_lulus',1),'pe3_nilai_ujian_pmb',function($join){
+                            $join->on('pe3_nilai_ujian_pmb.kjur','=','pe3_prodi.id');
+                        })                        
+                        ->get();
+
+            $daftar_tidak_lulus=ProgramStudiModel::select(\DB::raw('
+                            id AS prodi_id,
+                            nama_prodi,
+                            nama_prodi_alias,
+                            nama_jenjang,
+                            COALESCE(jumlah,0) AS jumlah'
+                        ))
+                        ->joinSub($subquery_kelulusan->where('ket_lulus',0),'pe3_nilai_ujian_pmb',function($join){
                             $join->on('pe3_nilai_ujian_pmb.kjur','=','pe3_prodi.id');
                         })                        
                         ->get();
@@ -73,6 +88,7 @@ class SPMBController extends Controller
             $total_registrasi=$daftar_registrasi->sum('jumlah');
             $total_isi_formulir=$daftar_isi_formulir->sum('jumlah');
             $total_lulus=$daftar_lulus->sum('jumlah');
+            $total_tidak_lulus=$daftar_tidak_lulus->sum('jumlah');
         }
         else if ($this->hasRole('pmb'))
         {
@@ -105,7 +121,7 @@ class SPMBController extends Controller
                                 ->where('user_id',$this->getUserid())
                                 ->get();
 
-            $subquery_lulus=\DB::table('pe3_nilai_ujian_pmb')
+            $subquery_kelulusan=\DB::table('pe3_nilai_ujian_pmb')
                             ->select(\DB::raw('kjur,COUNT(pe3_nilai_ujian_pmb.user_id) AS jumlah'))
                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_nilai_ujian_pmb.user_id')
                             ->groupBy('kjur')
@@ -119,7 +135,21 @@ class SPMBController extends Controller
                                 nama_jenjang,
                                 COALESCE(jumlah,0) AS jumlah'
                             ))
-                            ->joinSub($subquery_lulus,'pe3_nilai_ujian_pmb',function($join){
+                            ->joinSub($subquery_kelulusan->where('ket_lulus',1),'pe3_nilai_ujian_pmb',function($join){
+                                $join->on('pe3_nilai_ujian_pmb.kjur','=','usersprodi.id');
+                            })
+                            ->where('user_id',$this->getUserid())
+                            ->get();
+
+            $daftar_tidak_lulus=\DB::table('usersprodi')
+                            ->select(\DB::raw('
+                                prodi_id,
+                                nama_prodi,
+                                nama_prodi_alias,
+                                nama_jenjang,
+                                COALESCE(jumlah,0) AS jumlah'
+                            ))
+                            ->joinSub($subquery_kelulusan->where('ket_lulus',0),'pe3_nilai_ujian_pmb',function($join){
                                 $join->on('pe3_nilai_ujian_pmb.kjur','=','usersprodi.id');
                             })
                             ->where('user_id',$this->getUserid())
@@ -128,6 +158,7 @@ class SPMBController extends Controller
             $total_registrasi=$daftar_registrasi->sum('jumlah');
             $total_isi_formulir=$daftar_isi_formulir->sum('jumlah');
             $total_lulus=$daftar_lulus->sum('jumlah');
+            $total_tidak_lulus=$daftar_tidak_lulus->sum('jumlah');
         }
 
         return Response()->json([
@@ -142,6 +173,9 @@ class SPMBController extends Controller
 
                                 'daftar_lulus'=>$daftar_lulus,
                                 'total_lulus'=>$total_lulus,
+                                
+                                'daftar_tidak_lulus'=>$daftar_tidak_lulus,
+                                'total_tidak_lulus'=>$total_tidak_lulus,
 
                                 'message'=>'Fetch data dashboard pmb berhasil diperoleh'
                             ],200);    
