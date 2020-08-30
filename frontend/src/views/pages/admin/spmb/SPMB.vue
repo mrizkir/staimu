@@ -91,7 +91,7 @@
                     <v-card                         
                         class="clickable green darken-1"
                         color="#385F73" 
-                        @click.native="$router.push('/spmb/laporanketidaklulusan')"
+                        @click.native="$router.push('/spmb/laporankelulusan')"
                         dark>
                         <v-card-title class="headline">
                             JUMLAH TIDAK LULUS
