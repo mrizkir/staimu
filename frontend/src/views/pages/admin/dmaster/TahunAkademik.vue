@@ -2,7 +2,7 @@
     <DataMasterLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-google-classroom
+                mdi-calendar-outline
             </template>
             <template v-slot:name>
                 TAHUN AKADEMIK

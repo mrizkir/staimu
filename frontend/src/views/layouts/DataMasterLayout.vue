@@ -84,9 +84,50 @@
                         <v-list-item-title>DASHBOARD DATA MASTER</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link v-if="CAN_ACCESS('DMASTER-TA_BROWSE')" to="/dmaster/ta">
+                <v-list-item link v-if="CAN_ACCESS('DMASTER-KELAS_BROWSE')" to="/dmaster/kelas">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-google-classroom</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            KELAS
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                   
+                <v-subheader>AKADEMIK</v-subheader>
+                <v-list-item link to="/dmaster/jabatanakademik">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-chair-rolling</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            JABATAN AKADEMIK
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+                <v-list-item link to="/dmaster/jenjangstudi">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-stairs-up</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            JENJANG STUDI
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+                <v-list-item link to="/dmaster/statusmahasiswa">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-arrow-vertical-lock</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            STATUS MAHASISWA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+                <v-list-item link v-if="CAN_ACCESS('DMASTER-TA_BROWSE')" to="/dmaster/ta">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-calendar-outline</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>
@@ -113,17 +154,7 @@
                             PROGRAM STUDI
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>       
-                <v-list-item link v-if="CAN_ACCESS('DMASTER-KELAS_BROWSE')" to="/dmaster/kelas">
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-google-classroom</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            KELAS
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>                   
+                </v-list-item>                       
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

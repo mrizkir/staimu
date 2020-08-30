@@ -48,6 +48,42 @@ const routes = [
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),		
 	},
 	{
+		path: '/dmaster/kelas',
+		name: 'DMasterKelas',
+		meta:{
+			title: "DATA MASTER - KELAS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/Kelas.vue'),		
+	},
+	{
+		path: '/dmaster/jabatanakademik',
+		name: 'DMasterJabatanAkademik',
+		meta:{
+			title: "DATA MASTER - JABATAN AKADEMIK",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/JabatanAkademik.vue'),		
+	},	
+	{
+		path: '/dmaster/jenjangstudi',
+		name: 'DMasterJenjangStudi',
+		meta:{
+			title: "DATA MASTER - JENJANG STUDI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/JenjangStudi.vue'),		
+	},	
+	{
+		path: '/dmaster/statusmahasiswa',
+		name: 'DMasterStatusMahasiswa',
+		meta:{
+			title: "DATA MASTER - STATUS MAHASISWA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/StatusMahasiswa.vue'),		
+	},	
+	{
 		path: '/dmaster/ta',
 		name: 'DMasterTahunAkademik',
 		meta:{
@@ -83,16 +119,7 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/dmaster/ProgramStudi.vue'),		
-	},
-	{
-		path: '/dmaster/kelas',
-		name: 'DMasterKelas',
-		meta:{
-			title: "DATA MASTER - KELAS",
-			requiresAuth:true,
-        },
-		component: () => import('../views/pages/admin/dmaster/Kelas.vue'),		
-	},
+	},		
 	//spmb	
 	{
 		path: '/spmb',

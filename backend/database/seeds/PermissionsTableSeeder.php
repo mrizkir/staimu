@@ -22,14 +22,15 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);  
-
+        
+        //dmaster
         \DB::table('permissions')->insert([
             'name'=>"DMASTER-GROUP",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        
+       
         //keuangan
         \DB::table('permissions')->insert([
             'name'=>"KEUANGAN-GROUP",
@@ -58,14 +59,6 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
 
-        //akademik
-        \DB::table('permissions')->insert([
-            'name'=>"AKADEMIK-GROUP",
-            'guard_name'=>'api',
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now()
-        ]);
-        
         \DB::table('permissions')->insert([
             'name'=>"SPMB-PMB-LAPORAN-FAKULTAS_BROWSE",
             'guard_name'=>'api',
@@ -82,6 +75,14 @@ class PermissionsTableSeeder extends Seeder
 
         \DB::table('permissions')->insert([
             'name'=>"SPMB-PMB-LAPORAN-KELULUSAN_BROWSE",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        //akademik
+        \DB::table('permissions')->insert([
+            'name'=>"AKADEMIK-GROUP",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
