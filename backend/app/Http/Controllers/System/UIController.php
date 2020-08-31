@@ -142,6 +142,27 @@ class UIController extends Controller {
 
             $tahun_pendaftaran = $formulir->ta;
         }        
+        elseif ($this->hasRole(['akademik','programstudi']))
+        {
+            $daftar_ta=TAModel::all();        
+
+            $userid=$this->getUserid();
+            $daftar_prodi=$this->guard()->user()->prodi;
+
+            $daftar_fakultas=FakultasModel::select(\DB::raw('kode_fakultas,nama_fakultas'))
+                        ->whereExists(function ($query) use ($userid) {
+                            $query->select(\DB::raw(1))
+                                ->from('usersprodi')
+                                ->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+                                ->where('user_id',$userid);
+                        })
+                        ->get();
+                        
+            $fakultas_id=$config['DEFAULT_FAKULTAS'];            
+            $prodi_id=$daftar_prodi[0]->id;
+
+            $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+        }
         $daftar_kelas=\App\Models\DMaster\KelasModel::select(\DB::raw('idkelas AS id,nkelas AS text'))
                                                     ->get();
         $idkelas='A';

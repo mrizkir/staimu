@@ -258,7 +258,7 @@ export default {
         headers: [                        
             { text: '', value: 'foto' },
             { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'NAME', value: 'name',sortable:true },
+            { text: 'NAMA DOSEN', value: 'name',sortable:true },
             { text: 'EMAIL', value: 'email',sortable:true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },

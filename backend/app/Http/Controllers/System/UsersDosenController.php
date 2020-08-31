@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserDosen;
 use Spatie\Permission\Models\Role;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
@@ -48,31 +49,41 @@ class UsersDosenController extends Controller {
             'username'=>'required|string|unique:users',
             'password'=>'required',                        
         ]);
-        $now = \Carbon\Carbon::now()->toDateTimeString();        
-        $user=User::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'name'=>$request->input('name'),
-            'email'=>$request->input('email'),
-            'nomor_hp'=>$request->input('nomor_hp'),
-            'username'=> $request->input('username'),
-            'password'=>Hash::make($request->input('password')),                        
-            'theme'=>'default',
-            'foto'=> 'storage/images/users/no_photo.png',
-            'created_at'=>$now, 
-            'updated_at'=>$now
-        ]);            
-        $role='dosen';   
-        $user->assignRole($role);               
-        
-        $permission=Role::findByName('dosen')->permissions;
-        $permissions=$permission->pluck('name');
-        $user->givePermissionTo($permissions);
+        $user = \DB::transaction(function () use ($request){
+
+            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $user=User::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'name'=>$request->input('name'),
+                'email'=>$request->input('email'),
+                'nomor_hp'=>$request->input('nomor_hp'),
+                'username'=> $request->input('username'),
+                'password'=>Hash::make($request->input('password')),                        
+                'theme'=>'default',
+                'foto'=> 'storage/images/users/no_photo.png',
+                'created_at'=>$now, 
+                'updated_at'=>$now
+            ]);            
+            $role='dosen';   
+            $user->assignRole($role);               
+            
+            $permission=Role::findByName('dosen')->permissions;
+            $permissions=$permission->pluck('name');
+            $user->givePermissionTo($permissions);
+            
+            UserDosen::create([
+                'user_id'=>$user->id,
+                'nama_dosen'=>$request->input('name'),                                
+            ]);
+            
+            return $user;
+        });
 
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $this->guard()->user(), 
                                         'object_id' => $this->guard()->user()->id, 
                                         'user_id' => $this->getUserid(), 
-                                        'message' => 'Menambah user Dosen('.$user->username.') berhasil'
+                                        'message' => 'Menambah user Dosen ('.$user->username.') berhasil'
                                     ]);
 
         return Response()->json([
