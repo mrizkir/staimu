@@ -125,17 +125,26 @@ class UsersDosenController extends Controller {
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                           
                                     ]); 
-                                    
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->nomor_hp = $request->input('nomor_hp');
-            $user->username = $request->input('username');        
-            if (!empty(trim($request->input('password')))) {
-                $user->password = Hash::make($request->input('password'));
-            }    
-            $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-            $user->save();
 
+            $user = \DB::transaction(function () use ($request,$user){
+
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->nomor_hp = $request->input('nomor_hp');
+                $user->username = $request->input('username');        
+                if (!empty(trim($request->input('password')))) {
+                    $user->password = Hash::make($request->input('password'));
+                }    
+                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
+                $user->save();
+
+                $user_dosen=UserDosen::find($user->id);
+                $user_dosen->nama_dosen=$request->input('name');
+                $user_dosen->save();                                
+                
+                return $user;
+            });
+            
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $this->guard()->user(), 
                                                         'object_id' => $this->guard()->user()->id, 
