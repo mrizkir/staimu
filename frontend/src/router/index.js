@@ -332,9 +332,18 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/Matakuliah.vue'),		
 	},	
-	//akademik - daftarulang
 	{
-		path: '/akademik/dulang/mahasiswabarus',
+		path: '/akademik/dosenwali',
+		name: 'AkademikDosenWali',
+		meta:{
+			title: "AKADEMIK - DOSEN WALI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/DosenWali.vue'),		
+	},	
+	//akademik - daftar ulang
+	{
+		path: '/akademik/dulang/mahasiswabaru',
 		name: 'AkademikDulangMHSBaru',
 		meta:{
 			title: "AKADEMIK - DAFTAR ULANG MAHASISWA BARU",

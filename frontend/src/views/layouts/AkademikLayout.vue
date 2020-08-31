@@ -84,6 +84,16 @@
                         <v-list-item-title>DASHBOARD AKADEMIK</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                   
+                <v-list-item link to="/akademik/dosenwali">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-teach</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            DOSEN WALI
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link to="/akademik/matakuliah">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>

@@ -185,7 +185,7 @@
                         <v-list-item-title>DASHBOARD USERS</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-SUPERADMIN')" to="/system-users/superadmin">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-SUPERADMIN_BROWSE')" to="/system-users/superadmin">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -195,7 +195,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-KEUANGAN')" to="/system-users/keuangan">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-KEUANGAN_BROWSE')" to="/system-users/keuangan">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -205,7 +205,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PMB')" to="/system-users/pmb">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PMB_BROWSE')" to="/system-users/pmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -215,7 +215,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-AKADEMIK')" to="/system-users/akademik">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-AKADEMIK_BROWSE')" to="/system-users/akademik">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -225,7 +225,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PROGRAM-STUDI')" to="/system-users/prodi">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PROGRAM-STUDI_BROWSE')" to="/system-users/prodi">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -235,7 +235,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN')" to="/system-users/dosen">
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN_BROWSE')" to="/system-users/dosen">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>

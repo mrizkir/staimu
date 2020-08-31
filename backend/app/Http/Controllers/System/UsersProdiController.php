@@ -68,6 +68,14 @@ class UsersProdiController extends Controller {
         $permission=Role::findByName('programstudi')->permissions;
         $permissions=$permission->pluck('name');
         $user->givePermissionTo($permissions);
+        
+        if ($request->input('role_dosen')=='true')
+        {
+            $user->assignRole('dosen'); 
+            $permission=Role::findByName('dosen')->permissions;
+            $permissions=$permission->pluck('name');
+            $user->givePermissionTo($permissions);
+        }
 
         $user_id=$user->id;
         $daftar_prodi=json_decode($request->input('prodi_id'),true);
@@ -119,6 +127,34 @@ class UsersProdiController extends Controller {
 
     }
     /**
+     * digunakan untuk mendapatkan informasi detail user dengan role program studi
+     */
+    public function show(Request $request, $id)
+    {
+        $this->hasPermissionTo('SYSTEM-USERS-PROGRAM-STUDI_SHOW');
+
+        $user = User::find($id);
+        if (is_null($user))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                
+                                    'message'=>["User ID ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',
+                                    'user'=>$user,  
+                                    'role_dosen'=>$user->hasRole('dosen'),    
+                                    'message'=>'Data user '.$user->username.' berhasil diperoleh.'
+                                ],200); 
+        }
+
+    }
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -161,6 +197,20 @@ class UsersProdiController extends Controller {
             $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
             $user->save();
 
+            if ($request->input('role_dosen')=='true')
+            {
+                $user->assignRole('dosen'); 
+                $permission=Role::findByName('dosen')->permissions;
+                $permissions=$permission->pluck('name');
+                $user->givePermissionTo($permissions);
+            }
+            elseif ($user->hasRole('dosen'))
+            {
+                $user->removeRole('dosen');
+                $permission=Role::findByName('dosen')->permissions;
+                $permissions=$permission->pluck('name');
+                $user->revokePermissionTo($permissions);
+            }    
             $user_id=$user->id;
             \DB::table('usersprodi')->where('user_id',$user_id)->delete();
             $daftar_prodi=json_decode($request->input('prodi_id'),true);
