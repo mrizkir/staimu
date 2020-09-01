@@ -46,6 +46,8 @@ class CreateDosenTable extends Migration
             $table->string('address2_provinsi')->nullable(); 
             $table->string('alamat_ktp')->nullable(); 
 
+            $table->boolean('is_dw')->default(0);
+            
             $table->string('desc')->nullable();
 
             $table->timestamps();

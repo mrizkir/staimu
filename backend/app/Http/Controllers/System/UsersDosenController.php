@@ -21,6 +21,20 @@ class UsersDosenController extends Controller {
     {           
         $this->hasPermissionTo('SYSTEM-USERS-DOSEN_BROWSE');
         $data = User::role('dosen')
+                    ->select(\DB::raw('
+                        users.id,
+                        users.username,
+                        users.name,
+                        pe3_dosen.nidn,
+                        pe3_dosen.nipy,
+                        users.email,
+                        users.nomor_hp,
+                        users.foto,
+                        pe3_dosen.is_dw,
+                        users.created_at,
+                        users.updated_at
+                    '))
+                    ->join('pe3_dosen','pe3_dosen.user_id','users.id')
                     ->orderBy('username','ASC')
                     ->get();       
                     
@@ -42,8 +56,11 @@ class UsersDosenController extends Controller {
     public function store(Request $request)
     {
         $this->hasPermissionTo('SYSTEM-USERS-DOSEN_STORE');
+        
         $this->validate($request, [
             'name'=>'required',
+            'nidn'=>'numeric|unique:pe3_dosen',
+            'nipy'=>'required|string|unique:pe3_dosen',
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|string|unique:users',
             'username'=>'required|string|unique:users',
@@ -71,9 +88,20 @@ class UsersDosenController extends Controller {
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
             
+            if ($request->input('is_dw')=='true')
+            {
+                $user->assignRole('dosenwali'); 
+                $permission=Role::findByName('dosenwali')->permissions;
+                $permissions=$permission->pluck('name');
+                $user->givePermissionTo($permissions);
+            }
+            
             UserDosen::create([
                 'user_id'=>$user->id,
                 'nama_dosen'=>$request->input('name'),                                
+                'nidn'=>$request->input('nidn'),                                
+                'nipy'=>$request->input('nipy'),                                
+                'is_dw'=>$request->input('is_dw'),                                
             ]);
             
             return $user;
@@ -121,6 +149,12 @@ class UsersDosenController extends Controller {
                                                         'required',
                                                         'unique:users,username,'.$user->id
                                                     ],           
+                                        'nidn'=>[
+                                                    'unique:pe3_dosen,nidn,'.$user->id.',user_id'
+                                                ],           
+                                        'nipy'=>[
+                                                    'unique:pe3_dosen,nipy,'.$user->id.',user_id'
+                                                ],           
                                         'name'=>'required',            
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                           
@@ -128,20 +162,37 @@ class UsersDosenController extends Controller {
 
             $user = \DB::transaction(function () use ($request,$user){
 
-                $user->name = $request->input('name');
+                $user->name = $request->input('name');                
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
                 $user->username = $request->input('username');        
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }    
-                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
+                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();                
                 $user->save();
 
                 $user_dosen=UserDosen::find($user->id);
                 $user_dosen->nama_dosen=$request->input('name');
+                $user_dosen->nidn = $request->input('nidn');
+                $user_dosen->nipy = $request->input('nipy');
+                $user_dosen->is_dw = $request->input('is_dw');
                 $user_dosen->save();                                
                 
+                if ($request->input('is_dw') == 'true')
+                {
+                    $user->assignRole('dosenwali'); 
+                    $permission=Role::findByName('dosenwali')->permissions;
+                    $permissions=$permission->pluck('name');
+                    $user->givePermissionTo($permissions);
+                }
+                else
+                {
+                    $user->removeRole('dosenwali');
+                    $permission=Role::findByName('dosenwali')->permissions;
+                    $permissions=$permission->pluck('name');
+                    $user->revokePermissionTo($permissions);
+                }
                 return $user;
             });
             

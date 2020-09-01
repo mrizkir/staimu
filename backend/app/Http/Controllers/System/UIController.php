@@ -163,6 +163,18 @@ class UIController extends Controller {
 
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
         }
+        elseif ($this->hasRole(['dosen','dosenwali']))
+        {
+            $daftar_ta=TAModel::all();        
+
+            $daftar_fakultas=FakultasModel::all();
+            $fakultas_id=$config['DEFAULT_FAKULTAS'];        
+
+            $daftar_prodi=ProgramStudiModel::all();
+            $prodi_id=$config['DEFAULT_PRODI'];    
+            
+            $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+        }
         $daftar_kelas=\App\Models\DMaster\KelasModel::select(\DB::raw('idkelas AS id,nkelas AS text'))
                                                     ->get();
         $idkelas='A';

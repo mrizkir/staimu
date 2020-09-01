@@ -54,6 +54,7 @@ class UserDosen extends Model {
         'address2_provinsi', 
         'alamat_ktp', 
 
+        'is_dw',
         'desc',
 
     ];

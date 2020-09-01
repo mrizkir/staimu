@@ -82,9 +82,20 @@
                                             <v-card-text>     
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
-                                                    label="NAMA USER"
+                                                    label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
+                                                </v-text-field>                                                                                               
+                                                <v-text-field 
+                                                    v-model="editedItem.nidn" 
+                                                    label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
+                                                    outlined>
+                                                </v-text-field>                                                                                               
+                                                <v-text-field 
+                                                    v-model="editedItem.nipy" 
+                                                    label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
+                                                    outlined
+                                                    :rules="rule_nipy">
                                                 </v-text-field>                                                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
@@ -110,7 +121,11 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_password">
-                                                </v-text-field>                                                
+                                                </v-text-field>   
+                                                <v-switch
+                                                    v-model="editedItem.is_dw"
+                                                    label="SEBAGAI DOSEN WALI">
+                                                </v-switch>                                                                 
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -136,10 +151,21 @@
                                             <v-card-text>                                                                                                
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
-                                                    label="NAMA USER"
+                                                    label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
                                                 </v-text-field>
+                                                <v-text-field 
+                                                    v-model="editedItem.nidn" 
+                                                    label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
+                                                    outlined>
+                                                </v-text-field>                                                                                               
+                                                <v-text-field 
+                                                    v-model="editedItem.nipy" 
+                                                    label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
+                                                    outlined
+                                                    :rules="rule_nipy">
+                                                </v-text-field>     
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
@@ -164,7 +190,11 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_passwordEdit">
-                                                </v-text-field>                                                   
+                                                </v-text-field> 
+                                                <v-switch
+                                                    v-model="editedItem.is_dw"
+                                                    label="SEBAGAI DOSEN WALI">
+                                                </v-switch>                                                  
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -180,6 +210,12 @@
                                     </v-form>
                                 </v-dialog>                                
                             </v-toolbar>
+                        </template>
+                        <template v-slot:item.nidn="{ item }">
+                            {{item.nidn.length > 0 ? item.nidn:'N.A'}}
+                        </template>
+                        <template v-slot:item.is_dw="{ item }">
+                            {{item.is_dw == false ? 'BUKAN':'YA'}}
                         </template>
                         <template v-slot:item.actions="{ item }">                            
                             <v-icon
@@ -209,6 +245,7 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
+                                    <strong>Email:</strong>{{ item.email }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
@@ -218,6 +255,7 @@
                             Data belum tersedia
                         </template>
                     </v-data-table>
+                    <p class="text--secondary">DW : Dosen Wali</p>
                 </v-col>
             </v-row>
         </v-container>
@@ -259,8 +297,10 @@ export default {
             { text: '', value: 'foto' },
             { text: 'USERNAME', value: 'username',sortable:true },
             { text: 'NAMA DOSEN', value: 'name',sortable:true },
-            { text: 'EMAIL', value: 'email',sortable:true },     
+            { text: 'NIDN', value: 'nidn',sortable:true },     
+            { text: 'NIPY', value: 'nipy',sortable:true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
+            { text: 'DW', value: 'is_dw',sortable:true },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         expanded:[],
@@ -276,9 +316,12 @@ export default {
             id:0,
             username: '',           
             password: '',           
-            name: '',           
+            name: '',      
+            nidn:'',   
+            nipy:'',         
             email: '',           
-            nomor_hp:'',                       
+            nomor_hp:'',                 
+            is_dw:false,      
             created_at: '',           
             updated_at: '',   
         },
@@ -286,16 +329,22 @@ export default {
             id:0,
             username: '',           
             password: '',           
-            name: '',           
+            name: '',    
+            nidn:'',
+            nipy:'',       
             email: '',           
-            nomor_hp: '',              
+            nomor_hp: '',          
+            is_dw:false,    
             created_at: '',           
             updated_at: '',        
         },
         //form rules        
         rule_user_name:[
-            value => !!value||"Mohon untuk di isi nama User !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',                
+            value => !!value||"Mohon untuk di isi nama Dosen !!!",  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',                
+        ],         
+        rule_nipy:[
+            value => !!value||"Mohon untuk di isi Nomor Induk Pegawai Yayasan (NIPY) dari User ini !!!",                          
         ], 
         rule_user_email:[
             value => !!value||"Mohon untuk di isi email User !!!",  
@@ -368,7 +417,7 @@ export default {
             setTimeout(() => {
                 this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1
-                this.$refs.frmdata.reset(); 
+                this.$refs.frmdata.resetValidation(); 
                 }, 300
             );
         },        
@@ -382,18 +431,21 @@ export default {
                         {
                             '_method':'PUT',
                             name:this.editedItem.name,
+                            nidn:this.editedItem.nidn,
+                            nipy:this.editedItem.nipy,
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
-                            password:this.editedItem.password,                               
+                            password:this.editedItem.password,    
+                            is_dw:this.editedItem.is_dw,                                
                         },
                         {
                             headers:{
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
-                        Object.assign(this.daftar_users[this.editedIndex], data.user);
+                    ).then(()=>{   
+                        this.initialize();
                         this.close();
                     }).catch(()=>{
                         this.btnLoading=false;
@@ -403,10 +455,13 @@ export default {
                     this.$ajax.post('/system/usersdosen/store',
                         {
                             name:this.editedItem.name,
+                            nidn:this.editedItem.nidn,
+                            nipy:this.editedItem.nipy,
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
                             password:this.editedItem.password,                                        
+                            is_dw:this.editedItem.is_dw,                                        
                         },
                         {
                             headers:{
