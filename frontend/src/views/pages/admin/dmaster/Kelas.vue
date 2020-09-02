@@ -235,7 +235,7 @@ export default {
         rule_kode_kelas:[
             value => !!value||"ID Kelas mohon untuk diisi !!!",
             value => /^[A-Z]*$/.test(value) || 'Name hanya boleh string dan huruf besar',
-            value => value.length == 1 || 'Kode kelas hanya boleh 1 karakter'
+            value => (value && value.length == 1) || 'Kode kelas hanya boleh 1 karakter'
         ],
         rule_nama_kelas:[
             value => !!value||"Mohon untuk di isi nama kelas !!!",            

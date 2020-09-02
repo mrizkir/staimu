@@ -235,7 +235,7 @@ export default {
         rule_tahun:[
             value => !!value||"Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
             value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',
-            value => value.length == 4 || 'Kode kelas hanya boleh 4 karakter'
+            value => (value && value.length == 4) || 'Kode kelas hanya boleh 4 karakter'
         ],
         rule_tahun_akademik:[
             value => !!value||"Mohon untuk di isi nama tahun akademik !!!",

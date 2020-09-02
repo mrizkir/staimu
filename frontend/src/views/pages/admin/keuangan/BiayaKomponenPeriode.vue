@@ -302,10 +302,9 @@ export default {
         },
         filter_idkelas(val)
         {
-            console.log(val);
             if (!this.firstloading)
             {
-                if (typeof val !== 'undefined' && val.length > 0) 
+                if (val && typeof val !== 'undefined' && val.length > 0) 
                 {
                     this.datatableLoading=true;            
                     this.$ajax.post('/keuangan/biayakomponenperiode',            

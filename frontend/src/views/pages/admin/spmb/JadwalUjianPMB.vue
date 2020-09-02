@@ -515,7 +515,7 @@ export default {
                 value => !!value||"Mohon untuk di isi jumlah soal ujian !!!",  
                 value => /^[0-9]+$/.test(value) || 'Jumlah soal ujian hanya boleh angka',    
                 value => {
-                    if (typeof value !== 'undefined' && value.length > 0) 
+                    if (value && typeof value !== 'undefined' && value.length > 0) 
                     {
                         let jumlah_bank_soal = parseInt(this.jumlah_bank_soal);
                         let jumlah_soal = parseInt(value);

@@ -372,11 +372,19 @@ export default {
         ], 
         rule_user_password:[
             value => !!value||"Mohon untuk di isi password User !!!",
-            value => value.length >= 8 || 'Minimial Password 8 karaketer',
+            value => {
+                if (value && typeof value !== 'undefined' && value.length > 0){
+                    return value.length >= 8 || 'Minimial Password 8 karaketer';
+                }
+                else
+                {
+                    return true;
+                }
+            }
         ], 
         rule_user_passwordEdit:[
             value => {
-                if (value.length > 0){
+                if (value && typeof value !== 'undefined' && value.length > 0){
                     return value.length >= 8 || 'Minimial Password 8 karaketer';
                 }
                 else

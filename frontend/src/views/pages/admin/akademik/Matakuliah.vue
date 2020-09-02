@@ -87,7 +87,7 @@
                                                     item-value="id_group"                                                    
                                                     outlined
                                                     :rules="rule_group_matakuliah"
-                                                    v-if="group_matakuliah.length > 0">
+                                                    v-if="(group_matakuliah && group_matakuliah.length > 0)">
                                                 </v-select>                                         
                                                 <v-text-field 
                                                     v-model="formdata.kmatkul" 
@@ -150,7 +150,7 @@
                                                     item-text="nama_konsentrasi"
                                                     item-value="id_konsentrasi"                                                    
                                                     outlined
-                                                    v-if="daftar_konsentrasi.length > 0">
+                                                    v-if="(daftar_konsentrasi && daftar_konsentrasi.length > 0)">
                                                 </v-select>    
                                                 <v-switch
                                                     v-model="formdata.ispilihan"
