@@ -225,39 +225,43 @@ class KonfirmasiPembayaranController extends Controller {
         }
         else
         {
-            $konfirmasi->verified=true;
-            $konfirmasi->save();
+            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi){
+                $konfirmasi->verified=true;
+                $konfirmasi->save();
 
-            $transaksi=$konfirmasi->transaksi;
-            $transaksi->status=1;
-            $transaksi->save();
-            
-            //aksi setelah PAID
+                $transaksi=$konfirmasi->transaksi;
+                $transaksi->status=1;
+                $transaksi->save();
+                
+                //aksi setelah PAID
 
-            $detail = TransaksiDetailModel::select(\DB::raw('
-                                                kombi_id
-                                            '))
-                                            ->where('transaksi_id',$transaksi->id)
-                                            ->get();
-            foreach ($detail as $v)
-            {
-                switch ($v->kombi_id)
+                $detail = TransaksiDetailModel::select(\DB::raw('
+                                                    kombi_id
+                                                '))
+                                                ->where('transaksi_id',$transaksi->id)
+                                                ->get();
+                foreach ($detail as $v)
                 {
-                    case 101: //biaya formulir pendaftaran
-                        $formulir=$transaksi->formulir;
-                        $no_formulir=$formulir->idsmt.mt_rand();
-                        $formulir->no_formulir=$no_formulir;
-                        $formulir->save();
-                    break;
+                    switch ($v->kombi_id)
+                    {
+                        case 101: //biaya formulir pendaftaran
+                            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                        
+                            $no_formulir=$formulir->idsmt.mt_rand();
+                            $formulir->no_formulir=$no_formulir;
+                            $formulir->save();
+                        break;
+                    }
                 }
-            }
+                
+                \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $konfirmasi, 
+                                                                'object_id' => $konfirmasi->transaksi_id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Melakukan verifikasi terhadap transaksi dengan status PAID telah berhasil dilakukan.'
+                                                            ]);
+                return $konfirmasi;
+            });
             
-            \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $konfirmasi, 
-                                                            'object_id' => $konfirmasi->transaksi_id, 
-                                                            'user_id' => $this->getUserid(), 
-                                                            'message' => 'Melakukan verifikasi terhadap transaksi dengan status PAID telah berhasil dilakukan.'
-                                                        ]);
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',                                          
