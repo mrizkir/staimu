@@ -53,6 +53,10 @@ class KonfirmasiPembayaranModel extends Model {
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
+    public function formulir()
+    {
+        return $this->belongsTo('App\Models\SPMB\FormulirPendaftaranModel','user_id','user_id');
+    }
     public function transaksi()
     {
         return $this->belongsTo('App\Models\Keuangan\TransaksiModel','transaksi_id','id');

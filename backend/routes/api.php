@@ -208,6 +208,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //kemahasiswaan
     $router->post('/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Kemahasiswaan\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
 
+    //akademik - dosen wali
+    $router->get('/akademik/dosenwali',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@index','as'=>'dosenwali.index']);
+    $router->post('/akademik/dosenwali/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@store','as'=>'dosenwali.store']);
+    $router->put('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@update','as'=>'dosenwali.update']);    
+    $router->delete('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@destroy','as'=>'dosenwali.destroy']);    
+
     //akademik - group matakuliah
     $router->get('/akademik/groupmatakuliah/',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\GroupMatakuliahController@index','as'=>'groupmatakuliah.index']);            
     

@@ -426,7 +426,7 @@ export default {
             {
                 text:'AKADEMIK',
                 disabled:false,
-                href:'#'
+                href:'/akademik'
             },
             {
                 text:'MATAKULIAH',

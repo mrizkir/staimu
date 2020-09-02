@@ -207,6 +207,9 @@ class KonfirmasiPembayaranController extends Controller {
         } 
         
     }
+    /**
+     * digunakan untuk merubah status transaksi menjadi paid
+     */
     public function update(Request $request,$id)
     {
         $this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE');
@@ -228,6 +231,26 @@ class KonfirmasiPembayaranController extends Controller {
             $transaksi=$konfirmasi->transaksi;
             $transaksi->status=1;
             $transaksi->save();
+            
+            //aksi setelah PAID
+
+            $detail = TransaksiDetailModel::select(\DB::raw('
+                                                kombi_id
+                                            '))
+                                            ->where('transaksi_id',$transaksi->id)
+                                            ->get();
+            foreach ($detail as $v)
+            {
+                switch ($v->kombi_id)
+                {
+                    case 101: //biaya formulir pendaftaran
+                        $formulir=$transaksi->formulir;
+                        $no_formulir=$formulir->idsmt.mt_rand();
+                        $formulir->no_formulir=$no_formulir;
+                        $formulir->save();
+                    break;
+                }
+            }
             
             \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $konfirmasi, 
