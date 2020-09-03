@@ -12,7 +12,7 @@ use App\Models\Keuangan\TransaksiDetailModel;
 
 use Ramsey\Uuid\Uuid;
 
-class NilaiUjianController extends Controller {             
+class ReportKelulusanController extends Controller {             
     /**
      * digunakan untuk mendapatkan calon mahasiswa baru yang telah mengisi formulir pendaftaran
      *
@@ -20,15 +20,17 @@ class NilaiUjianController extends Controller {
      */
     public function index(Request $request)
     {   
-        $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_BROWSE']);
+        $this->hasAnyPermission(['SPMB-PMB-LAPORAN-KELULUSAN_BROWSE']);
 
         $this->validate($request, [           
             'TA'=>'required',
-            'prodi_id'=>'required'
+            'prodi_id'=>'required',
+            'filter_status'=>'required'
         ]);
         
         $ta=$request->input('TA');
         $prodi_id=$request->input('prodi_id');
+        $filter_status=$request->input('filter_status');
 
         $data = FormulirPendaftaranModel::select(\DB::raw('
                         users.id,
@@ -55,6 +57,7 @@ class NilaiUjianController extends Controller {
                     ->where('kjur1',$prodi_id)            
                     ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
                     ->where('users.active',1)    
+                    ->where('pe3_nilai_ujian_pmb.ket_lulus',$filter_status)
                     ->orderBy('users.name','ASC') 
                     ->get();
         

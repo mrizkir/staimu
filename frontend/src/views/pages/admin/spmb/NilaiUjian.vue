@@ -16,18 +16,8 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>
-            <template v-slot:desc v-if="dashboard=='mahasiswabaru'">
-                <v-alert                                        
-                    color="cyan"
-                    border="left"                    
-                    colored-border
-                    type="info"
-                    >
-                        Halaman ini berisi pengisian formulir pendaftaran, mohon diisi dengan lengkap dan benar.
-                </v-alert>
-            </template>
-            <template v-slot:desc v-else>
+            </template>            
+            <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
                     border="left"                    
@@ -302,12 +292,13 @@ export default {
         datatable:[],
         headers: [                        
             { text: '', value: 'foto', width:70 },               
+            { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
             { text: 'KELAS', value: 'nkelas',width:100,sortable:true },
             { text: 'NILAI', value: 'nilai',width:100,sortable:true },
             { text: 'STATUS', value: 'status',width:100,sortable:true },
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         search:'',  
         
