@@ -101,6 +101,7 @@ class ReportSPMBModel extends ReportModel
                 ->join('pe3_kelas','pe3_kelas.idkelas','pe3_formulir_pendaftaran.idkelas')
                 ->where('ta',$ta)
                 ->where('kjur1',$prodi_id)                                     
+                ->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')               
                 ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')               
                 ->get();
 
@@ -234,6 +235,7 @@ class ReportSPMBModel extends ReportModel
                 ->where('ta',$ta)                
                 ->where('kode_fakultas',$fakultas_id)      
                 ->orderBy('pe3_prodi.nama_prodi','ASC')          
+                ->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')               
                 ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')          
                 ->get();
 
@@ -386,6 +388,7 @@ class ReportSPMBModel extends ReportModel
                 ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
                 ->where('users.active',1)    
                 ->where('pe3_nilai_ujian_pmb.ket_lulus',$filter_status)
+                ->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')               
                 ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC') 
                 ->get();
 
