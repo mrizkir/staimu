@@ -127,6 +127,14 @@ class PermissionsTableSeeder extends Seeder
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
             
             'AKADEMIK-MATAKULIAH',
+            'AKADEMIK-DULANG-BARU',
+            'AKADEMIK-DULANG-LAMA',
+            'AKADEMIK-DULANG-AKTIF',
+            'AKADEMIK-DULANG-CUTI',
+            'AKADEMIK-DULANG-DO',
+            'AKADEMIK-DULANG-NON-AKTIF',
+            'AKADEMIK-DULANG-LULUS',
+            'AKADEMIK-DULANG-KELUAR',
             
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',

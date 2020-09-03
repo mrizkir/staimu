@@ -127,4 +127,40 @@ class TransaksiController extends Controller {
         }
         
     }
+    public function sppmhsbaru (Request $request,$id)
+    {
+        $this->validate($request, [           
+            'no_bulan'=>'required|numeric',
+            'ta'=>'required',
+        ]);
+        $no_bulan=$request->input('no_bulan');
+        $ta=$request->input('ta');
+
+        $spp=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.status'))  
+                            ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+                            ->where('pe3_transaksi_detail.kombi_id',201)
+                            ->where('pe3_transaksi.ta',$ta)
+                            ->where('pe3_transaksi_detail.bulan',$no_bulan)
+                            ->where('pe3_transaksi.status',1)
+                            ->first();
+        
+        if (is_null($spp))
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'update',  
+                'spp'=>$spp,                                                                                                                                   
+                'message'=>'SPP Mahasiswa Baru gagal DIPEROLEH.'
+            ],422); 
+        }       
+        else
+        {
+            return Response()->json([
+                'status'=>1,
+                'pid'=>'fetchdata',  
+                'spp'=>$spp,                                                                                                                                   
+                'message'=>'SPP Mahasiswa Baru berhasil DIPEROLEH.'
+            ],200); 
+        } 
+    }
 }

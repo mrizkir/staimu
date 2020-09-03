@@ -27,7 +27,125 @@
                     Halaman untuk melihat daftar calon mahasiswa yang sudah melakukan pembayaran daftar ulang tetapi belum memiliki NIM.
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>  
+        <v-container fluid>             
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-text>
+                            <v-text-field
+                                v-model="search"
+                                append-icon="mdi-database-search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <v-data-table
+                        :headers="headers"
+                        :items="datatable"
+                        :search="search"
+                        item-key="user_id"                        
+                        show-expand
+                        :expanded.sync="expanded"
+                        :single-expand="true"
+                        :disable-pagination="true"
+                        :hide-default-footer="true"
+                        @click:row="dataTableRowClicked"
+                        class="elevation-1"
+                        :loading="datatableLoading"
+                        loading-text="Loading... Please wait">
+                        <template v-slot:top>
+                            <v-toolbar flat color="white">
+                                <v-toolbar-title>DAFTAR MAHASISWA</v-toolbar-title>
+                                <v-divider
+                                    class="mx-4"
+                                    inset
+                                    vertical
+                                ></v-divider>
+                                <v-dialog v-model="dialogfrm" width="600" persistent v-if="dialogfrm">
+                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                        <v-card color="grey lighten-4">
+                                            <v-toolbar elevation="2"> 
+                                                <v-toolbar-title>SETTING NIM !!!</v-toolbar-title>
+                                                <v-divider
+                                                    class="mx-4"
+                                                    inset
+                                                    vertical
+                                                ></v-divider>
+                                                <v-spacer></v-spacer>
+                                                <v-icon                
+                                                    @click.stop="closedialogfrm()">
+                                                    mdi-close-thick
+                                                </v-icon>
+                                            </v-toolbar>
+                                            <v-card-text>
+                                                <v-text-field 
+                                                    v-model="formdata.nim"
+                                                    label="NIM"                                                                     
+                                                    outlined /> 
+                                                <v-text-field 
+                                                    v-model="formdata.nirm"
+                                                    label="NIRM"                                                                     
+                                                    outlined /> 
+                                                <v-select
+                                                    label="DOSEN WALI :"
+                                                    v-model="formdata.dosen_id"
+                                                    :items="daftar_dw"
+                                                    item-text="name"
+                                                    item-value="id"
+                                                    :rules="rule_dw"
+                                                    outlined/>  
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                                <v-btn 
+                                                    color="blue darken-1" 
+                                                    text 
+                                                    @click.stop="save" 
+                                                    :loading="btnLoading"
+                                                    :disabled="!form_valid||btnLoading">
+                                                        SIMPAN
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
+                            </v-toolbar>
+                        </template>
+                        <template v-slot:item.idkelas="{item}">
+                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click.stop="addItem(item)">                                
+                                mdi-send
+                            </v-icon>     
+                        </template>           
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <td :colspan="headers.length" class="text-center">
+                                <v-col cols="12">                          
+                                    <strong>userid:</strong>{{ item.user_id }}          
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                </v-col>                                
+                            </td>
+                        </template>
+                        <template v-slot:no-data>
+                            Data belum tersedia
+                        </template>   
+                    </v-data-table>
+                </v-col>
+            </v-row>            
+        </v-container>
         <template v-slot:filtersidebar>
             <Filter18 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />	
         </template>
@@ -80,14 +198,26 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },               
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },               
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:150  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },               
+            { text: 'TELP. HP', value: 'telp_hp', sortable:true,width:150 },               
+            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                           
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'',    
+        search:'', 
+        
+        //formdata
+        dialogfrm:false, 
+        daftar_dw:[],       
+        formdata: {            
+            user_id:'',
+            nim:'',
+            nirm:'',
+            dosen_id:''           
+        },
+        rule_dw:[
+            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+        ], 
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -100,7 +230,70 @@ export default {
         },
         initialize:async function () 
         {
-
+            this.datatableLoading=true;
+            await this.$ajax.post('/akademik/dulang/mhsbelumpunyanim',
+            {
+                prodi_id:this.prodi_id,
+                ta:this.tahun_akademik
+            },
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{               
+                this.datatable = data.mahasiswa;
+                this.datatableLoading=false;
+            }).catch(()=>{
+                this.datatableLoading=false;
+            });  
+            this.firstloading=false;
+            this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
+        },
+        dataTableRowClicked(item)
+        {
+            if ( item === this.expanded[0])
+            {
+                this.expanded=[];                
+            }
+            else
+            {
+                this.expanded=[item];
+            }               
+        },
+        async addItem (item)
+        {
+            await this.$ajax.get('/akademik/dosenwali',{
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                  
+                this.formdata = item;
+                this.dialogfrm=true;
+                this.daftar_dw = data.users; 
+            });     
+        },
+        closedialogfrm () {            
+            this.dialogfrm = false;            
+            setTimeout(() => {                
+                }, 300
+            );
+        },
+    },
+    watch:{
+        tahun_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
         }
     },
     components:{
