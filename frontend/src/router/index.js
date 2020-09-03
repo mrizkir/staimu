@@ -343,6 +343,15 @@ const routes = [
 	},	
 	//akademik - daftar ulang
 	{
+		path: '/akademik/dulang/mhsbelumpunyanim',
+		name: 'AkademikDulangMHSBelumPunyaNIM',
+		meta:{
+			title: "AKADEMIK - MHS. BARU BELUM PUNYA NIM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/MHSBelumPunyaNIM.vue'),		
+	},	
+	{
 		path: '/akademik/dulang/mahasiswabaru',
 		name: 'AkademikDulangMHSBaru',
 		meta:{
