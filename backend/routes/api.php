@@ -169,7 +169,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/spmb/reportspmbprodi/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBProdiController@printtoexcel','as'=>'reportspmbprodi.printtoexcel']);    
     
     //spmb - report report kelulusan
-    $router->post('/spmb/reportkelulusan',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@index','as'=>'reportkelulusan.index']);    
+    $router->post('/spmb/reportspmbkelulusan',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@index','as'=>'reportspmbkelulusan.index']);    
+    $router->post('/spmb/reportspmbkelulusan/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@printtoexcel','as'=>'reportspmbkelulusan.printtoexcel']);    
 
     //spmb - persyaratan
     $router->post('/spmb/pmbpersyaratan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@index','as'=>'pmbpersyaratan.index']);    

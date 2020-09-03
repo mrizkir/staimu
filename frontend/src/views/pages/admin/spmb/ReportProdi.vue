@@ -226,7 +226,7 @@ export default {
         printtoexcel:async function ()
         {
             this.btnLoading=true;
-            await this.$ajax.post('/spmb/reportspmbprodi/printtoexcel',
+            await this.$ajax.post('/spmb/report/printtoexcel',
                 {
                     TA:this.tahun_pendaftaran,                                                                
                     prodi_id:this.prodi_id,    
