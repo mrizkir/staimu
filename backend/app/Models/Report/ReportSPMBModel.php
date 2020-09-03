@@ -300,7 +300,7 @@ class ReportSPMBModel extends ReportModel
         $sheet->mergeCells("A$row:M$row");				                
         $sheet->setCellValue("A$row","LAPORAN KELULUSAN CALON MAHASISWA BARU");
 
-        $row=1;
+        $row+=1;
         $sheet->mergeCells("A$row:M$row");				                
         $sheet->setCellValue("A$row"," PROGRAM STUDI $nama_prodi");
 
