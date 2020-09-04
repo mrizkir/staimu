@@ -4,34 +4,41 @@ namespace App\Models\Akademik;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GroupMatakuliahModel extends Model {    
+class DulangModel extends Model {    
      /**
      * nama tabel model ini.
      *
      * @var string
      */
-    protected $table = 'pe3_group_matakuliah';
+    protected $table = 'pe3_dulang';
     /**
      * primary key tabel ini.
      *
      * @var string
      */
-    protected $primaryKey = 'id_group';
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id_group',
-        'nama_group',        
+        'id',        
+        'user_id',
+        'nim',
+        'tahun', 
+        'idsmt', 
+        'tasmt', 
+        'idkelas', 
+        'status_sebelumnya',
+        'k_status',              
     ];
     /**
      * enable auto_increment.
      *
      * @var string
      */
-    public $incrementing = true;
+    public $incrementing = false;
     /**
      * activated timestamps.
      *

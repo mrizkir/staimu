@@ -54,5 +54,5 @@ class MatakuliahModel extends Model {
      *
      * @var string
      */
-    public $timestamps = false;
+    public $timestamps = true;
 }

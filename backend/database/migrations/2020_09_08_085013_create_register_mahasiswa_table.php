@@ -17,7 +17,7 @@ class CreateRegisterMahasiswaTable extends Migration
         Schema::create('pe3_register_mahasiswa', function (Blueprint $table) {
             $table->uuid('user_id')->primary();
             $table->uuid('dosen_id')->nullable();
-            $table->uuid('konsentrasi_id'); 
+            $table->uuid('konsentrasi_id')->nullable(); 
 
             $table->string('nim')->unique();
             $table->string('nirm')->unique();

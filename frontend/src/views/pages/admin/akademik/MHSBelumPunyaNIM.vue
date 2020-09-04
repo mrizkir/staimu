@@ -68,54 +68,93 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-dialog v-model="dialogfrm" width="600" persistent v-if="dialogfrm">
-                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-                                        <v-card color="grey lighten-4">
-                                            <v-toolbar elevation="2"> 
-                                                <v-toolbar-title>SETTING NIM !!!</v-toolbar-title>
-                                                <v-divider
-                                                    class="mx-4"
-                                                    inset
-                                                    vertical
-                                                ></v-divider>
-                                                <v-spacer></v-spacer>
-                                                <v-icon                
-                                                    @click.stop="closedialogfrm()">
-                                                    mdi-close-thick
-                                                </v-icon>
-                                            </v-toolbar>
-                                            <v-card-text>
-                                                <v-text-field 
-                                                    v-model="formdata.nim"
-                                                    label="NIM"                                                                     
-                                                    outlined /> 
-                                                <v-text-field 
-                                                    v-model="formdata.nirm"
-                                                    label="NIRM"                                                                     
-                                                    outlined /> 
-                                                <v-select
-                                                    label="DOSEN WALI :"
-                                                    v-model="formdata.dosen_id"
-                                                    :items="daftar_dw"
-                                                    item-text="name"
-                                                    item-value="id"
-                                                    :rules="rule_dw"
-                                                    outlined/>  
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
-                                                <v-btn 
-                                                    color="blue darken-1" 
-                                                    text 
-                                                    @click.stop="save" 
-                                                    :loading="btnLoading"
-                                                    :disabled="!form_valid||btnLoading">
-                                                        SIMPAN
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-form>
+                                <v-dialog v-model="dialogfrm" width="600" persistent v-if="dialogfrm">                                    
+                                    <v-card color="grey lighten-4">
+                                        <v-toolbar elevation="2"> 
+                                            <v-toolbar-title>SETTING NIM !!!</v-toolbar-title>
+                                            <v-divider
+                                                class="mx-4"
+                                                inset
+                                                vertical
+                                            ></v-divider>
+                                            <v-spacer></v-spacer>
+                                            <v-icon                
+                                                @click.stop="closedialogfrm()">
+                                                mdi-close-thick
+                                            </v-icon>
+                                        </v-toolbar>
+                                        <v-card-text>
+                                            <v-alert                                        
+                                                color="cyan"                                                                   
+                                                colored-border
+                                                type="info">
+                                                Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{$tahun_akademik}} belum bisa daftar ulang otomatis
+                                            </v-alert>
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-card flat>
+                                                        <v-card-title>ID :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_mhs.user_id}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                    <v-card flat>
+                                                        <v-card-title>NOMOR FORMULIR :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_mhs.no_formulir}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                    <v-card flat>
+                                                        <v-card-title>NAMA MAHASISWA :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{data_mhs.nama_mhs}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>                                                
+                                            </v-row>
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                                        <v-card>                                                            
+                                                            <v-card-text>            
+                                                                <v-text-field 
+                                                                    v-model="formdata.nim"
+                                                                    label="NIM"   
+                                                                    :rules="rule_nim"                                                                  
+                                                                    outlined /> 
+                                                                <v-text-field 
+                                                                    v-model="formdata.nirm"
+                                                                    label="NIRM" 
+                                                                    :rules="rule_nirm"                                                                    
+                                                                    outlined /> 
+                                                                <v-select
+                                                                    label="DOSEN WALI :"
+                                                                    v-model="formdata.dosen_id"
+                                                                    :items="daftar_dw"
+                                                                    item-text="name"
+                                                                    item-value="id"
+                                                                    :rules="rule_dw"
+                                                                    outlined/>  
+                                                            </v-card-text>
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                                                <v-btn 
+                                                                    color="blue darken-1" 
+                                                                    text 
+                                                                    @click.stop="save" 
+                                                                    :loading="btnLoading"
+                                                                    :disabled="!form_valid||btnLoading">
+                                                                        SIMPAN
+                                                                </v-btn>
+                                                            </v-card-actions>
+                                                        </v-card>
+                                                    </v-form>
+                                                </v-col>
+                                            </v-row>
+                                        </v-card-text>
+                                    </v-card>
+                                
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -206,18 +245,34 @@ export default {
         ],  
         search:'', 
         
+        data_mhs:{},  
+
         //formdata
+        form_valid:true,   
         dialogfrm:false, 
-        daftar_dw:[],       
-        formdata: {            
-            user_id:'',
+        daftar_dw:[],     
+        
+        formdata: {                        
             nim:'',
             nirm:'',
             dosen_id:''           
         },
+        formdefault: {                        
+            nim:'',
+            nirm:'',
+            dosen_id:''           
+        },
+        rule_nim:[
+            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
+        ], 
+        rule_nirm:[
+            value => !!value||"Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
+        ], 
         rule_dw:[
             value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
-        ], 
+        ],         
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -267,14 +322,41 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                  
-                this.formdata = item;
+                this.data_mhs = item;
                 this.dialogfrm=true;
                 this.daftar_dw = data.users; 
             });     
         },
+        save () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;  
+                this.$ajax.post('/akademik/dulang/mhsbelumpunyanim/store',
+                {
+                    user_id:this.data_mhs.user_id,
+                    nim:this.formdata.nim,
+                    nirm:this.formdata.nirm,
+                    dosen_id:this.formdata.dosen_id,                       
+                },                    
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token'],                        
+                    }
+                }
+                ).then(()=>{               
+                    this.btnLoading=false;
+                    this.initialize();          
+                    this.closedialogfrm();                        
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });   
+            }
+        },
         closedialogfrm () {            
             this.dialogfrm = false;            
-            setTimeout(() => {                
+            setTimeout(() => {       
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.data_mhs = Object.assign({}, {});   
                 }, 300
             );
         },

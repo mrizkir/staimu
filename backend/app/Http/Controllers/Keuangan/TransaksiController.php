@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
 
+use Ramsey\Uuid\Uuid;
+
 class TransaksiController extends Controller {  
     /**
      * daftar komponen biaya
