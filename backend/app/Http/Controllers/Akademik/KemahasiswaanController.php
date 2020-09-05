@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Kemahasiswaan;
+namespace App\Http\Controllers\Akademik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ class KemahasiswaanController extends Controller {
      */
     public function updatestatus(Request $request,$id)
     {
-        $this->hasPermissionTo('KEMAHASISWAAN-STATUS_UPDATE');
+        $this->hasPermissionTo('AKADEMIK-KEMAHASISWAAN-STATUS_UPDATE');
 
         $this->validate($request,[
             'active'=>'required|numeric'

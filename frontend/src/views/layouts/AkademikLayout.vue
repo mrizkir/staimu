@@ -76,7 +76,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/akademik'}" link class="yellow" color="green" v-if="CAN_ACCESS('AKADEMIK-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">
+                <v-list-item :to="{path:'/akademik'}" link class="yellow" color="green" v-if="CAN_ACCESS('AKADEMIK-GROUP')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
@@ -84,7 +84,7 @@
                         <v-list-item-title>DASHBOARD AKADEMIK</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                   
-                <v-list-item link to="/akademik/dosenwali">
+                <v-list-item link to="/akademik/dosenwali" v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN-WALI_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-teach</v-icon>
                     </v-list-item-icon>
@@ -94,7 +94,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="/akademik/matakuliah">
+                <v-list-item link to="/akademik/matakuliah" v-if="CAN_ACCESS('AKADEMIK-MATAKULIAH_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>
                     </v-list-item-icon>
@@ -105,7 +105,7 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-subheader>DAFTAR ULANG</v-subheader>
-                <v-list-item link to="/akademik/dulang/mhsbelumpunyanim">
+                <v-list-item link to="/akademik/dulang/mhsbelumpunyanim" v-if="CAN_ACCESS('AKADEMIK-DULANG-BARU_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>
                     </v-list-item-icon>
@@ -115,7 +115,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="/akademik/dulang/mahasiswabaru">
+                <v-list-item link to="/akademik/dulang/mahasiswabaru" v-if="CAN_ACCESS('AKADEMIK-DULANG-BARU_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>
                     </v-list-item-icon>
@@ -124,8 +124,18 @@
                             MAHASISWA BARU
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>
-                <v-divider></v-divider>
+                </v-list-item>                
+                <v-subheader>KEMAHASISWAAN</v-subheader>
+                <v-list-item link to="/akademik/kemahasiswaan/daftarmahasiswa" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-book</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            DAFTAR MAHASISWA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>              
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

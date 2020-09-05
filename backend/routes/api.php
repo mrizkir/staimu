@@ -211,9 +211,6 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@show','as'=>'konfirmasipembayaran.show']);            
     $router->put('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@update','as'=>'konfirmasipembayaran.update']);            
     
-    //kemahasiswaan
-    $router->post('/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Kemahasiswaan\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
-
     //akademik - dosen wali
     $router->get('/akademik/dosenwali',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@index','as'=>'dosenwali.index']);
     $router->post('/akademik/dosenwali/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@store','as'=>'dosenwali.store']);
@@ -233,11 +230,19 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     //akademik - daftar ulang - mahasiswa belum punya nim
     $router->post('/akademik/dulang/mhsbelumpunyanim',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@index','as'=>'mhsbelumpunyanim.index']);            
-    $router->post('/akademik/dulang/mhsbelumpunyanim/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@store','as'=>'mhsbelumpunyanim.store']);            
-    $router->get('/akademik/dulang/mhsbelumpunyanim/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@show','as'=>'mhsbelumpunyanim.show']);            
-    $router->put('/akademik/dulang/mhsbelumpunyanim/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@update','as'=>'mhsbelumpunyanim.update']);            
-    $router->delete('/akademik/dulang/mhsbelumpunyanim/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@destroy','as'=>'mhsbelumpunyanim.destroy']);               
+    $router->post('/akademik/dulang/mhsbelumpunyanim/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@store','as'=>'mhsbelumpunyanim.store']);                   
 
+    //akademik - daftar ulang - mahasiswa baru
+    $router->post('/akademik/dulang/mhsbaru',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@index','as'=>'dulangmhsbaru.index']);            
+    $router->post('/akademik/dulang/mhsbaru/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@store','as'=>'dulangmhsbaru.store']);            
+    $router->get('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@show','as'=>'dulangmhsbaru.show']);            
+    $router->put('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@update','as'=>'dulangmhsbaru.update']);            
+    $router->delete('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@destroy','as'=>'dulangmhsbaru.destroy']);               
+
+    //akademik - kemahasiswaan - daftar mahasiswa
+    $router->post('/akademik/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
+    $router->post('/akademik/kemahasiswaan/daftarmhs',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@index','as'=>'daftarmhs.index']);            
+    
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);    
     $router->post('/system/setting/permissions/store',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@store','as'=>'permissions.store']);    

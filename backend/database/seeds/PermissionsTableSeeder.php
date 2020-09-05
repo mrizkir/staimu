@@ -88,19 +88,25 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
         
-        //kemahasiswaan
+        //akademik - kemahasiswaan
         \DB::table('permissions')->insert([
-            'name'=>"KEMAHASISWAAN-STATUS_BROWSE",
+            'name'=>"AKADEMIK-KEMAHASISWAAN-STATUS_BROWSE",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
         \DB::table('permissions')->insert([
-            'name'=>"KEMAHASISWAAN-STATUS_UPDATE",
+            'name'=>"AKADEMIK-KEMAHASISWAAN-STATUS_UPDATE",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+        \DB::table('permissions')->insert([
+            'name'=>"AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
 
         $modules = [             
             'DMASTER-TA',     

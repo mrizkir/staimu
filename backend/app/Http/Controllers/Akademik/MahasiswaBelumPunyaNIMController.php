@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers\Akademik;
 
 use App\Http\Controllers\Controller;

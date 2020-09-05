@@ -29,18 +29,17 @@ class CreateDulangTable extends Migration
             
             $table->index('user_id');   
             $table->index('nim');
+            $table->index('tahun');
+            $table->index('idsmt');
+            $table->index('idkelas');
+            $table->index('k_status');
 
             $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->foreign('nim')
-                ->references('nim')
+                ->references('user_id')
                 ->on('pe3_register_mahasiswa')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
         });
     }
 

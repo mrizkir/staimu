@@ -360,6 +360,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/DulangMahasiswaBaru.vue'),		
 	},	
+	{
+		path: '/akademik/kemahasiswaan/daftarmahasiswa',
+		name: 'KemahasiswaanDaftarMahasiswa',
+		meta:{
+			title: "AKADEMIK - DAFTAR MAHASISWA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/KemahasiswaanDaftarMahasiswa.vue'),		
+	},	
 
 	//system	
 	{

@@ -8,7 +8,7 @@
                 MAHASISWA BELUM PUNYA NIM
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -88,7 +88,7 @@
                                                 color="cyan"                                                                   
                                                 colored-border
                                                 type="info">
-                                                Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{$tahun_akademik}} belum bisa daftar ulang otomatis
+                                                Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{$tahun_pendaftaran}} belum bisa daftar ulang otomatis
                                             </v-alert>
                                             <v-row>
                                                 <v-col cols="12">
@@ -186,7 +186,7 @@
             </v-row>            
         </v-container>
         <template v-slot:filtersidebar>
-            <Filter18 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />	
+            <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
     </AkademikLayout>
 </template>
@@ -194,7 +194,7 @@
 
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter18 from '@/components/sidebar/FilterMode18';
+import Filter7 from '@/components/sidebar/FilterMode7';
 export default {
     name:'MHSBelumPunyaNIM',
     created () {
@@ -223,14 +223,14 @@ export default {
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id=prodi_id;
         this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
         firstloading:true,
         prodi_id:null,
         nama_prodi:null,
-        tahun_akademik:null,        
+        tahun_pendaftaran:null,        
 
         btnLoading:false,
         datatableLoading:false,
@@ -275,9 +275,9 @@ export default {
         ],         
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunPendaftaran (tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_pendaftaran=tahun;
         },
         changeProdi (id)
         {
@@ -289,7 +289,7 @@ export default {
             await this.$ajax.post('/akademik/dulang/mhsbelumpunyanim',
             {
                 prodi_id:this.prodi_id,
-                ta:this.tahun_akademik
+                ta:this.tahun_pendaftaran
             },
             {
                 headers: {
@@ -302,7 +302,7 @@ export default {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
-            this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
+            this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
@@ -362,7 +362,7 @@ export default {
         },
     },
     watch:{
-        tahun_akademik()
+        tahun_pendaftaran()
         {
             if (!this.firstloading)
             {
@@ -381,7 +381,7 @@ export default {
     components:{
         AkademikLayout,
         ModuleHeader,
-        Filter18        
+        Filter7        
     },
 }
 </script>

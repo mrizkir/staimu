@@ -476,7 +476,7 @@ export default {
         aktifkan(id)
         {
             this.btnLoading=true;
-            this.$ajax.post('/kemahasiswaan/updatestatus/'+id,
+            this.$ajax.post('/akademik/kemahasiswaan/updatestatus/'+id,
                 {
                     'active':1
                 },

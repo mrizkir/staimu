@@ -45,4 +45,9 @@ class DulangModel extends Model {
      * @var string
      */
     public $timestamps = true;
+    
+    public function register_mahasiswa()
+    {
+        return $this->belongsTo('App\Models\Akademik\RegisterMahasiwaModel','user_id','user_id');
+    }
 }
