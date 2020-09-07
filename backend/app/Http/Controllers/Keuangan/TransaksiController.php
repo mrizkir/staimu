@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Keuangan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
+
+use Exception;
 
 use Ramsey\Uuid\Uuid;
 
@@ -131,38 +134,49 @@ class TransaksiController extends Controller {
     }
     public function sppmhsbaru (Request $request,$id)
     {
-        $this->validate($request, [           
-            'no_bulan'=>'required|numeric',
-            'ta'=>'required',
-        ]);
-        $no_bulan=$request->input('no_bulan');
-        $ta=$request->input('ta');
+        $this->validate($request, [                       
+            'jenis_id'=>'required'
+        ]);        
+        $jenis_id=$request->input('jenis_id');
 
-        $spp=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.status'))  
-                            ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+        try 
+        {
+            $mhs=$jenis_id == 'nim' ? RegisterMahasiswaModel::where('nim',$id)->first() : RegisterMahasiswaModel::find($id);
+            if (is_null($mhs))
+            {
+                throw new Exception ('SPP Mahasiswa Baru gagal DIPEROLEH.');
+            }   
+
+            $user_id=$mhs->user_id;
+            $no_bulan=9;        
+            $spp=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('pe3_transaksi_detail.kombi_id',201)
-                            ->where('pe3_transaksi.ta',$ta)
+                            ->where('pe3_transaksi.ta',$mhs->tahun)
+                            ->where('pe3_transaksi.idsmt',$mhs->idsmt)
                             ->where('pe3_transaksi_detail.bulan',$no_bulan)
                             ->where('pe3_transaksi.status',1)
+                            ->where('pe3_transaksi_detail.user_id',$user_id)
                             ->first();
-        
-        if (is_null($spp))
-        {
-            return Response()->json([
-                'status'=>0,
-                'pid'=>'update',  
-                'spp'=>$spp,                                                                                                                                   
-                'message'=>'SPP Mahasiswa Baru gagal DIPEROLEH.'
-            ],422); 
-        }       
-        else
-        {
+
+            if (is_null($spp))
+            {
+                throw new Exception ('Mahasiswa Baru ini belum melakukan pembayaran KRS pada Bulan September ');
+            }
             return Response()->json([
                 'status'=>1,
                 'pid'=>'fetchdata',  
+                // 'status_transaksi'=>$spp->status,  
                 'spp'=>$spp,                                                                                                                                   
                 'message'=>'SPP Mahasiswa Baru berhasil DIPEROLEH.'
             ],200); 
-        } 
+        }
+        catch (Exception $e)
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'update',                                                                                                                                                  
+                'message'=>[$e->getMessage()]
+            ],422); 
+        }
     }
 }

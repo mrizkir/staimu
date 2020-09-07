@@ -73,6 +73,7 @@ export default {
 					this.snackbar_color='error';
 					this.snackbar_error=true;	
 					var error_messages=[];
+					console.log(data);
 					for (var p in data)
 					{
 						var messages=[];

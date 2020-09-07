@@ -53,7 +53,7 @@
                                     @click.stop="tambahItem" 
                                     :loading="btnLoading"
                                     :disabled="!form_valid||btnLoading">
-                                        GO
+                                        DAFTAR
                                 </v-btn>
                             </v-card-text>
                         </v-card>
@@ -337,15 +337,28 @@ export default {
             }               
         },
         async tambahItem ()
-        {   
-            await this.$ajax.get('/akademik/dosenwali',{
+        {               
+            await this.$ajax.post('/keuangan/transaksi/'+this.formdata.nim+'/sppmhsbaru',
+            {
+                jenis_id:'nim'
+            },
+            {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                                  
-                this.dialogfrm=true;
-                this.daftar_dw = data.users; 
+                console.log(data);
             });   
+
+            // await this.$ajax.get('/akademik/dosenwali',{
+            //     headers: {
+            //         Authorization:this.$store.getters['auth/Token']
+            //     }
+            // }).then(({data})=>{                                  
+            //     this.dialogfrm=true;
+            //     this.daftar_dw = data.users; 
+            // });   
+
         },
         deleteItem (item)
         {
