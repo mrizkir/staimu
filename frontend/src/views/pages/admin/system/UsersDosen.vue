@@ -303,7 +303,7 @@ export default {
             { text: 'NIPY', value: 'nipy',sortable:true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
             { text: 'DW', value: 'is_dw',sortable:true },     
-            { text: 'ROLE', value: 'default_role',sortable:true },     
+            { text: 'ROLE ASAL', value: 'default_role',sortable:true },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         expanded:[],

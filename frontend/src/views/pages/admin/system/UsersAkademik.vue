@@ -129,16 +129,17 @@
                                                     item-text="text"
                                                     item-value="id"
                                                     multiple 
-                                                    small-chips>                                                                                
+                                                    small-chips
+                                                    outlined>                                                                                
                                                 </v-autocomplete>
-                                                <v-switch
-                                                    v-model="editedItem.role_dosen"
-                                                    label="ROLE DOSEN">
-                                                </v-switch>
-                                                <v-switch
-                                                    v-model="editedItem.is_dw"
-                                                    label="SEBAGAI DOSEN WALI">
-                                                </v-switch>
+                                                <v-autocomplete 
+                                                    :items="daftar_roles" 
+                                                    v-model="editedItem.role_id"
+                                                    label="ROLES"                                                     
+                                                    multiple 
+                                                    small-chips
+                                                    outlined>                                                                                
+                                                </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -203,16 +204,17 @@
                                                     item-text="text"
                                                     item-value="id"
                                                     multiple 
-                                                    small-chips>                                                                                
+                                                    small-chips
+                                                    outlined>                                                                                
                                                 </v-autocomplete>
-                                                <v-switch
-                                                    v-model="editedItem.role_dosen"
-                                                    label="ROLE DOSEN">
-                                                </v-switch>
-                                                <v-switch
-                                                    v-model="editedItem.is_dw"
-                                                    label="SEBAGAI DOSEN WALI">
-                                                </v-switch>
+                                                <v-autocomplete 
+                                                    :items="daftar_roles" 
+                                                    v-model="editedItem.role_id"
+                                                    label="ROLES"                                                     
+                                                    multiple 
+                                                    small-chips
+                                                    outlined>                                                                                
+                                                </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -332,6 +334,7 @@ export default {
 
         //form
         form_valid:true,
+        daftar_roles:[],
         dialog: false,
         dialogEdit: false,
         dialogUserPermission: false,
@@ -345,8 +348,7 @@ export default {
             email: '',           
             nomor_hp:'',           
             prodi_id:[],
-            role_dosen:false,                
-            is_dw:false,                
+            role_id:['akademik'], 
             created_at: '',           
             updated_at: '',   
         },
@@ -358,8 +360,7 @@ export default {
             email: '',           
             nomor_hp: '',  
             prodi_id:[],       
-            role_dosen:false,                
-            is_dw:false,                                     
+            role_id:['akademik'], 
             created_at: '',           
             updated_at: '',        
         },
@@ -450,8 +451,33 @@ export default {
         },
         showDialogTambahUserAkademik:async function ()
         {
-            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-            this.dialog = true;            
+            await this.$ajax.get('/system/setting/roles',{
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{      
+                let roles = data.roles;
+                var daftar_roles=[];
+                roles.forEach(element => {
+                    if (element.name=='akademik')
+                    {                        
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:true,
+                        });                        
+                    }
+                    else if (element.name=='dosen'||element.name=='dosenwali')
+                    {
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:false,                            
+                        });                        
+                    }                    
+                });        
+                this.daftar_roles=daftar_roles;                     
+                this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];                          
+                this.dialog = true;            
+            });               
         },
         editItem:async function (item) {
             this.editedIndex = this.daftar_users.indexOf(item)
@@ -472,7 +498,44 @@ export default {
                 });   
                 this.editedItem.prodi_id=prodi;                 
             });                         
-            this.dialogEdit = true;
+            
+            await this.$ajax.get('/system/setting/roles',{
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{      
+                let roles = data.roles;
+                var daftar_roles=[];
+                roles.forEach(element => {
+                    if (element.name=='akademik')
+                    {                        
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:true,
+                        });                        
+                    }
+                    else if (element.name=='dosen'||element.name=='dosenwali')
+                    {
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:false,                            
+                        });                        
+                    }                    
+                });        
+                this.daftar_roles=daftar_roles;                                                
+            });    
+
+            this.btnLoading=true;
+            await this.$ajax.get('/system/users/'+item.id+'/roles',
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{  
+                this.editedItem.role_id=data.roles;                   
+                this.btnLoading=false;
+                this.dialogEdit = true;
+            });
         },
         setPermission: async function (item) {          
             this.btnLoading=true;  
@@ -532,8 +595,7 @@ export default {
                             username:this.editedItem.username,
                             password:this.editedItem.password,   
                             prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                                                          
-                            role_dosen:this.editedItem.role_dosen,
-                            is_dw:this.editedItem.is_dw,
+                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers:{
@@ -555,9 +617,8 @@ export default {
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
                             password:this.editedItem.password,            
-                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
-                            role_dosen:this.editedItem.role_dosen,
-                            is_dw:this.editedItem.is_dw,
+                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                             
+                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers:{

@@ -399,8 +399,7 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled:false,
-                            checked:true
+                            disabled:false,                            
                         });                        
                     }                    
                 });        
@@ -414,7 +413,7 @@ export default {
             item.password='';            
             this.editedItem = Object.assign({}, item); 
 
-             await this.$ajax.get('/system/setting/roles',{
+            await this.$ajax.get('/system/setting/roles',{
                 headers: {
                     Authorization:this.TOKEN
                 }
@@ -433,8 +432,7 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled:false,
-                            checked:true
+                            disabled:false,                            
                         });                        
                     }                    
                 });        

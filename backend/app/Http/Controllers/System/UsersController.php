@@ -87,13 +87,15 @@ class UsersController extends Controller {
                             'user_id'=>$user->id,
                             'nama_dosen'=>$request->input('name'),                                                            
                         ]);
+
+                        if ($v=='dosenwali')
+                        {
+                            \DB::table('pe3_dosen')
+                                ->where('user_id',$user->id)
+                                ->update(['is_dw'=>true]);
+                        }
                     }
-                    if ($v=='dosenwali')
-                    {
-                        \DB::table('pe3_dosen')
-                            ->where('user_id',$user->id)
-                            ->update(['is_dw'=>true]);
-                    }
+                    
                 }
             }
             \App\Models\System\ActivityLog::log($request,[
@@ -308,8 +310,19 @@ class UsersController extends Controller {
                 }    
                 $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
                 $user->save();                
+                
                 $daftar_roles=json_decode($request->input('role_id'),true);
+                if (($key= array_search('dosen',$daftar_roles))===false)
+                {
+                    $key= array_search('dosenwali',$daftar_roles);
+                    if (isset($daftar_roles[$key]))
+                    {
+                        unset($daftar_roles[$key]);
+                    }
+                }
                 $user->syncRoles($daftar_roles);
+                
+                $dosen=UserDosen::find($user->id);
                 
                 foreach($daftar_roles as $v)
                 {
@@ -319,25 +332,38 @@ class UsersController extends Controller {
                         $permissions=$permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
-                        if ($v=='dosen')
+                        if ($v=='dosen' && is_null($dosen))
                         {
-                            $dosen=UserDosen::find($user->id);
-                            if (is_null($dosen))
-                            {
-                                UserDosen::create([
-                                    'user_id'=>$user->id,
-                                    'nama_dosen'=>$request->input('name'),                                                            
-                                ]);
-                            }                            
+                            UserDosen::create([
+                                'user_id'=>$user->id,
+                                'nama_dosen'=>$request->input('name'),                                                            
+                            ]);
                         }
-                        if ($v=='dosenwali')
+                        else if ($v=='dosen' && !is_null($dosen))
+                        {
+                            $dosen->active=1;
+                            $dosen->save();
+                        }
+                        else if (!is_null($dosen))
+                        {
+                            $dosen->active=0;
+                            $dosen->save();
+                        }
+                        if ($v=='dosenwali' && $v=='dosen')
                         {
                             \DB::table('pe3_dosen')
                                 ->where('user_id',$user->id)
                                 ->update(['is_dw'=>true]);
                         }
+                        else
+                        {
+                            \DB::table('pe3_dosen')
+                                ->where('user_id',$user->id)
+                                ->update(['is_dw'=>false]);
+                        }
                     }
                 }
+                
                 \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
