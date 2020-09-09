@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Rules\IgnoreIfDataIsEqualValidation;
 use App\Models\User;
+use App\Models\UserDosen;
 use App\Helpers\Helper;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Validation\Rule;
@@ -21,7 +22,7 @@ class UsersController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-SUPERADMIN_BROWSE');
-        $data = User::role('superadmin')
+        $data = User::where('default_role','superadmin')
                     ->orderBy('username','ASC')
                     ->get();
 
@@ -51,30 +52,59 @@ class UsersController extends Controller {
             'username'=>'required|string|unique:users',
             'password'=>'required',
         ]);
-        $now = \Carbon\Carbon::now()->toDateTimeString();        
-        $user=User::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'name'=>$request->input('name'),
-            'email'=>$request->input('email'),
-            'nomor_hp'=>$request->input('nomor_hp'),
-            'username'=> $request->input('username'),
-            'password'=>Hash::make($request->input('password')),
-            'email_verified_at'=>\Carbon\Carbon::now(),
-            'theme'=>'default',            
-            'foto'=> 'storage/images/users/no_photo.png',
-            'created_at'=>$now, 
-            'updated_at'=>$now
-        ]);            
-        $role='superadmin';   
-        $user->assignRole($role);               
-        
-        \App\Models\System\ActivityLog::log($request,[
-                                        'object' => $this->guard()->user(), 
-                                        'object_id' => $this->guard()->user()->id, 
-                                        'user_id' => $this->getUserid(), 
-                                        'message' => 'Menambah user ('.$user->username.') berhasil'
-                                    ]);
+        $user = \DB::transaction(function () use ($request){
+            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $user=User::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'name'=>$request->input('name'),
+                'email'=>$request->input('email'),
+                'nomor_hp'=>$request->input('nomor_hp'),
+                'username'=> $request->input('username'),
+                'password'=>Hash::make($request->input('password')),
+                'email_verified_at'=>\Carbon\Carbon::now(),
+                'theme'=>'default',            
+                'default_role'=>'superadmin',            
+                'foto'=> 'storage/images/users/no_photo.png',
+                'created_at'=>$now, 
+                'updated_at'=>$now
+            ]);            
+            $role='superadmin';   
+            $user->assignRole($role);               
+            
+            $daftar_roles=json_decode($request->input('role_id'),true);
+            foreach($daftar_roles as $v)
+            {
+                if ($v!='superadmin')
+                {
+                    $user->assignRole($v);               
+                    $permission=Role::findByName($v)->permissions;
+                    $permissions=$permission->pluck('name');
+                    $user->givePermissionTo($permissions);
 
+                    if ($v=='dosen')
+                    {
+                        UserDosen::create([
+                            'user_id'=>$user->id,
+                            'nama_dosen'=>$request->input('name'),                                                            
+                        ]);
+                    }
+                    if ($v=='dosenwali')
+                    {
+                        \DB::table('pe3_dosen')
+                            ->where('user_id',$user->id)
+                            ->update(['is_dw'=>true]);
+                    }
+                }
+            }
+            \App\Models\System\ActivityLog::log($request,[
+                                            'object' => $this->guard()->user(), 
+                                            'object_id' => $this->guard()->user()->id, 
+                                            'user_id' => $this->getUserid(), 
+                                            'message' => 'Menambah user ('.$user->username.') berhasil'
+                                        ]);
+
+            return $user;
+        });
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
@@ -82,6 +112,38 @@ class UsersController extends Controller {
                                     'message'=>'Data user berhasil disimpan.'
                                 ],200); 
 
+    }
+    /**
+     * digunakan untuk mendapatkan detail user
+     */
+    public function show(Request $request,$id)
+    {
+        
+    }
+    /**
+     * digunakan untuk mendapatkan role user
+     */
+    public function roles(Request $request,$id)
+    {
+        $user = User::find($id);
+        if (is_null($user))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["User ID ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            $roles=$user->getRoleNames();           
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',                
+                                        'roles'=>$roles,                                                        
+                                        'message'=>"daftar roles user ($user->username) berhasil diperoleh"
+                                    ],200); 
+        }
     }
     /**
      * Store user permissions resource in storage.
@@ -108,7 +170,7 @@ class UsersController extends Controller {
 
                 $ta=$request->input('TA');
                 $prodi_id=$request->input('prodi_id');
-                $data = User::role('mahasiswabaru')
+                $data = User::where('default_role','mahasiswabaru')
                         ->select(\DB::raw('users.id'))
                         ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id')
                         ->where('users.ta',$ta)
@@ -236,30 +298,60 @@ class UsersController extends Controller {
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                                   
                                     ]);  
             
-            
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->username = $request->input('username');                        
-            $user->nomor_hp = $request->input('nomor_hp');                        
-            if (!empty(trim($request->input('password')))) {
-                $user->password = Hash::make($request->input('password'));
-            }    
-            $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-            $user->save();
+            $user = \DB::transaction(function () use ($request,$user){
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $user->username = $request->input('username');                        
+                $user->nomor_hp = $request->input('nomor_hp');                        
+                if (!empty(trim($request->input('password')))) {
+                    $user->password = Hash::make($request->input('password'));
+                }    
+                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
+                $user->save();                
+                $daftar_roles=json_decode($request->input('role_id'),true);
+                $user->syncRoles($daftar_roles);
+                
+                foreach($daftar_roles as $v)
+                {
+                    if ($v!='superadmin')
+                    {              
+                        $permission=Role::findByName($v)->permissions;
+                        $permissions=$permission->pluck('name');
+                        $user->givePermissionTo($permissions);
 
-            \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $this->guard()->user(), 
-                                                            'object_id' => $this->guard()->user()->id, 
-                                                            'user_id' => $this->getUserid(), 
-                                                            'message' => 'Mengubah data user ('.$user->username.') berhasil'
-                                                        ]);
+                        if ($v=='dosen')
+                        {
+                            $dosen=UserDosen::find($user->id);
+                            if (is_null($dosen))
+                            {
+                                UserDosen::create([
+                                    'user_id'=>$user->id,
+                                    'nama_dosen'=>$request->input('name'),                                                            
+                                ]);
+                            }                            
+                        }
+                        if ($v=='dosenwali')
+                        {
+                            \DB::table('pe3_dosen')
+                                ->where('user_id',$user->id)
+                                ->update(['is_dw'=>true]);
+                        }
+                    }
+                }
+                \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $this->guard()->user(), 
+                                                                'object_id' => $this->guard()->user()->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Mengubah data user ('.$user->username.') berhasil'
+                                                            ]);
 
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',
-                                        'user'=>$user,                                    
-                                        'message'=>'Data user '.$user->username.' berhasil diubah.'
-                                    ],200); 
+                return Response()->json([
+                                            'status'=>1,
+                                            'pid'=>'update',
+                                            'user'=>$user,                                    
+                                            'message'=>'Data user '.$user->username.' berhasil diubah.'
+                                        ],200); 
+            });
         }
     }
     /**
@@ -350,10 +442,18 @@ class UsersController extends Controller {
     { 
         $this->hasPermissionTo('SYSTEM-USERS-SUPERADMIN_DESTROY');
 
-        $user = User::where('isdeleted','t')
+        $user = User::where('isdeleted',true)
                     ->find($id); 
 
-        if ($user instanceof User)
+        if (is_null($user))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'destroy',                                      
+                                    'message'=>["User dengan id ($id) gagal dihapus"]
+                                ],422);    
+        }
+        else
         {
             $username=$user->username;
             $user->delete();
@@ -364,12 +464,15 @@ class UsersController extends Controller {
                                                                 'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus user ('.$username.') berhasil'
                                                             ]);
-        }
-        return Response()->json([
+
+            return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',  
+                                    'user'=>$user,              
                                     'message'=>"User ($username) berhasil dihapus"
-                                ],200);         
+                                ],200);    
+        }
+             
                   
     }
     public function uploadfoto (Request $request,$id)

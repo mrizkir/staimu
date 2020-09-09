@@ -224,6 +224,7 @@
                                 :loading="btnLoading"
                                 :disabled="btnLoading"
                                 @click.stop="editItem(item)"
+                                v-if="item.default_role=='dosen'"
                             >
                                 mdi-pencil
                             </v-icon>
@@ -232,9 +233,10 @@
                                 :loading="btnLoading"
                                 :disabled="btnLoading"
                                 @click.stop="deleteItem(item)"
+                                v-if="item.default_role=='dosen'"
                             >
                                 mdi-delete
-                            </v-icon>
+                            </v-icon>                            
                         </template>
                         <template v-slot:item.foto="{ item }">                            
                             <v-avatar size="30">
@@ -301,6 +303,7 @@ export default {
             { text: 'NIPY', value: 'nipy',sortable:true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
             { text: 'DW', value: 'is_dw',sortable:true },     
+            { text: 'ROLE', value: 'default_role',sortable:true },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         expanded:[],

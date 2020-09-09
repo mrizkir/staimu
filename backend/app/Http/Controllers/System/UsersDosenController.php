@@ -31,6 +31,7 @@ class UsersDosenController extends Controller {
                         users.nomor_hp,
                         users.foto,
                         pe3_dosen.is_dw,
+                        users.default_role,
                         users.created_at,
                         users.updated_at
                     '))
@@ -77,6 +78,7 @@ class UsersDosenController extends Controller {
                 'username'=> $request->input('username'),
                 'password'=>Hash::make($request->input('password')),                        
                 'theme'=>'default',
+                'default_role'=>'dosen',            
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
@@ -142,7 +144,7 @@ class UsersDosenController extends Controller {
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ],422); 
         }
-        else
+        elseif ($user->default_role=='dosen')
         {
             $this->validate($request, [
                                         'username'=>[
@@ -210,6 +212,16 @@ class UsersDosenController extends Controller {
                                     'message'=>'Data user Dosen '.$user->username.' berhasil diubah.'
                                 ],200); 
         }
+        else
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["User ID ($id) gagal diupdate karena bukan pada tempatnya"]
+                                ],422); 
+        }
+        
+        
     }
     /**
      * Remove the specified resource from storage.

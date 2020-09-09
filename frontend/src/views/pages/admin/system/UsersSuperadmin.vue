@@ -110,7 +110,15 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_password">
-                                                </v-text-field>                                                
+                                                </v-text-field>   
+                                                <v-autocomplete 
+                                                    :items="daftar_roles" 
+                                                    v-model="editedItem.role_id"
+                                                    label="ROLES"                                                     
+                                                    multiple 
+                                                    small-chips
+                                                    outlined>                                                                                
+                                                </v-autocomplete>                                       
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -164,7 +172,15 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_passwordEdit">
-                                                </v-text-field>                                                   
+                                                </v-text-field> 
+                                                <v-autocomplete 
+                                                    :items="daftar_roles" 
+                                                    v-model="editedItem.role_id"
+                                                    label="ROLES"                                                     
+                                                    multiple 
+                                                    small-chips
+                                                    outlined>                                                                                
+                                                </v-autocomplete>                                       
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -269,16 +285,18 @@ export default {
 
         //form
         form_valid:true,
+        daftar_roles:[],
         dialog: false,
         dialogEdit: false,        
-        editedIndex: -1,        
+        editedIndex: -1,          
         editedItem: {
             id:0,
             username: '',           
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp:'',                       
+            nomor_hp:'',       
+            role_id:['superadmin'],
             created_at: '',           
             updated_at: '',   
         },
@@ -288,7 +306,8 @@ export default {
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp: '',              
+            nomor_hp: '',   
+            role_id:['superadmin'],    
             created_at: '',           
             updated_at: '',        
         },
@@ -361,13 +380,78 @@ export default {
         },        
         showDialogTambahUserSuperAdmin:async function ()
         {
-            this.dialog = true;            
+            await this.$ajax.get('/system/setting/roles',{
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{      
+                let roles = data.roles;
+                var daftar_roles=[];
+                roles.forEach(element => {
+                    if (element.name=='superadmin')
+                    {                        
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:true,
+                        });                        
+                    }
+                    else
+                    {
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:false,
+                            checked:true
+                        });                        
+                    }                    
+                });        
+                this.daftar_roles=daftar_roles;     
+                this.dialog = true;                                    
+            });     
+            
         },
         editItem:async function (item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password='';            
-            this.editedItem = Object.assign({}, item);                              
-            this.dialogEdit = true;
+            this.editedItem = Object.assign({}, item); 
+
+             await this.$ajax.get('/system/setting/roles',{
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{      
+                let roles = data.roles;
+                var daftar_roles=[];
+                roles.forEach(element => {
+                    if (element.name=='superadmin')
+                    {                        
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:true,
+                        });                        
+                    }
+                    else
+                    {
+                        daftar_roles.push({
+                            text:element.name,
+                            disabled:false,
+                            checked:true
+                        });                        
+                    }                    
+                });        
+                this.daftar_roles=daftar_roles;                                                
+            });    
+
+            this.btnLoading=true;
+            await this.$ajax.get('/system/users/'+item.id+'/roles',
+            {
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{  
+                this.editedItem.role_id=data.roles;                   
+                this.btnLoading=false;
+                this.dialogEdit = true;
+            });   
         },        
         close () {            
             this.btnLoading=false;
@@ -393,7 +477,8 @@ export default {
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
-                            password:this.editedItem.password,                               
+                            password:this.editedItem.password,
+                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers:{
@@ -414,7 +499,8 @@ export default {
                             email:this.editedItem.email,
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
-                            password:this.editedItem.password,                                        
+                            password:this.editedItem.password, 
+                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers:{

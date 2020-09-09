@@ -46,4 +46,5 @@ class RegisterMahasiswaModel extends Model {
      * @var string
      */
     public $timestamps = true;
+    
 }

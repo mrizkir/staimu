@@ -34,7 +34,7 @@ class ReportSPMBFakultasController extends Controller {
         $ta=$request->input('TA');
         $fakultas_id=$request->input('fakultas_id');
 
-        $data = User::role('mahasiswabaru')
+        $data = User::where('default_role','mahasiswabaru')
                     ->select(\DB::raw('users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,users.created_at,users.updated_at'))
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id')
                     ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')

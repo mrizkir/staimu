@@ -19,7 +19,7 @@ class UsersProdiController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-PROGRAM-STUDI_BROWSE');
-        $data = User::role('programstudi')
+        $data = User::where('default_role','programstudi')
                     ->orderBy('username','ASC')
                     ->get();       
                     
@@ -58,6 +58,7 @@ class UsersProdiController extends Controller {
             'username'=> $request->input('username'),
             'password'=>Hash::make($request->input('password')),                        
             'theme'=>'default',
+            'default_role'=>'programstudi',            
             'foto'=> 'storage/images/users/no_photo.png',
             'created_at'=>$now, 
             'updated_at'=>$now

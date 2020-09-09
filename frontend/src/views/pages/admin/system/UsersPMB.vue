@@ -131,6 +131,14 @@
                                                     multiple 
                                                     small-chips>                                                                                
                                                 </v-autocomplete>
+                                                <v-switch
+                                                    v-model="editedItem.role_dosen"
+                                                    label="ROLE DOSEN">
+                                                </v-switch>
+                                                <v-switch
+                                                    v-model="editedItem.is_dw"
+                                                    label="SEBAGAI DOSEN WALI">
+                                                </v-switch>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -197,6 +205,14 @@
                                                     multiple 
                                                     small-chips>                                                                                
                                                 </v-autocomplete>
+                                                <v-switch
+                                                    v-model="editedItem.role_dosen"
+                                                    label="ROLE DOSEN">
+                                                </v-switch>
+                                                <v-switch
+                                                    v-model="editedItem.is_dw"
+                                                    label="SEBAGAI DOSEN WALI">
+                                                </v-switch>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -329,6 +345,8 @@ export default {
             email: '',           
             nomor_hp:'',           
             prodi_id:[],
+            role_dosen:false,                
+            is_dw:false,                
             created_at: '',           
             updated_at: '',   
         },
@@ -339,7 +357,9 @@ export default {
             name: '',           
             email: '',           
             nomor_hp: '',  
-            prodi_id:[],                            
+            prodi_id:[],     
+            role_dosen:false,                
+            is_dw:false,                                       
             created_at: '',           
             updated_at: '',        
         },
@@ -511,7 +531,9 @@ export default {
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
                             password:this.editedItem.password,   
-                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                                                          
+                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),          
+                            role_dosen:this.editedItem.role_dosen,
+                            is_dw:this.editedItem.is_dw,                                                                                                
                         },
                         {
                             headers:{
@@ -533,7 +555,9 @@ export default {
                             nomor_hp:this.editedItem.nomor_hp,     
                             username:this.editedItem.username,
                             password:this.editedItem.password,            
-                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
+                            prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),
+                            role_dosen:this.editedItem.role_dosen,
+                            is_dw:this.editedItem.is_dw, 
                         },
                         {
                             headers:{

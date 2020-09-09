@@ -34,6 +34,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'foto', 
         'active', 
         'isdeleted', 
+        'default_role',
         'locked',
     ];
 

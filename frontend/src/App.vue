@@ -72,23 +72,34 @@ export default {
 				case 422:
 					this.snackbar_color='error';
 					this.snackbar_error=true;	
-					var error_messages=[];
-					console.log(data);
+					var error_messages=[];					
 					for (var p in data)
 					{
 						var messages=[];
 						var error_list=data[p];
-						for (var i = 0; i < error_list.length;i++ )
-						{
-							messages.push({
-								'message':error_list[i]
-							})
+						if (Array.isArray(error_list))
+						{						
+							for (var i = 0; i < error_list.length;i++ )
+							{
+								messages.push({
+									'message':error_list[i]
+								})
+							}
+							error_messages.push({
+								field:p,
+								error:messages
+							});
 						}
-						error_messages.push({
-							field:p,
-							error:messages
-						});
-					}
+						else
+						{
+							error_messages.push({
+								field:p,
+								error:[{
+									'message':data[p]
+								}]
+							});							
+						}						
+					}					
 					this.page_form_error_message=error_messages;
 					this.page_message='('+status+': Unprocessible Entity) ';	
 				break;				

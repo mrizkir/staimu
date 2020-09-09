@@ -92,7 +92,12 @@ class MahasiswaBelumPunyaNIMController extends Controller
                 'k_status'=>'A',
                 'idkelas'=>$formulir->idkelas,
             ]);
-
+            
+            $user->assignRole('mahasiswa'); 
+            $permission=Role::findByName('mahasiswa')->permissions;
+            $permissions=$permission->pluck('name');
+            $user->givePermissionTo($permissions);
+            
             $spp=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.status'))  
                                         ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                         ->where('pe3_transaksi_detail.kombi_id',201)

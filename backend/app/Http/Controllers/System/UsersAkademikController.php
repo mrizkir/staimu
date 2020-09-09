@@ -19,7 +19,7 @@ class UsersAkademikController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-AKADEMIK_BROWSE');
-        $data = User::role('akademik')
+        $data = User::where('default_role','akademik')
                     ->orderBy('username','ASC')
                     ->get();       
                     
@@ -68,6 +68,33 @@ class UsersAkademikController extends Controller {
         $permission=Role::findByName('akademik')->permissions;
         $permissions=$permission->pluck('name');
         $user->givePermissionTo($permissions);
+        
+        if ($request->input('is_dosen')==true)
+        {
+            $user->assignRole('dosen');               
+            $permission=Role::findByName('dosen')->permissions;
+            $permissions=$permission->pluck('name');
+            $user->givePermissionTo($permissions);
+
+            UserDosen::create([
+                'user_id'=>$user->id,
+                'nama_dosen'=>$request->input('name'),                                
+                'nidn'=>$request->input('nidn'),                                
+                'nipy'=>$request->input('nipy'),                                                                              
+            ]);
+        }
+        if ($request->input('is_dw')==true && $request->input('is_dosen') == true)
+        {
+            $user->assignRole('dosenwali');               
+            $permission=Role::findByName('dosenwali')->permissions;
+            $permissions=$permission->pluck('name');
+            $user->givePermissionTo($permissions);
+
+            $dosen=UserDosen::find($user->id);
+            $dosen->is_dw=1;
+            $dosen->save();
+
+        }
 
         $user_id=$user->id;
         $daftar_prodi=json_decode($request->input('prodi_id'),true);

@@ -56,6 +56,7 @@ class UserDosen extends Model {
 
         'is_dw',
         'desc',
+        'active',
 
     ];
     /**

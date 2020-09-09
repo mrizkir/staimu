@@ -19,7 +19,7 @@ class UsersPMBController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-PMB_BROWSE');
-        $data = User::role('pmb')
+        $data = User::where('default_role','pmb')
                     ->orderBy('username','ASC')
                     ->get();       
                     
@@ -58,6 +58,7 @@ class UsersPMBController extends Controller {
             'username'=> $request->input('username'),
             'password'=>Hash::make($request->input('password')),                        
             'theme'=>'default',
+            'default_role'=>'pmb',            
             'foto'=> 'storage/images/users/no_photo.png',
             'created_at'=>$now, 
             'updated_at'=>$now

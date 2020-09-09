@@ -49,7 +49,8 @@ class CreateDosenTable extends Migration
             $table->boolean('is_dw')->default(0);
             
             $table->string('desc')->nullable();
-
+            $table->boolean('active')->default(1);
+            
             $table->timestamps();
 
             $table->foreign('user_id')

@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('foto')->default('storage/images/users/no_photo.png');
             $table->boolean('active')->default(1);
             $table->boolean('isdeleted')->default(1);
+            $table->string('default_role',15);
             $table->boolean('locked')->default(0);                          
             
             $table->timestamps();

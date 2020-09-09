@@ -37,7 +37,7 @@ class PMBController extends Controller {
         $ta=$request->input('TA');
         $prodi_id=$request->input('prodi_id');
 
-        $data = User::role('mahasiswabaru')
+        $data = User::where('default_role','mahasiswabaru')
                     ->select(\DB::raw('
                                     users.id,
                                     users.username,
@@ -150,6 +150,7 @@ class PMBController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'code'=>$code,          
                 'active'=>0,          
+                'default_role'=>'mahasiswabaru',          
                 'created_at'=>$now, 
                 'updated_at'=>$now
             ]);            
