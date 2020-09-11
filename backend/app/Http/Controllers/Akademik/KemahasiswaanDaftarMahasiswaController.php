@@ -29,7 +29,8 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                 pe3_register_mahasiswa.nim,
                                 pe3_register_mahasiswa.nirm,
                                 pe3_formulir_pendaftaran.nama_mhs,                                
-                                pe3_register_mahasiswa.idkelas,                                                                                                      
+                                pe3_register_mahasiswa.idkelas,   
+                                pe3_register_mahasiswa.k_status,
                                 pe3_register_mahasiswa.created_at,                                      
                                 pe3_register_mahasiswa.updated_at                                      
                             '))

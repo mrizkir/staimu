@@ -22,6 +22,9 @@ const getDefaultState = () =>
 
         daftar_kelas:[],
         idkelas:null,
+
+        daftar_status_mhs:[],
+        k_status:null,
         
     }
 }
@@ -105,6 +108,15 @@ const mutations = {
     setIDKelas(state,id)
     {
         state.idkelas=id;
+    },    
+
+    setDaftarStatusMahasiswa(state,daftar)
+    {
+        state.daftar_status_mhs=daftar;
+    },
+    setStatusMahasiswa(state,k_status)
+    {
+        state.k_status=k_status;
     },    
 
     resetState (state) {
@@ -210,6 +222,25 @@ const getters= {
         }               
         return nama_kelas;
     },
+
+    getDaftarStatusMahasiswa: state => 
+    {   
+        return state.daftar_status_mhs;
+    },
+    getKStatus: state =>
+    {
+        return state.k_status;
+    },
+    getStatusMahasiswa: (state) => (id) =>
+    {
+        var nama_status='N.A';
+        let found = state.daftar_status_mhs.find(status_mhs => status_mhs.id==id);                          
+        if (typeof found !=='undefined')
+        {
+            nama_status=found.text;
+        }               
+        return nama_status;
+    },
     
 }
 const actions = {    
@@ -259,6 +290,9 @@ const actions = {
                       
                 commit('setDaftarKelas',data.daftar_kelas);            
                 commit('setIDKelas',data.idkelas);            
+                
+                commit('setDaftarStatusMahasiswa',data.daftar_status_mhs);            
+                commit('setStatusMahasiswa',data.k_status);            
 
                 commit('setLoaded',true);              
             });      

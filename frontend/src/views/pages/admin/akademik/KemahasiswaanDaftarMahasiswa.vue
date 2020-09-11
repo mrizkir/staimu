@@ -77,6 +77,9 @@
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>                        
+                        <template v-slot:item.k_status="{item}">
+                            {{$store.getters['uiadmin/getStatusMahasiswa'](item.k_status)}}
+                        </template>                        
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
@@ -147,6 +150,7 @@ export default {
             { text: 'NIRM', value: 'nirm', sortable:true,width:150  },   
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                           
             { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                                       
+            { text: 'STATUS', value: 'k_status',sortable:true,width:120, },                                       
         ],  
         search:'', 
     }),

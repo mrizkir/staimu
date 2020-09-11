@@ -8,6 +8,7 @@ use App\Models\System\ConfigurationModel;
 use App\Models\DMaster\TAModel;
 use App\Models\DMaster\FakultasModel;
 use App\Models\DMaster\ProgramStudiModel;
+use App\Models\DMaster\StatusMahasiswaModel;
 
 
 class UIController extends Controller {    
@@ -53,7 +54,7 @@ class UIController extends Controller {
                                 'text'=>'PENDEK'
                             ]
                         ];
-                            
+
         if ($this->hasRole('superadmin'))
         {
             $daftar_ta=TAModel::all();        
@@ -178,6 +179,10 @@ class UIController extends Controller {
         $daftar_kelas=\App\Models\DMaster\KelasModel::select(\DB::raw('idkelas AS id,nkelas AS text'))
                                                     ->get();
         $idkelas='A';
+
+        $daftar_status_mhs=StatusMahasiswaModel::select(\DB::raw('k_status AS id,n_status AS text'))
+                                                ->get();
+        $k_status='A';
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
@@ -190,7 +195,9 @@ class UIController extends Controller {
                                     'prodi_id'=>$prodi_id,                                    
                                     'daftar_kelas'=>$daftar_kelas,                              
                                     'idkelas'=>$idkelas,
+                                    'daftar_status_mhs'=>$daftar_status_mhs,
+                                    'k_status'=>$k_status,
                                     'message'=>'Fetch data ui untuk admin berhasil diperoleh'
                                 ],200);  
     }
-}
+}               
