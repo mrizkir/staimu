@@ -108,6 +108,21 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);        
 
+        //system
+        \DB::table('permissions')->insert([
+            'name'=>"SYSTEM-SETTING-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('permissions')->insert([
+            'name'=>"SYSTEM-USERS-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);                        
+
         $modules = [             
             'DMASTER-TA',     
             'DMASTER-FAKULTAS',     
@@ -159,7 +174,9 @@ class PermissionsTableSeeder extends Seeder
             'SYSTEM-USERS-MAHASISWA',
             'SYSTEM-USERS-MAHASISWA-BARU',
             'SYSTEM-USERS-ALUMNI',
-            'SYSTEM-USERS-ORANG-TUA-WALI',            
+            'SYSTEM-USERS-ORANG-TUA-WALI',  
+            
+            'SYSTEM-MIGRATION'
         ];
         $records=[];
         foreach($modules as $v)
@@ -172,22 +189,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>"{$v}_DESTROY",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]                
             );            
             \DB::table('permissions')->insert($records);
-        }               
+        }    
         
-        \DB::table('permissions')->insert([
-            'name'=>"SYSTEM-SETTING-GROUP",
-            'guard_name'=>'api',
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now()
-        ]);
-
-        \DB::table('permissions')->insert([
-            'name'=>"SYSTEM-USERS-GROUP",
-            'guard_name'=>'api',
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now()
-        ]);                
-
         \DB::table('permissions')->insert([
             'name'=>"USER_STOREPERMISSIONS",
             'guard_name'=>'api',

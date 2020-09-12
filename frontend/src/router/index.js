@@ -489,6 +489,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/UsersProfile.vue'),		
 	},
 	{
+		path: '/system-migration',
+		name: 'SystemMigration',
+		meta:{
+			title: "MIGRASI SISTEM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/SystemMigration.vue'),		
+	},
+	{
 		path: '/404',
 		name: 'NotFoundComponent',
 		meta:{

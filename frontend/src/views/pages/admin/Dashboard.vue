@@ -85,6 +85,22 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
+                <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
+                    <v-card 
+                        min-height="140"
+                        class="clickable green darken-1"
+                        color="#385F73" 
+                        @click.native="$router.push('/system-migration')"
+                        dark>
+                        <v-card-title class="headline">
+                            MIGRASI SISTEM
+                        </v-card-title>                        
+                        <v-card-text>
+                            Modul ini digunakan untuk melakukan migrasi data atau sistem lama.
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
             </v-row>
         </v-container>
     </AdminLayout>
