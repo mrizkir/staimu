@@ -42,7 +42,7 @@
                             <v-card-text>
                                 <v-alert                                    
                                     type="info">
-                                    Isi form mahasiswa dengan lengkap dan benar; hasil inputan bisa dilihat dimasing-masing halaman seperti Pendaftaran, Biodata, Daftar Mahasiswa 
+                                    Isi form mahasiswa dengan lengkap dan benar; hasil inputan bisa dilihat di Akademik->Daftar Mahasiswa atau Akademik->Daftar Ulang
                                 </v-alert>
                                 <v-text-field 
                                     v-model="formdata.nim"
@@ -275,7 +275,7 @@ export default {
                 ).then(({data})=>{    
                     console.log(data);                   
                     setTimeout(() => {
-                        // this.$router.go();    
+                        this.$router.go();    
                         this.btnLoading=false;
                         }, 300
                     );                                  

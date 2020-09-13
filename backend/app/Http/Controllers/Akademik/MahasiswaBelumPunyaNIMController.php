@@ -94,7 +94,11 @@ class MahasiswaBelumPunyaNIMController extends Controller
             ]);
             
             $user=$formulir->user;
-            $user->assignRole('mahasiswa'); 
+            $user->username=$request->input('nim');
+            $user->default_role='mahasiswa';
+            $user->save();
+
+            $user->syncRoles(['mahasiswa']); 
             $permission=Role::findByName('mahasiswa')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
