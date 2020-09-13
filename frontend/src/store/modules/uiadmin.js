@@ -13,6 +13,7 @@ const getDefaultState = () =>
 
         daftar_semester:[],
         semester_pendaftaran:null,
+        semester_akademik:null,
 
         daftar_fakultas:[],
         fakultas_id:null,
@@ -81,6 +82,10 @@ const mutations = {
     setSemesterPendaftaran(state,semester)
     {
         state.semester_pendaftaran = semester;
+    },
+    setSemesterAkademik(state,semester)
+    {
+        state.semester_akademik = semester;
     },
     
     setDaftarFakultas(state,daftar)
@@ -170,6 +175,10 @@ const getters= {
     getSemesterPendaftaran: state => 
     {             
         return parseInt(state.semester_pendaftaran);
+    },
+    getSemesterAkademik: state => 
+    {             
+        return parseInt(state.semester_akademik);
     },
 
     getDaftarProdi: state => 
@@ -350,6 +359,10 @@ const actions = {
     updateSemesterPendaftaran({commit},semester)
     {
         commit('setSemesterPendaftaran',semester);
+    },
+    updateSemesterAkademik({commit},semester)
+    {
+        commit('setSemesterAkademik',semester);
     },
 
     updateIDKelas({commit},idkelas)

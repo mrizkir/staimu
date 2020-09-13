@@ -360,6 +360,8 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/DulangMahasiswaBaru.vue'),		
 	},	
+
+	//akademik - daftar mahasiswa
 	{
 		path: '/akademik/kemahasiswaan/daftarmahasiswa',
 		name: 'KemahasiswaanDaftarMahasiswa',
@@ -369,8 +371,28 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/KemahasiswaanDaftarMahasiswa.vue'),		
 	},	
+	
+	//akademik - perkuliahan
+	{
+		path: '/akademik/perkuliahan/penyelenggaraan',
+		name: 'PerkuliahanPenyelenggaraan',
+		meta:{
+			title: "AKADEMIK - PENYELENGGARAAN MATAKULIAH",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraan.vue'),		
+	},	
 
 	//system	
+	{
+		path: '/system-setting',
+		name: 'SystemSetting',
+		meta:{
+			title: "SETTING - SISTEM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/SystemSetting.vue'),		
+	},	
 	{
 		path: '/system-setting/identitasdiri',
 		name: 'IdentitasDiri',
@@ -379,25 +401,7 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/IdentitasDiri.vue'),		
-	},
-	{
-		path: '/system-setting/permissions',
-		name: 'SettingPermissions',
-		meta:{
-			title: "SETTING - PERMISSIONS",
-			requiresAuth:true,
-        },
-		component: () => import('../views/pages/admin/system/Permissions.vue'),		
-	},
-	{
-		path: '/system-setting/roles',
-		name: 'SettingRoles',
-		meta:{
-			title: "SETTING - ROLES",
-			requiresAuth:true,
-        },
-		component: () => import('../views/pages/admin/system/Roles.vue'),		
-	},
+	},	
 	{
 		path: '/system-setting/captcha',
 		name: 'SettingCaptcha',
@@ -424,6 +428,24 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/SystemUsers.vue'),		
+	},
+	{
+		path: '/system-users/permissions',
+		name: 'UsersPermissions',
+		meta:{
+			title: "USERS - PERMISSIONS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/Permissions.vue'),		
+	},
+	{
+		path: '/system-users/roles',
+		name: 'UsersRoles',
+		meta:{
+			title: "USERS - ROLES",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/Roles.vue'),		
 	},
 	{
 		path: '/system-users/superadmin',

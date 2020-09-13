@@ -1,5 +1,5 @@
 <template>
-    <SystemUserLayout>
+    <SystemConfigLayout>
 		<ModuleHeader>
             <template v-slot:icon>
                 mdi-email
@@ -55,11 +55,11 @@
                 </v-col>
             </v-row>
         </v-container>
-    </SystemUserLayout>
+    </SystemConfigLayout>
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import SystemUserLayout from '@/views/layouts/SystemUserLayout';
+import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name: 'Email',
@@ -72,22 +72,12 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'SYSTEM',
+                text:'KONFIGURASI SISTEM',
                 disabled:false,
-                href:'#'
-            },
+                href:'/system-setting'
+            },  
             {
-                text:'KONFIGURASI',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'SERVER',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'EMAIL',
+                text:'SERVER - EMAIL',
                 disabled:true,
                 href:'#'
             }
@@ -152,7 +142,7 @@ export default {
         }),
     },
     components:{
-		SystemUserLayout,
+		SystemConfigLayout,
         ModuleHeader,        
 	}
 }

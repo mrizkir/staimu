@@ -81,7 +81,7 @@
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>DASHBOARD AKADEMIK</v-list-item-title>
+                        <v-list-item-title>BOARD AKADEMIK</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                   
                 <v-list-item link to="/akademik/dosenwali" v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN-WALI_BROWSE')">
@@ -133,6 +133,17 @@
                     <v-list-item-content>
                         <v-list-item-title>
                             DAFTAR MAHASISWA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>              
+                <v-subheader>PERKULIAHAN</v-subheader>
+                <v-list-item link to="/akademik/perkuliahan/penyelenggaraan" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-book</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            PENYELENGGARAAN
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>              

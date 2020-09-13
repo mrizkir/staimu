@@ -302,7 +302,7 @@ export default {
             {
                 text:'USER SISTEM',
                 disabled:false,
-                href:'system-users'
+                href:'/system-users'
             },
             {
                 text:'USERS PROGRAM STUDI',

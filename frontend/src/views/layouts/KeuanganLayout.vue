@@ -81,7 +81,7 @@
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>DASHBOARD KEUANGAN</v-list-item-title>
+                        <v-list-item-title>BOARD KEUANGAN</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>   
                 <v-subheader>DAFTAR ULANG</v-subheader>

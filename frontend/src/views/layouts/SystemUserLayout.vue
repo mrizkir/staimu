@@ -8,111 +8,7 @@
             <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/'+$store.getters['auth/AccessToken']).catch(err => {})">
 				<span class="hidden-sm-and-down">{{APP_NAME}}</span>
 			</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-menu 
-                :close-on-content-click="false"
-                origin="center center"
-                transition="scale-transition"
-                :offset-y="true"
-                bottom 
-                left
-                v-if="CAN_ACCESS('SYSTEM-SETTING-GROUP')">
-                <template v-slot:activator="{on}">
-                    <v-btn v-on="on" icon>
-                        <v-icon>mdi-cogs</v-icon>
-                    </v-btn>
-                </template>
-                <v-list dense>
-                    <v-list-item>
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-cogs</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title class="title">
-                                KONFIGURASI SISTEM
-                            </v-list-item-title>
-                            <v-list-item-subtitle>
-                                &nbsp;
-                            </v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item>
-                    <v-divider/>
-                    <v-list-item class="teal lighten-5">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-account</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>								
-                            <v-list-item-title>PERGURUAN TINGGI</v-list-item-title>
-                        </v-list-item-content>		
-                    </v-list-item>
-                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-IDENTITAS-DIRI')" to="/system-setting/identitasdiri">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                IDENTITAS DIRI
-                            </v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>                    
-                    <v-list-item class="teal lighten-5">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-account</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>								
-                            <v-list-item-title>USER</v-list-item-title>
-                        </v-list-item-content>		
-                    </v-list-item>
-                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-PERMISSIONS')" to="/system-setting/permissions">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                PERMISSIONS
-                            </v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>                    
-                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-ROLES')" to="/system-setting/roles">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                ROLES
-                            </v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>          
-                    <v-list-item class="teal lighten-5">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-server-network</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>								
-                            <v-list-item-title>SERVER</v-list-item-title>
-                        </v-list-item-content>		
-                    </v-list-item>
-                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/captcha">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                CAPTCHA
-                            </v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>  
-                    <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/email">
-                        <v-list-item-icon class="mr-2">
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>
-                                EMAIL
-                            </v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>  
-                </v-list>
-            </v-menu>
+            <v-spacer></v-spacer>            
             <v-divider
                 class="mx-4"
                 inset
@@ -182,9 +78,30 @@
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>DASHBOARD USERS</v-list-item-title>
+                        <v-list-item-title>BOARD USERS</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-PERMISSIONS')" to="/system-users/permissions">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-key</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            PERMISSIONS
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-ROLES')" to="/system-users/roles">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-group</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            ROLES
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+                <v-divider/>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-SUPERADMIN_BROWSE')" to="/system-users/superadmin">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
@@ -255,7 +172,7 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'DataMasterLayout',        
+    name:'SystemUserLayout',        
     data:()=>({
         loginTime:0,
         drawer:null,        

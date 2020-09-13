@@ -1,5 +1,5 @@
 <template>
-    <SystemUserLayout>
+    <SystemConfigLayout>
 		<ModuleHeader>
             <template v-slot:icon>
                 mdi-google-circles-group
@@ -61,11 +61,11 @@
                 </v-col>
             </v-row>
         </v-container>
-    </SystemUserLayout>
+    </SystemConfigLayout>
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import SystemUserLayout from '@/views/layouts/SystemUserLayout';
+import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name: 'Captcha',
@@ -78,22 +78,12 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'SYSTEM',
+                text:'KONFIGURASI SISTEM',
                 disabled:false,
-                href:'#'
-            },
+                href:'/system-setting'
+            },  
             {
-                text:'KONFIGURASI',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'SERVER',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'CAPTCHA',
+                text:'SERVER - CAPTCHA',
                 disabled:true,
                 href:'#'
             }
@@ -167,7 +157,7 @@ export default {
         }),
     },
     components:{
-		SystemUserLayout,
+		SystemConfigLayout,
         ModuleHeader,
 	}
 }

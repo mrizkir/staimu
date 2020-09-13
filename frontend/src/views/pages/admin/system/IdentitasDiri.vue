@@ -1,5 +1,5 @@
 <template>
-    <SystemUserLayout>
+    <SystemConfigLayout>
 		<ModuleHeader>
             <template v-slot:icon>
                 mdi-face-profile
@@ -72,11 +72,11 @@
                 </v-col>
             </v-row>
         </v-container>
-    </SystemUserLayout>
+    </SystemConfigLayout>
 </template>
 <script>
 import {mapGetters} from 'vuex';
-import SystemUserLayout from '@/views/layouts/SystemUserLayout';
+import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name: 'IdentitasDiri',
@@ -89,22 +89,12 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'SYSTEM',
+                text:'KONFIGURASI SISTEM',
                 disabled:false,
-                href:'#'
-            },
+                href:'/system-setting'
+            },  
             {
-                text:'KONFIGURASI',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'PERGURUAN TINGGI',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'IDENTITAS DIRI',
+                text:'PERGURUAN TINGGI - IDENTITAS DIRI',
                 disabled:true,
                 href:'#'
             }
@@ -188,7 +178,7 @@ export default {
         }),
     },
     components:{
-		SystemUserLayout,
+		SystemConfigLayout,
         ModuleHeader,        
 	}
 }

@@ -240,19 +240,9 @@ export default {
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'SYSTEM',
+                text:'USER SISTEM',
                 disabled:false,
-                href:'#'
-            },
-            {
-                text:'KONFIGURASI',
-                disabled:false,
-                href:'#'
-            },
-            {
-                text:'USERS',
-                disabled:false,
-                href:'#'
+                href:'/system-users'
             },
             {
                 text:'ROLES',

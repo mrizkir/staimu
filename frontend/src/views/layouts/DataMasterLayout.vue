@@ -81,7 +81,7 @@
                         <v-icon>mdi-home-floor-b</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>DASHBOARD DATA MASTER</v-list-item-title>
+                        <v-list-item-title>BOARD DATA MASTER</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('DMASTER-KELAS_BROWSE')" to="/dmaster/kelas">
