@@ -93,6 +93,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
                 'idkelas'=>$formulir->idkelas,
             ]);
             
+            $user=$formulir->user;
             $user->assignRole('mahasiswa'); 
             $permission=Role::findByName('mahasiswa')->permissions;
             $permissions=$permission->pluck('name');
