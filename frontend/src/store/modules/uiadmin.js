@@ -270,8 +270,9 @@ const actions = {
             ).then(({data})=>{                   
                 commit('setDaftarTA',data.daftar_ta); 
                 commit('setTahunPendaftaran',data.tahun_pendaftaran);   
-                commit('setTahunAkademik',data.tahun_pendaftaran);           
+                commit('setTahunAkademik',data.tahun_akademik);           
                 commit('setDaftarSemester',data.daftar_semester);         
+                commit('setSemesterAkademik',data.semester_akademik);
 
                 let daftar_fakultas = data.daftar_fakultas;
                 var fakultas=[];

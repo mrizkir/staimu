@@ -66,6 +66,7 @@ class UIController extends Controller {
             $prodi_id=$config['DEFAULT_PRODI'];    
             
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+            $tahun_akademik = $config['DEFAULT_TA'];
         }
         elseif($this->hasRole('pmb'))
         {
@@ -97,6 +98,7 @@ class UIController extends Controller {
                 $prodi_id=$config['DEFAULT_PRODI'];     
             }            
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+            $tahun_akademik = $config['DEFAULT_TA'];
         }
         elseif ($this->hasRole('keuangan'))
         {
@@ -128,6 +130,7 @@ class UIController extends Controller {
                 $prodi_id=$config['DEFAULT_PRODI'];     
             }            
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+            $tahun_akademik = $config['DEFAULT_TA'];
         }
         elseif ($this->hasRole('mahasiswabaru'))
         {
@@ -142,6 +145,22 @@ class UIController extends Controller {
             $prodi_id=$formulir->kjur1;
 
             $tahun_pendaftaran = $formulir->ta;
+            $tahun_akademik = $formulir->ta;
+        }        
+        elseif ($this->hasRole('mahasiswa'))
+        {
+            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
+            $daftar_ta=TAModel::where('tahun','=',$formulir->ta)
+                                ->get();        
+            
+            $daftar_fakultas=[];
+            $fakultas_id=$config['DEFAULT_FAKULTAS'];
+            
+            $daftar_prodi=ProgramStudiModel::where('id',$formulir->kjur1)->get();
+            $prodi_id=$formulir->kjur1;
+
+            $tahun_pendaftaran = $formulir->ta;
+            $tahun_akademik = $formulir->ta;
         }        
         elseif ($this->hasRole(['akademik','programstudi']))
         {
@@ -163,6 +182,7 @@ class UIController extends Controller {
             $prodi_id=$daftar_prodi[0]->id;
 
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+            $tahun_akademik = $config['DEFAULT_TA'];
         }
         elseif ($this->hasRole(['dosen','dosenwali']))
         {
@@ -175,6 +195,7 @@ class UIController extends Controller {
             $prodi_id=$config['DEFAULT_PRODI'];    
             
             $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
+            $tahun_akademik = $config['DEFAULT_TA'];            
         }
         $daftar_kelas=\App\Models\DMaster\KelasModel::select(\DB::raw('idkelas AS id,nkelas AS text'))
                                                     ->get();
@@ -188,7 +209,9 @@ class UIController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'daftar_ta'=>$daftar_ta,    
                                     'tahun_pendaftaran'=>$tahun_pendaftaran,
+                                    'tahun_akademik'=>$tahun_akademik,
                                     'daftar_semester'=>$daftar_semester,    
+                                    'semester_akademik' => $config['DEFAULT_SEMESTER'],
                                     'daftar_fakultas'=>$daftar_fakultas,
                                     'fakultas_id'=>$fakultas_id,                                    
                                     'daftar_prodi'=>$daftar_prodi,
