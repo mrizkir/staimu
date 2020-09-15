@@ -319,8 +319,7 @@ class MatakuliahController extends Controller {
                                         'sks_tatap_muka'=>'required|numeric',            
                                         'minimal_nilai'=>'required',            
                                         'ta'=>'required',            
-                                        'kjur'=>'required',  
-                                        
+                                        'kjur'=>'required',                                          
                                     ]); 
             
             $id_group=$request->input('id_group');
@@ -352,6 +351,17 @@ class MatakuliahController extends Controller {
             $matakuliah->status = $request->input('status');           
             
             $matakuliah->save();
+            
+            if ($request->input('update_penyelenggaraan')=='true')
+            {
+                \DB::table('pe3_penyelenggaraan')
+                        ->where('matkul_id',$matakuliah->id)
+                        ->update([
+                                    'kmatkul'=>$matakuliah->matakul,
+                                    'nmatkul'=>$matakuliah->nmatkul,
+                                    'sks'=>$matakuliah->sks,
+                                ]);
+            }
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $matakuliah,
@@ -404,5 +414,49 @@ class MatakuliahController extends Controller {
                                     ],200);         
         }
                   
+    }
+    public function penyelenggaraan (Request $request)
+    {
+        $this->validate($request, [           
+            'ta'=>'required',
+            'prodi_id'=>'required',
+            'semester_akademik'=>'required'
+        ]);
+        
+        $ta=$request->input('ta');
+        $prodi_id=$request->input('prodi_id');
+        $semester_akademik=$request->input('semester_akademik');
+
+        $matakuliah=MatakuliahModel::select(\DB::raw('
+                                    id,
+                                    group_alias,                                    
+                                    kmatkul,
+                                    nmatkul,
+                                    sks,
+                                    semester,
+                                    minimal_nilai,
+                                    syarat_skripsi,
+                                    status,
+                                    ta
+                                '))       
+                                ->where('kjur',$prodi_id)
+                                ->where('ta',$ta)   
+                                ->whereNotIn('id',function($query) use($ta,$prodi_id,$semester_akademik){
+                                    $query->select('matkul_id')
+                                        ->from('pe3_penyelenggaraan')
+                                        ->where('kjur',$prodi_id)
+                                        ->where('tahun',$ta)
+                                        ->where('idsmt',$semester_akademik);
+                                })
+                                ->orderBy('semester','ASC')                      
+                                ->orderBy('kmatkul','ASC')                      
+                                ->get();
+        
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',  
+                                    'matakuliah'=>$matakuliah,                                                                                                                                   
+                                    'message'=>'Fetch data matakuliah berhasil.'
+                                ],200);     
     }
 }

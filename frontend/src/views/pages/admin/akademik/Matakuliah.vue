@@ -168,6 +168,11 @@
                                                     v-model="formdata.status"
                                                     label="STATUS">
                                                 </v-switch>
+                                                <v-switch
+                                                    v-model="formdata.update_penyelenggaraan"
+                                                    label="UPDATE PENYELENGGARAAN"
+                                                    v-if="editedIndex > -1">
+                                                </v-switch>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -513,6 +518,7 @@ export default {
             status:true, 
             ta:'', 
             kjur:'', 
+            update_penyelenggaraan:false,
         },
         formdefault: {
             id:'',                        
@@ -534,6 +540,7 @@ export default {
             status:true, 
             ta:'', 
             kjur:'',  
+            update_penyelenggaraan:false,
         },
         editedIndex: -1,
 
@@ -691,7 +698,8 @@ export default {
                             syarat_skripsi:this.formdata.syarat_skripsi,   
                             status:this.formdata.status,                             
                             ta:this.formdata.ta,                             
-                            kjur:this.formdata.kjur,                                                         
+                            kjur:this.formdata.kjur,  
+                            update_penyelenggaraan:this.formdata.update_penyelenggaraan,                                                       
                         },
                         {
                             headers:{

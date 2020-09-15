@@ -5,21 +5,21 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix'=>'v3'], function () use ($router)
 {
-    
+
     //dmaster - provinsi
-    $router->get('/datamaster/provinsi',['uses'=>'DMaster\ProvinsiController@index','as'=>'provinsi.index']);            
-    $router->get('/datamaster/provinsi/{id}/kabupaten',['uses'=>'DMaster\ProvinsiController@kabupaten','as'=>'provinsi.kabupaten']);            
-    
+    $router->get('/datamaster/provinsi',['uses'=>'DMaster\ProvinsiController@index','as'=>'provinsi.index']);
+    $router->get('/datamaster/provinsi/{id}/kabupaten',['uses'=>'DMaster\ProvinsiController@kabupaten','as'=>'provinsi.kabupaten']);
+
     //dmaster - kabupaten
-    $router->get('/datamaster/kabupaten',['uses'=>'DMaster\KabupatenController@index','as'=>'kabupaten.index']);            
-    $router->get('/datamaster/kabupaten/{id}/kecamatan',['uses'=>'DMaster\KabupatenController@kecamatan','as'=>'kabupaten.kecamatan']);            
-    
+    $router->get('/datamaster/kabupaten',['uses'=>'DMaster\KabupatenController@index','as'=>'kabupaten.index']);
+    $router->get('/datamaster/kabupaten/{id}/kecamatan',['uses'=>'DMaster\KabupatenController@kecamatan','as'=>'kabupaten.kecamatan']);
+
     //dmaster - kecamatan
-    $router->get('/datamaster/kecamatan',['uses'=>'DMaster\KecamatanController@index','as'=>'kecamatan.index']);            
-    $router->get('/datamaster/kecamatan/{id}/desa',['uses'=>'DMaster\KecamatanController@desa','as'=>'kecamatan.desa']);            
+    $router->get('/datamaster/kecamatan',['uses'=>'DMaster\KecamatanController@index','as'=>'kecamatan.index']);
+    $router->get('/datamaster/kecamatan/{id}/desa',['uses'=>'DMaster\KecamatanController@desa','as'=>'kecamatan.desa']);
 
     //dmaster - tahun akademik
-    $router->get('/datamaster/tahunakademik',['uses'=>'DMaster\TahunAkademikController@index','as'=>'tahunakademik.index']);                
+    $router->get('/datamaster/tahunakademik',['uses'=>'DMaster\TahunAkademikController@index','as'=>'tahunakademik.index']);
 
     //data master - persyaratan
     $router->post('/datamaster/persyaratan',['uses'=>'DMaster\PersyaratanController@index','as'=>'persyaratan.index']);
@@ -28,12 +28,12 @@ $router->group(['prefix'=>'v3'], function () use ($router)
     //data master - fakultas
     $router->get('/datamaster/fakultas',['uses'=>'DMaster\FakultasController@index','as'=>'fakultas.index']);
     $router->get('/datamaster/fakultas/{id}/programstudi',['uses'=>'DMaster\FakultasController@programstudi','as'=>'fakultas.programstudi']);
-    
+
     //data master - program studi
     $router->get('/datamaster/programstudi',['uses'=>'DMaster\ProgramStudiController@index','as'=>'programstudi.index']);
     $router->get('/datamaster/programstudi/jenjangstudi',['uses'=>'DMaster\ProgramStudiController@jenjangstudi','as'=>'programstudi.jenjangstudi']);
 
-    //data master - kelas    
+    //data master - kelas
     $router->get('/datamaster/kelas',['uses'=>'DMaster\KelasController@index','as'=>'kelas.index']);
 
     //pendaftaran mahasiswa baru
@@ -41,211 +41,218 @@ $router->group(['prefix'=>'v3'], function () use ($router)
     $router->post('/spmb/pmb/konfirmasi',['uses'=>'SPMB\PMBController@konfirmasi','as'=>'pmb.konfirmasi']);
 
     //keuangan - channel pembayaran
-    $router->get('/keuangan/channelpembayaran',['uses'=>'Keuangan\ChannelPembayaranController@index','as'=>'channelpembayaran.index']);                
+    $router->get('/keuangan/channelpembayaran',['uses'=>'Keuangan\ChannelPembayaranController@index','as'=>'channelpembayaran.index']);
 
     //akademik - matakuliah
-    $router->post('/akademik/matakuliah/',['uses'=>'Akademik\MatakuliahController@index','as'=>'matakuliah.index']);            
+    $router->post('/akademik/matakuliah/',['uses'=>'Akademik\MatakuliahController@index','as'=>'matakuliah.index']);
 
     //untuk uifront
-    $router->get('/system/setting/uifront',['uses'=>'System\UIController@frontend','as'=>'uifront.frontend']);    
+    $router->get('/system/setting/uifront',['uses'=>'System\UIController@frontend','as'=>'uifront.frontend']);
 
     $router->post('/auth/login',['uses'=>'AuthController@login','as'=>'auth.login']);
 });
 
 $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($router)
-{   
-    //authentication    
+{
+    //authentication
     $router->post('/auth/logout',['uses'=>'AuthController@logout','as'=>'auth.logout']);
     $router->get('/auth/refresh',['uses'=>'AuthController@refresh','as'=>'auth.refresh']);
     $router->get('/auth/me',['uses'=>'AuthController@me','as'=>'auth.me']);
 
     // dashboard
     $router->post('/dashboard/pmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SPMBController@index','as'=>'dashboardspmb.index']);
-    $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KeuanganController@index','as'=>'dashboardkeuangan.index']);                
+    $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KeuanganController@index','as'=>'dashboardkeuangan.index']);
 
-    //data master - kelas        
-    $router->post('/datamaster/kelas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@store','as'=>'kelas.store']);        
+    //data master - kelas
+    $router->post('/datamaster/kelas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@store','as'=>'kelas.store']);
     $router->put('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@update','as'=>'kelas.update']);
-    $router->delete('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@destroy','as'=>'`kelas`.destroy']);        
-    
+    $router->delete('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@destroy','as'=>'`kelas`.destroy']);
+
     //data master - ruangan kelas
-    $router->get('/datamaster/ruangankelas',['middleware'=>['role:superadmin|pmb'],'uses'=>'DMaster\RuanganKelasController@index','as'=>'ruangankelas.index']);    
-    $router->post('/datamaster/ruangankelas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@store','as'=>'ruangankelas.store']);    
+    $router->get('/datamaster/ruangankelas',['middleware'=>['role:superadmin|pmb'],'uses'=>'DMaster\RuanganKelasController@index','as'=>'ruangankelas.index']);
+    $router->post('/datamaster/ruangankelas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@store','as'=>'ruangankelas.store']);
     $router->get('/datamaster/ruangankelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@show','as'=>'ruangankelas.show']);
     $router->put('/datamaster/ruangankelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@update','as'=>'ruangankelas.update']);
     $router->delete('/datamaster/ruangankelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@destroy','as'=>'ruangankelas.destroy']);
 
-    //data master - persyaratan 
-    $router->post('/datamaster/persyaratan/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@store','as'=>'persyaratan.store']);        
+    //data master - persyaratan
+    $router->post('/datamaster/persyaratan/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@store','as'=>'persyaratan.store']);
     $router->put('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@update','as'=>'persyaratan.update']);
-    $router->delete('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@destroy','as'=>'`persyaratan.destroy']);        
+    $router->delete('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@destroy','as'=>'`persyaratan.destroy']);
 
-    //data master - tahun akademik    
-    $router->post('/datamaster/tahunakademik/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@store','as'=>'tahunakademik.store']);        
+    //data master - tahun akademik
+    $router->post('/datamaster/tahunakademik/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@store','as'=>'tahunakademik.store']);
     $router->put('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@update','as'=>'tahunakademik.update']);
-    $router->delete('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@destroy','as'=>'`tahunakademik.destroy']);        
-    
+    $router->delete('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@destroy','as'=>'`tahunakademik.destroy']);
+
     //data master - jabatan akademik
-    $router->get('/datamaster/jabatanakademik',['uses'=>'DMaster\JabatanAkademikController@index','as'=>'jabatanakademik.index']);  
+    $router->get('/datamaster/jabatanakademik',['uses'=>'DMaster\JabatanAkademikController@index','as'=>'jabatanakademik.index']);
 
     //data master - jenjang studi
-    $router->get('/datamaster/jenjangstudi',['uses'=>'DMaster\JenjangStudiController@index','as'=>'jenjangstudi.index']);            
-    
-    //data master - status mahasiswa
-    $router->get('/datamaster/statusmahasiswa',['uses'=>'DMaster\StatusMahasiswaController@index','as'=>'statusmahasiswa.index']);            
+    $router->get('/datamaster/jenjangstudi',['uses'=>'DMaster\JenjangStudiController@index','as'=>'jenjangstudi.index']);
 
-    //data master - fakultas    
-    $router->post('/datamaster/fakultas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@store','as'=>'fakultas.store']);        
+    //data master - status mahasiswa
+    $router->get('/datamaster/statusmahasiswa',['uses'=>'DMaster\StatusMahasiswaController@index','as'=>'statusmahasiswa.index']);
+
+    //data master - fakultas
+    $router->post('/datamaster/fakultas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@store','as'=>'fakultas.store']);
     $router->put('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@update','as'=>'fakultas.update']);
-    $router->delete('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@destroy','as'=>'`fakultas.destroy']);        
-    
-    //data master - program studi    
-    $router->post('/datamaster/programstudi/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@store','as'=>'programstudi.store']);        
+    $router->delete('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@destroy','as'=>'`fakultas.destroy']);
+
+    //data master - program studi
+    $router->post('/datamaster/programstudi/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@store','as'=>'programstudi.store']);
     $router->put('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@update','as'=>'programstudi.update']);
-    $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'`programstudi`.destroy']);        
-    
+    $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'`programstudi`.destroy']);
+
     //spmb - soal pmb
-    $router->post('/spmb/soalpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'soalpmb.index']);    
-    $router->post('/spmb/soalpmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SoalPMBController@store','as'=>'soalpmb.store']);    
+    $router->post('/spmb/soalpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'soalpmb.index']);
+    $router->post('/spmb/soalpmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SoalPMBController@store','as'=>'soalpmb.store']);
     $router->get('/spmb/soalpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SoalPMBController@show','as'=>'soalpmb.show']);
     $router->put('/spmb/soalpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SoalPMBController@update','as'=>'soalpmb.update']);
     $router->delete('/spmb/soalpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SoalPMBController@destroy','as'=>'soalpmb.destroy']);
 
-    //spmb - pendaftaran mahasiswa baru    
-    $router->post('/spmb/pmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@index','as'=>'pmb.index']);    
-    $router->post('/spmb/pmb/storependaftar',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@storependaftar','as'=>'pmb.storependaftar']);    
-    $router->post('/spmb/pmb/resend',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@resend','as'=>'pmb.resend']);    
-    $router->put('/spmb/pmb/updatependaftar/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@updatependaftar','as'=>'pmb.updatependaftar']);    
-    $router->delete('/spmb/pmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@destroy','as'=>'pmb.destroy']);    
-    
+    //spmb - pendaftaran mahasiswa baru
+    $router->post('/spmb/pmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@index','as'=>'pmb.index']);
+    $router->post('/spmb/pmb/storependaftar',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@storependaftar','as'=>'pmb.storependaftar']);
+    $router->post('/spmb/pmb/resend',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@resend','as'=>'pmb.resend']);
+    $router->put('/spmb/pmb/updatependaftar/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@updatependaftar','as'=>'pmb.updatependaftar']);
+    $router->delete('/spmb/pmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@destroy','as'=>'pmb.destroy']);
+
     //spmb - formulir pendaftaran
-    $router->post('/spmb/formulirpendaftaran',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@formulirpendaftaran','as'=>'formulirpendaftaran.index']);    
-    $router->get('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@show','as'=>'formulirpendaftaran.show']);    
-    $router->put('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@update','as'=>'formulirpendaftaran.update']);    
-    
+    $router->post('/spmb/formulirpendaftaran',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBController@formulirpendaftaran','as'=>'formulirpendaftaran.index']);
+    $router->get('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@show','as'=>'formulirpendaftaran.show']);
+    $router->put('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@update','as'=>'formulirpendaftaran.update']);
+
     //spmb - jadwal ujian pmb
-    $router->post('/spmb/jadwalujianpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\JadwalUjianPMBController@index','as'=>'jadwalujianpmb.index']);    
-    $router->post('/spmb/jadwalujianpmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@store','as'=>'jadwalujianpmb.store']);    
+    $router->post('/spmb/jadwalujianpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\JadwalUjianPMBController@index','as'=>'jadwalujianpmb.index']);
+    $router->post('/spmb/jadwalujianpmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@store','as'=>'jadwalujianpmb.store']);
     $router->get('/spmb/jadwalujianpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@show','as'=>'jadwalujianpmb.show']);
     $router->put('/spmb/jadwalujianpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@update','as'=>'jadwalujianpmb.update']);
     $router->put('/spmb/jadwalujianpmb/updatestatusujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@updatestatusujian','as'=>'jadwalujianpmb.updatestatusujian']);
     $router->delete('/spmb/jadwalujianpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@destroy','as'=>'jadwalujianpmb.destroy']);
-    
+
     //spmb - passing grade
-    $router->post('/spmb/passinggrade',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPassingGradeController@index','as'=>'passinggrade.index']);    
-    $router->post('/spmb/passinggrade/loadprodi',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPassingGradeController@loadprodi','as'=>'passinggrade.loadprodi']);    
-    $router->put('/spmb/passinggrade/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPassingGradeController@update','as'=>'passinggrade.update']);    
-    
+    $router->post('/spmb/passinggrade',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPassingGradeController@index','as'=>'passinggrade.index']);
+    $router->post('/spmb/passinggrade/loadprodi',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPassingGradeController@loadprodi','as'=>'passinggrade.loadprodi']);
+    $router->put('/spmb/passinggrade/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPassingGradeController@update','as'=>'passinggrade.update']);
+
     //spmb - ujianonline
     //spmb/ujianonline/jadwal, digunakan untuk mendapatkan daftar jadwal ujian dengan berbagai macam kriteria
-    $router->post('/spmb/ujianonline/jadwal',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@jadwal','as'=>'spmbujianonline.jadwal']);    
+    $router->post('/spmb/ujianonline/jadwal',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@jadwal','as'=>'spmbujianonline.jadwal']);
     //spmb/ujianonline/soal/{id}, id disini di isi dengan user_id. digunakan untuk mendapatkan daftar soal ujian
-    $router->get('/spmb/ujianonline/soal/{id}',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@soal','as'=>'spmbujianonline.soal']);    
+    $router->get('/spmb/ujianonline/soal/{id}',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@soal','as'=>'spmbujianonline.soal']);
     //spmb/ujianonline/peserta/{id}, id disini di isi dengan user_id. digunakan untuk mendapatkan data kepersertaan dalam satu ujian
-    $router->get('/spmb/ujianonline/peserta/{id}',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@peserta','as'=>'spmbujianonline.peserta']);    
+    $router->get('/spmb/ujianonline/peserta/{id}',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@peserta','as'=>'spmbujianonline.peserta']);
     //spmb/ujianonline/daftar, id disini di isi dengan user_id. digunakan untuk mendaftarkan calon mahasiswa ke jadwal ujian
-    $router->post('/spmb/ujianonline/daftar',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@daftarujian','as'=>'spmbujianonline.daftar']);    
+    $router->post('/spmb/ujianonline/daftar',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@daftarujian','as'=>'spmbujianonline.daftar']);
     //spmb/ujianonline/mulaiujian, digunakan untuk mendaftarkan memulai ujian
-    $router->put('/spmb/ujianonline/mulaiujian',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@mulaiujian','as'=>'spmbujianonline.mulaiujian']);    
+    $router->put('/spmb/ujianonline/mulaiujian',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@mulaiujian','as'=>'spmbujianonline.mulaiujian']);
     //spmb/ujianonline/store, digunakan untuk menyimpan jawaban soal ujian online
     $router->post('/spmb/ujianonline/store',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@store','as'=>'spmbujianonline.store']);
     //spmb/ujianonline/selesaiujian, digunakan untuk selesai ujian
-    $router->put('/spmb/ujianonline/selesaiujian',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@selesaiujian','as'=>'spmbujianonline.selesaiujian']);    
+    $router->put('/spmb/ujianonline/selesaiujian',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@selesaiujian','as'=>'spmbujianonline.selesaiujian']);
 
     //spmb - nilai ujian
-    $router->post('/spmb/nilaiujian',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@index','as'=>'nilaiujian.index']);    
+    $router->post('/spmb/nilaiujian',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@index','as'=>'nilaiujian.index']);
     //spmb/nilaiujian/{id}, id disini di is dengan user_id
-    $router->get('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@show','as'=>'nilaiujian.show']);  
-    $router->put('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@update','as'=>'nilaiujian.update']);  
-    $router->delete('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@destroy','as'=>'nilaiujian.destroy']);  
+    $router->get('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@show','as'=>'nilaiujian.show']);
+    $router->put('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@update','as'=>'nilaiujian.update']);
+    $router->delete('/spmb/nilaiujian/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@destroy','as'=>'nilaiujian.destroy']);
 
-    $router->post('/spmb/nilaiujian/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@store','as'=>'nilaiujian.store']);    
+    $router->post('/spmb/nilaiujian/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\NilaiUjianController@store','as'=>'nilaiujian.store']);
 
     //spmb - report fakultas
-    $router->post('/spmb/reportspmbfakultas',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBFakultasController@index','as'=>'reportspmbfakultas.index']);    
-    $router->post('/spmb/reportspmbfakultas/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBFakultasController@printtoexcel','as'=>'reportspmbfakultas.printtoexcel']);    
+    $router->post('/spmb/reportspmbfakultas',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBFakultasController@index','as'=>'reportspmbfakultas.index']);
+    $router->post('/spmb/reportspmbfakultas/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBFakultasController@printtoexcel','as'=>'reportspmbfakultas.printtoexcel']);
 
     //spmb - report prodi
-    $router->post('/spmb/reportspmbprodi/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBProdiController@printtoexcel','as'=>'reportspmbprodi.printtoexcel']);    
-    
+    $router->post('/spmb/reportspmbprodi/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportSPMBProdiController@printtoexcel','as'=>'reportspmbprodi.printtoexcel']);
+
     //spmb - report report kelulusan
-    $router->post('/spmb/reportspmbkelulusan',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@index','as'=>'reportspmbkelulusan.index']);    
-    $router->post('/spmb/reportspmbkelulusan/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@printtoexcel','as'=>'reportspmbkelulusan.printtoexcel']);    
+    $router->post('/spmb/reportspmbkelulusan',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@index','as'=>'reportspmbkelulusan.index']);
+    $router->post('/spmb/reportspmbkelulusan/printtoexcel',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\ReportKelulusanController@printtoexcel','as'=>'reportspmbkelulusan.printtoexcel']);
 
     //spmb - persyaratan
-    $router->post('/spmb/pmbpersyaratan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@index','as'=>'pmbpersyaratan.index']);    
-    $router->get('/spmb/pmbpersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@show','as'=>'pmbpersyaratan.show']);    
+    $router->post('/spmb/pmbpersyaratan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@index','as'=>'pmbpersyaratan.index']);
+    $router->get('/spmb/pmbpersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@show','as'=>'pmbpersyaratan.show']);
     $router->post('/spmb/pmbpersyaratan/upload/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@upload','as'=>'pmbpersyaratan.upload']);
     $router->post('/spmb/pmbpersyaratan/verifikasipersyaratan/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPersyaratanController@verifikasipersyaratan','as'=>'pmbpersyaratan.verifikasipersyaratan']);
-    $router->delete('/spmb/pmbpersyaratan/hapusfilepersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@hapusfilepersyaratan','as'=>'pmbpersyaratan.hapusfilepersyaratan']);    
+    $router->delete('/spmb/pmbpersyaratan/hapusfilepersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@hapusfilepersyaratan','as'=>'pmbpersyaratan.hapusfilepersyaratan']);
 
     //keuangan - status transaksi
-    $router->get('/keuangan/statustransaksi',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@index','as'=>'statustransaksi.index']);            
-    $router->put('/keuangan/statustransaksi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@update','as'=>'statustransaksi.update']);            
-    
+    $router->get('/keuangan/statustransaksi',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@index','as'=>'statustransaksi.index']);
+    $router->put('/keuangan/statustransaksi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\StatusTransaksiController@update','as'=>'statustransaksi.update']);
+
     //keuangan - komponen biaya
-    $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);            
-    
+    $router->get('/keuangan/komponenbiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\KomponenBiayaController@index','as'=>'keuangan.index']);
+
     //keuangan - biaya komponen periode
-    $router->post('/keuangan/biayakomponenperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@index','as'=>'biayakomponenperiode.index']);            
-    $router->post('/keuangan/biayakomponenperiode/loadkombiperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@loadkombiperiode','as'=>'biayakomponenperiode.loadkombiperiode']);            
-    $router->post('/keuangan/biayakomponenperiode/updatebiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@updatebiaya','as'=>'biayakomponenperiode.updatebiaya']);            
-    
+    $router->post('/keuangan/biayakomponenperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@index','as'=>'biayakomponenperiode.index']);
+    $router->post('/keuangan/biayakomponenperiode/loadkombiperiode',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@loadkombiperiode','as'=>'biayakomponenperiode.loadkombiperiode']);
+    $router->post('/keuangan/biayakomponenperiode/updatebiaya',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BiayaKomponenPeriodeController@updatebiaya','as'=>'biayakomponenperiode.updatebiaya']);
+
     //keuangan - metode pembayaran [transfer bank]
-    $router->get('/keuangan/transferbank',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@index','as'=>'transferbank.index']);    
-    $router->post('/keuangan/transferbank/store',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@store','as'=>'transferbank.store']);    
+    $router->get('/keuangan/transferbank',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@index','as'=>'transferbank.index']);
+    $router->post('/keuangan/transferbank/store',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@store','as'=>'transferbank.store']);
     $router->get('/keuangan/transferbank/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@show','as'=>'transferbank.show']);
     $router->put('/keuangan/transferbank/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@update','as'=>'transferbank.update']);
     $router->delete('/keuangan/transferbank/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransferBankController@destroy','as'=>'transferbank.destroy']);
 
     //keuangan - transaksi
-    $router->post('/keuangan/transaksi',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiController@index','as'=>'transaksi.index']);            
-    $router->get('/keuangan/transaksi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@show','as'=>'transaksi.show']);            
-    $router->post('/keuangan/transaksi/cancel',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);            
+    $router->post('/keuangan/transaksi',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiController@index','as'=>'transaksi.index']);
+    $router->get('/keuangan/transaksi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@show','as'=>'transaksi.show']);
+    $router->post('/keuangan/transaksi/cancel',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);
     //digunakan untuk mendapatkan spp milik user_id mhs baru dengan status sudah bayar
-    $router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);            
-    
+    $router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
+
     //keuangan - konfirmasi pembayaran
-    $router->post('/keuangan/konfirmasipembayaran',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@index','as'=>'konfirmasipembayaran.index']);            
-    $router->post('/keuangan/konfirmasipembayaran/store',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@store','as'=>'konfirmasipembayaran.store']);            
-    $router->get('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@show','as'=>'konfirmasipembayaran.show']);            
-    $router->put('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@update','as'=>'konfirmasipembayaran.update']);            
-    
+    $router->post('/keuangan/konfirmasipembayaran',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@index','as'=>'konfirmasipembayaran.index']);
+    $router->post('/keuangan/konfirmasipembayaran/store',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@store','as'=>'konfirmasipembayaran.store']);
+    $router->get('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@show','as'=>'konfirmasipembayaran.show']);
+    $router->put('/keuangan/konfirmasipembayaran/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@update','as'=>'konfirmasipembayaran.update']);
+
     //akademik - dosen wali
     $router->get('/akademik/dosenwali',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@index','as'=>'dosenwali.index']);
     $router->post('/akademik/dosenwali/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@store','as'=>'dosenwali.store']);
-    $router->put('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@update','as'=>'dosenwali.update']);    
-    $router->delete('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@destroy','as'=>'dosenwali.destroy']);    
+    $router->put('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@update','as'=>'dosenwali.update']);
+    $router->delete('/akademik/dosenwali/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DosenWaliController@destroy','as'=>'dosenwali.destroy']);
 
     //akademik - group matakuliah
-    $router->get('/akademik/groupmatakuliah/',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\GroupMatakuliahController@index','as'=>'groupmatakuliah.index']);            
-    
+    $router->get('/akademik/groupmatakuliah/',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\GroupMatakuliahController@index','as'=>'groupmatakuliah.index']);
+
     //akademik - matakuliah
-    $router->post('/akademik/matakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@store','as'=>'matakuliah.store']);            
-    $router->get('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@show','as'=>'matakuliah.show']);            
-    $router->put('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@update','as'=>'matakuliah.update']);            
-    $router->delete('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@destroy','as'=>'matakuliah.destroy']);            
+    $router->post('/akademik/matakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@store','as'=>'matakuliah.store']);
+    $router->get('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@show','as'=>'matakuliah.show']);
+    $router->put('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@update','as'=>'matakuliah.update']);
+    $router->delete('/akademik/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@destroy','as'=>'matakuliah.destroy']);
     //id disini adalah tujuan salin matakuliah
-    $router->post('/akademik/matakuliah/salinmatkul/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@salinmatkul','as'=>'matakuliah.salinmatkul']);            
-    
+    $router->post('/akademik/matakuliah/salinmatkul/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@salinmatkul','as'=>'matakuliah.salinmatkul']);
+    //daftar matakuliah yang tidak ada di dalam penyelenggaraan
+    $router->post('/akademik/matakuliah/penyelenggaraan',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\MatakuliahController@penyelenggaraan','as'=>'matakuliah.penyelenggaraan']);
+
     //akademik - daftar ulang - mahasiswa belum punya nim
-    $router->post('/akademik/dulang/mhsbelumpunyanim',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@index','as'=>'mhsbelumpunyanim.index']);            
-    $router->post('/akademik/dulang/mhsbelumpunyanim/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@store','as'=>'mhsbelumpunyanim.store']);                   
+    $router->post('/akademik/dulang/mhsbelumpunyanim',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@index','as'=>'mhsbelumpunyanim.index']);
+    $router->post('/akademik/dulang/mhsbelumpunyanim/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@store','as'=>'mhsbelumpunyanim.store']);
 
     //akademik - daftar ulang - mahasiswa baru
-    $router->post('/akademik/dulang/mhsbaru',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@index','as'=>'dulangmhsbaru.index']);            
-    $router->post('/akademik/dulang/mhsbaru/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@store','as'=>'dulangmhsbaru.store']);            
-    $router->get('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@show','as'=>'dulangmhsbaru.show']);            
-    $router->put('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@update','as'=>'dulangmhsbaru.update']);            
-    $router->delete('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@destroy','as'=>'dulangmhsbaru.destroy']);               
+    $router->post('/akademik/dulang/mhsbaru',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@index','as'=>'dulangmhsbaru.index']);
+    $router->post('/akademik/dulang/mhsbaru/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@store','as'=>'dulangmhsbaru.store']);
+    $router->get('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@show','as'=>'dulangmhsbaru.show']);
+    $router->put('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@update','as'=>'dulangmhsbaru.update']);
+    $router->delete('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@destroy','as'=>'dulangmhsbaru.destroy']);
 
     //akademik - kemahasiswaan - daftar mahasiswa
-    $router->post('/akademik/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);            
-    $router->post('/akademik/kemahasiswaan/daftarmhs',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@index','as'=>'daftarmhs.index']);            
+    $router->post('/akademik/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);
+    $router->post('/akademik/kemahasiswaan/daftarmhs',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@index','as'=>'daftarmhs.index']);
     
+    //akademik - perkuliahan - penyelenggaraan
+    $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@index','as'=>'penyelenggaraanmatakuliah.index']);
+    $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@store','as'=>'penyelenggaraanmatakuliah.store']);
+    $router->delete('/akademik/perkuliahan/penyelenggaraanmatakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroy','as'=>'penyelenggaraanmatakuliah.destroy']);
+
     //setting - permissions
-    $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);    
-    $router->post('/system/setting/permissions/store',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@store','as'=>'permissions.store']);    
+    $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);
+    $router->post('/system/setting/permissions/store',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@store','as'=>'permissions.store']);
     $router->delete('/system/setting/permissions/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@destroy','as'=>'permissions.destroy']);
 
     //setting - roles
@@ -254,12 +261,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/system/setting/roles/storerolepermissions',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@storerolepermissions','as'=>'roles.storerolepermissions']);
     $router->post('/system/setting/roles/revokerolepermissions',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@revokerolepermissions','as'=>'users.revokerolepermissions']);
     $router->put('/system/setting/roles/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@update','as'=>'roles.update']);
-    $router->delete('/system/setting/roles/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@destroy','as'=>'roles.destroy']);    
-    $router->get('/system/setting/roles/{id}/permission',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@rolepermissions','as'=>'roles.permission']); 
-    
+    $router->delete('/system/setting/roles/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@destroy','as'=>'roles.destroy']);
+    $router->get('/system/setting/roles/{id}/permission',['middleware'=>['role:superadmin'],'uses'=>'System\RolesController@rolepermissions','as'=>'roles.permission']);
+
     //setting - variables
-    $router->get('/system/setting/variables',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@index','as'=>'variables.index']);    
-    $router->get('/system/setting/variables/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@show','as'=>'variables.show']);    
+    $router->get('/system/setting/variables',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@index','as'=>'variables.index']);
+    $router->get('/system/setting/variables/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@show','as'=>'variables.show']);
     $router->put('/system/setting/variables',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@update','as'=>'variables.update']);
     $router->post('/system/setting/variables/clear',['middleware'=>['role:superadmin'],'uses'=>'System\VariablesController@clear','as'=>'variables.clear']);
 
@@ -274,47 +281,47 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/system/users/revokeuserpermissions',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@revokeuserpermissions','as'=>'users.revokeuserpermissions']);
     $router->put('/system/users/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@update','as'=>'users.update']);
     $router->get('/system/users/{id}',['uses'=>'System\UsersController@show','as'=>'users.show']);
-    $router->delete('/system/users/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@destroy','as'=>'users.destroy']);    
-    $router->get('/system/users/{id}/permission',['middleware'=>['role:superadmin|bapelitbang|opd'],'uses'=>'System\UsersController@userpermissions','as'=>'users.permission']);    
-    $router->get('/system/users/{id}/prodi',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@usersprodi','as'=>'users.prodi']);    
-    $router->get('/system/users/{id}/roles',['uses'=>'System\UsersController@roles','as'=>'users.roles']);    
+    $router->delete('/system/users/{id}',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@destroy','as'=>'users.destroy']);
+    $router->get('/system/users/{id}/permission',['middleware'=>['role:superadmin|bapelitbang|opd'],'uses'=>'System\UsersController@userpermissions','as'=>'users.permission']);
+    $router->get('/system/users/{id}/prodi',['middleware'=>['role:superadmin'],'uses'=>'System\UsersController@usersprodi','as'=>'users.prodi']);
+    $router->get('/system/users/{id}/roles',['uses'=>'System\UsersController@roles','as'=>'users.roles']);
 
     //setting - users keuangan
     $router->get('/system/userskeuangan',['middleware'=>['role:superadmin|keuangna'],'uses'=>'System\UsersKeuanganController@index','as'=>'userskeuangan.index']);
     $router->post('/system/userskeuangan/store',['middleware'=>['role:superadmin|keuangan'],'uses'=>'System\UsersKeuanganController@store','as'=>'userskeuangan.store']);
-    $router->put('/system/userskeuangan/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'System\UsersKeuanganController@update','as'=>'userskeuangan.update']);    
-    $router->delete('/system/userskeuangan/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'System\UsersKeuanganController@destroy','as'=>'userskeuangan.destroy']);    
-    
+    $router->put('/system/userskeuangan/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'System\UsersKeuanganController@update','as'=>'userskeuangan.update']);
+    $router->delete('/system/userskeuangan/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'System\UsersKeuanganController@destroy','as'=>'userskeuangan.destroy']);
+
     //setting - users pmb
     $router->get('/system/userspmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@index','as'=>'userspmb.index']);
     $router->post('/system/userspmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@store','as'=>'userspmb.store']);
-    $router->put('/system/userspmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@update','as'=>'userspmb.update']);    
-    $router->delete('/system/userspmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@destroy','as'=>'userspmb.destroy']);    
-    
+    $router->put('/system/userspmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@update','as'=>'userspmb.update']);
+    $router->delete('/system/userspmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'System\UsersPMBController@destroy','as'=>'userspmb.destroy']);
+
     //setting - users akademik
     $router->get('/system/usersakademik',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@index','as'=>'usersakademik.index']);
     $router->post('/system/usersakademik/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@store','as'=>'usersakademik.store']);
-    $router->put('/system/usersakademik/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@update','as'=>'usersakademik.update']);    
-    $router->delete('/system/usersakademik/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@destroy','as'=>'usersakademik.destroy']);    
-    
+    $router->put('/system/usersakademik/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@update','as'=>'usersakademik.update']);
+    $router->delete('/system/usersakademik/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersAkademikController@destroy','as'=>'usersakademik.destroy']);
+
     //setting - users program studi
     $router->get('/system/usersprodi',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@index','as'=>'usersprodi.index']);
     $router->post('/system/usersprodi/store',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@store','as'=>'usersprodi.store']);
-    $router->put('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@update','as'=>'usersprodi.update']);    
-    $router->get('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@show','as'=>'usersprodi.show']);    
-    $router->delete('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@destroy','as'=>'usersprodi.destroy']);    
-    
+    $router->put('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@update','as'=>'usersprodi.update']);
+    $router->get('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@show','as'=>'usersprodi.show']);
+    $router->delete('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@destroy','as'=>'usersprodi.destroy']);
+
     //setting - users dosen
     $router->get('/system/usersdosen',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@index','as'=>'usersdosen.index']);
     $router->post('/system/usersdosen/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@store','as'=>'usersdosen.store']);
-    $router->put('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@update','as'=>'usersdosen.update']);    
-    $router->delete('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@destroy','as'=>'usersdosen.destroy']);    
-    
+    $router->put('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@update','as'=>'usersdosen.update']);
+    $router->delete('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@destroy','as'=>'usersdosen.destroy']);
+
     //system-migration
     $router->post('/system/migration',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\SystemMigrationController@index','as'=>'systemmigration.index']);
     $router->post('/system/migration/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\SystemMigrationController@store','as'=>'systemmigration.store']);
-        
+
     //untuk ui admin
-    $router->get('/system/setting/uiadmin',['uses'=>'System\UIController@admin','as'=>'ui.admin']);    
-    
+    $router->get('/system/setting/uiadmin',['uses'=>'System\UIController@admin','as'=>'ui.admin']);
+
 });

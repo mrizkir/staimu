@@ -372,15 +372,24 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/KemahasiswaanDaftarMahasiswa.vue'),		
 	},	
 	
-	//akademik - perkuliahan
+	//akademik - perkuliahan - penyelenggaraan
 	{
-		path: '/akademik/perkuliahan/penyelenggaraan',
+		path: '/akademik/perkuliahan/penyelenggaraan/daftar',
 		name: 'PerkuliahanPenyelenggaraan',
 		meta:{
 			title: "AKADEMIK - PENYELENGGARAAN MATAKULIAH",
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraan.vue'),		
+	},	
+	{
+		path: '/akademik/perkuliahan/penyelenggaraan/tambah',
+		name: 'PerkuliahanPenyelenggaraanTambah',
+		meta:{
+			title: "AKADEMIK - PENYELENGGARAAN MATAKULIAH",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraanTambah.vue'),		
 	},	
 
 	//system	

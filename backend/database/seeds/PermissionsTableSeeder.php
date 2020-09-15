@@ -156,6 +156,10 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-DULANG-NON-AKTIF',
             'AKADEMIK-DULANG-LULUS',
             'AKADEMIK-DULANG-KELUAR',
+
+            'AKADEMIK-PERKULIAHAN-PENYELENGGARAAN',
+            'AKADEMIK-PERKULIAHAN-KRS',
+            'AKADEMIK-PERKULIAHAN-PKRS',
             
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',

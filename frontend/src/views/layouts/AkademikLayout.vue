@@ -136,17 +136,39 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>              
-                <v-subheader>PERKULIAHAN</v-subheader>
-                <v-list-item link to="/akademik/perkuliahan/penyelenggaraan" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')">
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-book</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            PENYELENGGARAAN
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>              
+                <v-subheader>PERKULIAHAN</v-subheader>                         
+                <v-list-group group="/akademik/perkuliahan/penyelenggaraan" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" color="green">
+                    <template v-slot:activator>
+                        <v-list-item-icon class="mr-2">
+                            <v-icon>mdi-home-floor-b</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>								
+                            <v-list-item-title>PENYELENGGARAAN</v-list-item-title>
+                        </v-list-item-content>							
+                    </template>
+					<div>
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" active-class="light-green lighten-1 white--text" to="/akademik/perkuliahan/penyelenggaraan/daftar" color="white">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-book</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    DAFTAR
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/penyelenggaraan/tambah">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-book</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    TAMBAH MATKUL
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 
+					</div>
+                </v-list-group>
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>

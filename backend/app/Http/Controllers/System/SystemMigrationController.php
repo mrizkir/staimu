@@ -207,8 +207,7 @@ class SystemMigrationController extends Controller {
                 }                
             }   
             return $user;
-        });
-        $user=[];
+        });        
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',                                

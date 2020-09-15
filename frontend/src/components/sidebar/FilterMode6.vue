@@ -18,8 +18,8 @@
             <v-select
                 v-model="semester_akademik"
                 :items="daftar_semester"
-                item-text="tahun_akademik"
-                item-value="tahun"
+                item-text="text"
+                item-value="id"
                 label="TAHUN AKADEMIK"
                 outlined/>            
         </v-list-item-content>
@@ -35,6 +35,9 @@ export default {
 
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
+        
+        this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
+        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];  
     },
     data:()=>({
         firstloading:true,
