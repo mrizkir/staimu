@@ -376,7 +376,7 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',
                     {
                         prodi_id:this.prodi_id,
-                        ta:this.ta_matkul,
+                        ta:this.tahun_akademik,
                         semester_akademik:this.semester_akademik,                          
                         matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
                     },
