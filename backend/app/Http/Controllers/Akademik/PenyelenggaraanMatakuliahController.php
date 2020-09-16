@@ -86,6 +86,8 @@ class PenyelenggaraanMatakuliahController extends Controller
                 'idsmt'=>$semester_akademik,
                 'tahun'=>$ta,
                 'kjur'=>$prodi_id,
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now()
             ];
         }
         PenyelenggaraanMatakuliahModel::insert($daftar_matkul);
@@ -96,6 +98,27 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 'matkul_selected'=>$matkul_selected,                                            
                                 'message'=>'Penyelenggaraan matakuliah berhasil ditambahkan.'
                             ],200);
+    }
+    public function show(Request $request,$id)
+    {
+        $penyelenggaraan = PenyelenggaraanMatakuliahModel::find($id);
+        if (is_null($penyelenggaraan))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Penyelenggaraan dengan ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                    
+                                    'penyelenggaraan'=>$penyelenggaraan,                                            
+                                    'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
+                                ],200);
+        }
     }
     /**
      * Remove the specified resource from storage.

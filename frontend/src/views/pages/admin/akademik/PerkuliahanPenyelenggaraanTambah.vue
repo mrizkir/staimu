@@ -273,7 +273,7 @@ export default {
             {
                 text:'PENYELENGGARAAN MATAKULIAH',
                 disabled:false,
-                href:'/akademik/perkuliahan/penyelenggaraan'
+                href:'/akademik/perkuliahan/penyelenggaraan/daftar'
             },
             {
                 text:'TAMBAH',

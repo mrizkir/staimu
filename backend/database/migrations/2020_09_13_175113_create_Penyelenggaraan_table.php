@@ -43,6 +43,7 @@ class CreatePenyelenggaraanTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('penyelenggaraan_id');            
             $table->uuid('user_id');            
+            $table->boolean('is_ketua')->default(0);            
             
             $table->timestamps();  
             

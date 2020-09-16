@@ -79,13 +79,24 @@
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
-                           <v-icon
+                            <v-btn
                                 small
+                                icon
+                                @click.stop="$router.push('/akademik/perkuliahan/penyelenggaraan/'+item.id+'/dosenpengampu')">
+                                <v-icon>
+                                    mdi-account-child-outline
+                                </v-icon>
+                            </v-btn>   
+                            <v-btn
+                                small
+                                icon
                                 :loading="btnLoading"
                                 :disabled="btnLoading"
                                 @click.stop="deleteItem(item)">
-                                mdi-delete
-                            </v-icon>    
+                                <v-icon>
+                                    mdi-delete
+                                </v-icon>
+                            </v-btn>   
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">

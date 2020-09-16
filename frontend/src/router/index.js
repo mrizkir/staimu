@@ -391,6 +391,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraanTambah.vue'),		
 	},	
+	{
+		path: '/akademik/perkuliahan/penyelenggaraan/:idpenyelenggaraan/dosenpengampu/',
+		name: 'PerkuliahanPenyelenggaraanDosenPengampu',
+		meta:{
+			title: "AKADEMIK - PENYELENGGARAAN MATAKULIAH",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraanDosenPengampu.vue'),		
+	},	
 
 	//system	
 	{

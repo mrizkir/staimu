@@ -167,6 +167,16 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/penyelenggaraan/dosenpengampu">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-book</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    DOSEN PENGAMPU
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 
 					</div>
                 </v-list-group>
             </v-list>

@@ -15,22 +15,23 @@ class UsersTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
-        \DB::statement('DELETE FROM users');        
+    {
+        \DB::statement('DELETE FROM users');
         $user=User::create([
             'id'=>Uuid::uuid4()->toString(),
             'username'=>'admin',
-            'password'=>Hash::make('1234'),                
-            'name'=>'Mochammad Rizki Romdoni',                
-            'nomor_hp'=>'081214553388',                
-            'email'=>'support@yacanet.com',                
+            'password'=>Hash::make('1234'),
+            'name'=>'Mochammad Rizki Romdoni',
+            'nomor_hp'=>'081214553388',
+            'email'=>'support@yacanet.com',
             'theme'=>'default',
+            'default_role'=>'superadmin',
             'code'=>0,
             'isdeleted'=>false,
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);  
-        
+        ]);
+
         $user->assignRole('superadmin');
     }
 }
