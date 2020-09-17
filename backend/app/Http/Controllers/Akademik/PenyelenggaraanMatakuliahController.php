@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\PenyelenggaraanMatakuliahModel;
+use App\Models\Akademik\PenyelenggaraanDosenModel;
+use App\Models\UserDosen;
 
 use Ramsey\Uuid\Uuid;
 
@@ -44,7 +46,13 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                         ->orderBy('kmatkul','ASC')    
                                                         ->orderBy('ta_matkul','ASC')    
                                                         ->get();
-      
+                                                        
+        $penyelenggaraan->transform(function ($item,$key){
+            $item->jumlah_dosen=0;
+            $item->jumlah_mhs=0;
+            return $item;
+        });
+
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
@@ -101,6 +109,8 @@ class PenyelenggaraanMatakuliahController extends Controller
     }
     public function show(Request $request,$id)
     {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
+
         $penyelenggaraan = PenyelenggaraanMatakuliahModel::find($id);
         if (is_null($penyelenggaraan))
         {
@@ -118,6 +128,129 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     'penyelenggaraan'=>$penyelenggaraan,                                            
                                     'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
                                 ],200);
+        }
+    }
+    public function pengampu (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
+
+        $this->validate($request, [            
+            'pid'=>'required', 
+            'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'           
+        ]);
+        
+        $data=[];
+        $idpenyelenggaraan=$request->input('idpenyelenggaraan');
+        switch($request->input('pid'))
+        {
+            case 'belumterdaftar':
+                $data=UserDosen::select(\DB::raw('
+                                    user_id,
+                                    nidn,                                    
+                                    nama_dosen
+                                '))       
+                                ->where('active',1)                                  
+                                ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
+                                    $query->select('user_id')
+                                        ->from('pe3_penyelenggaraan_dosen')
+                                        ->where('penyelenggaraan_id',$idpenyelenggaraan);                                        
+                                })
+                                ->orderBy('nama_dosen','ASC')                                                      
+                                ->get();
+            break;
+            case 'terdaftar':
+                $data=UserDosen::select(\DB::raw('
+                                    pe3_penyelenggaraan_dosen.id,
+                                    pe3_penyelenggaraan_dosen.penyelenggaraan_id,
+                                    pe3_penyelenggaraan_dosen.user_id,
+                                    pe3_dosen.nidn,                                    
+                                    pe3_dosen.nama_dosen,
+                                    pe3_penyelenggaraan_dosen.is_ketua,
+                                    pe3_penyelenggaraan_dosen.created_at,
+                                    pe3_penyelenggaraan_dosen.updated_at
+                                '))       
+                                ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')                                                                  
+                                ->where('penyelenggaraan_id',$idpenyelenggaraan)                                       
+                                ->orderBy('nama_dosen','ASC')                                                      
+                                ->get();
+            break;
+        }
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'dosen'=>$data,
+                                'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
+                            ],200);  
+    }
+    public function storedosenpengampu (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE');
+
+        $this->validate($request, [   
+            'penyelenggaraan_id'=>'required|exists:pe3_penyelenggaraan,id',           
+            'dosen_id'=>'required|exists:pe3_dosen,user_id',
+            'is_ketua'=>'required'
+        ]);
+        $idpenyelenggaraan=$request->input('penyelenggaraan_id');
+        if ($request->input('is_ketua'))
+        {
+            PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
+                                    ->update(['is_ketua'=>false]);
+        }
+        $dosen=PenyelenggaraanDosenModel::create([
+            'id'=>Uuid::uuid4()->toString(),
+            'penyelenggaraan_id'=>$idpenyelenggaraan,
+            'user_id'=>$request->input('dosen_id'),
+            'is_ketua'=>$request->input('is_ketua')
+        ]);
+        
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'store',                    
+                                'dosen'=>$dosen,                                            
+                                'message'=>'Dosen pengampu Penyelenggaraan matakuliah ini berhasil ditambahkan.'
+                            ],200);
+    }
+
+    public function updateketua(Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_UPDATE');
+        
+        $dosen = PenyelenggaraanDosenModel::find($id); 
+
+        if (is_null($dosen))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            $this->validate($request, [                                     
+                'is_ketua'=>'required'
+            ]);
+            $idpenyelenggaraan=$request->input('penyelenggaraan_id');
+
+            PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
+                                    ->update(['is_ketua'=>false]);
+
+            $dosen->is_ketua=$request->input('is_ketua');
+            $dosen->save();
+            
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $dosen, 
+                                                                'object_id' => $dosen->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+                                                            ]);
+            
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+                                    ],200);         
         }
     }
     /**
@@ -153,6 +286,43 @@ class PenyelenggaraanMatakuliahController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Penyelenggaraan dengan ID ($id) berhasil dihapus"
+                                    ],200);         
+        }
+                  
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroypengampu(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
+
+        $dosen = PenyelenggaraanDosenModel::find($id); 
+        
+        if (is_null($dosen))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $dosen, 
+                                                                'object_id' => $dosen->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menghapus penyelenggaraan dosen dengan id ('.$id.') berhasil'
+                                                            ]);
+            $dosen->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message'=>"Penyelenggaraan Dosen dengan ID ($id) berhasil dihapus"
                                     ],200);         
         }
                   

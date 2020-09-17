@@ -46,9 +46,13 @@ $router->group(['prefix'=>'v3'], function () use ($router)
     //akademik - matakuliah
     $router->post('/akademik/matakuliah/',['uses'=>'Akademik\MatakuliahController@index','as'=>'matakuliah.index']);
 
+    //system - daftar dosen
+    $router->get('/system/usersdosen/pengampu',['uses'=>'System\UsersDosenController@pengampu','as'=>'usersdosen.pengampu']);
+
     //untuk uifront
     $router->get('/system/setting/uifront',['uses'=>'System\UIController@frontend','as'=>'uifront.frontend']);
 
+    //auth login
     $router->post('/auth/login',['uses'=>'AuthController@login','as'=>'auth.login']);
 });
 
@@ -248,9 +252,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //akademik - perkuliahan - penyelenggaraan
     $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@index','as'=>'penyelenggaraanmatakuliah.index']);
     $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@store','as'=>'penyelenggaraanmatakuliah.store']);
-    $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah/{id}/storedosenpengampu',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@storedosenpengampu','as'=>'penyelenggaraanmatakuliah.storedosenpengampu']);
+    $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@pengampu','as'=>'penyelenggaraanmatakuliah.pengampu']);
+    $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah/storedosenpengampu',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@storedosenpengampu','as'=>'penyelenggaraanmatakuliah.storedosenpengampu']);
     $router->get('/akademik/perkuliahan/penyelenggaraanmatakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@show','as'=>'penyelenggaraanmatakuliah.show']);
+    $router->put('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@updateketua','as'=>'penyelenggaraanmatakuliah.updateketua']);
     $router->delete('/akademik/perkuliahan/penyelenggaraanmatakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroy','as'=>'penyelenggaraanmatakuliah.destroy']);
+    $router->delete('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroypengampu','as'=>'penyelenggaraanmatakuliah.destroypengampu']);
 
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);
@@ -314,7 +321,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/system/usersprodi/{id}',['middleware'=>['role:superadmin|programstudi'],'uses'=>'System\UsersProdiController@destroy','as'=>'usersprodi.destroy']);
 
     //setting - users dosen
-    $router->get('/system/usersdosen',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@index','as'=>'usersdosen.index']);
+    $router->get('/system/usersdosen',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@index','as'=>'usersdosen.index']);    
     $router->post('/system/usersdosen/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@store','as'=>'usersdosen.store']);
     $router->put('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@update','as'=>'usersdosen.update']);
     $router->delete('/system/usersdosen/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@destroy','as'=>'usersdosen.destroy']);

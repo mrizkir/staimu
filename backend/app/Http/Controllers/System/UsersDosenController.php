@@ -47,7 +47,25 @@ class UsersDosenController extends Controller {
                                 'users'=>$data,
                                 'message'=>'Fetch data users Dosen berhasil diperoleh'
                             ],200);  
-    }    
+    }  
+    public function pengampu (Request $request)
+    {
+        $data = UserDosen::select(\DB::raw('
+                                user_id,
+                                nidn,
+                                nama_dosen
+                            '))
+                            ->where('active',1)
+                            ->orderBy('nama_dosen', 'ASC')
+                            ->get();
+
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'dosen'=>$data,
+                                'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
+                            ],200);  
+    }  
     /**
      * Store a newly created resource in storage.
      *

@@ -164,7 +164,7 @@ export default {
                 this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
             });                 
             this.$store.dispatch('uiadmin/init',this.$ajax);              
-            this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];            
+            this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];            
 		}
 	},
 	computed:{
