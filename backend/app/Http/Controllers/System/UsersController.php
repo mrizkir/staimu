@@ -185,6 +185,26 @@ class UsersController extends Controller {
                     $user->givePermissionTo($permissions);                 
                 }                
             break;
+            case 'mahasiswa':
+                $this->validate($request, [           
+                    'TA'=>'required',
+                    'prodi_id'=>'required'
+                ]);  
+                $ta=$request->input('TA');
+                $prodi_id=$request->input('prodi_id');
+                $data = User::where('default_role','mahasiswa')
+                        ->select(\DB::raw('users.id'))
+                        ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','users.id')
+                        ->where('pe3_register_mahasiswa.tahun',$ta)
+                        ->where('pe3_register_mahasiswa.kjur',$prodi_id)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);   
+                }                
+            break;
             case 'pmb':
                 $data = User::role('pmb')
                         ->select(\DB::raw('users.id'))                        

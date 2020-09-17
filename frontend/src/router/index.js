@@ -400,7 +400,16 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraanDosenPengampu.vue'),		
 	},	
-
+	//akademik - perkuliahan - krs
+	{
+		path: '/akademik/perkuliahan/krs/daftar',
+		name: 'PerkuliahanKRS',
+		meta:{
+			title: "AKADEMIK - KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanKRS.vue'),		
+	},	
 	//system	
 	{
 		path: '/system-setting',

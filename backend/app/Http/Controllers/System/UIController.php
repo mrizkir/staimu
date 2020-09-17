@@ -150,7 +150,7 @@ class UIController extends Controller {
         elseif ($this->hasRole('mahasiswa'))
         {
             $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
-            $daftar_ta=TAModel::where('tahun','=',$formulir->ta)
+            $daftar_ta=TAModel::where('tahun','>=',$formulir->ta)
                                 ->get();        
             
             $daftar_fakultas=[];

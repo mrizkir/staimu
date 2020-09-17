@@ -72,6 +72,15 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
+                                <v-btn 
+                                    :loading="btnLoading"
+                                    :disabled="btnLoading"
+                                    color="warning" 
+                                    class="mb-2 mr-2" 
+                                    @click.stop="syncPermission" 
+                                    v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
+                                    SYNC PERMISSION
+                                </v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.idkelas="{item}">
@@ -194,6 +203,26 @@ export default {
             {
                 this.expanded=[item];
             }               
+        },
+        syncPermission:async function ()
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/system/users/syncallpermissions',
+                {
+                    role_name:'mahasiswa',
+                    TA:this.tahun_pendaftaran,                    
+                    prodi_id:this.prodi_id                     
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(()=>{                   
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });     
         },
     },
     watch:{
