@@ -48,7 +48,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                         ->get();
                                                         
         $penyelenggaraan->transform(function ($item,$key){
-            $item->jumlah_dosen=0;
+            $item->jumlah_dosen=\DB::table('pe3_penyelenggaraan_dosen')->where('penyelenggaraan_id',$item->id)->count();
             $item->jumlah_mhs=0;
             return $item;
         });
