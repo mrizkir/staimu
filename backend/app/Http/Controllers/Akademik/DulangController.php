@@ -14,6 +14,41 @@ use Ramsey\Uuid\Uuid;
 class DulangController extends Controller 
 {
     /**
+     * daftar dulang id yang tidak ada didalam krs
+     */
+    public function dulangnotinkrs (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-DULANG-MHS_BROWSE');
+
+        $this->validate($request, [      
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
+        ]);
+        
+        $nim=$request->input('nim');
+
+        $daftar_dulang=DulangModel::select(\DB::raw('
+                                    id AS value,
+                                    CONCAT("DAFTAR ULANG T.A ",tahun,idsmt) AS text
+                                '))       
+                                ->where('nim',$nim)                                
+                                ->where('k_status','A')   
+                                ->whereNotIn('id',function($query) use($nim){
+                                    $query->select('dulang_id')
+                                        ->from('pe3_krs')
+                                        ->where('nim',$nim);
+                                })
+                                ->orderBy('tahun','ASC')                      
+                                ->orderBy('idsmt','ASC')                      
+                                ->get();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',  
+                                    'daftar_dulang'=>$daftar_dulang,                                                                                                                                   
+                                    'message'=>'daftar dulang mahasiswa yang tidak ada di KRS dengan status aktif berhasil diperoleh'
+                                ],200);  
+    }
+    /**
      * cek apakah mahasiswa telah melakukan daftar ulang
      */
     public function cekdulangkrs (Request $request)

@@ -34,39 +34,27 @@
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-card>
                             <v-card-title>
-                                PILIH TAHUN AKADEMIK DAN SEMESTER
+                                PILIH TAHUN & SEMESTER DAFTAR ULANG
                             </v-card-title>
                             <v-card-text>        
-                                <v-row no-gutters>                                 
-                                    <v-col cols="12">
-                                        <v-text-field 
-                                            v-model="formdata.nim"
-                                            label="NIM"   
-                                            :rules="rule_nim"                                                                  
-                                            outlined /> 
-                                    </v-col>
-                                </v-row>
-                                <v-row no-gutters>
-                                    <v-col cols="6">
-                                        <v-select
-                                            v-model="ta_matkul"
-                                            :items="daftar_ta"
-                                            item-text="tahun_akademik"
-                                            item-value="tahun"
-                                            label="TAHUN AKADEMIK"                                            
-                                            class="mr-2"
-                                            outlined/> 
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <v-select
-                                            v-model="semester_akademik"
-                                            :items="daftar_semester"
-                                            item-text="text"
-                                            item-value="id"
-                                            label="SEMESTER AKADEMIK"
-                                            outlined/>            
-                                    </v-col>
-                                </v-row>
+                                <v-alert type="info">
+                                    Silahkan pilih tahun dan semester daftar ulang. Bila tidak ada disebabkan belum melakukan pembayaran atau status daftar ulang dinyatakan tidak aktif
+                                </v-alert>
+                                <v-text-field 
+                                    v-model="formdata.nim"
+                                    label="NIM"   
+                                    :rules="rule_nim"                                                                  
+                                    outlined
+                                    @keyup.enter="cekNIM"
+                                    :disabled="(this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')"
+                                    /> 
+                                <v-select
+                                    v-model="formdata.dulang_id"
+                                    :items="daftar_dulang"                                    
+                                    label="DAFTAR ULANG"                                            
+                                    class="mr-2"
+                                    :rules="rule_dulang"
+                                    outlined/>                                 
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -131,6 +119,7 @@ export default {
         if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
         {
             this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
+            this.fetchDulang();
         }
     },  
     data: () => ({ 
@@ -160,16 +149,37 @@ export default {
 
         //formdata
         form_valid:true,   
+        daftar_dulang:[],
         formdata:{
-            nim:''
+            nim:'',
+            dulang_id:''
         },        
         rule_nim:[
             value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
-
+        rule_dulang:[
+            value => !!value||"Mohon dipilih Daftar Ulang yang telah dilakukan !!!"
+        ],         
     }),
-    methods: {                
+    methods: {          
+        async fetchDulang()
+        {
+            await this.$ajax.post('/akademik/dulang/dulangnotinkrs',
+            {
+                nim:this.formdata.nim,                
+            },
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                               
+                this.daftar_dulang=data.daftar_dulang;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });                  
+        },   
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
@@ -192,7 +202,10 @@ export default {
                 });                  
             }
         },
-       
+        cekNIM ()
+        {
+            console.log(this.formdata.nim);
+        },
         closedialogfrm () {                             
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                
