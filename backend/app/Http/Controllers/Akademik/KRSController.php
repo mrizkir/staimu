@@ -31,4 +31,31 @@ class PenyelenggaraanKRSController extends Controller
 
         
     }
+    public function show ($request,$id)
+    {
+        
+    }
+    public function cekkrs ($request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
+
+        $this->validate($request, [      
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
+            'ta'=>'required',
+            'idsmt'=>'required'
+        ]);
+        
+        $isdulang = KRSModel::where('nim',$nim)
+                                ->where('tahun',$ta)
+                                ->where('idsmt',$idsmt)                                
+                                ->exists();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',  
+                                    'iskrs'=>$iskrs,                                                                                                                                   
+                                    'message'=>'Cek krs mahasiswa'
+                                ],200);  
+
+    }
 }
