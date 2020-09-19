@@ -20,7 +20,7 @@
                 :items="daftar_semester"
                 item-text="text"
                 item-value="id"
-                label="TAHUN AKADEMIK"
+                label="SEMESTER"
                 outlined/>            
         </v-list-item-content>
     </v-list-item>	

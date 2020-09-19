@@ -410,6 +410,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanKRS.vue'),		
 	},	
+	{
+		path: '/akademik/perkuliahan/krs/tambah',
+		name: 'PerkuliahanKRSTambah',
+		meta:{
+			title: "AKADEMIK - KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambah.vue'),		
+	},	
 	//system	
 	{
 		path: '/system-setting',

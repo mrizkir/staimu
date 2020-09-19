@@ -90,8 +90,8 @@
                             <v-btn
                                 small
                                 icon
-                                :loading="btnLoading"
-                                :disabled="btnLoading"
+                                :loading="btnLoadingTable"
+                                :disabled="btnLoadingTable"
                                 @click.stop="deleteItem(item)">
                                 <v-icon>
                                     mdi-delete
@@ -160,7 +160,6 @@ export default {
         tahun_akademik:null,
         semester_akademik:null,
 
-        btnLoading:false,
         btnLoadingTable:false,
         datatableLoading:false,
         expanded:[],
@@ -176,35 +175,6 @@ export default {
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'', 
-
-        data_mhs:{},  
-
-        //formdata
-        form_valid:true,   
-        dialogfrm:false, 
-        daftar_dw:[],     
-
-        formdata: {                        
-            nim:'',
-            nirm:'',
-            dosen_id:''           
-        },
-        formdefault: {                        
-            nim:'',
-            nirm:'',
-            dosen_id:''           
-        },
-        rule_nim:[
-            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
-        ], 
-        rule_nirm:[
-            value => !!value||"Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
-        ], 
-        rule_dw:[
-            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
-        ],
 
     }),
     methods: {
@@ -252,16 +222,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },
-        
-        closedialogfrm () {            
-            this.dialogfrm = false;            
-            setTimeout(() => {       
-                this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_mhs = Object.assign({}, {});   
-                }, 300
-            );
-        },
+        },        
         deleteItem (item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus penyelenggaraan matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data kontrak matakuliah MHS.' }).then((confirm) => {

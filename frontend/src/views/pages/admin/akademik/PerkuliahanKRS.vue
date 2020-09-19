@@ -2,12 +2,12 @@
     <AkademikLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-monitor-dashboard
+                mdi-format-columns
             </template>
             <template v-slot:name>
                 KARTU RENCANA STUDI
             </template>
-            <template v-slot:subtitle>
+            <template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'&&$store.getters['uiadmin/getDefaultDashboard']!='mahasiswabaru'">
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
@@ -28,9 +28,90 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar>
+        <template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'&&$store.getters['uiadmin/getDefaultDashboard']!='mahasiswabaru'">
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
+        <v-container fluid>                         
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <v-card>
+                        <v-card-text>
+                            <v-text-field
+                                v-model="search"
+                                append-icon="mdi-database-search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <v-data-table
+                        :headers="headers"
+                        :items="datatable"
+                        :search="search"
+                        item-key="id"                        
+                        show-expand
+                        :expanded.sync="expanded"
+                        :single-expand="true"                        
+                        @click:row="dataTableRowClicked"
+                        class="elevation-1"
+                        :loading="datatableLoading"
+                        loading-text="Loading... Please wait">
+                        <template v-slot:top>
+                            <v-toolbar flat color="white">
+                                <v-toolbar-title>DAFTAR KRS</v-toolbar-title>
+                                <v-divider
+                                    class="mx-4"
+                                    inset
+                                    vertical
+                                ></v-divider>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/krs/tambah">TAMBAH</v-btn>
+                            </v-toolbar>
+                        </template>
+                        <template v-slot:item.idkelas="{item}">
+                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                            <v-btn
+                                small
+                                icon
+                                @click.stop="$router.push('/akademik/perkuliahan/penyelenggaraan/'+item.id+'/dosenpengampu')">
+                                <v-icon>
+                                    mdi-account-child-outline
+                                </v-icon>
+                            </v-btn>   
+                            <v-btn
+                                small
+                                icon
+                                :loading="btnLoading"
+                                :disabled="btnLoading"
+                                @click.stop="deleteItem(item)">
+                                <v-icon>
+                                    mdi-delete
+                                </v-icon>
+                            </v-btn>   
+                        </template>           
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <td :colspan="headers.length" class="text-center">
+                                <v-col cols="12">                          
+                                    <strong>penyelenggaraan_id:</strong>{{ item.id }}          
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                </v-col>                                
+                            </td>
+                        </template>
+                        <template v-slot:no-data>
+                            Data belum tersedia
+                        </template>   
+                    </v-data-table>
+                </v-col>
+            </v-row>            
+        </v-container>
     </AkademikLayout>
 </template>
 <script>
@@ -76,6 +157,22 @@ export default {
         daftar_ta:[],
         tahun_akademik:null,
         semester_akademik:null,
+
+        btnLoadingTable:false,
+        datatableLoading:false,
+        expanded:[],
+        datatable:[],      
+        headers: [
+            { text: 'NIM', value: 'kmatkul', sortable:true,width:150  },   
+            { text: 'NAMA', value: 'nmatkul', sortable:true  },   
+            { text: 'ANGK.', value: 'sks', sortable:true, width:100  },               
+            { text: 'JUMLAH MATKUL', value: 'semester', sortable:true, width:100  },               
+            { text: 'JUMLAH SKS', value: 'ta_matkul', sortable:true, width:100 },               
+            { text: 'TA.SMT', value: 'jumlah_dosen',sortable:true, width:100 },                           
+            { text: 'SAH', value: 'jumlah_mhs',sortable:true, width:100},                           
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+        ],  
+        search:'', 
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -94,6 +191,17 @@ export default {
         {
 
         },
+        dataTableRowClicked(item)
+        {
+            if ( item === this.expanded[0])
+            {
+                this.expanded=[];                
+            }
+            else
+            {
+                this.expanded=[item];
+            }               
+        },  
     },
     watch:{
         tahun_akademik()

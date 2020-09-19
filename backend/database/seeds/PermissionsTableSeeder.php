@@ -107,6 +107,21 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);        
+        
+        //akademik - dulang     
+        \DB::table('permissions')->insert([
+            'name'=>"AKADEMIK-DULANG-MHS_BROWSE",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+        
+        \DB::table('permissions')->insert([
+            'name'=>"AKADEMIK-DULANG-MHS_SHOW",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
 
         //system
         \DB::table('permissions')->insert([
@@ -147,7 +162,7 @@ class PermissionsTableSeeder extends Seeder
             'KEUANGAN-TRANSAKSI',                 
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
             
-            'AKADEMIK-MATAKULIAH',
+            'AKADEMIK-MATAKULIAH',            
             'AKADEMIK-DULANG-BARU',
             'AKADEMIK-DULANG-LAMA',
             'AKADEMIK-DULANG-AKTIF',
