@@ -101,6 +101,8 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" dark class="mb-2" :to="{path:'/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">TAMBAH MATAKULIAH</v-btn>
                         </v-card-title>
                         <v-card-text>
                             <v-data-table                                
@@ -131,7 +133,7 @@
                                     </v-btn>   
                                 </template>    
                                 <template v-slot:no-data>
-                                    Data dosen pengampu penyelenggaraan matakuliah ini belum tersedia
+                                    Data matakuliah belum tersedia silahkan tambah
                                 </template>
                             </v-data-table>
                         </v-card-text>

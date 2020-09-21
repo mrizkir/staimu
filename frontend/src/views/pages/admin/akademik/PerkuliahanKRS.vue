@@ -70,7 +70,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/krs/tambah">TAMBAH</v-btn>
+                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/krs/tambah">TAMBAH KRS</v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.idkelas="{item}">

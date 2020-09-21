@@ -157,7 +157,7 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/penyelenggaraan/tambah">
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/penyelenggaraan/tambah">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
@@ -167,7 +167,7 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" active-class="light-green lighten-1 white--text" disabled :to="{path:'/akademik/perkuliahan/penyelenggaraan/'+paramid+'/dosenpengampu'}">
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')" active-class="light-green lighten-1 white--text" disabled :to="{path:'/akademik/perkuliahan/penyelenggaraan/'+paramid+'/dosenpengampu'}">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
@@ -218,7 +218,17 @@
                                     TAMBAH KRS
                                 </v-list-item-title>
                             </v-list-item-content>
-                        </v-list-item>   						 						
+                        </v-list-item>   						 			
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_STORE')" active-class="light-green lighten-1 white--text" disabled :to="{path:'/akademik/perkuliahan/krs/'+paramid+'/tambahmatkul'}">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    TAMBAH MATKUL
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 									
 					</div>
                 </v-list-group>
             </v-list>
@@ -337,12 +347,16 @@ export default {
         paramid ()
         {
             var id='empty';            
+            console.log(this.$route.name);
             switch (this.$route.name)
             {
                 case 'PerkuliahanPenyelenggaraanDosenPengampu':
                     id=this.$route.params.idpenyelenggaraan;
                 break;
                 case 'PerkuliahanKRSDetail':
+                    id=this.$route.params.krsid;
+                break;
+                case 'PerkuliahanKRSTambahMatkul':
                     id=this.$route.params.krsid;
                 break;
             }            

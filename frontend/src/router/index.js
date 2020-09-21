@@ -430,7 +430,7 @@ const routes = [
 	},	
 	{
 		path: '/akademik/perkuliahan/krs/:krsid/tambahmatkul',
-		name: 'PerkuliahanKRSTambahMakul',
+		name: 'PerkuliahanKRSTambahMatkul',
 		meta:{
 			title: "AKADEMIK - KRS",
 			requiresAuth:true,

@@ -72,13 +72,13 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/penyelenggaraan/tambah">TAMBAH</v-btn>
+                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/penyelenggaraan/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">TAMBAH</v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
-                        <template v-slot:item.actions="{ item }">
+                        <template v-slot:item.actions="{ item }" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
                             <v-btn
                                 small
                                 icon
@@ -97,6 +97,9 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>   
+                        </template>           
+                        <template v-slot:item.actions v-else>
+                            N.A
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -120,6 +123,9 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter6 from '@/components/sidebar/FilterMode6';
+
+import {mapGetters} from 'vuex';
+
 export default {
     name: 'PerkuliahanPenyelenggaraan',
     created () {
@@ -272,6 +278,11 @@ export default {
                 this.initialize();
             }            
         }
+    },
+    computed:{
+        ...mapGetters('auth',{            
+            CAN_ACCESS:'can',                     
+        }),
     },
     components:{
         AkademikLayout,
