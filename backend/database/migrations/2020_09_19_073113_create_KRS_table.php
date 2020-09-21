@@ -16,6 +16,7 @@ class CreateKRSTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('pe3_krs', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id');               
             $table->uuid('dulang_id');               
             $table->string('nim');
             $table->tinyinteger('kjur');                
@@ -32,6 +33,12 @@ class CreateKRSTable extends Migration
             $table->foreign('dulang_id')
                 ->references('id')
                 ->on('pe3_dulang')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');            
+
+            $table->foreign('user_id')
+                ->references('user_id')
+                ->on('pe3_formulir_pendaftaran')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');            
         });

@@ -4,13 +4,13 @@ namespace App\Models\Akademik;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DulangModel extends Model {    
+class KRSModel extends Model {    
      /**
      * nama tabel model ini.
      *
      * @var string
      */
-    protected $table = 'pe3_dulang';
+    protected $table = 'pe3_krs';
     /**
      * primary key tabel ini.
      *
@@ -25,13 +25,13 @@ class DulangModel extends Model {
     protected $fillable = [
         'id',        
         'user_id',
+        'dulang_id',
         'nim',
-        'tahun', 
+        'kjur', 
         'idsmt', 
-        'tasmt', 
-        'idkelas', 
-        'status_sebelumnya',
-        'k_status',              
+        'tahun', 
+        'tasmt',         
+        'sah',        
     ];
     /**
      * enable auto_increment.
@@ -46,8 +46,12 @@ class DulangModel extends Model {
      */
     public $timestamps = true;
     
-    public function register_mahasiswa()
+    public function dulang()
     {
-        return $this->belongsTo('App\Models\Akademik\RegisterMahasiswaModel','user_id','user_id');
+        return $this->belongsTo('App\Models\Akademik\DulangModel','dulang_id','id');
+    }
+    public function formulir()
+    {
+        return $this->belongsTo('App\Models\SPMB\FormulirPendaftaranModel','user_id','user_id');
     }
 }

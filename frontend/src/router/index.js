@@ -419,6 +419,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambah.vue'),		
 	},	
+	{
+		path: '/akademik/perkuliahan/krs/:krsid/tambahmatkul',
+		name: 'PerkuliahanKRSTambahMakul',
+		meta:{
+			title: "AKADEMIK - KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambahMatkul.vue'),		
+	},	
 	//system	
 	{
 		path: '/system-setting',

@@ -264,15 +264,15 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroypengampu','as'=>'penyelenggaraanmatakuliah.destroypengampu']);
 
     //akademik - perkuliahan - krs
-    $router->post('/akademik/perkuliahan/krs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@index','as'=>'krs.index']);
-    $router->post('/akademik/perkuliahan/krs/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@store','as'=>'krs.store']);
-    $router->post('/akademik/perkuliahan/krs/pengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@pengampu','as'=>'krs.pengampu']);
-    $router->post('/akademik/perkuliahan/krs/storedosenpengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@storedosenpengampu','as'=>'krs.storedosenpengampu']);
-    $router->get('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@show','as'=>'krs.show']);
-    $router->post('/akademik/perkuliahan/krs/cekkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@cekkrs','as'=>'krs.cekkrs']);
-    $router->put('/akademik/perkuliahan/krs/updatestatus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@updatestatus','as'=>'krs.updatestatus']);
-    $router->delete('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroy','as'=>'krs.destroy']);
-    $router->delete('/akademik/perkuliahan/krs/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroypengampu','as'=>'krs.destroypengampu']);
+    $router->post('/akademik/perkuliahan/krs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@index','as'=>'krs.index']);
+    $router->post('/akademik/perkuliahan/krs/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@store','as'=>'krs.store']);
+    $router->post('/akademik/perkuliahan/krs/pengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@pengampu','as'=>'krs.pengampu']);
+    $router->post('/akademik/perkuliahan/krs/storedosenpengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@storedosenpengampu','as'=>'krs.storedosenpengampu']);
+    $router->get('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@show','as'=>'krs.show']);
+    $router->post('/akademik/perkuliahan/krs/cekkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@cekkrs','as'=>'krs.cekkrs']);
+    $router->put('/akademik/perkuliahan/krs/updatestatus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@updatestatus','as'=>'krs.updatestatus']);
+    $router->delete('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroy','as'=>'krs.destroy']);
+    $router->delete('/akademik/perkuliahan/krs/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroypengampu','as'=>'krs.destroypengampu']);
 
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);

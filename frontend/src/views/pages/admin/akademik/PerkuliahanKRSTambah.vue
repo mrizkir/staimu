@@ -65,7 +65,7 @@
                                     @click.stop="save" 
                                     :loading="btnLoading"
                                     :disabled="!form_valid||btnLoading">
-                                        TAMBAH
+                                        BUAT
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -184,27 +184,22 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
-                await this.$ajax.post('/akademik/dulang/cekdulangkrs',
+                await this.$ajax.post('/akademik/perkuliahan/krs/store',
                 {
                     nim:this.formdata.nim,
-                    idsmt:this.semester_akademik,
-                    ta:this.tahun_akademik
+                    dulang_id:this.formdata.dulang_id,                    
                 },
                 {
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data,status})=>{               
-                    console.log(data,status);
+                }).then(({data})=>{               
+                    this.$router.push('/akademik/perkuliahan/krs/'+data.id+'/tambahmatkul');
                     this.btnLoading=false;
                 }).catch(()=>{
                     this.btnLoading=false;
                 });                  
             }
-        },
-        cekNIM ()
-        {
-            console.log(this.formdata.nim);
         },
         closedialogfrm () {                             
             setTimeout(() => {       
