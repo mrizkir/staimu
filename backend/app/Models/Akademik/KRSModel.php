@@ -50,7 +50,7 @@ class KRSModel extends Model {
     {
         return $this->belongsTo('App\Models\Akademik\DulangModel','dulang_id','id');
     }
-    public function formulir()
+    public function mahasiswa()
     {
         return $this->belongsTo('App\Models\SPMB\FormulirPendaftaranModel','user_id','user_id');
     }

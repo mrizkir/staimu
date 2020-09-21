@@ -183,10 +183,10 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'NIDN', value: 'nidn', sortable:true,width:120  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:true },               
-            { text: 'KETUA', value: 'is_ketua', sortable:true,width:120 },                           
-            { text: 'AKSI', value: 'actions', sortable:true,width:120 },                           
+            { text: 'NIDN', value: 'nidn', sortable:false,width:120  },   
+            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:false },               
+            { text: 'KETUA', value: 'is_ketua', sortable:false,width:120 },                           
+            { text: 'AKSI', value: 'actions', sortable:false,width:120 },                           
         ],  
         
         //formdata

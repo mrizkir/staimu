@@ -7,7 +7,7 @@
             <template v-slot:name>
                 KARTU RENCANA STUDI
             </template>
-            <template v-slot:subtitle  v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'&&$store.getters['uiadmin/getDefaultDashboard']!='mahasiswabaru'">
+            <template v-slot:subtitle  v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
@@ -194,7 +194,7 @@ export default {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }).then(({data})=>{               
-                    this.$router.push('/akademik/perkuliahan/krs/'+data.id+'/tambahmatkul');
+                    this.$router.push('/akademik/perkuliahan/krs/'+data.krs.id+'/detail');
                     this.btnLoading=false;
                 }).catch(()=>{
                     this.btnLoading=false;

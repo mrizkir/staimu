@@ -80,9 +80,9 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/penyelenggaraan/'+item.id+'/dosenpengampu')">
+                                @click.stop="$router.push('/akademik/perkuliahan/krs/'+item.id+'/detail')">
                                 <v-icon>
-                                    mdi-account-child-outline
+                                    mdi-eye
                                 </v-icon>
                             </v-btn>   
                             <v-btn
@@ -99,7 +99,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
-                                    <strong>penyelenggaraan_id:</strong>{{ item.id }}          
+                                    <strong>krs_id:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                

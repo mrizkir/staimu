@@ -199,7 +199,17 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_BROWSE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/krs/tambah">
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_SHOW')" active-class="light-green lighten-1 white--text" disabled :to="{path:'/akademik/perkuliahan/krs/'+paramid+'/detail'}">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    DETAIL KRS
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 						
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_STORE')" active-class="light-green lighten-1 white--text" disabled to="/akademik/perkuliahan/krs/tambah">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
@@ -326,11 +336,14 @@ export default {
         },        
         paramid ()
         {
-            var id='empty';
+            var id='empty';            
             switch (this.$route.name)
             {
                 case 'PerkuliahanPenyelenggaraanDosenPengampu':
                     id=this.$route.params.idpenyelenggaraan;
+                break;
+                case 'PerkuliahanKRSDetail':
+                    id=this.$route.params.krsid;
                 break;
             }            
             return id;
