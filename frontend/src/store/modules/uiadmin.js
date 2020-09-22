@@ -27,6 +27,7 @@ const getDefaultState = () =>
         daftar_status_mhs:[],
         k_status:null,
         
+        theme:null
     }
 }
 const state = getDefaultState();
@@ -123,6 +124,11 @@ const mutations = {
     {
         state.k_status=k_status;
     },    
+
+    setTheme(state,theme)
+    {
+        state.theme=theme;
+    },
 
     resetState (state) {
         Object.assign(state, getDefaultState())
@@ -251,6 +257,11 @@ const getters= {
         return nama_status;
     },
     
+    getTheme : (state) => (key) =>
+    {           
+        return state.theme == null?'':state.theme[key];
+    },
+
 }
 const actions = {    
     init: async function ({commit,state,rootGetters},ajax)
@@ -302,7 +313,9 @@ const actions = {
                 commit('setIDKelas',data.idkelas);            
                 
                 commit('setDaftarStatusMahasiswa',data.daftar_status_mhs);            
-                commit('setStatusMahasiswa',data.k_status);            
+                commit('setStatusMahasiswa',data.k_status);  
+                
+                commit('setTheme',data.theme);            
 
                 commit('setLoaded',true);              
             });      

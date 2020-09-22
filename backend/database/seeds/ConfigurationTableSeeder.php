@@ -105,6 +105,62 @@ class ConfigurationTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
         
+        // theme
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"801",
+            'config_group'=>'theme',
+            'config_key'=>'V-SYSTEM-BAR-CSS-CLASS',
+            'config_value'=>'green lighten-2 white--text',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"802",
+            'config_group'=>'theme',
+            'config_key'=>'V-APP-BAR-NAV-ICON-CSS-CLASS',
+            'config_value'=>'grey--text',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"803",
+            'config_group'=>'theme',
+            'config_key'=>'V-NAVIGATION-DRAWER-CSS-CLASS',
+            'config_value'=>'green darken-1',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"804",
+            'config_group'=>'theme',
+            'config_key'=>'V-LIST-ITEM-BOARD-CSS-CLASS',
+            'config_value'=>'yellow',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"805",
+            'config_group'=>'theme',
+            'config_key'=>'V-LIST-ITEM-BOARD-COLOR',
+            'config_value'=>'green',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"806",
+            'config_group'=>'theme',
+            'config_key'=>'V-LIST-ITEM-ACTIVE-CSS-CLASS',
+            'config_value'=>'green darken-1',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        //server
         \DB::table('pe3_configuration')->insert([
             'config_id'=>"910",
             'config_group'=>'server',

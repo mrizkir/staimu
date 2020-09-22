@@ -142,10 +142,10 @@ export default {
                 disabled:true,
                 href:'#'
             }
-        ];
-        if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')
+        ];  
+        if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
         {
-            this.initialize();
+            this.initializeMhs();
         }   
         else
         {
@@ -153,12 +153,16 @@ export default {
             this.prodi_id=prodi_id;
             this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
             this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-            this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
-            this.initialize();
-            this.firstloading=false;
-            this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
-        }
+            this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                            
+        }     
     },  
+    mounted()
+    {
+        if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
+        {            
+            this.initialize();                   
+        }
+    },
     data: () => ({ 
         firstloading:true,
         prodi_id:null,
@@ -196,6 +200,24 @@ export default {
         {
             this.prodi_id=id;
         },
+        async initializeMhs ()
+        {
+            this.datatableLoading=true;
+            await this.$ajax.post('/akademik/perkuliahan/krs',
+            {
+                
+            },
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                           
+                this.datatable = data.daftar_krs;
+                this.datatableLoading=false;
+            }).catch(()=>{
+                this.datatableLoading=false;
+            });              
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;
@@ -209,10 +231,11 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
-                console.log(data);
+            }).then(({data})=>{                                        
                 this.datatable = data.daftar_krs;
                 this.datatableLoading=false;
+                this.firstloading=false;     
+                this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(()=>{
                 this.datatableLoading=false;
             });              

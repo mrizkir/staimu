@@ -40,6 +40,14 @@ class UIController extends Controller {
     public function admin ()
     {
         $config = ConfigurationModel::getCache();        
+        $theme=[
+            'V-SYSTEM-BAR-CSS-CLASS'=>$config['V-SYSTEM-BAR-CSS-CLASS'],
+            'V-APP-BAR-NAV-ICON-CSS-CLASS'=>$config['V-APP-BAR-NAV-ICON-CSS-CLASS'],
+            'V-NAVIGATION-DRAWER-CSS-CLASS'=>$config['V-NAVIGATION-DRAWER-CSS-CLASS'],
+            'V-LIST-ITEM-BOARD-CSS-CLASS'=>$config['V-LIST-ITEM-BOARD-CSS-CLASS'],
+            'V-LIST-ITEM-BOARD-COLOR'=>$config['V-LIST-ITEM-BOARD-COLOR'],
+            'V-LIST-ITEM-ACTIVE-CSS-CLASS'=>$config['V-LIST-ITEM-ACTIVE-CSS-CLASS'],            
+        ];
         $daftar_semester=[
                             0=>[
                                 'id'=>1,
@@ -220,6 +228,7 @@ class UIController extends Controller {
                                     'idkelas'=>$idkelas,
                                     'daftar_status_mhs'=>$daftar_status_mhs,
                                     'k_status'=>$k_status,
+                                    'theme'=>$theme,
                                     'message'=>'Fetch data ui untuk admin berhasil diperoleh'
                                 ],200);  
     }

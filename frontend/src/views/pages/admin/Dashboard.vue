@@ -152,8 +152,7 @@ export default {
 	}),
 	methods : {
 		initialize:async function()
-		{	
-            
+		{	            
             await this.$ajax.get('/auth/me',                
             {
                 headers: {
