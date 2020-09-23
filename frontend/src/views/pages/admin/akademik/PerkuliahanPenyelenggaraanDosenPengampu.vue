@@ -102,8 +102,8 @@
                                     <v-btn
                                         small
                                         icon
-                                        :loading="btnLoading"
-                                        :disabled="btnLoading"
+                                        :loading="btnLoadingTable"
+                                        :disabled="btnLoadingTable"
                                         @click.stop="deleteItem(item)">
                                         <v-icon>
                                             mdi-delete
@@ -177,6 +177,7 @@ export default {
         semester_akademik:null,
 
         btnLoading:false,        
+        btnLoadingTable:false,
 
         //table        
         datatableLoading:false,

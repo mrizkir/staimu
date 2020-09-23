@@ -67,8 +67,7 @@
                                     show-select
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
-                                    @click:row="dataTableRowClicked"
-                                    class="elevation-1"
+                                    @click:row="dataTableRowClicked"                                    
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
 

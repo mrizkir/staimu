@@ -105,21 +105,15 @@
                             <v-btn color="primary" dark class="mb-2" :to="{path:'/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">TAMBAH MATAKULIAH</v-btn>
                         </v-card-title>
                         <v-card-text>
-                            <v-data-table                                
+                            <v-data-table        
+                                dense                        
                                 :headers="headers"
                                 :items="datatable"                                
                                 item-key="id"                                                        
                                 :disable-pagination="true"
                                 :hide-default-footer="true"                                                                
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">
-                                <template v-slot:item.is_ketua="{ item }">                                    
-                                    <v-switch
-                                        v-model="item.is_ketua"
-                                        :label="item.is_ketua == 1?'YA':'TIDAK'"
-                                        @change="updateketua(item)">
-                                    </v-switch>  
-                                </template>
+                                loading-text="Loading... Please wait">                                
                                 <template v-slot:item.actions="{ item }">                                    
                                     <v-btn
                                         small
@@ -200,8 +194,8 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'SKS', value: 'is_ketua', sortable:false,width:120 },                           
-            { text: 'SMT', value: 'is_ketua', sortable:false,width:120 },                           
+            { text: 'SKS', value: 'sks', sortable:false,width:120 },                           
+            { text: 'SMT', value: 'semester', sortable:false,width:120 },                           
             { text: 'AKSI', value: 'actions', sortable:false,width:120 },                           
         ],  
     }),
@@ -214,7 +208,8 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                                               
-                this.datakrs=data.krs;
+                this.datakrs=data.krs;                
+                this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)
                 {
                     console.log(this.datakrs);
@@ -224,7 +219,32 @@ export default {
                     this.semester_akademik=this.datakrs.idsmt;                        
                 }
             })  
-        },        
+        },     
+        deleteItem (item)
+        {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoadingTable=true;
+                    this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{   
+                        const index = this.datatable.indexOf(item);
+                        this.datatable.splice(index, 1);
+                        this.btnLoadingTable=false;
+                    }).catch(()=>{
+                        this.btnLoadingTable=false;
+                    });
+                }                
+            });
+        },           
     },
     components:{
         AkademikLayout,

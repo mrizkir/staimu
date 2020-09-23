@@ -99,6 +99,7 @@ class KRSController extends Controller
     public function show (Request $request,$id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
+
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
                         pe3_krs.nim,
@@ -113,6 +114,7 @@ class KRSController extends Controller
                     '))
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
                     ->find($id);
+
         $daftar_matkul=[];
 
         if (is_null($krs))
@@ -135,17 +137,65 @@ class KRSController extends Controller
                                             pe3_krsmatkul.updated_at
                                         '))
                                         ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->where('krs_id',$krs->id);
+                                        ->where('krs_id',$krs->id)
+                                        ->orderBy('semester','asc')
+                                        ->orderBy('kmatkul','asc')
+                                        ->get();
         }
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'krs'=>$krs,                                                                                                                                   
-                                    'daftar_matkul'=>$daftar_matkul,                                                                                                                                   
+                                    'krsmatkul'=>$daftar_matkul,                                                                                                                                   
                                     'jumlah_matkul'=>$daftar_matkul->count(),                                                                                                                                   
                                     'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200);  
+    }
+    public function penyelenggaraan (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
+
+        $this->validate($request, [
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
+            'prodi_id'=>'required',     
+            'ta'=>'required',     
+            'semester_akademik'=>'required',     
+            'pid'=>'required',     
+        ]);
+        
+        $prodi_id=$request->input('prodi_id');
+        $ta=$request->input('ta');
+        $nim=$request->input('nim');
+        $semester_akademik=$request->input('semester_akademik');
+
+        $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
+                                    id,
+                                    kmatkul,                                    
+                                    nmatkul,
+                                    sks,
+                                    semester
+                                '))       
+                                ->where('tahun',$ta)                                  
+                                ->where('idsmt',$semester_akademik)                                  
+                                ->where('kjur',$prodi_id)                                  
+                                ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
+                                    $query->select('penyelenggaraan_id')
+                                        ->from('pe3_krsmatkul')
+                                        ->where('nim',$nim)                                        
+                                        ->where('tahun',$ta)                                        
+                                        ->where('idsmt',$semester_akademik);                                        
+                                })
+                                ->orderBy('semester','ASC')                                                      
+                                ->orderBy('kmatkul','ASC')                                                      
+                                ->get();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',  
+                                    'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                                                       
+                                    'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
+                                ],200);
     }
     /**
      * digunakan untul menyimpan krs mahasiswa
@@ -188,6 +238,44 @@ class KRSController extends Controller
                                     'message'=>'menyimpan krs mahasiswa berhasil'
                                 ],200);  
     }
+    public function storematkul (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_STORE');
+
+        $matkul_selected=json_decode($request->input('matkul_selected'),true);
+        $request->merge(['matkul_selected'=>$matkul_selected]);        
+
+        $this->validate($request, [      
+            'krs_id'=>'required|exists:pe3_krs,id',     
+            'matkul_selected.*'=>'required',            
+        ]);
+        $krs_id=$request->input('krs_id');
+        
+        $krs=KRSModel::find($krs_id);
+
+        $daftar_matkul=[];
+        foreach ($matkul_selected as $v)
+        {
+            $daftar_matkul[]=[
+                'id'=>Uuid::uuid4()->toString(),
+                'krs_id'=>$krs_id,
+                'nim'=>$krs->nim,
+                'penyelenggaraan_id'=>$v['id'],
+                'batal'=>0,
+                'kjur'=>$krs->kjur,
+                'idsmt'=>$krs->idsmt,
+                'tahun'=>$krs->tahun,                
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now()
+            ];
+        }
+        KRSMatkulModel::insert($daftar_matkul);
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store',                                                                                                                                                                         
+                                    'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
+                                ],200);  
+    }
     public function cekkrs ($request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
@@ -214,5 +302,79 @@ class KRSController extends Controller
                                     'message'=>'Cek krs mahasiswa'
                                 ],200);  
 
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
+
+        $krs = KRSModel::find($id); 
+        
+        if (is_null($krs))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["KRS dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $krs, 
+                                                                'object_id' => $krs->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menghapus KRS dengan id ('.$id.') berhasil'
+                                                            ]);
+            $krs->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message'=>"KRS dengan ID ($id) berhasil dihapus"
+                                    ],200);         
+        }
+                  
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroymatkul(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
+
+        $krsmatkul = KRSMatkulModel::find($id); 
+        
+        if (is_null($krsmatkul))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $krsmatkul, 
+                                                                'object_id' => $krsmatkul->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                                                            ]);
+            $krsmatkul->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                                    ],200);         
+        }
+                  
     }
 }

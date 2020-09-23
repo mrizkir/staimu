@@ -97,27 +97,43 @@
                 </v-col>                
             </v-row>
             <v-row>
-                <v-col cols="12">           
-                    <v-card>
-                        <v-card-title>
-                            DAFTAR PENYELENGGARAAN MATAKULIAH
-                            <v-spacer></v-spacer>                            
-                        </v-card-title>
-                        <v-card-text>
-                            <v-data-table                                
-                                :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
-                                :disable-pagination="true"
-                                :hide-default-footer="true"                                                                
-                                :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                                
-                                <template v-slot:no-data>
-                                    Data matakuliah belum tersedia silahkan tambah
-                                </template>
-                            </v-data-table>
-                        </v-card-text>
-                    </v-card>
+                <v-col cols="12">     
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                        <v-card>
+                            <v-card-title>
+                                DAFTAR PENYELENGGARAAN MATAKULIAH
+                                <v-spacer></v-spacer>                            
+                            </v-card-title>
+                            <v-card-text>
+                                <v-data-table   
+                                    v-model="daftar_matkul_selected"                             
+                                    :headers="headers"
+                                    :items="datatable"                                
+                                    item-key="id"                
+                                    show-select                                        
+                                    :disable-pagination="true"
+                                    :hide-default-footer="true"                                                                
+                                    :loading="datatableLoading"
+                                    loading-text="Loading... Please wait">                                
+                                    <template v-slot:no-data>
+                                        Data matakuliah belum tersedia silahkan hubungi bagian akademik
+                                    </template>
+                                </v-data-table>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                <v-btn 
+                                    color="blue darken-1" 
+                                    text 
+                                    @click.stop="save" 
+                                    :loading="btnLoading"
+                                    :disabled="!form_valid||btnLoading||!daftar_matkul_selected.length > 0">
+                                        SIMPAN
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-form>
                 </v-col>
             </v-row>
         </v-container>
@@ -168,10 +184,12 @@ export default {
         btnLoading:false, 
         
         //formdata
+        form_valid:true,   
         krs_id:null,
         datakrs:{},
         jumlah_matkul:0,
         jumlah_sks:0,
+        daftar_matkul_selected:[],
 
         //table        
         datatableLoading:false,
@@ -206,11 +224,13 @@ export default {
             if (Object.keys(this.datakrs).length)
             {
                 this.datatableLoading=true;
-                await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah',
+                await this.$ajax.post('/akademik/perkuliahan/krs/penyelenggaraan',
                 {
+                    nim:this.datakrs.nim,
                     prodi_id:this.datakrs.kjur,
                     ta:this.datakrs.tahun,
                     semester_akademik:this.datakrs.idsmt,
+                    pid:'belumterdaftar'
                 },
                 {
                     headers: {
@@ -223,8 +243,38 @@ export default {
                     this.datatableLoading=false;
                 });  
             }
-        },        
+        },    
+        save:async function () {
+            if (this.$refs.frmdata.validate())
+            {
+                
+                this.btnLoading=true;
+                await this.$ajax.post('/akademik/perkuliahan/krs/storematkul',
+                    {
+                        krs_id:this.krs_id,                        
+                        matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{                       
+                    this.btnLoading=false;
+                    this.closedialogfrm();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            }
+        }, 
+        closedialogfrm () {                             
+            setTimeout(() => {                       
+                this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
+                }, 300
+            );
+        },   
     },
+    
     components:{
         AkademikLayout,
         ModuleHeader,            

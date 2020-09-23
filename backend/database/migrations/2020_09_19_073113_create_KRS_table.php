@@ -19,13 +19,14 @@ class CreateKRSTable extends Migration
             $table->uuid('user_id');               
             $table->uuid('dulang_id');               
             $table->string('nim');
-            $table->tinyinteger('kjur');                
-            $table->string('idsmt');
-            $table->string('tahun');
+            $table->unsignedInteger('kjur');                
+            $table->tinyinteger('idsmt');
+            $table->year('tahun');
             $table->smallInteger('tasmt');
             $table->boolean('sah')->default(0);                     
             $table->timestamps();  
             
+            $table->index('nim');
             $table->index('tahun');
             $table->index('idsmt');            
             $table->index('kjur');            
@@ -45,15 +46,21 @@ class CreateKRSTable extends Migration
 
         Schema::create('pe3_krsmatkul', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('krs_id');            
+            $table->uuid('krs_id');    
+            $table->string('nim');                    
             $table->uuid('penyelenggaraan_id');            
             $table->boolean('batal')->default(0);   
-            
+            $table->unsignedInteger('kjur');                
+            $table->tinyinteger('idsmt');
+            $table->year('tahun');
             $table->timestamps();  
             
             $table->index('penyelenggaraan_id');                           
             $table->index('krs_id');
-           
+            $table->index('nim');
+            $table->index('tahun');
+            $table->index('idsmt');            
+            $table->index('kjur');            
             
             $table->foreign('penyelenggaraan_id')
                 ->references('id')

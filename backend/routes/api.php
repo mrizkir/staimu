@@ -266,13 +266,14 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //akademik - perkuliahan - krs
     $router->post('/akademik/perkuliahan/krs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@index','as'=>'krs.index']);
     $router->post('/akademik/perkuliahan/krs/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@store','as'=>'krs.store']);
-    $router->post('/akademik/perkuliahan/krs/pengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@pengampu','as'=>'krs.pengampu']);
-    $router->post('/akademik/perkuliahan/krs/storedosenpengampu',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@storedosenpengampu','as'=>'krs.storedosenpengampu']);
+    //digunakan untuk mendapatkan daftar matakuliah yang diselenggarakan dan belum terdaftar di krsnya mhs
+    $router->post('/akademik/perkuliahan/krs/penyelenggaraan',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@penyelenggaraan','as'=>'krs.penyelenggaraan']);
+    $router->post('/akademik/perkuliahan/krs/storematkul',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@storematkul','as'=>'krs.storematkul']);
     $router->get('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@show','as'=>'krs.show']);
     $router->post('/akademik/perkuliahan/krs/cekkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@cekkrs','as'=>'krs.cekkrs']);
     $router->put('/akademik/perkuliahan/krs/updatestatus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@updatestatus','as'=>'krs.updatestatus']);
     $router->delete('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroy','as'=>'krs.destroy']);
-    $router->delete('/akademik/perkuliahan/krs/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroypengampu','as'=>'krs.destroypengampu']);
+    $router->delete('/akademik/perkuliahan/krs/deletematkul/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroymatkul','as'=>'krs.destroymatkul']);
 
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);

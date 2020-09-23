@@ -25,8 +25,12 @@ class KRSMatkulModel extends Model {
     protected $fillable = [
         'id',        
         'krs_id',
+        'nim',
         'penyelenggaraan_id',
         'batal',           
+        'kjur',           
+        'idsmt',           
+        'tahun',           
     ];
     /**
      * enable auto_increment.
