@@ -125,7 +125,21 @@
                                             mdi-delete
                                         </v-icon>
                                     </v-btn>   
-                                </template>    
+                                </template> 
+                                <template v-slot:body.append v-if="datatable.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
+                                        <td>{{jumlah_matkul}}</td> 
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL SKS</td>
+                                        <td>{{jumlah_sks}}</td> 
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </template>   
                                 <template v-slot:no-data>
                                     Data matakuliah belum tersedia silahkan tambah
                                 </template>
@@ -210,9 +224,10 @@ export default {
             }).then(({data})=>{                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.krsmatkul;
+                this.jumlah_matkul=data.jumlah_matkul;
+                this.jumlah_sks=data.jumlah_sks;
                 if (Object.keys(this.datakrs).length)
                 {
-                    console.log(this.datakrs);
                     let prodi_id=this.datakrs.kjur;                    
                     this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);                
                     this.tahun_akademik=this.datakrs.tahun;                                                      
@@ -245,6 +260,9 @@ export default {
                 }                
             });
         },           
+    },
+    computed:{
+            
     },
     components:{
         AkademikLayout,
