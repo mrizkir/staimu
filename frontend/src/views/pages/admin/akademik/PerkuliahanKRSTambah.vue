@@ -45,7 +45,8 @@
                                     label="NIM"   
                                     :rules="rule_nim"                                                                  
                                     outlined
-                                    @keyup.enter="cekNIM"
+                                    append-outer-icon="mdi-send"
+                                    @click:append-outer="cekNIM"
                                     :disabled="(this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')"
                                     /> 
                                 <v-select
@@ -174,12 +175,16 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                               
-                this.daftar_dulang=data.daftar_dulang;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });                  
-        },   
+                this.daftar_dulang=data.daftar_dulang;                
+            })
+        }, 
+        cekNIM ()
+        {
+            if (this.formdata.nim.length > 0)
+            {
+                this.fetchDulang();
+            }
+        },
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
