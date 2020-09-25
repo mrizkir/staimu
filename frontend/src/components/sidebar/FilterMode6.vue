@@ -27,7 +27,7 @@
 </template>
 <script>
 export default {
-    name:'FilterMode7',
+    name:'FilterMode6',
     created()
     {
         this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
@@ -35,7 +35,7 @@ export default {
 
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
-        
+        console.log(this.$store.getters['uiadmin/getTahunAkademik']);
         this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];  
     },
