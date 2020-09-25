@@ -339,9 +339,7 @@
                                                 </v-alert>
                                                 <v-select
                                                     v-model="dari_tahun_akademik"
-                                                    :items="daftar_ta"
-                                                    item-text="tahun_akademik"
-                                                    item-value="tahun"
+                                                    :items="daftar_ta"                                                    
                                                     label="TAHUN AKADEMIK"
                                                     :rules="rule_dari_tahun_akademik"
                                                     outlined/>                                        

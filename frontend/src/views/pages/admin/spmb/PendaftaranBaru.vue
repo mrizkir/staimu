@@ -125,9 +125,7 @@
                                                     outlined />
                                                 <v-select
                                                     v-model="formdata.ta"
-                                                    :items="daftar_ta"
-                                                    item-text="tahun_akademik"
-                                                    item-value="tahun"
+                                                    :items="daftar_ta"                                                    
                                                     label="TAHUN PENDAFTARAN"
                                                     outlined/>   
                                                 <v-text-field 

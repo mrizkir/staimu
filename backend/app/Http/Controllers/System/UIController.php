@@ -65,7 +65,9 @@ class UIController extends Controller {
 
         if ($this->hasRole('superadmin'))
         {
-            $daftar_ta=TAModel::all();        
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->orderBy('tahun','asc')
+                            ->get();
 
             $daftar_fakultas=FakultasModel::all();
             $fakultas_id=$config['DEFAULT_FAKULTAS'];        
@@ -78,7 +80,9 @@ class UIController extends Controller {
         }
         elseif($this->hasRole('pmb'))
         {
-            $daftar_ta=TAModel::all();        
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->orderBy('tahun','asc')
+                            ->get();
 
             $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
@@ -110,7 +114,9 @@ class UIController extends Controller {
         }
         elseif ($this->hasRole('keuangan'))
         {
-            $daftar_ta=TAModel::all();        
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->orderBy('tahun','asc')
+                            ->get();
 
             $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
@@ -144,7 +150,8 @@ class UIController extends Controller {
         {
             $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
             $daftar_ta=TAModel::where('tahun','=',$formulir->ta)
-                                ->get();        
+                                ->select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                                ->get();                                
             
             $daftar_fakultas=[];
             $fakultas_id=$config['DEFAULT_FAKULTAS'];
@@ -158,9 +165,12 @@ class UIController extends Controller {
         elseif ($this->hasRole('mahasiswa'))
         {
             $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
-            $daftar_ta=TAModel::where('tahun','>=',$formulir->ta)
-                                ->get();        
-            
+
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->where('tahun','>=',$formulir->ta)
+                            ->orderBy('tahun','asc')
+                            ->get();
+
             $daftar_fakultas=[];
             $fakultas_id=$config['DEFAULT_FAKULTAS'];
             
@@ -172,7 +182,9 @@ class UIController extends Controller {
         }        
         elseif ($this->hasRole(['akademik','programstudi']))
         {
-            $daftar_ta=TAModel::all();        
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->orderBy('tahun','asc')
+                            ->get();
 
             $userid=$this->getUserid();
             $daftar_prodi=$this->guard()->user()->prodi;
@@ -194,7 +206,9 @@ class UIController extends Controller {
         }
         elseif ($this->hasRole(['dosen','dosenwali']))
         {
-            $daftar_ta=TAModel::all();        
+            $daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
+                            ->orderBy('tahun','asc')
+                            ->get();
 
             $daftar_fakultas=FakultasModel::all();
             $fakultas_id=$config['DEFAULT_FAKULTAS'];        
