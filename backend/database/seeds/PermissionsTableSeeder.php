@@ -123,6 +123,49 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);        
 
+        //akademik - nilai    
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-KHS_BROWSE',            
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-KHS_SHOW',
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE',            
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW',
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);      
+
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KRS_BROWSE',            
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+
+        \DB::table('permissions')->insert([
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KRS_SHOW',
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);        
+        
         //system
         \DB::table('permissions')->insert([
             'name'=>"SYSTEM-SETTING-GROUP",
@@ -175,6 +218,8 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-PERKULIAHAN-PENYELENGGARAAN',
             'AKADEMIK-PERKULIAHAN-KRS',
             'AKADEMIK-PERKULIAHAN-PKRS',
+            
+            'AKADEMIK-NILAI-MATAKULIAH',                        
             
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',

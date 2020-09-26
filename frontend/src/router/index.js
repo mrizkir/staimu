@@ -400,6 +400,7 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanPenyelenggaraanDosenPengampu.vue'),		
 	},	
+	
 	//akademik - perkuliahan - krs
 	{
 		path: '/akademik/perkuliahan/krs/daftar',
@@ -437,6 +438,18 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambahMatkul.vue'),		
 	},	
+	//akademik - nilai
+	{
+		path: '/akademik/nilai/matakuliah/daftar',
+		name: 'AkademikNilaiMatakuliah',
+		meta:{
+			title: "AKADEMIK - NILAI MATAKULIAH",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiMatakuliah.vue'),		
+	},	
+
+
 	//system	
 	{
 		path: '/system-setting',
