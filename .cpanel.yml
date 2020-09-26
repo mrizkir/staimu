@@ -3,6 +3,7 @@ deployment:
   tasks:
     - export DEPLOYPATH1=/home2/staimu/stiemu/frontend/dist/
     - /bin/rm -rf $DEPLOYPATH1/css
+    - /bin/rm -rf $DEPLOYPATH1/img
     - /bin/rm -rf $DEPLOYPATH1/js
     - /bin/cp -R frontend/dist/* $DEPLOYPATH1
     - /bin/cp -R frontend/dist/.htaccess $DEPLOYPATH1
