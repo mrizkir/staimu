@@ -42,9 +42,9 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                         ->where('tahun',$ta)
                                                         ->where('idsmt',$semester_akademik)
                                                         ->where('kjur',$prodi_id)
-                                                        ->orderBy('semester','ASC')                      
-                                                        ->orderBy('kmatkul','ASC')    
                                                         ->orderBy('ta_matkul','ASC')    
+                                                        ->orderBy('semester','ASC')                      
+                                                        ->orderBy('kmatkul','ASC')                                                            
                                                         ->get();
                                                         
         $penyelenggaraan->transform(function ($item,$key){

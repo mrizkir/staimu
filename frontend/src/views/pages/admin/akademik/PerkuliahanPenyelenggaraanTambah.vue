@@ -38,12 +38,12 @@
                             </v-card-title>
                             <v-card-text>
                                 <v-alert type="info">
-                                    Silahkan pilih matakuliah dari masing-masing Tahun Akademik yang akan diselenggarakan pada T.A {{tahun_akademik}}{{semester_akademik}}
+                                    Silahkan pilih matakuliah dari masing-masing Tahun Matakuliah yang akan diselenggarakan pada T.A {{tahun_akademik}}{{semester_akademik}}
                                 </v-alert>
                                 <v-select
                                     v-model="ta_matkul"
                                     :items="daftar_ta"                                    
-                                    label="TAHUN AKADEMIK"
+                                    label="TAHUN MATAKULIAH"
                                     :rules="rule_tamatkul"
                                     outlined/>   
                                 <v-text-field
@@ -280,10 +280,9 @@ export default {
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.ta_matkul=this.tahun_akademik;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);        
+        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
+        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
         
     },  

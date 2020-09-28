@@ -155,6 +155,18 @@ const getters= {
     {   
         return state.daftar_ta;
     },
+    getDaftarTABefore : (state) => (ta) =>
+    {
+        let daftar_ta = state.daftar_ta;
+        var daftar=[];
+        daftar_ta.forEach(element => {
+            if (element.value <= ta)
+            {
+                daftar.push(element);
+            }            
+        });    
+        return daftar;
+    },  
     getTahunPendaftaran: state =>
     {
         return parseInt(state.tahun_pendaftaran);
