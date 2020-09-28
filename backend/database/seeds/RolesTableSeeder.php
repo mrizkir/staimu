@@ -122,6 +122,31 @@ class RolesTableSeeder extends Seeder
             'SPMB-PMB-UJIAN-ONLINE_UPDATE',                      
         ];
         $role->syncPermissions($records);
+        
+        $role = Role::findByName('mahasiswa');
+        $records=[
+            'DASHBOARD_SHOW',
+
+            'AKADEMIK-GROUP',
+            'AKADEMIK-DULANG-MHS_BROWSE',
+            'AKADEMIK-DULANG-MHS_SHOW',       
+            
+            'AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE',            
+
+            'AKADEMIK-PERKULIAHAN-KRS_BROWSE',            
+            'AKADEMIK-PERKULIAHAN-KRS_DESTROY',            
+            'AKADEMIK-PERKULIAHAN-KRS_STORE',            
+            'AKADEMIK-PERKULIAHAN-KRS_SHOW',            
+            'AKADEMIK-PERKULIAHAN-KRS_UPDATE',            
+
+            'KEUANGAN-GROUP',            
+            'KEUANGAN-RINGKASAN_BROWSE',            
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',            
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',            
+            
+            
+        ];
+        $role->syncPermissions($records);
 
         $role = Role::findByName('keuangan');
         $records=[
