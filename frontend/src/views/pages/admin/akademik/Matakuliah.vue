@@ -837,7 +837,7 @@ export default {
             for (var i =0; i < this.datatable.length; i++)
             {
                 var item = this.datatable[i];
-                total+=item.sks;
+                total=total+parseInt(item.sks);
             }
             return total;
         },            
