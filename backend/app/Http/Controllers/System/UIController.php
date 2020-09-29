@@ -244,6 +244,6 @@ class UIController extends Controller {
                                     'k_status'=>$k_status,
                                     'theme'=>$theme,
                                     'message'=>'Fetch data ui untuk admin berhasil diperoleh'
-                                ],200);  
+                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
     }
 }               
