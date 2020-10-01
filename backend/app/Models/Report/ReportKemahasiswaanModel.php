@@ -84,8 +84,8 @@ class ReportKemahasiswaanModel extends ReportModel
                                     'vertical'=>Alignment::HORIZONTAL_CENTER),
                 'borders' => array('allBorders' => array('borderStyle' =>Border::BORDER_THIN))
             );
-        $sheet->getStyle("A$row:K$row")->applyFromArray($styleArray);
-        $sheet->getStyle("A$row:K$row")->getAlignment()->setWrapText(true);
+        $sheet->getStyle("A$row:L$row")->applyFromArray($styleArray);
+        $sheet->getStyle("A$row:L$row")->getAlignment()->setWrapText(true);
 
         $data=\DB::table('pe3_register_mahasiswa')
                 ->select(\DB::raw('
