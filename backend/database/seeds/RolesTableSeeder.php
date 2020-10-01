@@ -175,7 +175,10 @@ class RolesTableSeeder extends Seeder
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_SHOW',           
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_STORE',              
             'KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE',              
-            'KEUANGAN-KONFIRMASI-PEMBAYARAN_DESTROY',              
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN_DESTROY',
+
+            'AKADEMIK-GROUP',              
+            'AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE',              
         ];
         $role->syncPermissions($records);
     }

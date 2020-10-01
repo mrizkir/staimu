@@ -21,8 +21,8 @@ class ReportSPMBModel extends ReportModel
         $prodi_id=$this->dataReport['prodi_id'];
         $nama_prodi=$this->dataReport['nama_prodi'];
 
-        $this->spreadsheet->getProperties()->setTitle("Report Prodi");
-        $this->spreadsheet->getProperties()->setSubject("Report Prodi");
+        $this->spreadsheet->getProperties()->setTitle("Report PMB Prodi");
+        $this->spreadsheet->getProperties()->setSubject("Report PMB Prodi");
 
         $sheet = $this->spreadsheet->getActiveSheet();        
         $sheet->setTitle ('LAPORAN PROGRAM STUDI');
@@ -285,8 +285,8 @@ class ReportSPMBModel extends ReportModel
         $nama_prodi=$this->dataReport['nama_prodi'];
         $filter_status=$this->dataReport['filter_status'];
 
-        $this->spreadsheet->getProperties()->setTitle("Report Prodi");
-        $this->spreadsheet->getProperties()->setSubject("Report Prodi");
+        $this->spreadsheet->getProperties()->setTitle("Report PMB Prodi");
+        $this->spreadsheet->getProperties()->setSubject("Report PMB Prodi");
 
         $sheet = $this->spreadsheet->getActiveSheet();        
         $sheet->setTitle ('LAPORAN KELULUSAN');

@@ -79,6 +79,15 @@
                                     v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
                                     SYNC PERMISSION
                                 </v-btn>
+                                <v-btn
+                                    color="primary"
+                                    :loading="btnLoading"
+                                    :disabled="btnLoading"
+                                    @click.stop="printtoexcel"
+                                    v-if="$store.getters['auth/can']('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
+                                    Cetak
+                                    <v-icon right>mdi-printer</v-icon>
+                                </v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.idkelas="{item}">
@@ -109,6 +118,7 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter7 from '@/components/sidebar/FilterMode7';
+
 export default {
     name: 'KemahasiswaanDaftarMahasiswa',
     created () {
@@ -202,6 +212,35 @@ export default {
                 this.expanded=[item];
             }               
         },
+        printtoexcel:async function ()
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/akademik/kemahasiswaan/daftarmhs/printtoexcel',
+                {
+                    TA:this.tahun_pendaftaran,                                                                
+                    prodi_id:this.prodi_id,    
+                    nama_prodi:this.nama_prodi,                 
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    responseType:'arraybuffer'
+                }
+            ).then(({data})=>{              
+                const url = window.URL.createObjectURL(new Blob([data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'daftar_mahasiswa_'+Date.now()+'.xlsx');                
+                link.setAttribute('id', 'download_laporan');                
+                document.body.appendChild(link);
+                link.click();                     
+                document.body.removeChild(link);
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });     
+        },    
         syncPermission:async function ()
         {
             this.btnLoading=true;

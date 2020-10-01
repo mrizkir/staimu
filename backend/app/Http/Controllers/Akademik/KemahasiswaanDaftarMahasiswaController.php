@@ -47,4 +47,28 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                     'message'=>'Fetch data daftar mahasiswa berhasil.'
                                 ],200);     
     }
+    /**
+     * cetak ke excel
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function printtoexcel(Request $request)
+    {   
+        $this->hasPermissionTo('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE');
+
+        $this->validate($request, [           
+            'TA'=>'required',
+            'prodi_id'=>'required',
+            'nama_prodi'=>'required',
+        ]);
+        
+        $data_report=[
+            'TA'=>$request->input('TA'),
+            'prodi_id'=>$request->input('prodi_id'),            
+            'nama_prodi'=>$request->input('nama_prodi'),            
+        ];
+
+        $report= new \App\Models\Report\ReportKemahasiswaanModel ($data_report);          
+        return $report->daftarmahasiswa();
+    }
 }
