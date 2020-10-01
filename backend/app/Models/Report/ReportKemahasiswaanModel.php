@@ -116,8 +116,8 @@ class ReportKemahasiswaanModel extends ReportModel
         foreach ($data as $v)
         {
             $sheet->setCellValue("A$row",$no);
-            $sheet->setCellValue("B$row",$v->nim);
-            $sheet->setCellValue("C$row",$v->nirm);
+            $sheet->setCellVsetCellValueExplicitalue("B$row",$v->nim,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+            $sheet->setCellValueExplicit("C$row",$v->nirm,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $sheet->setCellValue("D$row",$v->nama_mhs);
             $sheet->setCellValue("E$row",$v->tempat_lahir);
             $sheet->setCellValue("F$row",Helper::tanggal('d F Y',$v->tanggal_lahir));
