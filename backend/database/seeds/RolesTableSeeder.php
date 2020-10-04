@@ -140,10 +140,10 @@ class RolesTableSeeder extends Seeder
             'AKADEMIK-PERKULIAHAN-KRS_UPDATE',            
 
             'KEUANGAN-GROUP',            
-            'KEUANGAN-RINGKASAN_BROWSE',            
-            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',            
-            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',            
+            'KEUANGAN-RINGKASAN_BROWSE',                        
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE',                        
             
+            'KEUANGAN-TRANSAKSI_BROWSE',                        
             
         ];
         $role->syncPermissions($records);

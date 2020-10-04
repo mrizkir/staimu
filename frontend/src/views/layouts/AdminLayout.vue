@@ -126,7 +126,7 @@ export default {
 			}
 			return photo;
         },
-        isReportPage ()
+        hideleftnav ()
 		{
 			if (this.$route.name=='ReportFormBMurni')
 			{

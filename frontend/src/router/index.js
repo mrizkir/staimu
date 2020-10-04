@@ -295,13 +295,13 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/Transaksi.vue'),		
 	},
 	{
-		path: '/keuangan/transaksi-baru',
+		path: '/keuangan/transaksi-spp',
 		name: 'KeuanganTransaksiBaru',
 		meta:{
-			title: "KEUANGAN - TRANSAKSI BARU",
+			title: "KEUANGAN - TRANSAKSI SPP",
 			requiresAuth:true,
         },
-		component: () => import('../views/pages/admin/keuangan/TransaksiBaru.vue'),		
+		component: () => import('../views/pages/admin/keuangan/TransaksiSPP.vue'),		
 	},
 	{
 		path: '/keuangan/konfirmasipembayaran',

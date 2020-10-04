@@ -57,7 +57,7 @@
                 </v-list>
             </v-menu>			
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="isReportPage" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="hideleftnav" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -233,9 +233,9 @@ export default {
 			}
 			return photo;
         },
-        isReportPage ()
+        hideleftnav ()
 		{
-			if (this.$route.name=='ReportFormBMurni')
+			if (this.$route.name=='UsersProfil')
 			{
 				return true;
 			}

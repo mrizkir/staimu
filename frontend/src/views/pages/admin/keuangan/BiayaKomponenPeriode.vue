@@ -28,11 +28,11 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar>
+        <template v-slot:filtersidebar v-if="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
         <v-container fluid>
-            <v-row class="mb-4" no-gutters>
+            <v-row class="mb-4" no-gutters v-if="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
@@ -99,7 +99,8 @@
                                     class="mb-2" 
                                     :loading="btnLoading"
                                     :disabled="btnLoading"
-                                    @click.stop="loadkombiperiode">
+                                    @click.stop="loadkombiperiode"
+                                    v-if="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
                                         GENERATE KOMPONEN BIAYA
                                 </v-btn>
                             </v-toolbar>
@@ -155,6 +156,7 @@ export default {
     name:'BiayaKomponenPeriode',
     created()
     {
+        this.dashboard=this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -175,10 +177,11 @@ export default {
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];         
         this.prodi_id=this.$store.getters['uiadmin/getProdiID']
         this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](this.prodi_id);
-        this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];        
+        this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];          
         this.initialize();
     },  
     data: () => ({
+        dashboard:null,
         firstloading:true,
         breadcrumbs:[],  
         tahun_pendaftaran:0,

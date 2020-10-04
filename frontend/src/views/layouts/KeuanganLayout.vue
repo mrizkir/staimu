@@ -60,7 +60,7 @@
                 <v-icon>mdi-menu-open</v-icon>
 			</v-app-bar-nav-icon>            
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="isReportPage" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="hideleftnav" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -147,13 +147,13 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item> 
-                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI_STORE')" to="/keuangan/transaksi-baru">
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-SPP_BROWSE')" to="/keuangan/transaksi-spp">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-cash</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>
-                            TRANSAKSI BARU
+                            TRANSAKSI SPP
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item> 
@@ -269,7 +269,7 @@ export default {
 			}
 			return photo;
         },
-        isReportPage ()
+        hideleftnav ()
 		{
 			if (this.$route.name=='ReportFormBMurni')
 			{

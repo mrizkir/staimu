@@ -178,7 +178,7 @@ class UIController extends Controller {
             $prodi_id=$formulir->kjur1;
 
             $tahun_pendaftaran = $formulir->ta;
-            $tahun_akademik = $formulir->ta;
+            $tahun_akademik = $config['DEFAULT_TA'];
         }        
         elseif ($this->hasRole(['akademik','programstudi']))
         {

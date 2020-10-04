@@ -26,36 +26,113 @@
             </template>
         </ModuleHeader>   
         <v-container fluid>    
-            <v-row class="mb-4" no-gutters>
-                <v-col md="12">
-                    <v-card>
+            <v-row class="mb-4">
+                <v-col cols="12">
+                    <v-card color="grey lighten-4">
+                        <v-toolbar elevation="2"> 
+                            <v-toolbar-title>DATA USER</v-toolbar-title>                                                        
+                        </v-toolbar>
                         <v-card-text>
-                            <v-simple-table>
-                                <template v-slot:default>
-                                    <tbody>
-                                        <tr>
-                                            <td width="150">ID</td>
-                                            <td>{{$store.getters['auth/AttributeUser']('id')}}</td>
-                                            <td width="150">EMAIL</td>
-                                            <td>{{$store.getters['auth/AttributeUser']('email')}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="150">USERNAME</td>
-                                            <td>{{$store.getters['auth/AttributeUser']('username')}}</td>
-                                            <td width="150">CREATED</td>
-                                            <td>{{$date($store.getters['auth/AttributeUser']('created_at')).format('DD/MM/YYYY HH:mm')}}</td>
-                                        </tr>
-                                         <tr>
-                                            <td width="150">NAMA</td>
-                                            <td>{{$store.getters['auth/AttributeUser']('name')}}</td>
-                                            <td width="150">UPDATED</td>
-                                            <td>{{$date($store.getters['auth/AttributeUser']('updated_at')).format('DD/MM/YYYY HH:mm')}}</td>
-                                        </tr>
-                                    </tbody>
-                                </template>
-                            </v-simple-table>
+                            <v-row>
+                                <v-col xs="12" sm="6" md="3">
+                                    <v-card flat>
+                                        <v-card-text>
+                                            <v-img :src="$api.url+'/'+formdata.foto" />
+                                        </v-card-text>
+                                    </v-card>
+                                </v-col>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-col xs="12" sm="6" md="9">
+                                    <v-row>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>ID:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{formdata.id}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>EMAIL:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{formdata.email}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>USERNAME:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{formdata.username}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>ROLE:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{formdata.default_role}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>NOMOR HP:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{formdata.nomor_hp}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>STATUS:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    <v-chip 
+                                                        :color="userstatus"
+                                                        label
+                                                        outlined>
+                                                        {{formdata.active==1?'AKTIF':'TIDAK AKTIF'}}
+                                                    </v-chip>
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>CREATED_AT:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                        <v-col xs="12" sm="6" md="6">
+                                             <v-card flat>
+                                                <v-card-title>UPDATED_AT:</v-card-title>  
+                                                <v-card-subtitle>
+                                                    {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                </v-card-subtitle>
+                                            </v-card>
+                                        </v-col>
+                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                    </v-row>
+                                </v-col>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                            </v-row>
                         </v-card-text>
-                    </v-card>
+                    </v-card>                    
                 </v-col>
             </v-row>
             <v-row> 
@@ -96,6 +173,8 @@ import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name:'UsersProfile',
     created () {
+        this.dashboard=this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.formdata=this.$store.getters['auth/User'];
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -117,24 +196,43 @@ export default {
     data ()
     {
         return {
+            dashboard:null,
+
             btnLoading:false,
             datatable:[],
             avatar : null,
-            //form data   
+
+            //form data               
             form_valid:true,         
             formdata: {
                 id:0,                        
-                foto:null,  
-                password: '',                       
+                username:'',         
+                password: '',                
+                name:'',                        
+                email:'',                        
+                nomor_hp:'',                        
+                theme:'',                                        
+                foto:'',  
+                active:'',                                                                                               
+                default_role:'',                                        
+                locked:'',                                        
                 created_at: '',           
                 updated_at: '',           
             },
             formdefault: {
-                id:0,           
-                foto:null,    
-                password: '',                                  
+                id:0,                        
+                username:'',         
+                password: '',                
+                name:'',                        
+                email:'',                        
+                nomor_hp:'',                        
+                theme:'',                                        
+                foto:'',  
+                active:'',                                                                                               
+                default_role:'',                                        
+                locked:'',                                        
                 created_at: '',           
-                updated_at: '',       
+                updated_at: '',           
             },
             //form rules  
             rule_foto:[
@@ -260,7 +358,11 @@ export default {
             {   
                 this.avatar = val;
             }
-		}
+        },
+        userstatus()
+        {
+            return this.formdata.active == 1 ?'green':'red';
+        }
     },
     components:{
         SystemUserLayout,

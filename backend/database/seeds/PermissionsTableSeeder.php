@@ -203,6 +203,7 @@ class PermissionsTableSeeder extends Seeder
             'KEUANGAN-METODE-TRANSFER-BANK',                 
             'KEUANGAN-METODE-IB',                 
             'KEUANGAN-TRANSAKSI',                 
+            'KEUANGAN-TRANSAKSI-SPP',                 
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
             
             'AKADEMIK-MATAKULIAH',            
