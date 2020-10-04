@@ -40,6 +40,30 @@
                                             <v-img :src="$api.url+'/'+formdata.foto" />
                                         </v-card-text>
                                     </v-card>
+                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                        <v-card-title>NIM / NIRM</v-card-title>  
+                                        <v-card-subtitle>
+                                            {{data_mhs.nim}} / {{data_mhs.nirm}}
+                                        </v-card-subtitle>
+                                    </v-card>
+                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                        <v-card-title>PROGRAM STUDI</v-card-title>  
+                                        <v-card-subtitle>
+                                            {{data_mhs.nama_prodi}}
+                                        </v-card-subtitle>
+                                    </v-card>
+                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                        <v-card-title>KELAS</v-card-title>  
+                                        <v-card-subtitle>
+                                            {{data_mhs.nama_kelas}}
+                                        </v-card-subtitle>
+                                    </v-card>
+                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                        <v-card-title>DOSEN WALI</v-card-title>  
+                                        <v-card-subtitle>
+                                            {{data_mhs.dosen_wali}}
+                                        </v-card-subtitle>
+                                    </v-card>
                                 </v-col>
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 <v-col xs="12" sm="6" md="9">
@@ -110,7 +134,7 @@
                                     </v-row>
                                     <v-row>
                                         <v-col xs="12" sm="6" md="6">
-                                             <v-card flat>
+                                            <v-card flat>
                                                 <v-card-title>CREATED_AT:</v-card-title>  
                                                 <v-card-subtitle>
                                                     {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
@@ -119,7 +143,7 @@
                                         </v-col>
                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                         <v-col xs="12" sm="6" md="6">
-                                             <v-card flat>
+                                            <v-card flat>
                                                 <v-card-title>UPDATED_AT:</v-card-title>  
                                                 <v-card-subtitle>
                                                     {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
@@ -136,6 +160,10 @@
                 </v-col>
             </v-row>
             <v-row> 
+                <v-col xs="12" sm="6" md="6" v-if="dashboard=='mahasiswa'">
+                    
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                 <v-col xs="12" sm="6" md="6">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-card>
@@ -163,6 +191,7 @@
                         </v-card>
                     </v-form>
                 </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
             </v-row>
         </v-container>
     </SystemUserLayout>
@@ -192,6 +221,10 @@ export default {
                 href:'#'
             }
         ];
+        if (this.dashboard=='mahasiswa')
+        {
+            this.fetchMahasiswa();
+        }
     }, 
     data ()
     {
@@ -202,7 +235,14 @@ export default {
             datatable:[],
             avatar : null,
 
-            //form data               
+            //form data        
+            data_mhs:{
+                nim:'N.A',
+                nirm:'N.A',
+                nama_prodi:'N.A',
+                nama_kelas:'N.A',
+                dosen_wali:'N.A',
+            },       
             form_valid:true,         
             formdata: {
                 id:0,                        
@@ -336,6 +376,18 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             });    
+        },
+        async fetchMahasiswa()
+        {
+            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),                    
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token'],                              
+                    }
+                }
+            ).then(({data})=>{                           
+                this.data_mhs=data.mahasiswa;            
+            })
         }
         
     },
