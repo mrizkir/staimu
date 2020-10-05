@@ -125,6 +125,16 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                
+                <v-list-item link to="/akademik/dulang/mahasiswalama" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-DULANG-LAMA_BROWSE')">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-book</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            MAHASISWA LAMA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                
                 <v-subheader>KEMAHASISWAAN</v-subheader>
                 <v-list-item link to="/akademik/kemahasiswaan/daftarmahasiswa" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
                     <v-list-item-icon class="mr-2">

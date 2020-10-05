@@ -360,6 +360,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/DulangMahasiswaBaru.vue'),		
 	},	
+	{
+		path: '/akademik/dulang/mahasiswalama',
+		name: 'AkademikDulangMHSLama',
+		meta:{
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA LAMA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/DulangMahasiswaLama.vue'),		
+	},	
 
 	//akademik - daftar mahasiswa
 	{
