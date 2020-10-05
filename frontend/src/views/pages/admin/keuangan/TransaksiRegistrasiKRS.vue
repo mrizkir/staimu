@@ -5,7 +5,7 @@
                 mdi-video-input-component
             </template>
             <template v-slot:name>
-                TRANSAKSI SPP
+                TRANSAKSI REGISTRASI KRS
             </template>
             <template v-slot:subtitle>
                 TAHUN AKADEMIK {{tahun_akademik}}
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                        Halaman ini digunakan untuk melakukan transaksi SPP mahasiswa baru dan lama.
+                        Halaman ini digunakan untuk melakukan transaksi Registrasi KRS mahasiswa lama.
                     </v-alert>
             </template>
         </ModuleHeader>
@@ -99,7 +99,7 @@ import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
-    name:'TransaksiSPP',
+    name:'TransaksiRegistrasiKRS',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -115,7 +115,7 @@ export default {
                 href:'/keuangan'
             },
             {
-                text:'TRANSAKSI SPP',
+                text:'TRANSAKSI REGISTRASI KRS',
                 disabled:true,
                 href:'#'
             }
@@ -159,7 +159,7 @@ export default {
         initialize:async function () 
         {
             this.datatableLoading=true;            
-            await this.$ajax.post('/keuangan/transaksi-spp',            
+            await this.$ajax.post('/keuangan/transaksi-registrasikrs',            
             {
                 TA:this.tahun_akademik,
             },

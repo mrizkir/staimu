@@ -296,12 +296,21 @@ const routes = [
 	},
 	{
 		path: '/keuangan/transaksi-spp',
-		name: 'KeuanganTransaksiBaru',
+		name: 'KeuanganTransaksiSPP',
 		meta:{
 			title: "KEUANGAN - TRANSAKSI SPP",
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/keuangan/TransaksiSPP.vue'),		
+	},
+	{
+		path: '/keuangan/transaksi-registrasikrs',
+		name: 'KeuanganTransaksiRegistrasiKRS',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI REGISTRASI KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiRegistrasiKRS.vue'),		
 	},
 	{
 		path: '/keuangan/konfirmasipembayaran',

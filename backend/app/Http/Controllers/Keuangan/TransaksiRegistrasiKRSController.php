@@ -12,13 +12,13 @@ use Exception;
 
 use Ramsey\Uuid\Uuid;
 
-class TransaksiSPPController extends Controller {  
+class TransaksiRegistrasiKRSController extends Controller {  
     /**
      * daftar komponen biaya
      */
     public function index(Request $request)
     {
-        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_BROWSE');
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-REGISTRASIKRS_BROWSE');
         
         $this->validate($request, [           
             'TA'=>'required',
@@ -59,7 +59,7 @@ class TransaksiSPPController extends Controller {
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)
                                                     ->where('pe3_transaksi_detail.user_id',$this->getUserid())
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',202)                                                    
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }
@@ -96,7 +96,7 @@ class TransaksiSPPController extends Controller {
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)                                                    
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',202)                                                    
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }        
