@@ -70,9 +70,20 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
-                                
+                                <v-spacer></v-spacer>                                
                             </v-toolbar>
+                        </template>
+                        <template v-slot:item.tanggal="{ item }">    
+                            {{$date(item.tanggal).format('DD/MM/YYYY')}}
+                        </template>
+                        <template v-slot:item.sub_total="{ item }">    
+                            {{item.sub_total|formatUang}}
+                        </template>
+                        <template v-slot:item.idsmt="{ item }">                                
+                            {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+                        </template>
+                        <template v-slot:item.nama_status="{ item }">    
+                            <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
                         </template>
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
@@ -129,9 +140,9 @@ export default {
             { text: 'TANGGAL', value: 'tanggal',width:120,sortable:true },
             { text: 'NIM', value: 'nim',sortable:true },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
-            { text: 'SMT', value: 'idsmt',width:100,sortable:true }
-            ,
-            { text: 'TOTAL', value: 'total',width:100,sortable:false },
+            { text: 'BULAN', value: 'bulan',width:100,sortable:true },
+            { text: 'SMT', value: 'idsmt',width:100,sortable:false },
+            { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
