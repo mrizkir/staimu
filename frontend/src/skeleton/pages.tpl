@@ -91,7 +91,7 @@
                                                 <v-text-field 
                                                     v-model="formdata.name" 
                                                     label="NAME"
-                                                    filled
+                                                    outlined
                                                     :rules="rule_name">
                                                 </v-text-field>                                             
                                             </v-card-text>

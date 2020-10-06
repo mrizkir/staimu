@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Keuangan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\RegisterMahasiswaModel;
+use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
 
@@ -108,5 +109,103 @@ class TransaksiRegistrasiKRSController extends Controller {
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200);     
     }
-    
+    /**
+     * buat transaksi baru
+     */
+    public function store (Request $request)
+    {
+        $this->validate($request, [           
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
+            'semester_akademik'=>'required',
+            'TA'=>'required'
+        ]);
+        
+        try 
+        {
+            $nim=$request->input('nim');
+            $semester_akademik=$request->input('semester_akademik');
+            $ta=$request->input('TA');
+            
+            $transaksi=TransaksiDetailModel::select(\DB::raw('
+                                                1
+                                            '))
+                                            ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
+                                            ->where('pe3_transaksi.ta',$ta)                                        
+                                            ->where('pe3_transaksi.idsmt',$semester_akademik)
+                                            ->where('pe3_transaksi.nim',$nim)
+                                            ->where('pe3_transaksi_detail.kombi_id',202)
+                                            ->first();
+
+            if (!is_null($transaksi))
+            {                
+                throw new Exception ("Transaksi tidak bisa dibuat karena ($nim) sudah melakukan transaksi pada $ta semester $semester_akademik.");  
+            }
+
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('pe3_register_mahasiswa.*,pe3_formulir_pendaftaran.no_formulir'))
+                                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
+                                                ->where('nim',$nim)
+                                                ->first();
+
+            $tahun=$mahasiswa->tahun;
+            $idkelas=$mahasiswa->idkelas;
+            $kjur=$mahasiswa->kjur;
+            
+            $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
+                                                    ->where('idkelas',$idkelas)
+                                                    ->where('kjur',$kjur)
+                                                    ->where('kombi_id',202)
+                                                    ->value('biaya');
+            
+            if (!($biaya_kombi > 0))
+            {
+                throw new Exception ("Komponen Biaya Registrasi KRS (202) belum disetting pada TA $tahun");  
+            }
+            
+            $no_transaksi='202'.date('YmdHms');
+            $transaksi=TransaksiModel::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'user_id'=>$mahasiswa->user_id,
+                'no_transaksi'=>$no_transaksi,
+                'no_faktur'=>'',
+                'kjur'=>$mahasiswa->kjur,
+                'ta'=>$ta,
+                'idsmt'=>$semester_akademik,
+                'idkelas'=>$mahasiswa->idkelas,
+                'no_formulir'=>$mahasiswa->no_formulir,
+                'nim'=>$mahasiswa->nim,
+                'commited'=>0,
+                'total'=>0,
+                'tanggal'=>date('Y-m-d'),
+            ]);  
+            
+            $transaksi_detail=TransaksiDetailModel::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'user_id'=>$mahasiswa->user_id,
+                'transaksi_id'=>$transaksi->id,
+                'no_transaksi'=>$transaksi->no_transaksi,
+                'kombi_id'=>202,
+                'nama_kombi'=>'REGISTRASI KRS',
+                'biaya'=>$biaya_kombi,
+                'jumlah'=>1,
+                'sub_total'=>$biaya_kombi    
+            ]);
+            $transaksi->total=$biaya_kombi;
+            $transaksi->save();
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'store',                   
+                                        'transaksi'=>$transaksi,                                                                                                                                   
+                                        'message'=>'Transaksi Registrasi KRS berhasil di input.'
+                                    ],200); 
+        }
+        catch (Exception $e)
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'store',                                                                                                                                                  
+                'message'=>[$e->getMessage()]
+            ],422); 
+        }        
+    }
 }

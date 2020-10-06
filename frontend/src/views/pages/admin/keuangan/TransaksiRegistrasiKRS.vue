@@ -8,7 +8,7 @@
                 TRANSAKSI REGISTRASI KRS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -29,7 +29,7 @@
             </template>
         </ModuleHeader>
         <template v-slot:filtersidebar>
-            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
+            <Filter2 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" ref="filter2" />
         </template>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
@@ -70,7 +70,45 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" dark class="mb-2" @click.stop="addItem">TAMBAH</v-btn>
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
+                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="headline">TAMBAH TRANSAKSI T.A {{tahun_akademik}}</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-text-field 
+                                                    v-model="formdata.nim" 
+                                                    label="NIM"
+                                                    outlined
+                                                    :rules="rule_nim">
+                                                </v-text-field>                                             
+                                                <v-select
+                                                    v-model="formdata.semester_akademik"
+                                                    :items="daftar_semester"                                    
+                                                    label="TRANSAKSI UNTUK SEMESTER"                                                                                                
+                                                    :rules="rule_semester"
+                                                    item-text="text"
+                                                    item-value="id"
+                                                    outlined/>                                                                                 
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                                <v-btn 
+                                                    color="blue darken-1" 
+                                                    text 
+                                                    @click.stop="save" 
+                                                    :loading="btnLoading"
+                                                    :disabled="!form_valid||btnLoading">
+                                                        BUAT
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.tanggal="{ item }">    
@@ -86,7 +124,7 @@
                             <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
                         </template>
                         <template v-slot:no-data>
-                            Data transaksi SPP belum tersedia
+                            Data transaksi Registrasi KRS belum tersedia
                         </template>  
                     </v-data-table>
                 </v-col>
@@ -97,7 +135,7 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter2 from '@/components/sidebar/FilterMode2';
 export default {
     name:'TransaksiRegistrasiKRS',
     created()
@@ -120,7 +158,8 @@ export default {
                 href:'#'
             }
         ];        
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];             
+        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];           
     },
     mounted()
     {
@@ -130,6 +169,8 @@ export default {
         firstloading:true,
         breadcrumbs:[],     
         tahun_akademik:0,
+        semester_akademik:null,
+
         btnLoading:false,      
 
         //tables
@@ -139,8 +180,7 @@ export default {
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
             { text: 'TANGGAL', value: 'tanggal',width:120,sortable:true },
             { text: 'NIM', value: 'nim',sortable:true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },
-            { text: 'BULAN', value: 'bulan',width:100,sortable:true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },            
             { text: 'SMT', value: 'idsmt',width:100,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
@@ -149,12 +189,36 @@ export default {
         expanded:[],
         search:'', 
 
+        //dialog
+        dialogfrm:false,
+        dialogdetailitem:false,
 
+        //form data   
+        form_valid:true,      
+        daftar_semester:[],        
+        formdata: {
+            nim:'',
+            semester_akademik:''
+        },
+        formdefault: {
+            nim:''
+        },
+        rule_nim:[
+            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
+        ], 
+        rule_semester:[
+            value => !!value||"Mohon dipilih Semester untuk transaksi ini !!!"
+        ],         
     }),
     methods : {
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;
+        },
+        changeSemesterAkademik (semester)
+        {
+            this.semester_akademik=semester;
         },
         initialize:async function () 
         {
@@ -172,7 +236,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;
-            this.$refs.filter1.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter2.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -185,18 +249,66 @@ export default {
                 this.expanded=[item];
             }               
         },
-    }, 
-    watch:{
-        
-        search (val)
+        async addItem ()
         {
-            console.log('saerch',val);
-        }
-    },
+            this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
+            this.formdata.semester_akademik=this.semester_akademik;
+            this.dialogfrm=true;            
+        },
+        save:async function () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;
+                await this.$ajax.post('/keuangan/transaksi-registrasikrs/store',
+                    {
+                        nim:this.formdata.nim, 
+                        semester_akademik:this.formdata.semester_akademik,                                                                            
+                        TA:this.tahun_akademik,                                                     
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{   
+                    this.dialogfrm=false;
+                    this.btnLoading=false;
+                    this.initialize();                    
+                    
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            }            
+        },
+        closedialogfrm () {
+            this.dialogfrm = false;            
+            setTimeout(() => {
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.$refs.frmdata.reset(); 
+                }, 300
+            );
+        },
+    },    
+    watch:{
+        tahun_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
+        semester_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
+    }, 
     components:{
         KeuanganLayout,
         ModuleHeader,     
-        Filter1    
+        Filter2    
     },
 }
 </script>

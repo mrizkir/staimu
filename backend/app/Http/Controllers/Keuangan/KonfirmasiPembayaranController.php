@@ -9,6 +9,8 @@ use App\Models\Keuangan\TransaksiDetailModel;
 use App\Models\Keuangan\KonfirmasiPembayaranModel;
 use App\Helpers\Helper;
 
+use Ramsey\Uuid\Uuid;
+
 class KonfirmasiPembayaranController extends Controller {  
     /**
      * daftar komponen biaya
@@ -249,6 +251,26 @@ class KonfirmasiPembayaranController extends Controller {
                             $no_formulir=$formulir->idsmt.mt_rand();
                             $formulir->no_formulir=$no_formulir;
                             $formulir->save();
+                        break;
+                        case 202:
+                            if (!(\App\Models\Akademik\DulangModel::where('tahun',$transaksi->ta)
+                                                                    ->where('idsmt',$transaksi->idsmt)
+                                                                    ->where('idkelas',$transaksi->idkelas)
+                                                                    ->where('nim',$transaksi->nim)
+                                                                    ->exists()))
+                            {
+                                \App\Models\Akademik\DulangModel::create([
+                                                                            'id'=>Uuid::uuid4()->toString(),
+                                                                            'user_id'=>$transaksi->user_id,
+                                                                            'nim'=>$transaksi->nim,
+                                                                            'tahun'=>$transaksi->ta,
+                                                                            'idsmt'=>$transaksi->idsmt,
+                                                                            'tasmt'=>$transaksi->ta.$transaksi->idsmt,
+                                                                            'idkelas'=>$transaksi->idkelas,
+                                                                            'status_sebelumnya'=>'A',
+                                                                            'k_status'=>'A',
+                                                                        ]);
+                            }
                         break;
                     }
                 }
