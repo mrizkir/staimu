@@ -227,67 +227,14 @@ class KonfirmasiPembayaranController extends Controller {
         }
         else
         {
-            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi){
-                $konfirmasi->verified=true;
-                $konfirmasi->save();
-
-                $transaksi=$konfirmasi->transaksi;
-                $transaksi->status=1;
-                $transaksi->save();
-                
-                //aksi setelah PAID
-
-                $detail = TransaksiDetailModel::select(\DB::raw('
-                                                    kombi_id
-                                                '))
-                                                ->where('transaksi_id',$transaksi->id)
-                                                ->get();
-                foreach ($detail as $v)
-                {
-                    switch ($v->kombi_id)
-                    {
-                        case 101: //biaya formulir pendaftaran
-                            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                        
-                            $no_formulir=$formulir->idsmt.mt_rand();
-                            $formulir->no_formulir=$no_formulir;
-                            $formulir->save();
-                        break;
-                        case 202:
-                            if (!(\App\Models\Akademik\DulangModel::where('tahun',$transaksi->ta)
-                                                                    ->where('idsmt',$transaksi->idsmt)
-                                                                    ->where('idkelas',$transaksi->idkelas)
-                                                                    ->where('nim',$transaksi->nim)
-                                                                    ->exists()))
-                            {
-                                \App\Models\Akademik\DulangModel::create([
-                                                                            'id'=>Uuid::uuid4()->toString(),
-                                                                            'user_id'=>$transaksi->user_id,
-                                                                            'nim'=>$transaksi->nim,
-                                                                            'tahun'=>$transaksi->ta,
-                                                                            'idsmt'=>$transaksi->idsmt,
-                                                                            'tasmt'=>$transaksi->ta.$transaksi->idsmt,
-                                                                            'idkelas'=>$transaksi->idkelas,
-                                                                            'status_sebelumnya'=>'A',
-                                                                            'k_status'=>'A',
-                                                                        ]);
-                            }
-                        break;
-                    }
-                }
-                
-                \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $konfirmasi, 
-                                                                'object_id' => $konfirmasi->transaksi_id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Melakukan verifikasi terhadap transaksi dengan status PAID telah berhasil dilakukan.'
-                                                            ]);
+            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi){                
                 return $konfirmasi;
             });
             
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',                                          
-                                        'message'=>"Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
+                                        'message'=>"Mengubah data konfirmasi dengan id ($id) berhasil."                                        
                                     ],200);   
         }
         

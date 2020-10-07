@@ -701,7 +701,7 @@ export default {
                 if (confirm)
                 {
                     this.btnLoading=true;
-                    this.$ajax.post('/keuangan/konfirmasipembayaran/'+item.id,
+                    this.$ajax.post('/keuangan/transaksi/verifikasi/'+item.id,
                         {
                             _method:'put'            
                         },                    

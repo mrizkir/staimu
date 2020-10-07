@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                           
+                        item-key="user_id"                           
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"                        
