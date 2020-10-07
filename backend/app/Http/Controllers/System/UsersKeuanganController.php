@@ -138,6 +138,8 @@ class UsersKeuanganController extends Controller {
                                             'user_id' => $this->getUserid(), 
                                             'message' => 'Menambah user Keuangan('.$user->username.') berhasil'
                                         ]);
+
+            return $user;
         });
         return Response()->json([
                                     'status'=>1,
