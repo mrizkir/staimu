@@ -124,6 +124,31 @@
                         <template v-slot:item.nama_status="{ item }">    
                             <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
                         </template>
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <td :colspan="headers.length" class="text-center">
+                                <v-col cols="12">
+                                    <strong>TRANS.DETAIL ID:</strong>{{ item.id }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                </v-col>                                
+                            </td>
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click.stop="viewItem(item)">
+                                mdi-eye
+                            </v-icon>             
+                            <v-icon
+                                small
+                                :loading="btnLoading"
+                                :disabled="btnLoading"
+                                @click.stop="deleteItem(item)"
+                                v-if="item.status==0">
+                                mdi-delete
+                            </v-icon>              
+                        </template>
                         <template v-slot:no-data>
                             Data transaksi Registrasi KRS belum tersedia
                         </template>  
@@ -186,7 +211,7 @@ export default {
             { text: 'SMT', value: 'idsmt',width:100,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],        
         expanded:[],
         search:'', 
@@ -262,6 +287,10 @@ export default {
             }
             this.dialogfrm=true;            
         },
+        viewItem(item)
+        {
+            this.$router.push('/keuangan/transaksi-registrasikrs/'+item.transaksi_id);
+        },
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
@@ -294,6 +323,30 @@ export default {
                 this.$refs.frmdata.reset(); 
                 }, 300
             );
+        },
+        deleteItem (item) {           
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data transaksi registrasi krs dengan ID '+item.id+' ?', { color: 'red',width:'500px' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/keuangan/transaksi-registrasikrs/'+item.transaksi_id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{   
+                        const index = this.datatable.indexOf(item);
+                        this.datatable.splice(index, 1);
+                        this.btnLoading=false;
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });
         },
     },    
     watch:{

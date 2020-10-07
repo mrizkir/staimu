@@ -114,6 +114,8 @@ class TransaksiRegistrasiKRSController extends Controller {
      */
     public function store (Request $request)
     {
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-REGISTRASIKRS_STORE');
+
         $this->validate($request, [           
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
             'semester_akademik'=>'required',
@@ -207,5 +209,53 @@ class TransaksiRegistrasiKRSController extends Controller {
                 'message'=>[$e->getMessage()]
             ],422); 
         }        
+    }
+    public function destroy(Request $request,$id)
+    {
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-REGISTRASIKRS_DESTROY');
+
+        if ($this->hasRole('mahasiswa'))
+        {
+            $transaksi = TransaksiModel::where('user_id',$this->getUserid())
+                                        ->find($id); 
+        }
+        else
+        {
+            $transaksi = TransaksiModel::find($id); 
+        }        
+
+        if (is_null($transaksi))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',           
+                                    'transaksi'=>$transaksi,     
+                                    'message'=>["Transaksi registrasi krs dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else if ($transaksi->status==0)
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $transaksi, 
+                                                            'object_id' => $transaksi->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Menghapus transaksi registrasi krs dengan id ('.$id.') berhasil'
+                                                        ]);
+            $transaksi->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
+                                    ],200);         
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',           
+                                    'transaksi'=>$transaksi,     
+                                    'message'=>["Transaksi registrasi krs dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
     }
 }
