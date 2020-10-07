@@ -83,7 +83,8 @@
                                                     v-model="formdata.nim" 
                                                     label="NIM"
                                                     outlined
-                                                    :rules="rule_nim">
+                                                    :rules="rule_nim"
+                                                    :disabled="dashboard =='mahasiswa'">
                                                 </v-text-field>                                             
                                                 <v-select
                                                     v-model="formdata.semester_akademik"
@@ -166,6 +167,7 @@ export default {
         this.initialize()
     },
     data: () => ({
+        dashboard:null,
         firstloading:true,
         breadcrumbs:[],     
         tahun_akademik:0,
@@ -201,7 +203,8 @@ export default {
             semester_akademik:''
         },
         formdefault: {
-            nim:''
+            nim:'',
+            semester_akademik:''
         },
         rule_nim:[
             value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
@@ -253,6 +256,10 @@ export default {
         {
             this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
             this.formdata.semester_akademik=this.semester_akademik;
+            if (this.dashboard =='mahasiswa')
+            {
+                this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
+            }
             this.dialogfrm=true;            
         },
         save:async function () {
@@ -271,7 +278,7 @@ export default {
                         }
                     }
                 ).then(()=>{   
-                    this.dialogfrm=false;
+                    this.closedialogfrm();
                     this.btnLoading=false;
                     this.initialize();                    
                     
