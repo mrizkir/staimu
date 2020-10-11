@@ -50,7 +50,7 @@
                                     <v-card flat>
                                         <v-card-title>SAH :</v-card-title>
                                         <v-card-subtitle>
-                                            {{datakrs.sah}}
+                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -68,7 +68,7 @@
                                     <v-card flat>
                                         <v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
                                         <v-card-subtitle>
-                                            {{jumlah_matkul}} / {{jumlah_sks}}
+                                            {{totalMatkul}} / {{totalSKS}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -129,13 +129,13 @@
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-                                        <td>{{jumlah_matkul}}</td> 
+                                        <td>{{totalMatkul}}</td> 
                                         <td></td>
                                         <td></td>
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
-                                        <td>{{jumlah_sks}}</td> 
+                                        <td>{{totalSKS}}</td> 
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -194,13 +194,12 @@ export default {
         semester_akademik:null,
     
         btnLoading:false, 
-        
+        btnLoadingTable:false,
+
         //formdata
         krs_id:null,
         datakrs:{},
-        jumlah_matkul:0,
-        jumlah_sks:0,
-
+        
         //table        
         datatableLoading:false,
         expanded:[],
@@ -223,9 +222,7 @@ export default {
                 }
             }).then(({data})=>{                                               
                 this.datakrs=data.krs;                
-                this.datatable=data.krsmatkul;
-                this.jumlah_matkul=data.jumlah_matkul;
-                this.jumlah_sks=data.jumlah_sks;
+                this.datatable=data.krsmatkul;                
                 if (Object.keys(this.datakrs).length)
                 {
                     let prodi_id=this.datakrs.kjur;                    
@@ -262,7 +259,20 @@ export default {
         },           
     },
     computed:{
-            
+        totalMatkul()
+        {
+            return this.datatable.length;            
+        },
+        totalSKS()
+        {
+            var total = 0;
+            var index;
+            for (index in this.datatable)
+            {
+                total = total + parseInt(this.datatable[index].sks);
+            }            
+            return total;
+        }
     },
     components:{
         AkademikLayout,

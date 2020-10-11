@@ -13,7 +13,7 @@
                     >
                         Username atau Password tidak dikenal !.
                     </v-alert>                                
-                    <v-form ref="frmlogin" lazy-validation>
+                    <v-form ref="frmlogin" @keyup.native.enter="doLogin" lazy-validation>
                         <v-card outlined>
                             <v-card-text>                                
                                 <v-text-field 

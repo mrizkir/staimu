@@ -121,6 +121,17 @@
                                 </v-data-table>
                             </v-card-text>
                             <v-card-actions>
+                                <v-chip
+                                    color="info"
+                                    class="mr-2"
+                                    outlined>
+                                    <strong>Jumlah Matakuliah Terpilih:</strong> {{daftar_matkul_selected.length}}
+                                </v-chip>
+                                <v-chip
+                                    color="info"
+                                    outlined>
+                                    <strong>Jumlah SKS Terpilih:</strong> {{totalSKS}}
+                                </v-chip>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
                                 <v-btn 
@@ -274,7 +285,18 @@ export default {
             );
         },   
     },
-    
+    computed:{
+        totalSKS()
+        {
+            var total = 0;
+            var index;
+            for (index in this.daftar_matkul_selected)
+            {
+                total = total + parseInt(this.daftar_matkul_selected[index].sks);
+            }            
+            return total;
+        }
+    },
     components:{
         AkademikLayout,
         ModuleHeader,            
