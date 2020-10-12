@@ -64,7 +64,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/auth/me',['uses'=>'AuthController@me','as'=>'auth.me']);
 
     // dashboard
-    $router->post('/dashboard/pmb',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\SPMBController@index','as'=>'dashboardspmb.index']);
+    $router->post('/dashboard/pmb',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\SPMBController@index','as'=>'dashboardspmb.index']);
     $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\KeuanganController@index','as'=>'dashboardkeuangan.index']);
 
     //data master - kelas
@@ -128,7 +128,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->put('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@update','as'=>'formulirpendaftaran.update']);
 
     //spmb - jadwal ujian pmb
-    $router->post('/spmb/jadwalujianpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\JadwalUjianPMBController@index','as'=>'jadwalujianpmb.index']);
+    $router->post('/spmb/jadwalujianpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru|keuangan'],'uses'=>'SPMB\JadwalUjianPMBController@index','as'=>'jadwalujianpmb.index']);
     $router->post('/spmb/jadwalujianpmb/store',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@store','as'=>'jadwalujianpmb.store']);
     $router->get('/spmb/jadwalujianpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@show','as'=>'jadwalujianpmb.show']);
     $router->put('/spmb/jadwalujianpmb/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\JadwalUjianPMBController@update','as'=>'jadwalujianpmb.update']);
@@ -177,7 +177,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/spmb/reportspmbkelulusan/printtoexcel',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\ReportKelulusanController@printtoexcel','as'=>'reportspmbkelulusan.printtoexcel']);
 
     //spmb - persyaratan
-    $router->post('/spmb/pmbpersyaratan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@index','as'=>'pmbpersyaratan.index']);
+    $router->post('/spmb/pmbpersyaratan',['middleware'=>['role:superadmin|pmb|mahasiswabaru|keuangan'],'uses'=>'SPMB\PMBPersyaratanController@index','as'=>'pmbpersyaratan.index']);
     $router->get('/spmb/pmbpersyaratan/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@show','as'=>'pmbpersyaratan.show']);
     $router->post('/spmb/pmbpersyaratan/upload/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBPersyaratanController@upload','as'=>'pmbpersyaratan.upload']);
     $router->post('/spmb/pmbpersyaratan/verifikasipersyaratan/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'SPMB\PMBPersyaratanController@verifikasipersyaratan','as'=>'pmbpersyaratan.verifikasipersyaratan']);
@@ -282,17 +282,19 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@destroypengampu','as'=>'penyelenggaraanmatakuliah.destroypengampu']);
 
     //akademik - perkuliahan - krs
-    $router->post('/akademik/perkuliahan/krs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@index','as'=>'krs.index']);
-    $router->post('/akademik/perkuliahan/krs/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@store','as'=>'krs.store']);
+    $router->post('/akademik/perkuliahan/krs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@index','as'=>'krs.index']);
+    $router->post('/akademik/perkuliahan/krs/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@store','as'=>'krs.store']);
     //digunakan untuk mendapatkan daftar matakuliah yang diselenggarakan dan belum terdaftar di krsnya mhs
-    $router->post('/akademik/perkuliahan/krs/penyelenggaraan',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@penyelenggaraan','as'=>'krs.penyelenggaraan']);
-    $router->post('/akademik/perkuliahan/krs/storematkul',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@storematkul','as'=>'krs.storematkul']);
-    $router->get('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@show','as'=>'krs.show']);
-    $router->post('/akademik/perkuliahan/krs/cekkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@cekkrs','as'=>'krs.cekkrs']);
-    $router->put('/akademik/perkuliahan/krs/updatestatus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@updatestatus','as'=>'krs.updatestatus']);
-    $router->delete('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroy','as'=>'krs.destroy']);
-    $router->delete('/akademik/perkuliahan/krs/deletematkul/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\KRSController@destroymatkul','as'=>'krs.destroymatkul']);
-
+    $router->post('/akademik/perkuliahan/krs/penyelenggaraan',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@penyelenggaraan','as'=>'krs.penyelenggaraan']);
+    $router->post('/akademik/perkuliahan/krs/storematkul',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@storematkul','as'=>'krs.storematkul']);
+    $router->get('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@show','as'=>'krs.show']);
+    $router->post('/akademik/perkuliahan/krs/cekkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@cekkrs','as'=>'krs.cekkrs']);
+    $router->put('/akademik/perkuliahan/krs/updatestatus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@updatestatus','as'=>'krs.updatestatus']);
+    $router->delete('/akademik/perkuliahan/krs/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@destroy','as'=>'krs.destroy']);
+    $router->delete('/akademik/perkuliahan/krs/deletematkul/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@destroymatkul','as'=>'krs.destroymatkul']);
+    //id krs
+    $router->get('/akademik/perkuliahan/krs/printpdf/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali'],'uses'=>'Akademik\KRSController@printpdf','as'=>'krs.printpdf']);
+    
     //akademik - perkuliahan - nilai
     $router->post('/akademik/nilai/matakuliah',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\NilaiMatakuliahController@index','as'=>'nilaimatakuliah.index']);
 

@@ -72,11 +72,38 @@
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/krs/tambah">TAMBAH KRS</v-btn>
                             </v-toolbar>
+                            <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+                                <v-card>
+                                    <v-card-title>
+                                        <span class="headline">Print to PDF</span>
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-btn
+                                            color="green"
+                                            text
+                                            :href="$api.url+'/'+file_pdf">                            
+                                            Download
+                                        </v-btn>                           
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                                    </v-card-actions>
+                                </v-card>            
+                            </v-dialog>
                         </template>
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
+                            <v-btn
+                                small
+                                icon
+                                @click.stop="printpdf(item)">
+                                <v-icon>
+                                    mdi-printer
+                                </v-icon>
+                            </v-btn>   
                             <v-btn
                                 small
                                 icon
@@ -88,8 +115,8 @@
                             <v-btn
                                 small
                                 icon
-                                :loading="btnLoading"
-                                :disabled="btnLoading"
+                                :loading="btnLoadingTable"
+                                :disabled="btnLoadingTable"
                                 @click.stop="deleteItem(item)">
                                 <v-icon>
                                     mdi-delete
@@ -170,7 +197,7 @@ export default {
         daftar_ta:[],
         tahun_akademik:null,
         semester_akademik:null,
-
+        
         btnLoadingTable:false,
         datatableLoading:false,
         expanded:[],
@@ -183,9 +210,12 @@ export default {
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },               
             { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                           
             { text: 'SAH', value: 'sah',sortable:true, width:100},                           
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:140 },
         ],  
         search:'', 
+
+        dialogprintpdf:false,
+        file_pdf:null
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -276,6 +306,31 @@ export default {
                 }                
             });
         },
+        async printpdf(item)
+        {
+            this.btnLoadingTable=true;
+            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.file_pdf=data.pdf_file;
+                this.dialogprintpdf=true;
+                this.btnLoadingTable=false;
+            }).catch(()=>{
+                this.btnLoadingTable=false;
+            });                 
+        },
+        closedialogprintpdf () {                  
+            setTimeout(() => {
+                this.file_pdf=null;
+                this.dialogprintpdf = false;      
+                }, 300
+            );
+        },    
     },
     watch:{
         tahun_akademik()
