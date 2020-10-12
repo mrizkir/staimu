@@ -105,6 +105,51 @@ class ConfigurationTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
         
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"701",
+            'config_group'=>'report',
+            'config_key'=>'HEADER_1',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"702",
+            'config_group'=>'report',
+            'config_key'=>'HEADER_2',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"703",
+            'config_group'=>'report',
+            'config_key'=>'HEADER_3',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"704",
+            'config_group'=>'report',
+            'config_key'=>'HEADER_4',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"705",
+            'config_group'=>'report',
+            'config_key'=>'HEADER_ADDRESS',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+        
         // theme
         \DB::table('pe3_configuration')->insert([
             'config_id'=>"801",

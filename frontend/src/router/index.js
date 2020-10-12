@@ -497,6 +497,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/IdentitasDiri.vue'),		
 	},	
 	{
+		path: '/system-setting/headerlaporan',
+		name: 'HeaderLaporan',
+		meta:{
+			title: "SETTING - HEADER LAPORAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/HeaderLaporan.vue'),		
+	},	
+	{
 		path: '/system-setting/captcha',
 		name: 'SettingCaptcha',
 		meta:{
