@@ -6,11 +6,11 @@
     "type": "project",
     "require": {
         "php": "^7.2.5",
+        "carlos-meneses/laravel-mpdf": "^2.1",
         "flipbox/lumen-generator": "^6.0",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.5",
-        "illuminate/mail": "^7.9",
-        "jpgraph/jpgraph": "^4.0",
+        "illuminate/mail": "^7.9",        
         "laravel/lumen-framework": "^7.0",
         "mpdf/mpdf": "^8.0",
         "phpoffice/phpspreadsheet": "^1.13",
