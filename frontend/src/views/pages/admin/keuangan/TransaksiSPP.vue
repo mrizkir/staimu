@@ -70,7 +70,46 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>    
+                                <v-btn color="primary" dark class="mb-2" @click.stop="addItem">TAMBAH</v-btn>                            
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
+                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                        <v-card>
+                                            <v-card-title>
+                                                <span class="headline">TAMBAH TRANSAKSI T.A {{tahun_akademik}}</span>
+                                            </v-card-title>
+                                            <v-card-text>
+                                                <v-text-field 
+                                                    v-model="formdata.nim" 
+                                                    label="NIM"
+                                                    outlined
+                                                    :rules="rule_nim"
+                                                    :disabled="dashboard =='mahasiswa'">
+                                                </v-text-field>                                             
+                                                <v-select
+                                                    v-model="formdata.semester_akademik"
+                                                    :items="daftar_semester"                                    
+                                                    label="TRANSAKSI DILAKUKAN PADA SEMESTER"                                                                                                
+                                                    :rules="rule_semester"
+                                                    item-text="text"
+                                                    item-value="id"
+                                                    outlined/>                                                                                 
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                                <v-btn 
+                                                    color="blue darken-1" 
+                                                    text 
+                                                    @click.stop="save" 
+                                                    :loading="btnLoading"
+                                                    :disabled="!form_valid||btnLoading">
+                                                        BUAT
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.tanggal="{ item }">    
@@ -149,6 +188,27 @@ export default {
         expanded:[],
         search:'', 
 
+        dialogfrm:false,        
+
+        //form data   
+        form_valid:true,   
+        daftar_bulan:[{}],   
+        daftar_semester:[],        
+        formdata: {
+            nim:'',
+            semester_akademik:''
+        },
+        formdefault: {
+            nim:'',
+            semester_akademik:''
+        },
+        rule_nim:[
+            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
+        ], 
+        rule_semester:[
+            value => !!value||"Mohon dipilih Semester untuk transaksi ini !!!"
+        ],    
 
     }),
     methods : {
@@ -184,6 +244,30 @@ export default {
             {
                 this.expanded=[item];
             }               
+        },
+        async addItem ()
+        {
+            this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
+            this.formdata.semester_akademik=this.semester_akademik;
+            if (this.dashboard =='mahasiswa')
+            {
+                this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
+            }
+            this.dialogfrm=true;            
+        },
+        save:async function () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=false;                
+            }            
+        },
+        closedialogfrm () {
+            this.dialogfrm = false;            
+            setTimeout(() => {
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.$refs.frmdata.reset(); 
+                }, 300
+            );
         },
     }, 
     watch:{

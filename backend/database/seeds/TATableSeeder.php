@@ -18,6 +18,7 @@ class TATableSeeder extends Seeder
         \DB::table('pe3_ta')->insert([
             'tahun'=>date('Y'),
             'tahun_akademik'=>date('Y').'/'.(date('Y')+1),            
+            'awal_semester'=>9,            
         ]);        
 
     }

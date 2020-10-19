@@ -20,6 +20,7 @@ $router->group(['prefix'=>'v3'], function () use ($router)
 
     //dmaster - tahun akademik
     $router->get('/datamaster/tahunakademik',['uses'=>'DMaster\TahunAkademikController@index','as'=>'tahunakademik.index']);
+    $router->get('/datamaster/tahunakademik/{id}/daftarbulan',['uses'=>'DMaster\TahunAkademikController@daftarbulan','as'=>'tahunakademik.daftarbulan']);
 
     //data master - persyaratan
     $router->post('/datamaster/persyaratan',['uses'=>'DMaster\PersyaratanController@index','as'=>'persyaratan.index']);

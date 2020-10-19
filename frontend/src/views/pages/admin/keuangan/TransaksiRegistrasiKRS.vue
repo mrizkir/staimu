@@ -217,8 +217,7 @@ export default {
         search:'', 
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm:false,        
 
         //form data   
         form_valid:true,      

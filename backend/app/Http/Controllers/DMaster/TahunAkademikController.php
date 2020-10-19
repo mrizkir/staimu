@@ -21,7 +21,48 @@ class TahunAkademikController extends Controller {
                                     'pid'=>'fetchdata',
                                     'ta'=>$ta,
                                     'message'=>'Fetch data tahun akademik berhasil.'
-                                ],200);
+                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+    }
+    /**
+     * digunakan untuk mendapatkan daftar bulan berdasarkan awal semester
+     */
+    public function daftarbulan(Request $request,$id)
+    {
+        $ta=TAModel::find($id);         
+        if (is_null($ta))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                
+                                    'message'=>["Tahun Akademik ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            $awal_semester = $ta->awal_semester;
+            $daftar_bulan=[];
+            for($i=$awal_semester;$i<= 12;$i++)
+            {
+                $daftar_bulan[]=[
+                                    'value'=>$i,
+                                    'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                ];
+            }
+            for($i=1;$i<$awal_semester;$i++)
+            {
+                $daftar_bulan[]=[
+                                    'value'=>$i,
+                                    'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                ];
+            }
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',
+                                        'ta'=>$ta,
+                                        'daftar_bulan'=>$daftar_bulan,
+                                        'message'=>'Fetch data daftar bulan berhasil.'
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+        }
     }
     /**
      * Store a newly created resource in storage.
