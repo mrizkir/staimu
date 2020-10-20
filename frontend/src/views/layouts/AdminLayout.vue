@@ -64,7 +64,13 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'AdminLayout',        
+    name:'AdminLayout',  
+    props:{
+        showrightsidebar:{
+            type:Boolean,
+            default:true
+        }
+    },      
     data:()=>({
         loginTime:0,
         drawer:null,

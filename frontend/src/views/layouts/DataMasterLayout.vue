@@ -157,7 +157,7 @@
                 </v-list-item>                       
             </v-list>
         </v-navigation-drawer>
-        <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary>
+        <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
             <v-list dense>
                 <v-list-item>		
                     <v-list-item-icon class="mr-2">
@@ -189,7 +189,13 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'DataMasterLayout',        
+    name:'DataMasterLayout',  
+    props:{
+        showrightsidebar:{
+            type:Boolean,
+            default:true
+        }
+    },      
     data:()=>({
         loginTime:0,
         drawer:null,

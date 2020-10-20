@@ -212,7 +212,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
     
     //keuangan - transaksi spp
-    $router->post('/keuangan/transaksi-spp',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@index','as'=>'transaksi-spp.index']);    
+    $router->post('/keuangan/transaksi-spp',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@index','as'=>'transaksi-spp.index']);
+    $router->get('/keuangan/transaksi-spp/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@show','as'=>'transaksi-spp.show']);        
+    $router->post('/keuangan/transaksi-spp/new',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@newtransaction','as'=>'transaksi-spp.new']);        
+    
     //keuangan - transaksi regisrasikrs
     $router->post('/keuangan/transaksi-registrasikrs',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@index','as'=>'transaksi-registrasikrs.index']);    
     $router->post('/keuangan/transaksi-registrasikrs/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@store','as'=>'transaksi-registrasikrs.store']);    

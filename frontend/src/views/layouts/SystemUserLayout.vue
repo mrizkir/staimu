@@ -172,7 +172,13 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'SystemUserLayout',        
+    name:'SystemUserLayout',    
+    props:{
+        showrightsidebar:{
+            type:Boolean,
+            default:true
+        }
+    },    
     data:()=>({
         loginTime:0,
         drawer:null,        

@@ -134,7 +134,13 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'SystemConfigLayout',        
+    name:'SystemConfigLayout',   
+    props:{
+        showrightsidebar:{
+            type:Boolean,
+            default:true
+        }
+    },     
     data:()=>({
         loginTime:0,
         drawer:null,        

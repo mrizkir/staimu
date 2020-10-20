@@ -101,7 +101,7 @@
                                                 <v-btn 
                                                     color="blue darken-1" 
                                                     text 
-                                                    @click.stop="save" 
+                                                    @click.stop="buatTransaksi" 
                                                     :loading="btnLoading"
                                                     :disabled="!form_valid||btnLoading">
                                                         BUAT
@@ -191,8 +191,7 @@ export default {
         dialogfrm:false,        
 
         //form data   
-        form_valid:true,   
-        daftar_bulan:[{}],   
+        form_valid:true,           
         daftar_semester:[],        
         formdata: {
             nim:'',
@@ -255,10 +254,26 @@ export default {
             }
             this.dialogfrm=true;            
         },
-        save:async function () {
+        buatTransaksi:async function () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=false;                
+                await this.$ajax.post('/keuangan/transaksi-spp/new',
+                    {
+                        nim:this.formdata.nim, 
+                        semester_akademik:this.formdata.semester_akademik,                                                                            
+                        TA:this.tahun_akademik,                                                     
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(({data})=>{                                        
+                    this.btnLoading=false;                                        
+                    this.$router.push('/keuangan/transaksi-spp/tambah/'+data.transaksi.id);
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });                
             }            
         },
         closedialogfrm () {
