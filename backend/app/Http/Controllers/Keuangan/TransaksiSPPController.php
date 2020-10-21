@@ -148,7 +148,9 @@ class TransaksiSPPController extends Controller {
                 $transaksi_detail[]=[
                                     'no_bulan'=>$i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
-                                    'biaya_kombi'=>$biaya_kombi
+                                    'tahun'=>$transaksi->ta,
+                                    'biaya_kombi'=>$biaya_kombi,
+                                    'status'=>$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id)
                                 ];
             }
             for($i=1;$i<$awal_semester;$i++)
@@ -156,16 +158,32 @@ class TransaksiSPPController extends Controller {
                 $transaksi_detail[]=[
                                     'no_bulan'=>$i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
-                                    'biaya_kombi'=>$biaya_kombi
+                                    'tahun'=>$transaksi->ta+1,
+                                    'biaya_kombi'=>$biaya_kombi,
+                                    'status'=>$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id)
                                 ];
             }            
+            $item_selected = TransaksiDetailModel::select(\DB::raw('
+                                bulan AS no_bulan,
+                                \'\' AS nama_bulan,
+                                '.$transaksi->ta.' AS tahun,
+                                biaya AS biaya_kombi,
+                                1 AS status
+                            '))
+                            ->where('transaksi_id',$transaksi->id)
+                            ->get();
+            $item_selected->transform(function ($item,$key) {                
+                $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);                
+                return $item;
+            });
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
                                         'transaksi'=>$transaksi,                                                                                                                                   
                                         'transaksi_detail'=>$transaksi_detail,                                                                                                                                   
+                                        'item_selected'=>$item_selected,                                                                                                                                   
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
-                                    ],200); 
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
         catch (Exception $e)
         {
@@ -232,6 +250,16 @@ class TransaksiSPPController extends Controller {
                 throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA $tahun");  
             }
 
+            //hapus seluruh transaksi yang tidak memiliki detail transaksi
+            \DB::table('pe3_transaksi')
+                ->where ('user_id',$mahasiswa->user_id)
+                ->whereNotIn('id',function ($query) use ($mahasiswa)
+                {
+                    $query->select(\DB::raw('transaksi_id'))
+                        ->from('pe3_transaksi_detail')
+                        ->where('user_id',$mahasiswa->user_id);                        
+                })
+                ->delete();
             $no_transaksi='201'.date('YmdHms');
             $transaksi=TransaksiModel::create([
                 'id'=>Uuid::uuid4()->toString(),
@@ -264,5 +292,64 @@ class TransaksiSPPController extends Controller {
                 'message'=>[$e->getMessage()]
             ],422); 
         }  
+    }
+    public function store(Request $request)
+    {
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_STORE');
+
+        $bulan_selected=json_decode($request->input('bulan_selected'),true);
+        $request->merge(['bulan_selected'=>$bulan_selected]);
+
+        $this->validate($request, [      
+            'transaksi_id'=>'required|exists:pe3_transaksi,id',     
+            'bulan_selected.*'=>'required',            
+        ]);
+        $transaksi_id=$request->input('transaksi_id');
+        $transaksi=TransaksiModel::find($transaksi_id);
+
+        $bulan_selected=$request->input('bulan_selected');
+       
+        //hapus seluruh transaksi yang tidak memiliki detail transaksi       
+
+        $bulan_spp=[];
+        foreach ($bulan_selected as $v)
+        {
+            $bulan_spp[]=[
+                'id'=>Uuid::uuid4()->toString(),
+                'user_id'=>$transaksi->user_id,
+                'transaksi_id'=>$transaksi->id,
+                'no_transaksi'=>$transaksi->no_transaksi,
+                'kombi_id'=>201,
+                'nama_kombi'=>'SPP',
+                'biaya'=>$v['biaya_kombi'],                
+                'jumlah'=>1,                
+                'bulan'=>$v['no_bulan'],                
+                'sub_total'=>$v['biaya_kombi'],                
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now()
+            ];
+        }
+        \DB::table('pe3_transaksi_detail')
+            ->where ('transaksi_id',$transaksi_id)            
+            ->delete();
+            
+        TransaksiDetailModel::insert($bulan_spp);
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store',                                                                                                                                                                         
+                                    'bulan_selected'=>$bulan_selected,                                                                                                                                                                         
+                                    'bulan_spp'=>$bulan_spp,                                                                                                                                                                         
+                                    'message'=>(count($bulan_spp)).' Bulan SPP telah berhasil ditambahkan'
+                                ],200);  
+    }
+    private function checkPembayaranSPP ($no_bulan,$tahun,$user_id)
+    {
+        return \DB::table('pe3_transaksi')
+                    ->join('pe3_transaksi_detail','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+                    ->where('pe3_transaksi.ta',$tahun)
+                    ->where('pe3_transaksi.user_id',$user_id)
+                    ->where('pe3_transaksi_detail.bulan',$no_bulan)
+                    ->exists();
     }
 }

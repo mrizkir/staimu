@@ -118,9 +118,51 @@
             </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                        <v-data-table
+                            :headers="headers"
+                            :items="item_selected"                                                                       
+                            :disable-pagination="true"
+                            :hide-default-footer="true"                                                                
+                            item-key="no_bulan"                                                   
+                            class="elevation-1"
+                            :loading="datatableLoading"
+                            loading-text="Loading... Please wait">
+                            <template v-slot:top>
+                                <v-toolbar flat color="white">
+                                    <v-toolbar-title>DAFTAR BULAN SPP YANG AKAN DIBAYAR</v-toolbar-title>
+                                    <v-divider
+                                        class="mx-4"
+                                        inset
+                                        vertical
+                                    ></v-divider>
+                                    <v-spacer></v-spacer>    
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0)" :loading="btnLoading">SIMPAN</v-btn>                                                            
+                                </v-toolbar>
+                            </template>   
+                            <template v-slot:item.biaya_kombi="{ item }">  
+                                {{item.biaya_kombi|formatUang}}
+                            </template>
+                            <template v-slot:body.append v-if="item_selected.length > 0">
+                                <tr class="grey lighten-4 font-weight-black">
+                                    <td>JUMLAH</td>
+                                    <td>{{totalBulan}} Bulan</td> 
+                                    <td></td>
+                                    <td>{{totalBiayaKombi|formatUang}}</td>                                
+                                </tr>                            
+                            </template>   
+                            <template v-slot:no-data>
+                                daftar bulan yang akan dibayar belum tersedia; silahkan pilih bulan di bawah ini.
+                            </template>                     
+                        </v-data-table>
+                    </v-form>
+                </v-col>
+            </v-row>
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"   
+                        :items="enrichedDataTable"   
                         v-model="item_selected"                                                  
                         :disable-pagination="true"
                         :hide-default-footer="true"                                                                
@@ -131,18 +173,40 @@
                         loading-text="Loading... Please wait">
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR BULAN</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR BULAN SPP</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>    
-                                <v-btn color="primary" dark class="mb-2" @click.stop="save">SIMPAN</v-btn>                                                            
+                                <v-spacer></v-spacer>                                    
                             </v-toolbar>
                         </template>                        
-                        <template v-slot:item.biaya_kombi="{ item }">    
-                            {{item.biaya_kombi|formatUang}}
+                        <template v-slot:item="{ item }">    
+                            <tr>
+                                <td>
+                                    <v-checkbox                                                       
+                                        :disabled="item.status==1"
+                                        class="pa-0 ma-0"
+                                        :ripple="false"
+                                        v-model="item_selected"
+                                        :value="item"
+                                        hide-details>
+                                    </v-checkbox>
+                                </td>
+                                <td>
+                                    {{item.no_bulan}}
+                                </td>
+                                <td>
+                                    {{item.nama_bulan}}
+                                </td>
+                                <td>
+                                    {{item.tahun}}
+                                </td>
+                                <td>
+                                    {{item.biaya_kombi|formatUang}}
+                                </td>
+                            </tr>
                         </template>                        
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
@@ -201,8 +265,11 @@ export default {
         headers: [                                                
             { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable:false },
             { text: 'BULAN', value: 'nama_bulan',sortable:false },            
+            { text: 'TAHUN', value: 'tahun',sortable:false },            
             { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable:false },            
-        ],                
+        ],              
+        //form
+        form_valid:true  
     }),
     methods : {
         changeTahunAkademik (tahun)
@@ -220,15 +287,53 @@ export default {
             }).then(({data})=>{       
                 this.data_transaksi=data.transaksi;        
                 this.datatable = data.transaksi_detail;                
+                this.item_selected = data.item_selected;                
                 this.datatableLoading=false;
             });                     
         }, 
         save:async function () {
-            
+            if (this.$refs.frmdata.validate())
+            {
+                
+                this.btnLoading=true;
+                await this.$ajax.post('/keuangan/transaksi-spp/store',
+                    {
+                        transaksi_id:this.transaksi_id,                        
+                        bulan_selected:JSON.stringify(Object.assign({},this.item_selected)),                                                                    
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{                       
+                    this.btnLoading=false;
+                    this.$router.go();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            }
         },        
     }, 
-    watch:{
-        
+    computed:{
+        enrichedDataTable()
+        {
+            return this.datatable.map(x => ({ ...x, isSelectable: x.status ==0 }));
+        },
+        totalBulan()
+        {
+            return this.item_selected.length;            
+        },
+        totalBiayaKombi()
+        {
+            var total = 0;
+            var index;
+            for (index in this.item_selected)
+            {
+                total = total + parseInt(this.item_selected[index].biaya_kombi);
+            }            
+            return total;
+        }
     },
     components:{
         KeuanganLayout,

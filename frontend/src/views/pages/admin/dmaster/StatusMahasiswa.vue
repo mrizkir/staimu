@@ -66,7 +66,7 @@
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'JenjangStudi',
+    name:'StatusMahasiswa',
     created()
     {
         this.breadcrumbs = [
