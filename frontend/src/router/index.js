@@ -304,6 +304,15 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/TransaksiSPP.vue'),		
 	},
 	{
+		path: '/keuangan/transaksi-spp/:transaksi_id',
+		name: 'KeuanganTransaksiSPPDetail',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI SPP",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiSPPDetail.vue'),		
+	},
+	{
 		path: '/keuangan/transaksi-spp/tambah/:transaksi_id',
 		name: 'KeuanganTransaksiSPPTambah',
 		meta:{

@@ -124,6 +124,14 @@
                         <template v-slot:item.nama_status="{ item }">    
                             <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
                         </template>
+                        <template v-slot:item.actions="{ item }">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click.stop="viewItem(item)">
+                                mdi-eye
+                            </v-icon>                                                        
+                        </template>
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
                         </template>  
@@ -253,6 +261,10 @@ export default {
                 this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
             }
             this.dialogfrm=true;            
+        },
+        viewItem(item)
+        {
+            this.$router.push('/keuangan/transaksi-spp/'+item.transaksi_id);
         },
         buatTransaksi:async function () {
             if (this.$refs.frmdata.validate())

@@ -36,7 +36,7 @@
                             <span class="headline">DATA TRANSAKSI <v-chip :color="data_transaksi.style" dark>{{data_transaksi.nama_status}}</v-chip></span>
                             <v-spacer></v-spacer>
                             <v-icon                
-                                @click.stop="closeTambahTransaksi(transaksi_id)">
+                                @click.stop="closeDetailTransaksi">
                                 mdi-close-thick
                             </v-icon>
                         </v-card-title>
@@ -129,7 +129,7 @@
                             :items="item_selected"                                                                       
                             :disable-pagination="true"
                             :hide-default-footer="true"                                                                
-                            item-key="no_bulan"                                                   
+                            item-key="id"                                                   
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait">
@@ -142,7 +142,7 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0)" :loading="btnLoading">SIMPAN</v-btn>                                                            
+                                    <v-btn color="primary" class="mb-2" :to="{path:'/keuangan/transaksi-spp/tambah/'+transaksi_id}" >TAMBAH</v-btn>                                                            
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  
@@ -162,8 +162,8 @@
                                     <td>JUMLAH</td>
                                     <td>{{totalBulan}} Bulan</td> 
                                     <td></td>
-                                    <td>{{totalBiayaKombi|formatUang}}</td>
-                                    <td></td>                                
+                                    <td>{{totalBiayaKombi|formatUang}}</td>   
+                                    <td></td>                             
                                 </tr>                            
                             </template>   
                             <template v-slot:no-data>
@@ -172,64 +172,7 @@
                         </v-data-table>
                     </v-form>
                 </v-col>
-            </v-row>
-            <v-row class="mb-4" no-gutters>
-                <v-col cols="12">
-                    <v-data-table
-                        :headers="headers"
-                        :items="enrichedDataTable"   
-                        v-model="item_selected"                                                  
-                        :disable-pagination="true"
-                        :hide-default-footer="true"                                                                
-                        item-key="id"
-                        show-select                                             
-                        class="elevation-1"
-                        :loading="datatableLoading"
-                        loading-text="Loading... Please wait">
-                        <template v-slot:top>
-                            <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR BULAN SPP</v-toolbar-title>
-                                <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                                ></v-divider>
-                                <v-spacer></v-spacer>                                    
-                            </v-toolbar>
-                        </template>                        
-                        <template v-slot:item="{ item }">    
-                            <tr>
-                                <td>
-                                    <v-checkbox                                                       
-                                        :disabled="item.status==1"
-                                        class="pa-0 ma-0"
-                                        :ripple="false"
-                                        v-model="item_selected"
-                                        :value="item"
-                                        hide-details>
-                                    </v-checkbox>
-                                </td>
-                                <td>
-                                    {{item.no_bulan}}
-                                </td>
-                                <td>
-                                    {{item.nama_bulan}}
-                                </td>
-                                <td>
-                                    {{item.tahun}}
-                                </td>
-                                <td>
-                                    {{item.biaya_kombi|formatUang}}
-                                </td>
-                                <td>N.A</td>
-                            </tr>
-                        </template>                        
-                        <template v-slot:no-data>
-                            Data transaksi SPP belum tersedia
-                        </template>  
-                    </v-data-table>
-                </v-col>
-            </v-row>
+            </v-row>            
         </v-container>
     </KeuanganLayout>
 </template>
@@ -237,7 +180,7 @@
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'TransaksiSPPTambah',
+    name:'TransaksiSPPDetail',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -259,7 +202,7 @@ export default {
                 href:'/keuangan/transaksi-spp'
             },
             {
-                text:'TAMBAH',
+                text:'DETAIL',
                 disabled:true,
                 href:'#'
             }
@@ -282,8 +225,8 @@ export default {
             { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable:false },
             { text: 'BULAN', value: 'nama_bulan',sortable:false },            
             { text: 'TAHUN', value: 'tahun',sortable:false },            
-            { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable:false },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },           
+            { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable:false },    
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },        
         ],              
         //form
         form_valid:true  
@@ -302,74 +245,40 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{       
-                this.data_transaksi=data.transaksi;        
-                this.datatable = data.transaksi_detail;                
+                this.data_transaksi=data.transaksi;                                       
                 this.item_selected = data.item_selected;                
                 this.datatableLoading=false;
             });                     
         }, 
-        save:async function () {
-            if (this.$refs.frmdata.validate())
-            {
-                
-                this.btnLoading=true;
-                await this.$ajax.post('/keuangan/transaksi-spp/store',
-                    {
-                        transaksi_id:this.transaksi_id,                        
-                        bulan_selected:JSON.stringify(Object.assign({},this.item_selected)),                                                                    
-                    },
-                    {
-                        headers:{
-                            Authorization:this.$store.getters['auth/Token']
-                        }
-                    }
-                ).then(()=>{                       
-                    this.btnLoading=false;
-                    this.$router.go();
-                }).catch(()=>{
-                    this.btnLoading=false;
-                });
-            }
-        },        
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
-                    var bulan=[1,2,3,4,5,6,7,8,9,10,11,12];
-                    if (bulan.includes(item.id))
-                    {
-                        const index = this.item_selected.indexOf(item);
+                    this.$ajax.post('/keuangan/transaksi-spp/'+item.id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{   
+                        const index = this.datatable.indexOf(item);
                         this.item_selected.splice(index, 1);
                         this.btnLoading=false;
-                    }                    
-                    else
-                    {
-                        this.$ajax.post('/keuangan/transaksi-spp/'+item.id,
-                            {
-                                '_method':'DELETE',
-                            },
-                            {
-                                headers:{
-                                    Authorization:this.$store.getters['auth/Token']
-                                }
-                            }
-                        ).then(()=>{   
-                            const index = this.item_selected.indexOf(item);
-                            this.item_selected.splice(index, 1);
-                            this.btnLoading=false;
-                        }).catch(()=>{
-                            this.btnLoading=false;
-                        });
-                    }
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
                 }                
             });
         },
-        closeTambahTransaksi (transaksi_id)
+        closeDetailTransaksi ()
         {
-            this.$router.push('/keuangan/transaksi-spp/'+transaksi_id);
+            this.$router.push('/keuangan/transaksi-spp');
         },
-    },     
+    }, 
     computed:{
         enrichedDataTable()
         {

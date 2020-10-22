@@ -145,30 +145,38 @@ class TransaksiSPPController extends Controller {
             $transaksi_detail=[];
             for($i=$awal_semester;$i<= 12;$i++)
             {
+                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
+                                    'id'=>$i,
                                     'no_bulan'=>$i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
                                     'tahun'=>$transaksi->ta,
                                     'biaya_kombi'=>$biaya_kombi,
-                                    'status'=>$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id)
+                                    'isSelectable'=>$status,
+                                    'status'=>$status
                                 ];
             }
             for($i=1;$i<$awal_semester;$i++)
             {
+                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
+                                    'id'=>$i,
                                     'no_bulan'=>$i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
                                     'tahun'=>$transaksi->ta+1,
                                     'biaya_kombi'=>$biaya_kombi,
-                                    'status'=>$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id)
+                                    'isSelectable'=>$status,
+                                    'status'=>$status
                                 ];
             }            
             $item_selected = TransaksiDetailModel::select(\DB::raw('
+                                id,
                                 bulan AS no_bulan,
                                 \'\' AS nama_bulan,
                                 '.$transaksi->ta.' AS tahun,
                                 biaya AS biaya_kombi,
-                                1 AS status
+                                true AS status,
+                                true AS isSelectable
                             '))
                             ->where('transaksi_id',$transaksi->id)
                             ->get();
@@ -342,6 +350,37 @@ class TransaksiSPPController extends Controller {
                                     'bulan_spp'=>$bulan_spp,                                                                                                                                                                         
                                     'message'=>(count($bulan_spp)).' Bulan SPP telah berhasil ditambahkan'
                                 ],200);  
+    }
+    public function destroy (Request $request,$id)
+    {
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_DESTROY');
+
+        $transaksi = TransaksiDetailModel::find($id); 
+        
+        if (is_null($transaksi))
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Transaksi Detail dengan ID ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            $transaksi->delete();
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $transaksi, 
+                                                            'object_id' => $transaksi->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
+                                                        ]);
+    
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
+                                    ],200);         
+        }
     }
     private function checkPembayaranSPP ($no_bulan,$tahun,$user_id)
     {
