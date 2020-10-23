@@ -142,7 +142,7 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0)" :loading="btnLoading">SIMPAN</v-btn>                                                            
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status==1 || data_transaksi.status==2)" :loading="btnLoading">SIMPAN</v-btn>                                                            
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  
@@ -173,7 +173,7 @@
                     </v-form>
                 </v-col>
             </v-row>
-            <v-row class="mb-4" no-gutters>
+            <v-row class="mb-4" no-gutters v-if="data_transaksi.status==0">
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
@@ -315,7 +315,7 @@ export default {
                 this.btnLoading=true;
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
-                        transaksi_id:this.transaksi_id,                        
+                        id:this.transaksi_id,                        
                         bulan_selected:JSON.stringify(Object.assign({},this.item_selected)),                                                                    
                     },
                     {
@@ -355,9 +355,8 @@ export default {
                                 }
                             }
                         ).then(()=>{   
-                            const index = this.item_selected.indexOf(item);
-                            this.item_selected.splice(index, 1);
                             this.btnLoading=false;
+                            this.$router.go();                            
                         }).catch(()=>{
                             this.btnLoading=false;
                         });

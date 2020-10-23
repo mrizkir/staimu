@@ -50,4 +50,9 @@ class TransaksiDetailModel extends Model {
      * @var string
      */
     public $timestamps = true;
+
+    public function transaksi ()
+    {
+        return $this->belongsTo('\App\Models\Keuangan\TransaksiModel','transaksi_id','id');
+    }
 }

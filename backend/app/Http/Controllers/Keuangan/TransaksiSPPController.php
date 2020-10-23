@@ -9,6 +9,7 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
+use Illuminate\Validation\Rule;
 
 use Exception;
 
@@ -114,18 +115,35 @@ class TransaksiSPPController extends Controller {
     {
         try 
         {
-            $transaksi=TransaksiModel::select(\DB::raw('
-                                    pe3_transaksi.*,
-                                    pe3_formulir_pendaftaran.nama_mhs,
-                                    pe3_kelas.nkelas,
-                                    pe3_status_transaksi.nama_status,
-                                    pe3_status_transaksi.style
-                                '))
-                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-                                ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
-                                ->find($id);
-
+            if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+            {
+                $transaksi=TransaksiModel::select(\DB::raw('
+                                        pe3_transaksi.*,
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_kelas.nkelas,
+                                        pe3_status_transaksi.nama_status,
+                                        pe3_status_transaksi.style
+                                    '))
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
+                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
+                                    ->where('pe3_transaksi.user_id',$this->getUserid())
+                                    ->find($id);
+            }
+            else
+            {
+                $transaksi=TransaksiModel::select(\DB::raw('
+                                        pe3_transaksi.*,
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_kelas.nkelas,
+                                        pe3_status_transaksi.nama_status,
+                                        pe3_status_transaksi.style
+                                    '))
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
+                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
+                                    ->find($id);
+            }
             if (is_null($transaksi))        
             {
                 throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
@@ -308,18 +326,38 @@ class TransaksiSPPController extends Controller {
         $bulan_selected=json_decode($request->input('bulan_selected'),true);
         $request->merge(['bulan_selected'=>$bulan_selected]);
 
-        $this->validate($request, [      
-            'transaksi_id'=>'required|exists:pe3_transaksi,id',     
-            'bulan_selected.*'=>'required',            
-        ]);
-        $transaksi_id=$request->input('transaksi_id');
+        if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+        {
+            $this->validate($request, [      
+                'id'=>[
+                        'required',
+                        Rule::exists('pe3_transaksi')->where(function ($query) {                                    
+                            $query->where('user_id',$this->getUserid());
+                            $query->where('status',0);
+                        })
+                    ],
+                'bulan_selected.*'=>'required',            
+            ]);
+        }
+        else
+        {
+            $this->validate($request, [      
+                'id'=>[
+                    'required',
+                    Rule::exists('pe3_transaksi')->where(function ($query) {                                                            
+                        $query->where('status',0);
+                    })
+                ],     
+                'bulan_selected.*'=>'required',            
+            ]);
+        }
+        $transaksi_id=$request->input('id');
         $transaksi=TransaksiModel::find($transaksi_id);
 
         $bulan_selected=$request->input('bulan_selected');
        
-        //hapus seluruh transaksi yang tidak memiliki detail transaksi       
-
         $bulan_spp=[];
+        $total_spp=0;
         foreach ($bulan_selected as $v)
         {
             $bulan_spp[]=[
@@ -336,12 +374,15 @@ class TransaksiSPPController extends Controller {
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ];
+            $total_spp+=$v['biaya_kombi'];
         }
         \DB::table('pe3_transaksi_detail')
             ->where ('transaksi_id',$transaksi_id)            
             ->delete();
             
         TransaksiDetailModel::insert($bulan_spp);
+        $transaksi->total=$total_spp;
+        $transaksi->save();
 
         return Response()->json([
                                     'status'=>1,
@@ -355,9 +396,17 @@ class TransaksiSPPController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_DESTROY');
 
-        $transaksi = TransaksiDetailModel::find($id); 
-        
-        if (is_null($transaksi))
+        if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+        {
+            $detail = TransaksiDetailModel::where('user_id',$this->getUserid())
+                                            ->find($id); 
+        }
+        else 
+        {
+            $detail = TransaksiDetailModel::find($id); 
+        }
+        $transaksi=$detail->transaksi;
+        if (is_null($detail))
         {
             return Response()->json([
                                     'status'=>1,
@@ -365,19 +414,31 @@ class TransaksiSPPController extends Controller {
                                     'message'=>["Transaksi Detail dengan ID ($id) gagal dihapus"]
                                 ],422); 
         }
+        else if ($transaksi->status==1 || $transaksi->status==2)
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Transaksi dengan ID ($id) sudah tidak bisa dihapus"]
+                                ],422); 
+        }
         else
         {
-            $transaksi->delete();
+            $sub_total=$detail->sub_total;
+            $detail->delete();
+            $transaksi->total=$transaksi->total-$sub_total;
+            $transaksi->save();
+
             \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $transaksi, 
-                                                            'object_id' => $transaksi->id, 
+                                                            'object' => $detail, 
+                                                            'object_id' => $detail->id, 
                                                             'user_id' => $this->getUserid(), 
                                                             'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
                                                         ]);
     
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',          
                                         'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
                                     ],200);         
         }
