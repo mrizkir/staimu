@@ -483,6 +483,25 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambahMatkul.vue'),		
 	},	
+	//akademik - perkuliahan - pembagian kelas
+	{
+		path: '/akademik/perkuliahan/pembagiankelas/daftar',
+		name: 'PerkuliahanPembagianKelas',
+		meta:{
+			title: "AKADEMIK - PEMBAGIAN KELAS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPembagianKelas.vue'),		
+	},	
+	{
+		path: '/akademik/perkuliahan/pembagiankelas/tambah',
+		name: 'PerkuliahanPembagianKelasTambah',
+		meta:{
+			title: "AKADEMIK - PEMBAGIAN KELAS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPembagianKelas.vue'),		
+	},	
 	//akademik - nilai
 	{
 		path: '/akademik/nilai/matakuliah/daftar',

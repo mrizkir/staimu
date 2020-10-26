@@ -189,6 +189,28 @@
                         </v-list-item>   						 
 					</div>
                 </v-list-group>
+                <v-list-group group="/akademik/perkuliahan/pembagiankelas" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE')" color="green">
+                    <template v-slot:activator>
+                        <v-list-item-icon class="mr-2">
+                            <v-icon>mdi-google-classroom</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-content>								
+                            <v-list-item-title>PEMBAGIAN KELAS</v-list-item-title>
+                        </v-list-item-content>							
+                    </template>
+					<div>
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/perkuliahan/pembagiankelas/daftar" color="white">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-book</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    DAFTAR
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   	
+					</div>
+                </v-list-group>
                 <v-list-group group="/akademik/perkuliahan/krs" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_BROWSE')" color="green">
                     <template v-slot:activator>
                         <v-list-item-icon class="mr-2">

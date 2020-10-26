@@ -656,15 +656,16 @@ export default {
         },    
         showDialogCopyMatkul()
         {
-            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];              
+            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             for (var i =0; i < list_ta.length; i++)
             {
                 var item = list_ta[i];  
-                if (this.tahun_akademik!=item.tahun)
+                console.log(item);    
+                if (this.tahun_akademik!=item.value)
                 {
                     this.daftar_ta.push({
-                        tahun:item.tahun,
-                        tahun_akademik:item.tahun_akademik
+                        value:item.value,
+                        text:item.text
                     })
                 }                              
             }            

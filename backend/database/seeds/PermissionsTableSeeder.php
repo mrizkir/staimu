@@ -218,6 +218,7 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-DULANG-KELUAR',
 
             'AKADEMIK-PERKULIAHAN-PENYELENGGARAAN',
+            'AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS',
             'AKADEMIK-PERKULIAHAN-KRS',
             'AKADEMIK-PERKULIAHAN-PKRS',
             
