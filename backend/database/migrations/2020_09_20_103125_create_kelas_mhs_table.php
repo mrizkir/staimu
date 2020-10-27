@@ -33,7 +33,7 @@ class CreateKelasMhsTable extends Migration
             $table->boolean('isi_nilai')->default(0);
             $table->timestamps();  
             
-            $table->index('penyelenggaraan_id');
+            $table->index('penyelenggaraan_dosen_id');
             $table->index('ruang_kelas_id');
             $table->index('idkelas');                                    
             
