@@ -104,7 +104,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
-                                    <strong>pembagiankelas_id:</strong>{{ item.id }}          
+                                    <strong>ID:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
@@ -127,7 +127,7 @@ import Filter6 from '@/components/sidebar/FilterMode6';
 import {mapGetters} from 'vuex';
 
 export default {
-    name: 'PerkuliahanPenyelenggaraan',
+    name: 'PerkuliahanPembagianKelas',
     created () {
         this.breadcrumbs = [
             {
@@ -161,8 +161,7 @@ export default {
     data: () => ({ 
         firstloading:true,
         prodi_id:null,
-        nama_prodi:null,
-        daftar_ta:[],
+        nama_prodi:null,        
         tahun_akademik:null,
         semester_akademik:null,
 
@@ -171,13 +170,14 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:150  },   
+            { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable:true  },   
-            { text: 'SKS', value: 'sks', sortable:true, width:100  },               
-            { text: 'SMT. MATKUL', value: 'semester', sortable:true, width:100  },               
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable:true, width:100 },               
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen',sortable:true, width:100 },                           
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs',sortable:true, width:100},                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true, width:100  },               
+            { text: 'NAMA KELAS', value: 'nama_kelas', sortable:true, width:100  },               
+            { text: 'HARI', value: 'hari', sortable:true, width:100 },               
+            { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                           
+            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                           
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                           
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'', 

@@ -84,6 +84,7 @@ class CreateKRSTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('pe3_krsmatkul');
         Schema::dropIfExists('pe3_krs');
     }
 }

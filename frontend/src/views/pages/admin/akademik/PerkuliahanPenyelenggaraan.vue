@@ -161,8 +161,7 @@ export default {
     data: () => ({ 
         firstloading:true,
         prodi_id:null,
-        nama_prodi:null,
-        daftar_ta:[],
+        nama_prodi:null,        
         tahun_akademik:null,
         semester_akademik:null,
 

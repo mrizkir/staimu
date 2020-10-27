@@ -135,8 +135,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
 
         $this->validate($request, [            
-            'pid'=>'required', 
-            'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'           
+            'pid'=>'required|in:belumterdaftar,terdaftar,daftarpengampu',             
         ]);
         
         $data=[];
@@ -144,6 +143,9 @@ class PenyelenggaraanMatakuliahController extends Controller
         switch($request->input('pid'))
         {
             case 'belumterdaftar':
+                $this->validate($request, [                                
+                    'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'           
+                ]);
                 $data=UserDosen::select(\DB::raw('
                                     user_id,
                                     nidn,                                    
@@ -159,6 +161,9 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 ->get();
             break;
             case 'terdaftar':
+                $this->validate($request, [            
+                    'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'             
+                ]);
                 $data=UserDosen::select(\DB::raw('
                                     pe3_penyelenggaraan_dosen.id,
                                     pe3_penyelenggaraan_dosen.penyelenggaraan_id,
@@ -174,6 +179,31 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 ->orderBy('nama_dosen','ASC')                                                      
                                 ->get();
             break;
+            case 'daftarpengampu':
+                $this->validate($request, [            
+                    'ta'=>'required',
+                    'semester_akademik'=>'required',
+                    'prodi_id'=>'required'            
+                ]);
+
+                $ta=$request->input('ta');
+                $prodi_id=$request->input('prodi_id');
+                $semester_akademik=$request->input('semester_akademik');
+                
+                $data=PenyelenggaraanDosenModel::select(\DB::raw('
+                                                DISTINCT(pe3_dosen.user_id) AS user_id,                                                                                                
+                                                pe3_dosen.nama_dosen,
+                                                pe3_dosen.nidn
+                                            '))
+                                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
+                                            ->join('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan_dosen.user_id')
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)
+                                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)
+                                            ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
+                                            ->orderBy('pe3_dosen.nama_dosen','ASC')
+                                            ->get();
+
+            break;
         }
         return Response()->json([
                                 'status'=>1,
@@ -181,6 +211,44 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 'dosen'=>$data,
                                 'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
                             ],200);  
+    }
+    public function matakuliah(Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
+
+        $this->validate($request, [                                
+            'user_id'=>'required|exists:pe3_dosen,user_id',           
+            'ta'=>'required',
+            'semester_akademik'=>'required|in:1,2,3',
+            'prodi_id'=>'required|exists:pe3_prodi,id'   
+        ]);
+        
+        $ta=$request->input('ta');
+        $user_id=$request->input('user_id');
+        $prodi_id=$request->input('prodi_id');
+        $semester_akademik=$request->input('semester_akademik');
+        
+        $data=PenyelenggaraanDosenModel::select(\DB::raw('                                                                                                                                                
+                                                pe3_penyelenggaraan.matkul_id,
+                                                CONCAT(pe3_matakuliah.nmatkul,\' [\',pe3_matakuliah.kmatkul,\']\') AS nmatkul                                                
+                                            '))
+                                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
+                                            ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)
+                                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)
+                                            ->where('pe3_penyelenggaraan_dosen.user_id',$user_id)
+                                            ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
+                                            ->orderBy('pe3_matakuliah.kmatkul','ASC')
+                                            ->get();
+
+        
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                    
+                                'matakuliah'=>$data,                                            
+                                'message'=>"Daftar matakuliah yang di ampu oleh ($user_id) berhasil diperoleh."
+                            ],200);
+        
     }
     public function storedosenpengampu (Request $request)
     {

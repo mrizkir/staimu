@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKRSTable extends Migration
+class CreateKelasMhsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,64 +21,47 @@ class CreateKRSTable extends Migration
             $table->tinyinteger('hari');
             $table->string('jam_masuk',5);
             $table->string('jam_keluar',5);
-            $table->uuid('penyelenggaraan_id');   
+            $table->uuid('penyelenggaraan_dosen_id');   
             $table->uuid('ruang_kelas_id');            
 
-            $table->uuid('user_id');               
-            $table->uuid('dulang_id');               
-            $table->string('nim');
-            $table->unsignedInteger('kjur');                
-            $table->tinyinteger('idsmt');
-            $table->year('tahun');
-            $table->smallInteger('tasmt');
-            $table->boolean('sah')->default(0);                     
+            $table->tinyinteger('persen_quiz');
+            $table->tinyinteger('persen_tugas_individu');
+            $table->tinyinteger('persen_tugas_kelompok');
+            $table->tinyinteger('persen_uts');
+            $table->tinyinteger('persen_uas');
+            $table->tinyinteger('persen_absen');
+            $table->boolean('isi_nilai')->default(0);
             $table->timestamps();  
             
-            $table->index('nim');
-            $table->index('tahun');
-            $table->index('idsmt');            
-            $table->index('kjur');            
+            $table->index('penyelenggaraan_id');
+            $table->index('ruang_kelas_id');
+            $table->index('idkelas');                                    
             
-            $table->foreign('dulang_id')
+            $table->foreign('penyelenggaraan_dosen_id')
                 ->references('id')
-                ->on('pe3_dulang')
+                ->on('pe3_penyelenggaraan_dosen')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');            
-
-            $table->foreign('user_id')
-                ->references('user_id')
-                ->on('pe3_formulir_pendaftaran')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');            
+                ->onUpdate('cascade');                             
         });
 
-        Schema::create('pe3_krsmatkul', function (Blueprint $table) {
+        Schema::create('pe3_kelas_mhs_detail', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('krs_id');    
-            $table->string('nim');                    
-            $table->uuid('penyelenggaraan_id');            
-            $table->boolean('batal')->default(0);   
-            $table->unsignedInteger('kjur');                
-            $table->tinyinteger('idsmt');
-            $table->year('tahun');
+            $table->uuid('kelas_mhs_id');    
+            $table->uuid('krsmatkul_id');    
             $table->timestamps();  
             
-            $table->index('penyelenggaraan_id');                           
-            $table->index('krs_id');
-            $table->index('nim');
-            $table->index('tahun');
-            $table->index('idsmt');            
-            $table->index('kjur');            
+            $table->index('kelas_mhs_id');        
+            $table->index('krsmatkul_id');
             
-            $table->foreign('penyelenggaraan_id')
+            $table->foreign('kelas_mhs_id')
                 ->references('id')
-                ->on('pe3_penyelenggaraan')
+                ->on('pe3_kelas_mhs')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('krs_id')
+            $table->foreign('krsmatkul_id')
                 ->references('id')
-                ->on('pe3_krs')
+                ->on('pe3_krsmatkul')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
@@ -92,6 +75,7 @@ class CreateKRSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pe3_krs');
+        Schema::dropIfExists('pe3_kelas_mhs_detail');
+        Schema::dropIfExists('pe3_kelas_mhs');
     }
 }

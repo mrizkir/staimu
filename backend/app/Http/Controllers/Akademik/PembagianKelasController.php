@@ -29,35 +29,42 @@ class PembagianKelasController extends Controller
         $prodi_id=$request->input('prodi_id');
         $semester_akademik=$request->input('semester_akademik');
 
-        $penyelenggaraan=PembagianKelasModel::select(\DB::raw('
-                                                            id,
-                                                            kmatkul,
-                                                            nmatkul,                                                            
-                                                            sks,       
-                                                            semester,
-                                                            ta_matkul,                                                                                                                 
-                                                            0 AS jumlah_dosen,
-                                                            0 AS jumlah_mhs
-                                                        '))
-                                                        ->where('tahun',$ta)
-                                                        ->where('idsmt',$semester_akademik)
-                                                        ->where('kjur',$prodi_id)
-                                                        ->orderBy('ta_matkul','ASC')    
-                                                        ->orderBy('semester','ASC')                      
-                                                        ->orderBy('kmatkul','ASC')                                                            
-                                                        ->get();
-                                                        
-        $penyelenggaraan->transform(function ($item,$key){
-            $item->jumlah_dosen=\DB::table('pe3_penyelenggaraan_dosen')->where('penyelenggaraan_id',$item->id)->count();
-            $item->jumlah_mhs=\DB::table('pe3_krsmatkul')->where('penyelenggaraan_id',$item->id)->count();;
+        $pembagiankelas=\DB::table('pe3_kelas_mhs')
+                            ->select(\DB::raw('
+                                pe3_kelas_mhs.id,
+                                pe3_kelas_mhs.idkelas,
+                                pe3_kelas_mhs.nama_kelas,
+                                pe3_kelas_mhs.hari,
+                                pe3_kelas_mhs.jam_masuk,
+                                pe3_kelas_mhs.jam_keluar,
+                                pe3_matakuliah.kmatkul,
+                                pe3_matakuliah.nmatkul,
+                                pe3_dosen.nama_dosen,
+                                pe3_dosen.nidn,
+                                pe3_ruangkelas.namaruang,
+                                pe3_ruangkelas.kapasitas,
+                                pe3_kelas_mhs.created_at,
+                                pe3_kelas_mhs.updated_at
+                            '))
+                            ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.id')
+                            ->join('pe3_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')
+                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
+                            ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')                            
+                            ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')                            
+                            ->where('pe3_penyelenggaraan.tahun',$ta)
+                            ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
+                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)                            
+                            ->get();
+        
+        $pembagiankelas->transform(function ($item,$key){            
+            $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_detail')->where('kelas_mhs_id',$item->id)->count();;
             return $item;
         });
-
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                   
-                                    'message'=>'Fetch data penyelenggaraan matakuliah berhasil.'
+                                    'pembagiankelas'=>$pembagiankelas,                                                                                                                                   
+                                    'message'=>'Fetch data pembagian kelas berhasil.'
                                 ],200); 
     }
     /**
@@ -111,8 +118,8 @@ class PembagianKelasController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
 
-        $penyelenggaraan = PembagianKelasModel::find($id);
-        if (is_null($penyelenggaraan))
+        $pembagiankelas = PembagianKelasModel::find($id);
+        if (is_null($pembagiankelas))
         {
             return Response()->json([
                                     'status'=>1,
@@ -125,7 +132,7 @@ class PembagianKelasController extends Controller
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',                    
-                                    'penyelenggaraan'=>$penyelenggaraan,                                            
+                                    'penyelenggaraan'=>$pembagiankelas,                                            
                                     'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
                                 ],200);
         }
@@ -263,9 +270,9 @@ class PembagianKelasController extends Controller
     { 
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
 
-        $penyelenggaraan = PembagianKelasModel::find($id); 
+        $pembagiankelas = PembagianKelasModel::find($id); 
         
-        if (is_null($penyelenggaraan))
+        if (is_null($pembagiankelas))
         {
             return Response()->json([
                                     'status'=>1,
@@ -276,12 +283,12 @@ class PembagianKelasController extends Controller
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $penyelenggaraan, 
-                                                                'object_id' => $penyelenggaraan->id, 
+                                                                'object' => $pembagiankelas, 
+                                                                'object_id' => $pembagiankelas->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus penyelenggaraan matakuliah dengan id ('.$id.') berhasil'
+                                                                'message' => 'Menghapus pembagian kelas dengan id ('.$id.') berhasil'
                                                             ]);
-            $penyelenggaraan->delete();
+            $pembagiankelas->delete();
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                

@@ -500,7 +500,7 @@ const routes = [
 			title: "AKADEMIK - PEMBAGIAN KELAS",
 			requiresAuth:true,
         },
-		component: () => import('../views/pages/admin/akademik/PerkuliahanPembagianKelas.vue'),		
+		component: () => import('../views/pages/admin/akademik/PerkuliahanPembagianKelasTambah.vue'),		
 	},	
 	//akademik - nilai
 	{

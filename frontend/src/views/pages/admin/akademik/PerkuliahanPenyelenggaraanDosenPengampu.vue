@@ -207,7 +207,7 @@ export default {
             is_ketua:false,
         },        
         rule_dosen:[
-            value => !!value||"Mohon dipilih Dosen untuk Mahasiswa ini !!!"
+            value => !!value||"Mohon dipilih Dosen untuk matakuliah ini !!!"
         ],
     }),
     methods: {   

@@ -366,8 +366,7 @@ export default {
         },    
         save:async function () {
             if (this.$refs.frmdata.validate())
-            {
-                
+            {                
                 this.btnLoading=true;
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',
                     {
