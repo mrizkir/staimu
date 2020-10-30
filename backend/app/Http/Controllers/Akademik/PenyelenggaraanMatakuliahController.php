@@ -228,7 +228,8 @@ class PenyelenggaraanMatakuliahController extends Controller
         $prodi_id=$request->input('prodi_id');
         $semester_akademik=$request->input('semester_akademik');
         
-        $data=PenyelenggaraanDosenModel::select(\DB::raw('                                                                                                                                                
+        $data=PenyelenggaraanDosenModel::select(\DB::raw(' 
+                                                pe3_penyelenggaraan_dosen.id,
                                                 pe3_penyelenggaraan.matkul_id,
                                                 CONCAT(pe3_matakuliah.nmatkul,\' [\',pe3_matakuliah.kmatkul,\']\') AS nmatkul                                                
                                             '))

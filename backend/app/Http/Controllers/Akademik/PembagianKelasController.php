@@ -17,7 +17,7 @@ class PembagianKelasController extends Controller
      */
     public function index(Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE');
 
         $this->validate($request, [
             'ta'=>'required',
@@ -72,51 +72,51 @@ class PembagianKelasController extends Controller
      */
     public function store(Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
 
         $matkul_selected=json_decode($request->input('matkul_selected'),true);
         $request->merge(['matkul_selected'=>$matkul_selected]);
 
         $this->validate($request, [            
-            'ta'=>'required',
-            'semester_akademik'=>'required',
-            'prodi_id'=>'required',   
-            'matkul_selected.*'=>'required',                   
+            'idkelas'=>'required',                        
+            'hari'=>'required',
+            'jam_masuk'=>'required',   
+            'jam_keluar'=>'required',   
+            'penyelenggaraan_dosen_id'=>'required',   
+            'ruang_kelas_id'=>'required',   
+            
         ]);
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
-        $semester_akademik=$request->input('semester_akademik');
-
-        $daftar_matkul=[];
-        foreach ($matkul_selected as $v)
-        {
-            $daftar_matkul[]=[
-                'id'=>Uuid::uuid4()->toString(),
-                'matkul_id'=>$v['id'],
-                'kmatkul'=>$v['kmatkul'],
-                'nmatkul'=>$v['nmatkul'],
-                'sks'=>$v['sks'],
-                'semester'=>$v['semester'],
-                'ta_matkul'=>$v['ta'],
-                'idsmt'=>$semester_akademik,
-                'tahun'=>$ta,
-                'kjur'=>$prodi_id,
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now()
-            ];
-        }
-        PembagianKelasModel::insert($daftar_matkul);
+        $idkelas=$request->input('idkelas');
+        $nama_kelas=$request->input('nama_kelas');
+        $nmatkul=$request->input('nmatkul');
+        $hari=$request->input('hari');        
+        $jam_masuk=$request->input('jam_masuk');
+        $jam_keluar=$request->input('jam_keluar');
+        $penyelenggaraan_dosen_id=$request->input('penyelenggaraan_dosen_id');
+        $ruang_kelas_id=$request->input('ruang_kelas_id');
+        
+        $pembagiankelas=[];
+        // $pembagiankelas=PembagianKelasModel::create([
+        //     'id'=>Uuid::uuid4()->toString(),
+        //     'idkelas'=>$idkelas,
+        //     'nmatkul'=>$nmatkul,
+        //     'hari'=>$hari,
+        //     'jam_masuk'=>$jam_masuk,
+        //     'jam_keluar'=>$jam_keluar,
+        //     'penyelenggaraan_dosen_id'=>$penyelenggaraan_dosen_id,
+        //     'ruang_kelas_id'=>$ruang_kelas_id,
+        // ]);
 
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',                    
-                                'matkul_selected'=>$matkul_selected,                                            
-                                'message'=>'Penyelenggaraan matakuliah berhasil ditambahkan.'
+                                'pembagiankelas'=>$pembagiankelas,                                            
+                                'message'=>'Pembagian Kelas berhasil ditambahkan.'
                             ],200);
     }
     public function show(Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
 
         $pembagiankelas = PembagianKelasModel::find($id);
         if (is_null($pembagiankelas))
@@ -139,7 +139,7 @@ class PembagianKelasController extends Controller
     }
     public function pengampu (Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
 
         $this->validate($request, [            
             'pid'=>'required', 
@@ -191,7 +191,7 @@ class PembagianKelasController extends Controller
     }
     public function storedosenpengampu (Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
 
         $this->validate($request, [   
             'penyelenggaraan_id'=>'required|exists:pe3_penyelenggaraan,id',           
@@ -221,7 +221,7 @@ class PembagianKelasController extends Controller
 
     public function updateketua(Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_UPDATE');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_UPDATE');
         
         $dosen = PenyelenggaraanDosenModel::find($id); 
 
@@ -268,7 +268,7 @@ class PembagianKelasController extends Controller
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 
         $pembagiankelas = PembagianKelasModel::find($id); 
         
@@ -305,7 +305,7 @@ class PembagianKelasController extends Controller
      */
     public function destroypengampu(Request $request,$id)
     { 
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 
         $dosen = PenyelenggaraanDosenModel::find($id); 
         

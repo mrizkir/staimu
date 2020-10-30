@@ -49,12 +49,12 @@
                             <v-card-title>TAMBAH KELAS BARU</v-card-title>
                             <v-card-text>
                                 <v-select
-                                    v-model="formdata.kmatkul"
+                                    v-model="formdata.penyelenggaraan_dosen_id"
                                     :items="daftar_matakuliah"                                                    
                                     label="MATAKULIAH"
                                     :rules="rule_matakuliah"
                                     item-text="nmatkul"
-                                    item-value="matkul_id"
+                                    item-value="id"
                                     :disabled="dosen_id==null"
                                     outlined/> 
                                 <v-select
@@ -96,8 +96,28 @@
                                         </v-text-field>
                                     </v-col>
                                 </v-row>
-                                
+                                <v-select
+                                    v-model="formdata.ruang_kelas_id"
+                                    :items="daftar_ruang_kelas"                                                    
+                                    label="RUANG KELAS"
+                                    :rules="rule_ruang_kelas"
+                                    item-text="namaruang"
+                                    item-value="id"
+                                    outlined
+                                    :disabled="dosen_id==null"/> 
                             </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/daftar')">KEMBALI</v-btn>
+                                <v-btn 
+                                    color="blue darken-1" 
+                                    text 
+                                    @click.stop="save" 
+                                    :loading="btnLoading"
+                                    :disabled="!form_valid||btnLoading||dosen_id==null">
+                                        BUAT
+                                </v-btn>
+                            </v-card-actions>
                         </v-card>
                     </v-form>
                 </v-col>
@@ -163,6 +183,8 @@ export default {
 
         daftar_kelas:[],
 
+        daftar_ruang_kelas:[],
+
         daftar_hari:[
             {
                 text:'SENIN',
@@ -190,9 +212,13 @@ export default {
             },
         ],
         formdata:{            
-            kmatkul:'',
-            idkelas:'',
-            hari:''
+            id:'',
+            idkelas:'',            
+            hari:'',            
+            jam_masuk:'',
+            jam_keluar:'',
+            penyelenggaraan_dosen_id:'',
+            ruang_kelas_id:'',            
         },  
         rule_dosen:[
             value => !!value||"Mohon dipilih Dosen pengampu matakuliah !!!"
@@ -207,10 +233,13 @@ export default {
             value => !!value||"Mohon dipilih hari mengajar!!!"
         ],
         rule_jam_masuk:[
-            value => !!value||"Mohon dipilih jam masuk mengajar!!!"
+            value => !!value||"Mohon diisi jam masuk mengajar!!!"
         ],
         rule_jam_keluar:[
-            value => !!value||"Mohon dipilih jam keluar mengajar!!!"
+            value => !!value||"Mohon diisi jam keluar mengajar!!!"
+        ],
+        rule_ruang_kelas:[
+            value => !!value||"Mohon dipilih ruang kelas mengajar!!!"
         ],
     }),
     methods: {        
@@ -229,8 +258,68 @@ export default {
                 }
             }).then(({data})=>{                                               
                 this.daftar_dosen = data.dosen;                
-            })  
+            });  
+
+            await this.$ajax.get('/datamaster/ruangankelas',{
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{
+                this.daftar_ruang_kelas = data.ruangan;                
+            });
         },
+        save:async function () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;
+                if (this.editedIndex > -1)
+                {
+                    await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
+                        {
+                            '_method':'PUT',
+                            idkelas:this.formdata.idkelas,                            
+                            hari:this.formdata.hari,                            
+                            jam_masuk:this.formdata.jam_masuk,
+                            jam_keluar:this.formdata.jam_keluar,
+                            penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
+                            ruang_kelas_id:this.formdata.ruang_kelas_id,                            
+                        },
+                        {
+                            headers:{
+                                Authorization:this.TOKEN
+                            }
+                        }
+                    ).then(()=>{
+                        this.btnLoading=false;
+                        this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+
+                } else {
+                    await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
+                        {
+                            idkelas:this.formdata.idkelas,                            
+                            hari:this.formdata.hari,                            
+                            jam_masuk:this.formdata.jam_masuk,
+                            jam_keluar:this.formdata.jam_keluar,
+                            penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
+                            ruang_kelas_id:this.formdata.ruang_kelas_id,                            
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{                        
+                        this.btnLoading=false;
+                        this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }
+            }
+        },        
     },
     watch:{
         async dosen_id(val)

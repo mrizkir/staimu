@@ -27,10 +27,8 @@ class PembagianKelasModel extends Model
     protected $fillable = [
         'id',
         'idkelas',
-        'nama_kelas',
-        'nmatkul',
-        'hari',
-        'semester',
+        'nama_kelas',        
+        'hari',        
         'jam_masuk',
         'jam_keluar',
         'penyelenggaraan_dosen_id',         
