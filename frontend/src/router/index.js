@@ -48,6 +48,15 @@ const routes = [
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),		
 	},
 	{
+		path: '/dmaster/ruangkelas',
+		name: 'DMasterRuangKelas',
+		meta:{
+			title: "DATA MASTER - RUANG KELAS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/RuangKelas.vue'),		
+	},
+	{
 		path: '/dmaster/kelas',
 		name: 'DMasterKelas',
 		meta:{

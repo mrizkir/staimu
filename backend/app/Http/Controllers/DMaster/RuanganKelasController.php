@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\DMaster\RuanganKelasModel;
 
+use Ramsey\Uuid\Uuid;
 class RuanganKelasController extends Controller {  
     /**
-     * daftar kelas
+     * daftar ruang kelas
      */
     public function index(Request $request)
     {
@@ -35,29 +36,30 @@ class RuanganKelasController extends Controller {
         $this->hasPermissionTo('DMASTER-RUANGAN-KELAS_STORE');
 
         $rule=[            
-            'idkelas'=>'required|string|max:1|unique:pe3_kelas,idkelas',
-            'nkelas'=>'required|string|unique:pe3_kelas,nkelas',                     
+            'namaruang'=>'required|string|unique:pe3_ruangkelas,namaruang',
+            'kapasitas'=>'required|numeric',                     
         ];
     
         $this->validate($request, $rule);
              
-        $kelas=KelasModel::create([
-            'idkelas'=>$request->input('idkelas'),            
-            'nkelas'=>strtoupper($request->input('nkelas')),                        
+        $ruangan=RuanganKelasModel::create([
+            'id'=>Uuid::uuid4()->toString(),
+            'namaruang'=>$request->input('namaruang'),            
+            'kapasitas'=>strtoupper($request->input('kapasitas')),                        
         ]);                      
         
         \App\Models\System\ActivityLog::log($request,[
-                                        'object' => $kelas,
-                                        'object_id'=>$kelas->idkelas, 
+                                        'object' => $ruangan,
+                                        'object_id'=>$ruangan->id, 
                                         'user_id' => $this->getUserid(), 
-                                        'message' => 'Menambah kelas baru berhasil'
+                                        'message' => 'Menambah ruang kelas baru berhasil'
                                     ]);
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'kelas'=>$kelas,                                    
-                                    'message'=>'Data kelas berhasil disimpan.'
+                                    'ruangan'=>$ruangan,                                    
+                                    'message'=>'Data ruang kelas berhasil disimpan.'
                                 ],200); 
 
     }
@@ -72,70 +74,49 @@ class RuanganKelasController extends Controller {
     {
         $this->hasPermissionTo('DMASTER-RUANGAN-KELAS_UPDATE');
 
-        $kelas = KelasModel::find($id);
-        if (is_null($kelas))
+        $ruangan = RuanganKelasModel::find($id);
+        if (is_null($ruangan))
         {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',                
-                                    'message'=>["Kode Kelas ($id) gagal diupdate"]
+                                    'message'=>["Rung Kelas ($id) gagal diupdate"]
                                 ],422); 
         }
         else
         {
-            $bentuk_pt=ConfigurationModel::getCache('BENTUK_PT');
-            if ($bentuk_pt=='sekolahtinggi')
-            {
-                $this->validate($request, [
-                                            'idkelas'=>[
-                                                            'required',                                                        
-                                                            'string',
-                                                            'max:1',
-                                                            Rule::unique('pe3_kelas')->ignore($kelas->idkelas,'idkelas')                                                       
-                                                        ],           
-                                            
-                                            'nkelas'=>[
-                                                            'required',
-                                                            'string',
-                                                            Rule::unique('pe3_kelas')->ignore($kelas->nkelas,'nkelas')
-                                                        ],           
-                                            
-                                        ]); 
-            }
-            else
-            {
-                $this->validate($request, [
-                                            'kode_fakultas'=>[
-                                                'required',
-                                                'string',
-                                                'max:1',
-                                                'exists:pe3_kelas,idkelas',                                                     
-                                            ], 
-                                            'nama_kelas'=>[
-                                                'required',
-                                                'string',
-                                                Rule::unique('pe3_kelas')->ignore($kelas->nkelas,'nkelas')
-                                            ],           
-                                            
-                                        ]); 
-            }                       
-            $kelas->idkelas = $request->input('idkelas');
-            $kelas->nkelas = $request->input('nkelas');
+            
+            $this->validate($request, [
+                                        'namaruang'=>[
+                                                        'required',                                                        
+                                                        'string',                                                            
+                                                        Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang,'namaruang')                                                       
+                                                    ],           
+                                        
+                                        'kapasitas'=>[
+                                                        'required',
+                                                        'numeric',                                                            
+                                                    ],           
+                                        
+                                    ]); 
+        
+            $ruangan->namaruang = $request->input('namaruang');
+            $ruangan->kapasitas = $request->input('kapasitas');
                      
-            $kelas->save();
+            $ruangan->save();
 
             \App\Models\System\ActivityLog::log($request,[
-                                                        'object' => $kelas,
-                                                        'object_id'=>$kelas->idkelas, 
-                                                        'user_id' => $this->guard()->user()->idkelas, 
-                                                        'message' => 'Mengubah data kelas ('.$kelas->nkelas.') berhasil'
+                                                        'object' => $ruangan,
+                                                        'object_id'=>$ruangan->id, 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => 'Mengubah data ruang kelas ('.$ruangan->namaruang.') berhasil'
                                                     ]);
 
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',
-                                    'kelas'=>$kelas,      
-                                    'message'=>'Data kelas '.$kelas->nkelas.' berhasil diubah.'
+                                    'ruangan'=>$ruangan,      
+                                    'message'=>'Data ruang kelas '.$ruangan->namaruang.' berhasil diubah.'
                                 ],200); 
         }
     }    
@@ -149,29 +130,29 @@ class RuanganKelasController extends Controller {
     { 
         $this->hasPermissionTo('DMASTER-RUANGAN-KELAS_DESTROY');
 
-        $kelas = KelasModel::find($id); 
+        $ruangan = RuanganKelasModel::find($id); 
         
-        if (is_null($kelas))
+        if (is_null($ruangan))
         {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'destroy',                
-                                    'message'=>["Kode kelas ($id) gagal dihapus"]
+                                    'message'=>["Ruang kelas dengan id ($id) gagal dihapus"]
                                 ],422); 
         }
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $kelas, 
-                                                                'object_id' => $kelas->idkelas, 
+                                                                'object' => $ruangan, 
+                                                                'object_id' => $ruangan->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Kode Kelas ('.$id.') berhasil'
+                                                                'message' => 'Menghapus Kode Ruang Kelas ('.$id.') berhasil'
                                                             ]);
-            $kelas->delete();
+            $ruangan->delete();
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                
-                                        'message'=>"Kelas dengan kode ($id) berhasil dihapus"
+                                        'message'=>"Ruang Kelas dengan kode ($id) berhasil dihapus"
                                     ],200);         
         }
                   
