@@ -233,10 +233,12 @@ export default {
             value => !!value||"Mohon dipilih hari mengajar!!!"
         ],
         rule_jam_masuk:[
-            value => !!value||"Mohon diisi jam masuk mengajar!!!"
+            value => !!value||"Mohon diisi jam masuk mengajar!!!",
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
         ],
         rule_jam_keluar:[
-            value => !!value||"Mohon diisi jam keluar mengajar!!!"
+            value => !!value||"Mohon diisi jam keluar mengajar!!!",
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
         ],
         rule_ruang_kelas:[
             value => !!value||"Mohon dipilih ruang kelas mengajar!!!"
@@ -271,54 +273,28 @@ export default {
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
-                if (this.editedIndex > -1)
-                {
-                    await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
-                        {
-                            '_method':'PUT',
-                            idkelas:this.formdata.idkelas,                            
-                            hari:this.formdata.hari,                            
-                            jam_masuk:this.formdata.jam_masuk,
-                            jam_keluar:this.formdata.jam_keluar,
-                            penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
-                            ruang_kelas_id:this.formdata.ruang_kelas_id,                            
-                        },
-                        {
-                            headers:{
-                                Authorization:this.TOKEN
-                            }
+                this.btnLoading=true;                
+                await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
+                    {
+                        idkelas:this.formdata.idkelas,                            
+                        hari:this.formdata.hari,                            
+                        jam_masuk:this.formdata.jam_masuk,
+                        jam_keluar:this.formdata.jam_keluar,
+                        penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
+                        ruang_kelas_id:this.formdata.ruang_kelas_id,                            
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
                         }
-                    ).then(()=>{
-                        this.btnLoading=false;
-                        this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
-                    }).catch(()=>{
-                        this.btnLoading=false;
-                    });
-
-                } else {
-                    await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
-                        {
-                            idkelas:this.formdata.idkelas,                            
-                            hari:this.formdata.hari,                            
-                            jam_masuk:this.formdata.jam_masuk,
-                            jam_keluar:this.formdata.jam_keluar,
-                            penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
-                            ruang_kelas_id:this.formdata.ruang_kelas_id,                            
-                        },
-                        {
-                            headers:{
-                                Authorization:this.$store.getters['auth/Token']
-                            }
-                        }
-                    ).then(()=>{                        
-                        this.btnLoading=false;
-                        this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
-                    }).catch(()=>{
-                        this.btnLoading=false;
-                    });
-                }
-            }
+                    }
+                ).then(()=>{                        
+                    this.btnLoading=false;
+                    this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            }            
         },        
     },
     watch:{

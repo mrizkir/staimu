@@ -34,19 +34,22 @@ class PembagianKelasController extends Controller
                                 pe3_kelas_mhs.id,
                                 pe3_kelas_mhs.idkelas,
                                 pe3_kelas_mhs.nama_kelas,
-                                pe3_kelas_mhs.hari,
+                                \'\' AS nama_kelas_alias,
+                                pe3_kelas_mhs.hari,                                
+                                \'\' AS nama_hari,
                                 pe3_kelas_mhs.jam_masuk,
                                 pe3_kelas_mhs.jam_keluar,
                                 pe3_matakuliah.kmatkul,
                                 pe3_matakuliah.nmatkul,
                                 pe3_dosen.nama_dosen,
                                 pe3_dosen.nidn,
+                                pe3_kelas_mhs.ruang_kelas_id,
                                 pe3_ruangkelas.namaruang,
                                 pe3_ruangkelas.kapasitas,
                                 pe3_kelas_mhs.created_at,
                                 pe3_kelas_mhs.updated_at
                             '))
-                            ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.id')
+                            ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.penyelenggaraan_dosen_id')
                             ->join('pe3_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')
                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
                             ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')                            
@@ -56,7 +59,9 @@ class PembagianKelasController extends Controller
                             ->where('pe3_penyelenggaraan.kjur',$prodi_id)                            
                             ->get();
         
-        $pembagiankelas->transform(function ($item,$key){            
+        $pembagiankelas->transform(function ($item,$key){  
+            $item->nama_kelas_alias=chr($item->nama_kelas+64);          
+            $item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);          
             $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_detail')->where('kelas_mhs_id',$item->id)->count();;
             return $item;
         });
@@ -79,33 +84,31 @@ class PembagianKelasController extends Controller
 
         $this->validate($request, [            
             'idkelas'=>'required',                        
-            'hari'=>'required',
+            'hari'=>'required|numeric',
             'jam_masuk'=>'required',   
             'jam_keluar'=>'required',   
-            'penyelenggaraan_dosen_id'=>'required',   
-            'ruang_kelas_id'=>'required',   
+            'penyelenggaraan_dosen_id'=>'required|exists:pe3_penyelenggaraan_dosen,id',   
+            'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',   
             
         ]);
+        $penyelenggaraan_dosen_id=$request->input('penyelenggaraan_dosen_id');
         $idkelas=$request->input('idkelas');
-        $nama_kelas=$request->input('nama_kelas');
-        $nmatkul=$request->input('nmatkul');
+        $nama_kelas=\DB::table('pe3_kelas_mhs')->where('penyelenggaraan_dosen_id',$penyelenggaraan_dosen_id)->count('id')+1;        
         $hari=$request->input('hari');        
         $jam_masuk=$request->input('jam_masuk');
-        $jam_keluar=$request->input('jam_keluar');
-        $penyelenggaraan_dosen_id=$request->input('penyelenggaraan_dosen_id');
+        $jam_keluar=$request->input('jam_keluar');        
         $ruang_kelas_id=$request->input('ruang_kelas_id');
-        
-        $pembagiankelas=[];
-        // $pembagiankelas=PembagianKelasModel::create([
-        //     'id'=>Uuid::uuid4()->toString(),
-        //     'idkelas'=>$idkelas,
-        //     'nmatkul'=>$nmatkul,
-        //     'hari'=>$hari,
-        //     'jam_masuk'=>$jam_masuk,
-        //     'jam_keluar'=>$jam_keluar,
-        //     'penyelenggaraan_dosen_id'=>$penyelenggaraan_dosen_id,
-        //     'ruang_kelas_id'=>$ruang_kelas_id,
-        // ]);
+
+        $pembagiankelas=PembagianKelasModel::create([
+            'id'=>Uuid::uuid4()->toString(),
+            'idkelas'=>$idkelas,
+            'nama_kelas'=>$nama_kelas,
+            'hari'=>$hari,
+            'jam_masuk'=>$jam_masuk,
+            'jam_keluar'=>$jam_keluar,
+            'penyelenggaraan_dosen_id'=>$penyelenggaraan_dosen_id,
+            'ruang_kelas_id'=>$ruang_kelas_id,
+        ]);
 
         return Response()->json([
                                 'status'=>1,
@@ -219,13 +222,13 @@ class PembagianKelasController extends Controller
                             ],200);
     }
 
-    public function updateketua(Request $request,$id)
+    public function update(Request $request,$id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_UPDATE');
         
-        $dosen = PenyelenggaraanDosenModel::find($id); 
+        $pembagian = PembagianKelasModel::find($id); 
 
-        if (is_null($dosen))
+        if (is_null($pembagian))
         {
             return Response()->json([
                                     'status'=>1,
@@ -236,27 +239,29 @@ class PembagianKelasController extends Controller
         else
         {
             $this->validate($request, [                                     
-                'is_ketua'=>'required'
+                'hari'=>'required|numeric',
+                'jam_masuk'=>'required',   
+                'jam_keluar'=>'required',                   
+                'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',   
             ]);
-            $idpenyelenggaraan=$request->input('penyelenggaraan_id');
 
-            PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
-                                    ->update(['is_ketua'=>false]);
-
-            $dosen->is_ketua=$request->input('is_ketua');
-            $dosen->save();
+            $pembagian->hari=$request->input('hari');
+            $pembagian->jam_masuk=$request->input('jam_masuk');
+            $pembagian->jam_keluar=$request->input('jam_keluar');
+            $pembagian->ruang_kelas_id=$request->input('ruang_kelas_id');
+            $pembagian->save();
             
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $dosen, 
-                                                                'object_id' => $dosen->id, 
+                                                                'object' => $pembagian, 
+                                                                'object_id' => $pembagian->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+                                                                'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
                                                             ]);
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
-                                        'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+                                        'pid'=>'update',                
+                                        'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
                                     ],200);         
         }
     }
@@ -303,7 +308,7 @@ class PembagianKelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroypengampu(Request $request,$id)
+    public function destroypeserta(Request $request,$id)
     { 
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 

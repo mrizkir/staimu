@@ -317,7 +317,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'update',                
                                         'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
                                     ],200);         
         }

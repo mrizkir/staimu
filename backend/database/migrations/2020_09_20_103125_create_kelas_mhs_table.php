@@ -24,13 +24,13 @@ class CreateKelasMhsTable extends Migration
             $table->uuid('penyelenggaraan_dosen_id');   
             $table->uuid('ruang_kelas_id');            
 
-            $table->tinyinteger('persen_quiz');
-            $table->tinyinteger('persen_tugas_individu');
-            $table->tinyinteger('persen_tugas_kelompok');
-            $table->tinyinteger('persen_uts');
-            $table->tinyinteger('persen_uas');
-            $table->tinyinteger('persen_absen');
-            $table->boolean('isi_nilai')->default(0);
+            $table->tinyinteger('persen_quiz')->default(0);
+            $table->tinyinteger('persen_tugas_individu')->default(0);
+            $table->tinyinteger('persen_tugas_kelompok')->default(0);
+            $table->tinyinteger('persen_uts')->default(0);
+            $table->tinyinteger('persen_uas')->default(0);
+            $table->tinyinteger('persen_absen')->default(0);
+            $table->boolean('isi_nilai')->default(false);
             $table->timestamps();  
             
             $table->index('penyelenggaraan_dosen_id');

@@ -3,27 +3,43 @@
 namespace App\Helpers;
 use Carbon\Carbon;
 use URL;
-class Helper { 
+class Helper {
     /**
      * daftar bulan
-     */     
+     */
     private static $daftar_bulan=[
-        1=>'Januari', 
-        2=>'Februari', 
-        3=>'Maret', 
-        4=>'April', 
+        1=>'Januari',
+        2=>'Februari',
+        3=>'Maret',
+        4=>'April',
         5=>'Mei',
-        6=>'Juni', 
-        7=>'Juli', 
-        8=>'Agustus', 
-        9=>'September', 
-        10=>'Oktober', 
-        11=>'November', 
-        12=>'Desember'   
+        6=>'Juni',
+        7=>'Juli',
+        8=>'Agustus',
+        9=>'September',
+        10=>'Oktober',
+        11=>'November',
+        12=>'Desember'
     ];
-    public static function getNamaBulan($no_bulan)
+    /*
+     * nama hari dalam bahasa indonesia
+     */
+    private static $namaHari = [
+        1=>'Senin',
+        2=>'Selasa',
+        3=>'Rabu',
+        4=>'Kamis',
+        5=>'Jumat',
+        6=>'Sabtu',
+        7=>'Minggu',
+    ];
+    public static function getNamaBulan($no_bulan=null)
     {
-        if ($no_bulan >=1 && $no_bulan <=12)
+        if ($id===null)
+        {
+            return Helper::$daftar_bulan;
+        }
+        else if ($no_bulan >=1 && $no_bulan <=12)
         {
             return Helper::$daftar_bulan[$no_bulan];
         }
@@ -31,15 +47,32 @@ class Helper {
         {
             return null;
         }
-        
+
     }
+    /**
+	* digunakan untuk mendapatkan nama hari
+	*/
+	public static function getNamaHari ($no_hari=null) {
+		if ($no_hari===null)
+        {
+			return Helper::$namaHari;
+        }
+        else if ($no_hari >=1 && $no_hari <=7)
+        {
+			return Helper::$namaHari[$no_hari];
+        }
+        else
+        {
+            return null;
+        }
+	}
     /**
      * digunakan untuk mendapatkan format tahun akademik
      */
     public static function getTA($ta)
     {
         return "$ta/".($ta+1);
-    }      
+    }
     /**
      * digunakan untuk memformat tanggal
      * @param type $format
@@ -52,56 +85,56 @@ class Helper {
             $tanggal=Carbon::parse(Carbon::now())->format($format);
         }else{
             $tanggal = Carbon::parse($date)->format($format);
-        }        
+        }
         $result = str_replace([
-                                'Sunday', 
-                                'Monday', 
+                                'Sunday',
+                                'Monday',
                                 'Tuesday',
-                                'Wednesday', 
-                                'Thursday', 
-                                'Friday', 
+                                'Wednesday',
+                                'Thursday',
+                                'Friday',
                                 'Saturday'
-                            ], 
+                            ],
                             [
-                                'Minggu', 
-                                'Senin', 
+                                'Minggu',
+                                'Senin',
                                 'Selasa',
-                                'Rabu', 
-                                'Kamis', 
-                                'Jumat', 
+                                'Rabu',
+                                'Kamis',
+                                'Jumat',
                                 'Sabtu'
-                            ], 
+                            ],
                             $tanggal);
 
         return str_replace([
-                            'January', 
-                            'February', 
-                            'March', 
-                            'April', 
+                            'January',
+                            'February',
+                            'March',
+                            'April',
                             'May',
-                            'June', 
+                            'June',
                             'July',
-                            'August', 
-                            'September', 
-                            'October', 
-                            'November' , 
+                            'August',
+                            'September',
+                            'October',
+                            'November' ,
                             'December'
-                        ], 
+                        ],
                         [
-                            'Januari', 
-                            'Februari', 
-                            'Maret', 
-                            'April', 
+                            'Januari',
+                            'Februari',
+                            'Maret',
+                            'April',
                             'Mei',
-                            'Juni', 
-                            'Juli', 
-                            'Agustus', 
-                            'September', 
-                            'Oktober', 
-                            'November', 
-                            'Desember'                        
+                            'Juni',
+                            'Juli',
+                            'Agustus',
+                            'September',
+                            'Oktober',
+                            'November',
+                            'Desember'
                         ], $result);
-    }   
+    }
     /**
 	* digunakan untuk mem-format uang
 	*/
@@ -122,7 +155,7 @@ class Helper {
 	*/
 	public static function formatPersen ($pembilang,$penyebut=0,$dec_sep=3) {
         $result=0.00;
-		if ($pembilang > 0 && $penyebut > 0) {            
+		if ($pembilang > 0 && $penyebut > 0) {
             $temp=round(number_format((float)($pembilang/$penyebut)*100,4),$dec_sep);
             $result = $temp;
         }
@@ -141,14 +174,14 @@ class Helper {
             $result=round(number_format((float)($pembilang/$penyebut),4),$dec_sep);
         }
         return $result;
-    }    
-    
+    }
+
     public static function public_path($path = null)
     {
         return rtrim(app()->basePath('storage/app/public/' . $path), '/');
-    } 
+    }
     public static function exported_path()
     {
         return app()->basePath('storage/app/exported/');
-    } 
+    }
 }
