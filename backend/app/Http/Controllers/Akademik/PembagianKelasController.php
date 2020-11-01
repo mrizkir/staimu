@@ -22,12 +22,10 @@ class PembagianKelasController extends Controller
 
         $this->validate($request, [
             'ta'=>'required',
-            'semester_akademik'=>'required',
-            'prodi_id'=>'required'
+            'semester_akademik'=>'required',            
         ]);
 
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta=$request->input('ta');        
         $semester_akademik=$request->input('semester_akademik');
 
         $pembagiankelas=PembagianKelasModel::select(\DB::raw('

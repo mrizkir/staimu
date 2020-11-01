@@ -8,7 +8,7 @@
                 PEMBAGIAN KELAS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,12 +24,12 @@
                     colored-border
                     type="info"
                     >
-                    Halaman untuk melakukan pembagian kelas terhadap matakuliah yang sudah diselenggarakan per prodi, tahun akademik, dan semester.
+                    Halaman untuk melakukan pembentukan kelas yang akan diselenggarakan dan juga dikaitkan dengan penyelenggaraan matakuliah.
                 </v-alert>
             </template>
         </ModuleHeader>
         <template v-slot:filtersidebar>
-            <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
+            <Filter2 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" ref="filter2" />	
         </template>
         <v-container fluid>                         
             <v-row class="mb-4" no-gutters>
@@ -192,7 +192,7 @@
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter6 from '@/components/sidebar/FilterMode6';
+import Filter2 from '@/components/sidebar/FilterMode2';
 
 import {mapGetters} from 'vuex';
 
@@ -220,18 +220,13 @@ export default {
                 disabled:true,
                 href:'#'
             }
-        ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        ];        
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,        
+        firstloading:true,        
         tahun_akademik:null,
         semester_akademik:null,
 
@@ -327,17 +322,12 @@ export default {
         changeSemesterAkademik (semester)
         {
             this.semester_akademik=semester;
-        },
-        changeProdi (id)
-        {
-            this.prodi_id=id;
-        },
+        },        
         initialize:async function () 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/perkuliahan/pembagiankelas',
             {
-                prodi_id:this.prodi_id,
                 ta:this.tahun_akademik,
                 semester_akademik:this.semester_akademik,
             },
@@ -352,7 +342,7 @@ export default {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
-            this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
+            this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
@@ -451,15 +441,7 @@ export default {
             {
                 this.initialize();
             }            
-        },
-        prodi_id(val)
-        {
-            if (!this.firstloading)
-            {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
-                this.initialize();
-            }            
-        }
+        },        
     },
     computed:{
         ...mapGetters('auth',{            
@@ -469,7 +451,7 @@ export default {
     components:{
         AkademikLayout,
         ModuleHeader,    
-        Filter6               
+        Filter2               
     },
 }
 </script>
