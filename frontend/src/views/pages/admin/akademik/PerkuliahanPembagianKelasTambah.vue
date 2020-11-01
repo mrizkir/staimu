@@ -345,7 +345,7 @@ export default {
                     }
                 ).then(()=>{                        
                     this.btnLoading=false;
-                    // this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar');
+                    this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar');
                 }).catch(()=>{
                     this.btnLoading=false;
                 });
