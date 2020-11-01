@@ -231,7 +231,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         $data=PenyelenggaraanDosenModel::select(\DB::raw(' 
                                                 pe3_penyelenggaraan_dosen.id,
                                                 pe3_penyelenggaraan.matkul_id,
-                                                CONCAT(pe3_matakuliah.nmatkul,\' [\',pe3_matakuliah.kmatkul,\']\') AS nmatkul                                                
+                                                CONCAT(pe3_matakuliah.nmatkul,\' [\',pe3_matakuliah.kmatkul,\']\',\'MATKUL TA \',pe3_matakuliah.ta) AS nmatkul                                                
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
                                             ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')

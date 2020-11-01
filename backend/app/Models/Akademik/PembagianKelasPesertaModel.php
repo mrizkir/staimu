@@ -5,14 +5,14 @@ namespace App\Models\Akademik;
 use Illuminate\Database\Eloquent\Model;
 
 
-class PembagianKelasDetailModel extends Model 
+class PembagianKelasPesertaModel extends Model 
 {
     /**
      * nama tabel model ini.
      *
      * @var string
      */
-    protected $table = 'pe3_kelas_mhs_detail';
+    protected $table = 'pe3_kelas_mhs_peserta';
     /**
      * primary key tabel ini.
      *

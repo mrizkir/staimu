@@ -46,17 +46,48 @@
                             </v-card-text>
                         </v-card>
                         <v-card class="mb-2">
-                            <v-card-title>TAMBAH KELAS BARU</v-card-title>
+                            <v-card-title>DATA MATAKULIAH</v-card-title>
                             <v-card-text>
                                 <v-select
                                     v-model="formdata.penyelenggaraan_dosen_id"
-                                    :items="daftar_matakuliah"                                                    
-                                    label="MATAKULIAH"
-                                    :rules="rule_matakuliah"
-                                    item-text="nmatkul"
-                                    item-value="id"
+                                    :items="daftar_matakuliah"
+                                    label="MATAKULIAH YANG DISELENGGARAKAN"
+                                    multiple
+                                    chips
+                                    hint="Pilihlah satu atau lebih matakuliah yang akan digabungkan dalam satu kelas"
+                                    persistent-hint
                                     :disabled="dosen_id==null"
-                                    outlined/> 
+                                    outlined
+                                    item-text="nmatkul"
+                                    item-value="id">
+                                </v-select>                                
+                                <v-text-field 
+                                    v-model="formdata.kmatkul" 
+                                    label="KODE MATAKULIAH"
+                                    outlined                                    
+                                    :rules="rule_kode_matkul"
+                                    :disabled="dosen_id==null">
+                                </v-text-field>
+                                <v-text-field 
+                                    v-model="formdata.nmatkul" 
+                                    label="NAMA MATAKULIAH + NAMA KELAS"
+                                    outlined
+                                    :rules="rule_nama_matakuliah"
+                                    :disabled="dosen_id==null">
+                                </v-text-field>
+                                <v-select 
+                                    v-model="formdata.sks" 
+                                    label="SKS"
+                                    :items="daftar_sks"                                                    
+                                    outlined
+                                    :rules="rule_sks"
+                                    :disabled="dosen_id==null">
+                                </v-select>
+                            </v-card-text>
+                        </v-card>
+                        <v-card class="mb-2">
+                            <v-card-title>DATA KELAS</v-card-title>
+                            <v-card-text>
                                 <v-select
                                     v-model="formdata.idkelas"
                                     :items="daftar_kelas"                                                    
@@ -173,12 +204,16 @@ export default {
         tahun_akademik:null,
         semester_akademik:null,
 
-        btnLoadingTable:false,        
+        btnLoading:false,        
         //formdata
         form_valid:true, 
         daftar_dosen:[],        
         dosen_id:null,
 
+        daftar_sks:[
+            1,2,3,4,5,6,7,8,9,10,11,12
+        ],
+        
         daftar_matakuliah:[],
 
         daftar_kelas:[],
@@ -213,7 +248,11 @@ export default {
         ],
         formdata:{            
             id:'',
-            idkelas:'',            
+            user_id:'',            
+            kmatkul:'',            
+            nmatkul:'',            
+            sks:'',            
+            idkelas:'',                        
             hari:'',            
             jam_masuk:'',
             jam_keluar:'',
@@ -223,8 +262,17 @@ export default {
         rule_dosen:[
             value => !!value||"Mohon dipilih Dosen pengampu matakuliah !!!"
         ],
+        rule_kode_matkul:[
+            value => !!value||"Kode Program Studi mohon untuk diisi !!!",            
+        ], 
+        rule_nama_matakuliah:[
+            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",              
+        ], 
+        rule_sks:[
+            value => !!value||"Mohon SKS Matakuliah untuk dipilih !!!",              
+        ],                 
         rule_matakuliah:[
-            value => !!value||"Mohon dipilih matakuliah dari dosen pengampu ini!!!"
+            value => !!value||"Mohon dipilih matakuliah yang diselenggaran untuk dosen pengampu ini!!!"
         ],
         rule_kelas:[
             value => !!value||"Mohon dipilih kelas matakuliah ini!!!"
@@ -276,12 +324,19 @@ export default {
                 this.btnLoading=true;                
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
                     {
+                        user_id:this.dosen_id,
                         idkelas:this.formdata.idkelas,                            
+                        kmatkul:this.formdata.kmatkul,                            
+                        nmatkul:this.formdata.nmatkul,                            
+                        sks:this.formdata.sks,                            
                         hari:this.formdata.hari,                            
                         jam_masuk:this.formdata.jam_masuk,
-                        jam_keluar:this.formdata.jam_keluar,
-                        penyelenggaraan_dosen_id:this.formdata.penyelenggaraan_dosen_id,
+                        jam_keluar:this.formdata.jam_keluar,                        
+                        penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),                                                                    
                         ruang_kelas_id:this.formdata.ruang_kelas_id,                            
+                        tahun:this.tahun_akademik,                            
+                        idsmt:this.semester_akademik,                            
+                                              
                     },
                     {
                         headers:{
@@ -290,7 +345,7 @@ export default {
                     }
                 ).then(()=>{                        
                     this.btnLoading=false;
-                    this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar')
+                    // this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar');
                 }).catch(()=>{
                     this.btnLoading=false;
                 });

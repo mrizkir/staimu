@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\PembagianKelasModel;
+use App\Models\Akademik\PembagianKelasPenyelenggaraanModel;
 use App\Models\Akademik\PenyelenggaraanDosenModel;
 use App\Models\UserDosen;
 
@@ -29,40 +30,35 @@ class PembagianKelasController extends Controller
         $prodi_id=$request->input('prodi_id');
         $semester_akademik=$request->input('semester_akademik');
 
-        $pembagiankelas=\DB::table('pe3_kelas_mhs')
-                            ->select(\DB::raw('
-                                pe3_kelas_mhs.id,
-                                pe3_kelas_mhs.idkelas,
-                                pe3_kelas_mhs.nama_kelas,
-                                \'\' AS nama_kelas_alias,
-                                pe3_kelas_mhs.hari,                                
-                                \'\' AS nama_hari,
-                                pe3_kelas_mhs.jam_masuk,
-                                pe3_kelas_mhs.jam_keluar,
-                                pe3_matakuliah.kmatkul,
-                                pe3_matakuliah.nmatkul,
-                                pe3_dosen.nama_dosen,
-                                pe3_dosen.nidn,
-                                pe3_kelas_mhs.ruang_kelas_id,
-                                pe3_ruangkelas.namaruang,
-                                pe3_ruangkelas.kapasitas,
-                                pe3_kelas_mhs.created_at,
-                                pe3_kelas_mhs.updated_at
-                            '))
-                            ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.penyelenggaraan_dosen_id')
-                            ->join('pe3_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')
-                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
-                            ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')                            
-                            ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')                            
-                            ->where('pe3_penyelenggaraan.tahun',$ta)
-                            ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
-                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)                            
-                            ->get();
-        
+        $pembagiankelas=PembagianKelasModel::select(\DB::raw('
+                            pe3_kelas_mhs.id,
+                            pe3_kelas_mhs.idkelas,                            
+                            pe3_kelas_mhs.hari,     
+                            \'\' AS nama_hari,        
+                            pe3_kelas_mhs.jam_masuk,
+                            pe3_kelas_mhs.jam_keluar,
+                            pe3_kelas_mhs.kmatkul,
+                            pe3_kelas_mhs.nmatkul,
+                            pe3_kelas_mhs.sks,
+                            pe3_dosen.nama_dosen,
+                            pe3_dosen.nidn,
+                            pe3_kelas_mhs.ruang_kelas_id,
+                            pe3_ruangkelas.namaruang,
+                            pe3_ruangkelas.kapasitas,
+                            0 AS jumlah_mhs,
+                            pe3_kelas_mhs.created_at,
+                            pe3_kelas_mhs.updated_at                   
+                        '))
+                        ->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+                        ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')                            
+                        ->where('pe3_kelas_mhs.tahun',$ta)
+                        ->where('pe3_kelas_mhs.idsmt',$semester_akademik)                                              
+                        ->get();
+                        
         $pembagiankelas->transform(function ($item,$key){  
             $item->nama_kelas_alias=chr($item->nama_kelas+64);          
             $item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);          
-            $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_detail')->where('kelas_mhs_id',$item->id)->count();;
+            $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();;
             return $item;
         });
         return Response()->json([
@@ -79,37 +75,49 @@ class PembagianKelasController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
 
-        $matkul_selected=json_decode($request->input('matkul_selected'),true);
-        $request->merge(['matkul_selected'=>$matkul_selected]);
-
         $this->validate($request, [            
             'idkelas'=>'required',                        
             'hari'=>'required|numeric',
             'jam_masuk'=>'required',   
             'jam_keluar'=>'required',   
-            'penyelenggaraan_dosen_id'=>'required|exists:pe3_penyelenggaraan_dosen,id',   
+            'penyelenggaraan_dosen_id'=>'required',   
             'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',   
             
         ]);
-        $penyelenggaraan_dosen_id=$request->input('penyelenggaraan_dosen_id');
-        $idkelas=$request->input('idkelas');
-        $nama_kelas=\DB::table('pe3_kelas_mhs')->where('penyelenggaraan_dosen_id',$penyelenggaraan_dosen_id)->count('id')+1;        
-        $hari=$request->input('hari');        
-        $jam_masuk=$request->input('jam_masuk');
-        $jam_keluar=$request->input('jam_keluar');        
-        $ruang_kelas_id=$request->input('ruang_kelas_id');
 
-        $pembagiankelas=PembagianKelasModel::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'idkelas'=>$idkelas,
-            'nama_kelas'=>$nama_kelas,
-            'hari'=>$hari,
-            'jam_masuk'=>$jam_masuk,
-            'jam_keluar'=>$jam_keluar,
-            'penyelenggaraan_dosen_id'=>$penyelenggaraan_dosen_id,
-            'ruang_kelas_id'=>$ruang_kelas_id,
-        ]);
+        $pembagiankelas = \DB::transaction(function () use ($request){               
+            
+            $uuid=Uuid::uuid4()->toString();
+            $pembagiankelas=PembagianKelasModel::create([
+                'id'=>$uuid,
+                'user_id'=>$request->input('user_id'),
+                'kmatkul'=>$request->input('kmatkul'),
+                'nmatkul'=>$request->input('nmatkul'),
+                'sks'=>$request->input('sks'),
+                'idkelas'=>$request->input('idkelas'),                
+                'hari'=>$request->input('hari'),
+                'jam_masuk'=>$request->input('jam_masuk'),
+                'jam_keluar'=>$request->input('jam_keluar'),                
+                'ruang_kelas_id'=>$request->input('ruang_kelas_id'),                
+                'idsmt'=>$request->input('idsmt'),
+                'tahun'=>$request->input('ta'),
 
+            ]);
+            
+            $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'),true);
+
+            foreach ($penyelenggaraan_dosen as $v)
+            {
+                PembagianKelasPenyelenggaraanModel::create([
+                    'kelas_mhs_id'=>$uuid,
+                    'penyelenggaraan_dosen_id'=>$v
+                ]);
+            }
+
+            return $pembagiankelas;
+
+        });
+        
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',                    
@@ -300,7 +308,7 @@ class PembagianKelasController extends Controller
                                         'message'=>"Kelas dengan ID ($id) berhasil dihapus"
                                     ],200);         
         }
-                  
+                    
     }
     /**
      * Remove the specified resource from storage.
@@ -337,6 +345,6 @@ class PembagianKelasController extends Controller
                                         'message'=>"Kelas Dosen dengan ID ($id) berhasil dihapus"
                                     ],200);         
         }
-                  
+                    
     }
 }

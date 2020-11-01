@@ -132,8 +132,8 @@
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.nama_kelas_alias="{item}">
-                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}-{{item.nama_kelas_alias}}
+                        <template v-slot:item.nmatkul="{item}">
+                            {{item.nmatkul}} - {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.jam_masuk="{item}">
                             {{item.jam_masuk}}-{{item.jam_keluar}}
@@ -242,9 +242,8 @@ export default {
         datatable:[],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable:true  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true, width:100  },               
-            { text: 'NAMA KELAS', value: 'nama_kelas_alias', sortable:true, width:100  },               
+            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable:true  },   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true, width:100  },                           
             { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },               
             { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                           
             { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                           
