@@ -100,7 +100,7 @@ class PembagianKelasController extends Controller
                 'jam_keluar'=>$request->input('jam_keluar'),                
                 'ruang_kelas_id'=>$request->input('ruang_kelas_id'),                
                 'idsmt'=>$request->input('idsmt'),
-                'tahun'=>$request->input('ta'),
+                'tahun'=>$request->input('tahun'),
 
             ]);
             
