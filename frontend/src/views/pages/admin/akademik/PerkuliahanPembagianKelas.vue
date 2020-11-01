@@ -243,7 +243,7 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable:true  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true, width:100  },                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true  },                           
             { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },               
             { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                           
             { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                           
