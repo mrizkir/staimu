@@ -53,8 +53,7 @@ class PembagianKelasController extends Controller
                         ->where('pe3_kelas_mhs.idsmt',$semester_akademik)                                              
                         ->get();
                         
-        $pembagiankelas->transform(function ($item,$key){  
-            $item->nama_kelas_alias=chr($item->nama_kelas+64);          
+        $pembagiankelas->transform(function ($item,$key){              
             $item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);          
             $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();;
             return $item;
@@ -127,22 +126,45 @@ class PembagianKelasController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
 
-        $pembagiankelas = PembagianKelasModel::find($id);
+        $pembagiankelas = PembagianKelasModel::select(\DB::raw('
+                                                    pe3_kelas_mhs.id,
+                                                    pe3_kelas_mhs.idkelas,                            
+                                                    pe3_kelas_mhs.hari,     
+                                                    \'\' AS nama_hari,        
+                                                    pe3_kelas_mhs.jam_masuk,
+                                                    pe3_kelas_mhs.jam_keluar,
+                                                    pe3_kelas_mhs.kmatkul,
+                                                    pe3_kelas_mhs.nmatkul,
+                                                    pe3_kelas_mhs.sks,
+                                                    pe3_dosen.nama_dosen,
+                                                    pe3_dosen.nidn,
+                                                    pe3_kelas_mhs.ruang_kelas_id,
+                                                    pe3_ruangkelas.namaruang,
+                                                    pe3_ruangkelas.kapasitas,
+                                                    0 AS jumlah_mhs,
+                                                    pe3_kelas_mhs.created_at,
+                                                    pe3_kelas_mhs.updated_at                   
+                                                '))
+                                            ->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+                                            ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')                            
+                                            ->find($id);
         if (is_null($pembagiankelas))
         {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',                
-                                    'message'=>["Penyelenggaraan dengan ($id) gagal diperoleh"]
+                                    'message'=>["Pembagian Kelas dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
         {
+            $pembagiankelas->nama_hari=\App\Helpers\Helper::getNamaHari($pembagiankelas->hari);          
+            $pembagiankelas->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$pembagiankelas->id)->count();;
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',                    
-                                    'penyelenggaraan'=>$pembagiankelas,                                            
-                                    'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
+                                    'pembagiankelas'=>$pembagiankelas,                                            
+                                    'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
                                 ],200);
         }
     }

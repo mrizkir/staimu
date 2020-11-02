@@ -182,12 +182,10 @@ class PenyelenggaraanMatakuliahController extends Controller
             case 'daftarpengampu':
                 $this->validate($request, [            
                     'ta'=>'required',
-                    'semester_akademik'=>'required',
-                    'prodi_id'=>'required'            
+                    'semester_akademik'=>'required',                    
                 ]);
 
-                $ta=$request->input('ta');
-                $prodi_id=$request->input('prodi_id');
+                $ta=$request->input('ta');                
                 $semester_akademik=$request->input('semester_akademik');
                 
                 $data=PenyelenggaraanDosenModel::select(\DB::raw('
@@ -197,8 +195,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
                                             ->join('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan_dosen.user_id')
-                                            ->where('pe3_penyelenggaraan.tahun',$ta)
-                                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)                                            
                                             ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                             ->orderBy('pe3_dosen.nama_dosen','ASC')
                                             ->get();
@@ -219,13 +216,11 @@ class PenyelenggaraanMatakuliahController extends Controller
         $this->validate($request, [                                
             'user_id'=>'required|exists:pe3_dosen,user_id',           
             'ta'=>'required',
-            'semester_akademik'=>'required|in:1,2,3',
-            'prodi_id'=>'required|exists:pe3_prodi,id'   
+            'semester_akademik'=>'required|in:1,2,3',            
         ]);
         
         $ta=$request->input('ta');
-        $user_id=$request->input('user_id');
-        $prodi_id=$request->input('prodi_id');
+        $user_id=$request->input('user_id');        
         $semester_akademik=$request->input('semester_akademik');
         
         $data=PenyelenggaraanDosenModel::select(\DB::raw(' 
@@ -235,8 +230,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
                                             ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
-                                            ->where('pe3_penyelenggaraan.tahun',$ta)
-                                            ->where('pe3_penyelenggaraan.kjur',$prodi_id)
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)                                            
                                             ->where('pe3_penyelenggaraan_dosen.user_id',$user_id)
                                             ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                             ->orderBy('pe3_matakuliah.kmatkul','ASC')

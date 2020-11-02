@@ -142,7 +142,7 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/'+item.id+'/dosenpengampu')">
+                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/'+item.id+'/peserta')">
                                 <v-icon>
                                     mdi-account-child-outline
                                 </v-icon>

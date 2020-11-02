@@ -8,7 +8,7 @@
                 PEMBAGIAN KELAS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                    Halaman untuk melakukan pembagian kelas terhadap matakuliah yang sudah diselenggarakan per prodi, tahun akademik, dan semester.
+                    Halaman untuk melakukan penambahan  kelas pada tahun akademik dan semester terpilih.
                 </v-alert>
             </template>
         </ModuleHeader>        
@@ -189,18 +189,12 @@ export default {
                 disabled:true,
                 href:'#'
             }
-        ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        ];        
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
-    data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,        
+    data: () => ({         
         tahun_akademik:null,
         semester_akademik:null,
 
@@ -297,8 +291,7 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',            
             {
-                ta:this.$store.getters['uiadmin/getTahunAkademik'],
-                prodi_id:this.prodi_id,
+                ta:this.$store.getters['uiadmin/getTahunAkademik'],                
                 semester_akademik:this.$store.getters['uiadmin/getSemesterAkademik'],
                 pid:'daftarpengampu'
             },
@@ -358,8 +351,7 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',            
             {
                 user_id:val,
-                ta:this.$store.getters['uiadmin/getTahunAkademik'],
-                prodi_id:this.prodi_id,
+                ta:this.$store.getters['uiadmin/getTahunAkademik'],                
                 semester_akademik:this.$store.getters['uiadmin/getSemesterAkademik'],                
             },
             {

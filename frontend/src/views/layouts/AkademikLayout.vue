@@ -261,6 +261,26 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   	
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled to="/akademik/perkuliahan/pembagiankelas/tambah">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    TAMBAH KELAS
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled to="/akademik/perkuliahan/pembagiankelas/peserta">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    PESERTA
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 
 					</div>
                 </v-list-group>
                 <v-subheader>NILAI</v-subheader> 
