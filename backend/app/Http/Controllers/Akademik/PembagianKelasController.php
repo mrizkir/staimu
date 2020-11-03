@@ -64,7 +64,7 @@ class PembagianKelasController extends Controller
                                     'pid'=>'fetchdata',  
                                     'pembagiankelas'=>$pembagiankelas,                                                                                                                                   
                                     'message'=>'Fetch data pembagian kelas berhasil.'
-                                ],200); 
+                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  ; 
     }
     /**
      * simpan
