@@ -25,6 +25,7 @@ class PembagianKelasPenyelenggaraanModel extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'penyelenggaraan_dosen_id',
         'kelas_mhs_id',        
     ];

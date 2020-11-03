@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\PembagianKelasModel;
+use App\Models\Akademik\PembagianKelasPesertaModel;
 use App\Models\Akademik\PembagianKelasPenyelenggaraanModel;
 use App\Models\Akademik\PenyelenggaraanDosenModel;
 use App\Models\UserDosen;
@@ -55,7 +56,7 @@ class PembagianKelasController extends Controller
                         
         $pembagiankelas->transform(function ($item,$key){              
             $item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);          
-            $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();;
+            $item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();
             return $item;
         });
         return Response()->json([
@@ -106,6 +107,7 @@ class PembagianKelasController extends Controller
             foreach ($penyelenggaraan_dosen as $v)
             {
                 PembagianKelasPenyelenggaraanModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
                     'kelas_mhs_id'=>$uuid,
                     'penyelenggaraan_dosen_id'=>$v
                 ]);
@@ -159,11 +161,25 @@ class PembagianKelasController extends Controller
         else
         {
             $pembagiankelas->nama_hari=\App\Helpers\Helper::getNamaHari($pembagiankelas->hari);          
-            $pembagiankelas->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$pembagiankelas->id)->count();;
+            $pembagiankelas->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$pembagiankelas->id)->count();
+
+            $penyelenggaraan=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
+                                        pe3_matakuliah.kmatkul,
+                                        pe3_matakuliah.nmatkul,                                        
+                                        pe3_matakuliah.sks,
+                                        pe3_matakuliah.ta,
+                                        pe3_matakuliah.kjur
+                                    '))
+                                    ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.penyelenggaraan_dosen_id')
+                                    ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
+                                    ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
+                                    ->where('kelas_mhs_id',$id);
+
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',                    
                                     'pembagiankelas'=>$pembagiankelas,                                            
+                                    'penyelenggaraan'=>$penyelenggaraan,                                            
                                     'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
                                 ],200);
         }

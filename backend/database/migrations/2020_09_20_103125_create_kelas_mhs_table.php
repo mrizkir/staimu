@@ -52,7 +52,8 @@ class CreateKelasMhsTable extends Migration
         });
 
         Schema::create('pe3_kelas_mhs_penyelenggaraan', function (Blueprint $table) {
-            $table->uuid('penyelenggaraan_dosen_id')->primary();
+            $table->uuid('id')->primary();
+            $table->uuid('penyelenggaraan_dosen_id');
             $table->uuid('kelas_mhs_id');                   
             $table->timestamps();  
             
