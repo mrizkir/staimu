@@ -38,112 +38,34 @@
                 <v-col cols="12">                            
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"
-                        :search="search"
-                        item-key="id"                        
-                        show-expand
-                        :expanded.sync="expanded"
-                        :single-expand="true"
+                        :items="datatable"                        
+                        item-key="id"                                                
                         :disable-pagination="true"
-                        :hide-default-footer="true"
-                        @click:row="dataTableRowClicked"
+                        :hide-default-footer="true"                        
                         class="elevation-1"
                         :loading="datatableLoading"
                         loading-text="Loading... Please wait">
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR PEMBAGIAN KELAS</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR MATAKULIAH</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/pembagiankelas/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">TAMBAH</v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>                                    
-                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-                                        <v-card>
-                                            <v-card-title>
-                                                <span class="headline">UBAH DATA KELAS</span>
-                                            </v-card-title>
-                                            <v-card-text>
-                                                <v-row>
-                                                    <v-col cols="4">
-                                                        <v-select
-                                                            v-model="formdata.hari"
-                                                            :items="daftar_hari"                                                    
-                                                            label="HARI"
-                                                            :rules="rule_hari"        
-                                                            outlined/> 
-                                                    </v-col>
-                                                    <v-col cols="4">
-                                                        <v-text-field 
-                                                            v-model="formdata.jam_masuk" 
-                                                            label="JAM MASUK (contoh: 04:00)"
-                                                            outlined
-                                                            :rules="rule_jam_masuk">
-                                                        </v-text-field>
-                                                    </v-col>
-                                                    <v-col cols="4">
-                                                        <v-text-field 
-                                                            v-model="formdata.jam_keluar" 
-                                                            label="JAM KELUAR (contoh: 06:00)"
-                                                            outlined
-                                                            :rules="rule_jam_keluar">
-                                                        </v-text-field>
-                                                    </v-col>
-                                                </v-row>
-                                                <v-select
-                                                    v-model="formdata.ruang_kelas_id"
-                                                    :items="daftar_ruang_kelas"                                                    
-                                                    label="RUANG KELAS"
-                                                    :rules="rule_ruang_kelas"
-                                                    item-text="namaruang"
-                                                    item-value="id"
-                                                    outlined/> 
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
-                                                <v-btn 
-                                                    color="blue darken-1" 
-                                                    text 
-                                                    @click.stop="save" 
-                                                    :loading="btnLoading"
-                                                    :disabled="!form_valid||btnLoading">
-                                                        SIMPAN
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-form>
-                                </v-dialog>
+                                <v-spacer></v-spacer>                                                                
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nmatkul="{item}">
-                            {{item.nmatkul}} - {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
+                            {{item.nmatkul}} - TA {{item.ta}}
                         </template>
                         <template v-slot:item.jam_masuk="{item}">
                             {{item.jam_masuk}}-{{item.jam_keluar}}
                         </template>
-                        <template v-slot:item.actions="{ item }" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
-                            <v-btn
-                                small
-                                icon
-                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/'+item.id+'/peserta')">
-                                <v-icon>
-                                    mdi-account-child-outline
-                                </v-icon>
-                            </v-btn>   
-                            <v-btn
-                                small
-                                icon
-                                :loading="btnLoadingTable"
-                                :disabled="btnLoadingTable"
-                                @click.stop="editItem(item)">
-                                <v-icon>
-                                    mdi-pencil
-                                </v-icon>
-                            </v-btn>   
+                        <template v-slot:item.kjur="{item}">
+                            {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
+                        </template>
+                        <template v-slot:item.actions="{ item }">                              
                             <v-btn
                                 small
                                 icon
@@ -154,19 +76,7 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>   
-                        </template>           
-                        <template v-slot:item.actions v-else>
-                            N.A
-                        </template>           
-                        <template v-slot:expanded-item="{ headers, item }">
-                            <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
-                                    <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
-                                </v-col>                                
-                            </td>
-                        </template>
+                        </template>                                                           
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>   
@@ -224,11 +134,19 @@ export default {
         tahun_akademik:null,
         semester_akademik:null,
 
+        btnLoadingTable:false,
         datatableLoading:false,
         btnLoading:false,  
 
         datatable:[],          
-
+        headers: [
+            { text: 'KODE', value: 'kmatkul', sortable:false,width:100  },   
+            { text: 'NAMA', value: 'nmatkul', sortable:false  },   
+            { text: 'SKS', value: 'sks', sortable:false  },                           
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false, width:200 },                           
+            { text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable:false, width:100 },                           
+            { text: 'AKSI', value: 'actions', sortable: false,width:60 },
+        ],  
         //formdata
         form_valid:true,         
     }),
@@ -244,6 +162,7 @@ export default {
             }).then(({data})=>{           
                 this.data_kelas_mhs=data.pembagiankelas;    
                 this.datatable=data.penyelenggaraan;                                
+                this.datatableLoading=false;
             })       
         },
         save:async function () {

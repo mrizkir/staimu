@@ -18,7 +18,7 @@ class PembagianKelasPenyelenggaraanModel extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'penyelenggaraan_dosen_id';
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *

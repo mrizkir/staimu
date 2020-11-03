@@ -164,17 +164,25 @@ class PembagianKelasController extends Controller
             $pembagiankelas->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$pembagiankelas->id)->count();
 
             $penyelenggaraan=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
+                                        pe3_kelas_mhs_penyelenggaraan.id,
+                                        pe3_penyelenggaraan_dosen.penyelenggaraan_id,
                                         pe3_matakuliah.kmatkul,
                                         pe3_matakuliah.nmatkul,                                        
                                         pe3_matakuliah.sks,
                                         pe3_matakuliah.ta,
-                                        pe3_matakuliah.kjur
+                                        pe3_matakuliah.kjur,
+                                        0 AS jumlah_mhs
                                     '))
-                                    ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs.penyelenggaraan_dosen_id')
+                                    ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
                                     ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
                                     ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
-                                    ->where('kelas_mhs_id',$id);
-
+                                    ->where('kelas_mhs_id',$id)
+                                    ->get();
+            
+        $penyelenggaraan->transform(function ($item,$key){                      
+            $item->jumlah_mhs=\DB::table('pe3_krsmatkul')->where('penyelenggaraan_id',$item->penyelenggaraan_id)->count();
+            return $item;
+        });
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',                    
