@@ -183,13 +183,24 @@ class PembagianKelasController extends Controller
             $item->jumlah_mhs=\DB::table('pe3_krsmatkul')->where('penyelenggaraan_id',$item->penyelenggaraan_id)->count();
             return $item;
         });
-            return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',                    
-                                    'pembagiankelas'=>$pembagiankelas,                                            
-                                    'penyelenggaraan'=>$penyelenggaraan,                                            
-                                    'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
-                                ],200);
+
+        $peserta=PembagianKelasPesertaModel::select(\DB::raw('
+                                        pe3_krs.nim
+                                    '))
+                                    ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
+                                    ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')                            
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
+                                    ->where('kelas_mhs_id',$id)
+                                    ->get();
+                                    
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                    
+                                'pembagiankelas'=>$pembagiankelas,                                            
+                                'penyelenggaraan'=>$penyelenggaraan,                                            
+                                'peserta'=>$peserta,                                            
+                                'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
+                            ],200);
         }
     }
     public function pengampu (Request $request)
