@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\PenyelenggaraanMatakuliahModel;
+use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
@@ -168,17 +169,23 @@ class KRSController extends Controller
         $ta=$request->input('ta');
         $nim=$request->input('nim');
         $semester_akademik=$request->input('semester_akademik');
-
+        
+        $datamhs=RegisterMahasiswaModel::select(\DB::raw('tahun'))
+                                        ->where('nim',$nim)
+                                        ->first();
+                                        
         $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                     id,
                                     kmatkul,                                    
                                     nmatkul,
                                     sks,
-                                    semester
+                                    semester,
+                                    ta_matkul
                                 '))       
                                 ->where('tahun',$ta)                                  
                                 ->where('idsmt',$semester_akademik)                                  
                                 ->where('kjur',$prodi_id)                                  
+                                ->where('ta_matkul',$datamhs->tahun)
                                 ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
                                     $query->select('penyelenggaraan_id')
                                         ->from('pe3_krsmatkul')
