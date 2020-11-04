@@ -130,6 +130,32 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 ],200);
         }
     }
+    public function member(Request $request,$id)
+    {
+        
+    }
+    public function members(Request $request)
+    {
+        $this->validate($request, [            
+            'penyelenggaraan'=>'required',             
+        ]);
+        $penyelenggaraan=json_decode($request->input('penyelenggaraan',false));
+        $penyelenggaraan_id=[];
+        foreach($penyelenggaraan as $v)
+        {
+            $penyelenggaraan_id[]=$v->penyelenggaraan_id;
+        }
+        $peserta=\DB::table('pe3_krsmatkul')
+                        ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)
+                        ->get();
+
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'members'=>$peserta,
+                                'message'=>'Fetch data peserta berdasarkan penyelenggaraan_id berhasil diperoleh'
+                            ],200);  
+    }
     public function pengampu (Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');

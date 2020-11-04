@@ -84,7 +84,31 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">                            
+                <v-col cols="12">          
+                    <v-dialog v-model="showdialogpeserta" max-width="800px" persistent>                                    
+                        <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                            <v-card>
+                                <v-card-title>
+                                    <span class="headline">TAMBAH PESERTA</span>
+                                </v-card-title>
+                                <v-card-text>
+                                                                                    
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="blue darken-1" text @click.stop="closedialogpeserta">BATAL</v-btn>
+                                    <v-btn 
+                                        color="blue darken-1" 
+                                        text 
+                                        @click.stop="save" 
+                                        :loading="btnLoading"
+                                        :disabled="!form_valid||btnLoading">
+                                            SIMPAN
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-form>
+                    </v-dialog>                  
                     <v-data-table
                         :headers="headers_peserta"
                         :items="datatable_peserta"                        
@@ -103,31 +127,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahPeserta">TAMBAH PESERTA</v-btn>                                                                
-                                <v-dialog v-model="showdialogpeserta" max-width="800px" persistent>                                    
-                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-                                        <v-card>
-                                            <v-card-title>
-                                                <span class="headline">TAMBAH PESERTA</span>
-                                            </v-card-title>
-                                            <v-card-text>
-                                                                                           
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn color="blue darken-1" text @click.stop="closedialogpeserta">BATAL</v-btn>
-                                                <v-btn 
-                                                    color="blue darken-1" 
-                                                    text 
-                                                    @click.stop="save" 
-                                                    :loading="btnLoading"
-                                                    :disabled="!form_valid||btnLoading">
-                                                        SIMPAN
-                                                </v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-form>
-                                </v-dialog>
+                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahPeserta" :disabled="!datatable > 0">TAMBAH PESERTA</v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nmatkul="{item}">
@@ -247,9 +247,20 @@ export default {
                 this.datatableLoading=false;
             })       
         },
-        tambahPeserta()
+        async tambahPeserta()
         {
-            this.showdialogpeserta=true;
+            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',            
+            {
+                penyelenggaraan:JSON.stringify(Object.assign({},this.datatable))
+            },
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{           
+                console.log(data);
+                this.showdialogpeserta=true;
+            })             
         },
         save:async function () {
             if (this.$refs.frmdata.validate())
