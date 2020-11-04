@@ -137,6 +137,7 @@ class PenyelenggaraanMatakuliahController extends Controller
     public function members(Request $request)
     {
         $this->validate($request, [            
+            'pid'=>'required|in:belumterdaftardikelas',             
             'penyelenggaraan'=>'required',             
         ]);
         $penyelenggaraan=json_decode($request->input('penyelenggaraan',false));
@@ -145,9 +146,37 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             $penyelenggaraan_id[]=$v->penyelenggaraan_id;
         }
-        $peserta=\DB::table('pe3_krsmatkul')
-                        ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)
+        $peserta=[];
+        switch($request->input('pid'))
+        {
+            case 'belumterdaftardikelas':
+                $this->validate($request, [            
+                    'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',                                 
+                ]);
+                $kelas_mhs_id=$request->input('kelas_mhs_id');
+
+                $peserta=\DB::table('pe3_krsmatkul')
+                        ->select(\DB::raw('
+                            pe3_krsmatkul.id,
+                            pe3_krsmatkul.nim,
+                            pe3_formulir_pendaftaran.nama_mhs,
+                            pe3_register_mahasiswa.kjur,
+                            pe3_register_mahasiswa.idkelas
+                        '))
+                        ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.nim','pe3_krsmatkul.nim')
+                        ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+                        ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)      
+                        ->whereNotIn('pe3_krsmatkul.id',function($query) use ($kelas_mhs_id){
+                            $query->select('krsmatkul_id')
+                                ->from('pe3_kelas_mhs_peserta')
+                                ->where('kelas_mhs_id',$kelas_mhs_id);                                        
+                                
+                        })  
+                        ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')                
                         ->get();
+            break;
+        }
+        
 
         return Response()->json([
                                 'status'=>1,
@@ -164,14 +193,14 @@ class PenyelenggaraanMatakuliahController extends Controller
             'pid'=>'required|in:belumterdaftar,terdaftar,daftarpengampu',             
         ]);
         
-        $data=[];
-        $idpenyelenggaraan=$request->input('idpenyelenggaraan');
+        $data=[];        
         switch($request->input('pid'))
         {
             case 'belumterdaftar':
                 $this->validate($request, [                                
                     'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'           
                 ]);
+                $idpenyelenggaraan=$request->input('idpenyelenggaraan');
                 $data=UserDosen::select(\DB::raw('
                                     user_id,
                                     nidn,                                    
@@ -190,6 +219,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                 $this->validate($request, [            
                     'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'             
                 ]);
+                $idpenyelenggaraan=$request->input('idpenyelenggaraan');
                 $data=UserDosen::select(\DB::raw('
                                     pe3_penyelenggaraan_dosen.id,
                                     pe3_penyelenggaraan_dosen.penyelenggaraan_id,

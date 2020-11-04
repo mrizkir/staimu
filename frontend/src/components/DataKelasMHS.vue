@@ -45,7 +45,7 @@
                     <v-card flat>
                         <v-card-title>NAMA KELAS/MATAKULIAH:</v-card-title>
                         <v-card-subtitle>
-                            {{datakelas.nmatkul}}
+                            {{datakelas.nmatkul}} - {{$store.getters['uiadmin/getNamaKelas'](datakelas.idkelas)}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>

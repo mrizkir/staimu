@@ -92,7 +92,31 @@
                                     <span class="headline">TAMBAH PESERTA</span>
                                 </v-card-title>
                                 <v-card-text>
-                                                                                    
+                                    <v-data-table
+                                        :headers="headers_members"
+                                        :items="datatable_members"
+                                        :search="search_members"
+                                        item-key="id"
+                                        sort-by="name"                                                                                
+                                        :loading="datatableLoading"
+                                        loading-text="Loading... Please wait">
+
+                                        <template v-slot:item.id="{ item }">    
+                                            {{item.id}}
+                                        </template>                                        
+                                        <template v-slot:expanded-item="{ headers, item }">
+                                            <td :colspan="headers.length" class="text-center">
+                                                <v-col cols="12">
+                                                    <strong>ID:</strong>{{ item.id }}
+                                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                                </v-col>                                
+                                            </td>
+                                        </template>
+                                        <template v-slot:no-data>
+                                            Data belum tersedia
+                                        </template>
+                                    </v-data-table>
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -210,8 +234,9 @@ export default {
         datatableLoading:false,
         btnLoading:false,  
 
-        datatable:[],          
-        datatable_peserta:[],          
+        datatable:[],         
+        datatable_peserta:[], 
+        datatable_members:[],          
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nmatkul', sortable:false  },   
@@ -224,9 +249,16 @@ export default {
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nmatkul', sortable:false  },   
             { text: 'KELAS', value: 'kelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'kjur', sortable:false, width:200 },                                       
+            { text: 'TAHUN MASUK', value: 'kjur', sortable:false },                                       
             { text: 'AKSI', value: 'actions', sortable: false,width:60 },
         ],  
+        headers_members: [
+            { text: 'NIM', value: 'nim', sortable:false,width:100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
+            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
+            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                                   
+        ],  
+        search_members:'',    
         //formdata
         form_valid:true,   
         showdialogpeserta:false,      
@@ -251,6 +283,8 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',            
             {
+                pid:'belumterdaftardikelas',
+                kelas_mhs_id:this.kelas_mhs_id,
                 penyelenggaraan:JSON.stringify(Object.assign({},this.datatable))
             },
             {
@@ -258,7 +292,7 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{           
-                console.log(data);
+                this.datatable_members=data.members;                
                 this.showdialogpeserta=true;
             })             
         },
