@@ -115,7 +115,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         if (is_null($penyelenggaraan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Penyelenggaraan dengan ($id) gagal diperoleh"]
                                 ],422); 
@@ -161,7 +161,8 @@ class PenyelenggaraanMatakuliahController extends Controller
                             pe3_krsmatkul.nim,
                             pe3_formulir_pendaftaran.nama_mhs,
                             pe3_register_mahasiswa.kjur,
-                            pe3_register_mahasiswa.idkelas
+                            pe3_register_mahasiswa.idkelas,
+                            pe3_register_mahasiswa.tahun
                         '))
                         ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.nim','pe3_krsmatkul.nim')
                         ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
@@ -340,7 +341,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         if (is_null($dosen))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -387,7 +388,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         if (is_null($penyelenggaraan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Penyelenggaraan dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -424,7 +425,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         if (is_null($dosen))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ],422); 

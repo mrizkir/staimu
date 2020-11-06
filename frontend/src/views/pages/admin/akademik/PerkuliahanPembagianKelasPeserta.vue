@@ -93,11 +93,13 @@
                                 </v-card-title>
                                 <v-card-text>
                                     <v-data-table
+                                        v-model="members_selected"
                                         :headers="headers_members"
                                         :items="datatable_members"
                                         :search="search_members"
                                         item-key="id"
-                                        sort-by="name"                                                                                
+                                        sort-by="name"     
+                                        show-select                                                                           
                                         :loading="datatableLoading"
                                         loading-text="Loading... Please wait">
 
@@ -247,9 +249,9 @@ export default {
         ],  
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
-            { text: 'NAMA', value: 'nmatkul', sortable:false  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
             { text: 'KELAS', value: 'kelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'kjur', sortable:false },                                       
+            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                       
             { text: 'AKSI', value: 'actions', sortable: false,width:60 },
         ],  
         headers_members: [
@@ -259,9 +261,13 @@ export default {
             { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                                   
         ],  
         search_members:'',    
-        //formdata
-        form_valid:true,   
+
         showdialogpeserta:false,      
+
+        //formdata
+        form_valid:true,  
+        members_selected:[]
+        
     }),
     methods: {        
         initialize:async function () 
@@ -300,11 +306,28 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
+                await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storepeserta',
+                    {
+                        kelas_mhs_id:this.kelas_mhs_id,                        
+                        members_selected:JSON.stringify(Object.assign({},this.members_selected)),                                                                    
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{                       
+                    this.btnLoading=false;
+                    this.closedialogpeserta();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
             }            
         },        
         closedialogpeserta () {
             this.showdialogpeserta = false;            
             setTimeout(() => {                
+                this.members_selected=[];
                 this.$refs.frmdata.reset(); 
                 }, 300
             );

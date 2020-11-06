@@ -25,7 +25,7 @@ class PMBUjianOnlineController extends Controller {
         if (is_null($peserta))
         {
             return Response()->json([
-                                        'status'=>1,
+                                        'status'=>0,
                                         'pid'=>'fetchdata',                
                                         'message'=>["Peserta Ujian dengan ID ($id) gagal diperoleh, mungkin belum mendaftar"]
                                     ],422); 

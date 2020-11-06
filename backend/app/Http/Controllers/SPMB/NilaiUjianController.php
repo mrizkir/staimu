@@ -159,7 +159,7 @@ class NilaiUjianController extends Controller {
         if (is_null($formulir))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -209,7 +209,7 @@ class NilaiUjianController extends Controller {
         if (is_null($data_nilai))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Nilai ujian dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -277,7 +277,7 @@ class NilaiUjianController extends Controller {
         if (is_null($data_nilai))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Nilai Ujian dengan ID ($id) gagal dihapus"]
                                 ],422); 

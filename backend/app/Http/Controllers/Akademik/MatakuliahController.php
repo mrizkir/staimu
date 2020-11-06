@@ -69,7 +69,7 @@ class MatakuliahController extends Controller {
         if (is_null($matakuliah))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["matakuliah dengan ($id) gagal diupdate"]
                                 ],422); 
@@ -288,7 +288,7 @@ class MatakuliahController extends Controller {
         if (is_null($matakuliah))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["matakuliah dengan id ($id) gagal diupdate"]
                                 ],422); 
@@ -393,7 +393,7 @@ class MatakuliahController extends Controller {
         if (is_null($matakuliah))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode matakuliah ($id) gagal dihapus"]
                                 ],422); 

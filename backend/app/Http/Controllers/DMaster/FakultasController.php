@@ -71,7 +71,7 @@ class FakultasController extends Controller {
         if (is_null($fakultas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Kode Fakultas ($id) gagal diupdate"]
                                 ],422); 
@@ -119,7 +119,7 @@ class FakultasController extends Controller {
         if (is_null($fakultas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Fetch data program studi berdasarkan id fakultas gagal"]
                                 ],422); 
@@ -151,7 +151,7 @@ class FakultasController extends Controller {
         if (is_null($fakultas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode fakultas ($id) gagal dihapus"]
                                 ],422); 

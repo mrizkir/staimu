@@ -121,7 +121,7 @@ class KRSController extends Controller
         if (is_null($krs))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
                                 ],422); 
@@ -325,7 +325,7 @@ class KRSController extends Controller
         if (is_null($krs))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -362,7 +362,7 @@ class KRSController extends Controller
         if (is_null($krsmatkul))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -406,7 +406,7 @@ class KRSController extends Controller
         if (is_null($krs))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
                                 ],422); 

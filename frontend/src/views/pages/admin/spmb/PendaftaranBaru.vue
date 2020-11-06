@@ -85,7 +85,7 @@
                                             <v-card-subtitle>
                                                 <span class="info--text">
                                                     Secara default akan tersimpan di prodi <strong>{{nama_prodi}} - {{tahun_pendaftaran}}.</strong>
-                                                    Anda bisa merubahnya dengan memilih PRODI atau Tahun Akademik dibawah ini.
+                                                    Anda bisa merubahnya dengan memilih PRODI atau Tahun Akademik dibawah ini. Namun bila sudah memiliki NIM, T.A dan PRODI tidak bisa diubah.
                                                 </span>
                                             </v-card-subtitle>
                                             <v-card-text>
@@ -112,6 +112,7 @@
                                                     :items="daftar_fakultas"
                                                     item-text="nama_fakultas"
                                                     item-value="kode_fakultas"
+                                                    :disabled="registered"
                                                     :loading="btnLoadingFakultas"
                                                     v-if="$store.getters['uifront/getBentukPT']=='universitas'"
                                                 />
@@ -122,11 +123,13 @@
                                                     item-text="nama_prodi2"
                                                     item-value="id"
                                                     :rules="rule_prodi"
+                                                    :disabled="registered"
                                                     outlined />
                                                 <v-select
                                                     v-model="formdata.ta"
                                                     :items="daftar_ta"                                                    
                                                     label="TAHUN PENDAFTARAN"
+                                                    :disabled="registered"
                                                     outlined/>   
                                                 <v-text-field 
                                                     v-model="formdata.username"
@@ -137,12 +140,14 @@
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
                                                     type="password"                                                                             
+                                                    :disabled="registered"                                                                       
                                                     outlined 
                                                     v-if="editedIndex>-1" /> 
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
                                                     type="password"         
+                                                    :disabled="registered"       
                                                     :rules="rule_password"                
                                                     outlined 
                                                     v-else /> 
@@ -370,7 +375,8 @@ export default {
         dialogdetailitem:false,
         
         //form data   
-        form_valid:true,     
+        form_valid:true,  
+        registered:false,   
         daftar_fakultas:[],
         kode_fakultas:'',
         daftar_prodi:[],   
@@ -627,8 +633,21 @@ export default {
                 await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
                     this.daftar_prodi=data.prodi;
                 });
-            }      
+            }   
+            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(({data})=>{           
+                this.registered = data.status==1;                                        
+                this.dialogfrm = true; 
             this.dialogfrm = true;
+                this.dialogfrm = true; 
+            this.dialogfrm = true;
+                this.dialogfrm = true; 
+            });            
         },   
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then((confirm) => {

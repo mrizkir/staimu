@@ -77,7 +77,7 @@ class DulangMahasiswaLamaController extends Controller
         if (is_null($mahasiswa))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Daftar Ulang Mahasiswa Baru ($id) gagal dihapus"]
                                 ],422); 

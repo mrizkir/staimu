@@ -153,7 +153,7 @@ class PembagianKelasController extends Controller
         if (is_null($pembagiankelas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Pembagian Kelas dengan ($id) gagal diperoleh"]
                                 ],422); 
@@ -185,7 +185,8 @@ class PembagianKelasController extends Controller
         });
 
         $peserta=PembagianKelasPesertaModel::select(\DB::raw('
-                                        pe3_krs.nim
+                                        pe3_krs.nim,
+                                        pe3_formulir_pendaftaran.nama_mhs
                                     '))
                                     ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
                                     ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')                            
@@ -255,33 +256,34 @@ class PembagianKelasController extends Controller
                                 'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
                             ],200);  
     }
-    public function storedosenpengampu (Request $request)
+    public function storepeserta (Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
 
+        $members_selected=json_decode($request->input('members_selected'),true);
+        $request->merge(['members_selected'=>$members_selected]);
+
         $this->validate($request, [   
-            'penyelenggaraan_id'=>'required|exists:pe3_penyelenggaraan,id',           
-            'dosen_id'=>'required|exists:pe3_dosen,user_id',
-            'is_ketua'=>'required'
+            'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',           
+            'members_selected.*'=>'required',            
         ]);
-        $idpenyelenggaraan=$request->input('penyelenggaraan_id');
-        if ($request->input('is_ketua'))
-        {
-            PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
-                                    ->update(['is_ketua'=>false]);
-        }
-        $dosen=PenyelenggaraanDosenModel::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'penyelenggaraan_id'=>$idpenyelenggaraan,
-            'user_id'=>$request->input('dosen_id'),
-            'is_ketua'=>$request->input('is_ketua')
-        ]);
+        $kelas_mhs_id=$request->input('kelas_mhs_id');
         
+        $daftar_members=[];
+        foreach ($members_selected as $v)
+        {
+            $daftar_members[]=[
+                'id'=>Uuid::uuid4()->toString(),
+                'kelas_mhs_id'=>$kelas_mhs_id,
+                'krsmatkul_id'=>$v['id'],                
+            ];
+        }
+        PembagianKelasPesertaModel::insert($daftar_members);
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',                    
-                                'dosen'=>$dosen,                                            
-                                'message'=>'Dosen pengampu Penyelenggaraan matakuliah ini berhasil ditambahkan.'
+                                'daftar_members'=>$daftar_members,                                            
+                                'message'=>"Peserta kelas dengan ID($kelas_mhs_id)  berhasil ditambahkan."
                             ],200);
     }
 
@@ -294,7 +296,7 @@ class PembagianKelasController extends Controller
         if (is_null($pembagian))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -343,7 +345,7 @@ class PembagianKelasController extends Controller
         if (is_null($pembagiankelas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kelas dengan ($id) gagal dihapus"]
                                 ],422); 
@@ -380,7 +382,7 @@ class PembagianKelasController extends Controller
         if (is_null($dosen))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ],422); 

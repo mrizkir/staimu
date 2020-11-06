@@ -224,7 +224,7 @@ class TransaksiController extends Controller {
         if (is_null($konfirmasi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Update data transaksi dengan ID ($id) gagal diperoleh"]
                                 ],422); 

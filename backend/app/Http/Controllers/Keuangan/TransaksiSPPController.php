@@ -409,7 +409,7 @@ class TransaksiSPPController extends Controller {
         if (is_null($detail))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Transaksi Detail dengan ID ($id) gagal dihapus"]
                                 ],422); 

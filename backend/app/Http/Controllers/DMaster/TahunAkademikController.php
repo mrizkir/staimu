@@ -32,7 +32,7 @@ class TahunAkademikController extends Controller {
         if (is_null($ta))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Tahun Akademik ($id) gagal diperoleh"]
                                 ],422); 
@@ -116,7 +116,7 @@ class TahunAkademikController extends Controller {
         if (is_null($ta))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',
                                     'message'=>["Tahun Akademik ($id) gagal diupdate"]
                                 ],422);
@@ -172,7 +172,7 @@ class TahunAkademikController extends Controller {
         if (is_null($ta))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',
                                     'message'=>["Kode tahun akademik ($id) gagal dihapus"]
                                 ],422);

@@ -89,7 +89,7 @@ class ReportKelulusanController extends Controller {
         if (is_null($formulir))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ],422); 

@@ -67,7 +67,7 @@ class PMBPersyaratanController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                        'status'=>1,
+                                        'status'=>0,
                                         'pid'=>'fetchdata',                
                                         'message'=>["User ID ($id) gagal diperoleh"]
                                     ],422); 

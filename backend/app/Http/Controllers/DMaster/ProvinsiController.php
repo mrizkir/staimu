@@ -29,7 +29,7 @@ class ProvinsiController extends Controller {
         if (is_null($provinsi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Fetch data kabupaten berdasarkan id provinsi gagal"]
                                 ],422); 

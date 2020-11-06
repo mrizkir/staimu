@@ -30,7 +30,7 @@ class KecamatanController extends Controller {
         if (is_null($kecamatan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Fetch data desa berdasarkan id kecamatan gagal"]
                                 ],422); 

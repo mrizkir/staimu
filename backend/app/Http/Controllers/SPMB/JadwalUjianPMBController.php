@@ -147,7 +147,7 @@ class JadwalUjianPMBController extends Controller {
         if (is_null($jadwal_ujian))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'show',                
                                     'message'=>["Fetch data jadwal ujian pmb dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -173,7 +173,7 @@ class JadwalUjianPMBController extends Controller {
         if (is_null($jadwal_ujian))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Fetch data jadwal ujian pmb dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -218,7 +218,7 @@ class JadwalUjianPMBController extends Controller {
         if (is_null($jadwal_ujian))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Fetch data jadwal ujian pmb dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -256,7 +256,7 @@ class JadwalUjianPMBController extends Controller {
         if (is_null($jadwal_ujian))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Menghapus jadwal ujian PMB dengan ID ($id) gagal dihapus"]
                                 ],422); 

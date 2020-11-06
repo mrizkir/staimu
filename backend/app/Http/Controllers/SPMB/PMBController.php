@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\SPMB\FormulirPendaftaranModel;
+use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\System\ConfigurationModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
@@ -277,7 +278,7 @@ class PMBController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ],422); 
@@ -309,8 +310,11 @@ class PMBController extends Controller {
                 $formulir=FormulirPendaftaranModel::find($user->id);
                 $formulir->nama_mhs=$request->input('name');
                 $formulir->telp_hp=$request->input('telp_hp');
-                $formulir->kjur1=$request->input('prodi_id');
-                $formulir->ta=$request->input('tahun_pendaftaran');
+                if (is_null(RegisterMahasiswaModel::find($user->id)))
+                {
+                    $formulir->kjur1=$request->input('prodi_id');
+                    $formulir->ta=$request->input('tahun_pendaftaran');
+                }
                 $formulir->save();
 
                 $nilai_ujian=\App\Models\SPMB\NilaiUjianModel::find($formulir->user_id);
@@ -371,7 +375,7 @@ class PMBController extends Controller {
         if (is_null($formulir))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -453,7 +457,7 @@ class PMBController extends Controller {
         if (is_null($formulir))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -596,7 +600,7 @@ class PMBController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Calon Mahasiswa Baru dengan ID ($id) gagal dihapus"]
                                 ],422); 

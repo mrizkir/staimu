@@ -75,7 +75,7 @@ class KelasController extends Controller {
         if (is_null($kelas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Kode Kelas ($id) gagal diupdate"]
                                 ],422); 
@@ -153,7 +153,7 @@ class KelasController extends Controller {
         if (is_null($kelas))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode kelas ($id) gagal dihapus"]
                                 ],422); 

@@ -157,7 +157,7 @@ class UsersProdiController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -189,7 +189,7 @@ class UsersProdiController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ],422); 
@@ -350,7 +350,7 @@ class UsersProdiController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["User ID ($id) gagal dihapus"]
                                 ],422); 

@@ -277,6 +277,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/akademik/kemahasiswaan/daftarmhs/printtoexcel',['middleware'=>['role:superadmin|akademik|programstudi|keuangan'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@printtoexcel','as'=>'daftarmhs.printtoexcel']);
     
     $router->get('/akademik/kemahasiswaan/biodatamhs1/{id}',['middleware'=>['role:superadmin|akademik|programstudi|keuangan|mahasiswa'],'uses'=>'Akademik\MahasiswaController@biodatamhs1','as'=>'mahasiswa.biodatamhs1']);
+    //uri ini diakses bila mahasiswa tidak ada tetap mengembalikan nilai yaitu null atau status = 0
+    $router->get('/akademik/kemahasiswaan/biodatamhs2/{id}',['middleware'=>['role:superadmin|akademik|programstudi|keuangan|mahasiswa'],'uses'=>'Akademik\MahasiswaController@biodatamhs2','as'=>'mahasiswa.biodatamhs2']);
 
     //akademik - perkuliahan - penyelenggaraan
     $router->post('/akademik/perkuliahan/penyelenggaraanmatakuliah',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PenyelenggaraanMatakuliahController@index','as'=>'penyelenggaraanmatakuliah.index']);

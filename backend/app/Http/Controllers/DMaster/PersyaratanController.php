@@ -84,7 +84,7 @@ class PersyaratanController extends Controller {
         if (is_null($persyaratan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode persyaratan ($id) gagal dihapus"]
                                 ],422); 

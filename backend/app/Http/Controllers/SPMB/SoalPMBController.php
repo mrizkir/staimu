@@ -125,7 +125,7 @@ class SoalPMBController extends Controller {
         if (is_null($soal))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'show',                
                                     'message'=>["Fetch data soal pmb dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -153,7 +153,7 @@ class SoalPMBController extends Controller {
         if (is_null($soal))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Fetch data soal pmb dengan ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -201,7 +201,7 @@ class SoalPMBController extends Controller {
         if (is_null($soal))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Soal PMB dengan ID ($id) gagal dihapus"]
                                 ],422); 

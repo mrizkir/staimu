@@ -131,7 +131,7 @@ class UsersController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["User ID ($id) gagal diperoleh"]
                                 ],422); 
@@ -303,7 +303,7 @@ class UsersController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ],422); 
@@ -414,7 +414,7 @@ class UsersController extends Controller {
         if (is_null($user))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Password User ID ($id) gagal diupdate"]
                                 ],422); 

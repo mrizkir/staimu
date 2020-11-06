@@ -114,7 +114,7 @@ class ProgramStudiController extends Controller {
         if (is_null($prodi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Kode Program Studi ($id) gagal diupdate"]
                                 ],422); 
@@ -215,7 +215,7 @@ class ProgramStudiController extends Controller {
         if (is_null($prodi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Fetch data program studi berdasarkan id program studi gagal"]
                                 ],422); 
@@ -247,7 +247,7 @@ class ProgramStudiController extends Controller {
         if (is_null($prodi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode program studi ($id) gagal dihapus"]
                                 ],422); 

@@ -78,7 +78,7 @@ class RuanganKelasController extends Controller {
         if (is_null($ruangan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Rung Kelas ($id) gagal diupdate"]
                                 ],422); 
@@ -135,7 +135,7 @@ class RuanganKelasController extends Controller {
         if (is_null($ruangan))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Ruang kelas dengan id ($id) gagal dihapus"]
                                 ],422); 

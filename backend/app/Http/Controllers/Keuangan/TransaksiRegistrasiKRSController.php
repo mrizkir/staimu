@@ -227,7 +227,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         if (is_null($transaksi))
         {
             return Response()->json([
-                                    'status'=>1,
+                                    'status'=>0,
                                     'pid'=>'destroy',           
                                     'transaksi'=>$transaksi,     
                                     'message'=>["Transaksi registrasi krs dengan ($id) gagal dihapus"]
