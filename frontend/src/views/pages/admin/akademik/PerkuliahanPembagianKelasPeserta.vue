@@ -71,7 +71,7 @@
                                 icon
                                 :loading="btnLoadingTable"
                                 :disabled="btnLoadingTable"
-                                @click.stop="deleteItem(item)">
+                                @click.stop="deleteMatkul(item)">
                                 <v-icon>
                                     mdi-delete
                                 </v-icon>
@@ -155,12 +155,9 @@
                                 <v-spacer></v-spacer>
                                 <v-btn color="primary" dark class="mb-2" @click.stop="tambahPeserta" :disabled="!datatable > 0">TAMBAH PESERTA</v-btn>
                             </v-toolbar>
-                        </template>
-                        <template v-slot:item.nmatkul="{item}">
-                            {{item.nmatkul}} - TA {{item.ta}}
-                        </template>
-                        <template v-slot:item.jam_masuk="{item}">
-                            {{item.jam_masuk}}-{{item.jam_keluar}}
+                        </template>                        
+                        <template v-slot:item.idkelas="{item}">
+                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.kjur="{item}">
                             {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
@@ -171,7 +168,7 @@
                                 icon
                                 :loading="btnLoadingTable"
                                 :disabled="btnLoadingTable"
-                                @click.stop="deleteItem(item)">
+                                @click.stop="deletePeserta(item)">
                                 <v-icon>
                                     mdi-delete
                                 </v-icon>
@@ -250,7 +247,8 @@ export default {
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-            { text: 'KELAS', value: 'kelas', sortable:false  },                           
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
+            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
             { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                       
             { text: 'AKSI', value: 'actions', sortable: false,width:60 },
         ],  
@@ -284,6 +282,19 @@ export default {
                 this.datatable_peserta=data.peserta;                                
                 this.datatableLoading=false;
             })       
+        },
+        async fetchPeserta()
+        {
+            this.datatableLoading=true;
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,            
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                                      
+                this.datatable_peserta=data.peserta;                                
+                this.datatableLoading=false;
+            })   
         },
         async tambahPeserta()
         {
@@ -323,11 +334,40 @@ export default {
                     this.btnLoading=false;
                 });
             }            
-        },        
+        },
+        deleteMatkul(item)
+        {
+            console.log(item);
+        },       
+        deletePeserta(item)
+        {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletepeserta/'+item.id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{                           
+                        this.btnLoading=false;
+                        this.$router.go();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });
+        },       
         closedialogpeserta () {
             this.showdialogpeserta = false;            
             setTimeout(() => {                
                 this.members_selected=[];
+                this.fetchPeserta();
                 this.$refs.frmdata.reset(); 
                 }, 300
             );

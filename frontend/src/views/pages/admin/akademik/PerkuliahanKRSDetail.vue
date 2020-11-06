@@ -132,10 +132,12 @@
                                         <td>{{totalMatkul}}</td> 
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -209,6 +211,7 @@ export default {
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
             { text: 'SKS', value: 'sks', sortable:false,width:120 },                           
             { text: 'SMT', value: 'semester', sortable:false,width:120 },                           
+            { text: 'KELAS', value: 'nama_kelas', sortable:false,width:120 },                           
             { text: 'AKSI', value: 'actions', sortable:false,width:120 },                           
         ],  
     }),

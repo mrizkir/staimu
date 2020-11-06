@@ -209,7 +209,7 @@ const getters= {
     },
     getProdiName : (state) => (key) =>
     {   
-        return state.daftar_prodi == null?'':state.daftar_prodi[key].nama_prodi;
+        return state.daftar_prodi == null || state.daftar_prodi[key]==null?'N.A':state.daftar_prodi[key].nama_prodi;
     },
     
     getDaftarFakultas: state => 

@@ -134,10 +134,13 @@ class KRSController extends Controller
                                             pe3_penyelenggaraan.nmatkul,
                                             pe3_penyelenggaraan.sks,
                                             pe3_penyelenggaraan.semester,
+                                            COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
                                         ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+                                        ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->where('krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')

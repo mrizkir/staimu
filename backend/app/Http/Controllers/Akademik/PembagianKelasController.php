@@ -185,12 +185,18 @@ class PembagianKelasController extends Controller
         });
 
         $peserta=PembagianKelasPesertaModel::select(\DB::raw('
+                                        pe3_kelas_mhs_peserta.id,
                                         pe3_krs.nim,
-                                        pe3_formulir_pendaftaran.nama_mhs
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_register_mahasiswa.tahun,
+                                        pe3_register_mahasiswa.idkelas,
+                                        pe3_register_mahasiswa.tahun,
+                                        pe3_register_mahasiswa.kjur
                                     '))
                                     ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
                                     ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')                            
-                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
+                                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
                                     ->where('kelas_mhs_id',$id)
                                     ->get();
                                     
@@ -201,6 +207,43 @@ class PembagianKelasController extends Controller
                                 'penyelenggaraan'=>$penyelenggaraan,                                            
                                 'peserta'=>$peserta,                                            
                                 'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
+                            ],200);
+        }
+    }
+    public function peserta (Request $request,$id)
+    {
+        $pembagian = PembagianKelasModel::find($id); 
+        
+        if (is_null($pembagian))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            $peserta=PembagianKelasPesertaModel::select(\DB::raw('
+                                        pe3_kelas_mhs_peserta.id,
+                                        pe3_krs.nim,
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_register_mahasiswa.tahun,
+                                        pe3_register_mahasiswa.idkelas,
+                                        pe3_register_mahasiswa.tahun,
+                                        pe3_register_mahasiswa.kjur
+                                    '))
+                                    ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
+                                    ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')                            
+                                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
+                                    ->where('kelas_mhs_id',$id)
+                                    ->get();
+            return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                                                                         
+                                'peserta'=>$peserta,                                            
+                                'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
                             ],200);
         }
     }
@@ -377,29 +420,29 @@ class PembagianKelasController extends Controller
     { 
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 
-        $dosen = PenyelenggaraanDosenModel::find($id); 
+        $peserta = PembagianKelasPesertaModel::find($id); 
         
-        if (is_null($dosen))
+        if (is_null($peserta))
         {
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'destroy',                
-                                    'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
+                                    'message'=>["Peserta dengan ($id) gagal dihapus"]
                                 ],422); 
         }
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $dosen, 
-                                                                'object_id' => $dosen->id, 
+                                                                'object' => $peserta, 
+                                                                'object_id' => $peserta->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus penyelenggaraan dosen dengan id ('.$id.') berhasil'
+                                                                'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
                                                             ]);
-            $dosen->delete();
+            $peserta->delete();
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                
-                                        'message'=>"Kelas Dosen dengan ID ($id) berhasil dihapus"
+                                        'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
                                     ],200);         
         }
                     
