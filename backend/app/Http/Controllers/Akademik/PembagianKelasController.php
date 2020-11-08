@@ -416,6 +416,65 @@ class PembagianKelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function destroymatkul(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
+
+        $penyelenggaraan = PembagianKelasPenyelenggaraanModel::select(\DB::raw('
+                                                                pe3_kelas_mhs_penyelenggaraan.id,
+                                                                pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
+                                                                pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id,
+                                                                pe3_penyelenggaraan_dosen.penyelenggaraan_id
+                                                            '))
+                                                            ->join('pe3_penyelenggaraan_dosen','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id','pe3_penyelenggaraan_dosen.id')
+                                                            ->find($id); 
+        
+        if (is_null($penyelenggaraan))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Anggota Matakuliah di kelas dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $penyelenggaraan, 
+                                                                'object_id' => $penyelenggaraan->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menghapus matauliah kelas di mahasiswa dengan id ('.$id.') berhasil'
+                                                            ]);
+
+            $penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan){      
+                $penyelenggaraan_id=$penyelenggaraan->penyelenggaraan_id;         
+                \DB::table('pe3_kelas_mhs_peserta')
+                        ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
+                        ->where('pe3_krsmatkul.penyelenggaraan_id',$penyelenggaraan_id)
+                        ->delete();
+
+                \DB::table('pe3_kelas_mhs_penyelenggaraan')                        
+                        ->where('id',$penyelenggaraan->id)
+                        ->delete();
+
+                return $penyelenggaraan_id;
+            });           
+            
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',      
+                                        'penyelenggaraan_id'=>$penyelenggaraan_id,          
+                                        'message' => 'Menghapus matakuliah di kelas mahasiswa dengan id ('.$id.') berhasil'
+                                    ],200);         
+        }
+                    
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroypeserta(Request $request,$id)
     { 
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');

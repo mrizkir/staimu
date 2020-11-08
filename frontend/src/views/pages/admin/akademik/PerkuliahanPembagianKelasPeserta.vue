@@ -337,7 +337,27 @@ export default {
         },
         deleteMatkul(item)
         {
-            console.log(item);
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID '+item.id+' ?', { color: 'red', width:600,'desc':'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletematkul/'+item.id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{                           
+                        this.btnLoading=false;
+                        this.$router.go();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });
         },       
         deletePeserta(item)
         {

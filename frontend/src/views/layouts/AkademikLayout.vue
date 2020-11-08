@@ -159,7 +159,7 @@
 					<div>
 						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/perkuliahan/penyelenggaraan/daftar" color="white">
                             <v-list-item-icon class="mr-2">
-                                <v-icon>mdi-book</v-icon>
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
                                 <v-list-item-title>
@@ -253,7 +253,7 @@
 					<div>
                         <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/perkuliahan/pembagiankelas/daftar" color="white">
                             <v-list-item-icon class="mr-2">
-                                <v-icon>mdi-book</v-icon>
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
                                 <v-list-item-title>
@@ -271,7 +271,7 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 
-                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled to="/akademik/perkuliahan/pembagiankelas/peserta">
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled :to="{path:'/akademik/perkuliahan/pembagiankelas/'+paramid+'/peserta'}">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
@@ -468,6 +468,9 @@ export default {
                 break;
                 case 'PerkuliahanKRSTambahMatkul':
                     id=this.$route.params.krsid;
+                break;
+                case 'PerkuliahanPembagianKelasPeserta':
+                    id=this.$route.params.kelas_mhs_id;
                 break;
             }            
             return id;
