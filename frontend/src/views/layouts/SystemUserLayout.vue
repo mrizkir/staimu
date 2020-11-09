@@ -151,7 +151,17 @@
                             PROGRAM STUDI
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
+                </v-list-item>  
+                <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-PUSLAHTA_BROWSE')" to="/system-users/puslahta">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            PUSLAHTA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>        
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN_BROWSE')" to="/system-users/dosen">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>

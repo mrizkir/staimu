@@ -642,6 +642,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/UsersProdi.vue'),		
 	},
 	{
+		path: '/system-users/puslahta',
+		name: 'UsersPuslahta',
+		meta:{
+			title: "USERS - PUSLAHTA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/UsersPuslahta.vue'),		
+	},
+	{
 		path: '/system-users/dosen',
 		name: 'UsersDosen',
 		meta:{

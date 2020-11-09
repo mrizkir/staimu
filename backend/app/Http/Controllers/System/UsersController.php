@@ -217,6 +217,126 @@ class UsersController extends Controller {
                     $user->givePermissionTo($permissions);                 
                 }                
             break;
+            case 'akademik':
+                $data = User::role('akademik')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'programstudi':
+                $data = User::role('programstudi')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'puslahta':
+                $data = User::role('puslahta')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'keuangan':
+                $data = User::role('keuangan')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'perpustakaan':
+                $data = User::role('perpustakaan')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'lppm':
+                $data = User::role('lppm')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'dosen':
+                $data = User::role('dosen')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'dosenwali':
+                $data = User::role('dosenwali')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'alumni':
+                $data = User::role('alumni')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
+            case 'orangtuawali':
+                $data = User::role('orangtuawali')
+                        ->select(\DB::raw('users.id'))                        
+                        ->where('active',1)
+                        ->get();
+
+                foreach ($data as $user)
+                {
+                    \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
+                    $user->givePermissionTo($permissions);                 
+                }                
+            break;
         }       
         return Response()->json([
                                     'status'=>1,
