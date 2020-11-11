@@ -522,15 +522,14 @@ const routes = [
 	},	
 	//akademik - nilai
 	{
-		path: '/akademik/nilai/matakuliah/daftar',
-		name: 'AkademikNilaiMatakuliah',
+		path: '/akademik/nilai/matakuliah/isiperkelasmhs',
+		name: 'AkademikNilaiIsiPerKelasMHS',
 		meta:{
-			title: "AKADEMIK - NILAI MATAKULIAH",
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER KELAS",
 			requiresAuth:true,
         },
-		component: () => import('../views/pages/admin/akademik/NilaiMatakuliah.vue'),		
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKelasMHS.vue'),		
 	},	
-
 
 	//system	
 	{

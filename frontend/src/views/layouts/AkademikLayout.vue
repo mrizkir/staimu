@@ -104,7 +104,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-subheader>DAFTAR ULANG</v-subheader>
+                <v-subheader v-if="CAN_ACCESS('AKADEMIK-DULANG-BARU_BROWSE')||CAN_ACCESS('AKADEMIK-DULANG-LAMA_BROWSE')">DAFTAR ULANG</v-subheader>
                 <v-list-item link to="/akademik/dulang/mhsbelumpunyanim" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-DULANG-BARU_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>
@@ -283,57 +283,27 @@
                         </v-list-item>   						 
 					</div>
                 </v-list-group>
-                <v-subheader>NILAI</v-subheader> 
-                <v-list-group group="/akademik/perkuliahan/nilai/matakuliah" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE')" color="green">
+                <v-subheader v-if="dashboard=='puslahta'">NILAI</v-subheader> 
+                <v-list-group group="/akademik/nilai/matakuliah" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE') && dashboard=='puslahta'" color="green">
                     <template v-slot:activator>
                         <v-list-item-icon class="mr-2">
                             <v-icon>mdi-format-columns</v-icon>
                         </v-list-item-icon>
                         <v-list-item-content>								
-                            <v-list-item-title>NILAI MATAKULIAH</v-list-item-title>
+                            <v-list-item-title>ISI NILAI</v-list-item-title>
                         </v-list-item-content>							
                     </template>
 					<div>
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/nilai/matakuliah/daftar" color="white">
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_STORE') && dashboard=='puslahta'" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/nilai/matakuliah/isiperkelasmhs" color="white">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
                                 <v-list-item-title>
-                                    DAFTAR
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>   						 
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_SHOW')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled :to="{path:'/akademik/perkuliahan/krs/'+paramid+'/detail'}">
-                            <v-list-item-icon class="mr-2">
-                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    DETAIL KRS
+                                    PER KELAS MHS
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 						
-						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled to="/akademik/perkuliahan/krs/tambah">
-                            <v-list-item-icon class="mr-2">
-                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    TAMBAH KRS
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>   						 			
-                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled :to="{path:'/akademik/perkuliahan/krs/'+paramid+'/tambahmatkul'}">
-                            <v-list-item-icon class="mr-2">
-                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    TAMBAH MATKUL
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>   						 									
 					</div>
                 </v-list-group>                        
             </v-list>
