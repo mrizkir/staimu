@@ -530,6 +530,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKelasMHS.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/matakuliah/isiperkelasmhs/:kelas_mhs_id',
+		name: 'AkademikNilaiIsiPerKelasMHSDetail',
+		meta:{
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER KELAS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKelasMHSDetail.vue'),		
+	},	
 
 	//system	
 	{

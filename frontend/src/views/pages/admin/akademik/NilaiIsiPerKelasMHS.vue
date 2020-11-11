@@ -80,19 +80,20 @@
                         <template v-slot:item.jam_masuk="{item}">
                             {{item.jam_masuk}}-{{item.jam_keluar}}
                         </template>
-                        <template v-slot:item.actions="{ item }" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
+                        <template v-slot:item.actions="{ item }">
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/'+item.id+'/peserta')">
+                                @click.stop="$router.push('/akademik/nilai/matakuliah/isiperkelasmhs/'+item.id)"
+                                v-if="item.jumlah_mhs > 0">
                                 <v-icon>
-                                    mdi-account-child-outline
+                                    mdi-video-input-svideo
                                 </v-icon>
-                            </v-btn>                               
-                        </template>           
-                        <template v-slot:item.actions v-else>
-                            N.A
-                        </template>           
+                            </v-btn>  
+                            <span v-else>
+                                N.A
+                            </span>
+                        </template>                                   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
