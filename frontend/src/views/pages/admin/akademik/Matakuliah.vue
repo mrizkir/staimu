@@ -70,8 +70,15 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyMatkul">SALIN MATAKULIAH</v-btn>
-                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahItem">TAMBAH</v-btn>
+                                <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyMatkul" v-if="$store.getters['auth/can']('AKADEMIK-MATAKULIAH_STORE')">SALIN MATAKULIAH</v-btn>
+                                <v-btn 
+                                    color="primary" 
+                                    dark 
+                                    class="mb-2" 
+                                    @click.stop="tambahItem"                                    
+                                    v-if="$store.getters['auth/can']('AKADEMIK-MATAKULIAH_STORE')">
+                                    TAMBAH
+                                </v-btn>
                                 <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
