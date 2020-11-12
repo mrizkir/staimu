@@ -53,7 +53,8 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                                                
+                                <v-spacer></v-spacer> 
+                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahMatakuliah">TAMBAH MATAKULIAH</v-btn>                                                               
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nmatkul="{item}">
@@ -85,6 +86,41 @@
             </v-row>
             <v-row>
                 <v-col cols="12">          
+                    <v-dialog v-model="showdialogmatakuliah" max-width="800px" persistent>                                    
+                        <v-form ref="frmdatamatkul" v-model="form_valid" lazy-validation>
+                            <v-card>
+                                <v-card-title>
+                                    <span class="headline">TAMBAH MATAKULIAH DI KELAS INI</span>
+                                </v-card-title>
+                                <v-card-text>
+                                    <v-select
+                                        v-model="formdata.penyelenggaraan_dosen_id"
+                                        :items="daftar_matakuliah"
+                                        label="MATAKULIAH YANG DISELENGGARAKAN"
+                                        multiple
+                                        chips
+                                        hint="Pilihlah satu atau lebih matakuliah yang akan digabungkan dalam satu kelas"
+                                        persistent-hint                                        
+                                        outlined
+                                        item-text="nmatkul"
+                                        item-value="id">
+                                    </v-select>                                
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="blue darken-1" text @click.stop="closedialogmatakuliah">BATAL</v-btn>
+                                    <v-btn 
+                                        color="blue darken-1" 
+                                        text 
+                                        @click.stop="savematakuliah" 
+                                        :loading="btnLoading"
+                                        :disabled="!form_valid||btnLoading">
+                                            SIMPAN
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-form>
+                    </v-dialog>                  
                     <v-dialog v-model="showdialogpeserta" max-width="800px" persistent>                                    
                         <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                             <v-card>
@@ -232,8 +268,9 @@ export default {
         btnLoadingTable:false,
         datatableLoading:false,
         btnLoading:false,  
-
-        datatable:[],         
+        
+        datatable:[],    
+        daftar_matakuliah:[],     
         datatable_peserta:[], 
         datatable_members:[],          
         headers: [
@@ -260,11 +297,15 @@ export default {
         ],  
         search_members:'',    
 
+        showdialogmatakuliah:false,      
         showdialogpeserta:false,      
 
         //formdata
         form_valid:true,  
-        members_selected:[]
+        members_selected:[],
+        formdata:{                        
+            penyelenggaraan_dosen_id:'',                        
+        },  
         
     }),
     methods: {        
@@ -283,6 +324,19 @@ export default {
                 this.datatableLoading=false;
             })       
         },
+        async fetchMatkul()
+        {
+            this.datatableLoading=true;
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/matakuliah/'+this.kelas_mhs_id,            
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                                      
+                this.datatable=data.penyelenggaraan;                                
+                this.datatableLoading=false;
+            })   
+        },
         async fetchPeserta()
         {
             this.datatableLoading=true;
@@ -295,6 +349,23 @@ export default {
                 this.datatable_peserta=data.peserta;                                
                 this.datatableLoading=false;
             })   
+        },
+        async tambahMatakuliah()
+        {
+            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',            
+            {
+                user_id:this.data_kelas_mhs.user_id,
+                ta:this.data_kelas_mhs.tahun,                
+                semester_akademik:this.data_kelas_mhs.idsmt,                
+            },
+            {
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                                               
+                this.daftar_matakuliah = data.matakuliah; 
+                this.showdialogmatakuliah=true;                      
+            })  
         },
         async tambahPeserta()
         {
@@ -389,6 +460,14 @@ export default {
                 this.members_selected=[];
                 this.fetchPeserta();
                 this.$refs.frmdata.reset(); 
+                }, 300
+            );
+        },
+        closedialogmatakuliah () {
+            this.showdialogmatakuliah = false;            
+            setTimeout(() => {                                
+                this.fetchMatkul();
+                this.$refs.frmdatamatkul.reset(); 
                 }, 300
             );
         },

@@ -129,6 +129,7 @@ class PembagianKelasController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
 
         $pembagiankelas = PembagianKelasModel::select(\DB::raw('
+                                                    pe3_kelas_mhs.user_id,                                                    
                                                     pe3_kelas_mhs.id,
                                                     pe3_kelas_mhs.idkelas,                            
                                                     pe3_kelas_mhs.hari,     
@@ -144,6 +145,8 @@ class PembagianKelasController extends Controller
                                                     pe3_ruangkelas.namaruang,
                                                     pe3_ruangkelas.kapasitas,
                                                     0 AS jumlah_mhs,
+                                                    pe3_kelas_mhs.tahun,
+                                                    pe3_kelas_mhs.idsmt,
                                                     pe3_kelas_mhs.created_at,
                                                     pe3_kelas_mhs.updated_at                   
                                                 '))
@@ -207,6 +210,43 @@ class PembagianKelasController extends Controller
                                 'penyelenggaraan'=>$penyelenggaraan,                                            
                                 'peserta'=>$peserta,                                            
                                 'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
+                            ],200);
+        }
+    }
+    public function matakuliah (Request $request,$id)
+    {
+        $pembagian = PembagianKelasModel::find($id); 
+        
+        if (is_null($pembagian))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            $penyelenggaraan=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
+                                        pe3_kelas_mhs_penyelenggaraan.id,
+                                        pe3_penyelenggaraan_dosen.penyelenggaraan_id,
+                                        pe3_matakuliah.kmatkul,
+                                        pe3_matakuliah.nmatkul,                                        
+                                        pe3_matakuliah.sks,
+                                        pe3_matakuliah.ta,
+                                        pe3_matakuliah.kjur,
+                                        0 AS jumlah_mhs
+                                    '))
+                                    ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
+                                    ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')                            
+                                    ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
+                                    ->where('kelas_mhs_id',$id)
+                                    ->get();
+            return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                                                                         
+                                'penyelenggaraan'=>$penyelenggaraan,                                            
+                                'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
                             ],200);
         }
     }
