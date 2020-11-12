@@ -137,7 +137,7 @@ class PenyelenggaraanMatakuliahController extends Controller
     public function members(Request $request)
     {
         $this->validate($request, [            
-            'pid'=>'required|in:belumterdaftardikelas',             
+            'pid'=>'required|in:belumterdaftar',             
             'penyelenggaraan'=>'required',             
         ]);
         $penyelenggaraan=json_decode($request->input('penyelenggaraan',false));
@@ -149,12 +149,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         $peserta=[];
         switch($request->input('pid'))
         {
-            case 'belumterdaftardikelas':
-                $this->validate($request, [            
-                    'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',                                 
-                ]);
-                $kelas_mhs_id=$request->input('kelas_mhs_id');
-
+            case 'belumterdaftar':
                 $peserta=\DB::table('pe3_krsmatkul')
                         ->select(\DB::raw('
                             pe3_krsmatkul.id,
@@ -167,10 +162,9 @@ class PenyelenggaraanMatakuliahController extends Controller
                         ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.nim','pe3_krsmatkul.nim')
                         ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
                         ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)      
-                        ->whereNotIn('pe3_krsmatkul.id',function($query) use ($kelas_mhs_id){
+                        ->whereNotIn('pe3_krsmatkul.id',function($query){
                             $query->select('krsmatkul_id')
-                                ->from('pe3_kelas_mhs_peserta')
-                                ->where('kelas_mhs_id',$kelas_mhs_id);                                        
+                                ->from('pe3_kelas_mhs_peserta');                                        
                                 
                         })  
                         ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')                

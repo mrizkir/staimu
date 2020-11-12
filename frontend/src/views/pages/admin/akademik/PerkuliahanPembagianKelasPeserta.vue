@@ -371,7 +371,7 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',            
             {
-                pid:'belumterdaftardikelas',
+                pid:'belumterdaftar',
                 kelas_mhs_id:this.kelas_mhs_id,
                 penyelenggaraan:JSON.stringify(Object.assign({},this.datatable))
             },
@@ -401,6 +401,28 @@ export default {
                 ).then(()=>{                       
                     this.btnLoading=false;
                     this.closedialogpeserta();
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });
+            }            
+        },
+        savematakuliah:async function () {
+            if (this.$refs.frmdatamatkul.validate())
+            {
+                this.btnLoading=true;
+                await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
+                    {
+                        kelas_mhs_id:this.kelas_mhs_id,                        
+                        penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{                       
+                    this.btnLoading=false;
+                    this.closedialogmatakuliah();
                 }).catch(()=>{
                     this.btnLoading=false;
                 });

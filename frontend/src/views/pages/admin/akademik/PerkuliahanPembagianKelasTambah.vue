@@ -325,7 +325,7 @@ export default {
                         hari:this.formdata.hari,                            
                         jam_masuk:this.formdata.jam_masuk,
                         jam_keluar:this.formdata.jam_keluar,                        
-                        penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),                                                                    
+                        penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
                         ruang_kelas_id:this.formdata.ruang_kelas_id,                            
                         tahun:this.tahun_akademik,                            
                         idsmt:this.semester_akademik,                            

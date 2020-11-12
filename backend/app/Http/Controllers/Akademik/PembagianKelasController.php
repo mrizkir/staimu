@@ -339,6 +339,32 @@ class PembagianKelasController extends Controller
                                 'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
                             ],200);  
     }
+    public function storematakuliah (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
+
+        $this->validate($request, [   
+            'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',           
+            'penyelenggaraan_dosen_id'=>'required',  
+        ]);
+        $kelas_mhs_id=$request->input('kelas_mhs_id');       
+        
+        $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'),true);
+
+        foreach ($penyelenggaraan_dosen as $v)
+        {
+            PembagianKelasPenyelenggaraanModel::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'kelas_mhs_id'=>$kelas_mhs_id,
+                'penyelenggaraan_dosen_id'=>$v
+            ]);
+        }        
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'store',                                                                                           
+                                'message'=>"Menambahkan daftar matakuliah dengan ID ($kelas_mhs_id)  berhasil ditambahkan."
+                            ],200);
+    }
     public function storepeserta (Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
