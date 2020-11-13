@@ -569,7 +569,7 @@ export default {
             this.dialog = false;
             this.dialogEdit = false;
             setTimeout(() => {
-                this.$refs.frmdata.reset();
+                this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1                
                 }, 300

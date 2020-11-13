@@ -456,9 +456,9 @@ export default {
             this.dialog = false;
             this.dialogEdit = false;            
             setTimeout(() => {
+                this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
-                this.$refs.frmdata.reset(); 
+                this.editedIndex = -1                
                 }, 300
             );
         },        
