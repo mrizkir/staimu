@@ -222,7 +222,7 @@ class PembagianKelasController extends Controller
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
-                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal dihapus"]
+                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
@@ -259,7 +259,7 @@ class PembagianKelasController extends Controller
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
-                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal dihapus"]
+                                    'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
@@ -407,7 +407,7 @@ class PembagianKelasController extends Controller
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'destroy',                
-                                    'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
+                                    'message'=>["Dosen Pengampu dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
         else

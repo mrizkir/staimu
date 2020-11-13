@@ -16,7 +16,14 @@ class CreateNilaiMatakuliahTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('pe3_nilai_matakuliah', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('idkrsmatkul');               
+            $table->uuid('krsmatkul_id');               
+            $table->uuid('penyelenggaraan_id');
+            $table->uuid('penyelenggaraan_dosen_id')->nullable();
+            $table->uuid('kelas_mhs_id')->nullable();
+            $table->uuid('user_id_mhs'); 
+            $table->uuid('user_id_created'); 
+            $table->uuid('user_id_updated'); 
+            $table->uuid('krs_id');
 
             $table->decimal('persentase_absen',5,2)->default(0.00);               
             $table->decimal('persentase_quiz',5,2)->default(0.00);               
@@ -32,11 +39,27 @@ class CreateNilaiMatakuliahTable extends Migration
             $table->decimal('nilai_uts',5,2)->default(0.00);    
             $table->decimal('nilai_uas',5,2)->default(0.00);    
             $table->decimal('n_kuan',5,2)->default(0.00);    
-            $table->decimal('n_kual',3)->default(0.00);  
+            $table->string('n_kual',3)->default(0.00);  
 
             $table->boolean('telah_isi_kuesioner')->default(false);
             $table->datetime('tanggal_isi_kuesioner');
-            
+
+            $table->timestamps();  
+
+            $table->index('krsmatkul_id');
+            $table->index('penyelenggaraan_id');
+            $table->index('user_id_mhs');
+            $table->index('user_id_created');
+            $table->index('user_id_updated');
+            $table->index('krs_id');
+            $table->index('penyelenggaraan_dosen_id');
+            $table->index('kelas_mhs_id');
+
+            $table->foreign('krsmatkul_id')
+                ->references('id')
+                ->on('pe3_krsmatkul')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');            
         });
 
         
