@@ -539,6 +539,24 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKelasMHSDetail.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/matakuliah/isiperkrs',
+		name: 'AkademikNilaiIsiPerKelasMHS',
+		meta:{
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKRS.vue'),		
+	},	
+	{
+		path: '/akademik/nilai/matakuliah/isiperkrs/:krsid',
+		name: 'AkademikNilaiIsiPerKelasMHSDetail',
+		meta:{
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKRSDetail.vue'),		
+	},	
 
 	//system	
 	{

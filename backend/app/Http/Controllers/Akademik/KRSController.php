@@ -22,7 +22,7 @@ class KRSController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_BROWSE');
         $daftar_krs=[];
 
-        if ($this->hasRole(['superadmin','akademik','programstudi']))
+        if ($this->hasRole(['superadmin','akademik','programstudi','puslahta']))
         {
             $this->validate($request, [
                 'ta'=>'required',
