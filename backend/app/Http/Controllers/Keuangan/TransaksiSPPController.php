@@ -146,7 +146,7 @@ class TransaksiSPPController extends Controller {
             }
             if (is_null($transaksi))        
             {
-                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
+                // throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
             }
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$transaksi->ta)
                                                     ->where('idkelas',$transaksi->idkelas)
@@ -156,7 +156,7 @@ class TransaksiSPPController extends Controller {
             
             if (!($biaya_kombi > 0))
             {
-                throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
+                // throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
             }
             $ta=TAModel::find($transaksi->ta); 
             $awal_semester = $ta->awal_semester;

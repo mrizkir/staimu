@@ -35,7 +35,7 @@ class Helper {
     ];
     public static function getNamaBulan($no_bulan=null)
     {
-        if ($id===null)
+        if ($no_bulan===null)
         {
             return Helper::$daftar_bulan;
         }

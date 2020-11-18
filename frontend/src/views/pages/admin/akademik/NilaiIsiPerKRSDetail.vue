@@ -97,69 +97,83 @@
                 </v-col>                
             </v-row>
             <v-row>
-                <v-col cols="12">           
-                    <v-card>
-                        <v-card-title>
-                            DAFTAR MATAKULIAH
-                            <v-spacer></v-spacer>                            
-                        </v-card-title>
-                        <v-card-text>
-                            <v-data-table        
-                                dense                        
-                                :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
-                                :disable-pagination="true"
-                                :hide-default-footer="true"                                                                
-                                :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                                
-                                <template v-slot:item.n_kuan="props">                                    
-                                    <v-numeric                
-                                        v-model="props.item.n_kuan"
-                                        text
-                                        :min="0"
-                                        :max="100"
-                                        locale="en-US"
-                                        :useGrouping="false"
-                                        precision="2"
-                                        dense
-                                        style="width:65px">
-                                    </v-numeric> 
-                                </template> 
-                                <template v-slot:item.n_kual="props">                                    
-                                    <v-select 
-                                        :items="skala_nilai" 
-                                        v-model="props.item.n_kual"
-                                        style="width:65px"
-                                        dense>
-                                </v-select>
-                                </template> 
-                                <template v-slot:body.append v-if="datatable.length > 0">
-                                    <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-                                        <td>{{totalMatkul}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL SKS</td>
-                                        <td>{{totalSKS}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </template>   
-                                <template v-slot:no-data>
-                                    Data matakuliah belum tersedia silahkan tambah
-                                </template>
-                            </v-data-table>
-                        </v-card-text>
-                    </v-card>
+                <v-col cols="12">     
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                        <v-card>
+                            <v-card-title>
+                                DAFTAR MATAKULIAH
+                                <v-spacer></v-spacer>                            
+                            </v-card-title>
+                            <v-card-text>
+                                <v-data-table        
+                                    dense                        
+                                    :headers="headers"
+                                    :items="datatable"                                
+                                    item-key="id"                                                        
+                                    :disable-pagination="true"
+                                    :hide-default-footer="true"                                                                
+                                    :loading="datatableLoading"
+                                    loading-text="Loading... Please wait">                                
+                                    <template v-slot:item.n_kuan="props">                                    
+                                        <v-numeric                
+                                            v-model="props.item.n_kuan"
+                                            text
+                                            :min="0"
+                                            :max="100"
+                                            locale="en-US"
+                                            :useGrouping="false"
+                                            precision="2"
+                                            dense
+                                            style="width:65px">
+                                        </v-numeric> 
+                                    </template> 
+                                    <template v-slot:item.n_kual="props">                                    
+                                        <v-select 
+                                            :items="skala_nilai" 
+                                            v-model="props.item.n_kual"
+                                            style="width:65px"
+                                            dense>
+                                    </v-select>
+                                    </template> 
+                                    <template v-slot:body.append v-if="datatable.length > 0">
+                                        <tr class="grey lighten-4 font-weight-black">
+                                            <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
+                                            <td>{{totalMatkul}}</td> 
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class="grey lighten-4 font-weight-black">
+                                            <td class="text-right" colspan="2">TOTAL SKS</td>
+                                            <td>{{totalSKS}}</td> 
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </template>   
+                                    <template v-slot:no-data>
+                                        Data matakuliah belum tersedia silahkan tambah
+                                    </template>
+                                </v-data-table>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                <v-btn 
+                                    color="blue darken-1" 
+                                    text 
+                                    @click.stop="save" 
+                                    :loading="btnLoading"
+                                    :disabled="btnLoading">
+                                        BUAT
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-form>
                 </v-col>
             </v-row>
         </v-container>
@@ -249,30 +263,26 @@ export default {
                 }
             })  
         },     
-        deleteItem (item)
-        {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
-                if (confirm)
-                {
-                    this.btnLoadingTable=true;
-                    this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
-                        {
-                            '_method':'DELETE',
-                        },
-                        {
-                            headers:{
-                                Authorization:this.$store.getters['auth/Token']
-                            }
-                        }
-                    ).then(()=>{   
-                        const index = this.datatable.indexOf(item);
-                        this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
-                    }).catch(()=>{
-                        this.btnLoadingTable=false;
-                    });
-                }                
-            });
+        async save ()
+        {           
+            // this.btnLoadingTable=true;
+            // await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs/'+item.id,
+            //     {
+            //         krs_id:this.krs_id,
+            //         daftar_nilai:this.daftar_nilai
+            //     },
+            //     {
+            //         headers:{
+            //             Authorization:this.$store.getters['auth/Token']
+            //         }
+            //     }
+            // ).then(()=>{   
+            //     const index = this.datatable.indexOf(item);
+            //     this.datatable.splice(index, 1);
+            //     this.btnLoadingTable=false;
+            // }).catch(()=>{
+            //     this.btnLoadingTable=false;
+            // });
         },           
     },
     computed:{
