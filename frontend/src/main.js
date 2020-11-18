@@ -3,10 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-
+import VNumeric from "vuetify-numeric/vuetify-numeric.umd.min";
 import api from './plugins/api';
-Vue.use(api);
 
+Vue.use(api);
+Vue.use(VNumeric);
 import '@/plugins/Dayjs';
 
 Vue.config.productionTip = false
