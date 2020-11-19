@@ -424,4 +424,6 @@ $router->group(['prefix'=>'h2h','middleware'=>'auth:api'], function () use ($rou
 
     //inquiry tagihan
     $router->post('/brk/inquiry-tagihan',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@inquiryTagihan','as'=>'brk.transaksi.inquiry-tagihan']);
+    //payment
+    $router->post('/brk/payment',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@payment','as'=>'brk.transaksi.payment']);
 });

@@ -7,7 +7,6 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 use Ramsey\Uuid\Uuid;
 
