@@ -37,7 +37,8 @@ class TransaksiController extends Controller {
                                         pe3_transaksi.ta AS periode,
                                         pe3_transaksi.total AS nominal,
                                         0 AS denda,
-                                        pe3_transaksi.status
+                                        pe3_transaksi.status,
+                                        COALESCE(pe3_konfirmasi_pembayaran.updated_at,"N.A") AS updated_at_konfirm
                                     '))
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                     ->leftJoin('pe3_konfirmasi_pembayaran','pe3_konfirmasi_pembayaran.transaksi_id','pe3_transaksi.id')
@@ -58,6 +59,13 @@ class TransaksiController extends Controller {
                                         'message'=>"Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
                                     ],422); 
         }
+        else if ($transaksi->status==2)
+            {
+                return Response()->json([
+                                            'status'=>'88',                                        
+                                            'message'=>"status kode billing ini dibatalkan"
+                                        ],422); 
+            }
         else
         {     
             return response()->json([
@@ -98,8 +106,24 @@ class TransaksiController extends Controller {
         else
         {
             $kode_billing=$request->input('kode_billing');
-            $transaksi=TransaksiModel::where('no_transaksi',$kode_billing)
-                                        ->first();
+            $transaksi=TransaksiModel::select(\DB::raw('
+                                        pe3_transaksi.no_transaksi AS kode_billing,
+                                        pe3_formulir_pendaftaran.no_formulir,
+                                        pe3_transaksi.nim,                                        
+                                        pe3_formulir_pendaftaran.nama_mhs,                                        
+                                        pe3_prodi.nama_prodi AS prodi,
+                                        pe3_transaksi.idsmt,
+                                        pe3_transaksi.ta,
+                                        pe3_transaksi.total,
+                                        0 AS denda,
+                                        pe3_transaksi.status,
+                                        COALESCE(pe3_konfirmasi_pembayaran.updated_at,"N.A") AS updated_at_konfirm
+                                    '))
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+                                    ->leftJoin('pe3_konfirmasi_pembayaran','pe3_konfirmasi_pembayaran.transaksi_id','pe3_transaksi.id')
+                                    ->leftJoin('pe3_prodi','pe3_prodi.id','pe3_transaksi.kjur')
+                                    ->where('pe3_transaksi.no_transaksi',$kode_billing)
+                                    ->first();
             
             if ($transaksi->status==1)
             {
@@ -108,11 +132,18 @@ class TransaksiController extends Controller {
                                             'message'=>"Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
                                         ],422); 
             }
+            else if ($transaksi->status==2)
+            {
+                return Response()->json([
+                                            'status'=>'88',                                        
+                                            'message'=>"status kode billing ini dibatalkan"
+                                        ],422); 
+            }
             else if ($transaksi->total!=$request->input('amount'))
             {     
                 return Response()->json([
                                             'status'=>'11',                                        
-                                            'message'=>'Nilai nominal '.Helper::formatUang($request->input('nominal')).' tidak sama dengan transaksi '.Helper::formatUang($total)
+                                            'message'=>'Nilai nominal salah ('.\App\Helpers\Helper::formatUang($request->input('amount')).') karena  tidak sama dengan dengan transaksi '.\App\Helpers\Helper::formatUang($transaksi->total)
                                     ],422); 
             }
         
