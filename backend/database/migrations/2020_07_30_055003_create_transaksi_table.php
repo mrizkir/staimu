@@ -17,7 +17,7 @@ class CreateTransaksiTable extends Migration
         Schema::create('pe3_transaksi', function (Blueprint $table) {
             $table->uuid('id')->primary(); 
             $table->uuid('user_id');    
-            $table->bigInteger('no_transaksi')->unique(); 
+            $table->string('no_transaksi',20)->unique(); 
             $table->string('no_faktur')->nullable(); 
             $table->unsignedInteger('kjur');
             $table->year('ta');
@@ -48,7 +48,7 @@ class CreateTransaksiTable extends Migration
             $table->uuid('id')->primary(); 
             $table->uuid('user_id');               
             $table->uuid('transaksi_id');    
-            $table->bigInteger('no_transaksi');  
+            $table->string('no_transaksi',20);  
             $table->smallInteger('kombi_id'); 
             $table->string('nama_kombi');  
             $table->decimal('biaya',15,2);                                                            

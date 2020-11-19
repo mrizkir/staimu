@@ -410,3 +410,18 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/system/setting/uiadmin',['uses'=>'System\UIController@admin','as'=>'ui.admin']);
 
 });
+$router->group(['prefix'=>'h2h'], function () use ($router)
+{
+    //auth login
+    $router->post('/brk/auth/login',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@login','as'=>'brk.auth.login']);
+});
+$router->group(['prefix'=>'h2h','middleware'=>'auth:api'], function () use ($router)
+{
+    //authentication
+    $router->post('/brk/auth/logout',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@logout','as'=>'brk.auth.logout']);
+    $router->get('/brk/auth/refresh',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@refresh','as'=>'brk.auth.refresh']);
+    $router->get('/brk/auth/me',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@me','as'=>'brk.auth.me']);
+
+    //inquiry tagihan
+    $router->post('/brk/inquiry-tagihan',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@inquiryTagihan','as'=>'brk.transaksi.inquiry-tagihan']);
+});

@@ -36,6 +36,7 @@ class TransaksiModel extends Model {
         'status',
         'total',
         'tanggal',
+        'desc',
     ];
     /**
      * enable auto_increment.
