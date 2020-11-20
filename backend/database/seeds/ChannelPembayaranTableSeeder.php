@@ -35,5 +35,12 @@ class ChannelPembayaranTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()         
         ]);               
+
+        \DB::table('pe3_channel_pembayaran')->insert([
+            'id_channel'=>4,
+            'nama_channel'=>'H2H',             
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()         
+        ]);               
     }
 }

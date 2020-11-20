@@ -541,7 +541,7 @@ const routes = [
 	},	
 	{
 		path: '/akademik/nilai/matakuliah/isiperkrs',
-		name: 'AkademikNilaiIsiPerKelasMHS',
+		name: 'AkademikNilaiIsiPerKRS',
 		meta:{
 			title: "AKADEMIK - ISI NILAI MATAKULIAH PER KRS",
 			requiresAuth:true,
