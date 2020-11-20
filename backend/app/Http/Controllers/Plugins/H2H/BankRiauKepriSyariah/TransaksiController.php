@@ -110,7 +110,7 @@ class TransaksiController extends Controller {
             $kode_billing=$request->input('kode_billing');
             $transaksi=TransaksiModel::select(\DB::raw('
                                         pe3_transaksi.id,
-                                        pe3_transaksi.no_transaksi AS kode_billing,
+                                        pe3_transaksi.no_transaksi,
                                         pe3_transaksi.no_faktur,
                                         pe3_formulir_pendaftaran.no_formulir,
                                         pe3_transaksi.nim,                                        
@@ -118,8 +118,10 @@ class TransaksiController extends Controller {
                                         \''.addslashes($config['NAMA_PT']).'\' AS universitas,                                        
                                         \'\' AS fakultas,                                   
                                         pe3_prodi.nama_prodi AS prodi,
+                                        pe3_transaksi.kjur,
                                         pe3_transaksi.idsmt,
                                         pe3_transaksi.ta,
+                                        pe3_transaksi.idkelas,
                                         pe3_transaksi.total,
                                         0 AS denda,
                                         pe3_transaksi.status,
@@ -160,10 +162,10 @@ class TransaksiController extends Controller {
                     $konfirmasi=KonfirmasiPembayaranModel::find($transaksi->id);
                     if (is_null($konfirmasi))
                     {
-                        $konfirmasi=KonfirmasiPembayaranModel::create([
+                        $konfirmasi_insert=KonfirmasiPembayaranModel::create([
                             'transaksi_id'=>$transaksi->id,                
                             'user_id'=>$this->getUserid(),                
-                            'no_transaksi'=>$transaksi->kode_billing,
+                            'no_transaksi'=>$transaksi->no_transaksi,
                             'id_channel'=>4,
                             'total_bayar'=>$transaksi->total,
                             'nomor_rekening_pengirim'=>'HOST TO HOST',
@@ -172,15 +174,18 @@ class TransaksiController extends Controller {
                             'desc'=>'',
                             'tanggal_bayar'=>date ('Y-m-d H:m:s'),                
                             'bukti_bayar'=>"storage/images/buktibayar/paid.png",  
+                            'verified'=>true
                         ]);                        
+                        $transaksi=$konfirmasi_insert->transaksi;                        
                     }
-                    $konfirmasi->verified=true;
-                    $konfirmasi->save();
-
-                    $transaksi=$konfirmasi->transaksi;
+                    else
+                    {
+                        $transaksi=$konfirmasi->transaksi;                        
+                    }
                     $transaksi->no_faktur=$no_ref;
                     $transaksi->status=1;
                     $transaksi->save();
+                    
                     //aksi setelah PAID
 
                     $detail = TransaksiDetailModel::select(\DB::raw('
@@ -222,8 +227,8 @@ class TransaksiController extends Controller {
                     }
                     
                     \App\Models\System\ActivityLog::log($request,[
-                                                                    'object' => $konfirmasi, 
-                                                                    'object_id' => $konfirmasi->transaksi_id, 
+                                                                    'object' => $transaksi, 
+                                                                    'object_id' => $transaksi->id, 
                                                                     'user_id' => $this->getUserid(), 
                                                                     'message' => 'Transaksi berhasil.'
                                                                 ]);
