@@ -222,12 +222,14 @@ class NilaiMatakuliahController extends Controller
                                                                 'object' => $nilai, 
                                                                 'object_id' => $nilai->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menyimpan Nilai Matakuliah dengan id ('.$nilai->id.') berhasil dilakukan'
+                                                                'message' => 'Menyimpan Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
                                                             ]);
                     $jumlah_matkul+=1;
                 }                
                 else
                 {
+                    $n_kuan_lama=$nilai->n_kuan;
+                    $n_kual_lama=$nilai->n_kual;
                     $nilai->n_kuan=$n_kuan;
                     $nilai->n_kual=$n_kual;
                     $nilai->user_id_updated=$this->getUserid();
@@ -236,8 +238,8 @@ class NilaiMatakuliahController extends Controller
                     \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $nilai, 
                                                                 'object_id' => $nilai->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Mengubah Nilai Matakuliah dengan id ('.$nilai->id.') berhasil dilakukan'
+                                                                'user_id' => $this->getUserid(),                                                                 
+                                                                'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
                                                             ]);
                     $jumlah_matkul+=1;
                 }

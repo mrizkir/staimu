@@ -5,7 +5,7 @@
                 mdi-format-columns
             </template>
             <template v-slot:name>
-                ISI NILAI PER KELAS
+                ISI NILAI PER KRS
             </template>
             <template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}

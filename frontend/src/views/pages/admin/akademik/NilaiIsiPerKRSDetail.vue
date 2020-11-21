@@ -1,11 +1,11 @@
 <template>
-    <AkademikLayout>
+    <AkademikLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-format-columns
             </template>
             <template v-slot:name>
-                KARTU RENCANA STUDI
+                ISI NILAI PER KRS
             </template>
             <template v-slot:subtitle v-if="Object.keys(datakrs).length">
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                    Halaman untuk melihat detail krs mahasiswa 
+                    Halaman untuk melakukan pengisian nilai berdasarkan krs mahasiswa per tahun akademik, dan semester yang telah dilakukan.
                 </v-alert>
             </template>
         </ModuleHeader>   
@@ -143,8 +143,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td></td>                                            
                                         </tr>
                                         <tr class="grey lighten-4 font-weight-black">
                                             <td class="text-right" colspan="2">TOTAL SKS</td>
@@ -152,8 +151,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td></td>                                            
                                         </tr>
                                     </template>   
                                     <template v-slot:no-data>
@@ -199,21 +197,16 @@ export default {
                 href:'/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text:'ISI NILAI',
                 disabled:false,
                 href:'#'
             },
             {
-                text:'KRS',
-                disabled:false,
-                href:'/akademik/perkuliahan/krs/daftar'
-            },
-            {
-                text:'DETAIL',
+                text:'PER KRS',
                 disabled:true,
                 href:'#'
-            },
-        ];
+            }
+        ];  
         this.fetchKRS();               
     },  
     data: () => ({ 

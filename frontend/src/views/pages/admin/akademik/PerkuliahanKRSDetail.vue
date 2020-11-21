@@ -1,5 +1,5 @@
 <template>
-    <AkademikLayout>
+    <AkademikLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-format-columns
