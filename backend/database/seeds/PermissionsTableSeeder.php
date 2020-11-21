@@ -223,6 +223,7 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-PERKULIAHAN-PKRS',
             
             'AKADEMIK-NILAI-MATAKULIAH',                        
+            'AKADEMIK-NILAI-MATAKULIAH-DOSEN',                        
             
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',

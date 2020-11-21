@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Akademik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Akademik\PenyelenggaraanMatakuliahModel;
-use App\Models\Akademik\PenyelenggaraanDosenModel;
 use App\Models\Akademik\PembagianKelasModel;
 use App\Models\Akademik\PembagianKelasPesertaModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
 
-use App\Models\UserDosen;
+use App\Models\Akademik\NilaiMatakuliahModel;
 
 use Ramsey\Uuid\Uuid;
 
@@ -149,5 +147,60 @@ class NilaiMatakuliahController extends Controller
                                     'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+    }
+    public function storeperkrs(Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+        
+        $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+        $request->merge(['daftar_nilai'=>$daftar_nilai]);        
+
+        $this->validate($request, [      
+            'krs_id'=>'required|exists:pe3_krs,id',     
+            'daftar_nilai.*'=>'required',            
+        ]);
+        $daftar_nilai_selected=[];
+        foreach ($matkul_selected as $v)
+        {
+            if (\DB::table('pe3_nilai_matakuliah')->where('krsmatkul_id',$v['krsmatkul'])->exists())
+            {
+                
+            }
+            else
+            {
+                $daftar_nilai_selected[]=[
+                    'id'=>Uuid::uuid4()->toString(),
+                    'krsmatkul_id'=>$v['krsmatkul'],
+                    'penyelenggaraan_id'=>$a,
+                    'penyelenggaraan_dosen_id'=>$a,
+                    'kelas_mhs_id'=>$a, 
+                    'user_id_mhs'=>$a, 
+                    'user_id_created'=>$a, 
+                    'user_id_updated'=>$a,
+                    'krs_id'=>$a,
+                    
+                    'persentase_absen'=>$a,
+                    'persentase_quiz'=>$a,
+                    'persentase_tugas_individu'=>$a,
+                    'persentase_tugas_kelompok'=>$a,
+                    'persentase_uts'=>$a,
+                    'persentase_uas'=>$a,
+
+                    'nilai_absen'=>$a,
+                    'nilai_quiz'=>$a,
+                    'nilai_tugas_individu'=>$a,
+                    'nilai_tugas_kelompok'=>$a,
+                    'nilai_uts'=>$a,
+                    'nilai_uas'=>$a,
+                    'n_kuan'=>$a,
+                    'n_kual'=>$a,
+
+                    'telah_isi_kuesioner'=>$a,
+                    'tanggal_isi_kuesioner'=>$a,
+                    'created_at'=>\Carbon\Carbon::now(),
+                    'updated_at'=>\Carbon\Carbon::now()
+                ];
+            }
+        }        
     }
 }

@@ -16,7 +16,7 @@ class CreateNilaiMatakuliahTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('pe3_nilai_matakuliah', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('krsmatkul_id');               
+            $table->uuid('krsmatkul_id')->unique();               
             $table->uuid('penyelenggaraan_id');
             $table->uuid('penyelenggaraan_dosen_id')->nullable();
             $table->uuid('kelas_mhs_id')->nullable();
@@ -42,11 +42,10 @@ class CreateNilaiMatakuliahTable extends Migration
             $table->string('n_kual',3)->default(0.00);  
 
             $table->boolean('telah_isi_kuesioner')->default(false);
-            $table->datetime('tanggal_isi_kuesioner');
+            $table->datetime('tanggal_isi_kuesioner')->nullable();
 
             $table->timestamps();  
 
-            $table->index('krsmatkul_id');
             $table->index('penyelenggaraan_id');
             $table->index('user_id_mhs');
             $table->index('user_id_created');

@@ -169,7 +169,7 @@
                                     @click.stop="save" 
                                     :loading="btnLoading"
                                     :disabled="btnLoading">
-                                        BUAT
+                                        SIMPAN
                                 </v-btn>
                             </v-card-actions>
                         </v-card>
@@ -242,6 +242,24 @@ export default {
             { text: 'NILAI HURUF', value: 'n_kual', sortable:false,width:100 },                           
                                    
         ],  
+
+        
+        //formdata
+        form_valid:true,         
+        skala_nilai:[
+            'A',
+            'A-',
+            'A/B',
+            'B+',
+            'B-',
+            'B/C',
+            'C+',
+            'C-',
+            'C/D',
+            'D+',
+            'D',
+            'E'
+        ]       
     }),
     methods: {          
         async fetchKRS()
@@ -265,24 +283,32 @@ export default {
         },     
         async save ()
         {           
-            // this.btnLoadingTable=true;
-            // await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs/'+item.id,
-            //     {
-            //         krs_id:this.krs_id,
-            //         daftar_nilai:this.daftar_nilai
-            //     },
-            //     {
-            //         headers:{
-            //             Authorization:this.$store.getters['auth/Token']
-            //         }
-            //     }
-            // ).then(()=>{   
-            //     const index = this.datatable.indexOf(item);
-            //     this.datatable.splice(index, 1);
-            //     this.btnLoadingTable=false;
-            // }).catch(()=>{
-            //     this.btnLoadingTable=false;
-            // });
+            this.btnLoadingTable=true;
+            var daftar_nilai=[];
+
+            this.datatable.forEach(item => {
+                daftar_nilai.push({
+                    krsmatkul_id:item.id,
+                    n_kuan:item.n_kuan,
+                    n_kual:item.n_kual
+                });
+            });
+            console.log(daftar_nilai);
+            await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs/',
+                {
+                    krs_id:this.krs_id,
+                    daftar_nilai:JSON.stringify(Object.assign({},this.daftar_nilai)),                    
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(()=>{   
+                this.$router.go();
+            }).catch(()=>{
+                this.btnLoadingTable=false;
+            });
         },           
     },
     computed:{

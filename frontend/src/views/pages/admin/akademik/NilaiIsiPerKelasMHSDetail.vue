@@ -174,9 +174,7 @@ export default {
 
         //formdata
         form_valid:true, 
-        daftar_nilai:[],
-        nilai_kual:[],
-        nilai_kuan:[],
+        daftar_nilai:[],        
         skala_nilai:[
             'A',
             'A-',

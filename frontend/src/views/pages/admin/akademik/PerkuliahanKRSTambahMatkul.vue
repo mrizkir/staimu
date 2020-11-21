@@ -264,7 +264,7 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/krs/storematkul',
                     {
                         krs_id:this.krs_id,                        
-                        matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
+                        matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
                     },
                     {
                         headers:{
