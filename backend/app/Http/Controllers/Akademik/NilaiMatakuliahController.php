@@ -159,48 +159,95 @@ class NilaiMatakuliahController extends Controller
             'krs_id'=>'required|exists:pe3_krs,id',     
             'daftar_nilai.*'=>'required',            
         ]);
-        $daftar_nilai_selected=[];
-        foreach ($matkul_selected as $v)
+        $krs_id=$request->input('krs_id');
+        
+        $krs=KRSModel::find($krs_id);
+
+        $jumlah_matkul=0;
+        foreach ($daftar_nilai as $v)
         {
-            if (\DB::table('pe3_nilai_matakuliah')->where('krsmatkul_id',$v['krsmatkul'])->exists())
+            $krsmatkul_id=$v['krsmatkul_id'];
+            $n_kuan=(float)$v['n_kuan'];
+            $n_kual=$v['n_kual'];
+
+            if ($n_kuan != '' && $n_kual != '')
             {
-                
-            }
-            else
-            {
-                $daftar_nilai_selected[]=[
-                    'id'=>Uuid::uuid4()->toString(),
-                    'krsmatkul_id'=>$v['krsmatkul'],
-                    'penyelenggaraan_id'=>$a,
-                    'penyelenggaraan_dosen_id'=>$a,
-                    'kelas_mhs_id'=>$a, 
-                    'user_id_mhs'=>$a, 
-                    'user_id_created'=>$a, 
-                    'user_id_updated'=>$a,
-                    'krs_id'=>$a,
+                $nilai=NilaiMatakuliahModel::where('krsmatkul_id',$krsmatkul_id)->first();
+
+                if (is_null($nilai) )
+                {
+                    $krsmatkul=KRSMatkulModel::select(\DB::raw('
+                                            pe3_krsmatkul.penyelenggaraan_id,
+                                            pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,                                            
+                                            pe3_kelas_mhs_peserta.kelas_mhs_id                                            
+                                        '))
+                                        ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+                                        ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+                                        ->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
+                                        ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
+                                        ->where('pe3_krsmatkul.id',$krsmatkul_id)                                        
+                                        ->first();
                     
-                    'persentase_absen'=>$a,
-                    'persentase_quiz'=>$a,
-                    'persentase_tugas_individu'=>$a,
-                    'persentase_tugas_kelompok'=>$a,
-                    'persentase_uts'=>$a,
-                    'persentase_uas'=>$a,
+                    
+                    $nilai=NilaiMatakuliahModel::create([
+                        'id'=>Uuid::uuid4()->toString(),
+                        'krsmatkul_id'=>$krsmatkul_id,
+                        'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                        'penyelenggaraan_dosen_id'=>$krsmatkul->penyelenggaraan_dosen_id,
+                        'kelas_mhs_id'=>$krsmatkul->kelas_mhs_id, 
+                        'user_id_mhs'=>$krs->user_id, 
+                        'user_id_created'=>$this->getUserid(), 
+                        'user_id_updated'=>$this->getUserid(),
+                        'krs_id'=>$krs_id,
+                        
+                        'persentase_absen'=>0,
+                        'persentase_quiz'=>0,
+                        'persentase_tugas_individu'=>0,
+                        'persentase_tugas_kelompok'=>0,
+                        'persentase_uts'=>0,
+                        'persentase_uas'=>0,
 
-                    'nilai_absen'=>$a,
-                    'nilai_quiz'=>$a,
-                    'nilai_tugas_individu'=>$a,
-                    'nilai_tugas_kelompok'=>$a,
-                    'nilai_uts'=>$a,
-                    'nilai_uas'=>$a,
-                    'n_kuan'=>$a,
-                    'n_kual'=>$a,
+                        'nilai_absen'=>0,
+                        'nilai_quiz'=>0,
+                        'nilai_tugas_individu'=>0,
+                        'nilai_tugas_kelompok'=>0,
+                        'nilai_uts'=>0,
+                        'nilai_uas'=>0,
+                        'n_kuan'=>$n_kuan,
+                        'n_kual'=>$n_kual,
+                        'created_at'=>\Carbon\Carbon::now(),
+                        'updated_at'=>\Carbon\Carbon::now()
+                    ]);
+                    \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $nilai, 
+                                                                'object_id' => $nilai->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menyimpan Nilai Matakuliah dengan id ('.$nilai->id.') berhasil dilakukan'
+                                                            ]);
+                    $jumlah_matkul+=1;
+                }                
+                else
+                {
+                    $nilai->n_kuan=$n_kuan;
+                    $nilai->n_kual=$n_kual;
+                    $nilai->user_id_updated=$this->getUserid();
+                    $nilai->save();                
 
-                    'telah_isi_kuesioner'=>$a,
-                    'tanggal_isi_kuesioner'=>$a,
-                    'created_at'=>\Carbon\Carbon::now(),
-                    'updated_at'=>\Carbon\Carbon::now()
-                ];
+                    \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $nilai, 
+                                                                'object_id' => $nilai->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Mengubah Nilai Matakuliah dengan id ('.$nilai->id.') berhasil dilakukan'
+                                                            ]);
+                    $jumlah_matkul+=1;
+                }
             }
-        }        
+        }       
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store', 
+                                    'daftar_nilai'=>$daftar_nilai,                                     
+                                    'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+                                ],200);     
     }
 }

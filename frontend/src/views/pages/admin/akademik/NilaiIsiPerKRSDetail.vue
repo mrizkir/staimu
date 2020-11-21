@@ -126,6 +126,7 @@
                                             dense
                                             style="width:65px">
                                         </v-numeric> 
+                                        <v-chip color="primary" class="ma-2" outlined label>{{props.item.n_kuan}}</v-chip>
                                     </template> 
                                     <template v-slot:item.n_kual="props">                                    
                                         <v-select 
@@ -162,7 +163,7 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                <v-btn color="blue darken-1" text href="/akademik/nilai/matakuliah/isiperkrs">KELUAR</v-btn>
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 
@@ -216,6 +217,7 @@ export default {
         this.fetchKRS();               
     },  
     data: () => ({ 
+        test:100,
         firstloading:true,        
         nama_prodi:null,
         tahun_akademik:null,        
@@ -292,19 +294,18 @@ export default {
                     n_kuan:item.n_kuan,
                     n_kual:item.n_kual
                 });
-            });
-            console.log(daftar_nilai);
-            await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs/',
+            });            
+            await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs',
                 {
                     krs_id:this.krs_id,
-                    daftar_nilai:JSON.stringify(Object.assign({},this.daftar_nilai)),                    
+                    daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                 },
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{   
+            ).then(()=>{                   
                 this.$router.go();
             }).catch(()=>{
                 this.btnLoadingTable=false;
