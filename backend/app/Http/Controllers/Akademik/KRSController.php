@@ -436,8 +436,17 @@ class KRSController extends Controller
                                                                                             'daftar_matkul'=>$daftar_matkul
                                                                                         ]);
 
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/".$krs->uid.'.pdf');
-            
+            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/".$krs->id.'.pdf');
+            $pdf->save($file_pdf);
+
+            $pdf_file="storage/exported/pdf/".$krs->id.".pdf";
+
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',
+                                    'krs'=>$krs,
+                                    'pdf_file'=>$pdf_file                                    
+                                ],200);
         }
     }
 }
