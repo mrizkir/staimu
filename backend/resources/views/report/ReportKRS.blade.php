@@ -1,16 +1,27 @@
 <html>
 <head>
 <style>
+.header{
+    width:100%;
+    font-weight:bold;
+    text-align:center;
+    border-collapse: collapse;   
+    border-bottom: 2px solid black;
+}
 .table {		
     width:100%;
     border-collapse: collapse;   
     font-size: 12px; 
+    margin-bottom: 10px;
 }
 .table th {
     border: 1px solid #000;	    
 }
 .table td {
     border: 1px solid #000;	    
+}
+h2{
+    text-align:center;
 }
 </style>
 </head>
@@ -86,6 +97,48 @@
         </tr>
         @endforeach
     </tbody>
+</table>
+<table width="100%" cellspacing="0px" cellpadding="0px">
+    <tr>
+        <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>
+        <td style="font-weight:bold;font-size:14px;text-align:center">PENASEHAT AKADEMIK</td>
+        <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>
+    </tr>
+    <tr>
+        <td width="35%" style="text-align:center">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <span>
+                (_________________________)<br>
+                NIDN/NIDK: ................
+             </span>                
+        </td>
+        <td width="35%" style="text-align:center">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <span>
+                (_________________________)<br>
+                NIDN: ................
+             </span>                
+        </td>
+        <td width="35%" style="text-align:center">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <span>
+                <strong>{{$data_krs->nama_mhs}}</strong><br>
+                NIM: {{$data_krs->nim}}
+             </span>                
+        </td>
+    </tr>
 </table>
 </body>
 </html>
