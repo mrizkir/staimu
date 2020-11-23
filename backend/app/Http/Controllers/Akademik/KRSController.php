@@ -373,11 +373,11 @@ class KRSController extends Controller
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $krsmatkul, 
-                                                                'object_id' => $krsmatkul->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                                            ]);
+                                                            'object' => $krsmatkul, 
+                                                            'object_id' => $krsmatkul->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                                                        ]);
             $krsmatkul->delete();
             return Response()->json([
                                         'status'=>1,
