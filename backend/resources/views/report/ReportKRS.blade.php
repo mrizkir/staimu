@@ -16,7 +16,8 @@
 </head>
 <body>
 @include('report.ReportHeader')
-<table>
+<h2>KARTU RENCANA STUDI</h2>
+<table style="font-size:14px">
     <tbody>
         <tr>
             <td><strong>Nama Mahasiswa</strong></td>

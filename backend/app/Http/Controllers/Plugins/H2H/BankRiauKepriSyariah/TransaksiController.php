@@ -72,7 +72,11 @@ class TransaksiController extends Controller {
         else
         {     
             return response()->json([
-                'Result' => $transaksi
+                'Result' => [
+                    'status'=>true,
+                    'message'=>'Request Data Berhasil',
+                    'data'=>$transaksi
+                ]
             ], 200); 
         }
     }
