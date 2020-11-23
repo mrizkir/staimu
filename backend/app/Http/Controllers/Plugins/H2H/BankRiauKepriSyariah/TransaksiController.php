@@ -209,7 +209,7 @@ class TransaksiController extends Controller {
                         switch ($v->kombi_id)
                         {
                             case 101: //biaya formulir pendaftaran
-                                $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                        
+                                $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($transaksi->user_id);                        
                                 $no_formulir=$formulir->idsmt.mt_rand();
                                 $formulir->no_formulir=$no_formulir;
                                 $formulir->save();
