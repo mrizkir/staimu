@@ -394,16 +394,22 @@ class KRSController extends Controller
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
                         pe3_krs.nim,
+                        pe3_register_mahasiswa.nirm,
                         pe3_formulir_pendaftaran.nama_mhs,
+                        pe3_formulir_pendaftaran.jk,
                         pe3_krs.kjur,
+                        pe3_prodi.nama_prodi,
                         pe3_krs.tahun,
                         pe3_krs.idsmt,
+                        \'\' AS nama_semester,
                         pe3_krs.tasmt,
                         pe3_krs.sah,
                         pe3_krs.created_at,
                         pe3_krs.updated_at
                     '))
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
+                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
+                    ->join('pe3_prodi','pe3_register_mahasiswa.kjur','pe3_prodi.id')
                     ->find($id);
 
         if (is_null($krs))
@@ -416,6 +422,8 @@ class KRSController extends Controller
         }
         else
         {
+            $krs->nama_semester=\App\Helpers\HelperAkademik::getSemester($krs->idsmt);
+
             $daftar_matkul=KRSMatkulModel::select(\DB::raw('
                                             pe3_krsmatkul.id,
                                             pe3_penyelenggaraan.kmatkul,
@@ -430,11 +438,11 @@ class KRSController extends Controller
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
-
+            
             $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
                                                                     [
-                                                                                            'data_krs'=>$krs,
-                                                                                            'daftar_matkul'=>$daftar_matkul
+                                                                        'data_krs'=>$krs,
+                                                                        'daftar_matkul'=>$daftar_matkul
                                                                     ],
                                                                     [],
                                                                     [

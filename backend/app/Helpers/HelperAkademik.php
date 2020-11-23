@@ -3,6 +3,14 @@
 namespace App\Helpers;
 class HelperAkademik {      
     /**
+     * daftar semester
+     */
+    public static $semester=[
+        1=>'GANJIL',
+        2=>'GENAP',
+        3=>'PENDEK'
+    ];
+    /**
      * daftar semester matakuliah
      * @var type 
      */
@@ -32,4 +40,16 @@ class HelperAkademik {
         'D',
         'E'
     ];
+
+    public static function getSemester($id=null)
+    {
+        if ($id===null)
+        {
+			return HelperAkademik::$semester;
+        }
+        else
+        {
+            return HelperAkademik::$semester[$id];
+        }
+    }
 }
