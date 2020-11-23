@@ -106,6 +106,8 @@
                             <v-btn
                                 small
                                 icon
+                                :loading="btnLoading"
+                                :disabled="btnLoading"
                                 @click.stop="printpdf(item)">
                                 <v-icon>
                                     mdi-printer
@@ -205,6 +207,7 @@ export default {
         tahun_akademik:null,
         semester_akademik:null,
         
+        btnLoading:false,
         btnLoadingTable:false,
         datatableLoading:false,
         expanded:[],
@@ -315,7 +318,7 @@ export default {
         },
         async printpdf(item)
         {
-            this.btnLoadingTable=true;
+            this.btnLoading=true;
             await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
                 {
                     headers:{
@@ -326,9 +329,9 @@ export default {
             ).then(({data})=>{                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoadingTable=false;
+                this.btnLoading=false;
             }).catch(()=>{
-                this.btnLoadingTable=false;
+                this.btnLoading=false;
             });                 
         },
         closedialogprintpdf () {                  

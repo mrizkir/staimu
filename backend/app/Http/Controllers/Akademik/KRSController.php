@@ -431,10 +431,15 @@ class KRSController extends Controller
                                         ->orderBy('kmatkul','asc')
                                         ->get();
 
-            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',[
+            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
+                                                                    [
                                                                                             'data_krs'=>$krs,
                                                                                             'daftar_matkul'=>$daftar_matkul
-                                                                                        ]);
+                                                                    ],
+                                                                    [],
+                                                                    [
+                                                                        'title' => 'KRS',
+                                                                    ]);
 
             $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/".$krs->id.'.pdf');
             $pdf->save($file_pdf);
