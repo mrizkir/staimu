@@ -344,6 +344,7 @@ class NilaiUjianController extends Controller {
                     'sub_total'=>$kombi->biaya    
                 ]);
                 $transaksi->total=$kombi->biaya;
+                $transaksi->desc=$kombi->nama_kombi;
                 $transaksi->save();
             }
         }        
@@ -397,6 +398,7 @@ class NilaiUjianController extends Controller {
                     'sub_total'=>$kombi->biaya    
                 ]);
                 $transaksi->total=$kombi->biaya;
+                $transaksi->desc=$kombi->nama_kombi;
                 $transaksi->save();
             }
         }

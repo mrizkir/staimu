@@ -358,6 +358,7 @@ class TransaksiSPPController extends Controller {
        
         $bulan_spp=[];
         $total_spp=0;
+        $nama_bulan=' ';
         foreach ($bulan_selected as $v)
         {
             $bulan_spp[]=[
@@ -374,6 +375,7 @@ class TransaksiSPPController extends Controller {
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ];
+            $nama_bulan+=$v['no_bulan'].' ';
             $total_spp+=$v['biaya_kombi'];
         }
         \DB::table('pe3_transaksi_detail')
@@ -382,6 +384,7 @@ class TransaksiSPPController extends Controller {
             
         TransaksiDetailModel::insert($bulan_spp);
         $transaksi->total=$total_spp;
+        $transaksi->desc="BAYAR SPP BULAN $nama_bulan";
         $transaksi->save();
 
         return Response()->json([

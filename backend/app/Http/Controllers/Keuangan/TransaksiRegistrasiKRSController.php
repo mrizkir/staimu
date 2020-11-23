@@ -178,6 +178,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 'commited'=>0,
                 'total'=>0,
                 'tanggal'=>date('Y-m-d'),
+                'desc'=>null
             ]);  
             
             $transaksi_detail=TransaksiDetailModel::create([
@@ -192,6 +193,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 'sub_total'=>$biaya_kombi    
             ]);
             $transaksi->total=$biaya_kombi;
+            $transasi->desc='REGISTRASI KRS';
             $transaksi->save();
 
             return Response()->json([
