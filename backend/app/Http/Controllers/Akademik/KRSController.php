@@ -10,6 +10,8 @@ use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
 
+use App\Models\System\ConfigurationModel;
+
 use Ramsey\Uuid\Uuid;
 
 class KRSController extends Controller
@@ -439,8 +441,17 @@ class KRSController extends Controller
                                         ->orderBy('kmatkul','asc')
                                         ->get();
             
+            $config = ConfigurationModel::getCache();
+            $headers=[
+                'HEADER_1'=>$config['HEADER_1'],
+                'HEADER_2'=>$config['HEADER_2'],
+                'HEADER_3'=>$config['HEADER_3'],
+                'HEADER_4'=>$config['HEADER_4'],
+                'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
+            ];
             $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
                                                                     [
+                                                                        'headers'=>$headers,
                                                                         'data_krs'=>$krs,
                                                                         'daftar_matkul'=>$daftar_matkul
                                                                     ],
