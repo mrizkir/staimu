@@ -201,7 +201,7 @@ class TransaksiController extends Controller {
                                                             'object' => $transaksi, 
                                                             'object_id' => $transaksi->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Melakukan pembatalan terhadap transaksi dengan id ('.$id.') telah berhasil dilakukan.'
+                                                            'message' => 'Melakukan pembatalan terhadap transaksi dengan id ('.$transaksi_id.') telah berhasil dilakukan.'
                                                         ]);
                                                         
             return Response()->json([
