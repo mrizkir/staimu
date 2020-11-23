@@ -47,24 +47,27 @@ class TransaksiController extends Controller {
                                     ->first();
         
         if (is_null($transaksi))        {
-            return Response()->json([
-                                        'status'=>'14',                                        
-                                        'message'=>"request KODE_BILLING ($kode_billing) tidak sesuai"
+            return Response()->json(['Result'=>[
+                                            'status'=>'14',                                        
+                                            'message'=>"request KODE_BILLING ($kode_billing) tidak sesuai"
+                                        ]
                                     ],200); 
         }
         else if ($transaksi->status==1)
         {
-            return Response()->json([
+            return Response()->json(['Result'=>[
                                         'status'=>'88',                                        
                                         'message'=>"Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
-                                    ],200); 
+                                    ]
+                                ],200); 
         }
         else if ($transaksi->status==2)
             {
-                return Response()->json([
+                return Response()->json(['Result'=>[
                                             'status'=>'88',                                        
                                             'message'=>"status kode billing ini dibatalkan"
-                                        ],200); 
+                                        ]
+                                    ],200); 
             }
         else
         {     
@@ -99,10 +102,11 @@ class TransaksiController extends Controller {
 
         if ($validator->fails())
         {
-            return Response()->json([
-                'status'=>'11',                                        
-                'message'=>"Format request tidak sesuai",
-                'errors'=>$validator->customMessages
+            return Response()->json(['Result'=>[
+                    'status'=>'11',                                        
+                    'message'=>"Format request tidak sesuai",
+                    'errors'=>$validator->customMessages
+                ]
             ],200); 
         }
         else
@@ -135,24 +139,27 @@ class TransaksiController extends Controller {
             
             if ($transaksi->status==1)
             {
-                return Response()->json([
-                                            'status'=>'88',                                        
-                                            'message'=>"Tagihan sudah dibayarkan tanggal: ".\App\Helpers\Helper::tanggal('d/m/Y H:i:s',$transaksi->updated_at_konfirm),
-                                            'noref'=>$transaksi->no_faktur
+                return Response()->json(['Result'=>[
+                                                'status'=>'88',                                        
+                                                'message'=>"Tagihan sudah dibayarkan tanggal: ".\App\Helpers\Helper::tanggal('d/m/Y H:i:s',$transaksi->updated_at_konfirm),
+                                                'noref'=>$transaksi->no_faktur
+                                            ]
                                         ],200); 
             }
             else if ($transaksi->status==2)
             {
-                return Response()->json([
-                                            'status'=>'88',                                        
-                                            'message'=>"status kode billing ini dibatalkan"
+                return Response()->json(['Result'=>[
+                                                'status'=>'88',                                        
+                                                'message'=>"status kode billing ini dibatalkan"
+                                            ]
                                         ],200); 
             }
             else if ($transaksi->total!=$request->input('amount'))
             {     
-                return Response()->json([
+                return Response()->json(['Result'=>[
                                             'status'=>'11',                                        
                                             'message'=>'Nilai nominal salah ('.\App\Helpers\Helper::formatUang($request->input('amount')).') karena  tidak sama dengan dengan transaksi '.\App\Helpers\Helper::formatUang($transaksi->total)
+                                        ]
                                     ],200); 
             }
             else
