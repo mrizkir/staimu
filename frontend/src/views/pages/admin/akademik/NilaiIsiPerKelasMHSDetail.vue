@@ -81,8 +81,11 @@
                                     :useGrouping="false"
                                     precision="2"
                                     dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
                                     style="width:65px">
-                                </v-numeric>                                
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>        
                             </template>                        
                             <template v-slot:item.n_kual="props">                                
                                 <v-select 
