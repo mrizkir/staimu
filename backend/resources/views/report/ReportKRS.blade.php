@@ -89,9 +89,7 @@ h2{
             <td style="text-align:center">
                 {{ $item->sks}}    
             </td>  
-            <td>
-
-            </td>
+            <td>{{$item->nama_dosen}}</td>
             <td></td>
             <td></td>
         </tr>

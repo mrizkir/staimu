@@ -27,6 +27,7 @@ class PenyelenggaraanMatakuliahModel extends Model
     protected $fillable = [
         'id',
         'matkul_id',
+        'user_id',
         'kmatkul',
         'nmatkul',
         'sks',

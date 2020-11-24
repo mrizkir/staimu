@@ -41,6 +41,11 @@ class PenyelenggaraanDosenModel extends Model
      *
      * @var string
      */
-    public $timestamps = true;   
+    public $timestamps = true; 
+    
+    public function penyelenggaraan()
+    {
+        return $this->belongsTo('App\Models\Akademik\PenyelenggaraanMatakuliahModel','penyelenggaraan_id','id');
+    }
 }
 

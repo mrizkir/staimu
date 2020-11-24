@@ -306,7 +306,8 @@ class PenyelenggaraanMatakuliahController extends Controller
             'is_ketua'=>'required'
         ]);
         $idpenyelenggaraan=$request->input('penyelenggaraan_id');
-        if ($request->input('is_ketua'))
+        $is_ketua=$request->input('is_ketua');
+        if ($is_ketua)
         {
             PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
                                     ->update(['is_ketua'=>false]);
@@ -317,7 +318,12 @@ class PenyelenggaraanMatakuliahController extends Controller
             'user_id'=>$request->input('dosen_id'),
             'is_ketua'=>$request->input('is_ketua')
         ]);
-        
+        if ($is_ketua)
+        {
+            $penyelenggaraan=$dosen->penyelenggaraan;
+            $penyelenggaraan->user_id=$request->input('dosen_id');
+            $penyelenggaraan->save();
+        }
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',                    
@@ -352,6 +358,10 @@ class PenyelenggaraanMatakuliahController extends Controller
 
             $dosen->is_ketua=$request->input('is_ketua');
             $dosen->save();
+
+            $penyelenggaraan=$dosen->penyelenggaraan;
+            $penyelenggaraan->user_id=$dosen->user_id;
+            $penyelenggaraan->save();
             
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $dosen, 

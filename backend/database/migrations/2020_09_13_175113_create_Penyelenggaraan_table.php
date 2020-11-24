@@ -16,7 +16,8 @@ class CreatePenyelenggaraanTable extends Migration
         Schema::defaultStringLength(191);
         Schema::create('pe3_penyelenggaraan', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('matkul_id');            
+            $table->uuid('matkul_id'); 
+            $table->uuid('user_id')->nullable();                       
             $table->string('kmatkul');
             $table->string('nmatkul');
             $table->string('sks');
@@ -28,6 +29,7 @@ class CreatePenyelenggaraanTable extends Migration
             $table->timestamps();  
                     
             $table->index('matkul_id');
+            $table->index('user_id');
             $table->index('tahun');
             $table->index('idsmt');            
             $table->index('kjur');            
@@ -37,6 +39,13 @@ class CreatePenyelenggaraanTable extends Migration
                 ->on('pe3_matakuliah')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreign('user_id')
+                ->references('user_id')
+                ->on('pe3_dosen')
+                ->onDelete('set null')
+                ->onUpdate('set null');
+                
         });
 
         Schema::create('pe3_penyelenggaraan_dosen', function (Blueprint $table) {
