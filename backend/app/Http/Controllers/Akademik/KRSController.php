@@ -433,6 +433,7 @@ class KRSController extends Controller
                                             A.sks,
                                             A.semester,
                                             B.nama_dosen AS nama_dosen_penyelenggaraan,
+                                            F.nama_dosen AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
@@ -447,9 +448,9 @@ class KRSController extends Controller
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
-
-            $daftar_matkul->transform(function ($item,$key) { 
-                $item->nama_dosen=$item->nama_dosen_penyelenggaraan;
+            
+            $daftar_matkul->transform(function ($item,$key) {                 
+                $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
                 return $item;
             });
             $config = ConfigurationModel::getCache();
@@ -464,7 +465,8 @@ class KRSController extends Controller
                                                                     [
                                                                         'headers'=>$headers,
                                                                         'data_krs'=>$krs,
-                                                                        'daftar_matkul'=>$daftar_matkul
+                                                                        'daftar_matkul'=>$daftar_matkul,                                                                        
+                                                                        'jumlah_sks'=>$daftar_matkul->sum('sks'),
                                                                     ],
                                                                     [],
                                                                     [

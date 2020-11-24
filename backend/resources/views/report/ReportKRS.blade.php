@@ -95,6 +95,13 @@ h2{
         </tr>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" style="text-align:right"><strong>Jumlah SKS</strong></td>
+            <td style="text-align:center">{{$jumlah_sks}}</td>
+            <td colspan="3"></td>
+        </tr>        
+    </tfoot>
 </table>
 <table width="100%" cellspacing="0px" cellpadding="0px">
     <tr>
