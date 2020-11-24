@@ -35,6 +35,7 @@ class TransaksiController extends Controller {
                                         pe3_prodi.nama_prodi AS prodi,
                                         pe3_transaksi.desc AS jenis_pembayaran,
                                         pe3_transaksi.idsmt,
+                                        pe3_transaksi.ta,
                                         pe3_transaksi.ta AS periode,
                                         pe3_transaksi.total AS nominal,
                                         0 AS denda,
