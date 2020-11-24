@@ -47,9 +47,13 @@ class HelperAkademik {
         {
 			return HelperAkademik::$semester;
         }
-        else
+        else if (isset(HelperAkademik::$semester[$id]))
         {
             return HelperAkademik::$semester[$id];
+        }
+        else
+        {
+            return null;
         }
     }
 }

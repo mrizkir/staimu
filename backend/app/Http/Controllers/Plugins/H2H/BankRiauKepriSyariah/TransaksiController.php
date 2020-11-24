@@ -72,6 +72,7 @@ class TransaksiController extends Controller {
             }
         else
         {     
+            $transaksi->periode=\App\Helpers\HelperAkademik::getSemester($transaksi->idsmt).' '.$transaksi->ta;
             return response()->json([
                 'Result' => [
                     'status'=>true,
