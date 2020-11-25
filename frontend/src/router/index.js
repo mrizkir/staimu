@@ -557,6 +557,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKRSDetail.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/transkripkurikulum',
+		name: 'TranskripNilaiKurikulum',
+		meta:{
+			title: "AKADEMIK - TRANSKRIP KURIKULUM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/TranskripNilaiKurikulum.vue'),		
+	},	
 
 	//system	
 	{

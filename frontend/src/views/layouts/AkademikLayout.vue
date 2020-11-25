@@ -283,7 +283,7 @@
                         </v-list-item>   						 
 					</div>
                 </v-list-group>
-                <v-subheader v-if="dashboard=='puslahta'">NILAI</v-subheader> 
+                <v-subheader>NILAI</v-subheader> 
                 <v-list-group group="/akademik/nilai/matakuliah" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE') && dashboard=='puslahta'" color="green">
                     <template v-slot:activator>
                         <v-list-item-icon class="mr-2">
@@ -314,8 +314,18 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 						
-					</div>
+					</div>                    
                 </v-list-group>                        
+                <v-list-item link v-if="CAN_ACCESS('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" :to="{path:'/akademik/nilai/transkripkurikulum'}">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            TRANSKRIP KURIKULUM
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>   
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
