@@ -130,23 +130,54 @@ class KRSController extends Controller
         }
         else
         {
+            // $daftar_matkul=KRSMatkulModel::select(\DB::raw('
+            //                                 pe3_krsmatkul.id,
+            //                                 pe3_penyelenggaraan.kmatkul,
+            //                                 pe3_penyelenggaraan.nmatkul,
+            //                                 pe3_penyelenggaraan.sks,
+            //                                 pe3_penyelenggaraan.semester,
+            //                                 COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+            //                                 pe3_krsmatkul.created_at,
+            //                                 pe3_krsmatkul.updated_at
+            //                             '))
+            //                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+            //                             ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+            //                             ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
+            //                             ->where('krs_id',$krs->id)
+            //                             ->orderBy('semester','asc')
+            //                             ->orderBy('kmatkul','asc')
+            //                             ->get();
+
+
             $daftar_matkul=KRSMatkulModel::select(\DB::raw('
                                             pe3_krsmatkul.id,
-                                            pe3_penyelenggaraan.kmatkul,
-                                            pe3_penyelenggaraan.nmatkul,
-                                            pe3_penyelenggaraan.sks,
-                                            pe3_penyelenggaraan.semester,
+                                            A.kmatkul,
+                                            A.nmatkul,
+                                            A.sks,
+                                            A.semester,
+                                            B.nama_dosen AS nama_dosen_penyelenggaraan,
+                                            F.nama_dosen AS nama_dosen_kelas,
+                                            \'\' AS nama_dosen,
                                             COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
-                                        ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
-                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
+                                        ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
+                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
+                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
+                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')                                       
+                                        ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
+                                        ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
+                                        ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
                                         ->where('krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
+            
+            $daftar_matkul->transform(function ($item,$key) {                 
+                $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                return $item;
+            });
         }
         return Response()->json([
                                     'status'=>1,

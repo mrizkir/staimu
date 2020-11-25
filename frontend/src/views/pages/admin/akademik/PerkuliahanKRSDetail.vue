@@ -133,10 +133,12 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -207,12 +209,13 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
+            { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'SKS', value: 'sks', sortable:false,width:120 },                           
-            { text: 'SMT', value: 'semester', sortable:false,width:120 },                           
-            { text: 'KELAS', value: 'nama_kelas', sortable:false,width:120 },                           
-            { text: 'AKSI', value: 'actions', sortable:false,width:120 },                           
+            { text: 'SKS', value: 'sks', sortable:false,width:50 },                           
+            { text: 'SMT', value: 'semester', sortable:false,width:50 },                           
+            { text: 'KELAS', value: 'nama_kelas', sortable:false,width:200 },                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:false,width:200 },                           
+            { text: 'AKSI', value: 'actions', sortable:false,width:50 },                           
         ],  
     }),
     methods: {          
