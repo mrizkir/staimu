@@ -48,6 +48,7 @@ class NilaiMatakuliahModel extends Model {
         'nilai_uas',
         'n_kuan',
         'n_kual',
+        'n_mutu',
 
         'telah_isi_kuesioner',
         'tanggal_isi_kuesioner',

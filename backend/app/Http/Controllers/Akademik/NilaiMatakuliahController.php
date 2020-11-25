@@ -215,6 +215,7 @@ class NilaiMatakuliahController extends Controller
                         'nilai_uas'=>0,
                         'n_kuan'=>$n_kuan,
                         'n_kual'=>$n_kual,
+                        'n_mutu'=>\App\Helpers\HelperAkademik::getNilaiMutu($n_kual),
                         'created_at'=>\Carbon\Carbon::now(),
                         'updated_at'=>\Carbon\Carbon::now()
                     ]);
@@ -232,6 +233,8 @@ class NilaiMatakuliahController extends Controller
                     $n_kual_lama=$nilai->n_kual;
                     $nilai->n_kuan=$n_kuan;
                     $nilai->n_kual=$n_kual;
+                    $nilai->n_mutu=\App\Helpers\HelperAkademik::getNilaiMutu($n_kual);
+                    
                     $nilai->user_id_updated=$this->getUserid();
                     $nilai->save();                
 

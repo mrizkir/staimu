@@ -132,7 +132,7 @@
                                     </template> 
                                     <template v-slot:item.n_kual="props">                                    
                                         <v-select 
-                                            :items="skala_nilai" 
+                                            :items="$store.getters['uiadmin/getSkalaNilai']" 
                                             v-model="props.item.n_kual"
                                             style="width:65px"
                                             dense>
@@ -239,24 +239,8 @@ export default {
             { text: 'NILAI HURUF', value: 'n_kual', sortable:false,width:100 },                           
                                    
         ],  
-
-        
         //formdata
-        form_valid:true,         
-        skala_nilai:[
-            'A',
-            'A-',
-            'A/B',
-            'B+',
-            'B-',
-            'B/C',
-            'C+',
-            'C-',
-            'C/D',
-            'D+',
-            'D',
-            'E'
-        ]       
+        form_valid:true,                 
     }),
     methods: {          
         async fetchKRS()

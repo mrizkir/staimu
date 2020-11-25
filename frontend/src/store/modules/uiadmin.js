@@ -27,6 +27,22 @@ const getDefaultState = () =>
         daftar_status_mhs:[],
         k_status:null,
         
+        skala_nilai:[
+            'A',
+            'A-',
+            'A/B',
+            'B+',        
+            'B',
+            'B-',
+            'B/C',
+            'C+',
+            'C',
+            'C-',
+            'C/D',
+            'D+',
+            'D',
+            'E'
+        ],       
         theme:null
     }
 }
@@ -267,6 +283,11 @@ const getters= {
             nama_status=found.text;
         }               
         return nama_status;
+    },
+    
+    getSkalaNilai : (state) =>
+    {
+        return state.skala_nilai;
     },
     
     getTheme : (state) => (key) =>

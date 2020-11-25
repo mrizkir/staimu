@@ -30,10 +30,12 @@ class HelperAkademik {
         'A',
         'A-',
         'A/B',
-        'B+',
+        'B+',        
+        'B',
         'B-',
         'B/C',
         'C+',
+        'C',
         'C-',
         'C/D',
         'D+',
@@ -41,6 +43,22 @@ class HelperAkademik {
         'E'
     ];
 
+    public static $nilai_mutu=[
+        'A'=>40,
+        'A-'=>38,
+        'A/B'=>36,
+        'B+'=>34,        
+        'B'=>30,
+        'B-'=>28,
+        'B/C'=>26,
+        'C+'=>24,
+        'C'=>20,
+        'C-'=>18,
+        'C/D'=>16,
+        'D+'=>14,
+        'D'=>10,
+        'E'=>0
+    ];
     public static function getSemester($id=null)
     {
         if ($id===null)
@@ -50,6 +68,18 @@ class HelperAkademik {
         else if (isset(HelperAkademik::$semester[$id]))
         {
             return HelperAkademik::$semester[$id];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public static function getNilaiMutu ($n_kual)
+    {
+        if (isset(HelperAkademik::$nilai_mutu[$n_kual]))
+        {
+            return HelperAkademik::$nilai_mutu[$n_kual];
         }
         else
         {
