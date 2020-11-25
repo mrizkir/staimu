@@ -559,12 +559,21 @@ const routes = [
 	},	
 	{
 		path: '/akademik/nilai/transkripkurikulum',
-		name: 'TranskripNilaiKurikulum',
+		name: 'TranskripNilaiKurikulumDetail',
 		meta:{
 			title: "AKADEMIK - TRANSKRIP KURIKULUM",
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/akademik/TranskripNilaiKurikulum.vue'),		
+	},	
+	{
+		path: '/akademik/nilai/transkripkurikulum/:user_id',
+		name: 'TranskripNilaiKurikulum',
+		meta:{
+			title: "AKADEMIK - TRANSKRIP KURIKULUM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/TranskripNilaiKurikulumDetail.vue'),		
 	},	
 
 	//system	

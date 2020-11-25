@@ -203,7 +203,7 @@ export default {
         },
         viewItem(item)
         {
-            console.log(item);
+            this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
         }
     },
     watch:{

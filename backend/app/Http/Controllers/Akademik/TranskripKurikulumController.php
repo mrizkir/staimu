@@ -65,6 +65,31 @@ class TranskripKurikulumController  extends Controller
                                     'message'=>'Fetch data daftar mahasiswa berhasil.'
                                 ],200);     
     }
+    public function show(Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW');
+
+        $mahasiswa=RegisterMahasiswaModel::join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                            ->find($id);
+        
+        if (is_null($mahasiswa))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata', 
+                                    'mahasiswa'=>$mahasiswa,               
+                                    'message'=>"Transkrip Nilai ($id) berhasil dihapus"
+                                ],200); 
+        }
+    }
     /**
      * cetak ke excel
      *

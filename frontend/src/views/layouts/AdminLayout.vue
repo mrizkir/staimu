@@ -69,7 +69,11 @@ export default {
         showrightsidebar:{
             type:Boolean,
             default:true
-        }
+        },
+        temporaryleftsidebar:{
+            type:Boolean,
+            default:false
+        },
     },      
     data:()=>({
         loginTime:0,
@@ -131,18 +135,7 @@ export default {
 				photo = this.$api.url+'/'+img;	
 			}
 			return photo;
-        },
-        hideleftnav ()
-		{
-			if (this.$route.name=='ReportFormBMurni')
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-        },        
+        },  
     },
     watch: {
         loginTime:{

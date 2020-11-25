@@ -123,7 +123,11 @@ export default {
         showrightsidebar:{
             type:Boolean,
             default:true
-        }
+        },
+        temporaryleftsidebar:{
+            type:Boolean,
+            default:false
+        },
     }, 
     created()
     {

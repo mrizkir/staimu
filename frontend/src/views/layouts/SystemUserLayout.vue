@@ -57,7 +57,7 @@
                 </v-list>
             </v-menu>			
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="hideleftnav" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="temporaryleftsidebar" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -187,7 +187,11 @@ export default {
         showrightsidebar:{
             type:Boolean,
             default:true
-        }
+        },
+        temporaryleftsidebar:{
+            type:Boolean,
+            default:false
+        },
     },    
     data:()=>({
         loginTime:0,
@@ -248,18 +252,7 @@ export default {
 				photo = this.$api.url+'/'+img;	
 			}
 			return photo;
-        },
-        hideleftnav ()
-		{
-			if (this.$route.name=='UsersProfil')
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-        },        
+        },       
     },
     watch: {
         loginTime:{

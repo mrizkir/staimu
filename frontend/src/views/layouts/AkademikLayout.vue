@@ -60,7 +60,7 @@
                 <v-icon>mdi-menu-open</v-icon>
 			</v-app-bar-nav-icon>            
         </v-app-bar>    
-        <v-navigation-drawer v-model="drawer" width="300" dark :class="this.$store.getters['uiadmin/getTheme']('V-NAVIGATION-DRAWER-CSS-CLASS')" :temporary="hideleftnav" app>
+        <v-navigation-drawer v-model="drawer" width="300" dark :class="this.$store.getters['uiadmin/getTheme']('V-NAVIGATION-DRAWER-CSS-CLASS')" :temporary="temporaryleftsidebar" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -369,7 +369,11 @@ export default {
         showrightsidebar:{
             type:Boolean,
             default:true
-        }
+        },
+        temporaryleftsidebar:{
+            type:Boolean,
+            default:false
+        },
     },
     data:()=>({
         loginTime:0,
@@ -433,17 +437,6 @@ export default {
 				photo = this.$api.url+'/'+img;	
 			}
 			return photo;
-        },
-        hideleftnav ()
-		{
-			if (this.$route.name=='ReportFormBMurni')
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
         },        
         paramid ()
         {
