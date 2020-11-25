@@ -174,8 +174,15 @@ class KRSController extends Controller
                                         ->orderBy('kmatkul','asc')
                                         ->get();
             
-            $daftar_matkul->transform(function ($item,$key) {                 
-                $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+            $daftar_matkul->transform(function ($item,$key) {            
+                if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+                {
+                    $item->nama_dosen='N.A';
+                }     
+                else
+                {
+                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                }
                 return $item;
             });
         }
@@ -481,7 +488,14 @@ class KRSController extends Controller
                                         ->get();
             
             $daftar_matkul->transform(function ($item,$key) {                 
-                $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+                {
+                    $item->nama_dosen='N.A';
+                }     
+                else
+                {
+                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                }
                 return $item;
             });
             $config = ConfigurationModel::getCache();
