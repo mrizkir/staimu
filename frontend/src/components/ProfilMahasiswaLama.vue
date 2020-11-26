@@ -8,12 +8,6 @@
                 vertical
             ></v-divider>
             <v-spacer></v-spacer>
-            <v-chip label outlined color="info">{{datamhs.n_status}}</v-chip>
-            <v-divider
-                class="mx-4"
-                inset
-                vertical
-            ></v-divider>
             <v-icon                
                 @click.stop="exit()">
                 mdi-close-thick
@@ -23,22 +17,16 @@
             <v-row>
                 <v-col xs="12" sm="12" md="2">
                     <v-card flat class="mb-2">
-                        <v-card-text>
-                            <v-img :src="$api.url+'/'+datamhs.foto" />
-                        </v-card-text>
-                    </v-card>
-                    <v-card flat class="mb-2">
+                        <v-img :src="$api.url+'/'+datamhs.foto" />
                         <v-card-title>NOMOR HP:</v-card-title>  
                         <v-card-subtitle>
                             {{datamhs.nomor_hp}}
                         </v-card-subtitle>
-                    </v-card>
-                    <v-card flat>
-                        <v-card-title>EMAIL:</v-card-title>  
-                        <v-card-subtitle>
-                            {{datamhs.email}}
-                        </v-card-subtitle>
-                    </v-card>
+                        <v-divider class="mx-4"></v-divider>
+                        <v-card-text>
+                            <v-chip label outlined color="info">{{datamhs.n_status}}</v-chip>
+                        </v-card-text>
+                    </v-card>                                    
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                 <v-col xs="12" sm="12" md="10">
@@ -94,9 +82,29 @@
                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                         <v-col xs="12" sm="12" md="6">
                             <v-card flat class="mb-2">
-                                <v-card-title>CREATED / UPDATED:</v-card-title>  
+                                <v-card-title>CREATED:</v-card-title>  
                                 <v-card-subtitle>
-                                    {{$date(datamhs.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(datamhs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                    {{$date(datamhs.created_at).format('DD/MM/YYYY HH:mm')}}
+                                </v-card-subtitle>
+                            </v-card>
+                        </v-col>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    </v-row>
+                    <v-row>
+                        <v-col xs="12" sm="12" md="6">
+                            <v-card flat class="mb-2">
+                                <v-card-title>EMAIL:</v-card-title>  
+                                <v-card-subtitle>
+                                    {{datamhs.email}}
+                                </v-card-subtitle>
+                            </v-card>
+                        </v-col>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                        <v-col xs="12" sm="12" md="6">
+                            <v-card flat class="mb-2">
+                                <v-card-title>UPDATED:</v-card-title>  
+                                <v-card-subtitle>
+                                    {{$date(datamhs.updated_at).format('DD/MM/YYYY HH:mm')}}
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
