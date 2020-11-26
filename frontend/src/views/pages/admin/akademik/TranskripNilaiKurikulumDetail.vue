@@ -34,6 +34,53 @@
                     <ProfilMahasiswa :datamhs="data_mhs" url="/akademik/nilai/transkripkurikulum" />
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col cols="12">           
+                    <v-card>
+                        <v-card-title>
+                            DAFTAR NILAI TRANSKRIP
+                            <v-spacer></v-spacer>                            
+                        </v-card-title>
+                        <v-card-text>
+                            <v-data-table        
+                                dense                        
+                                :headers="headers"
+                                :items="datatable"                                
+                                item-key="id"                                                        
+                                :disable-pagination="true"
+                                :hide-default-footer="true"                                                                
+                                :loading="datatableLoading"
+                                loading-text="Loading... Please wait">                                                                
+                                <template v-slot:body.append v-if="datatable.length > 0">
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
+                                        <td>{{totalMatkul}}</td> 
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">TOTAL SKS</td>
+                                        <td>{{totalSKS}}</td> 
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </template>   
+                                <template v-slot:no-data>
+                                    Data matakuliah belum tersedia silahkan tambah
+                                </template>
+                            </v-data-table>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>
@@ -92,13 +139,15 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable:true,width:100  },               
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                           
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                           
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                           
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                           
-            { text: 'IPK SEMENTARA', value: 'ipk',sortable:true,width:100, },                           
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'NO', value: 'no', sortable:true,width:100  },               
+            { text: 'MATAKULIAH', value: 'nmatkul',sortable:true },                           
+            { text: 'KODE', value: 'kmatkul',sortable:true,width:120, },                           
+            { text: 'SEMESTER', value: 'semester',sortable:true,width:120, },                           
+            { text: 'KELOMPOK', value: 'group_alias',sortable:true,width:120, },                           
+            { text: 'HM', value: 'HM',sortable:false,width:100, },                           
+            { text: 'AM', value: 'AM',sortable:false,width:100, },                           
+            { text: 'K', value: 'sks',sortable:true,width:100, },                           
+            { text: 'M', value: 'M', sortable: false,width:100 },
         ],  
         search:'', 
 
@@ -121,8 +170,9 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({data})=>{                         
                 this.data_mhs=data.mahasiswa;
+                this.datatable=data.nilai_matakuliah;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;

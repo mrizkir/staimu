@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Akademik\RegisterMahasiswaModel;
+use App\Models\Akademik\MatakuliahModel;
 
 class TranskripKurikulumController  extends Controller 
 {
@@ -78,6 +79,7 @@ class TranskripKurikulumController  extends Controller
                                                 A.no_formulir,
                                                 pe3_register_mahasiswa.nim,
                                                 pe3_register_mahasiswa.nirm,
+                                                pe3_register_mahasiswa.kjur,
                                                 B.nama_prodi,
                                                 D.nkelas,
                                                 pe3_register_mahasiswa.tahun,
@@ -103,10 +105,33 @@ class TranskripKurikulumController  extends Controller
         }
         else
         {
+            $daftar_matkul=MatakuliahModel::select(\DB::raw('
+                                                0 AS no,
+                                                id,
+                                                group_alias,                                    
+                                                kmatkul,
+                                                nmatkul,
+                                                sks,
+                                                semester,
+                                                \'-\' AS HM,
+                                                \'-\' AS AM,
+                                                0 AS M                                              
+                                            '))
+                                            ->where('kjur',$mahasiswa->kjur)
+                                            ->where('ta',$mahasiswa->tahun)   
+                                            ->orderBy('semester','ASC')                      
+                                            ->orderBy('kmatkul','ASC')    
+                                            ->get();
+
+            $daftar_matkul->transform(function ($item,$key) {                
+                $item->no=$key+1;
+                return $item;
+            });
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
-                                    'mahasiswa'=>$mahasiswa,               
+                                    'mahasiswa'=>$mahasiswa, 
+                                    'nilai_matakuliah'=>$daftar_matkul,              
                                     'message'=>"Transkrip Nilai ($id) berhasil dihapus"
                                 ],200); 
         }
