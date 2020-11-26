@@ -69,7 +69,28 @@ class TranskripKurikulumController  extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW');
 
-        $mahasiswa=RegisterMahasiswaModel::join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+        $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                A.user_id,
+                                                A.nama_mhs,
+                                                A.jk,
+                                                C.email,
+                                                C.nomor_hp,
+                                                A.no_formulir,
+                                                pe3_register_mahasiswa.nim,
+                                                pe3_register_mahasiswa.nirm,
+                                                B.nama_prodi,
+                                                D.nkelas,
+                                                pe3_register_mahasiswa.tahun,
+                                                E.n_status,
+                                                pe3_register_mahasiswa.created_at,
+                                                pe3_register_mahasiswa.updated_at,
+                                                C.foto
+                                            '))
+                                            ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                            ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                            ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                            ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                            ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
                                             ->find($id);
         
         if (is_null($mahasiswa))

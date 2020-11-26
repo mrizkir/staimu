@@ -31,7 +31,7 @@
         <v-container fluid>      
             <v-row> 
                 <v-col cols="12">                  
-                    <ProfilMahasiswa :datamhs="data_mhs" />
+                    <ProfilMahasiswa :datamhs="data_mhs" url="/akademik/nilai/transkripkurikulum" />
                 </v-col>
             </v-row>
         </v-container>
