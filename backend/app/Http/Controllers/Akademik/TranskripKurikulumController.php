@@ -131,13 +131,16 @@ class TranskripKurikulumController  extends Controller
             foreach ($daftar_matkul as $key=>$item)
             {
                 $user_id=$mahasiswa->user_id;
-                $nilai=\DB::table('v_nilai')
+                $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                             ->select(\DB::raw('
-                                n_kual,                                
-                                n_mutu
+                                A.n_kual,                                
+                                A.n_mutu
                             '))
-                            ->where('user_id',$mahasiswa->user_id)
-                            ->where('matkul_id',$item->id)
+                            ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+                            ->join('pe3_krs AS C','B.krs_id','C.id')
+                            ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                            ->where('C.user_id',$mahasiswa->user_id)
+                            ->where('D.matkul_id',$item->id)
                             ->get();
                 
                 $HM=$item->HM;
@@ -164,8 +167,7 @@ class TranskripKurikulumController  extends Controller
                     'M'=>$M
                 ];
 
-                $jumlah_sks+=$item->sks; 
-                $nilai=null; 
+                $jumlah_sks+=$item->sks;                 
             }            
             return Response()->json([
                                     'status'=>1,
