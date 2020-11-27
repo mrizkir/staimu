@@ -106,6 +106,7 @@ class TranskripKurikulumController  extends Controller
                                             ->get();
 
             $jumlah_sks=0;            
+            $jumlah_sks_nilai=0;            
             $jumlah_am=0;
             $jumlah_m=0;
             $jumlah_matkul=0;
@@ -138,6 +139,7 @@ class TranskripKurikulumController  extends Controller
                     $jumlah_m+=$M;
                     $jumlah_am+=$AM;
                     $jumlah_matkul+=1;
+                    $jumlah_sks_nilai+=$item->sks;
                 }
                 $daftar_nilai[]=[
                     'no'=>$key+1,
@@ -161,7 +163,7 @@ class TranskripKurikulumController  extends Controller
                 RekapTranskripKurikulumModel::updateOrCreate([
                     'user_id'=>$mahasiswa->user_id,
                     'jumlah_matkul'=>$jumlah_matkul,
-                    'jumlah_sks'=>$jumlah_sks,
+                    'jumlah_sks'=>$jumlah_sks_nilai,
                     'jumlah_am'=>$jumlah_am,
                     'jumlah_m'=>$jumlah_m,
                     'ipk'=>$ipk,
@@ -170,7 +172,7 @@ class TranskripKurikulumController  extends Controller
             else
             {
                 $rekap->jumlah_matkul=$jumlah_matkul;
-                $rekap->jumlah_sks=$jumlah_sks;
+                $rekap->jumlah_sks=$jumlah_sks_nilai;
                 $rekap->jumlah_am=$jumlah_am;
                 $rekap->jumlah_m=$jumlah_m;
                 $rekap->ipk=$ipk;
