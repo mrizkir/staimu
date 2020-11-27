@@ -123,15 +123,58 @@ class TranskripKurikulumController  extends Controller
                                             ->orderBy('kmatkul','ASC')    
                                             ->get();
 
-            $daftar_matkul->transform(function ($item,$key) {                
-                $item->no=$key+1;
-                return $item;
-            });
+            $jumlah_sks=0;            
+            $jumlah_am=0;
+            $jumlah_m=0;
+
+            $daftar_nila=[];
+            foreach ($daftar_matkul as $key=>$item)
+            {
+                $user_id=$mahasiswa->user_id;
+                $nilai=\DB::table('v_nilai')
+                            ->select(\DB::raw('
+                                n_kual,                                
+                                n_mutu
+                            '))
+                            ->where('user_id',$mahasiswa->user_id)
+                            ->where('matkul_id',$item->id)
+                            ->get();
+                
+                $HM=$item->HM;
+                $AM=$item->AM;
+                $M=$item->M;
+
+                if (isset($nilai[0]))
+                {
+                    $HM=$nilai[0]->n_kual;
+                    $AM=number_format($nilai[0]->n_mutu,0);
+                    $M=$AM*$item->sks;
+                    $jumlah_m+=$M;
+                    $jumlah_am+=$AM;
+                }
+                $daftar_nilai[]=[
+                    'no'=>$key+1,
+                    'kmatkul'=>$item->kmatkul,
+                    'nmatkul'=>$item->nmatkul,
+                    'sks'=>$item->sks,
+                    'semester'=>$item->semester,
+                    'group_alias'=>$item->group_alias,
+                    'HM'=>$HM,
+                    'AM'=>$AM,
+                    'M'=>$M
+                ];
+
+                $jumlah_sks+=$item->sks;  
+            }            
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
                                     'mahasiswa'=>$mahasiswa, 
-                                    'nilai_matakuliah'=>$daftar_matkul,              
+                                    'nilai_matakuliah'=>$daftar_nilai,              
+                                    'jumlah_sks'=>$jumlah_sks,              
+                                    'jumlah_am'=>$jumlah_am,              
+                                    'jumlah_m'=>$jumlah_m,              
+                                    'ipk'=>\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_sks),
                                     'message'=>"Transkrip Nilai ($id) berhasil dihapus"
                                 ],200); 
         }

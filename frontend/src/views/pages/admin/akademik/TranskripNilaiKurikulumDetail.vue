@@ -51,26 +51,24 @@
                                 :hide-default-footer="true"                                                                
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait">                                                                
-                                <template v-slot:body.append v-if="datatable.length > 0">
+                                <template v-slot:body.append v-if="datatable.length > 0">                                   
                                     <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-                                        <td>{{totalMatkul}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL SKS</td>
+                                        <td class="text-right" colspan="3">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
                                         <td></td>
                                         <td></td>
+                                        <td>{{totalAM}}</td>
+                                        <td></td>
+                                        <td>{{totalM}}</td>                                        
+                                    </tr>
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="3">IPK SEMENTARA</td>
+                                        <td>{{ipk}}</td> 
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>                                        
                                     </tr>
                                 </template>   
                                 <template v-slot:no-data>
@@ -151,7 +149,11 @@ export default {
         ],  
         search:'', 
 
-        data_mhs:{}, 
+        data_mhs:{},
+        totalSKS:0, 
+        totalM:0, 
+        totalAM:0, 
+        ipk:0.00, 
     }),
     methods: {
         changeTahunPendaftaran (tahun)
@@ -170,8 +172,15 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                         
+            }).then(({data})=>{              
+                console.log(data);           
                 this.data_mhs=data.mahasiswa;
+                
+                this.totalSKS=data.jumlah_sks;
+                this.totalM=data.jumlah_m;
+                this.totalAM=data.jumlah_am;
+                this.ipk=data.ipk;
+
                 this.datatable=data.nilai_matakuliah;
                 this.datatableLoading=false;
             }).catch(()=>{
