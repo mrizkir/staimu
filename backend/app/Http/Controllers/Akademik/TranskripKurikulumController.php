@@ -164,7 +164,8 @@ class TranskripKurikulumController  extends Controller
                     'M'=>$M
                 ];
 
-                $jumlah_sks+=$item->sks;  
+                $jumlah_sks+=$item->sks; 
+                $nilai=null; 
             }            
             return Response()->json([
                                     'status'=>1,
