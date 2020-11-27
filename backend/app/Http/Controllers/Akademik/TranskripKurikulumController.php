@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Akademik\RegisterMahasiswaModel;
+use App\Models\Akademik\RekapTranskripKurikulumModel;
 use App\Models\Akademik\MatakuliahModel;
 
 class TranskripKurikulumController  extends Controller 
@@ -29,36 +30,17 @@ class TranskripKurikulumController  extends Controller
                                 pe3_register_mahasiswa.nim,                                
                                 pe3_formulir_pendaftaran.nama_mhs,                                
                                 pe3_register_mahasiswa.idkelas,   
-                                0 AS jumlah_matkul,
-                                0 AS jumlah_sks,
-                                0.00 AS ipk
+                                COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
+                                COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
+                                COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                             '))
                             ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
+                            ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
                             ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
                             ->where('pe3_register_mahasiswa.tahun',$ta)                            
-                            ->orderBy('nama_mhs','desc')
-                            ->get();
-        
-        $data->transform(function ($item,$key) {                
-            $nilai=\DB::table('pe3_krs AS A')
-                ->select(\DB::raw('
-                    COUNT(B.id) AS jumlah_matkul,                    
-                    COALESCE(SUM(C.sks),0) AS jumlah_sks
-                '))
-                ->join('pe3_krsmatkul AS B','A.id','B.krs_id')
-                ->join('pe3_penyelenggaraan AS C','B.penyelenggaraan_id','C.id')
-                ->join('pe3_nilai_matakuliah AS D','D.krsmatkul_id','B.id')
-                ->where('A.user_id',$item->user_id)
-                ->get();
-            if (isset($nilai[0]))
-            {
-                $item->jumlah_matkul=$nilai[0]->jumlah_matkul;
-                $item->jumlah_sks=$nilai[0]->jumlah_sks;
-            }            
-            
-            return $item;
-        });
-
+                            ->orderBy('nama_mhs','asc')
+                            ->get();        
+         
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
@@ -126,6 +108,7 @@ class TranskripKurikulumController  extends Controller
             $jumlah_sks=0;            
             $jumlah_am=0;
             $jumlah_m=0;
+            $jumlah_matkul=0;
 
             $daftar_nila=[];
             foreach ($daftar_matkul as $key=>$item)
@@ -154,6 +137,7 @@ class TranskripKurikulumController  extends Controller
                     $M=$AM*$item->sks;
                     $jumlah_m+=$M;
                     $jumlah_am+=$AM;
+                    $jumlah_matkul+=1;
                 }
                 $daftar_nilai[]=[
                     'no'=>$key+1,
@@ -168,7 +152,32 @@ class TranskripKurikulumController  extends Controller
                 ];
 
                 $jumlah_sks+=$item->sks;                 
-            }            
+            }         
+            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_sks);
+            $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
+            if (is_null($rekap))
+            {
+
+                RekapTranskripKurikulumModel::updateOrCreate([
+                    'user_id'=>$mahasiswa->user_id,
+                    'jumlah_matkul'=>$jumlah_matkul,
+                    'jumlah_sks'=>$jumlah_sks,
+                    'jumlah_am'=>$jumlah_am,
+                    'jumlah_m'=>$jumlah_m,
+                    'ipk'=>$ipk,
+                ]);   
+            }
+            else
+            {
+                $rekap->jumlah_matkul=$jumlah_matkul;
+                $rekap->jumlah_sks=$jumlah_sks;
+                $rekap->jumlah_am=$jumlah_am;
+                $rekap->jumlah_m=$jumlah_m;
+                $rekap->ipk=$ipk;
+
+                $rekap->save();
+            }
+           
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
@@ -177,7 +186,7 @@ class TranskripKurikulumController  extends Controller
                                     'jumlah_sks'=>$jumlah_sks,              
                                     'jumlah_am'=>$jumlah_am,              
                                     'jumlah_m'=>$jumlah_m,              
-                                    'ipk'=>\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_sks),
+                                    'ipk'=>$ipk,
                                     'message'=>"Transkrip Nilai ($id) berhasil dihapus"
                                 ],200); 
         }

@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                    Halaman berisi daftar transkrip nilai berdasarkan kurikulum. 
+                    Halaman berisi daftar transkrip nilai berdasarkan kurikulum. Jumlah SKS, Jumlah Matkul, dan IPK Sementara nilai-nya tidak realtime.
                 </v-alert>
             </template>
         </ModuleHeader>

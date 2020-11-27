@@ -153,10 +153,10 @@ class Helper {
     /**
 	* digunakan untuk mem-format persentase
 	*/
-	public static function formatPersen ($pembilang,$penyebut=0,$dec_sep=3) {
+	public static function formatPersen ($pembilang,$penyebut=0,$dec_sep=2) {
         $result=0.00;
 		if ($pembilang > 0 && $penyebut > 0) {
-            $temp=round(number_format((float)($pembilang/$penyebut)*100,4),$dec_sep);
+            $temp=round(number_format((float)($pembilang/$penyebut)*100,2),$dec_sep);
             $result = $temp;
         }
         else
@@ -168,10 +168,10 @@ class Helper {
     /**
 	* digunakan untuk mem-format pecahan
 	*/
-	public static function formatPecahan ($pembilang,$penyebut=0,$dec_sep=3) {
+	public static function formatPecahan ($pembilang,$penyebut=0,$dec_sep=2) {
         $result=0;
 		if ($pembilang > 0 && $penyebut > 0) {
-            $result=round(number_format((float)($pembilang/$penyebut),4),$dec_sep);
+            $result=round(number_format((float)($pembilang/$penyebut),2),$dec_sep);
         }
         return $result;
     }
