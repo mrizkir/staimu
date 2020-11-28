@@ -39,7 +39,16 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR NILAI TRANSKRIP
-                            <v-spacer></v-spacer>                            
+                            <v-spacer></v-spacer>
+                            <v-btn 
+                                color="primary" 
+                                fab 
+                                small
+                                @click.stop="printpdf"
+                                :loading="btnLoading"
+                                :disabled="btnLoading || !data_mhs.hasOwnProperty('user_id')">
+                                <v-icon>mdi-printer</v-icon>
+                            </v-btn>                            
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
@@ -53,12 +62,12 @@
                                 loading-text="Loading... Please wait">                                                                
                                 <template v-slot:body.append v-if="datatable.length > 0">                                   
                                     <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="3">TOTAL SKS</td>
-                                        <td>{{totalSKS}}</td> 
+                                        <td class="text-right" colspan="3">JUMLAH</td>
+                                        <td></td> 
                                         <td></td>
                                         <td></td>
                                         <td>{{totalAM}}</td>
-                                        <td></td>
+                                        <td>{{totalSKS}}</td>
                                         <td>{{totalM}}</td>                                        
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
@@ -80,6 +89,25 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Print to PDF</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-btn
+                        color="green"
+                        text
+                        :href="$api.url+'/'+file_pdf">                            
+                        Download
+                    </v-btn>                           
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                </v-card-actions>
+            </v-card>            
+        </v-dialog>
     </AkademikLayout>
 </template>
 <script>
@@ -154,6 +182,9 @@ export default {
         totalM:0, 
         totalAM:0, 
         ipk:0.00, 
+
+        dialogprintpdf:false,
+        file_pdf:null
     }),
     methods: {
         changeTahunPendaftaran (tahun)
@@ -172,8 +203,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{              
-                console.log(data);           
+            }).then(({data})=>{                              
                 this.data_mhs=data.mahasiswa;
                 
                 this.totalSKS=data.jumlah_sks;
@@ -199,6 +229,31 @@ export default {
                 this.expanded=[item];
             }               
         },        
+        async printpdf()
+        {
+            this.btnLoading=true;
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf/'+this.data_mhs.user_id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.file_pdf=data.pdf_file;
+                this.dialogprintpdf=true;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });                 
+        },
+        closedialogprintpdf () {                  
+            setTimeout(() => {
+                this.file_pdf=null;
+                this.dialogprintpdf = false;      
+                }, 300
+            );
+        }, 
     },
     components:{
         AkademikLayout,
