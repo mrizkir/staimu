@@ -31,6 +31,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 
         $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                                             id,
+                                                            COALESCE(nama_dosen,\'N.A\') AS nama_dosen,
                                                             kmatkul,
                                                             nmatkul,                                                            
                                                             sks,       
@@ -39,6 +40,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                             0 AS jumlah_dosen,
                                                             0 AS jumlah_mhs
                                                         '))
+                                                        ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan.user_id')
                                                         ->where('tahun',$ta)
                                                         ->where('idsmt',$semester_akademik)
                                                         ->where('kjur',$prodi_id)
