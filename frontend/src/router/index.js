@@ -558,8 +558,26 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKRSDetail.vue'),		
 	},	
 	{
+		path: '/akademik/nilai/khs',
+		name: 'NilaiKHS',
+		meta:{
+			title: "AKADEMIK - NILAI KHS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKHS.vue'),		
+	},	
+	{
+		path: '/akademik/nilai/khs/:user_id',
+		name: 'NilaiKHSDetail',
+		meta:{
+			title: "AKADEMIK - NILAI KHS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKHSDetail.vue'),		
+	},	
+	{
 		path: '/akademik/nilai/transkripkurikulum',
-		name: 'TranskripNilaiKurikulumDetail',
+		name: 'TranskripNilaiKurikulum',
 		meta:{
 			title: "AKADEMIK - TRANSKRIP KURIKULUM",
 			requiresAuth:true,
@@ -568,7 +586,7 @@ const routes = [
 	},	
 	{
 		path: '/akademik/nilai/transkripkurikulum/:user_id',
-		name: 'TranskripNilaiKurikulum',
+		name: 'TranskripNilaiKurikulumDetail',
 		meta:{
 			title: "AKADEMIK - TRANSKRIP KURIKULUM",
 			requiresAuth:true,
