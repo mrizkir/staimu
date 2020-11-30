@@ -40,6 +40,7 @@ class CreateNilaiMatakuliahTable extends Migration
             $table->decimal('nilai_uas',5,2)->default(0.00);    
             $table->decimal('n_kuan',5,2)->default(0.00);    
             $table->string('n_kual',3)->default(0.00);  
+            $table->decimal('n_mutu',5,2)->default(0.00);    
 
             $table->boolean('telah_isi_kuesioner')->default(false);
             $table->datetime('tanggal_isi_kuesioner')->nullable();

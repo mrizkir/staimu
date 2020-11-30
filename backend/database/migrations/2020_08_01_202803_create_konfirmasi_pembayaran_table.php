@@ -17,7 +17,7 @@ class CreateKonfirmasiPembayaranTable extends Migration
         Schema::create('pe3_konfirmasi_pembayaran', function (Blueprint $table) {
             $table->uuid('transaksi_id')->primary();    
             $table->uuid('user_id');                           
-            $table->varchar('no_transaksi',20)->unique();  
+            $table->string('no_transaksi',20)->unique();  
             $table->tinyInteger('id_channel');
             $table->decimal('total_bayar',15,2)->default(0);
             $table->string('nomor_rekening_pengirim');
