@@ -63,54 +63,72 @@ h2{
     <thead>
         <tr>
             <th width="10" rowspan="2">NO</th>
-            <th width="70" rowspan="2">KODE</th>
-            <th width="250" rowspan="2">NAMA</th>
+            <th width="250" rowspan="2">MATAKULIAH</th>
             <th width="50" rowspan="2">SKS</th>
+            <th width="100" colspan="2">NILAI</th>
+            <th rowspan="2" width="50" >SKS x AM</th>
             <th rowspan="2">NAMA DOSEN</th>
-            <th width="50" colspan="2">PARAF</th>
         </tr>
         <tr>            
-            <th width="50">UTS</th>
-            <th width="50">UAS</th>
+            <th width="50">HM</th>
+            <th width="50">AM</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($daftar_matkul as $key=>$item)
+        @foreach ($daftar_nilai as $key=>$item)
         <tr>
             <td style="text-align:center">
                 {{ $key + 1 }}    
             </td>  
-            <td style="text-align:center">
-                {{ $item->kmatkul}}    
-            </td>  
             <td>
-                {{ $item->nmatkul}}    
+                {{ $item['nmatkul']}}    
+            </td>              
+            <td style="text-align:center">                  
+                {{ $item['sks']}}    
             </td>  
-            <td style="text-align:center">
-                {{ $item->sks}}    
+            <td style="text-align:center">                  
+                {{ $item['HM']}}    
             </td>  
-            <td>{{$item->nama_dosen}}</td>
-            <td></td>
-            <td></td>
+            <td style="text-align:center">                  
+                {{ number_format($item['AM'],0)}}    
+            </td>  
+            <td style="text-align:center">                  
+                {{ number_format($item['M'],0)}}    
+            </td>  
+            <td>{{$item['nama_dosen']}}</td>            
         </tr>
         @endforeach
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3" style="text-align:right"><strong>Jumlah SKS</strong></td>
-            <td style="text-align:center">{{$jumlah_sks}}</td>
-            <td colspan="3"></td>
+            <td colspan="2" style="text-align:right"><strong>Jumlah</strong></td>            
+            <td style="text-align:center">{{$jumlah_sks}}</td>            
+            <td></td>
+            <td style="text-align:center">{{$jumlah_am}}</td>            
+            <td style="text-align:center">{{$jumlah_m}}</td>  
+            <td></td>          
+        </tr>   
+        <tr>
+            <td colspan="2" style="text-align:right"><strong>Index Prestasi Semester</strong></td>            
+            <td style="text-align:center" colspan="4">{{number_format($ips,2)}}</td>                        
+        </tr>        
+        <tr>
+            <td colspan="2" style="text-align:right"><strong>SKS Total</strong></td>            
+            <td style="text-align:center" colspan="4">{{$jumlah_sks}}</td>                        
+        </tr>        
+        <tr>
+            <td colspan="2" style="text-align:right"><strong>IPK</strong></td>            
+            <td style="text-align:center" colspan="4">{{number_format($ipk,2)}}</td>                        
         </tr>        
     </tfoot>
 </table>
 <table width="100%" cellspacing="0px" cellpadding="0px">
     <tr>
-        <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>
-        <td style="font-weight:bold;font-size:14px;text-align:center">PENASEHAT AKADEMIK</td>
+        <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>        
         <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>
     </tr>
     <tr>
-        <td width="35%" style="text-align:center">
+        <td width="50%" style="text-align:center">
             <br>
             <br>
             <br>
@@ -120,19 +138,8 @@ h2{
                 (_________________________)<br>
                 NIDN/NIDK: ................
              </span>                
-        </td>
-        <td width="35%" style="text-align:center">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <span>
-                (_________________________)<br>
-                NIDN: ................
-             </span>                
-        </td>
-        <td width="35%" style="text-align:center">
+        </td>        
+        <td width="50%" style="text-align:center">
             <br>
             <br>
             <br>

@@ -95,7 +95,7 @@ class NilaiKHSController extends Controller
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'daftar_khs'=>$daftar_khs,                                                                                                                                   
-                                    'message'=>'Daftar krs mahasiswa berhasil diperoleh' 
+                                    'message'=>'Daftar khs mahasiswa berhasil diperoleh' 
                                 ],200);  
         
     }
@@ -140,9 +140,9 @@ class NilaiKHSController extends Controller
                                             F.nama_dosen AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
                                             COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
-                                            0 AS HM,
-                                            0 AS AM,
-                                            0 AS M,
+                                            COALESCE(G.n_kual,\'-\') AS HM,
+                                            COALESCE(G.n_mutu,\'-\') AS AM,
+                                            \'-\' AS M,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
@@ -153,32 +153,61 @@ class NilaiKHSController extends Controller
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
                                         ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
                                         ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
-                                        ->where('krs_id',$krs->id)
+                                        ->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')                                        
+                                        ->where('pe3_krsmatkul.krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
             
-            $daftar_matkul->transform(function ($item,$key) {            
+            $daftar_nilai=[];
+            $jumlah_matkul=0;
+            $jumlah_sks=0;
+            $jumlah_m=0;
+            $jumlah_am=0;
+            $ips=0;
+            $ipk=0;
+            foreach ($daftar_matkul as $key=>$item)
+            {
                 if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
                 {
-                    $item->nama_dosen='N.A';
+                    $nama_dosen='N.A';
                 }     
                 else
                 {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
                 }
-                return $item;
-            });
-        }
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'krs'=>$krs,                                                                                                                                   
-                                    'krsmatkul'=>$daftar_matkul,                                                                                                                                   
-                                    'jumlah_matkul'=>$daftar_matkul->count(),                                                                                                                                   
-                                    'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
-                                    'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+                $M=$item->HM=='-'?'-': $item->sks*$item->AM;
+                $daftar_nilai[]=[
+                    'no'=>$key+1,
+                    'nama_dosen'=>$nama_dosen,
+                    'kmatkul'=>$item->kmatkul,
+                    'nmatkul'=>$item->nmatkul,
+                    'sks'=>$item->sks,
+                    'HM'=>$item->HM,
+                    'AM'=>$item->AM,
+                    'M'=>$M,
+                    'nama_dosen'=>$nama_dosen,
+                ];
+                $jumlah_sks+=$item->sks;
+                $jumlah_matkul+=1;
+                $jumlah_m+=$M;
+                $jumlah_am+=$item->AM;
+            }      
+            $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',  
+                                        'krs'=>$krs,                                                                                                                                   
+                                        'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
+                                        'jumlah_matkul'=>$jumlah_matkul,
+                                        'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
+                                        'jumlah_m'=>$jumlah_m,                                                                                                                                   
+                                        'jumlah_am'=>$jumlah_am,                                                                                                                                   
+                                        'ipk'=>$ipk,                                                                                                                                   
+                                        'ips'=>$ips,                                                                                                                                   
+                                        'message'=>'Fetch data khs dan detail khs mahasiswa berhasil diperoleh' 
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+        }        
     }
     
     public function printpdf(Request $request,$id)
@@ -223,35 +252,66 @@ class NilaiKHSController extends Controller
                                             A.kmatkul,
                                             A.nmatkul,
                                             A.sks,
-                                            A.semester,
+                                            A.semester,                                            
                                             B.nama_dosen AS nama_dosen_penyelenggaraan,
                                             F.nama_dosen AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
+                                            COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+                                            COALESCE(G.n_kual,\'-\') AS HM,
+                                            COALESCE(G.n_mutu,\'-\') AS AM,
+                                            \'-\' AS M,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
                                         ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
                                         ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
-                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')                                        
+                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
+                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')                                       
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
                                         ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
                                         ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
-                                        ->where('krs_id',$krs->id)
+                                        ->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')                                        
+                                        ->where('pe3_krsmatkul.krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
             
-            $daftar_matkul->transform(function ($item,$key) {                 
+            $daftar_nilai=[];
+            $jumlah_matkul=0;
+            $jumlah_sks=0;
+            $jumlah_m=0;
+            $jumlah_am=0;
+            $ips=0;
+            $ipk=0;
+            foreach ($daftar_matkul as $key=>$item)
+            {
                 if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
                 {
-                    $item->nama_dosen='N.A';
+                    $nama_dosen='N.A';
                 }     
                 else
                 {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
                 }
-                return $item;
-            });
+                $M=$item->HM=='-'?'-': $item->sks*$item->AM;
+                $daftar_nilai[]=[
+                    'no'=>$key+1,
+                    'nama_dosen'=>$nama_dosen,
+                    'kmatkul'=>$item->kmatkul,
+                    'nmatkul'=>$item->nmatkul,
+                    'sks'=>$item->sks,
+                    'HM'=>$item->HM,
+                    'AM'=>$item->AM,
+                    'M'=>$M,
+                    'nama_dosen'=>$nama_dosen,
+                ];
+                $jumlah_sks+=$item->sks;
+                $jumlah_matkul+=1;
+                $jumlah_m+=$M;
+                $jumlah_am+=$item->AM;
+            }      
+            $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+
             $config = ConfigurationModel::getCache();
             $headers=[
                 'HEADER_1'=>$config['HEADER_1'],
@@ -260,12 +320,17 @@ class NilaiKHSController extends Controller
                 'HEADER_4'=>$config['HEADER_4'],
                 'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
             ];
-            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
+            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
                                                                     [
                                                                         'headers'=>$headers,
                                                                         'data_krs'=>$krs,
-                                                                        'daftar_matkul'=>$daftar_matkul,                                                                        
-                                                                        'jumlah_sks'=>$daftar_matkul->sum('sks'),
+                                                                        'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
+                                                                        'jumlah_matkul'=>$jumlah_matkul,
+                                                                        'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
+                                                                        'jumlah_m'=>$jumlah_m,                                                                                                                                   
+                                                                        'jumlah_am'=>$jumlah_am,                                                                                                                                   
+                                                                        'ipk'=>$ipk,                                                                                                                                   
+                                                                        'ips'=>$ips,                                                                                                                                   
                                                                     ],
                                                                     [],
                                                                     [

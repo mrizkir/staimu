@@ -66,9 +66,9 @@
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
-                                        <v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
+                                        <v-card-title>CREATED :</v-card-title>
                                         <v-card-subtitle>
-                                            {{totalMatkul}} / {{totalSKS}}
+                                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -84,9 +84,9 @@
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
-                                        <v-card-title>CREATED / UPDATED :</v-card-title>
+                                        <v-card-title>UPDATED :</v-card-title>
                                         <v-card-subtitle>
-                                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                            {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -101,7 +101,16 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
-                            <v-spacer></v-spacer>                            
+                            <v-spacer></v-spacer> 
+                            <v-btn 
+                                color="primary" 
+                                fab 
+                                small
+                                @click.stop="printpdf"
+                                :loading="btnLoading"
+                                :disabled="btnLoading || !datakrs.hasOwnProperty('id')">
+                                <v-icon>mdi-printer</v-icon>
+                            </v-btn>                                                       
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
@@ -115,21 +124,21 @@
                                 loading-text="Loading... Please wait">                                                               
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-                                        <td>{{totalMatkul}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>                                        
-                                        <td></td>                                        
+                                        <td class="text-right" colspan="2">JUMLAH</td>
+                                        <td>{{jumlah_sks}}</td>                                         
+                                        <td></td>                                         
+                                        <td>{{jumlah_am}}</td>                           
+                                        <td>{{jumlah_m}}</td>                           
+                                        <td></td>     
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="2">TOTAL SKS</td>
-                                        <td>{{totalSKS}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>                                        
-                                        <td></td>                                        
-                                    </tr>
+                                        <td class="text-right" colspan="2">IPS</td>
+                                        <td colspan="5">{{ips}}</td>                                         
+                                    </tr>                                    
+                                    <tr class="grey lighten-4 font-weight-black">
+                                        <td class="text-right" colspan="2">IPK</td>
+                                        <td colspan="5">{{ipk}}</td>                                         
+                                    </tr>                                    
                                 </template>   
                                 <template v-slot:no-data>
                                     Data matakuliah belum tersedia silahkan tambah
@@ -140,6 +149,25 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Print to PDF</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-btn
+                        color="green"
+                        text
+                        :href="$api.url+'/'+file_pdf">                            
+                        Download
+                    </v-btn>                           
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                </v-card-actions>
+            </v-card>            
+        </v-dialog>
     </AkademikLayout>
 </template>
 <script>
@@ -177,7 +205,7 @@ export default {
                 href:'#'
             },
         ];
-        this.fetchKRS();               
+        this.fetchKHS();               
     },  
     data: () => ({ 
         firstloading:true,        
@@ -205,9 +233,19 @@ export default {
             { text: 'M', value: 'M', sortable:false,width:50 },                           
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:false,width:200 },                                                                
         ],  
+
+        jumlah_sks:0,
+        jumlah_matkul:0,
+        jumlah_m:0,
+        jumlah_am:0,
+        ips:0,
+        ipk:0,
+
+        dialogprintpdf:false,
+        file_pdf:null
     }),
     methods: {          
-        async fetchKRS()
+        async fetchKHS()
         {
             await this.$ajax.get('/akademik/nilai/khs/'+this.krs_id,                        
             {
@@ -216,33 +254,49 @@ export default {
                 }
             }).then(({data})=>{                                               
                 this.datakrs=data.krs;                
-                this.datatable=data.krsmatkul;                
+                this.datatable=data.daftar_nilai;                
                 if (Object.keys(this.datakrs).length)
                 {
                     let prodi_id=this.datakrs.kjur;                    
                     this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);                
                     this.tahun_akademik=this.datakrs.tahun;                                                      
-                    this.semester_akademik=this.datakrs.idsmt;                        
+                    this.semester_akademik=this.datakrs.idsmt;
+                    
+                    this.jumlah_sks=data.jumlah_sks;
+                    this.jumlah_matkul=data.jumlah_matkul;
+                    this.jumlah_m=data.jumlah_m;
+                    this.jumlah_am=data.jumlah_am;
+                    this.ips=data.ips;
+                    this.ipk=data.ipk;
                 }
             })  
-        },             
-    },
-    computed:{
-        totalMatkul()
+        },      
+        async printpdf()
         {
-            return this.datatable.length;            
+            this.btnLoading=true;
+            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.file_pdf=data.pdf_file;
+                this.dialogprintpdf=true;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });                 
         },
-        totalSKS()
-        {
-            var total = 0;
-            var index;
-            for (index in this.datatable)
-            {
-                total = total + parseInt(this.datatable[index].sks);
-            }            
-            return total;
-        }
-    },
+        closedialogprintpdf () {                  
+            setTimeout(() => {
+                this.file_pdf=null;
+                this.dialogprintpdf = false;      
+                }, 300
+            );
+        },        
+    },    
     components:{
         AkademikLayout,
         ModuleHeader,            

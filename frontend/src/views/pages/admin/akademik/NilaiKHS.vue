@@ -195,8 +195,8 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'NIM', value: 'nim', sortable:true,width:150  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable:true  },   
+            { text: 'NIM', value: 'nim', sortable:true,width:100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },   
             { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },               
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },               
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },               

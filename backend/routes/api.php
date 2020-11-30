@@ -331,6 +331,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //transkrip khs 
     $router->post('/akademik/nilai/khs',['uses'=>'Akademik\NilaiKHSController@index','as'=>'khs.index']);
     $router->get('/akademik/nilai/khs/{id}',['uses'=>'Akademik\NilaiKHSController@show','as'=>'khs.show']);
+    // id == krs id
     $router->get('/akademik/nilai/khs/printpdf/{id}',['uses'=>'Akademik\NilaiKHSController@printpdf','as'=>'khs.printpdf']);
     
     //transkrip kurikulum 

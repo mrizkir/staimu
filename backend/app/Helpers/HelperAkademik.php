@@ -92,9 +92,29 @@ class HelperAkademik {
 	public static function formatIPK ($m,$sks) {
         $result=0.00;
 		if ($m > 0 && $sks > 0) {
-            $temp=number_format((float)($m/$sks)*100,0,'.','.');
-            $result = $temp;
-        }        
+
+            $temp=($m/$sks);
+            if ($temp == 40)
+            {
+                $result = '4.00';
+            }
+            else if ($temp == 30)
+            {
+                $result = '3.00';
+            }
+            else if ($temp == 20)
+            {
+                $result = '2.00';
+            }
+            else if ($temp == 10)
+            {
+                $result = '1.00';
+            }
+            else 
+            {
+                $result = number_format($temp/10,2);
+            }            
+        }                     
         return $result;
 	}
 }
