@@ -157,7 +157,7 @@ class TranskripKurikulumController  extends Controller
 
                 $jumlah_sks+=$item->sks;                 
             }         
-            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_sks);
+            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_am);
             $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
             if (is_null($rekap))
             {
