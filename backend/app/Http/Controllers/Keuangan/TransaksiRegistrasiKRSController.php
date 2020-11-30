@@ -199,7 +199,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 ]);
 
                 $transaksi->total=$biaya_kombi;
-                $transasi->desc='REGISTRASI KRS';
+                $transaksi->desc='REGISTRASI KRS';
                 $transaksi->save();
 
                 return $transaksi;
