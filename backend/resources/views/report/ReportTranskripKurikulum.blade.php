@@ -27,7 +27,7 @@ h2{
 </head>
 <body>
 @include('report.ReportHeader')
-<h2>TRANSKRIP NILAI</h2>
+<h2>TRANSKRIP NILAI SEMESTER</h2>
 <table style="font-size:14px">
     <tbody>
         <tr>

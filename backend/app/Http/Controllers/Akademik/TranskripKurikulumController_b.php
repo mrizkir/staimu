@@ -234,98 +234,107 @@ class TranskripKurikulumController  extends Controller
         }
         else
         {
-            $daftar_matkul=MatakuliahModel::select(\DB::raw('
-                                                0 AS no,
-                                                id,
-                                                group_alias,                                    
-                                                kmatkul,
-                                                nmatkul,
-                                                sks,
-                                                semester,
-                                                \'-\' AS HM,
-                                                \'-\' AS AM,
-                                                0 AS M                                              
-                                            '))
-                                            ->where('kjur',$mahasiswa->kjur)
-                                            ->where('ta',$mahasiswa->tahun)   
-                                            ->orderBy('semester','ASC')                      
-                                            ->orderBy('kmatkul','ASC')    
-                                            ->get();
-
-            $jumlah_sks=0;            
-            $jumlah_sks_nilai=0;            
-            $jumlah_am=0;
-            $jumlah_m=0;
-            $jumlah_matkul=0;
-
             $daftar_nilai=[];
-            foreach ($daftar_matkul as $key=>$item)
-            {
-                $user_id=$mahasiswa->user_id;
-                $nilai=\DB::table('pe3_nilai_matakuliah AS A')
-                            ->select(\DB::raw('
-                                A.n_kual,                                
-                                A.n_mutu
-                            '))
-                            ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-                            ->join('pe3_krs AS C','B.krs_id','C.id')
-                            ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
-                            ->where('C.user_id',$mahasiswa->user_id)
-                            ->where('D.matkul_id',$item->id)
-                            ->get();
-                
-                $HM=$item->HM;
-                $AM=$item->AM;
-                $M=$item->M;
 
-                if (isset($nilai[0]))
-                {
-                    $HM=$nilai[0]->n_kual;
-                    $AM=number_format($nilai[0]->n_mutu,0);
-                    $M=$AM*$item->sks;
-                    $jumlah_m+=$M;
-                    $jumlah_am+=$AM;
-                    $jumlah_matkul+=1;
-                    $jumlah_sks_nilai+=$item->sks;
-                }
-                $daftar_nilai[]=[
-                    'no'=>$key+1,
-                    'kmatkul'=>$item->kmatkul,
-                    'nmatkul'=>$item->nmatkul,
-                    'sks'=>$item->sks,
-                    'semester'=>$item->semester,
-                    'group_alias'=>$item->group_alias,
-                    'HM'=>$HM,
-                    'AM'=>$AM,
-                    'M'=>$M
+            for ($i=1;$i <= 8; $i++)
+            {
+                $jumlah_sks_s=0;
+                $daftar_nilai[$i]=[
+
                 ];
-
-                $jumlah_sks+=$item->sks;                 
-            }         
-            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_am);
-            $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
-            if (is_null($rekap))
-            {
-
-                RekapTranskripKurikulumModel::updateOrCreate([
-                    'user_id'=>$mahasiswa->user_id,
-                    'jumlah_matkul'=>$jumlah_matkul,
-                    'jumlah_sks'=>$jumlah_sks_nilai,
-                    'jumlah_am'=>$jumlah_am,
-                    'jumlah_m'=>$jumlah_m,
-                    'ipk'=>$ipk,
-                ]);   
             }
-            else
-            {
-                $rekap->jumlah_matkul=$jumlah_matkul;
-                $rekap->jumlah_sks=$jumlah_sks_nilai;
-                $rekap->jumlah_am=$jumlah_am;
-                $rekap->jumlah_m=$jumlah_m;
-                $rekap->ipk=$ipk;
+            // $daftar_matkul=MatakuliahModel::select(\DB::raw('
+            //                                     0 AS no,
+            //                                     id,
+            //                                     group_alias,                                    
+            //                                     kmatkul,
+            //                                     nmatkul,
+            //                                     sks,
+            //                                     semester,
+            //                                     \'-\' AS HM,
+            //                                     \'-\' AS AM,
+            //                                     0 AS M                                              
+            //                                 '))
+            //                                 ->where('kjur',$mahasiswa->kjur)
+            //                                 ->where('ta',$mahasiswa->tahun)   
+            //                                 ->orderBy('semester','ASC')                      
+            //                                 ->orderBy('kmatkul','ASC')    
+            //                                 ->get();
 
-                $rekap->save();
-            }
+            // $jumlah_sks=0;            
+            // $jumlah_sks_nilai=0;            
+            // $jumlah_am=0;
+            // $jumlah_m=0;
+            // $jumlah_matkul=0;
+
+            // $daftar_nilai=[];
+            // foreach ($daftar_matkul as $key=>$item)
+            // {
+            //     $user_id=$mahasiswa->user_id;
+            //     $nilai=\DB::table('pe3_nilai_matakuliah AS A')
+            //                 ->select(\DB::raw('
+            //                     A.n_kual,                                
+            //                     A.n_mutu
+            //                 '))
+            //                 ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+            //                 ->join('pe3_krs AS C','B.krs_id','C.id')
+            //                 ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+            //                 ->where('C.user_id',$mahasiswa->user_id)
+            //                 ->where('D.matkul_id',$item->id)
+            //                 ->get();
+                
+            //     $HM=$item->HM;
+            //     $AM=$item->AM;
+            //     $M=$item->M;
+
+            //     if (isset($nilai[0]))
+            //     {
+            //         $HM=$nilai[0]->n_kual;
+            //         $AM=number_format($nilai[0]->n_mutu,0);
+            //         $M=$AM*$item->sks;
+            //         $jumlah_m+=$M;
+            //         $jumlah_am+=$AM;
+            //         $jumlah_matkul+=1;
+            //         $jumlah_sks_nilai+=$item->sks;
+            //     }
+            //     $daftar_nilai[]=[
+            //         'no'=>$key+1,
+            //         'kmatkul'=>$item->kmatkul,
+            //         'nmatkul'=>$item->nmatkul,
+            //         'sks'=>$item->sks,
+            //         'semester'=>$item->semester,
+            //         'group_alias'=>$item->group_alias,
+            //         'HM'=>$HM,
+            //         'AM'=>$AM,
+            //         'M'=>$M
+            //     ];
+
+            //     $jumlah_sks+=$item->sks;                 
+            // }         
+            // $ipk=\App\Helpers\Helper::formatPecahan($jumlah_am,$jumlah_sks);
+            // $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
+            // if (is_null($rekap))
+            // {
+
+            //     RekapTranskripKurikulumModel::updateOrCreate([
+            //         'user_id'=>$mahasiswa->user_id,
+            //         'jumlah_matkul'=>$jumlah_matkul,
+            //         'jumlah_sks'=>$jumlah_sks_nilai,
+            //         'jumlah_am'=>$jumlah_am,
+            //         'jumlah_m'=>$jumlah_m,
+            //         'ipk'=>$ipk,
+            //     ]);   
+            // }
+            // else
+            // {
+            //     $rekap->jumlah_matkul=$jumlah_matkul;
+            //     $rekap->jumlah_sks=$jumlah_sks_nilai;
+            //     $rekap->jumlah_am=$jumlah_am;
+            //     $rekap->jumlah_m=$jumlah_m;
+            //     $rekap->ipk=$ipk;
+
+            //     $rekap->save();
+            // }
 
             $config = ConfigurationModel::getCache();
             $headers=[
