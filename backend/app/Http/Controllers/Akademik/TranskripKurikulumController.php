@@ -99,7 +99,7 @@ class TranskripKurikulumController  extends Controller
                                                 semester,
                                                 \'-\' AS HM,
                                                 \'-\' AS AM,
-                                                0 AS M                                              
+                                                \'-\' AS M                                              
                                             '))
                                             ->where('kjur',$mahasiswa->kjur)
                                             ->where('ta',$mahasiswa->tahun)   
@@ -157,7 +157,7 @@ class TranskripKurikulumController  extends Controller
 
                 $jumlah_sks+=$item->sks;                 
             }         
-            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_m,$jumlah_am);
+            $ipk=\App\Helpers\Helper::formatPersen($jumlah_m,$jumlah_sks_nilai);
             $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
             if (is_null($rekap))
             {
@@ -244,7 +244,7 @@ class TranskripKurikulumController  extends Controller
                                                 semester,
                                                 \'-\' AS HM,
                                                 \'-\' AS AM,
-                                                0 AS M                                              
+                                                \'-\' AS M                                              
                                             '))
                                             ->where('kjur',$mahasiswa->kjur)
                                             ->where('ta',$mahasiswa->tahun)   
@@ -302,7 +302,7 @@ class TranskripKurikulumController  extends Controller
 
                 $jumlah_sks+=$item->sks;                 
             }         
-            $ipk=\App\Helpers\Helper::formatPecahan($jumlah_m,$jumlah_am);
+            $ipk=\App\Helpers\Helper::formatPersen($jumlah_m,$jumlah_sks_nilai);
             $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
             if (is_null($rekap))
             {
