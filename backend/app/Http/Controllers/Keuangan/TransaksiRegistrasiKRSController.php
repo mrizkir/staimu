@@ -198,8 +198,8 @@ class TransaksiRegistrasiKRSController extends Controller {
                     'sub_total'=>$biaya_kombi    
                 ]);
 
-                // $transaksi->total=$biaya_kombi;
-                // $transasi->desc='REGISTRASI KRS';
+                $transaksi->total=$biaya_kombi;
+                $transasi->desc='REGISTRASI KRS';
                 $transaksi->save();
 
                 return $transaksi;
