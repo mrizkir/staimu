@@ -108,7 +108,7 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/krs/'+item.id+'/detail')">
+                                @click.stop="$router.push('/akademik/nilai/khs/'+item.id)">
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
@@ -201,7 +201,7 @@ export default {
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },               
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },               
             { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                           
-            { text: 'SAH', value: 'sah',sortable:true, width:100},                           
+            { text: 'IPK', value: 'sah',sortable:true, width:100},                           
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'', 
@@ -225,7 +225,7 @@ export default {
         async initializeMhs ()
         {
             this.datatableLoading=true;
-            await this.$ajax.post('/akademik/perkuliahan/krs',
+            await this.$ajax.post('/akademik/nilai/khs',
             {
                 
             },
@@ -234,7 +234,7 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                                           
-                this.datatable = data.daftar_krs;
+                this.datatable = data.daftar_khs;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
@@ -243,7 +243,7 @@ export default {
         initialize:async function () 
         {
             this.datatableLoading=true;
-            await this.$ajax.post('/akademik/perkuliahan/krs',
+            await this.$ajax.post('/akademik/nilai/khs',
             {
                 prodi_id:this.prodi_id,
                 ta:this.tahun_akademik,
@@ -254,7 +254,7 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                                        
-                this.datatable = data.daftar_krs;
+                this.datatable = data.daftar_khs;
                 this.datatableLoading=false;
                 this.firstloading=false;     
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
@@ -275,11 +275,11 @@ export default {
         },  
         deleteItem (item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus khs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang berkaitan dengan khs ini.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
-                    this.$ajax.post('/akademik/perkuliahan/krs/'+item.id,
+                    this.$ajax.post('/akademik/nilai/khs/'+item.id,
                         {
                             '_method':'DELETE',
                         },
@@ -301,7 +301,7 @@ export default {
         async printpdf(item)
         {
             this.btnLoading=true;
-            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
+            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+item.id,                
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']

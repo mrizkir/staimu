@@ -14,7 +14,7 @@ use App\Models\System\ConfigurationModel;
 
 use Ramsey\Uuid\Uuid;
 
-class KRSController extends Controller
+class NilaiKHSController extends Controller
 {
     /**
      * daftar krs
@@ -22,7 +22,7 @@ class KRSController extends Controller
     public function index(Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_BROWSE');
-        $daftar_krs=[];
+        $daftar_khs=[];
 
         if ($this->hasRole(['superadmin','akademik','programstudi','puslahta']))
         {
@@ -36,7 +36,7 @@ class KRSController extends Controller
             $prodi_id=$request->input('prodi_id');
             $semester_akademik=$request->input('semester_akademik');
 
-            $daftar_krs = KRSModel::select(\DB::raw('
+            $daftar_khs = KRSModel::select(\DB::raw('
                                     pe3_krs.id,
                                     pe3_krs.nim,
                                     pe3_formulir_pendaftaran.nama_mhs,
@@ -55,7 +55,7 @@ class KRSController extends Controller
                                 ->orderBy('nama_mhs','ASC')
                                 ->get();
 
-            $daftar_krs->transform(function ($item,$key) {                
+            $daftar_khs->transform(function ($item,$key) {                
                 $item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
                 $item->jumlah_sks=\DB::table('pe3_krsmatkul')
                                         ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
@@ -65,7 +65,7 @@ class KRSController extends Controller
         }
         else if ($this->hasRole('mahasiswa'))
         {
-            $daftar_krs = KRSModel::select(\DB::raw('
+            $daftar_khs = KRSModel::select(\DB::raw('
                                     pe3_krs.id,
                                     pe3_krs.nim,
                                     pe3_formulir_pendaftaran.nama_mhs,
@@ -82,7 +82,7 @@ class KRSController extends Controller
                                 ->orderBy('tasmt','DESC')
                                 ->get();
 
-            $daftar_krs->transform(function ($item,$key){
+            $daftar_khs->transform(function ($item,$key){
                 
                 $item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
                 $item->jumlah_sks=\DB::table('pe3_krsmatkul')
@@ -94,7 +94,7 @@ class KRSController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'daftar_krs'=>$daftar_krs,                                                                                                                                   
+                                    'daftar_khs'=>$daftar_khs,                                                                                                                                   
                                     'message'=>'Daftar krs mahasiswa berhasil diperoleh' 
                                 ],200);  
         
@@ -135,11 +135,14 @@ class KRSController extends Controller
                                             A.kmatkul,
                                             A.nmatkul,
                                             A.sks,
-                                            A.semester,
+                                            A.semester,                                            
                                             B.nama_dosen AS nama_dosen_penyelenggaraan,
                                             F.nama_dosen AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
                                             COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+                                            0 AS HM,
+                                            0 AS AM,
+                                            0 AS M,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
@@ -333,44 +336,7 @@ class KRSController extends Controller
                                     'message'=>'Cek krs mahasiswa'
                                 ],200);  
 
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request,$id)
-    { 
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
-
-        $krs = KRSModel::find($id); 
-        
-        if (is_null($krs))
-        {
-            return Response()->json([
-                                    'status'=>0,
-                                    'pid'=>'destroy',                
-                                    'message'=>["KRS dengan ($id) gagal dihapus"]
-                                ],422); 
-        }
-        else
-        {
-            \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $krs, 
-                                                                'object_id' => $krs->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus KRS dengan id ('.$id.') berhasil'
-                                                            ]);
-            $krs->delete();
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',                
-                                        'message'=>"KRS dengan ID ($id) berhasil dihapus"
-                                    ],200);         
-        }
-                  
-    }
+    }    
     /**
      * Remove the specified resource from storage.
      *

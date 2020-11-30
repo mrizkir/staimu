@@ -567,7 +567,7 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/NilaiKHS.vue'),		
 	},	
 	{
-		path: '/akademik/nilai/khs/:user_id',
+		path: '/akademik/nilai/khs/:krs_id',
 		name: 'NilaiKHSDetail',
 		meta:{
 			title: "AKADEMIK - NILAI KHS",
