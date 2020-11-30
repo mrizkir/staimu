@@ -136,6 +136,8 @@ class TransaksiRegistrasiKRSController extends Controller {
                                             ->where('pe3_transaksi.idsmt',$semester_akademik)
                                             ->where('pe3_transaksi.nim',$nim)
                                             ->where('pe3_transaksi_detail.kombi_id',202)
+                                            ->where('pe3_transaksi.status',1)
+                                            ->where('pe3_transaksi.status',2)
                                             ->first();
 
             if (!is_null($transaksi))
@@ -162,39 +164,44 @@ class TransaksiRegistrasiKRSController extends Controller {
             {
                 throw new Exception ("Komponen Biaya Registrasi KRS (202) belum disetting pada TA $tahun");  
             }
-            
-            $no_transaksi='202'.date('YmdHms');
-            $transaksi=TransaksiModel::create([
-                'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$mahasiswa->user_id,
-                'no_transaksi'=>$no_transaksi,
-                'no_faktur'=>'',
-                'kjur'=>$mahasiswa->kjur,
-                'ta'=>$ta,
-                'idsmt'=>$semester_akademik,
-                'idkelas'=>$mahasiswa->idkelas,
-                'no_formulir'=>$mahasiswa->no_formulir,
-                'nim'=>$mahasiswa->nim,
-                'commited'=>0,
-                'total'=>0,
-                'tanggal'=>date('Y-m-d'),
-                'desc'=>null
-            ]);  
-            
-            $transaksi_detail=TransaksiDetailModel::create([
-                'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$mahasiswa->user_id,
-                'transaksi_id'=>$transaksi->id,
-                'no_transaksi'=>$transaksi->no_transaksi,
-                'kombi_id'=>202,
-                'nama_kombi'=>'REGISTRASI KRS',
-                'biaya'=>$biaya_kombi,
-                'jumlah'=>1,
-                'sub_total'=>$biaya_kombi    
-            ]);
-            $transaksi->total=$biaya_kombi;
-            $transasi->desc='REGISTRASI KRS';
-            $transaksi->save();
+
+            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
+                $no_transaksi='202'.date('YmdHms');
+                $transaksi=TransaksiModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$mahasiswa->user_id,
+                    'no_transaksi'=>$no_transaksi,
+                    'no_faktur'=>'',
+                    'kjur'=>$mahasiswa->kjur,
+                    'ta'=>$request->input('TA'),
+                    'idsmt'=>$request->input('semester_akademik'),
+                    'idkelas'=>$mahasiswa->idkelas,
+                    'no_formulir'=>$mahasiswa->no_formulir,
+                    'nim'=>$mahasiswa->nim,
+                    'commited'=>0,
+                    'total'=>0,
+                    'tanggal'=>date('Y-m-d'),
+                    'desc'=>null
+                ]); 
+                
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$mahasiswa->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>202,
+                    'nama_kombi'=>'REGISTRASI KRS',
+                    'biaya'=>$biaya_kombi,
+                    'jumlah'=>1,
+                    'sub_total'=>$biaya_kombi    
+                ]);
+                $transaksi->total=$biaya_kombi;
+                $transasi->desc='REGISTRASI KRS';
+                $transaksi->save();
+
+                return $transaksi;
+
+            });
 
             return Response()->json([
                                         'status'=>1,
