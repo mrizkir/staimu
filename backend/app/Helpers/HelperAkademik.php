@@ -86,4 +86,15 @@ class HelperAkademik {
             return null;
         }
     }
+    /**
+	* digunakan untuk mem-format persentase
+	*/
+	public static function formatIPK ($m,$sks) {
+        $result=0.00;
+		if ($m > 0 && $sks > 0) {
+            $temp=number_format((float)($m/$sks)*100,0,'.','.');
+            $result = $temp;
+        }        
+        return $result;
+	}
 }
