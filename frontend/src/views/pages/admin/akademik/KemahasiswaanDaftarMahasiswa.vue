@@ -5,7 +5,7 @@
                 mdi-monitor-dashboard
             </template>
             <template v-slot:name>
-                DAFTAR MAHASISWA BARU 
+                DAFTAR MAHASISWA 
             </template>
             <template v-slot:subtitle>
                 TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}

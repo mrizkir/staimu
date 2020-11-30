@@ -135,9 +135,11 @@ class TransaksiRegistrasiKRSController extends Controller {
                                             ->where('pe3_transaksi.ta',$ta)                                        
                                             ->where('pe3_transaksi.idsmt',$semester_akademik)
                                             ->where('pe3_transaksi.nim',$nim)
-                                            ->where('pe3_transaksi_detail.kombi_id',202)
-                                            ->where('pe3_transaksi.status',1)
-                                            ->where('pe3_transaksi.status',2)
+                                            ->where('pe3_transaksi_detail.kombi_id',202)                                                                                      
+                                            ->where(function($query) {
+                                                $query->where('pe3_transaksi.status',0)
+                                                    ->orWhere('pe3_transaksi.status',1);
+                                            })                                        
                                             ->first();
 
             if (!is_null($transaksi))
