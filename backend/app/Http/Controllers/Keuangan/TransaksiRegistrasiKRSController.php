@@ -186,17 +186,17 @@ class TransaksiRegistrasiKRSController extends Controller {
                     'desc'=>null
                 ]); 
                 
-                // $transaksi_detail=TransaksiDetailModel::create([
-                //     'id'=>Uuid::uuid4()->toString(),
-                //     'user_id'=>$mahasiswa->user_id,
-                //     'transaksi_id'=>$transaksi->id,
-                //     'no_transaksi'=>$transaksi->no_transaksi,
-                //     'kombi_id'=>202,
-                //     'nama_kombi'=>'REGISTRASI KRS',
-                //     'biaya'=>$biaya_kombi,
-                //     'jumlah'=>1,
-                //     'sub_total'=>$biaya_kombi    
-                // ]);
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$mahasiswa->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>202,
+                    'nama_kombi'=>'REGISTRASI KRS',
+                    'biaya'=>$biaya_kombi,
+                    'jumlah'=>1,
+                    'sub_total'=>$biaya_kombi    
+                ]);
 
                 // $transaksi->total=$biaya_kombi;
                 // $transasi->desc='REGISTRASI KRS';
