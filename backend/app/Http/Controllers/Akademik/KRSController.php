@@ -499,10 +499,10 @@ class KRSController extends Controller
                                                                         'title' => 'KRS',
                                                                     ]);
 
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/".$krs->id.'.pdf');
+            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/krs_".$krs->id.'.pdf');
             $pdf->save($file_pdf);
 
-            $pdf_file="storage/exported/pdf/".$krs->id.".pdf";
+            $pdf_file="storage/exported/pdf/krs_".$krs->id.".pdf";
 
             return Response()->json([
                                     'status'=>1,

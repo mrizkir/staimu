@@ -180,200 +180,7 @@ class NilaiKHSController extends Controller
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
     }
-    public function penyelenggaraan (Request $request)
-    {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
-
-        $this->validate($request, [
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-            'prodi_id'=>'required',     
-            'ta'=>'required',     
-            'semester_akademik'=>'required',     
-            'pid'=>'required',     
-        ]);
-        
-        $prodi_id=$request->input('prodi_id');
-        $ta=$request->input('ta');
-        $nim=$request->input('nim');
-        $semester_akademik=$request->input('semester_akademik');
-        
-        $datamhs=RegisterMahasiswaModel::select(\DB::raw('tahun'))
-                                        ->where('nim',$nim)
-                                        ->first();
-                                        
-        $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
-                                    id,
-                                    kmatkul,                                    
-                                    nmatkul,
-                                    sks,
-                                    semester,
-                                    ta_matkul
-                                '))       
-                                ->where('tahun',$ta)                                  
-                                ->where('idsmt',$semester_akademik)                                  
-                                ->where('kjur',$prodi_id)                                  
-                                ->where('ta_matkul',$datamhs->tahun)
-                                ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
-                                    $query->select('penyelenggaraan_id')
-                                        ->from('pe3_krsmatkul')
-                                        ->where('nim',$nim)                                        
-                                        ->where('tahun',$ta)                                        
-                                        ->where('idsmt',$semester_akademik);                                        
-                                })
-                                ->orderBy('semester','ASC')                                                      
-                                ->orderBy('kmatkul','ASC')                                                      
-                                ->get();
-
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                                                       
-                                    'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
-    }
-    /**
-     * digunakan untul menyimpan krs mahasiswa
-     */
-    public function store (Request $request)
-    {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_STORE');
-        
-        $this->validate($request, [
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-            'dulang_id'=>'required|exists:pe3_dulang,id',     
-        ]);
-        
-        $nim=$request->input('nim');
-        $dulang_id=$request->input('dulang_id');
-
-        $dulang = DulangModel::find($dulang_id);
-
-        $krs=KRSModel::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'user_id'=>$dulang->user_id,
-            'dulang_id'=>$dulang_id,
-            'nim'=>$nim,
-            'kjur'=>$dulang->register_mahasiswa->kjur, 
-            'idsmt'=>$dulang->idsmt, 
-            'tahun'=>$dulang->tahun, 
-            'tasmt'=>$dulang->tasmt,         
-            'sah'=>0,        
-        ]);
-        \App\Models\System\ActivityLog::log($request,[
-                                                    'object' => $krs, 
-                                                    'object_id' => $krs->id, 
-                                                    'user_id' => $this->getUserid(), 
-                                                    'message'=>"Menyimpan krs mahasiswa berhasil dilakukan."
-                                                ]);
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',  
-                                    'krs'=>$krs,                                                                                                                                   
-                                    'message'=>'menyimpan krs mahasiswa berhasil'
-                                ],200);  
-    }
-    public function storematkul (Request $request)
-    {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_STORE');
-
-        $matkul_selected=json_decode($request->input('matkul_selected'),true);
-        $request->merge(['matkul_selected'=>$matkul_selected]);        
-
-        $this->validate($request, [      
-            'krs_id'=>'required|exists:pe3_krs,id',     
-            'matkul_selected.*'=>'required',            
-        ]);
-        $krs_id=$request->input('krs_id');
-        
-        $krs=KRSModel::find($krs_id);
-
-        $daftar_matkul=[];
-        foreach ($matkul_selected as $v)
-        {
-            $daftar_matkul[]=[
-                'id'=>Uuid::uuid4()->toString(),
-                'krs_id'=>$krs_id,
-                'nim'=>$krs->nim,
-                'penyelenggaraan_id'=>$v['id'],
-                'batal'=>0,
-                'kjur'=>$krs->kjur,
-                'idsmt'=>$krs->idsmt,
-                'tahun'=>$krs->tahun,                
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now()
-            ];
-        }
-        KRSMatkulModel::insert($daftar_matkul);
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',                                                                                                                                                                         
-                                    'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
-                                ],200);  
-    }
-    public function cekkrs ($request)
-    {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
-
-        $this->validate($request, [      
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-            'ta'=>'required',
-            'idsmt'=>'required'
-        ]);
-        
-        $nim=$request->input('nim');
-        $ta=$request->input('ta');
-        $idsmt=$request->input('idsmt');
-
-        $isdulang = KRSModel::where('nim',$nim)
-                                ->where('tahun',$ta)
-                                ->where('idsmt',$idsmt)                                
-                                ->exists();
-
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'iskrs'=>$iskrs,                                                                                                                                   
-                                    'message'=>'Cek krs mahasiswa'
-                                ],200);  
-
-    }    
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroymatkul(Request $request,$id)
-    { 
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
-
-        $krsmatkul = KRSMatkulModel::find($id); 
-        
-        if (is_null($krsmatkul))
-        {
-            return Response()->json([
-                                    'status'=>0,
-                                    'pid'=>'destroy',                
-                                    'message'=>["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
-                                ],422); 
-        }
-        else
-        {
-            \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $krsmatkul, 
-                                                            'object_id' => $krsmatkul->id, 
-                                                            'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                                        ]);
-            $krsmatkul->delete();
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',                
-                                        'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                    ],200);         
-        }
-                  
-    }
+    
     public function printpdf(Request $request,$id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
@@ -462,13 +269,13 @@ class NilaiKHSController extends Controller
                                                                     ],
                                                                     [],
                                                                     [
-                                                                        'title' => 'KRS',
+                                                                        'title' => 'KHS',
                                                                     ]);
 
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/".$krs->id.'.pdf');
+            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/khs_".$krs->id.'.pdf');
             $pdf->save($file_pdf);
 
-            $pdf_file="storage/exported/pdf/".$krs->id.".pdf";
+            $pdf_file="storage/exported/pdf/khs_".$krs->id.".pdf";
 
             return Response()->json([
                                     'status'=>1,
