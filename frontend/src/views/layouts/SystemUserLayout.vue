@@ -101,7 +101,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>  
-                <v-divider/>
+                <v-divider v-if="CAN_ACCESS('SYSTEM-SETTING-ROLES')"/>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-USERS-SUPERADMIN_BROWSE')" to="/system-users/superadmin">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
@@ -172,6 +172,27 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
+                <v-list-item link to="/system-users/profil">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            PROFIL
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider v-if="dashboard=='dosen'"/>
+                <v-list-item link v-if="dashboard=='dosen'" to="/system-users/biodatadiridosen">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            BIODATA DIRI
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>    
             </v-list>
         </v-navigation-drawer>        
         <v-main class="mx-4 mb-4">			
@@ -182,7 +203,11 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    name:'SystemUserLayout',    
+    name:'SystemUserLayout',
+    created()
+    {
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];          
+    },
     props:{
         showrightsidebar:{
             type:Boolean,
@@ -195,7 +220,9 @@ export default {
     },    
     data:()=>({
         loginTime:0,
-        drawer:null,        
+        drawer:null,   
+        
+        dashboard:null,
     }),       
     methods: {        
         logout ()

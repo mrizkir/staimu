@@ -739,6 +739,16 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/system/UsersProfile.vue'),		
 	},
+	//dosen
+	{
+		path: '/system-users/biodatadiridosen',
+		name: 'BiodataDiriDosen',
+		meta:{
+			title: "USERS - BIODATA DIRI DOSEN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/BiodataDiriDosen.vue'),		
+	},
 	{
 		path: '/system-migration',
 		name: 'SystemMigration',
@@ -747,7 +757,7 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/SystemMigration.vue'),		
-	},
+	},	
 	{
 		path: '/404',
 		name: 'NotFoundComponent',
