@@ -27,6 +27,20 @@ class KRSModel extends Model {
         'user_id',
         'dulang_id',
         'nim',
+
+        'jumlah_matkul_1',               
+        'jumlah_sks_1',               
+        'jumlah_am_1',               
+        'jumlah_m_1',                           
+        
+        'jumlah_matkul_2',               
+        'jumlah_sks_2',               
+        'jumlah_am_2',               
+        'jumlah_m_2',                           
+
+        'ipk',
+        'ips',
+        
         'kjur', 
         'idsmt', 
         'tahun', 

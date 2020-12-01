@@ -17,8 +17,22 @@ class CreateKRSTable extends Migration
         Schema::create('pe3_krs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');               
-            $table->uuid('dulang_id');               
+            $table->uuid('dulang_id');    
             $table->string('nim');
+
+            $table->integer('jumlah_matkul_1')->default(0);               
+            $table->integer('jumlah_sks_1')->default(0);               
+            $table->integer('jumlah_am_1')->default(0);               
+            $table->integer('jumlah_m_1')->default(0);                           
+            
+            $table->integer('jumlah_matkul_2')->default(0);               
+            $table->integer('jumlah_sks_2')->default(0);               
+            $table->integer('jumlah_am_2')->default(0);               
+            $table->integer('jumlah_m_2')->default(0);                           
+
+            $table->decimal('ipk',5,2)->default(0.00);  
+            $table->decimal('ips',5,2)->default(0.00);  
+            
             $table->unsignedInteger('kjur');                
             $table->tinyinteger('idsmt');
             $table->year('tahun');

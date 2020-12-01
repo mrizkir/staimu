@@ -351,41 +351,44 @@ class TransaksiSPPController extends Controller {
                 'bulan_selected.*'=>'required',            
             ]);
         }
-        $transaksi_id=$request->input('id');
-        $transaksi=TransaksiModel::find($transaksi_id);
+        $transaksi = \DB::transaction(function () use ($request){
 
-        $bulan_selected=$request->input('bulan_selected');
-       
-        $bulan_spp=[];
-        $total_spp=0;
-        $nama_bulan=' ';
-        foreach ($bulan_selected as $v)
-        {
-            $bulan_spp[]=[
-                'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$transaksi->user_id,
-                'transaksi_id'=>$transaksi->id,
-                'no_transaksi'=>$transaksi->no_transaksi,
-                'kombi_id'=>201,
-                'nama_kombi'=>'SPP',
-                'biaya'=>$v['biaya_kombi'],                
-                'jumlah'=>1,                
-                'bulan'=>$v['no_bulan'],                
-                'sub_total'=>$v['biaya_kombi'],                
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now()
-            ];
-            $nama_bulan+=$v['no_bulan'].' ';
-            $total_spp+=$v['biaya_kombi'];
-        }
-        \DB::table('pe3_transaksi_detail')
-            ->where ('transaksi_id',$transaksi_id)            
-            ->delete();
-            
-        TransaksiDetailModel::insert($bulan_spp);
-        $transaksi->total=$total_spp;
-        $transaksi->desc="BAYAR SPP BULAN $nama_bulan";
-        $transaksi->save();
+            $transaksi_id=$request->input('id');
+            $transaksi=TransaksiModel::find($transaksi_id);
+
+            $bulan_selected=$request->input('bulan_selected');
+        
+            $bulan_spp=[];
+            $total_spp=0;
+            $nama_bulan=' ';
+            foreach ($bulan_selected as $v)
+            {
+                $bulan_spp[]=[
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$transaksi->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>201,
+                    'nama_kombi'=>'SPP',
+                    'biaya'=>$v['biaya_kombi'],                
+                    'jumlah'=>1,                
+                    'bulan'=>$v['no_bulan'],                
+                    'sub_total'=>$v['biaya_kombi'],                
+                    'created_at'=>\Carbon\Carbon::now(),
+                    'updated_at'=>\Carbon\Carbon::now()
+                ];
+                $nama_bulan.=$v['no_bulan'].' ';
+                $total_spp+=$v['biaya_kombi'];
+            }
+            \DB::table('pe3_transaksi_detail')
+                ->where ('transaksi_id',$transaksi_id)            
+                ->delete();
+                
+            TransaksiDetailModel::insert($bulan_spp);
+            $transaksi->total=$total_spp;
+            $transaksi->desc="BAYAR SPP BULAN $nama_bulan";
+            $transaksi->save();
+        });
 
         return Response()->json([
                                     'status'=>1,
