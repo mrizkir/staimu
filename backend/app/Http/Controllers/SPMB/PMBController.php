@@ -309,7 +309,7 @@ class PMBController extends Controller {
 
                 $formulir=FormulirPendaftaranModel::find($user->id);
                 $formulir->nama_mhs=$request->input('name');
-                $formulir->telp_hp=$request->input('telp_hp');
+                $formulir->telp_hp=$request->input('nomor_hp');
                 if (is_null(RegisterMahasiswaModel::find($user->id)))
                 {
                     $formulir->kjur1=$request->input('prodi_id');
