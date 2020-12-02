@@ -45,6 +45,8 @@ class NilaiKHSController extends Controller
                                     pe3_formulir_pendaftaran.ta AS tahun_masuk,
                                     0 AS jumlah_matkul,
                                     0 AS jumlah_sks,
+                                    ips,
+                                    ipk,
                                     pe3_krs.created_at,
                                     pe3_krs.updated_at
                                 '))
@@ -74,6 +76,8 @@ class NilaiKHSController extends Controller
                                     pe3_formulir_pendaftaran.ta AS tahun_masuk,
                                     0 AS jumlah_matkul,
                                     0 AS jumlah_sks,
+                                    ips,
+                                    ipk,
                                     pe3_krs.created_at,
                                     pe3_krs.updated_at
                                 '))
@@ -105,8 +109,23 @@ class NilaiKHSController extends Controller
 
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
+                        pe3_krs.user_id,
                         pe3_krs.nim,
                         pe3_formulir_pendaftaran.nama_mhs,
+                        
+                        jumlah_matkul_1,
+                        jumlah_sks_1,
+                        jumlah_am_1,
+                        jumlah_m_1,
+
+                        jumlah_matkul_2,
+                        jumlah_sks_2,
+                        jumlah_am_2,
+                        jumlah_m_2,
+
+                        ipk,
+                        ips,
+
                         pe3_krs.kjur,
                         pe3_krs.tahun,
                         pe3_krs.idsmt,
@@ -176,7 +195,16 @@ class NilaiKHSController extends Controller
                 {
                     $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
                 }
-                $M=$item->HM=='-'?'-': $item->sks*$item->AM;
+                if ($item->HM=='-')
+                {
+                    $M='-';
+                }
+                else
+                {
+                    $M=$item->sks*$item->AM;
+                    $jumlah_m+=$M;
+                    $jumlah_am+=$item->AM;
+                }                
                 $daftar_nilai[]=[
                     'no'=>$key+1,
                     'nama_dosen'=>$nama_dosen,
@@ -189,11 +217,40 @@ class NilaiKHSController extends Controller
                     'nama_dosen'=>$nama_dosen,
                 ];
                 $jumlah_sks+=$item->sks;
-                $jumlah_matkul+=1;
-                $jumlah_m+=$M;
-                $jumlah_am+=$item->AM;
+                $jumlah_matkul+=1;        
             }      
             $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+
+            $krs->jumlah_matkul_1=$jumlah_matkul;
+            $krs->jumlah_sks_1=$jumlah_sks;
+            $krs->jumlah_am_1=$jumlah_am;
+            $krs->jumlah_m_1=$jumlah_m;
+
+            $krs->ips=$ips;
+
+            $data=\DB::table('pe3_krs')
+                        ->select(\DB::raw('
+                            SUM(jumlah_matkul_1) AS jumlah_matkul_1,
+                            SUM(jumlah_sks_1) AS jumlah_sks_1,
+                            SUM(jumlah_am_1) AS jumlah_am_1,
+                            SUM(jumlah_m_1) AS jumlah_m_1
+                        '))
+                        ->where('tasmt','<=',$krs->tasmt)
+                        ->where('user_id',$krs->user_id)
+                        ->get();
+
+            if (isset($data[0]))
+            {
+                $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
+                $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
+                $krs->jumlah_am_2=$data[0]->jumlah_am_1;
+                $krs->jumlah_m_2=$data[0]->jumlah_m_1;
+
+                $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
+                $krs->ipk=$ipk;
+            }
+            $krs->save();
+
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
@@ -216,15 +273,29 @@ class NilaiKHSController extends Controller
 
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
+                        pe3_krs.user_id,
                         pe3_krs.nim,
                         pe3_register_mahasiswa.nirm,
                         pe3_formulir_pendaftaran.nama_mhs,
                         pe3_formulir_pendaftaran.jk,
+                        
+                        jumlah_matkul_1,
+                        jumlah_sks_1,
+                        jumlah_am_1,
+                        jumlah_m_1,
+
+                        jumlah_matkul_2,
+                        jumlah_sks_2,
+                        jumlah_am_2,
+                        jumlah_m_2,
+
+                        ipk,
+                        ips,
+
                         pe3_krs.kjur,
                         pe3_prodi.nama_prodi,
                         pe3_krs.tahun,
-                        pe3_krs.idsmt,
-                        \'\' AS nama_semester,
+                        pe3_krs.idsmt,                        
                         pe3_krs.tasmt,
                         pe3_krs.sah,
                         pe3_krs.created_at,
@@ -245,8 +316,6 @@ class NilaiKHSController extends Controller
         }
         else
         {
-            $krs->nama_semester=\App\Helpers\HelperAkademik::getSemester($krs->idsmt);
-
             $daftar_matkul=KRSMatkulModel::select(\DB::raw('
                                             pe3_krsmatkul.id,
                                             A.kmatkul,
@@ -293,7 +362,16 @@ class NilaiKHSController extends Controller
                 {
                     $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
                 }
-                $M=$item->HM=='-'?'-': $item->sks*$item->AM;
+                if ($item->HM=='-')
+                {
+                    $M='-';
+                }
+                else
+                {
+                    $M=$item->sks*$item->AM;
+                    $jumlah_m+=$M;
+                    $jumlah_am+=$item->AM;
+                }    
                 $daftar_nilai[]=[
                     'no'=>$key+1,
                     'nama_dosen'=>$nama_dosen,
@@ -306,11 +384,39 @@ class NilaiKHSController extends Controller
                     'nama_dosen'=>$nama_dosen,
                 ];
                 $jumlah_sks+=$item->sks;
-                $jumlah_matkul+=1;
-                $jumlah_m+=$M;
-                $jumlah_am+=$item->AM;
+                $jumlah_matkul+=1;                
             }      
             $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+
+            $krs->jumlah_matkul_1=$jumlah_matkul;
+            $krs->jumlah_sks_1=$jumlah_sks;
+            $krs->jumlah_am_1=$jumlah_am;
+            $krs->jumlah_m_1=$jumlah_m;
+
+            $krs->ips=$ips;
+
+            $data=\DB::table('pe3_krs')
+                        ->select(\DB::raw('
+                            SUM(jumlah_matkul_1) AS jumlah_matkul_1,
+                            SUM(jumlah_sks_1) AS jumlah_sks_1,
+                            SUM(jumlah_am_1) AS jumlah_am_1,
+                            SUM(jumlah_m_1) AS jumlah_m_1
+                        '))
+                        ->where('tasmt','<=',$krs->tasmt)
+                        ->where('user_id',$krs->user_id)
+                        ->get();
+
+            if (isset($data[0]))
+            {
+                $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
+                $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
+                $krs->jumlah_am_2=$data[0]->jumlah_am_1;
+                $krs->jumlah_m_2=$data[0]->jumlah_m_1;
+
+                $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
+                $krs->ipk=$ipk;
+            }
+            $krs->save();
 
             $config = ConfigurationModel::getCache();
             $headers=[
@@ -324,6 +430,7 @@ class NilaiKHSController extends Controller
                                                                     [
                                                                         'headers'=>$headers,
                                                                         'data_krs'=>$krs,
+                                                                        'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
                                                                         'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
                                                                         'jumlah_matkul'=>$jumlah_matkul,
                                                                         'jumlah_sks'=>$jumlah_sks,                                                                                                                                   

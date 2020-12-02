@@ -107,6 +107,8 @@ class KRSController extends Controller
                         pe3_krs.id,
                         pe3_krs.nim,
                         pe3_formulir_pendaftaran.nama_mhs,
+                        pe3_krs.jumlah_matkul_1,
+                        pe3_krs.jumlah_sks_1,
                         pe3_krs.kjur,
                         pe3_krs.tahun,
                         pe3_krs.idsmt,
@@ -166,16 +168,20 @@ class KRSController extends Controller
                 }
                 return $item;
             });
-        }
-        return Response()->json([
+            $krs->jumlah_matkul_1=$daftar_matkul->count();
+            $krs->jumlah_sks_1=$daftar_matkul->sum('sks');
+            $krs->save();
+            
+            return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'krs'=>$krs,                                                                                                                                   
                                     'krsmatkul'=>$daftar_matkul,                                                                                                                                   
-                                    'jumlah_matkul'=>$daftar_matkul->count(),                                                                                                                                   
-                                    'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
+                                    'jumlah_matkul'=>$krs->jumlah_matkul_1,                                                                                                                                   
+                                    'jumlah_sks'=>$krs->jumlah_sks_1,                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+        }        
     }
     public function penyelenggaraan (Request $request)
     {

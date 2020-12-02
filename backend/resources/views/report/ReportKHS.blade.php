@@ -55,7 +55,7 @@ h2{
 
             <td><strong>Semester / T.A</strong></td>
             <td>:</td>
-            <td>{{ucwords(strtolower($data_krs->nama_semester))}} / {{$data_krs->tahun}}-{{$data_krs->tahun+1}}</td>
+            <td>{{ucwords(strtolower($nama_semester))}} / {{$data_krs->tahun}}-{{$data_krs->tahun+1}}</td>
         </tr>
     </tbody>
 </table>
@@ -114,7 +114,7 @@ h2{
         </tr>        
         <tr>
             <td colspan="2" style="text-align:right"><strong>SKS Total</strong></td>            
-            <td style="text-align:center" colspan="4">{{$jumlah_sks}}</td>                        
+            <td style="text-align:center" colspan="4">{{$data_krs->jumlah_sks_2}}</td>                        
         </tr>        
         <tr>
             <td colspan="2" style="text-align:right"><strong>IPK</strong></td>            
