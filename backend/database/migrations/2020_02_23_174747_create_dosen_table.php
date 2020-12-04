@@ -24,7 +24,8 @@ class CreateDosenTable extends Migration
             
             $table->string('tempat_lahir')->nullable(); 
             $table->date('tanggal_lahir')->nullable(); 
-
+            $table->enum('jk',['L','P'])->default('L');
+            
             $table->string('address1_desa_id',10)->nullable(); 
             $table->string('address1_kelurahan')->nullable(); 
             $table->string('address1_kecamatan_id',7)->nullable(); 

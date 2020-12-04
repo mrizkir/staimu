@@ -39,7 +39,7 @@
                                 {{ROLE}}
                             </v-list-item-subtitle>
                         </v-list-item-content>
-                    </v-list-item>                    
+                    </v-list-item>                      
                     <v-divider/>
                     <v-list-item to="/system-users/profil">
                         <v-list-item-icon class="mr-2">
@@ -81,6 +81,17 @@
                         <v-list-item-title>BOARD USERS</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link to="/system-users/profil">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            PROFIL
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider />
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-PERMISSIONS')" to="/system-users/permissions">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-key</v-icon>
@@ -171,18 +182,7 @@
                             DOSEN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
-                <v-list-item link to="/system-users/profil">
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-account</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            PROFIL
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider v-if="dashboard=='dosen'"/>
+                </v-list-item>                                    
                 <v-list-item link v-if="dashboard=='dosen'" to="/system-users/biodatadiridosen">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>

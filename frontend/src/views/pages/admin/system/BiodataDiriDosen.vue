@@ -26,13 +26,14 @@
             </template>
         </ModuleHeader>   
         <v-container fluid>   
-
+            <form-biodata-diri-dosen />
         </v-container>
     </SystemUserLayout>
 </template>
 <script>
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
+import FormBiodataDiriDosen from '@/components/FormBiodataDiriDosen';
 export default {
     name:'UsersProfile',
     created () {
@@ -70,6 +71,7 @@ export default {
     components:{
         SystemUserLayout,
         ModuleHeader,
+        'form-biodata-diri-dosen':FormBiodataDiriDosen,
     },
 }
 </script>

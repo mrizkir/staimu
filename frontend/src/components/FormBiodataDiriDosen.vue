@@ -4,15 +4,51 @@
             <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                 <v-card class="mb-4">
                     <v-card-title>
-                        IDENTITAS DIRI
+                        BIODATA DIRI DOSEN
                     </v-card-title>
                     <v-card-text>
-                        <v-text-field
-                            label="NAMA LENGKAP"    
-                            v-model="formdata.nama_mhs"    
-                            :rules="rule_nama_mhs"
-                            filled
-                        />
+                        <v-row>
+                            <v-col cols="6">
+                                <v-text-field
+                                    label="NIDN"    
+                                    v-model="formdata.nidn"    
+                                    :rules="rule_nidn"
+                                    filled
+                                />                                
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field
+                                    label="NIP YAYASAN"    
+                                    v-model="formdata.nipy"    
+                                    :rules="rule_nipy"
+                                    filled
+                                />
+                            </v-col>                            
+                        </v-row>                              
+                        <v-row>
+                            <v-col cols="3">
+                                <v-text-field
+                                    label="GELAR DEPAN"    
+                                    v-model="formdata.gelar_depan"                                        
+                                    filled
+                                />
+                            </v-col>
+                            <v-col cols="6">
+                                <v-text-field
+                                    label="NAMA LENGKAP"    
+                                    v-model="formdata.nama_dosen"    
+                                    :rules="rule_nama_dosen"
+                                    filled
+                                />
+                            </v-col>
+                            <v-col cols="3">
+                                <v-text-field
+                                    label="GELAR BELAKANG"    
+                                    v-model="formdata.gelar_belakang"                                        
+                                    filled
+                                />
+                            </v-col>
+                        </v-row>                        
                         <v-text-field
                             label="TEMPAT LAHIR"
                             v-model="formdata.tempat_lahir"     
@@ -65,13 +101,7 @@
                             v-model="formdata.email"
                             :rules="rule_email"
                             filled
-                        />
-                        <v-text-field
-                            label="NAMA IBU KANDUNG"
-                            v-model="formdata.nama_ibu_kandung"
-                            :rules="rule_nama_ibu_kandung"
-                            filled
-                        />
+                        />                       
                     </v-card-text>
                 </v-card>
                 <v-card class="mb-4">
@@ -125,46 +155,9 @@
                             filled
                         />
                     </v-card-text>
-                </v-card>
-                <v-card class="mb-4">
-                    <v-card-title>
-                        RENCANA STUDI
-                    </v-card-title>
-                    <v-card-text>
-                        <v-select
-                            v-model="kode_fakultas"
-                            label="FAKULTAS"
-                            filled
-                            :rules="rule_fakultas"
-                            :items="daftar_fakultas"
-                            item-text="nama_fakultas"
-                            item-value="kode_fakultas"
-                            :loading="btnLoadingFakultas"
-                            v-if="$store.getters['uifront/getBentukPT']=='universitas'"
-                        />
-                        <v-select
-                            label="PROGRAM STUDI"
-                            v-model="formdata.kjur1"
-                            :items="daftar_prodi"
-                            item-text="nama_prodi2"
-                            item-value="id"
-                            :rules="rule_prodi"
-                            filled
-                        />
-                        <v-select
-                            label="KELAS"
-                            v-model="formdata.idkelas"
-                            :items="daftar_kelas"
-                            item-text="nkelas"
-                            item-value="idkelas"
-                            :rules="rule_kelas"
-                            filled
-                        />
-                    </v-card-text>
-                </v-card>
+                </v-card>               
                 <v-card class="mb-4">                    
-                    <v-card-actions>
-                        Kode Billing: <strong>{{kode_billing}}</strong>
+                    <v-card-actions>                        
                         <v-spacer></v-spacer>                        
                         <v-btn 
                             color="blue darken-1" 
@@ -180,7 +173,7 @@
 </template>
 <script>
 export default {
-    name:'FormMahasiswaBaru',
+    name:'FormBiodataDiriDosen',
     created()
     {
         this.initialize();
@@ -217,28 +210,52 @@ export default {
         daftar_kelas:[],
         
         formdata:{
-            nama_mhs:'',           
-            tempat_lahir:'',
-            tanggal_lahir:'',
-            jk:'L',
-            nomor_hp:'',    
+            user_id:'',
+            nidn:'',
+            nipy:'',
+            nama_dosen:'',
+            gelar_depan:'',
+            gelar_belakang:'',
+            
+            tempat_lahir:'', 
+            tanggal_lahir:'', 
+
+            address1_desa_id:'', 
+            address1_kelurahan:'', 
+            address1_kecamatan_id:'',
+            address1_kecamatan:'', 
+            address1_kabupaten_id:'', 
+            address1_kabupaten:'', 
+            address1_provinsi_id:'',
+            address1_provinsi:'', 
+            alamat_rumah:'', 
+            
+            nik:'',
             email:'',
-            alamat_rumah:'',
-            nama_ibu_kandung:'',
-            kjur1:'',
-            idkelas:'',
+            nomor_hp:'',
+            address2_desa_id:'', 
+            address2_kelurahan:'', 
+            address2_kecamatan_id:'',
+            address2_kecamatan:'', 
+            address2_kabupaten_id:'', 
+            address2_kabupaten:'', 
+            address2_provinsi_id:'', 
+            address2_provinsi:'', 
+            alamat_ktp:'', 
+
+            is_dw:'',
+            desc:'',
+            active:'',
         },
-        rule_nama_mhs:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
-            value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-        ], 
-        rule_nidn:[
-            value => !!value||"Mohon untuk di isi NIDN !!!",                     
+        rule_nidn:[                         
             value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',                
         ],         
-        rule_nipy:[
-            value => !!value||"Mohon untuk di isi NIP Yayasan !!!",                     
-            value => /^[0-9]+$/.test(value) || 'NIP Yayasan hanya boleh angka',                
+        rule_nipy:[            
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',                
+        ], 
+        rule_nama_dosen:[
+            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],         
         rule_tempat_lahir:[
             value => !!value||"Tempat Lahir mohon untuk diisi !!!"
@@ -253,50 +270,21 @@ export default {
         rule_email:[
             value => !!value||"Email mohon untuk diisi !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
-        ],
-        rule_nama_ibu_kandung:[
-            value => !!value||"Nama Ibu Kandung mohon untuk diisi !!!",
-            value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Ibu Kandung hanya boleh string dan spasi',
-        ], 
+        ],   
         rule_desa:[
             value => !!value||"Mohon Desa mohon untuk diisi !!!"
         ], 
         rule_alamat_rumah:[
             value => !!value||"Alamat Rumah mohon untuk diisi !!!"
-        ], 
-        rule_fakultas:[
-            value => !!value||"Fakultas mohon untuk dipilih !!!"
-        ], 
-        rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
-        ], 
-        rule_kelas:[
-            value => !!value||"Kelas mohon untuk dipilih !!!"
-        ], 
+        ],         
     }),
     methods: {
         initialize:async function ()
         {
-            let bentukpt=this.$store.getters['uifront/getBentukPT'];
             this.$ajax.get('/datamaster/provinsi').then(({data})=>{                
                 this.daftar_provinsi=data.provinsi;                
-            });            
-            if (bentukpt=='universitas')
-            {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
-                    this.daftar_fakultas=data.fakultas;
-                });
-            }
-            else
-            {
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
-                    this.daftar_prodi=data.prodi;
-                });
-            }           
-            this.$ajax.get('/datamaster/kelas').then(({data})=>{                
-                this.daftar_kelas=data.kelas;
-            });
-            await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),             
+            });                       
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),             
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
@@ -304,40 +292,25 @@ export default {
                 },
                 
             ).then(({data})=>{   
-                this.formdata.nama_mhs=data.formulir.nama_mhs;           
-                this.formdata.tempat_lahir=data.formulir.tempat_lahir;           
-                this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;           
-                this.formdata.jk=data.formulir.jk;           
-                this.formdata.nomor_hp=data.formulir.nomor_hp;           
-                this.formdata.email=data.formulir.email;    
-                this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
+                this.formdata=data.biodatadiri;           
 
                 this.provinsi_id={
-                    id:data.formulir.address1_provinsi_id,
-                    nama:data.formulir.address1_provinsi
+                    id:data.biodatadiri.address1_provinsi_id,
+                    nama:data.biodatadiri.address1_provinsi
                 };
                 this.kabupaten_id={
-                    id:data.formulir.address1_kabupaten_id,
-                    nama:data.formulir.address1_kabupaten
+                    id:data.biodatadiri.address1_kabupaten_id,
+                    nama:data.biodatadiri.address1_kabupaten
                 };
                 this.kecamatan_id={
-                    id:data.formulir.address1_kecamatan_id,
-                    nama:data.formulir.address1_kecamatan
+                    id:data.biodatadiri.address1_kecamatan_id,
+                    nama:data.biodatadiri.address1_kecamatan
                 };
                 this.desa_id={
-                    id:data.formulir.address1_desa_id,
-                    nama:data.formulir.address1_kelurahan
-                };
-                
-                this.formdata.alamat_rumah=data.formulir.alamat_rumah;    
-                if (bentukpt=='universitas' && data.formulir.kode_fakultas !=null)
-                {
-                    this.kode_fakultas=data.formulir.kode_fakultas;
-                }
-                this.formdata.kjur1=data.formulir.kjur1;    
-                this.formdata.idkelas=data.formulir.idkelas;    
-                
-                this.kode_billing=data.no_transaksi;
+                    id:data.biodatadiri.address1_desa_id,
+                    nama:data.biodatadiri.address1_kelurahan
+                };                
+                this.formdata.alamat_rumah=data.biodatadiri.alamat_rumah;                    
                 this.$refs.frmdata.resetValidation();       
             });
         },        
@@ -346,15 +319,20 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;                
-                await this.$ajax.post('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),{                    
+                await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{                    
                     _method:'put',
-                    nama_mhs:this.formdata.nama_mhs,           
+                    nidn:this.formdata.nidn,           
+                    nipy:this.formdata.nipy,           
+                    gelar_depan:this.formdata.gelar_depan,                               
+                    nama_dosen:this.formdata.nama_dosen,           
+                    gelar_belakang:this.formdata.gelar_belakang,           
+
                     tempat_lahir:this.formdata.tempat_lahir,           
                     tanggal_lahir:this.formdata.tanggal_lahir,           
                     jk:this.formdata.jk,           
                     nomor_hp:this.formdata.nomor_hp,           
                     email:this.formdata.email,    
-                    nama_ibu_kandung:this.formdata.nama_ibu_kandung,    
+                       
                     address1_provinsi_id:this.provinsi_id.id,
                     address1_provinsi:this.provinsi_id.nama,
                     address1_kabupaten_id:this.kabupaten_id.id,
@@ -364,22 +342,20 @@ export default {
                     address1_desa_id:this.desa_id.id,
                     address1_kelurahan:this.desa_id.nama,
                     alamat_rumah:this.formdata.alamat_rumah,    
-                    kjur1:this.formdata.kjur1,    
-                    idkelas:this.formdata.idkelas,    
+
+                    
                 },
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-                ).then(({data})=>{               
-                    this.kode_billing=data.no_transaksi;
-                    this.btnLoading=false;                        
+                ).then(()=>{                                   
+                    this.btnLoading=false;
+                    this.$router.go();
                 }).catch(() => {                                   
                     this.btnLoading=false;
-                });                                    
-                this.form_valid=true;                                                                                        
-                this.$refs.frmdata.resetValidation();                 
+                });             
             }                             
         },
     },

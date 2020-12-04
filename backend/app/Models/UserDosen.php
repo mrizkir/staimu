@@ -32,6 +32,7 @@ class UserDosen extends Model {
         
         'tempat_lahir', 
         'tanggal_lahir', 
+        'jk', 
 
         'address1_desa_id', 
         'address1_kelurahan', 
@@ -70,5 +71,10 @@ class UserDosen extends Model {
      *
      * @var string
      */
-    public $timestamps = true;
+    public $timestamps = true;   
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
 }

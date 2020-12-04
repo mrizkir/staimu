@@ -79,7 +79,7 @@ class UsersDosenController extends Controller {
         $this->validate($request, [
             'name'=>'required',
             'nidn'=>'numeric|unique:pe3_dosen',
-            'nipy'=>'required|string|unique:pe3_dosen',
+            'nipy'=>'required|numeric|unique:pe3_dosen',
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|string|unique:users',
             'username'=>'required|string|unique:users',
@@ -170,9 +170,11 @@ class UsersDosenController extends Controller {
                                                         'unique:users,username,'.$user->id
                                                     ],           
                                         'nidn'=>[
+                                                    'numeric',
                                                     'unique:pe3_dosen,nidn,'.$user->id.',user_id'
                                                 ],           
                                         'nipy'=>[
+                                                    'numeric',
                                                     'unique:pe3_dosen,nipy,'.$user->id.',user_id'
                                                 ],           
                                         'name'=>'required',            
@@ -240,6 +242,125 @@ class UsersDosenController extends Controller {
         }
         
         
+    }
+    /**
+     * dapatkan data biodata diri dosen
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function biodatadiri(Request $request,$id)
+    { 
+        $this->hasPermissionTo('SYSTEM-USERS-DOSEN_SHOW');
+
+        $biodatadiri = UserDosen::select(\DB::raw('
+                                    pe3_dosen.*,
+                                    users.email,
+                                    users.nomor_hp
+                                '))
+                                ->join('users','pe3_dosen.user_id','users.id')
+                                ->where('pe3_dosen.active',1)
+                                ->find($id);
+        if (is_null($biodatadiri))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["User ID ($id) gagal diupdate"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                                    
+                                    'biodatadiri'=>$biodatadiri,      
+                                    'message'=>'Data Biodata Diri Dosen '.$biodatadiri->username.' berhasil diperoleh.'
+                                ],200); 
+        }
+    }
+    /**
+     * dapatkan data biodata diri dosen
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatebiodatadiri(Request $request,$id)
+    {
+        $this->hasPermissionTo('SYSTEM-USERS-DOSEN_UPDATE');
+
+        $biodatadiri = UserDosen::where('pe3_dosen.active',1)
+                                ->find($id);
+        if (is_null($biodatadiri))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["User ID ($id) gagal diupdate"]
+                                ],422); 
+        }
+        else
+        {
+            $this->validate($request, [          
+                'nidn'=>[
+                            'numeric',
+                            'unique:pe3_dosen,nidn,'.$biodatadiri->user_id.',user_id'
+                        ],           
+                'nipy'=>[
+                            'numeric',
+                            'unique:pe3_dosen,nipy,'.$biodatadiri->user_id.',user_id'
+                        ],           
+                'nama_dosen'=>'required',            
+                'tempat_lahir'=>'required',            
+                'tanggal_lahir'=>'required',            
+                'jk'=>'required',                            
+                'email'=>'required|string|email|unique:users,email,'.$biodatadiri->user_id,
+                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$biodatadiri->user_id,                                           
+                'alamat_rumah'=>'required',            
+            ]); 
+
+            $biodatadiri->nidn=$request->input('nidn');           
+            $biodatadiri->nipy=$request->input('nipy');           
+            $biodatadiri->gelar_depan=$request->input('gelar_depan');                               
+            $biodatadiri->nama_dosen=$request->input('nama_dosen');           
+            $biodatadiri->gelar_belakang=$request->input('gelar_belakang');           
+
+            $biodatadiri->tempat_lahir=$request->input('tempat_lahir');           
+            $biodatadiri->tanggal_lahir=$request->input('tanggal_lahir');           
+            $biodatadiri->jk=$request->input('jk');                      
+               
+            $biodatadiri->address1_provinsi_id=$request->input('address1_provinsi_id');
+            $biodatadiri->address1_provinsi=$request->input('address1_provinsi');
+            $biodatadiri->address1_kabupaten_id=$request->input('address1_kabupaten_id');
+            $biodatadiri->address1_kabupaten=$request->input('address1_kabupaten');
+            $biodatadiri->address1_kecamatan_id=$request->input('address1_kecamatan_id');
+            $biodatadiri->address1_kecamatan=$request->input('address1_kecamatan');
+            $biodatadiri->address1_desa_id=$request->input('address1_desa_id');
+            $biodatadiri->address1_kelurahan=$request->input('address1_kelurahan');
+            $biodatadiri->alamat_rumah=$request->input('alamat_rumah');   
+
+            $biodatadiri->save();
+            $user=$biodatadiri->user;
+            $user->email=$request->input('email');
+            $user->nomor_hp=$request->input('nomor_hp');
+            $user->save();
+
+            
+            \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $this->guard()->user(), 
+                                                        'object_id' => $this->guard()->user()->id, 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => 'Mengubah biodata pribadi Dosen ('.$user->username.') berhasil'
+                                                    ]);
+
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',
+                                    'user'=>$user,      
+                                    'biodatadiri'=>$biodatadiri,      
+                                    'message'=>'Biodata diri Dosen '.$user->username.' berhasil diubah.'
+                                ],200); 
+        }
     }
     /**
      * Remove the specified resource from storage.

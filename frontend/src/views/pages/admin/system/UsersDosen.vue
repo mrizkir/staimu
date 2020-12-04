@@ -65,7 +65,15 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer> 
+                                <v-btn color="warning"
+                                    :loading="btnLoading"
+                                    :disabled="btnLoading"
+                                    class="mb-2 mr-2" 
+                                    @click.stop="syncPermission" 
+                                    v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
+                                    SYNC PERMISSION
+                                </v-btn>                               
                                 <v-btn color="primary"                                    
                                     class="mb-2" 
                                     :loading="btnLoading"
@@ -297,8 +305,8 @@ export default {
         //tables
         headers: [                        
             { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'NAMA DOSEN', value: 'name',sortable:true },
+            { text: 'USERNAME', value: 'username',sortable:true, width:150 },
+            { text: 'NAMA DOSEN', value: 'name',sortable:true, width:250 },
             { text: 'NIDN', value: 'nidn',sortable:true },     
             { text: 'NIPY', value: 'nipy',sortable:true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
@@ -346,8 +354,11 @@ export default {
             value => !!value||"Mohon untuk di isi nama Dosen !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',                
         ],         
-        rule_nipy:[
-            value => !!value||"Mohon untuk di isi Nomor Induk Pegawai Yayasan (NIPY) dari User ini !!!",                          
+        rule_nidn:[                         
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',                
+        ],         
+        rule_nipy:[            
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',                
         ], 
         rule_user_email:[
             value => !!value||"Mohon untuk di isi email User !!!",  
@@ -487,6 +498,24 @@ export default {
                     });
                 }
             }
+        },
+        syncPermission:async function ()
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/system/users/syncallpermissions',
+                {
+                    role_name:'dosen',                    
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(()=>{                   
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });     
         },
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
