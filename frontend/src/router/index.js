@@ -167,6 +167,15 @@ const routes = [
 		component: () => import('../views/pages/admin/spmb/FormulirPendaftaran.vue'),		
 	},
 	{
+		path: '/spmb/formulirpendaftaran/:user_id/edit',
+		name: 'SPMBFormulirPendaftaranEdit',
+		meta:{
+			title: "SPMB - FORMULIR PENDAFTARAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/spmb/FormulirPendaftaranEdit.vue'),		
+	},
+	{
 		path: '/spmb/persyaratan',
 		name: 'SPMBPersyaratan',
 		meta:{

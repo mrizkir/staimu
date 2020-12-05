@@ -186,9 +186,10 @@ export default {
         headers: [                        
             { text: '', value: 'foto', width:70 },               
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
+            { text: 'JK', value: 'jk',width:50 },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
-            { text: 'KELAS', value: 'nkelas',width:100,sortable:true },
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'KELAS', value: 'nkelas',width:150,sortable:true },
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         search:'',  
         
@@ -256,7 +257,7 @@ export default {
         },
         editItem(item)
         {
-            console.log(item);
+            this.$router.push('/spmb/formulirpendaftaran/'+item.id+'/edit')
         },
         closeProfilMahasiswaBaru ()
         {
