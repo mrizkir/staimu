@@ -71,8 +71,13 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" to="/akademik/perkuliahan/pembagiankelas/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMGBAGIAN-KELAS_STORE')">TAMBAH</v-btn>
+                                <v-spacer></v-spacer>                                
+                                <v-btn color="primary" icon outlined small class="ma-2" to="/akademik/perkuliahan/pembagiankelas/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMGBAGIAN-KELAS_STORE')">
+                                    <v-icon>mdi-plus</v-icon>
+                                </v-btn>
+                                <v-btn color="primary" icon outlined small class="ma-2">
+                                    <v-icon>mdi-printer</v-icon>
+                                </v-btn>
                                 <v-dialog v-model="dialogfrm" max-width="750px" persistent>                                    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>

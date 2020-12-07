@@ -141,8 +141,10 @@
                                         inset
                                         vertical
                                     ></v-divider>
-                                    <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" :to="{path:'/keuangan/transaksi-spp/tambah/'+transaksi_id}" :disabled="data_transaksi.status==1 || data_transaksi.status==2">TAMBAH</v-btn>                                                            
+                                    <v-spacer></v-spacer>                                        
+                                    <v-btn color="primary" icon outlined small class="ma-2" :to="{path:'/keuangan/transaksi-spp/tambah/'+transaksi_id}" :disabled="data_transaksi.status==1 || data_transaksi.status==2">
+                                        <v-icon>mdi-plus</v-icon>
+                                    </v-btn>                                        
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  

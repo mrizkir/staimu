@@ -54,7 +54,22 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer> 
-                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahMatakuliah">TAMBAH MATAKULIAH</v-btn>                                                               
+                                <v-tooltip bottom>             
+                                    <template v-slot:activator="{ on, attrs }">                                             
+                                        <v-btn 
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            color="primary" 
+                                            icon 
+                                            outlined 
+                                            small 
+                                            class="ma-2" 
+                                            @click.stop="tambahMatakuliah">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>     
+                                    </template>
+                                    <span>Tambah Matakuliah</span>                                   
+                                </v-tooltip>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nmatkul="{item}">
@@ -188,8 +203,24 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2" @click.stop="tambahPeserta" :disabled="!datatable > 0">TAMBAH PESERTA</v-btn>
+                                <v-spacer></v-spacer>                                
+                                <v-tooltip bottom>             
+                                    <template v-slot:activator="{ on, attrs }">                                             
+                                        <v-btn 
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            color="primary" 
+                                            icon 
+                                            outlined 
+                                            small 
+                                            class="ma-2" 
+                                            @click.stop="tambahPeserta"
+                                             :disabled="!datatable > 0">
+                                            <v-icon>mdi-plus</v-icon>
+                                        </v-btn>     
+                                    </template>
+                                    <span>Tambah Peserta Kelas</span>                                   
+                                </v-tooltip>
                             </v-toolbar>
                         </template>                        
                         <template v-slot:item.idkelas="{item}">

@@ -101,8 +101,10 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
-                            <v-spacer></v-spacer>
-                            <v-btn color="primary" dark class="mb-2" :to="{path:'/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">TAMBAH MATAKULIAH</v-btn>
+                            <v-spacer></v-spacer>                            
+                            <v-btn color="primary" icon outlined small class="ma-2" :to="{path:'/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">
+                                <v-icon>mdi-plus</v-icon>
+                            </v-btn>                                        
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        

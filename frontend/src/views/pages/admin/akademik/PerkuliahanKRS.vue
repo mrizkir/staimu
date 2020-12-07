@@ -69,15 +69,17 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>                               
                                 <v-btn 
                                     color="primary" 
-                                    dark 
-                                    class="mb-2" 
+                                    icon 
+                                    outlined 
+                                    small 
+                                    class="ma-2" 
                                     to="/akademik/perkuliahan/krs/tambah"
                                     v-if="$store.getters['auth/can']('AKADEMIK-PERKULIAHAN-KRS_STORE')">
-                                        TAMBAH KRS
-                                </v-btn>
+                                        <v-icon>mdi-plus</v-icon>
+                                </v-btn>                                        
                             </v-toolbar>
                             <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
                                 <v-card>
