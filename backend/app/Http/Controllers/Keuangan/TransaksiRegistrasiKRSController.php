@@ -23,8 +23,11 @@ class TransaksiRegistrasiKRSController extends Controller {
         
         $this->validate($request, [           
             'TA'=>'required',
+            'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
         ]);
+
         $ta=$request->input('TA');
+        $idsmt=$request->input('SEMESTER_AKADEMIK');
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
@@ -59,6 +62,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)
+                                                    ->where('pe3_transaksi.idsmt',$idsmt)
                                                     ->where('pe3_transaksi_detail.user_id',$this->getUserid())
                                                     ->where('pe3_transaksi_detail.kombi_id',202)                                                    
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
@@ -96,7 +100,8 @@ class TransaksiRegistrasiKRSController extends Controller {
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                                    ->where('pe3_transaksi.ta',$ta)                                                    
+                                                    ->where('pe3_transaksi.ta',$ta)     
+                                                    ->where('pe3_transaksi.idsmt',$idsmt)                                               
                                                     ->where('pe3_transaksi_detail.kombi_id',202)                                                    
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();

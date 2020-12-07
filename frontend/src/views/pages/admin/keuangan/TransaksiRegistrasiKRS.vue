@@ -210,9 +210,9 @@ export default {
         datatable:[], 
         headers: [                                                
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
-            { text: 'TANGGAL', value: 'tanggal',width:120,sortable:true },
-            { text: 'NIM', value: 'nim',sortable:true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },            
+            { text: 'TANGGAL', value: 'tanggal',width:90,sortable:true },
+            { text: 'NIM', value: 'nim',sortable:true,width:100 },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },            
             { text: 'SMT', value: 'idsmt',width:100,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
@@ -258,6 +258,7 @@ export default {
             await this.$ajax.post('/keuangan/transaksi-registrasikrs',            
             {
                 TA:this.tahun_akademik,
+                SEMESTER_AKADEMIK:this.semester_akademik
             },
             {
                 headers: {
