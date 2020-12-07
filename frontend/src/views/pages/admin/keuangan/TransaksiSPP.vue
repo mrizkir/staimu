@@ -134,6 +134,32 @@
                                 mdi-eye
                             </v-icon>                                                        
                         </template>
+                        <template v-slot:body.append v-if="datatable.length > 0">
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="7">TOTAL TRANSAKSI PAID</td>
+                                <td class="text-right" >{{totaltransaksi_paid|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="7">TOTAL TRANSAKSI UNPAID</td>
+                                <td class="text-right" >{{totaltransaksi_unpaid|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="7">TOTAL TRANSAKSI CANCELED</td>
+                                <td class="text-right" >{{totaltransaksi_canceled|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="7">TOTAL TRANSAKSI</td>
+                                <td class="text-right" >{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                        </template>   
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
                         </template>  
@@ -191,7 +217,7 @@ export default {
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },            
             { text: 'BULAN', value: 'nama_bulan',width:100,sortable:true },
             { text: 'SMT', value: 'idsmt',width:50,sortable:false },
-            { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false },
+            { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false,align:'right' },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
@@ -298,6 +324,41 @@ export default {
                 }, 300
             );
         },
+    },
+    computed:{
+        totaltransaksi_paid()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==1)
+                {
+                    total+=item.sub_total;
+                }
+            }); 
+            return total;
+        },
+        totaltransaksi_unpaid()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==0)
+                {
+                    total+=item.sub_total;
+                }
+            }); 
+            return total;
+        },
+        totaltransaksi_canceled()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==2)
+                {
+                    total+=item.sub_total;
+                }
+            }); 
+            return total;
+        }
     }, 
     watch:{
         

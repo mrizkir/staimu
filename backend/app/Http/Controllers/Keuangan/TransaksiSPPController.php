@@ -114,7 +114,7 @@ class TransaksiSPPController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'transaksi'=>$daftar_transaksi,                                                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
-                                ],200);     
+                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
     public function show (Request $request,$id)
     {
