@@ -17,7 +17,7 @@
 	</v-app>
 </template>
 <script>
-import confirm from "./components/Confirm"
+import confirm from "./components/Confirm";
 export default {	
 	name: 'PortalEkampus',
 	created(){

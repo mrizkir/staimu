@@ -74,7 +74,7 @@
                                 <v-btn color="primary" icon outlined small class="ma-2" @click.stop="addItem">
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
-                                <v-btn color="primary" icon outlined small class="ma-2">
+                                <v-btn color="primary" icon outlined small class="ma-2" @click.stop="showDialogPrintout">
                                     <v-icon>mdi-printer</v-icon>
                                 </v-btn>
                                 <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
@@ -187,12 +187,14 @@
                 </v-col>
             </v-row>
         </v-container>
+        <dialog-printout pid="registrasikrs" title="Registrasi KRS" ref="dialogprint"></dialog-printout>
     </KeuanganLayout>
 </template>
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter2 from '@/components/sidebar/FilterMode2';
+import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
     name:'TransaksiRegistrasiKRS',
     created()
@@ -347,6 +349,10 @@ export default {
                 });
             }            
         },
+        showDialogPrintout ()
+        {
+            this.$refs.dialogprint.open();
+        },
         closedialogfrm () {
             this.dialogfrm = false;            
             setTimeout(() => {
@@ -434,7 +440,8 @@ export default {
     components:{
         KeuanganLayout,
         ModuleHeader,     
-        Filter2    
+        Filter2,
+        'dialog-printout':DialogPrintoutKeuangan    
     },
 }
 </script>

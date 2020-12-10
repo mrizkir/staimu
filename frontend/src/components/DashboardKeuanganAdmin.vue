@@ -8,7 +8,7 @@
                     @click.native="$router.push('/spmb/pendaftaranbaru')"
                     dark>
                     <v-card-title class="headline">
-                        TOTAL TRANSAKSI
+                        TOTAL
                     </v-card-title>    
                     <v-card-subtitle>
                         Total transaksi keseluruhan
@@ -26,7 +26,7 @@
                     @click.native="$router.push('/spmb/pendaftaranbaru')"
                     dark>
                     <v-card-title class="headline">
-                        TRANSAKSI PAID
+                        PAID
                     </v-card-title>    
                     <v-card-subtitle>
                         Total transaksi dengan status PAID
@@ -44,7 +44,7 @@
                     @click.native="$router.push('/spmb/pendaftaranbaru')"
                     dark>
                     <v-card-title class="headline">
-                        TRANSAKSI UNPAID
+                        UNPAID
                     </v-card-title>    
                     <v-card-subtitle>
                         Total transaksi dengan status UNPAID
@@ -62,7 +62,7 @@
                     @click.native="$router.push('/spmb/pendaftaranbaru')"
                     dark>
                     <v-card-title class="headline">
-                        TRANSAKSI CANCELLED
+                        CANCELLED
                     </v-card-title>    
                     <v-card-subtitle>
                         Total transaksi dengan status CANCELLED

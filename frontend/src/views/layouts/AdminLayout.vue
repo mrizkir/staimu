@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-system-bar app dark class="green lighten-2 white--text">
+        <v-system-bar app dark :class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')">
             <strong>Hak Akses Sebagai :</strong> {{ROLE}}
 		</v-system-bar>	
         <v-app-bar app>            
