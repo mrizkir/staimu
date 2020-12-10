@@ -365,24 +365,35 @@ class NilaiKHSController extends Controller
                 if ($item->HM=='-')
                 {
                     $M='-';
+                    $daftar_nilai[]=[
+                        'no'=>$key+1,
+                        'nama_dosen'=>$nama_dosen,
+                        'kmatkul'=>$item->kmatkul,
+                        'nmatkul'=>$item->nmatkul,
+                        'sks'=>$item->sks,
+                        'HM'=>$item->HM,
+                        'AM'=>$item->AM,
+                        'M'=>$M,
+                        'nama_dosen'=>$nama_dosen,
+                    ];
                 }
                 else
                 {
                     $M=$item->sks*$item->AM;
                     $jumlah_m+=$M;
-                    $jumlah_am+=$item->AM;
-                }    
-                $daftar_nilai[]=[
-                    'no'=>$key+1,
-                    'nama_dosen'=>$nama_dosen,
-                    'kmatkul'=>$item->kmatkul,
-                    'nmatkul'=>$item->nmatkul,
-                    'sks'=>$item->sks,
-                    'HM'=>$item->HM,
-                    'AM'=>$item->AM,
-                    'M'=>$M,
-                    'nama_dosen'=>$nama_dosen,
-                ];
+                    $jumlah_am+=$item->AM;               
+                    $daftar_nilai[]=[
+                        'no'=>$key+1,
+                        'nama_dosen'=>$nama_dosen,
+                        'kmatkul'=>$item->kmatkul,
+                        'nmatkul'=>$item->nmatkul,
+                        'sks'=>$item->sks,
+                        'HM'=>$item->HM,
+                        'AM'=>number_format($item->AM,0),
+                        'M'=>number_format($M,0),
+                        'nama_dosen'=>$nama_dosen,
+                    ];
+                }                    
                 $jumlah_sks+=$item->sks;
                 $jumlah_matkul+=1;                
             }      
@@ -438,7 +449,8 @@ class NilaiKHSController extends Controller
                                                                         'jumlah_m'=>$jumlah_m,                                                                                                                                   
                                                                         'jumlah_am'=>$jumlah_am,                                                                                                                                   
                                                                         'ipk'=>$ipk,                                                                                                                                   
-                                                                        'ips'=>$ips,                                                                                                                                   
+                                                                        'ips'=>$ips, 
+                                                                        'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
                                                                     ],
                                                                     [],
                                                                     [

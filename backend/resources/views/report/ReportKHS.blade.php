@@ -90,10 +90,10 @@ h2{
                 {{ $item['HM']}}    
             </td>  
             <td style="text-align:center">                  
-                {{ number_format($item['AM'],0)}}    
+                {{ $item['AM'],0}}    
             </td>  
             <td style="text-align:center">                  
-                {{ number_format($item['M'],0)}}    
+                {{ $item['M']}}    
             </td>  
             <td>{{$item['nama_dosen']}}</td>            
         </tr>
@@ -123,6 +123,10 @@ h2{
     </tfoot>
 </table>
 <table width="100%" cellspacing="0px" cellpadding="0px">
+    <tr>
+        <td width="65%"></td>
+        <td><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
+    </tr>  
     <tr>
         <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>        
         <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>

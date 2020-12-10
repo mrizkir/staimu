@@ -500,6 +500,7 @@ class KRSController extends Controller
                                                                         'data_krs'=>$krs,
                                                                         'daftar_matkul'=>$daftar_matkul,                                                                        
                                                                         'jumlah_sks'=>$daftar_matkul->sum('sks'),
+                                                                        'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
                                                                     ],
                                                                     [],
                                                                     [

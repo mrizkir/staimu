@@ -39,16 +39,43 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR NILAI TRANSKRIP
-                            <v-spacer></v-spacer>
-                            <v-btn 
-                                color="primary" 
-                                fab 
-                                small
-                                @click.stop="printpdf"
-                                :loading="btnLoading"
-                                :disabled="btnLoading || !data_mhs.hasOwnProperty('user_id')">
-                                <v-icon>mdi-printer</v-icon>
-                            </v-btn>                            
+                            <v-spacer></v-spacer>                               
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="green" 
+                                        icon 
+                                        outlined 
+                                        small 
+                                        class="ma-2" 
+                                        @click.stop="printpdf1"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading || !data_mhs.hasOwnProperty('user_id')">
+                                        <v-icon>mdi-printer</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Cetak Transkrip Satu Kolom</span>                                   
+                            </v-tooltip>                     
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon 
+                                        outlined 
+                                        small 
+                                        class="ma-2" 
+                                        @click.stop="printpdf2"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading || !data_mhs.hasOwnProperty('user_id')">
+                                        <v-icon>mdi-printer</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Cetak Transkrip Dua Kolom</span>                                   
+                            </v-tooltip>                     
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
@@ -229,10 +256,28 @@ export default {
                 this.expanded=[item];
             }               
         },        
-        async printpdf()
+        async printpdf1()
         {
             this.btnLoading=true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf/'+this.data_mhs.user_id,                
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.file_pdf=data.pdf_file;
+                this.dialogprintpdf=true;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });                 
+        },
+        async printpdf2()
+        {
+            this.btnLoading=true;
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,                
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']

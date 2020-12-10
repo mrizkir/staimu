@@ -105,6 +105,10 @@ h2{
 </table>
 <table width="100%" cellspacing="0px" cellpadding="0px">
     <tr>
+        <td width="65%"></td>
+        <td><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
+    </tr>  
+    <tr>
         <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>
         <td style="font-weight:bold;font-size:14px;text-align:center">PENASEHAT AKADEMIK</td>
         <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>
