@@ -424,6 +424,7 @@ class NilaiKHSController extends Controller
                 'HEADER_2'=>$config['HEADER_2'],
                 'HEADER_3'=>$config['HEADER_3'],
                 'HEADER_4'=>$config['HEADER_4'],
+                'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
                 'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
             ];
             $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
