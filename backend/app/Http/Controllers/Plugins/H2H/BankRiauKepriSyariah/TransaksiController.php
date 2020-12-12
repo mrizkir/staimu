@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Plugins\H2H\BankRiauKepriSyariah;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Keuangan\TransaksiModel;

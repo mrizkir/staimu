@@ -431,6 +431,16 @@ $router->group(['prefix'=>'h2h'], function () use ($router)
 });
 $router->group(['prefix'=>'h2h','middleware'=>'auth:api'], function () use ($router)
 {
+    //setting - zoom api
+    $router->get('/zoom',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@index','as'=>'zoom.index']);
+    $router->post('/zoom/store',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@store','as'=>'zoom.store']);
+    $router->get('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@show','as'=>'zoom.show']);
+    $router->put('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@update','as'=>'zoom.update']);
+    $router->delete('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@destroy','as'=>'zoom.destroy']);
+
+    //integrasi dengan perbangkan
+    
+    //[bank riau kepri]    
     //authentication
     $router->post('/brk/auth/logout',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@logout','as'=>'brk.auth.logout']);
     $router->get('/brk/auth/refresh',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@refresh','as'=>'brk.auth.refresh']);
