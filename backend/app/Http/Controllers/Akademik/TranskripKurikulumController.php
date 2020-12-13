@@ -753,22 +753,36 @@ class TranskripKurikulumController  extends Controller
                 }               
             }
             $rpt->SetFont ('helvetica','B',6);
-            $row=$row_genap+0.2;
+            $row=$row_genap+0.1;
             $rpt->SetXY(10.3,$row);	
             $rpt->Cell(5,0.5,'Total Kredit Kumulatif',0,0,'L');
             $rpt->Cell(1,0.5,$totalSks,0,0,'C');
             
-            $row+=0.5;
+            $row+=0.3;
             $rpt->SetXY(10.3,$row);	
             $rpt->Cell(5,0.5,'Jumlah Nilai Kumulatif',0,0,'L');
             $rpt->Cell(1,0.5,$totalSks,0,0,'C');
             
-            $row+=0.5;
+            $row+=0.3;
             $rpt->SetXY(10.3,$row);	
             $rpt->Cell(5,0.5,'Indeks Prestasi Kumulatif',0,0,'L');
             $ipk=\App\Helpers\HelperAkademik::formatIPK($totalM,$totalSks);
             $rpt->Cell(1,0.5,$ipk,0,0,'C');
             
+            $row+=0.5;
+            $rpt->SetXY(10.3,$row);	
+            $rpt->Cell(5,0.5,'Tanjungpinang, '.\App\Helpers\Helper::tanggal('d F Y'),0,0,'L');
+            $row+=0.3;
+            $rpt->SetXY(10.3,$row);	
+            $rpt->Cell(5,0.5,'Wakil Ketua I',0,0,'L');
+
+            $row+=1.1;
+            $rpt->SetXY(10.3,$row);	
+            $rpt->Cell(5,0.5,'Suhardiman, M.Pd.I',0,0,'L');
+            $row+=0.3;
+            $rpt->SetXY(10.3,$row);	
+            $rpt->Cell(5,0.5,'NIDN: 2128087201 / LEKTOR',0,0,'L');
+
             $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');            
 
             $pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";            
