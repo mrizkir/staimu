@@ -562,14 +562,174 @@ class TranskripKurikulumController  extends Controller
             $tambah_genap_row=false;
             for ($i = 1; $i <= 8; $i++) {
                 $no_semester=1;
+                $daftar_matkul=MatakuliahModel::select(\DB::raw('
+                                        0 AS no,
+                                        id,
+                                        group_alias,                                    
+                                        kmatkul,
+                                        nmatkul,
+                                        sks,
+                                        semester                                                                                  
+                                    '))
+                                    ->where('kjur',$mahasiswa->kjur)
+                                    ->where('ta',$mahasiswa->tahun) 
+                                    ->where('semester',$i)  
+                                    ->orderBy('semester','ASC')                      
+                                    ->orderBy('kmatkul','ASC')    
+                                    ->get();
                 if ($i%2==0) 
                 {//genap
+                    $tambah_genap_row=true;
+                    $genap_total_m=0;
+                    $genap_total_sks=0;		
+                    foreach ($daftar_matkul as $key=>$item)
+                    {
+                        $subquery=\DB::table('pe3_nilai_matakuliah AS A')
+                                    ->select(\DB::raw('
+                                        A.id
+                                    '))
+                                    ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+                                    ->join('pe3_krs AS C','B.krs_id','C.id')
+                                    ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                                    ->where('C.user_id',$mahasiswa->user_id)
+                                    ->where('D.matkul_id',$item->id)
+                                    ->orderBy('A.n_mutu','DESC')
+                                    ->limit(1);
 
+                        $nilai=\DB::table('pe3_nilai_matakuliah AS A')
+                                    ->select(\DB::raw('
+                                        A.n_kual,                                
+                                        A.n_mutu
+                                    '))
+                                    ->joinSub($subquery,'B',function($join){
+                                        $join->on('A.id','=','B.id');
+                                    })
+                                    ->get();
+                        
+                        $rpt->setXY(10.4,$row_genap);	
+                        $rpt->Cell(0.7,0.5,$no_semester,1,null,'C');
+                        $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null,'C');
+                        $rpt->Cell(5,0.5,$item['nmatkul'],1,null);
+                        $rpt->Cell(1,0.5,$item['sks'],1,null,'C');
+                        if (isset($nilai[0]))
+                        {
+                            $HM=$nilai[0]->n_kual;
+                            $AM=number_format($nilai[0]->n_mutu,0);
+                            $M=$AM*$item->sks;
+
+                            $rpt->Cell(1,0.5,$AM,1,null,'C');
+                            $rpt->Cell(1,0.5,$HM,1,null,'C');
+                        }
+                        else
+                        {
+                            $rpt->Cell(1,0.5,'-',1,null,'C');
+                            $rpt->Cell(1,0.5,'-',1,null,'C');
+                        }
+                        $rpt->Cell(0.1,0.5,'');				
+                        $row_genap+=0.5;
+                        $no_semester++;
+                    }
                 }
                 else
                 {//ganjil
+                    $tambah_ganjil_row=true;
+                    $ganjil_total_m=0;
+                    $ganjil_total_sks=0;
+                    foreach ($daftar_matkul as $key=>$item)
+                    {
+                        $subquery=\DB::table('pe3_nilai_matakuliah AS A')
+                                    ->select(\DB::raw('
+                                        A.id
+                                    '))
+                                    ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+                                    ->join('pe3_krs AS C','B.krs_id','C.id')
+                                    ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                                    ->where('C.user_id',$mahasiswa->user_id)
+                                    ->where('D.matkul_id',$item->id)
+                                    ->orderBy('A.n_mutu','DESC')
+                                    ->limit(1);
 
+                        $nilai=\DB::table('pe3_nilai_matakuliah AS A')
+                                    ->select(\DB::raw('
+                                        A.n_kual,                                
+                                        A.n_mutu
+                                    '))
+                                    ->joinSub($subquery,'B',function($join){
+                                        $join->on('A.id','=','B.id');
+                                    })
+                                    ->get();
+                        $rpt->setXY(0.1,$row_ganjil);	                                        				
+                        $rpt->Cell(0.7,0.5,$no_semester,1,null,'C');
+                        $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null,'C');
+                        $rpt->Cell(5,0.5,$item['nmatkul'],1,null);
+                        $rpt->Cell(1,0.5,$item['sks'],1,null,'C');
+                        if (isset($nilai[0]))
+                        {
+                            $HM=$nilai[0]->n_kual;
+                            $AM=number_format($nilai[0]->n_mutu,0);
+                            $M=$AM*$item->sks;
+
+                            $rpt->Cell(1,0.5,$AM,1,null,'C');
+                            $rpt->Cell(1,0.5,$HM,1,null,'C');
+                        }
+                        else
+                        {
+                            $rpt->Cell(1,0.5,'-',1,null,'C');
+                            $rpt->Cell(1,0.5,'-',1,null,'C');                            
+                        }                        
+                        $rpt->Cell(0.1,0.5,'');				
+                        $row_ganjil+=0.5;
+                        $no_semester++;
+                    }
                 }
+                if ($tambah_ganjil_row && $tambah_genap_row) 
+                {
+                    $tambah_ganjil_row=false;
+                    $tambah_genap_row=false;						
+                    if ($row_ganjil < $row_genap){ // berarti tambah row yang ganjil
+                        $sisa=$row_ganjil + ($row_genap-$row_ganjil);
+                        for ($c=$row_ganjil;$c <= $row_genap;$c+=0.5) {
+                            $rpt->setXY(0.1,$c);
+                            $rpt->Cell(10.2,0.5,'',1,0);
+                        }
+                        $row_ganjil=$sisa;
+                    }else{ // berarti tambah row yang genap
+                        $sisa=$row_genap + ($row_ganjil-$row_genap);						
+                        for ($c=$row_genap;$c < $row_ganjil;$c+=4) {
+                            $rpt->setXY(10.4,$c);
+                            $rpt->Cell(10.2,0.5,'',1,0);
+                        }
+                        $row_genap=$sisa;
+                    }
+                    //ganjil
+                    $rpt->setXY(2.3,$row_ganjil);	                                        				
+                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');                    
+
+                    $row_ganjil+=0.5;
+                    $rpt->setXY(2.3,$row_ganjil);	                                        				
+                    $rpt->Cell(5,0.5,'Indeks Prestasi Semester',1,null,'L');                    
+
+                    $row_ganjil+=0.5;
+                    $rpt->setXY(2.3,$row_ganjil);	                                        				                    
+                    $rpt->Cell(5,0.5,'Indeks Prestasi Kumulatif',1,null,'L');  
+
+                    $row_ganjil+=0.6;
+
+                    //genap                    
+                    $rpt->setXY(12.6,$row_genap);	                                        				
+                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');                    
+
+                    $row_genap+=0.5;
+                    $rpt->setXY(12.6,$row_genap);	                                        				
+                    $rpt->Cell(5,0.5,'Indeks Prestasi Semester',1,null,'L'); 
+                                       
+                    $row_genap+=0.5;
+                    $rpt->setXY(12.6,$row_genap);	                                        				
+                    $rpt->Cell(5,0.5,'Indeks Prestasi Kumulatif',1,null,'L'); 
+                    
+                    $row_genap+=0.6;
+                }
+                
             }
             // $jumlah_matkul_all=0;
             // $jumlah_sks_all=0;
