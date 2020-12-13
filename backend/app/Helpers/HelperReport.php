@@ -53,7 +53,7 @@ class HelperReport
                 $rpt->Cell (0,0.5,$config['HEADER_ADDRESS'],0,2,'C');
                 $rpt->Line(0,3,$rpt->GetPageWidth(),3);
                 // $rpt->Line(20, 45, 210-20, 45); 
-                $this->currentRow=3.5;   
+                $this->currentRow=3.2;   
             break;
             
         }           

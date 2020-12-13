@@ -463,7 +463,7 @@ class TranskripKurikulumController  extends Controller
             $rpt->setXY(0.5,$row);			
             $rpt->Cell(0,0.5,'TRANSKRIP NILAI SEMESTER',0,2,'C');
 
-            $row+=1;
+            $row+=0.6;
             $rpt->setXY(0.5,$row);	            
             // left
             $rpt->SetFont ('helvetica','B',8);
@@ -531,7 +531,7 @@ class TranskripKurikulumController  extends Controller
             $rpt->Cell(0.3,0.5,':',0);
             $rpt->Cell(6,0.5,$mahasiswa->ta,0);
 
-            $row+=1;
+            $row+=0.5;
             $rpt->setXY(0.1,$row);	     
             //ganjil                        				
             $rpt->Cell(0.7,0.5,'NO',1,null,'C');
