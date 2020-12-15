@@ -532,7 +532,8 @@ class TranskripKurikulumController  extends Controller
             $rpt->Cell(6,0.5,$mahasiswa->ta,0);
 
             $row+=0.5;
-            $rpt->setXY(0.5,$row);	     
+            $rpt->setXY(0.5,$row);	
+            $rpt->SetFont ('helvetica','B',8);     
             //ganjil                        				
             $rpt->Cell(0.7,0.5,'NO',1,null,'C');
             $rpt->Cell(1.5,0.5,'KODE',1,null,'C');
@@ -558,12 +559,12 @@ class TranskripKurikulumController  extends Controller
             $row_ganjil=$row;
             $row_genap = $row;
 
-            $rpt->setXY(0.5,$row);	
-            $rpt->SetFont ('helvetica','',6);
+            // $rpt->setXY(0.5,$row);            
             $tambah_ganjil_row=false;		
             $tambah_genap_row=false;
             for ($i = 1; $i <= 8; $i++) {
                 $no_semester=1;
+                $rpt->SetFont ('helvetica','',6);
                 $daftar_matkul=MatakuliahModel::select(\DB::raw('
                                         0 AS no,
                                         id,
@@ -719,6 +720,7 @@ class TranskripKurikulumController  extends Controller
                         }
                         $row_genap=$sisa;
                     }
+                    $rpt->SetFont ('helvetica','B',6);
                     //ganjil
                     $rpt->setXY(0.5,$row_ganjil);	                                        				
                     $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');                    
@@ -740,7 +742,7 @@ class TranskripKurikulumController  extends Controller
                     $rpt->Cell(1,0.5,$ipk_ganjil,1,null,'C');
 
                     $row_ganjil+=0.6;
-
+                    
                     //genap                    
                     $rpt->setXY(10.8,$row_genap);	    
                     $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');                                                        				
