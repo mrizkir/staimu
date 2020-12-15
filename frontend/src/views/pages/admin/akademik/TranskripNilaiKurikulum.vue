@@ -78,12 +78,42 @@
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
-                           <v-icon
-                                small
-                                class="mr-2"
-                                @click.stop="viewItem(item)">
-                                mdi-eye
-                            </v-icon> 
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon 
+                                        outlined 
+                                        x-small 
+                                        class="ma-2" 
+                                        @click.stop="viewItem(item)"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading">
+                                        <v-icon>mdi-eye</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Detail Transkrip</span>                                   
+                            </v-tooltip> 
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon 
+                                        outlined 
+                                        x-small 
+                                        class="ma-2" 
+                                        @click.stop="printpdf2(item)"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading">
+                                        <v-icon>mdi-printer</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Cetak Transkrip Dua Kolom</span>                                   
+                            </v-tooltip>                 
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -99,6 +129,25 @@
                 </v-col>
             </v-row>            
         </v-container>
+        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Print to PDF</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-btn
+                        color="green"
+                        text
+                        :href="$api.url+'/'+file_pdf">                            
+                        Download
+                    </v-btn>                           
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                </v-card-actions>
+            </v-card>            
+        </v-dialog>
     </AkademikLayout>
 </template>
 <script>
@@ -154,11 +203,12 @@ export default {
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                           
             { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                           
             { text: 'IPK SEMENTARA', value: 'ipk',sortable:true,width:100, },                           
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search:'', 
 
-        data_mhs:{}, 
+        dialogprintpdf:false,
+        file_pdf:null
     }),
     methods: {
         changeTahunPendaftaran (tahun)
@@ -204,7 +254,32 @@ export default {
         viewItem(item)
         {
             this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
-        }
+        },
+        async printpdf2(item)
+        {
+            this.btnLoading=true;
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.file_pdf=data.pdf_file;
+                this.dialogprintpdf=true;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });                 
+        },
+        closedialogprintpdf () {                  
+            setTimeout(() => {
+                this.file_pdf=null;
+                this.dialogprintpdf = false;      
+                }, 300
+            );
+        }, 
     },
     watch:{
         tahun_pendaftaran()
