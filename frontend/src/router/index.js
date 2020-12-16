@@ -549,6 +549,24 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/NilaiIsiPerKelasMHSDetail.vue'),		
 	},	
 	{
+		path: '/akademik/nilai/matakuliah/isiperdosen',
+		name: 'AkademikNilaiIsiPerDosen',
+		meta:{
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER DOSEN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerDosen.vue'),		
+	},	
+	{
+		path: '/akademik/nilai/matakuliah/isiperdosen/:kelas_mhs_id',
+		name: 'AkademikNilaiIsiPerDosenDetail',
+		meta:{
+			title: "AKADEMIK - ISI NILAI MATAKULIAH PER DOSEN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiIsiPerDosenDetail.vue'),		
+	},	
+	{
 		path: '/akademik/nilai/matakuliah/isiperkrs',
 		name: 'AkademikNilaiIsiPerKRS',
 		meta:{

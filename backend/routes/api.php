@@ -308,7 +308,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/perkuliahan/krs/printpdf/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa|dosenwali|puslahta'],'uses'=>'Akademik\KRSController@printpdf','as'=>'krs.printpdf']);
     
     //akademik - perkuliahan - pembagian kelas
-    $router->post('/akademik/perkuliahan/pembagiankelas',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|mahasiswa'],'uses'=>'Akademik\PembagianKelasController@index','as'=>'pembagiankelas.index']);
+    $router->post('/akademik/perkuliahan/pembagiankelas',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|mahasiswa|dosen'],'uses'=>'Akademik\PembagianKelasController@index','as'=>'pembagiankelas.index']);
     $router->post('/akademik/perkuliahan/pembagiankelas/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PembagianKelasController@store','as'=>'pembagiankelas.store']);
     $router->post('/akademik/perkuliahan/pembagiankelas/pengampu',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PembagianKelasController@pengampu','as'=>'pembagiankelas.pengampu']);
     $router->get('/akademik/perkuliahan/pembagiankelas/matakuliah/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Akademik\PembagianKelasController@matakuliah','as'=>'pembagiankelas.matakuliah']);

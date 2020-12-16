@@ -135,7 +135,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                
-                <v-subheader>KEMAHASISWAAN</v-subheader>
+                <v-subheader v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">KEMAHASISWAAN</v-subheader>
                 <v-list-item link to="/akademik/kemahasiswaan/daftarmahasiswa" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-book</v-icon>
@@ -146,7 +146,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>              
-                <v-subheader>PERKULIAHAN</v-subheader>                         
+                <v-subheader v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_BROWSE')">PERKULIAHAN</v-subheader>                         
                 <v-list-group group="/akademik/perkuliahan/penyelenggaraan" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" color="green">
                     <template v-slot:activator>
                         <v-list-item-icon class="mr-2">
@@ -284,7 +284,7 @@
 					</div>
                 </v-list-group>
                 <v-subheader>NILAI</v-subheader> 
-                <v-list-group group="/akademik/nilai/matakuliah" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE') && dashboard=='puslahta'" color="green">
+                <v-list-group group="/akademik/nilai/matakuliah" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_BROWSE') && (dashboard=='puslahta' || dashboard=='dosen')" color="green">
                     <template v-slot:activator>
                         <v-list-item-icon class="mr-2">
                             <v-icon>mdi-format-columns</v-icon>
@@ -294,6 +294,16 @@
                         </v-list-item-content>							
                     </template>
 					<div>
+						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_STORE') && dashboard=='dosen'" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/nilai/matakuliah/isiperdosen" color="white">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    PER KELAS MHS
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 						
 						<v-list-item link v-if="CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_STORE') && dashboard=='puslahta'" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" to="/akademik/nilai/matakuliah/isiperkelasmhs" color="white">
                             <v-list-item-icon class="mr-2">
                                 <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
@@ -373,7 +383,7 @@ export default {
     name:'AkademikLayout',     
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];          
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                  
     },
     props:{
         showrightsidebar:{

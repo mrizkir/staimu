@@ -28,7 +28,7 @@ class PembagianKelasController extends Controller
 
         $ta=$request->input('ta');        
         $semester_akademik=$request->input('semester_akademik');
-
+        
         $pembagiankelas=PembagianKelasModel::select(\DB::raw('
                             pe3_kelas_mhs.id,
                             pe3_kelas_mhs.idkelas,                            
@@ -49,10 +49,20 @@ class PembagianKelasController extends Controller
                             pe3_kelas_mhs.updated_at                   
                         '))
                         ->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-                        ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')                            
+                        ->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')
                         ->where('pe3_kelas_mhs.tahun',$ta)
-                        ->where('pe3_kelas_mhs.idsmt',$semester_akademik)                                              
-                        ->get();
+                        ->where('pe3_kelas_mhs.idsmt',$semester_akademik);                 
+        if ($this->hasRole('dosen'))
+        {
+            $pembagiankelas=$pembagiankelas->where('pe3_dosen.user_id',$this->getUserid())                                
+                                ->get();
+        }
+        else
+        {              
+            $pembagiankelas=$pembagiankelas->get();
+        }
+
+        
                         
         $pembagiankelas->transform(function ($item,$key){              
             $item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);          
