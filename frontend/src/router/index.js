@@ -667,6 +667,16 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/system/Email.vue'),		
 	},
+	//plugins
+	{
+		path: '/system-setting/zoom',
+		name: 'SettingZoom',
+		meta:{
+			title: "SETTING - ZOOM",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/Zoom.vue'),		
+	},	
 	{
 		path: '/system-users',
 		name: 'SystemUsers',
