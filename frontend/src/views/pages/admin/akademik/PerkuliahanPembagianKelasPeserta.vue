@@ -31,7 +31,7 @@
         <v-container fluid v-if="data_kelas_mhs">        
             <v-row>
                 <v-col cols="12">                            
-                    <DataKelasMHS :datakelas="data_kelas_mhs" />
+                    <DataKelasMHS :datakelas="data_kelas_mhs" url="/akademik/perkuliahan/pembagiankelas/daftar" />
                 </v-col>
             </v-row>
             <v-row>

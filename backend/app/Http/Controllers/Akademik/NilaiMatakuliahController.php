@@ -43,7 +43,7 @@ class NilaiMatakuliahController extends Controller
     }
     public function pesertakelas (Request $request,$id)
     {
-        $pembagian = PembagianKelasModel::find($id); 
+        $pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id',$this->getUserid())->find($id):PembagianKelasModel::find($id);                
         
         if (is_null($pembagian))
         {
@@ -147,6 +147,12 @@ class NilaiMatakuliahController extends Controller
                                     'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+    }
+    public function storeperkelas(Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+
+        
     }
     public function storeperkrs(Request $request)
     {

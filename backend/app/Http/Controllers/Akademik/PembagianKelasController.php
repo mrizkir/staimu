@@ -262,7 +262,8 @@ class PembagianKelasController extends Controller
     }
     public function peserta (Request $request,$id)
     {
-        $pembagian = PembagianKelasModel::find($id); 
+        
+        $pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id',$this->getUserid())->find($id):PembagianKelasModel::find($id);                
         
         if (is_null($pembagian))
         {
