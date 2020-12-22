@@ -71,6 +71,71 @@
                             <template v-slot:item.kjur="{item}">
                                 {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
                             </template>                        
+                            <template v-slot:item.nilai_tugas="props"> 
+                                <v-numeric                
+                                    v-model="props.item.nilai_tugas"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    @input="updateNilaiTugas"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas != null">{{props.item.nilai_tugas}}</v-chip>        
+                            </template>                        
+                            <template v-slot:item.aktif="props"> 
+                                <v-numeric                
+                                    v-model="props.item.aktif"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.aktif != null">{{props.item.aktif}}</v-chip>        
+                            </template>                        
+                            <template v-slot:item.nilai_uts="props"> 
+                                <v-numeric                
+                                    v-model="props.item.nilai_uts"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_uts != null">{{props.item.nilai_uts}}</v-chip>        
+                            </template>                        
+                            <template v-slot:item.nilai_uas="props"> 
+                                <v-numeric                
+                                    v-model="props.item.nilai_uas"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_uas != null">{{props.item.nilai_uas}}</v-chip>        
+                            </template>                        
                             <template v-slot:item.n_kuan="props"> 
                                 <v-numeric                
                                     v-model="props.item.n_kuan"
@@ -97,7 +162,7 @@
                             </template>  
                             <template v-slot:body.append v-if="datatable_peserta.length > 0">
                                 <tr>
-                                    <td class="text-right" colspan="8">
+                                    <td class="text-right" colspan="9">
                                         <v-btn 
                                             class="primary mt-2 mb-2"                                 
                                             @click.stop="save" 
@@ -167,12 +232,13 @@ export default {
         datatable_peserta:[],                 
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
-            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                                   
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false },                                                   
-            { text: 'NILAI HURUP', value: 'n_kual', sortable:false },                                                   
+            { text: 'NAMA', value: 'nama_mhs', sortable:false,width:250   },   
+            { text: 'NILAI TUGAS', value: 'nilai_tugas', sortable:false,width:100   },   
+            { text: 'NILAI AKTIF', value: 'aktif', sortable:false,width:100   },   
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable:false,width:100   },                           
+            { text: 'NILAI UAS', value: 'nilai_uas', sortable:false,width:100  },                                                   
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                                                   
+            { text: 'NILAI HURUP', value: 'n_kual', sortable:false,width:100 },                                                   
         ],                
 
         //formdata
@@ -228,7 +294,13 @@ export default {
                 this.datatable_peserta=data.peserta;                                
                 this.datatableLoading=false;
             })   
-        },          
+        },      
+        updateNilaiTugas(value)
+        {
+            let vm = this;
+
+            console.log(vm,value);
+        },    
         async save()
         {
             this.btnLoadingTable=true;
@@ -241,7 +313,7 @@ export default {
                     n_kual:item.n_kual
                 });
             });         
-            await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkelas',
+            await this.$ajax.post('/akademik/nilai/matakuliah/perdosen/storeperdosen',
                 {
                     kelas_mhs_id:this.kelas_mhs_id,
                     daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
@@ -259,9 +331,9 @@ export default {
             
         }      
     },
-    watch:{
+    computed:{
         
-    },    
+    },  
     components:{
         AkademikLayout,
         ModuleHeader,     

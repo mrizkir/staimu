@@ -21,7 +21,7 @@
                     colored-border
                     type="info"
                     >
-                     User dengan role Puslahta bertanggungjawab terhadap proses akademik mahasiswa.
+                     User dengan role Puslahta bertanggungjawab terhadap proses akademik khususnya pengolahan data nilai mahasiswa.
                 </v-alert>
             </template>
         </ModuleHeader>

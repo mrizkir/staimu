@@ -62,8 +62,12 @@ class NilaiMatakuliahController extends Controller
                                         pe3_register_mahasiswa.tahun,
                                         pe3_register_mahasiswa.idkelas,
                                         pe3_register_mahasiswa.tahun,
-                                        pe3_register_mahasiswa.kjur,
-                                        pe3_nilai_matakuliah.n_kuan,
+                                        pe3_register_mahasiswa.kjur,                                                                                                                   
+                                        COALESCE(pe3_nilai_matakuliah.nilai_tugas_individu,0) AS nilai_tugas,
+                                        COALESCE(pe3_nilai_matakuliah.nilai_absen,0) AS aktif,
+                                        COALESCE(pe3_nilai_matakuliah.nilai_uts,0) AS nilai_uts,
+                                        COALESCE(pe3_nilai_matakuliah.nilai_uas,0) AS nilai_uas,
+                                        COALESCE(pe3_nilai_matakuliah.n_kuan,0) AS n_kuan,                                        
                                         pe3_nilai_matakuliah.n_kual,
                                         pe3_nilai_matakuliah.created_at,
                                         pe3_nilai_matakuliah.updated_at
@@ -80,7 +84,7 @@ class NilaiMatakuliahController extends Controller
                                 'pid'=>'fetchdata',                                                                                         
                                 'peserta'=>$peserta,                                            
                                 'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
-                            ],200);
+                            ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }
     public function perkrs (Request $request,$id)
@@ -147,6 +151,29 @@ class NilaiMatakuliahController extends Controller
                                     'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+    }
+    public function storeperdosen(Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+
+        $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+        $request->merge(['daftar_nilai'=>$daftar_nilai]);        
+
+        $this->validate($request, [      
+            'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',     
+            'daftar_nilai.*'=>'required',            
+        ]);
+        $jumlah_matkul=0;
+        foreach ($daftar_nilai as $v)
+        {
+            $jumlah_matkul+=1;
+        }
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store', 
+                                    'daftar_nilai'=>$daftar_nilai,                                     
+                                    'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+                                ],200);     
     }
     public function storeperkelas(Request $request)
     {

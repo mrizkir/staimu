@@ -324,10 +324,11 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //akademik - perkuliahan - nilai
     $router->post('/akademik/nilai/matakuliah',['middleware'=>['role:superadmin|akademik|puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@index','as'=>'nilaimatakuliah.index']);
     //id disini adalah kelas_mhs_id
-    $router->get('/akademik/nilai/matakuliah/pesertakelas/{id}',['middleware'=>['role:superadmin|akademik|puslahta|dosen'],'uses'=>'Akademik\NilaiMatakuliahController@pesertakelas','as'=>'nilaimatakuliah.pesertakelas']);
-    $router->post('/akademik/nilai/matakuliah/perkrs/storeperkelas',['middleware'=>['role:superadmin|akademik|puslahta|dosen'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkelas','as'=>'nilaimatakuliah.storeperkelas']);
-    $router->get('/akademik/nilai/matakuliah/perkrs/{id}',['middleware'=>['role:superadmin|akademik|puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@perkrs','as'=>'nilaimatakuliah.perkrs']);
-    $router->post('/akademik/nilai/matakuliah/perkrs/storeperkrs',['middleware'=>['role:superadmin|akademik|puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkrs','as'=>'nilaimatakuliah.storeperkrs']);
+    $router->get('/akademik/nilai/matakuliah/pesertakelas/{id}',['middleware'=>['role:puslahta|dosen'],'uses'=>'Akademik\NilaiMatakuliahController@pesertakelas','as'=>'nilaimatakuliah.pesertakelas']);
+    $router->post('/akademik/nilai/matakuliah/perkelas/storeperkelas',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkelas','as'=>'nilaimatakuliah.storeperkelas']);
+    $router->post('/akademik/nilai/matakuliah/perdosen/storeperdosen',['middleware'=>['role:dosen'],'uses'=>'Akademik\NilaiMatakuliahController@storeperdosen','as'=>'nilaimatakuliah.storeperdosen']);
+    $router->get('/akademik/nilai/matakuliah/perkrs/{id}',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@perkrs','as'=>'nilaimatakuliah.perkrs']);
+    $router->post('/akademik/nilai/matakuliah/perkrs/storeperkrs',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkrs','as'=>'nilaimatakuliah.storeperkrs']);
 
     //transkrip khs 
     $router->post('/akademik/nilai/khs',['uses'=>'Akademik\NilaiKHSController@index','as'=>'khs.index']);
