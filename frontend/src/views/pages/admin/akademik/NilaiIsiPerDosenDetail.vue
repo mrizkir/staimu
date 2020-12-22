@@ -70,27 +70,11 @@
                             </template>
                             <template v-slot:item.kjur="{item}">
                                 {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
-                            </template>                        
-                            <template v-slot:item.nilai_tugas="props"> 
+                            </template>             
+                            <template v-slot:item.nilai_absen="props"> 
                                 <v-numeric                
-                                    v-model="props.item.nilai_tugas"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
-                                    @input="updateNilaiTugas"
-                                    style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas != null">{{props.item.nilai_tugas}}</v-chip>        
-                            </template>                        
-                            <template v-slot:item.aktif="props"> 
-                                <v-numeric                
-                                    v-model="props.item.aktif"
+                                    @input="updateNKuan(props)"
+                                    v-model="props.item.nilai_absen"
                                     text
                                     :min="0"
                                     :max="100"
@@ -102,10 +86,62 @@
                                     :calcIcon="null"
                                     style="width:65px">
                                 </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.aktif != null">{{props.item.aktif}}</v-chip>        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_absen != null">{{props.item.nilai_absen}}</v-chip>        
+                            </template>          
+                            <template v-slot:item.nilai_quiz="props"> 
+                                <v-numeric               
+                                    @input="updateNKuan(props)" 
+                                    v-model="props.item.nilai_quiz"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_quiz != null">{{props.item.nilai_quiz}}</v-chip>        
+                            </template>                        
+                            <template v-slot:item.nilai_tugas_individu="props"> 
+                                <v-numeric                
+                                    @input="updateNKuan(props)"
+                                    v-model="props.item.nilai_tugas_individu"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas_individu != null">{{props.item.nilai_tugas_individu}}</v-chip>        
+                            </template>                        
+                            <template v-slot:item.nilai_tugas_kelompok="props"> 
+                                <v-numeric            
+                                    @input="updateNKuan(props)"    
+                                    v-model="props.item.nilai_tugas_kelompok"
+                                    text
+                                    :min="0"
+                                    :max="100"
+                                    locale="en-US"
+                                    :useGrouping="false"
+                                    precision="2"
+                                    dense
+                                    :useCalculator="false"
+                                    :calcIcon="null"
+                                    style="width:65px">
+                                </v-numeric>                        
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas_kelompok != null">{{props.item.nilai_tugas_kelompok}}</v-chip>        
                             </template>                        
                             <template v-slot:item.nilai_uts="props"> 
                                 <v-numeric                
+                                    @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uts"
                                     text
                                     :min="0"
@@ -122,6 +158,7 @@
                             </template>                        
                             <template v-slot:item.nilai_uas="props"> 
                                 <v-numeric                
+                                    @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uas"
                                     text
                                     :min="0"
@@ -136,20 +173,7 @@
                                 </v-numeric>                        
                                 <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_uas != null">{{props.item.nilai_uas}}</v-chip>        
                             </template>                        
-                            <template v-slot:item.n_kuan="props"> 
-                                <v-numeric                
-                                    v-model="props.item.n_kuan"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
-                                    style="width:65px">
-                                </v-numeric>                        
+                            <template v-slot:item.n_kuan="props">                                                     
                                 <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>        
                             </template>                        
                             <template v-slot:item.n_kual="props">                                
@@ -162,7 +186,7 @@
                             </template>  
                             <template v-slot:body.append v-if="datatable_peserta.length > 0">
                                 <tr>
-                                    <td class="text-right" colspan="9">
+                                    <td class="text-right" colspan="12">
                                         <v-btn 
                                             class="primary mt-2 mb-2"                                 
                                             @click.stop="save" 
@@ -233,8 +257,10 @@ export default {
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false,width:250   },   
-            { text: 'NILAI TUGAS', value: 'nilai_tugas', sortable:false,width:100   },   
-            { text: 'NILAI AKTIF', value: 'aktif', sortable:false,width:100   },   
+            { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable:false,width:100   },   
+            { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable:false,width:100   },   
+            { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable:false,width:100   },   
+            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable:false,width:100   },               
             { text: 'NILAI UTS', value: 'nilai_uts', sortable:false,width:100   },                           
             { text: 'NILAI UAS', value: 'nilai_uas', sortable:false,width:100  },                                                   
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                                                   
@@ -295,11 +321,44 @@ export default {
                 this.datatableLoading=false;
             })   
         },      
-        updateNilaiTugas(value)
+        updateNKuan(props)
         {
-            let vm = this;
-
-            console.log(vm,value);
+            var nilai_absen=0;
+            if (props.item.nilai_absen>0)
+            {
+                nilai_absen=0.10*props.item.nilai_absen;
+            }
+            
+            var nilai_quiz=0;
+            if (props.item.nilai_quiz>0)
+            {
+                nilai_quiz=0.20*props.item.nilai_quiz;
+            }
+            
+            var nilai_tugas_individu=0;
+            if (props.item.nilai_tugas_individu>0)
+            {
+                nilai_tugas_individu=0.15*props.item.nilai_tugas_individu;
+            }
+            
+            var nilai_tugas_kelompok=0;
+            if (props.item.nilai_tugas_kelompok>0)
+            {
+                nilai_tugas_kelompok=0.15*props.item.nilai_tugas_kelompok;
+            }
+            
+            var nilai_uts=0;
+            if (props.item.nilai_uts>0)
+            {
+                nilai_uts=0.20*props.item.nilai_uts;
+            }
+            var nilai_uas=0;
+            if (props.item.nilai_uas>0)
+            {
+                nilai_uas=0.20*props.item.nilai_uas;
+            }
+            
+            props.item.n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);
         },    
         async save()
         {
