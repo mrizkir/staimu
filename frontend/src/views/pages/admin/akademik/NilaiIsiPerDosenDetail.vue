@@ -72,106 +72,52 @@
                                 {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
                             </template>             
                             <template v-slot:item.nilai_absen="props"> 
-                                <v-numeric                
-                                    @input="updateNKuan(props)"
+                                <VAngkaNilai 
+                                    @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_absen"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                    dense 
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_absen != null">{{props.item.nilai_absen}}</v-chip>        
+                                </VAngkaNilai>                                
                             </template>          
                             <template v-slot:item.nilai_quiz="props"> 
-                                <v-numeric               
-                                    @input="updateNKuan(props)" 
-                                    v-model="props.item.nilai_quiz"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                <VAngkaNilai               
+                                    @change="updateNKuan(props)" 
+                                    v-model="props.item.nilai_quiz"                                    
+                                    dense                                    
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_quiz != null">{{props.item.nilai_quiz}}</v-chip>        
+                                </VAngkaNilai>                                                        
                             </template>                        
                             <template v-slot:item.nilai_tugas_individu="props"> 
-                                <v-numeric                
+                                <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_tugas_individu"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                    v-model="props.item.nilai_tugas_individu"                                    
+                                    dense                                    
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas_individu != null">{{props.item.nilai_tugas_individu}}</v-chip>        
+                                </VAngkaNilai>                                                        
                             </template>                        
                             <template v-slot:item.nilai_tugas_kelompok="props"> 
-                                <v-numeric            
+                                <VAngkaNilai            
                                     @input="updateNKuan(props)"    
-                                    v-model="props.item.nilai_tugas_kelompok"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                    v-model="props.item.nilai_tugas_kelompok"                                    
+                                    dense                                    
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_tugas_kelompok != null">{{props.item.nilai_tugas_kelompok}}</v-chip>        
+                                </VAngkaNilai>                                                        
                             </template>                        
                             <template v-slot:item.nilai_uts="props"> 
-                                <v-numeric                
+                                <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uts"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                    v-model="props.item.nilai_uts"                                    
+                                    dense                                    
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_uts != null">{{props.item.nilai_uts}}</v-chip>        
+                                </VAngkaNilai>                                                        
                             </template>                        
                             <template v-slot:item.nilai_uas="props"> 
-                                <v-numeric                
+                                <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uas"
-                                    text
-                                    :min="0"
-                                    :max="100"
-                                    locale="en-US"
-                                    :useGrouping="false"
-                                    precision="2"
-                                    dense
-                                    :useCalculator="false"
-                                    :calcIcon="null"
+                                    v-model="props.item.nilai_uas"                                    
+                                    dense                                    
                                     style="width:65px">
-                                </v-numeric>                        
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.nilai_uas != null">{{props.item.nilai_uas}}</v-chip>        
+                                </VAngkaNilai>                                                        
                             </template>                        
                             <template v-slot:item.n_kuan="props">                                                     
                                 <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>        
@@ -211,7 +157,7 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import DataKelasMHS from '@/components/DataKelasMHS';
-
+import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'NilaiIsiPerKelasMHSDetail',
     created () {
@@ -396,7 +342,8 @@ export default {
     components:{
         AkademikLayout,
         ModuleHeader,     
-        DataKelasMHS       
+        DataKelasMHS,
+        VAngkaNilai       
     },
 }
 </script>

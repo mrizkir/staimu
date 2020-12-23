@@ -18,14 +18,14 @@ export default {
     mixins: [mixin],
     data: () => ({        
         fractDigitsEdited: false,
-        fractPart: '0',
+        fractPart: null,
         isFocused:false
     }),
     methods: {
         clearValue()
         {
-            this.dataValue = 0;
-            this.fractPart = '0';
+            this.dataValue = 0.00;
+            this.fractPart = null;
             this.fractDigitsEdited = false;
         },
         setFocus(val)
@@ -62,13 +62,13 @@ export default {
 
             if (numericButtons.includes(keyEvent.key)) 
             {
-                if (this.fractDigitsEdited && this.fractPart.length <=1) 
+                if (this.fractDigitsEdited) 
                 {
-                    if (keyEvent.key === '0') 
+                    if (this.fractPart == null)
                     {
                         this.fractPart = keyEvent.key;
-                    } 
-                    else
+                    }                    
+                    else if (this.fractPart.length <= 1)
                     {
                         this.fractPart += keyEvent.key.toString();
                     }                    
@@ -82,7 +82,11 @@ export default {
             {
                 if (this.fractDigitsEdited) 
                 {
-                    this.fractPart = this.fractPart.length <= 1 ? '0' : this.fractPart.substring(0, this.fractPart.length - 1);
+                    this.fractPart = this.fractPart.length < 1 ? null : this.fractPart.substring(0, this.fractPart.length - 1);
+                    if (this.fractPart === null)
+                    {
+                        this.fractDigitsEdited=false;
+                    }
                 } 
                 else 
                 {
@@ -92,9 +96,8 @@ export default {
             else if (['.'].includes(keyEvent.key)) 
             {
                 this.fractDigitsEdited = !this.fractDigitsEdited;
-            }
-            strVal = strVal + '.' + this.fractPart;
-            let result = parseFloat(strVal).toFixed(2);
+            }            
+            let result = this.fractPart==null?parseFloat(strVal).toFixed(2):parseFloat(strVal + '.' + this.fractPart).toFixed(2);
             if (result >=0.00 && result <= 100.00)
             {
                 this.dataValue=result;

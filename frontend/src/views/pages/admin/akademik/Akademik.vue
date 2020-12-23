@@ -32,7 +32,7 @@
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
         <v-container fluid>            
-            <VAngkaNilai v-model="msg" outlined></VAngkaNilai>
+            
         </v-container>
     </AkademikLayout>
 </template>
@@ -40,7 +40,6 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter1 from '@/components/sidebar/FilterMode1';
-import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'Akademik',
     created ()
@@ -98,7 +97,6 @@ export default {
         AkademikLayout,
         ModuleHeader,           
         Filter1,      
-        VAngkaNilai  
     },
 }
 </script>
