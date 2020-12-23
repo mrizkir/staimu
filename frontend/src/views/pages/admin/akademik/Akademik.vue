@@ -32,7 +32,7 @@
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
         <v-container fluid>            
-            
+            <VAngkaNilai v-model="msg" outlined></VAngkaNilai>
         </v-container>
     </AkademikLayout>
 </template>
@@ -40,6 +40,7 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter1 from '@/components/sidebar/FilterMode1';
+import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'Akademik',
     created ()
@@ -56,13 +57,14 @@ export default {
 				href:'#'
 			}
         ];				
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];         
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                 
     },
     mounted()
     {
         this.initialize();
     },
     data: () => ({
+        msg:0,
         datatableLoading:false,
         firstloading:true,
         breadcrumbs:[],        
@@ -95,7 +97,8 @@ export default {
     components:{
         AkademikLayout,
         ModuleHeader,           
-        Filter1,        
+        Filter1,      
+        VAngkaNilai  
     },
 }
 </script>
