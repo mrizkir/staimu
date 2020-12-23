@@ -101,6 +101,7 @@ export default {
             if (result >=0.00 && result <= 100.00)
             {
                 this.dataValue=result;
+                this.$emit('input',this.dataValue);
             }            
         }
     },

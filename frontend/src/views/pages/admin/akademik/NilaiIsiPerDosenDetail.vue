@@ -81,7 +81,7 @@
                             </template>          
                             <template v-slot:item.nilai_quiz="props"> 
                                 <VAngkaNilai               
-                                    @change="updateNKuan(props)" 
+                                    @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_quiz"                                    
                                     dense                                    
                                     style="width:65px">
