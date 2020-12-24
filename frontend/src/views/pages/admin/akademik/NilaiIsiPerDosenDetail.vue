@@ -46,7 +46,7 @@
                             v-model="daftar_nilai"
                             :headers="headers_peserta"
                             :items="datatable_peserta"                        
-                            item-key="id"  
+                            item-key="krsmatkul_id"  
                             show-select                                              
                             :disable-pagination="true"
                             :hide-default-footer="true"                        
@@ -313,7 +313,13 @@ export default {
 
             this.datatable_peserta.forEach(item => {
                 daftar_nilai.push({
-                    krsmatkul_id:item.id,
+                    krsmatkul_id:item.krsmatkul_id,
+                    nilai_absen:item.nilai_absen,
+                    nilai_tugas_individu:item.nilai_tugas_individu,
+                    nilai_tugas_kelompok:item.nilai_tugas_kelompok,
+                    nilai_quiz:item.nilai_quiz,
+                    nilai_uts:item.nilai_uts,
+                    nilai_uas:item.nilai_uas,                    
                     n_kuan:item.n_kuan,
                     n_kual:item.n_kual
                 });
@@ -329,7 +335,7 @@ export default {
                     }
                 }
             ).then(()=>{                   
-                // this.$router.go();
+                this.$router.go();
             }).catch(()=>{
                 this.btnLoadingTable=false;
             });
