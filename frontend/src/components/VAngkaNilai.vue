@@ -21,6 +21,16 @@ export default {
         fractPart: null,
         isFocused:false
     }),
+    mounted()
+    {
+        var b = (this.dataValue + "").split(".");
+        if (b.length> 0)
+        {
+            this.fractPart=b[1];
+            this.fractDigitsEdited=true;
+        }
+        this.fractPart=b.length > 0 ? b[1]:null;        
+    },
     methods: {
         clearValue()
         {
@@ -43,6 +53,7 @@ export default {
         keyProcess(keyEvent)
         {
             if (!this.isFocused) return;            
+
             if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {                           
                 keyEvent.preventDefault();
             }
@@ -50,12 +61,12 @@ export default {
             keyEvent.stopPropagation();
             if (keyEvent.key === 'Enter') 
             {               
-                return
+                return;
             } 
             else if (keyEvent.key === 'Delete') 
             {
                 this.clearValue()
-                return
+                return;
             }            
             const numericButtons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             let strVal = Math.trunc(this.dataValue).toString();
@@ -82,10 +93,13 @@ export default {
             {
                 if (this.fractDigitsEdited) 
                 {
-                    this.fractPart = this.fractPart.length < 1 ? null : this.fractPart.substring(0, this.fractPart.length - 1);
                     if (this.fractPart === null)
                     {
                         this.fractDigitsEdited=false;
+                    }
+                    else
+                    {
+                        this.fractPart = this.fractPart.length < 1 ? null : this.fractPart.substring(0, this.fractPart.length - 1);
                     }
                 } 
                 else 

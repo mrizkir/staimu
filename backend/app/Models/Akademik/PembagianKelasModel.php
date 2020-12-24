@@ -38,7 +38,8 @@ class PembagianKelasModel extends Model
         'persen_quiz',
         'persen_tugas_individu',
         'persen_tugas_kelompok',
-        'persen_uas',
+        'persen_uts',
+        'persen_uas',        
         'persen_absen',
         'isi_nilai',      
         

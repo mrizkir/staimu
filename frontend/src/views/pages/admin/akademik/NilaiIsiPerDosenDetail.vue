@@ -215,6 +215,14 @@ export default {
 
         //formdata
         form_valid:true, 
+        komponen_nilai:{
+            'persen_absen':15,
+            'persen_quiz':0,
+            'persen_tugas_individu':35,
+            'persen_tugas_kelompok':0,
+            'persen_uts':25,
+            'persen_uas':25,            
+        },
         daftar_nilai:[],        
         skala_nilai:[
             'A',
@@ -269,42 +277,44 @@ export default {
         },      
         updateNKuan(props)
         {
+            console.log('nilai_absen',this.komponen_nilai.persen_absen);
             var nilai_absen=0;
-            if (props.item.nilai_absen>0)
+            if (props.item.nilai_absen>0 && this.komponen_nilai.persen_absen > 0)
             {
-                nilai_absen=0.10*props.item.nilai_absen;
+                nilai_absen=(this.komponen_nilai.persen_absen/100)*props.item.nilai_absen;                
             }
             
             var nilai_quiz=0;
-            if (props.item.nilai_quiz>0)
+            if (props.item.nilai_quiz>0 && this.komponen_nilai.persen_quiz > 0)
             {
-                nilai_quiz=0.20*props.item.nilai_quiz;
+                nilai_quiz=(this.komponen_nilai.persen_quiz/100)*props.item.nilai_quiz;
             }
             
             var nilai_tugas_individu=0;
-            if (props.item.nilai_tugas_individu>0)
+            if (props.item.nilai_tugas_individu>0 && this.komponen_nilai.persen_tugas_individu > 0)
             {
-                nilai_tugas_individu=0.15*props.item.nilai_tugas_individu;
+                nilai_tugas_individu=(this.komponen_nilai.persen_tugas_individu/100)*props.item.nilai_tugas_individu;
             }
             
             var nilai_tugas_kelompok=0;
-            if (props.item.nilai_tugas_kelompok>0)
+            if (props.item.nilai_tugas_kelompok>0 && this.komponen_nilai.persen_tugas_kelompok > 0)
             {
-                nilai_tugas_kelompok=0.15*props.item.nilai_tugas_kelompok;
+                nilai_tugas_kelompok=(this.komponen_nilai.persen_tugas_kelompok/100)*props.item.nilai_tugas_kelompok;
             }
             
             var nilai_uts=0;
-            if (props.item.nilai_uts>0)
+            if (props.item.nilai_uts>0 && this.komponen_nilai.persen_uts > 0)
             {
-                nilai_uts=0.20*props.item.nilai_uts;
+                nilai_uts=(this.komponen_nilai.persen_uts/100)*props.item.nilai_uts;
             }
             var nilai_uas=0;
-            if (props.item.nilai_uas>0)
+            if (props.item.nilai_uas>0 && this.komponen_nilai.persen_uas > 0)
             {
-                nilai_uas=0.20*props.item.nilai_uas;
+                nilai_uas=(this.komponen_nilai.persen_uas/100)*props.item.nilai_uas;
             }
             
             props.item.n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);
+            console.log(props.item.n_kuan);
         },    
         async save()
         {
