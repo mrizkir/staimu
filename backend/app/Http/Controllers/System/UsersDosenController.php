@@ -30,6 +30,7 @@ class UsersDosenController extends Controller {
                         users.email,
                         users.nomor_hp,
                         users.foto,
+                        users.theme,
                         pe3_dosen.is_dw,
                         users.default_role,
                         users.created_at,
@@ -108,7 +109,7 @@ class UsersDosenController extends Controller {
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
             
-            if ($request->input('is_dw')=='true')
+            if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
             {
                 $user->assignRole('dosenwali'); 
                 $permission=Role::findByName('dosenwali')->permissions;
@@ -198,10 +199,9 @@ class UsersDosenController extends Controller {
                 $user_dosen->nama_dosen=$request->input('name');
                 $user_dosen->nidn = $request->input('nidn');
                 $user_dosen->nipy = $request->input('nipy');
-                $user_dosen->is_dw = $request->input('is_dw');
-                $user_dosen->save();                                
+                $user_dosen->is_dw = $request->input('is_dw');                                             
                 
-                if ($request->input('is_dw') == 'true')
+                if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
                 {
                     $user->assignRole('dosenwali'); 
                     $permission=Role::findByName('dosenwali')->permissions;
@@ -215,6 +215,7 @@ class UsersDosenController extends Controller {
                     $permissions=$permission->pluck('name');
                     $user->revokePermissionTo($permissions);
                 }
+                $user_dosen->save();   
                 return $user;
             });
             
