@@ -72,6 +72,7 @@ class NilaiMatakuliahController extends Controller
                                         COALESCE(pe3_nilai_matakuliah.nilai_uas,0) AS nilai_uas,
                                         COALESCE(pe3_nilai_matakuliah.n_kuan,0) AS n_kuan,                                        
                                         pe3_nilai_matakuliah.n_kual,
+                                        pe3_nilai_matakuliah.bydosen,
                                         pe3_nilai_matakuliah.created_at,
                                         pe3_nilai_matakuliah.updated_at
                                     '))
@@ -132,6 +133,7 @@ class NilaiMatakuliahController extends Controller
                                             COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
                                             pe3_nilai_matakuliah.n_kuan,
                                             pe3_nilai_matakuliah.n_kual,
+                                            pe3_nilai_matakuliah.bydosen,
                                             pe3_nilai_matakuliah.created_at,
                                             pe3_nilai_matakuliah.updated_at
                                         '))
@@ -227,6 +229,7 @@ class NilaiMatakuliahController extends Controller
                         'n_kuan'=>$n_kuan,
                         'n_kual'=>$n_kual,
                         'n_mutu'=>\App\Helpers\HelperAkademik::getNilaiMutu($n_kual),
+                        'bydosen'=>true,
                         'created_at'=>\Carbon\Carbon::now(),
                         'updated_at'=>\Carbon\Carbon::now()
                     ]);
@@ -239,7 +242,7 @@ class NilaiMatakuliahController extends Controller
                                                             ]);
                     $jumlah_matkul+=1;
                 }
-                else
+                elseif($nilai->bydosen)
                 {
                     $nilai->nilai_absen=$nilai_absen;
                     $nilai->nilai_quiz=$nilai_quiz;
@@ -254,6 +257,7 @@ class NilaiMatakuliahController extends Controller
                     $nilai->n_mutu=\App\Helpers\HelperAkademik::getNilaiMutu($n_kual);
                     
                     $nilai->user_id_updated=$this->getUserid();
+                    $nilai->bydosen=true;
                     $nilai->save();                
 
                     \App\Models\System\ActivityLog::log($request,[
@@ -359,7 +363,7 @@ class NilaiMatakuliahController extends Controller
                                                             ]);
                     $jumlah_matkul+=1;
                 }                
-                else
+                elseif(!$nilai->bydosen)
                 {
                     $n_kuan_lama=$nilai->n_kuan;
                     $n_kual_lama=$nilai->n_kual;

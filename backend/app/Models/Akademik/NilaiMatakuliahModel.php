@@ -52,6 +52,7 @@ class NilaiMatakuliahModel extends Model {
 
         'telah_isi_kuesioner',
         'tanggal_isi_kuesioner',
+        'bydosen',
     ];
     /**
      * enable auto_increment.

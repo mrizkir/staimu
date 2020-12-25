@@ -115,27 +115,20 @@
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">                                
                                     <template v-slot:item.n_kuan="props">                                    
-                                        <v-numeric                
-                                            v-model="props.item.n_kuan"
-                                            text
-                                            :min="0"
-                                            :max="100"
-                                            locale="en-US"
-                                            :useGrouping="false"
-                                            precision="2"
-                                            dense
+                                        <VAngkaNilai                                                            
+                                            v-model="props.item.n_kuan"                                    
+                                            dense                                    
                                             style="width:65px"
-                                            :calcIcon="null"
-                                            :useCalculator="false">
-                                        </v-numeric> 
-                                        <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>
+                                            :disabled="props.item.bydosen">
+                                        </VAngkaNilai> 
                                     </template> 
                                     <template v-slot:item.n_kual="props">                                    
                                         <v-select 
                                             :items="$store.getters['uiadmin/getSkalaNilai']" 
                                             v-model="props.item.n_kual"
                                             style="width:65px"
-                                            dense>
+                                            dense
+                                            :disabled="props.item.bydosen">
                                     </v-select>
                                     </template> 
                                     <template v-slot:body.append v-if="datatable.length > 0">
@@ -183,6 +176,7 @@
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
+import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'NilaiIsiPerKRSDetail',
     created () {
@@ -230,12 +224,12 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'SKS', value: 'sks', sortable:false,width:120 },                           
-            { text: 'SMT', value: 'semester', sortable:false,width:120 },                           
-            { text: 'KELAS', value: 'nama_kelas', sortable:false,width:120 },                           
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                           
+            { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true,width:260 },               
+            { text: 'SKS', value: 'sks', sortable:false,width:50 },                           
+            { text: 'SMT', value: 'semester', sortable:false,width:50 },                           
+            { text: 'KELAS', value: 'nama_kelas', sortable:false,width:200 },                           
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:70 },                           
             { text: 'NILAI HURUF', value: 'n_kual', sortable:false,width:100 },                           
                                    
         ],  
@@ -309,7 +303,8 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader, 
+        VAngkaNilai           
     },
 }
 </script>

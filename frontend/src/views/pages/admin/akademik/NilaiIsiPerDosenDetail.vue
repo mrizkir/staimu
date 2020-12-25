@@ -1,5 +1,5 @@
 <template>
-    <AkademikLayout :showrightsidebar="false">
+    <AkademikLayout :showrightsidebar="false" :temporaryleftsidebar="true">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-monitor-dashboard
@@ -37,7 +37,7 @@
             <v-row>                 
                 <v-col cols="12">                     
                     <v-alert type="info">
-                        Catatan: Pilihlah mahasiswa yang di isi nilainya. Untuk meningkatkan performance bila jumlah peserta lebih dari 10; maka disarankan mengisi nilai per 10 mahasiswa.
+                        Catatan: Pilihlah mahasiswa yang akan diisi nilainya. Untuk meningkatkan performance bila jumlah peserta lebih dari 10; maka disarankan mengisi nilai per 10 mahasiswa.
                     </v-alert>
                 </v-col>
                 <v-col cols="12">                     
@@ -46,8 +46,8 @@
                             v-model="daftar_nilai"
                             :headers="headers_peserta"
                             :items="datatable_peserta"                        
-                            item-key="krsmatkul_id"  
-                            show-select                                              
+                            item-key="krsmatkul_id"
+                            show-select                                                                            
                             :disable-pagination="true"
                             :hide-default-footer="true"                        
                             class="elevation-1"
@@ -64,7 +64,7 @@
                                     ></v-divider>
                                     <v-spacer></v-spacer>                                
                                 </v-toolbar>
-                            </template>                        
+                            </template>
                             <template v-slot:item.idkelas="{item}">
                                 {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                             </template>
@@ -76,6 +76,7 @@
                                     @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_absen"
                                     dense 
+                                    :disabled="!props.item.bydosen"
                                     style="width:65px">
                                 </VAngkaNilai>                                
                             </template>          
@@ -83,7 +84,8 @@
                                 <VAngkaNilai               
                                     @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_quiz"                                    
-                                    dense                                    
+                                    dense    
+                                    :disabled="!props.item.bydosen"                                
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -91,7 +93,8 @@
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_tugas_individu"                                    
-                                    dense                                    
+                                    dense      
+                                    :disabled="!props.item.bydosen"                              
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -99,7 +102,8 @@
                                 <VAngkaNilai            
                                     @input="updateNKuan(props)"    
                                     v-model="props.item.nilai_tugas_kelompok"                                    
-                                    dense                                    
+                                    dense      
+                                    :disabled="!props.item.bydosen"                              
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -107,7 +111,8 @@
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uts"                                    
-                                    dense                                    
+                                    dense                   
+                                    :disabled="!props.item.bydosen"                 
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -115,7 +120,8 @@
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uas"                                    
-                                    dense                                    
+                                    dense             
+                                    :disabled="!props.item.bydosen"                       
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -124,9 +130,10 @@
                             </template>                        
                             <template v-slot:item.n_kual="props">                                
                                 <v-select 
-                                    :items="skala_nilai" 
+                                    :items="$store.getters['uiadmin/getSkalaNilai']"  
                                     v-model="props.item.n_kual"
                                     style="width:65px"
+                                    :disabled="!props.item.bydosen"
                                     dense>
                                </v-select>
                             </template>  
@@ -200,7 +207,7 @@ export default {
         
         datatable:[],            
         datatable_peserta:[],                 
-        headers_peserta: [
+        headers_peserta: [             
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false,width:250   },   
             { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable:false,width:100   },   
@@ -223,26 +230,12 @@ export default {
             'persen_uts':25,
             'persen_uas':25,            
         },
-        daftar_nilai:[],        
-        skala_nilai:[
-            'A',
-            'A-',
-            'A/B',
-            'B+',
-            'B-',
-            'B/C',
-            'C+',
-            'C-',
-            'C/D',
-            'D+',
-            'D',
-            'E'
-        ]       
-        
+        daftar_nilai:[],
     }),
     methods: {        
         initialize:async function () 
         {
+            this.datatableLoading=true;
             await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
             {
                 headers: {
@@ -251,33 +244,18 @@ export default {
             }).then(({data})=>{           
                 this.data_kelas_mhs=data.pembagiankelas;                                         
             });
-            this.datatableLoading=true;
             await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,            
             {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{                                                                                 
-                this.datatableLoading=false;
+                this.datatableLoading=false;                
                 this.datatable_peserta=data.peserta;   
             })              
-        },        
-        async fetchPeserta()
-        {
-            this.datatableLoading=true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,            
-            {
-                headers: {
-                    Authorization:this.$store.getters['auth/Token']
-                }
-            }).then(({data})=>{                                                      
-                this.datatable_peserta=data.peserta;                                
-                this.datatableLoading=false;
-            })   
-        },      
+        },             
         updateNKuan(props)
         {
-            console.log('nilai_absen',this.komponen_nilai.persen_absen);
             var nilai_absen=0;
             if (props.item.nilai_absen>0 && this.komponen_nilai.persen_absen > 0)
             {
@@ -321,7 +299,7 @@ export default {
             this.btnLoadingTable=true;
             var daftar_nilai=[];
 
-            this.datatable_peserta.forEach(item => {
+            this.daftar_nilai.forEach(item => {
                 daftar_nilai.push({
                     krsmatkul_id:item.krsmatkul_id,
                     nilai_absen:item.nilai_absen,
@@ -348,8 +326,11 @@ export default {
                 this.$router.go();
             }).catch(()=>{
                 this.btnLoadingTable=false;
-            });
-            
+            });            
+        },
+        togleAngkaNilai ()
+        {
+            console.log('test');
         }      
     },
     computed:{
