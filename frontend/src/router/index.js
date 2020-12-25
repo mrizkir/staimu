@@ -621,6 +621,16 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/TranskripNilaiKurikulumDetail.vue'),		
 	},	
 
+	//kemahasiswaan
+	{
+		path: '/kemahasiswaan',
+		name: 'Kemahasiswaan',
+		meta:{
+			title: "KEMAHASISWAAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/kemahasiswaan/Kemahasiswaan.vue'),		
+	},
 	//system	
 	{
 		path: '/system-setting',
