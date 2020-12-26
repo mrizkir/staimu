@@ -34,7 +34,51 @@
         <v-container fluid>            
             <v-row>
                 <v-col cols="12">
-                    <v-text-field />
+                    <v-card outlined>
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <div class="overline mb-1">
+                                    PROFIL MAHASISWA
+                                </div>                                
+                                <v-list-item-subtitle>                                    
+                                    <v-autocomplete
+                                        v-model="model"
+                                        :items="items"
+                                        :loading="isLoading"
+                                        :search-input.sync="search"
+                                        color="white"
+                                        hide-no-data
+                                        hide-selected
+                                        item-text="deskripsi"
+                                        item-value="user_id"
+                                        label="Nomor Induk Mahasiswa"                                        
+                                        prepend-icon="mdi-database-search"
+                                        return-object
+                                    ></v-autocomplete>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                            <v-list-item-avatar
+                                tile
+                                size="80"
+                                color="grey"
+                            >
+                                <v-icon>mdi-account</v-icon>
+                            </v-list-item-avatar>
+                        </v-list-item>  
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                :disabled="!model"
+                                color="grey darken-3"
+                                @click="model = null"
+                            >
+                                Clear
+                                <v-icon right>
+                                mdi-close-circle
+                                </v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>                    
                 </v-col>
             </v-row>
         </v-container>
