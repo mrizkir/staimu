@@ -32,7 +32,11 @@
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
         <v-container fluid>            
-            
+            <v-row>
+                <v-col cols="12">
+                    <v-text-field />
+                </v-col>
+            </v-row>
         </v-container>
     </KemahasiswaanLayout>
 </template>
