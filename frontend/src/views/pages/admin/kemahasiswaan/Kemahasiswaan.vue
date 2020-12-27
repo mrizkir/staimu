@@ -38,21 +38,23 @@
                         <v-list-item three-line>
                             <v-list-item-content>
                                 <div class="overline mb-1">
-                                    PROFIL MAHASISWA
+                                    PROFIL MAHASISWA (MASUKAN NIM)
                                 </div>                                
                                 <v-list-item-subtitle>                                    
                                     <v-autocomplete
-                                        v-model="nim"
-                                        :items="items"
+                                        v-model="data_mhs"
+                                        :items="entries"
                                         :loading="isLoading"
-                                        :search-input.sync="search"                                        
+                                        :search-input.sync="search"     
+                                        cache-items                                        
+                                        dense                                                                                                                
+                                        item-text="nama_mhs_alias"
+                                        item-value="user_id"
                                         hide-no-data
-                                        hide-selected
-                                        item-text="Description"
-                                        item-value="API"
-                                        label="Nomor Induk Mahasiswa"                                        
+                                        hide-details                                                                              
                                         prepend-icon="mdi-database-search"
                                         return-object
+                                        ref="ref_data_mhs"
                                     ></v-autocomplete>
                                 </v-list-item-subtitle>
                             </v-list-item-content>
@@ -66,23 +68,26 @@
                         </v-list-item>
                         <v-divider></v-divider>
                         <v-expand-transition>
-                            <v-list v-if="nim">
-                                <v-list-item
-                                    v-for="(field, i) in fields"
-                                    :key="i"
-                                >
+                            <v-list v-if="data_mhs">
+                                <template v-for="(field, i) in fields">                                    
+                                <v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias'">
                                     <v-list-item-content>
-                                        <v-list-item-title v-text="field.value"></v-list-item-title>
-                                        <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
+                                        <v-list-item-title>                                            
+                                            {{field.value}}
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle>
+                                            <strong>{{field_alias(field.key)}}</strong>
+                                        </v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
+                                </template>
                             </v-list>
                         </v-expand-transition>  
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!nim"                                
-                                @click="nim = null"
+                                :disabled="!data_mhs"                                
+                                @click="clearDataMhs"
                             >
                                 Clear
                                 <v-icon right>
@@ -101,7 +106,7 @@ import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
-    name: 'Akademik',
+    name: 'Kemahasiswaan',
     created ()
 	{
 		this.breadcrumbs = [
@@ -127,11 +132,10 @@ export default {
         breadcrumbs:[],        
         tahun_akademik:0,
         
-        //profil mahasiswa
-        descriptionLimit: 60,
+        //profil mahasiswa        
         entries:[],
         isLoading:false,
-        nim:null,
+        data_mhs:null,
         search:null
         
     }),
@@ -141,32 +145,46 @@ export default {
             this.tahun_akademik=tahun;
         },
 		initialize:async function()
-		{	
-            
+		{	            
             this.firstloading=false;            
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
-
+        },
+        field_alias(atr)
+        {
+            var alias;
+            switch(atr)
+            {
+                case 'user_id' :
+                    alias = 'USER ID';
+                break;                
+                case 'nim' :
+                    alias = 'NIM';
+                break;                
+                case 'nama_mhs' :
+                    alias = 'NAMA MAHASIWA';
+                break;                
+                case 'nama_prodi' :
+                    alias = 'PROGRAM STUDI';
+                break;                
+            }
+            return alias;
+        },
+        clearDataMhs()
+        {
+            this.data_mhs = null;
+            this.$refs.ref_data_mhs.cachedItems=[];            
         }
     },
     computed: {
         fields () {
-            if (!this.nim) return [];
-            return Object.keys(this.nim).map(key => {
+            if (!this.data_mhs) return [];
+            return Object.keys(this.data_mhs).map(key => {
                 return {
                     key,
-                    value: this.nim[key] || 'n/a',
+                    value: this.data_mhs[key] || 'n/a',
                 }
             })
-        },
-        items () {
-            return this.entries.map(entry => {
-                const Description = entry.Description.length > this.descriptionLimit
-                ? entry.Description.slice(0, this.descriptionLimit) + '...'
-                : entry.Description
-
-                return Object.assign({}, entry, { Description })
-            });
-        },
+        },        
     },
     watch:{
         tahun_akademik()
@@ -178,34 +196,31 @@ export default {
         },
         search (val) 
         {
-            setTimeout(() => {
-                console.log(val);    
-                }, 1000
-            );
+            if (this.isLoading) return;
             
-            // // Items have already been loaded
-            // if (this.items.length > 0) return
-
-            // // Items have already been requested
-            // if (this.isLoading) return
-
-            // this.isLoading = true
-
-            // console.log(this.search);
-            // Lazily load input items
-            // fetch('https://api.publicapis.org/entries')
-            // .then(res => res.json())
-            // .then(res => {
-            //     console.log(res);
-            //     const { count, entries } = res;
-            //     this.count = count;
-            //     this.entries = entries;
-            //     // console.log(count);
-            // })
-            // .catch(err => {
-            //     console.log(err)
-            // })
-            // .finally(() => (this.isLoading = false))
+            if (val && val !== this.data_mhs && val.length > 1)
+            {
+                setTimeout(async () => {
+                    this.isLoading = true 
+                    await this.$ajax.post('/kemahasiswaan/profil/search',
+                    {
+                        search:val,                    
+                    },
+                    {
+                        headers: {
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }).then(({data})=>{                                                       
+                        const { jumlah, daftar_mhs } = data;
+                        this.count = jumlah;
+                        this.entries = daftar_mhs;
+                        this.isLoading=false;
+                    }).catch(()=>{
+                        this.isLoading=false;
+                    });  
+                    }, 1000
+                );
+            }
         },
     },
     components:{
