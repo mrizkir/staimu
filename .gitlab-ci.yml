@@ -4,11 +4,20 @@ before_script:
   - cd ..
 stages:
   - build
+  - deploy
 
 build:
   stage : build
   script:
     - echo "Building"  
     - cd frontend  
-    - npm run build
-    - echo "$SSH_PORT"
+    - npm run build    
+deploy:
+  artifacts:
+    paths:
+      - dist
+  only :
+    - master
+  script:
+    - echo "DEPLOY"
+    - (echo "$SSH_USERNAME@$SSH_HOST")
