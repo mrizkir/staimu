@@ -4,5 +4,6 @@ stages:
 build:
   stage : build
   script:
-    - echo "Building"    
+    - echo "Building"  
+    - cd frontend  
     - npm run build
