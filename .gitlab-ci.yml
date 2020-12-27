@@ -5,7 +5,7 @@ stages:
 
 cache:
   paths:
-    - node_modules/
+    - frontend/node_modules/
 
 test:
   stage: test
