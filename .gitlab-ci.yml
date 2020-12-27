@@ -1,0 +1,8 @@
+stages:
+  - build
+
+build:
+  stage : build
+  script:
+    - echo "Building"    
+    - npm run build
