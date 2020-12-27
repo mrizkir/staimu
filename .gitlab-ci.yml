@@ -1,4 +1,4 @@
-before-script:
+before_script:
   - cd frontend
   - npm install
 stages:
