@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - deploy
 
@@ -6,21 +7,23 @@ cache:
   paths:
     - node_modules/
 
-all_tests:
+test:
+  stage: test
   script:
-   - npm install
-   
+    - cd frontend
+    - npm install
+    - cd ..
 build:
   stage : build
-  script:
-    - echo "Building"  
+  script:    
     - cd frontend  
-    - npm run build    
+    - npm run build   
+    - cd .. 
 deploy:
   stage : deploy
   artifacts:
     paths:
-      - dist
+      - frontend/dist
   only :
     - master
   script:
