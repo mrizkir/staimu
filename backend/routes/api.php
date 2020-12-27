@@ -346,6 +346,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/nilai/transkripkurikulum/printpdf1/{id}',['uses'=>'Akademik\TranskripKurikulumController@printpdf1','as'=>'transkripkurikulum.printpdf1']);
     $router->get('/akademik/nilai/transkripkurikulum/printpdf2/{id}',['uses'=>'Akademik\TranskripKurikulumController@printpdf2','as'=>'transkripkurikulum.printpdf2']);
 
+    // kemahasiswaan - profil mahasiswa
+    $router->post('/kemahasiswaan/profil/search',['uses'=>'Kemahasiswaan\KemahasiswaanProfilControllerl@search','as'=>'profilmhs.search']);
+
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);
     $router->post('/system/setting/permissions/store',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@store','as'=>'permissions.store']);
