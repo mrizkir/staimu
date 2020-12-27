@@ -62,8 +62,7 @@ export default {
     {
         this.initialize();
     },
-    data: () => ({
-        msg:0,
+    data: () => ({        
         datatableLoading:false,
         firstloading:true,
         breadcrumbs:[],        

@@ -42,15 +42,14 @@
                                 </div>                                
                                 <v-list-item-subtitle>                                    
                                     <v-autocomplete
-                                        v-model="model"
+                                        v-model="nim"
                                         :items="items"
                                         :loading="isLoading"
-                                        :search-input.sync="search"
-                                        color="white"
+                                        :search-input.sync="search"                                        
                                         hide-no-data
                                         hide-selected
-                                        item-text="deskripsi"
-                                        item-value="user_id"
+                                        item-text="Description"
+                                        item-value="API"
                                         label="Nomor Induk Mahasiswa"                                        
                                         prepend-icon="mdi-database-search"
                                         return-object
@@ -64,17 +63,30 @@
                             >
                                 <v-icon>mdi-account</v-icon>
                             </v-list-item-avatar>
-                        </v-list-item>  
+                        </v-list-item>
+                        <v-divider></v-divider>
+                        <v-expand-transition>
+                            <v-list v-if="nim">
+                                <v-list-item
+                                    v-for="(field, i) in fields"
+                                    :key="i"
+                                >
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="field.value"></v-list-item-title>
+                                        <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list>
+                        </v-expand-transition>  
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!model"
-                                color="grey darken-3"
-                                @click="model = null"
+                                :disabled="!nim"                                
+                                @click="nim = null"
                             >
                                 Clear
                                 <v-icon right>
-                                mdi-close-circle
+                                    mdi-close-circle
                                 </v-icon>
                             </v-btn>
                         </v-card-actions>
@@ -110,12 +122,17 @@ export default {
     {
         this.initialize();
     },
-    data: () => ({
-        msg:0,
-        datatableLoading:false,
+    data: () => ({                
         firstloading:true,
         breadcrumbs:[],        
         tahun_akademik:0,
+        
+        //profil mahasiswa
+        descriptionLimit: 60,
+        entries:[],
+        isLoading:false,
+        nim:null,
+        search:null
         
     }),
     methods : {
@@ -125,12 +142,31 @@ export default {
         },
 		initialize:async function()
 		{	
-            this.datatableLoading=true;            
             
             this.firstloading=false;            
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
 
         }
+    },
+    computed: {
+        fields () {
+            if (!this.nim) return [];
+            return Object.keys(this.nim).map(key => {
+                return {
+                    key,
+                    value: this.nim[key] || 'n/a',
+                }
+            })
+        },
+        items () {
+            return this.entries.map(entry => {
+                const Description = entry.Description.length > this.descriptionLimit
+                ? entry.Description.slice(0, this.descriptionLimit) + '...'
+                : entry.Description
+
+                return Object.assign({}, entry, { Description })
+            });
+        },
     },
     watch:{
         tahun_akademik()
@@ -139,6 +175,37 @@ export default {
             {
                 this.initialize();
             }            
+        },
+        search (val) 
+        {
+            setTimeout(() => {
+                console.log(val);    
+                }, 1000
+            );
+            
+            // // Items have already been loaded
+            // if (this.items.length > 0) return
+
+            // // Items have already been requested
+            // if (this.isLoading) return
+
+            // this.isLoading = true
+
+            // console.log(this.search);
+            // Lazily load input items
+            // fetch('https://api.publicapis.org/entries')
+            // .then(res => res.json())
+            // .then(res => {
+            //     console.log(res);
+            //     const { count, entries } = res;
+            //     this.count = count;
+            //     this.entries = entries;
+            //     // console.log(count);
+            // })
+            // .catch(err => {
+            //     console.log(err)
+            // })
+            // .finally(() => (this.isLoading = false))
         },
     },
     components:{

@@ -5,7 +5,7 @@ namespace App\Models\Akademik;
 use Illuminate\Database\Eloquent\Model;
 
 
-class PembagianKelasModel extends Model 
+class PembagianKelasModel extends Model
 {
     /**
      * nama tabel model ini.
@@ -27,24 +27,25 @@ class PembagianKelasModel extends Model
     protected $fillable = [
         'id',
         'user_id',
+        'zoom_id',
         'kmatkul',
         'nmatkul',
         'sks',
-        'idkelas',           
-        'hari',        
+        'idkelas',
+        'hari',
         'jam_masuk',
-        'jam_keluar',          
+        'jam_keluar',
         'ruang_kelas_id',
         'persen_quiz',
         'persen_tugas_individu',
         'persen_tugas_kelompok',
         'persen_uts',
-        'persen_uas',        
+        'persen_uas',
         'persen_absen',
-        'isi_nilai',      
-        
-        'idsmt',      
-        'tahun',           
+        'isi_nilai',
+
+        'idsmt',
+        'tahun',
     ];
     /**
      * enable auto_increment.
@@ -57,6 +58,5 @@ class PembagianKelasModel extends Model
      *
      * @var string
      */
-    public $timestamps = true;   
+    public $timestamps = true;
 }
-

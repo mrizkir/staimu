@@ -22,8 +22,8 @@ class PermissionsTableSeeder extends Seeder
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);  
-        
+        ]);
+
         //dmaster
         \DB::table('permissions')->insert([
             'name'=>"DMASTER-GROUP",
@@ -31,7 +31,7 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-       
+
         //keuangan
         \DB::table('permissions')->insert([
             'name'=>"KEUANGAN-GROUP",
@@ -66,7 +66,7 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        
+
         \DB::table('permissions')->insert([
             'name'=>"SPMB-PMB-LAPORAN-PRODI_BROWSE",
             'guard_name'=>'api',
@@ -80,7 +80,7 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        
+
         //akademik
         \DB::table('permissions')->insert([
             'name'=>"AKADEMIK-GROUP",
@@ -88,7 +88,7 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        
+
         //akademik - kemahasiswaan
         \DB::table('permissions')->insert([
             'name'=>"AKADEMIK-KEMAHASISWAAN-STATUS_BROWSE",
@@ -107,67 +107,67 @@ class PermissionsTableSeeder extends Seeder
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
-        
-        //akademik - dulang     
+        ]);
+
+        //akademik - dulang
         \DB::table('permissions')->insert([
             'name'=>"AKADEMIK-DULANG-MHS_BROWSE",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
-        
+        ]);
+
         \DB::table('permissions')->insert([
             'name'=>"AKADEMIK-DULANG-MHS_SHOW",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
+        ]);
 
-        //akademik - nilai    
+        //akademik - nilai
         \DB::table('permissions')->insert([
-            'name'=>'AKADEMIK-NILAI-KHS_BROWSE',            
+            'name'=>'AKADEMIK-NILAI-KHS_BROWSE',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
+        ]);
 
         \DB::table('permissions')->insert([
             'name'=>'AKADEMIK-NILAI-KHS_SHOW',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
+        ]);
 
         \DB::table('permissions')->insert([
-            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE',            
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
+        ]);
 
         \DB::table('permissions')->insert([
             'name'=>'AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);      
+        ]);
 
         \DB::table('permissions')->insert([
-            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KRS_BROWSE',            
+            'name'=>'AKADEMIK-NILAI-TRANSKRIP-KRS_BROWSE',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
+        ]);
 
         \DB::table('permissions')->insert([
             'name'=>'AKADEMIK-NILAI-TRANSKRIP-KRS_SHOW',
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);        
-        
-        //akademik
+        ]);
+
+        //kemahasiswaan
         \DB::table('permissions')->insert([
             'name'=>"KEMAHASISWAAN-GROUP",
             'guard_name'=>'api',
@@ -175,6 +175,13 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
 
+        //elearning
+        \DB::table('permissions')->insert([
+            'name'=>"ELEARNING-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
         //system
         \DB::table('permissions')->insert([
             'name'=>"SYSTEM-SETTING-GROUP",
@@ -188,35 +195,35 @@ class PermissionsTableSeeder extends Seeder
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);                        
+        ]);
 
-        $modules = [             
-            'DMASTER-TA',     
-            'DMASTER-FAKULTAS',     
-            'DMASTER-PRODI',     
-            'DMASTER-KELAS',     
-            'DMASTER-RUANGAN-KELAS',                 
-            
-            'SPMB-PMB',                 
-            'SPMB-PMB-FORMULIR-PENDAFTARAN',     
-            'SPMB-PMB-PERSYARATAN',                                
-            'SPMB-PMB-SOAL',     
-            'SPMB-PMB-JADWAL-UJIAN',     
-            'SPMB-PMB-PASSING-GRADE',     
-            'SPMB-PMB-UJIAN-ONLINE',     
-            'SPMB-PMB-NILAI-UJIAN',   
-            'SPMB-PMB-KELULUSAN-UJIAN',   
-            
-            'KEUANGAN-STATUS-TRANSAKSI',                 
-            'KEUANGAN-BIAYA-KOMPONEN-PERIODE',                 
-            'KEUANGAN-METODE-TRANSFER-BANK',                 
-            'KEUANGAN-METODE-IB',                 
-            'KEUANGAN-TRANSAKSI',                 
-            'KEUANGAN-TRANSAKSI-SPP',                 
-            'KEUANGAN-TRANSAKSI-REGISTRASIKRS',                 
-            'KEUANGAN-KONFIRMASI-PEMBAYARAN',                                                  
-            
-            'AKADEMIK-MATAKULIAH',            
+        $modules = [
+            'DMASTER-TA',
+            'DMASTER-FAKULTAS',
+            'DMASTER-PRODI',
+            'DMASTER-KELAS',
+            'DMASTER-RUANGAN-KELAS',
+
+            'SPMB-PMB',
+            'SPMB-PMB-FORMULIR-PENDAFTARAN',
+            'SPMB-PMB-PERSYARATAN',
+            'SPMB-PMB-SOAL',
+            'SPMB-PMB-JADWAL-UJIAN',
+            'SPMB-PMB-PASSING-GRADE',
+            'SPMB-PMB-UJIAN-ONLINE',
+            'SPMB-PMB-NILAI-UJIAN',
+            'SPMB-PMB-KELULUSAN-UJIAN',
+
+            'KEUANGAN-STATUS-TRANSAKSI',
+            'KEUANGAN-BIAYA-KOMPONEN-PERIODE',
+            'KEUANGAN-METODE-TRANSFER-BANK',
+            'KEUANGAN-METODE-IB',
+            'KEUANGAN-TRANSAKSI',
+            'KEUANGAN-TRANSAKSI-SPP',
+            'KEUANGAN-TRANSAKSI-REGISTRASIKRS',
+            'KEUANGAN-KONFIRMASI-PEMBAYARAN',
+
+            'AKADEMIK-MATAKULIAH',
             'AKADEMIK-DULANG-BARU',
             'AKADEMIK-DULANG-LAMA',
             'AKADEMIK-DULANG-AKTIF',
@@ -230,12 +237,12 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS',
             'AKADEMIK-PERKULIAHAN-KRS',
             'AKADEMIK-PERKULIAHAN-PKRS',
-            
-            'AKADEMIK-NILAI-MATAKULIAH',                        
-            'AKADEMIK-NILAI-MATAKULIAH-DOSEN',                        
-            
+
+            'AKADEMIK-NILAI-MATAKULIAH',
+            'AKADEMIK-NILAI-MATAKULIAH-DOSEN',
+
             'KEMAHASISWAAN-PROFIL-MHS',
-            
+
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',
             'SYSTEM-SETTING-IDENTITAS-DIRI',
@@ -253,8 +260,8 @@ class PermissionsTableSeeder extends Seeder
             'SYSTEM-USERS-MAHASISWA',
             'SYSTEM-USERS-MAHASISWA-BARU',
             'SYSTEM-USERS-ALUMNI',
-            'SYSTEM-USERS-ORANG-TUA-WALI',  
-            
+            'SYSTEM-USERS-ORANG-TUA-WALI',
+
             'SYSTEM-MIGRATION'
         ];
         $records=[];
@@ -265,23 +272,23 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>"{$v}_SHOW",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
                 ['name'=>"{$v}_STORE",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
                 ['name'=>"{$v}_UPDATE",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()],
-                ['name'=>"{$v}_DESTROY",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]                
-            );            
+                ['name'=>"{$v}_DESTROY",'guard_name'=>'api','created_at'=>Carbon::now(),'updated_at'=>Carbon::now()]
+            );
             \DB::table('permissions')->insert($records);
-        }    
-        
+        }
+
         \DB::table('permissions')->insert([
             'name'=>"USER_STOREPERMISSIONS",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
-        ]);                
+        ]);
         \DB::table('permissions')->insert([
             'name'=>"USER_REVOKEPERMISSIONS",
             'guard_name'=>'api',
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();                
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
     }
 }
