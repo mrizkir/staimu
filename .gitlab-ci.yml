@@ -26,6 +26,5 @@ deploy:
       - frontend/dist
   only :
     - master
-  script:
-    - echo "DEPLOY"
-    - (echo "$SSH_USERNAME@$SSH_HOST")
+  script:    
+    - ssh -p (echo "$SSH_PORT") (echo "$SSH_USERNAME@$SSH_HOST") "mkdir $SSH_PATH/api/_temp"
