@@ -43,5 +43,6 @@ deploy:
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mkdir -p $SSH_PATH/api_temp"
     - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/app $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api_temp
     - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/database $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api_temp
-    - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/routes $SSH_USERNAME@$SSH_HOST:$SSH_PATH/routes
+    - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/routes $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api_temp
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mv $SSH_PATH/api $SSH_PATH/api_old && mv $SSH_PATH/api_temp $SSH_PATH/api"
+    - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "rm -rf $SSH_PATH/api_old"
