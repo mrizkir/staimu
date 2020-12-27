@@ -1,7 +1,3 @@
-before_script:
-  - cd frontend
-  - npm install
-  - cd ..
 stages:
   - build
   - deploy
@@ -11,7 +7,6 @@ build:
   script:
     - echo "Building"  
     - cd frontend  
-    - npm run build    
 deploy:
   stage : deploy
   artifacts:
@@ -21,4 +16,5 @@ deploy:
     - master
   script:
     - echo "DEPLOY"
+    - pwd
     - (echo "$SSH_USERNAME@$SSH_HOST")
