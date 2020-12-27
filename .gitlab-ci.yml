@@ -4,7 +4,7 @@ before_script:
   - cd ..
 stages:
   - build
-  - stage_deploy
+  - deploy
 
 build:
   stage : build
@@ -12,7 +12,8 @@ build:
     - echo "Building"  
     - cd frontend  
     - npm run build    
-stage_deploy:
+deploy:
+  stage : deploy
   artifacts:
     paths:
       - dist
