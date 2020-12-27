@@ -18,6 +18,7 @@ build:
   script:    
     - cd frontend
     - rm -rf .env.production
+    - rm -rf dist
     - cp .env.production.example .env.production  
     - npm run build   
     - cd .. 
