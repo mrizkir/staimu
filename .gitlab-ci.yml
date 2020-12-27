@@ -27,4 +27,4 @@ deploy:
   only :
     - master
   script:    
-    - ssh -p (echo "$SSH_PORT") (echo "$SSH_USERNAME@$SSH_HOST") "mkdir $SSH_PATH/api/_temp"
+    - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mkdir $SSH_PATH/api/_temp"
