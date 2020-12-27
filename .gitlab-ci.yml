@@ -13,7 +13,7 @@ build:
     - cd frontend
     - npm install
     - rm -rf .env.local    
-    - cp .env.local.example .env.local.example      
+    - cp .env.local.example .env.local      
     - cd .. 
     
 test:
@@ -32,7 +32,7 @@ deploy:
   script:    
     - cd frontend
     - rm -rf .env.production    
-    - cp .env.production.example .env.production.example  
+    - cp .env.production.example .env.production  
     - npm run build    
     - cd ..
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mkdir $SSH_PATH/siakad_temp"
