@@ -1,6 +1,7 @@
 before_script:
   - cd frontend
   - npm install
+  - cd ..
 stages:
   - build
 
