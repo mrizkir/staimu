@@ -36,6 +36,6 @@ deploy:
     - npm run build    
     - cd ..
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mkdir $SSH_PATH/siakad_temp"
-    - rsync -arvz -e 'ssh -p $SSH_PORT' --progress frontend/dist/ $SSH_USERNAME@$SSH_HOST:$SSH_PATH/siakad_temp    
+    - rsync -arvz -e "ssh -p $SSH_PORT" --progress frontend/dist/ $SSH_USERNAME@$SSH_HOST:$SSH_PATH/siakad_temp    
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "mv $SSH_PATH/siakad $SSH_PATH/siakad_old && mv $SSH_PATH/siakad_temp $SSH_PATH/siakad"
     - ssh -p $SSH_PORT $SSH_USERNAME@$SSH_HOST "rm -rf $SSH_PATH/siakad_old"
