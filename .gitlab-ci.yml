@@ -11,3 +11,4 @@ build:
     - echo "Building"  
     - cd frontend  
     - npm run build
+    - echo "$SSH_PORT"
