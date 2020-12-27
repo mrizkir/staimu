@@ -2,11 +2,20 @@ stages:
   - build
   - deploy
 
+cache:
+  paths:
+    - node_modules/
+
+all_tests:
+  script:
+   - npm install
+   
 build:
   stage : build
   script:
     - echo "Building"  
     - cd frontend  
+    - npm run build    
 deploy:
   stage : deploy
   artifacts:
@@ -16,5 +25,4 @@ deploy:
     - master
   script:
     - echo "DEPLOY"
-    - pwd
     - (echo "$SSH_USERNAME@$SSH_HOST")
