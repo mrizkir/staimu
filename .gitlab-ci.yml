@@ -43,4 +43,4 @@ deploy:
     - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/app $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api/app
     - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/database $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api/database
     - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/routes $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api/routes    
-    - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/.env.production.example $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api/.env.production.example    
+    - rsync -arvz -e "ssh -p $SSH_PORT" --progress backend/.env.production.example $SSH_USERNAME@$SSH_HOST:$SSH_PATH/api    
