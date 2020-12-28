@@ -52,8 +52,6 @@ class TranskripKurikulumController  extends Controller
     }
     public function show(Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW');
-
         $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                                 A.user_id,
                                                 A.nama_mhs,
@@ -198,8 +196,6 @@ class TranskripKurikulumController  extends Controller
     }
     public function printpdf1(Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW');
-
         $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                                 A.user_id,
                                                 A.nama_mhs,
@@ -410,8 +406,6 @@ class TranskripKurikulumController  extends Controller
     }
     public function printpdf2(Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_SHOW');
-
         $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                                 A.user_id,
                                                 A.nama_mhs,
