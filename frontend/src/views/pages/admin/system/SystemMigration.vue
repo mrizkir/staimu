@@ -272,8 +272,7 @@ export default {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(({data})=>{    
-                    console.log(data);                   
+                ).then(({data})=>{                                       
                     setTimeout(() => {
                         this.$router.go();    
                         this.btnLoading=false;

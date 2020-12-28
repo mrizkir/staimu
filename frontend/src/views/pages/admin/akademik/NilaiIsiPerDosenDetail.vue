@@ -291,8 +291,7 @@ export default {
                 nilai_uas=(this.komponen_nilai.persen_uas/100)*props.item.nilai_uas;
             }
             
-            props.item.n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);
-            console.log(props.item.n_kuan);
+            props.item.n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);            
         },    
         async save()
         {
@@ -327,11 +326,7 @@ export default {
             }).catch(()=>{
                 this.btnLoadingTable=false;
             });            
-        },
-        togleAngkaNilai ()
-        {
-            console.log('test');
-        }      
+        },        
     },
     computed:{
         

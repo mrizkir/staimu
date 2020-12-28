@@ -241,8 +241,8 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                  
-                console.log(data);
+            }).then(()=>{                                  
+                
             });   
 
             // await this.$ajax.get('/akademik/dosenwali',{

@@ -666,8 +666,7 @@ export default {
             let list_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             for (var i =0; i < list_ta.length; i++)
             {
-                var item = list_ta[i];  
-                console.log(item);    
+                var item = list_ta[i];                  
                 if (this.tahun_akademik!=item.value)
                 {
                     this.daftar_ta.push({

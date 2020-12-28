@@ -231,7 +231,7 @@ export default {
         },          
         save()
         {
-            console.log(this.datatable_peserta);
+            
         }      
     },
     watch:{

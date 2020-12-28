@@ -176,8 +176,7 @@ import ModuleHeader from '@/components/ModuleHeader';
 export default {
     name: 'NilaiKHSDetail',
     created () {
-        this.krs_id=this.$route.params.krs_id;  
-        console.log();      
+        this.krs_id=this.$route.params.krs_id;          
         this.breadcrumbs = [
             {
                 text:'HOME',

@@ -360,11 +360,10 @@ export default {
             return total;
         }
     }, 
-    watch:{
-        
-        search (val)
+    watch:{        
+        search ()
         {
-            console.log('saerch',val);
+            
         }
     },
     components:{

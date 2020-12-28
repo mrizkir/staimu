@@ -444,8 +444,7 @@ export default {
                     {
                         var ket_lulus=data.data_nilai_ujian.ket_lulus.toString();
                         this.formdata=data.data_nilai_ujian;
-                        this.formdata.ket_lulus=ket_lulus
-                        console.log(this.formdata);
+                        this.formdata.ket_lulus=ket_lulus                        
                         this.editedItem=1;
                     }
                 }       
