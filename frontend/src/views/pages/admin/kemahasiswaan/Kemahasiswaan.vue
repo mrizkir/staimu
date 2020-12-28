@@ -49,7 +49,8 @@
                                         cache-items                                        
                                         dense                                                                                                                
                                         item-text="nama_mhs_alias"
-                                        item-value="user_id"                                        
+                                        item-value="user_id"       
+                                        hide-no-data                                 
                                         hide-details                                                                              
                                         prepend-icon="mdi-database-search"
                                         return-object
