@@ -631,6 +631,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/kemahasiswaan/Kemahasiswaan.vue'),		
 	},
+	{
+		path: '/kemahasiswaan/profil/:user_id',
+		name: 'KemahasiswaanProfilMHS',
+		meta:{
+			title: "KEMAHASISWAAN - PROFIL MAHASISWA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/kemahasiswaan/KemahasiswaanProfilMHS.vue'),		
+	},
 	//system	
 	{
 		path: '/system-setting',

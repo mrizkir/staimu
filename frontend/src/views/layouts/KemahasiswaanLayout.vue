@@ -202,18 +202,9 @@ export default {
             var id='empty';                        
             switch (this.$route.name)
             {
-                case 'PerkuliahanPenyelenggaraanDosenPengampu':
+                case 'KemahasiswaanProfilMHS':
                     id=this.$route.params.idpenyelenggaraan;
-                break;
-                case 'PerkuliahanKRSDetail':
-                    id=this.$route.params.krsid;
-                break;
-                case 'PerkuliahanKRSTambahMatkul':
-                    id=this.$route.params.krsid;
-                break;
-                case 'PerkuliahanPembagianKelasPeserta':
-                    id=this.$route.params.kelas_mhs_id;
-                break;
+                break;                
             }            
             return id;
         }

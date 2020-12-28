@@ -87,6 +87,15 @@
                             <v-spacer></v-spacer>
                             <v-btn
                                 :disabled="!data_mhs"                                
+                                @click="goProfilMhs"
+                            >
+                                Detail
+                                <v-icon right>
+                                    mdi-forward
+                                </v-icon>
+                            </v-btn>
+                            <v-btn
+                                :disabled="!data_mhs"                                
                                 @click="clearDataMhs"
                             >
                                 Clear
@@ -168,6 +177,10 @@ export default {
                 break;                
             }
             return alias;
+        },
+        goProfilMhs()
+        {
+            this.$router.push('/kemahasiswaan/profil/'+this.data_mhs.user_id);
         },
         clearDataMhs()
         {
