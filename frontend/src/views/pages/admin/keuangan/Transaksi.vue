@@ -319,8 +319,9 @@ export default {
         closedialogdetailitem () {
             this.dialogdetailitem = false;            
             setTimeout(() => {
-                this.formdata = Object.assign({}, {})
-                this.editedIndex = -1
+                this.editedIndex = -1;
+                this.data_transaksi={}; 
+                this.data_transaksi_detail={};      
                 }, 300
             );
         },
