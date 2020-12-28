@@ -58,15 +58,15 @@ class TranskripKurikulumController  extends Controller
                                 ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
                                 ->where('pe3_register_mahasiswa.tahun',$ta)                            
                                 ->orderBy('nama_mhs','asc')
-                                ->get();        
+                                ->get();                    
             
-            return Response()->json([
+        }
+        return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
                                         'mahasiswa'=>$data,                                                                                                                                   
                                         'message'=>'Fetch data daftar mahasiswa berhasil.'
                                     ],200);     
-        }
     }
     public function show(Request $request,$id)
     {
