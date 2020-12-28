@@ -13,69 +13,117 @@ use App\Models\System\ConfigurationModel;
 class TranskripKurikulumController  extends Controller 
 {
 /**
-     * daftar mahasiswa
+     * daftar nilai mahasiswa
      */
     public function index(Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE');
+        if ($this->hasRole('mahasiswa'))
+        {
+            $data = RegisterMahasiswaModel::select(\DB::raw('        
+                                    pe3_register_mahasiswa.user_id,                                
+                                    pe3_register_mahasiswa.nim,                                
+                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_register_mahasiswa.idkelas,   
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
+                                '))
+                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
+                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
+                                ->where('pe3_register_mahasiswa.user_id',$this->getUserid())                                
+                                ->get();     
+        }
+        else
+        {
+            $this->validate($request, [           
+                'ta'=>'required',
+                'prodi_id'=>'required'
+            ]);
 
-        $this->validate($request, [           
-            'ta'=>'required',
-            'prodi_id'=>'required'
-        ]);
-
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
-        
-        $data = RegisterMahasiswaModel::select(\DB::raw('        
-                                pe3_register_mahasiswa.user_id,                                
-                                pe3_register_mahasiswa.nim,                                
-                                pe3_formulir_pendaftaran.nama_mhs,                                
-                                pe3_register_mahasiswa.idkelas,   
-                                COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
-                                COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
-                                COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
-                            '))
-                            ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
-                            ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
-                            ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
-                            ->where('pe3_register_mahasiswa.tahun',$ta)                            
-                            ->orderBy('nama_mhs','asc')
-                            ->get();        
-         
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                                                   
-                                    'message'=>'Fetch data daftar mahasiswa berhasil.'
-                                ],200);     
+            $ta=$request->input('ta');
+            $prodi_id=$request->input('prodi_id');
+            
+            $data = RegisterMahasiswaModel::select(\DB::raw('        
+                                    pe3_register_mahasiswa.user_id,                                
+                                    pe3_register_mahasiswa.nim,                                
+                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_register_mahasiswa.idkelas,   
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
+                                    COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
+                                '))
+                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
+                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
+                                ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
+                                ->where('pe3_register_mahasiswa.tahun',$ta)                            
+                                ->orderBy('nama_mhs','asc')
+                                ->get();        
+            
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',  
+                                        'mahasiswa'=>$data,                                                                                                                                   
+                                        'message'=>'Fetch data daftar mahasiswa berhasil.'
+                                    ],200);     
+        }
     }
     public function show(Request $request,$id)
     {
-        $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                A.user_id,
-                                                A.nama_mhs,
-                                                A.jk,
-                                                C.email,
-                                                C.nomor_hp,
-                                                A.no_formulir,
-                                                pe3_register_mahasiswa.nim,
-                                                pe3_register_mahasiswa.nirm,
-                                                pe3_register_mahasiswa.kjur,
-                                                B.nama_prodi,
-                                                D.nkelas,
-                                                pe3_register_mahasiswa.tahun,
-                                                E.n_status,
-                                                pe3_register_mahasiswa.created_at,
-                                                pe3_register_mahasiswa.updated_at,
-                                                C.foto
-                                            '))
-                                            ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                            ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                            ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-                                            ->find($id);
+        if ($this->hasRole('mahasiswa'))
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.jk,
+                                                    C.email,
+                                                    C.nomor_hp,
+                                                    A.no_formulir,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($this->getUserid());
+        }
+        else
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.jk,
+                                                    C.email,
+                                                    C.nomor_hp,
+                                                    A.no_formulir,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($id);
+        }
         
         if (is_null($mahasiswa))
         {
@@ -196,31 +244,60 @@ class TranskripKurikulumController  extends Controller
     }
     public function printpdf1(Request $request,$id)
     {
-        $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                A.user_id,
-                                                A.nama_mhs,
-                                                A.jk,
-                                                C.email,
-                                                C.nomor_hp,
-                                                A.no_formulir,
-                                                pe3_register_mahasiswa.nim,
-                                                pe3_register_mahasiswa.nirm,
-                                                pe3_register_mahasiswa.kjur,
-                                                B.nama_prodi,
-                                                D.nkelas,
-                                                pe3_register_mahasiswa.tahun,
-                                                E.n_status,
-                                                pe3_register_mahasiswa.created_at,
-                                                pe3_register_mahasiswa.updated_at,
-                                                C.foto
-                                            '))
-                                            ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                            ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                            ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-                                            ->find($id);
-
+        if ($this->hasRole('mahasiswa'))
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.jk,
+                                                    C.email,
+                                                    C.nomor_hp,
+                                                    A.no_formulir,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($this->getUserid());
+        }
+        else
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.jk,
+                                                    C.email,
+                                                    C.nomor_hp,
+                                                    A.no_formulir,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($id);
+        }
         if (is_null($mahasiswa))
         {
             return Response()->json([
@@ -406,30 +483,59 @@ class TranskripKurikulumController  extends Controller
     }
     public function printpdf2(Request $request,$id)
     {
-        $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                A.user_id,
-                                                A.nama_mhs,
-                                                A.tempat_lahir,
-                                                A.tanggal_lahir,                                                                                                
-                                                A.ta,
-                                                pe3_register_mahasiswa.nim,
-                                                pe3_register_mahasiswa.nirm,
-                                                pe3_register_mahasiswa.kjur,
-                                                B.nama_prodi,
-                                                D.nkelas,
-                                                pe3_register_mahasiswa.tahun,
-                                                E.n_status,
-                                                pe3_register_mahasiswa.created_at,
-                                                pe3_register_mahasiswa.updated_at,
-                                                C.foto
-                                            '))
-                                            ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                            ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                            ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                            ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-                                            ->find($id);
-
+        if ($this->hasRole('mahasiswa'))
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.jk,
+                                                    C.email,
+                                                    C.nomor_hp,
+                                                    A.no_formulir,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($this->getUserid());
+        }
+        else
+        {
+            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
+                                                    A.user_id,
+                                                    A.nama_mhs,
+                                                    A.tempat_lahir,
+                                                    A.tanggal_lahir,                                                                                                
+                                                    A.ta,
+                                                    pe3_register_mahasiswa.nim,
+                                                    pe3_register_mahasiswa.nirm,
+                                                    pe3_register_mahasiswa.kjur,
+                                                    B.nama_prodi,
+                                                    D.nkelas,
+                                                    pe3_register_mahasiswa.tahun,
+                                                    E.n_status,
+                                                    pe3_register_mahasiswa.created_at,
+                                                    pe3_register_mahasiswa.updated_at,
+                                                    C.foto
+                                                '))
+                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                                                ->find($id);
+        }
         if (is_null($mahasiswa))
         {
             return Response()->json([
