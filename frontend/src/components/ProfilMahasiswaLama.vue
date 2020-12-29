@@ -137,7 +137,7 @@ export default {
     methods: {
         initialize:async function ()
         {
-            console.log(this.datamhs);
+            
         },
         exit()
         {

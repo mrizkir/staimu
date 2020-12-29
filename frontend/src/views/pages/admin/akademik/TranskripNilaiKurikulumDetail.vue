@@ -86,7 +86,27 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"                                                                
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                                                                
+                                loading-text="Loading... Please wait"> 
+                                <template v-slot:item.actions="{ item }">
+                                    <v-tooltip bottom>             
+                                        <template v-slot:activator="{ on, attrs }">                                             
+                                            <v-btn 
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                color="primary" 
+                                                icon 
+                                                outlined 
+                                                x-small 
+                                                class="ma-2" 
+                                                @click.stop="viewItem(item)"
+                                                :loading="btnLoading"
+                                                :disabled="btnLoading">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>     
+                                        </template>
+                                        <span>Histori Nilai</span>                                   
+                                    </v-tooltip>                                     
+                                </template>                                                                          
                                 <template v-slot:body.append v-if="datatable.length > 0">                                   
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="3">JUMLAH</td>
@@ -135,6 +155,62 @@
                 </v-card-actions>
             </v-card>            
         </v-dialog>
+        <v-dialog v-model="dialoghistory" max-width="750px" persistent>                
+            <v-card>
+                <v-card-title>
+                    <span class="headline">Histori Nilai Matakuliah</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-row no-gutters>
+                        <v-col xs="12" sm="6" md="6">
+                            <v-card flat>
+                                <v-card-title>KODE MATAKULIAH :</v-card-title>
+                                <v-card-subtitle>
+                                    {{data_matkul.kmatkul}}
+                                </v-card-subtitle>
+                            </v-card>
+                        </v-col>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-col xs="12" sm="6" md="6">
+                            <v-card flat>
+                                <v-card-title>NAMA MATAKULIAH :</v-card-title>
+                                <v-card-subtitle>
+                                    {{data_matkul.nmatkul}}
+                                </v-card-subtitle>
+                            </v-card>
+                        </v-col>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                    </v-row>
+                    <v-data-table        
+                        dense                        
+                        :headers="history_headers"
+                        :items="data_history"                                
+                        item-key="krsmatkul_id"                                                        
+                        :disable-pagination="true"
+                        :hide-default-footer="true"                                                                
+                        :loading="datatableLoading"
+                        show-expand
+                        :expanded.sync="expanded"
+                        :single-expand="true"
+                        @click:row="dataTableRowClicked"
+                        loading-text="Loading... Please wait">                         
+                        <template v-slot:expanded-item="{ headers, item }">
+                            <td :colspan="headers.length" class="text-center">
+                                <v-col cols="12">
+                                    <strong>ID:</strong>{{ item.krsmatkul_id }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                </v-col>                                
+                            </td>
+                        </template>
+                    </v-data-table>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click.stop="closedialoghistory">CLOSE</v-btn>                            
+                </v-card-actions>
+            </v-card>            
+        </v-dialog>
     </AkademikLayout>
 </template>
 <script>
@@ -143,7 +219,7 @@ import ModuleHeader from '@/components/ModuleHeader';
 import ProfilMahasiswa from '@/components/ProfilMahasiswaLama';
 
 export default {
-    name: 'DulangMahasiswaBaru',
+    name: 'TranskripNilaiKurikulumDetail',
     created () {
         this.user_id=this.$route.params.user_id;        
         this.breadcrumbs = [
@@ -188,19 +264,19 @@ export default {
 
         btnLoading:false,
         btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
+        datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'NO', value: 'no', sortable:true,width:100  },               
-            { text: 'MATAKULIAH', value: 'nmatkul',sortable:true },                           
+            { text: 'NO', value: 'no', sortable:true,width:50  },               
+            { text: 'MATAKULIAH', value: 'nmatkul',sortable:true,width:350 },                           
             { text: 'KODE', value: 'kmatkul',sortable:true,width:120, },                           
-            { text: 'SEMESTER', value: 'semester',sortable:true,width:120, },                           
-            { text: 'KELOMPOK', value: 'group_alias',sortable:true,width:120, },                           
+            { text: 'SMT', value: 'semester',sortable:true,width:80, },                           
+            { text: 'KLP', value: 'group_alias',sortable:true,width:100, },                           
             { text: 'HM', value: 'HM',sortable:false,width:100, },                           
             { text: 'AM', value: 'AM',sortable:false,width:100, },                           
             { text: 'K', value: 'sks',sortable:true,width:100, },                           
             { text: 'M', value: 'M', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],  
         search:'', 
 
@@ -210,6 +286,20 @@ export default {
         totalAM:0, 
         ipk:0.00, 
 
+        //history
+        data_matkul:{},
+        data_history:[],
+        expanded:[],
+        history_headers: [                                    
+            { text: 'NILAI HURUF', value: 'n_kual',sortable:true,width:80, },                                       
+            { text: 'NILAI AKHIR', value: 'n_kuan',sortable:false,width:100, },                           
+            { text: 'NILAI MUTU', value: 'n_mutu',sortable:true,width:100, },                           
+            { text: 'TA.SMT', value: 'tasmt',sortable:false,width:100, },                           
+            { text: 'TA.MATKUL', value: 'ta_matkul',sortable:false,width:100, },                                       
+            { text: 'DI INPUT OLEH', value: 'username',sortable:false,width:100, },                                       
+        ],  
+
+        dialoghistory:false,
         dialogprintpdf:false,
         file_pdf:null
     }),
@@ -244,7 +334,29 @@ export default {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;                        
-        },
+        },        
+        async viewItem(item)
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/akademik/nilai/transkripkurikulum/'+item.id+'/history',                
+                {
+                    user_id:this.data_mhs.user_id,
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(({data})=>{                              
+                this.data_matkul=data.matakuliah;
+                this.data_history=data.history;
+                this.dialoghistory=true;
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });   
+        },        
         dataTableRowClicked(item)
         {
             if ( item === this.expanded[0])
@@ -255,7 +367,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },        
+        },
         async printpdf1()
         {
             this.btnLoading=true;
@@ -296,6 +408,14 @@ export default {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;      
+                }, 300
+            );
+        }, 
+        closedialoghistory () {                  
+            setTimeout(() => {
+                this.data_matkul={};
+                this.data_history=[];
+                this.dialoghistory = false;      
                 }, 300
             );
         }, 

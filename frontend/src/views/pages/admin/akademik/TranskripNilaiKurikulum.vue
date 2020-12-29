@@ -155,7 +155,7 @@ import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter7 from '@/components/sidebar/FilterMode7';
 export default {
-    name: 'DulangMahasiswaBaru',
+    name: 'TranskripNilaiKurikulum',
     created () {
         this.breadcrumbs = [
             {
