@@ -173,6 +173,8 @@ class TranskripKurikulumController  extends Controller
                             ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                             ->where('C.user_id',$mahasiswa->user_id)
                             ->where('D.matkul_id',$item->id)
+                            ->orderBy('n_mutu','desc')
+                            ->limit(1)
                             ->get();
                 
                 $HM=$item->HM;
@@ -190,6 +192,7 @@ class TranskripKurikulumController  extends Controller
                     $jumlah_sks_nilai+=$item->sks;
                 }
                 $daftar_nilai[]=[
+                    'id'=>$item->id,
                     'no'=>$key+1,
                     'kmatkul'=>$item->kmatkul,
                     'nmatkul'=>$item->nmatkul,
@@ -239,6 +242,53 @@ class TranskripKurikulumController  extends Controller
                                     'jumlah_m'=>$jumlah_m,              
                                     'ipk'=>$ipk,
                                     'message'=>"Transkrip Nilai ($id) berhasil dihapus"
+                                ],200); 
+        }
+    }
+    public function history(Request $request,$id)
+    {
+        $matakuliah = MatakuliahModel::find($id);
+        if (is_null($matakuliah))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            $this->validate($request, [
+                'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'
+            ]);
+            $history=\DB::table('pe3_nilai_matakuliah AS A')
+                                    ->select(\DB::raw('
+                                        B.id AS krsmatkul_id,
+                                        D.id AS penyelenggaraan_id,                                                                                
+                                        A.n_kual, 
+                                        A.n_mutu,
+                                        A.n_kuan,
+                                        C.tasmt,
+                                        D.ta_matkul,
+                                        E.username,
+                                        A.created_at,
+                                        A.updated_at
+                                    '))
+                                    ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+                                    ->join('pe3_krs AS C','B.krs_id','C.id')
+                                    ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                                    ->leftJoin('users AS E','E.id','A.user_id_updated')
+                                    ->where('C.user_id',$request->input('user_id'))
+                                    ->where('D.matkul_id',$id)
+                                    ->orderBy('D.created_at','desc')
+                                    ->get();   
+                                    
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata', 
+                                    'matakuliah'=>$matakuliah,                                     
+                                    'history'=>$history,                                     
+                                    'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
                                 ],200); 
         }
     }
