@@ -442,7 +442,7 @@ $router->group(['prefix'=>'h2h'], function () use ($router)
 $router->group(['prefix'=>'h2h','middleware'=>'auth:api'], function () use ($router)
 {
     //setting - zoom api
-    $router->get('/zoom',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@index','as'=>'zoom.index']);
+    $router->get('/zoom',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@index','as'=>'zoom.index']);
     $router->post('/zoom/store',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@store','as'=>'zoom.store']);
     //sync ini digunakan untuk mensinkronkan data akun zoom
     $router->get('/zoom/sync/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@testing','as'=>'zoom.sync']);
