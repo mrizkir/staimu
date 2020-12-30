@@ -82,9 +82,9 @@
                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                         <v-col xs="12" sm="12" md="6">
                             <v-card flat class="mb-2">
-                                <v-card-title>CREATED:</v-card-title>  
+                                <v-card-title>STATUS:</v-card-title>  
                                 <v-card-subtitle>
-                                    {{$date(datamhs.created_at).format('DD/MM/YYYY HH:mm')}}
+                                    {{datamhs.n_status}}
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
@@ -102,9 +102,9 @@
                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                         <v-col xs="12" sm="12" md="6">
                             <v-card flat class="mb-2">
-                                <v-card-title>UPDATED:</v-card-title>  
+                                <v-card-title>CREATED/UPDATED:</v-card-title>  
                                 <v-card-subtitle>
-                                    {{$date(datamhs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                    {{$date(datamhs.created_at).format('DD/MM/YYYY HH:mm')}}/{{$date(datamhs.updated_at).format('DD/MM/YYYY HH:mm')}}
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
