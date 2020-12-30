@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kemahasiswaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class KemahasiswaanProfilController extends Controller {  
     /**
@@ -30,6 +31,7 @@ class KemahasiswaanProfilController extends Controller {
                             ->join('users AS C','A.user_id','C.id')
                             ->join('pe3_prodi AS D','A.kjur','D.id')
                             ->where('A.nim','LIKE',$request->input('search').'%')
+                            ->orWhere('B.nama_mhs', 'LIKE', '%'.$request->input('search').'%')
                             ->get();
 
         return Response()->json([
@@ -40,5 +42,27 @@ class KemahasiswaanProfilController extends Controller {
                                     'message'=>'Daftar Mahasiswa berhasil diperoleh.'
                                 ],200); 
     
+    }
+    /**
+     * melakukan reset password mahasiswa
+     */
+    public function resetpassword(Request $request)
+    {
+        $this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_UPDATE');
+
+        $this->validate($request,[
+            'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'        
+        ]);
+        
+        $user=User::find($id);
+
+        $user->password=Illuminate\Support\Facades\Hash::make(12345678);
+        $user->save();
+
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'update',                                        
+                                'message'=>'Reset password Mahasiswa '.$user->name.'berhasil diperoleh.'
+                            ],200);
     }
 }
