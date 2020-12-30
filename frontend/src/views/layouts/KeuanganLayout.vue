@@ -158,13 +158,23 @@
                     </v-list-item-content>
                 </v-list-item> 
                 <v-divider/>
+                <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-DULANG-MHS-BARU_BROWSE')" to="/keuangan/transaksi-dulangmhsbaru">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-cash</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            DAFTAR ULANG MHS. BARU
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                                                     
                 <v-list-item link v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-REGISTRASIKRS_BROWSE')" to="/keuangan/transaksi-registrasikrs">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-cash</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>
-                            TRANSAKSI REGISTRASI KRS
+                            REGISTRASI KRS
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                                                     
@@ -174,7 +184,7 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>
-                            TRANSAKSI SPP
+                            SPP
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                                                     

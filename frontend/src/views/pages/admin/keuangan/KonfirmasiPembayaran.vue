@@ -521,6 +521,7 @@ export default {
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
             { text: 'NO.REF', value: 'no_faktur',width:100,sortable:true },
             { text: 'TANGGAL TRANSAKSI', value: 'tanggal',width:100,sortable:true },
+            { text: 'NO. FORMULIR', value: 'no_formulir',sortable:true,width:100 },
             { text: 'NIM', value: 'nim',sortable:true,width:100 },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },
             { text: 'SMT', value: 'idsmt',width:100,sortable:true },

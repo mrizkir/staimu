@@ -322,6 +322,24 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/TransaksiSPP.vue'),		
 	},
 	{
+		path: '/keuangan/transaksi-dulangmhsbaru',
+		name: 'KeuanganTransaksiDulangMHSBaru',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI DAFTAR ULANG MAHASISWA BARU",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiDulangMHSBaru.vue'),		
+	},
+	{
+		path: '/keuangan/transaksi-dulangmhsbaru/:transaksi_id',
+		name: 'KeuanganTransaksiDulangMHSBaruDetail',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI DAFTAR ULANG MAHASISWA BARU",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiInvoice.vue'),		
+	},
+	{
 		path: '/keuangan/transaksi-spp/:transaksi_id',
 		name: 'KeuanganTransaksiSPPDetail',
 		meta:{
