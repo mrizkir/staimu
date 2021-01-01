@@ -21,15 +21,15 @@ class TransaksiSPPController extends Controller {
      */
     public function index(Request $request)
     {
-        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_BROWSE');
-        
-        $this->validate($request, [           
-            'TA'=>'required',
-        ]);
-        $ta=$request->input('TA');
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_BROWSE');        
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
+            $this->validate($request, [           
+                'TA'=>'required',            
+            ]);
+            $ta=$request->input('TA');
+
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
                                                         pe3_transaksi_detail.user_id,
@@ -55,6 +55,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_status_transaksi.style,
                                                         pe3_transaksi.total,
                                                         pe3_transaksi.tanggal,     
+                                                        pe3_transaksi.ta,     
                                                         pe3_transaksi_detail.created_at,
                                                         pe3_transaksi_detail.updated_at
                                                     '))
@@ -69,6 +70,13 @@ class TransaksiSPPController extends Controller {
         }
         else
         {
+            $this->validate($request, [           
+                'TA'=>'required',
+                'prodi_id'=>'required'
+            ]);
+            $ta=$request->input('TA');
+            $prodi_id=$request->input('prodi_id');
+
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
                                                         pe3_transaksi_detail.user_id,
@@ -88,22 +96,32 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
                                                         pe3_transaksi.no_formulir,
-                                                        pe3_transaksi.nim,
+                                                        COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
                                                         pe3_status_transaksi.style,
                                                         pe3_transaksi.total,
                                                         pe3_transaksi.tanggal,     
+                                                        pe3_transaksi.ta,     
                                                         pe3_transaksi_detail.created_at,
                                                         pe3_transaksi_detail.updated_at
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                                    ->where('pe3_transaksi.ta',$ta)                                                    
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
-                                                    ->orderBy('pe3_transaksi.tanggal','DESC')
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',201)
+                                                    ->orderBy('pe3_transaksi.tanggal','DESC');
+            if ($request->has('search'))
+            {
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
                                                     ->get();
+            }            
+            else
+            {
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)                                                    
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                                    
+                                                    ->get();
+            }
         }        
         $daftar_transaksi->transform(function ($item,$key){
             $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->bulan);

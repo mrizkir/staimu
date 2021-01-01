@@ -8,7 +8,7 @@
                 TRANSAKSI SPP
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -29,7 +29,7 @@
             </template>
         </ModuleHeader>
         <template v-slot:filtersidebar>
-            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
+            <Filter18 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />	
         </template>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -121,7 +126,7 @@
                             {{item.sub_total|formatUang}}
                         </template>
                         <template v-slot:item.idsmt="{ item }">                                
-                            {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+                            {{item.ta}} {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
                         </template>
                         <template v-slot:item.nama_status="{ item }">    
                             <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
@@ -172,7 +177,7 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter18 from '@/components/sidebar/FilterMode18';
 export default {
     name:'TransaksiSPP',
     created()
@@ -195,6 +200,9 @@ export default {
                 href:'#'
             }
         ];        
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
     },
     mounted()
@@ -204,7 +212,12 @@ export default {
     data: () => ({
         firstloading:true,
         breadcrumbs:[],     
+        prodi_id:null,
+        nama_prodi:null,
         tahun_akademik:0,
+        filter_ignore:false, 
+        awaiting_search:false,
+
         btnLoading:false,      
 
         //tables
@@ -216,7 +229,7 @@ export default {
             { text: 'NIM', value: 'nim',sortable:true,width:100 },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },            
             { text: 'BULAN', value: 'nama_bulan',width:100,sortable:true },
-            { text: 'SMT', value: 'idsmt',width:50,sortable:false },
+            { text: 'TA/SMT', value: 'idsmt',width:50,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false,align:'right' },
             { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
@@ -247,6 +260,10 @@ export default {
 
     }),
     methods : {
+        changeProdi (id)
+        {
+            this.prodi_id=id;
+        },
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;
@@ -256,6 +273,7 @@ export default {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi-spp',            
             {
+                prodi_id:this.prodi_id,
                 TA:this.tahun_akademik,
             },
             {
@@ -267,7 +285,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;
-            this.$refs.filter1.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter18.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -361,15 +379,54 @@ export default {
         }
     }, 
     watch:{        
+        tahun_akademik()
+        {
+            if (!this.firstloading)
+            {
+                this.initialize();
+            }            
+        },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        },
         search ()
         {
-            
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/keuangan/transaksi-spp',            
+                        {
+                            prodi_id:this.prodi_id,
+                            TA:this.tahun_akademik,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.transaksi;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
         }
     },
     components:{
         KeuanganLayout,
         ModuleHeader,     
-        Filter1    
+        Filter18    
     },
 }
 </script>
