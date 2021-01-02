@@ -569,12 +569,26 @@ export default {
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
-        semesterGanjilText () {
-            return this.semester_ganjil.join(' ~ ')
+        semesterGanjilText : {
+            set()
+            {
+                
+            },
+            get ()
+            {
+                return this.semester_ganjil.join(' ~ ');
+            }
         },
-        semesterGenapText () {
-            return this.semester_genap.join(' ~ ')
-        },
+        semesterGenapText:{
+            set()
+            {
+
+            },
+            get ()
+            {
+                  return this.semester_genap.join(' ~ ');
+            }
+        },           
     },
     components:{
         DataMasterLayout,
