@@ -23,7 +23,14 @@ class TAModel extends Model {
      * @var array
      */
     protected $fillable = [
-        'tahun', 'tahun_akademik', 'awal_semester'
+        'tahun', 
+        'tahun_akademik', 
+        'awal_ganjil',
+        'akhir_ganjil',
+        'awal_genap',
+        'akhir_genap',
+        'awal_pendek',
+        'akhir_pendek',        
     ];
     /**
      * enable auto_increment.

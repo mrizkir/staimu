@@ -78,18 +78,103 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-text>
-                                                <v-text-field
-                                                    v-model="formdata.tahun"
-                                                    label="TAHUN"
-                                                    outlined
-                                                    :rules="rule_tahun">
-                                                </v-text-field>
-                                                <v-text-field
-                                                    v-model="formdata.tahun_akademik"
-                                                    label="TAHUN AKADEMIK"
-                                                    outlined
-                                                    :rules="rule_tahun_akademik">
-                                                </v-text-field>
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-text-field
+                                                            v-model="formdata.tahun"
+                                                            label="TAHUN"
+                                                            outlined
+                                                            :rules="rule_tahun"
+                                                            class="mr-1">
+                                                        </v-text-field>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-text-field
+                                                            v-model="formdata.tahun_akademik"
+                                                            label="TAHUN AKADEMIK"
+                                                            outlined
+                                                            :rules="rule_tahun_akademik">
+                                                        </v-text-field>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                </v-row>
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="12" md="12">
+                                                        <v-menu
+                                                            ref="menuSemesterGanjil"
+                                                            v-model="menuSemesterGanjil"
+                                                            :close-on-content-click="false"
+                                                            :return-value.sync="semester_ganjil"
+                                                            transition="scale-transition"
+                                                            offset-y
+                                                            max-width="550px"
+                                                            min-width="550px"
+                                                        >
+                                                            <template v-slot:activator="{ on }">
+                                                                <v-text-field
+                                                                    v-model="semesterGanjilText"
+                                                                    label="SEMESTER GANJIL"                                            
+                                                                    readonly
+                                                                    outlined
+                                                                    v-on="on"                                                                    
+                                                                    class="mr-1"
+                                                                ></v-text-field>
+                                                            </template>
+                                                            <v-date-picker
+                                                                v-model="semester_ganjil"                                        
+                                                                no-title                                
+                                                                scrollable
+                                                                range
+                                                                landscape
+                                                                full-width
+                                                                >
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn text color="primary" @click="menuSemesterGanjil = false">Cancel</v-btn>
+                                                                <v-btn text color="primary" @click="$refs.menuSemesterGanjil.save(semester_ganjil)">OK</v-btn>
+                                                            </v-date-picker>
+                                                        </v-menu>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                    
+                                                </v-row>
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="12" md="12">
+                                                        <v-menu
+                                                            ref="menuSemesterGenap"
+                                                            v-model="menuSemesterGenap"
+                                                            :close-on-content-click="false"
+                                                            :return-value.sync="semester_ganjil"
+                                                            transition="scale-transition"
+                                                            offset-y
+                                                            max-width="550px"
+                                                            min-width="550px"
+                                                        >
+                                                            <template v-slot:activator="{ on }">
+                                                                <v-text-field
+                                                                    v-model="semesterGenapText"
+                                                                    label="SEMESTER GENAP"                                            
+                                                                    readonly
+                                                                    outlined
+                                                                    v-on="on"                                                                    
+                                                                    class="mr-1"
+                                                                ></v-text-field>
+                                                            </template>
+                                                            <v-date-picker
+                                                                v-model="semester_ganjil"                                        
+                                                                no-title                                
+                                                                scrollable
+                                                                range
+                                                                landscape
+                                                                full-width
+                                                                >
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn text color="primary" @click="menuSemesterGenap = false">Cancel</v-btn>
+                                                                <v-btn text color="primary" @click="$refs.menuSemesterGenap.save(semester_ganjil)">OK</v-btn>
+                                                            </v-date-picker>
+                                                        </v-menu>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                    
+                                                </v-row>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -127,6 +212,66 @@
                                                         <v-card-title>TAHUN AKADEMIK :</v-card-title>
                                                         <v-card-subtitle>
                                                             {{formdata.tahun_akademik}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AWAL GANJIL:</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.awal_ganjil}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AKHIR GANJIL :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.akhir_ganjil}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AWAL GENAP:</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.awal_genap}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AKHIR GENAP :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.akhir_genap}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AWAL PENDEK:</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.awal_pendek}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>AKHIR PENDEK :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.akhir_pendek}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -204,45 +349,82 @@ export default {
         ];
         this.initialize()
     },
-    data: () => ({
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
-        headers: [
-            { text: 'TA', value: 'tahun' },
-            { text: 'TAHUN AKADEMIK', value: 'tahun_akademik' },
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
-        ],
-        search:'',
+    data()
+    {
+        let d = new Date();
+        let semester_ganjil = [d.getFullYear()+'-09-01',(d.getFullYear()+1)+'-02-28'];                
+        let semester_genap = [(d.getFullYear()+1)+'-03-01',(d.getFullYear()+1)+'-08-31'];                
+        return {
+            btnLoading:false,
+            datatableLoading:false,
+            expanded:[],
+            datatable:[],
+            headers: [
+                { text: 'TA', value: 'tahun', width:50 },
+                { text: 'TAHUN AKADEMIK', value: 'tahun_akademik',width:150 },
+                { text: 'AWAL GANJIL', value: 'awal_ganjil',width:50 },
+                { text: 'AKHIR GANJIL', value: 'akhir_ganjil',width:50 },
+                { text: 'AWAL GENAP', value: 'awal_genap',width:50 },
+                { text: 'AKHIR GENAP', value: 'akhir_genap',width:50 },
+                { text: 'AWAL PENDEK', value: 'awal_pendek',width:50 },
+                { text: 'AKHIR PENDEK', value: 'akhir_pendek',width:50 },
+                { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            ],
+            search:'',
 
-        //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+            //dialog
+            dialogfrm:false,
+            dialogdetailitem:false,
 
-        //form data
-        old_tahun:'',
-        form_valid:true,
-        formdata: {
-            tahun:'',
-            tahun_akademik:'',
-        },
-        formdefault: {
-            tahun:'',
-            tahun_akademik:'',
-        },
-        editedIndex: -1,
+            //form data
+            old_tahun:'',
+            form_valid:true,
+            menuSemesterGanjil:false,        
+            semester_ganjil:semester_ganjil,
+            menuSemesterGenap:false,        
+            semester_genap:semester_genap,
 
-        //form rules
-        rule_tahun:[
-            value => !!value||"Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
-            value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',
-            value => (value && value.length == 4) || 'Kode kelas hanya boleh 4 karakter'
-        ],
-        rule_tahun_akademik:[
-            value => !!value||"Mohon untuk di isi nama tahun akademik !!!",
-        ],
-    }),
+            formdata: {
+                tahun:'',
+                tahun_akademik:'',
+                awal_ganjil:'',
+                akhir_ganjil:'',
+                awal_genap:'',
+                akhir_genap:'',
+                awal_pendek:'',
+                akhir_pendek:'',  
+            },
+            formdefault: {
+                tahun:'',
+                tahun_akademik:'',
+                awal_ganjil:'',
+                akhir_ganjil:'',
+                awal_genap:'',
+                akhir_genap:'',
+                awal_pendek:'',
+                akhir_pendek:'',  
+            },
+            editedIndex: -1,
+
+            //form rules
+            rule_tahun:[
+                value => !!value||"Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
+                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',                
+                value => {                    
+                    if (value && typeof value !== 'undefined' && value.length > 0){
+                        return value.length == 4 || 'Tahun Akademik hanya boleh 4 karakter';
+                    }
+                    else
+                    {
+                        return true;
+                    }                    
+                }
+            ],
+            rule_tahun_akademik:[                
+                value => !!value||"Mohon untuk di isi nama tahun akademik !!!",
+            ],            
+        }
+    },
     methods: {
         initialize:async function ()
         {
@@ -276,6 +458,10 @@ export default {
         editItem (item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
+            this.semester_ganjil[0]=this.formdata.awal_ganjil;
+            this.semester_ganjil[1]=this.formdata.akhir_ganjil;
+            this.semester_genap[0]=this.formdata.awal_genap;
+            this.semester_genap[1]=this.formdata.akhir_genap;
             this.old_tahun=item.tahun;
             this.dialogfrm = true
         },
@@ -290,6 +476,10 @@ export default {
                             '_method':'PUT',
                             tahun:this.formdata.tahun,
                             tahun_akademik:this.formdata.tahun_akademik,
+                            awal_ganjil:this.semester_ganjil[0],
+                            akhir_ganjil:this.semester_ganjil[1],
+                            awal_genap:this.semester_genap[0],
+                            akhir_genap:this.semester_genap[1],
                         },
                         {
                             headers:{
@@ -309,6 +499,10 @@ export default {
                         {
                             tahun:this.formdata.tahun,
                             tahun_akademik:this.formdata.tahun_akademik,
+                            awal_ganjil:this.semester_ganjil[0],
+                            akhir_ganjil:this.semester_ganjil[1],
+                            awal_genap:this.semester_genap[0],
+                            akhir_genap:this.semester_genap[1],
                         },
                         {
                             headers:{
@@ -374,6 +568,12 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+        },
+        semesterGanjilText () {
+            return this.semester_ganjil.join(' ~ ')
+        },
+        semesterGenapText () {
+            return this.semester_genap.join(' ~ ')
         },
     },
     components:{

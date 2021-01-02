@@ -92,7 +92,13 @@
                                                     outlined
                                                     :rules="rule_nim"
                                                     :disabled="dashboard =='mahasiswa'">
-                                                </v-text-field>                                             
+                                                </v-text-field>   
+                                                <v-alert type="warning">
+                                                    Pilihlah Semester Sesuai dengan Range, Misalnya :<br>
+                                                    September {{tahun_akademik}} s.d  Februari {{tahun_akademik+1}} = GANJIL<br>
+                                                    Maret {{tahun_akademik+1}} s.d  JULI {{tahun_akademik+1}} = GENAP<br>
+                                                    AGUSTUS {{tahun_akademik+1}} = PENDEK (bila ada)<br>
+                                                </v-alert>                                          
                                                 <v-select
                                                     v-model="formdata.semester_akademik"
                                                     :items="daftar_semester"                                    
@@ -430,3 +436,8 @@ export default {
     },
 }
 </script>
+<style scoped>
+.v-text-field--outlined >>> fieldset {
+    border-color:#fb8c01;
+}
+</style>
