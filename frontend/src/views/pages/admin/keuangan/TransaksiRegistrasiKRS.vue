@@ -8,7 +8,7 @@
                 TRANSAKSI REGISTRASI KRS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -28,8 +28,8 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar>
-            <Filter2 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" ref="filter2" />
+        <template v-slot:filtersidebar>            
+            <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -193,7 +198,7 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter2 from '@/components/sidebar/FilterMode2';
+import Filter6 from '@/components/sidebar/FilterMode6';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
     name:'TransaksiRegistrasiKRS',
@@ -217,6 +222,9 @@ export default {
                 href:'#'
             }
         ];        
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];             
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];           
     },
@@ -230,7 +238,11 @@ export default {
         breadcrumbs:[],     
         tahun_akademik:0,
         semester_akademik:null,
-
+        prodi_id:null,
+        nama_prodi:null,
+        filter_ignore:false, 
+        awaiting_search:false,
+        
         btnLoading:false,      
 
         //tables
@@ -280,13 +292,18 @@ export default {
         {
             this.semester_akademik=semester;
         },
+        changeProdi (id)
+        {
+            this.prodi_id=id;
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi-registrasikrs',            
             {
                 TA:this.tahun_akademik,
-                SEMESTER_AKADEMIK:this.semester_akademik
+                SEMESTER_AKADEMIK:this.semester_akademik,
+                PRODI_ID:this.prodi_id,
             },
             {
                 headers: {
@@ -297,7 +314,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;
-            this.$refs.filter2.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter6.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -436,11 +453,48 @@ export default {
                 this.initialize();
             }            
         },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/keuangan/transaksi-registrasikrs',            
+                        {
+                            TA:this.tahun_akademik,
+                            SEMESTER_AKADEMIK:this.semester_akademik,
+                            PRODI_ID:this.prodi_id,
+                            SEARCH:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.transaksi;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
+        }
     }, 
     components:{
         KeuanganLayout,
         ModuleHeader,     
-        Filter2,
+        Filter6,
         'dialog-printout':DialogPrintoutKeuangan    
     },
 }

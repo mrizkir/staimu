@@ -21,16 +21,16 @@ class TransaksiRegistrasiKRSController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-REGISTRASIKRS_BROWSE');
         
-        $this->validate($request, [           
-            'TA'=>'required',
-            'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
-        ]);
-
-        $ta=$request->input('TA');
-        $idsmt=$request->input('SEMESTER_AKADEMIK');
-
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
+            $this->validate($request, [           
+                'TA'=>'required',
+                'SEMESTER_AKADEMIK'=>'required|in:1,2,3',            
+            ]);
+    
+            $ta=$request->input('TA');
+            $idsmt=$request->input('SEMESTER_AKADEMIK');
+
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
                                                         pe3_transaksi_detail.user_id,
@@ -70,6 +70,16 @@ class TransaksiRegistrasiKRSController extends Controller {
         }
         else
         {
+            $this->validate($request, [           
+                'TA'=>'required',
+                'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
+                'PRODI_ID'=>'required',
+            ]);
+    
+            $ta=$request->input('TA');
+            $idsmt=$request->input('SEMESTER_AKADEMIK');
+            $prodi_id=$request->input('SEMESTER_AKADEMIK');
+            
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
                                                         pe3_transaksi_detail.user_id,
@@ -99,12 +109,22 @@ class TransaksiRegistrasiKRSController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                                    ->where('pe3_transaksi.ta',$ta)     
-                                                    ->where('pe3_transaksi.idsmt',$idsmt)                                               
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
                                                     ->where('pe3_transaksi_detail.kombi_id',202)                                                    
-                                                    ->orderBy('pe3_transaksi.tanggal','DESC')
+                                                    ->orderBy('pe3_transaksi.tanggal','DESC');                                                    
+
+            if ($request->has('SEARCH'))
+            {
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('SEARCH').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('SEARCH').'%\')')                                                    
                                                     ->get();
+            }            
+            else
+            {
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)     
+                                                    ->where('pe3_transaksi.idsmt',$idsmt)                                               
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                               
+                                                    ->get();
+            }
         }        
         
         return Response()->json([
