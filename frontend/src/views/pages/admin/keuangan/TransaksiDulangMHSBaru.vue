@@ -8,7 +8,7 @@
                 TRANSAKSI DAFTAR ULANG MAHASISWA BARU
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -28,8 +28,8 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar>            
-            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />	
+        <template v-slot:filtersidebar>                        
+            <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />		
         </template>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -70,7 +75,8 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer> 
+                                                               
                                 <v-btn color="primary" icon outlined small class="ma-2" @click.stop="addItem">
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
@@ -81,7 +87,7 @@
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
-                                                <span class="headline">TAMBAH TRANSAKSI T.A {{tahun_akademik}}</span>
+                                                <span class="headline">TAMBAH TRANSAKSI T.A {{tahun_pendaftaran}}</span>
                                             </v-card-title>
                                             <v-card-text>
                                                 <v-text-field 
@@ -107,6 +113,9 @@
                                     </v-form>
                                 </v-dialog>
                             </v-toolbar>
+                        </template>
+                        <template v-slot:item.idsmt="{ item }">                                
+                            {{item.ta}} {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
                         </template>
                         <template v-slot:item.tanggal="{ item }">    
                             {{$date(item.tanggal).format('DD/MM/YYYY')}}
@@ -181,7 +190,7 @@
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter1 from '@/components/sidebar/FilterMode2';
+import Filter7 from '@/components/sidebar/FilterMode7';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
     name:'TransaksiDulangMHSBaru',
@@ -205,7 +214,10 @@ export default {
                 href:'#'
             }
         ];        
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                               
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                               
     },
     mounted()
     {
@@ -214,8 +226,12 @@ export default {
     data: () => ({
         dashboard:null,
         firstloading:true,
-        breadcrumbs:[],     
-        tahun_akademik:0,        
+        breadcrumbs:[],    
+        prodi_id:null,
+        nama_prodi:null, 
+        tahun_pendaftaran:0,        
+        filter_ignore:false, 
+        awaiting_search:false,
 
         btnLoading:false,      
 
@@ -252,16 +268,21 @@ export default {
         ],        
     }),
     methods : {
-        changeTahunAkademik (tahun)
+        changeTahunPendaftaran (tahun)
         {
-            this.tahun_akademik=tahun;
-        },        
+            this.tahun_pendaftaran=tahun;
+        },
+        changeProdi (id)
+        {
+            this.prodi_id=id;
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi-dulangmhsbaru',            
             {
-                TA:this.tahun_akademik,                
+                TA:this.tahun_pendaftaran, 
+                PRODI_ID:this.prodi_id               
             },
             {
                 headers: {
@@ -272,7 +293,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;
-            this.$refs.filter1.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter7.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -300,7 +321,7 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-dulangmhsbaru/store',
                     {
                         no_formulir:this.formdata.no_formulir,                         
-                        TA:this.tahun_akademik,                                                     
+                        TA:this.tahun_pendaftaran,                                                     
                     },
                     {
                         headers:{
@@ -390,18 +411,54 @@ export default {
         }
     },
     watch:{
-        tahun_akademik()
+        tahun_pendaftaran()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             }            
         },        
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/keuangan/transaksi-dulangmhsbaru',                 
+                        {
+                            PRODI_ID:this.prodi_id,
+                            TA:this.tahun_pendaftaran,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.transaksi;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
+        }
     }, 
     components:{
         KeuanganLayout,
         ModuleHeader,     
-        Filter1,
+        Filter7,
         'dialog-printout':DialogPrintoutKeuangan    
     },
 }

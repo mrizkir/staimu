@@ -23,9 +23,11 @@ class TransaksiDulangMHSBaruController extends Controller {
         
         $this->validate($request, [           
             'TA'=>'required',            
+            'PRODI_ID'=>'required',            
         ]);
 
         $ta=$request->input('TA');
+        $prodi_id=$request->input('PRODI_ID');
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
@@ -94,11 +96,21 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                                    ->where('pe3_transaksi.ta',$ta)                                                         
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
                                                     ->where('pe3_transaksi_detail.kombi_id',102)                                                    
-                                                    ->orderBy('pe3_transaksi.tanggal','DESC')
+                                                    ->orderBy('pe3_transaksi.tanggal','DESC');                                                    
+
+            if ($request->has('search'))
+            {
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
                                                     ->get();
+            }            
+            else
+            {
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)                                                    
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                                    
+                                                    ->get();
+            }
         }        
         
         return Response()->json([
