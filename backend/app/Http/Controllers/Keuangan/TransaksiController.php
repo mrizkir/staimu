@@ -89,7 +89,16 @@ class TransaksiController extends Controller {
      */
     public function show(Request $request,$id)
     {
-        $transaksi=TransaksiModel::find($id);
+        $transaksi=TransaksiModel::select(\DB::raw('
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_formulir_pendaftaran.alamat_rumah,
+                                        pe3_formulir_pendaftaran.telp_hp,
+                                        pe3_transaksi.*                                        
+                                    '))
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+                                    ->where('pe3_transaksi.id',$id)
+                                    ->first();
+
         if (is_null($transaksi))        {
             return Response()->json([
                                         'status'=>0,
@@ -99,7 +108,8 @@ class TransaksiController extends Controller {
         }
         else
         {
-            $transaksi_detail=$transaksi->detail;
+            $transaksi_detail=TransaksiDetailModel::where('transaksi_id',$id)
+                                                    ->get();
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
