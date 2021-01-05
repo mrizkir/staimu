@@ -23,8 +23,10 @@ class TransaksiController extends Controller {
         
         $this->validate($request, [           
             'TA'=>'required',
+            'PRODI_ID'=>'required',
         ]);
         $ta=$request->input('TA');
+        $prodi_id=$request->input('PRODI_ID');
         
         $select=\DB::raw('
                             pe3_transaksi.id,
@@ -71,10 +73,20 @@ class TransaksiController extends Controller {
         {
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-                                            ->where('pe3_transaksi.ta',$ta)
-                                            ->orderBy('tanggal','DESC')
-                                            ->get();
+                                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')                                            
+                                            ->orderBy('tanggal','DESC');                                            
+
+            if ($request->has('search'))
+            {
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                                                    ->get();
+            }            
+            else
+            {
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)                                                    
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                                    
+                                                    ->get();
+            }
         }        
         
         return Response()->json([
@@ -82,7 +94,7 @@ class TransaksiController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'transaksi'=>$daftar_transaksi,                                                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
-                                ],200);     
+                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
     /**
      * digunakan untuk mendapatkan detail transaksi
@@ -116,7 +128,7 @@ class TransaksiController extends Controller {
                                         'transaksi'=>$transaksi,                                                                                                                                   
                                         'transaksi_detail'=>$transaksi_detail,                                                                                                                                   
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
-                                    ],200); 
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }      
     public function sppmhsbaru (Request $request,$id)

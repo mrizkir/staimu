@@ -7,8 +7,8 @@
             <template v-slot:name>
                 TRANSAKSI
             </template>
-            <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+            <template v-slot:subtitle>                
+                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -29,7 +29,7 @@
             </template>
         </ModuleHeader> 
         <template v-slot:filtersidebar>
-            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
+            <Filter18 v-on:changeTahunPendaftaran="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />		
         </template>
         <v-container fluid>             
             <v-row class="mb-4" no-gutters>
@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -193,17 +198,45 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>             
+                        </template>      
+                        <template v-slot:body.append v-if="datatable.length > 0">
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="6">TOTAL TRANSAKSI PAID</td>
+                                <td class="text-right" >{{totaltransaksi_paid|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
+                                <td class="text-right" >{{totaltransaksi_unpaid|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
+                                <td class="text-right" >{{totaltransaksi_canceled|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                            <tr class="grey lighten-4 font-weight-black">
+                                <td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
+                                <td class="text-right" >{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
+                                <td></td>
+                                <td></td>                                
+                            </tr>                            
+                        </template>          
                     </v-data-table>
                 </v-col>
             </v-row>
          </v-container>
+         <dialog-printout pid="dulangmhsbaru" title="Daftar Ulang Mahasiwa Baru" ref="dialogprint"></dialog-printout>
     </KeuanganLayout>
 </template>
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter18 from '@/components/sidebar/FilterMode18';
+import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
     name: 'Transaksi',
     created () {
@@ -226,6 +259,9 @@ export default {
             }
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
     },   
     mounted()
@@ -235,8 +271,12 @@ export default {
     data: () => ({ 
         firstloading:true,
         breadcrumbs:[],     
+        prodi_id:null,
+        nama_prodi:null, 
         tahun_akademik:0,
         btnLoading:false,       
+        filter_ignore:false, 
+        awaiting_search:false,
 
         //tables
         datatableLoading:false,       
@@ -273,12 +313,17 @@ export default {
         {
             this.tahun_akademik=tahun;
         },
+        changeProdi (id)
+        {
+            this.prodi_id=id;
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi',            
             {
                 TA:this.tahun_akademik,
+                PRODI_ID:this.prodi_id,
             },
             {
                 headers: {
@@ -289,7 +334,7 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;
-            this.$refs.filter1.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter18.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
@@ -325,12 +370,7 @@ export default {
                 }, 300
             );
         },
-    },
-    components:{
-        KeuanganLayout,
-        ModuleHeader,    
-        Filter1    
-    },
+    },    
     watch:{
         tahun_akademik()
         {
@@ -339,6 +379,83 @@ export default {
                 this.initialize();
             }            
         },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/keuangan/transaksi',                 
+                        {
+                            PRODI_ID:this.prodi_id,
+                            TA:this.tahun_akademik,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.transaksi;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
+        }
+    },
+    computed:{
+        totaltransaksi_paid()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==1)
+                {
+                    total+=item.total;
+                }
+            }); 
+            return total;
+        },
+        totaltransaksi_unpaid()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==0)
+                {
+                    total+=item.total;
+                }
+            }); 
+            return total;
+        },
+        totaltransaksi_canceled()
+        {
+            var total=0;
+            this.datatable.forEach(item => {
+                if (item.status==2)
+                {
+                    total+=item.total;
+                }
+            }); 
+            return total;
+        }
+    },
+    components:{
+        KeuanganLayout,
+        ModuleHeader,    
+        Filter18,
+        'dialog-printout':DialogPrintoutKeuangan       
     },
 }
 </script>
