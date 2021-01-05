@@ -229,7 +229,7 @@
                 </v-col>
             </v-row>
          </v-container>
-         <dialog-printout pid="dulangmhsbaru" title="Daftar Ulang Mahasiwa Baru" ref="dialogprint"></dialog-printout>
+         <dialog-printout pid="transaksi" title="Daftar Transaksi" ref="dialogprint"></dialog-printout>
     </KeuanganLayout>
 </template>
 <script>

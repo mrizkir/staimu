@@ -8,7 +8,7 @@
                 KONFIRMASI PEMBAYARAN
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -40,6 +40,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -474,16 +479,18 @@
             </v-row>
         </v-container>
         <template v-slot:filtersidebar>
-            <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />	
+            <Filter18 v-on:changeTahunPendaftaran="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />		
         </template>
+        <dialog-printout pid="konfirmasipembayaran" title="Daftar Konfirmasi Pembayaran" ref="dialogprint"></dialog-printout>
     </KeuanganLayout>
 </template>
 <script>
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter18 from '@/components/sidebar/FilterMode18';
+import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
-    name: 'KonfirmasiPembayaran', 
+    name: 'KonfirmasiPembayFilter18aran', 
     created () {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];        
         this.breadcrumbs = [
@@ -504,6 +511,9 @@ export default {
             }
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        this.prodi_id=prodi_id;
+        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.initialize()
     },   
@@ -512,9 +522,13 @@ export default {
         breadcrumbs:[],        
         dashboard:null,
         btnLoading:false,     
+        prodi_id:null,
+        nama_prodi:null, 
         tahun_akademik:null,
-
+    
         //tables
+        filter_ignore:false, 
+        awaiting_search:false,
         datatableLoading:false,
         datatable:[],
         headers: [                                                
@@ -594,11 +608,16 @@ export default {
         {
             this.tahun_akademik=tahun;
         },
+        changeProdi (id)
+        {
+            this.prodi_id=id;
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/konfirmasipembayaran',            
             {
+                PRODI_ID:this.prodi_id,
                 TA:this.tahun_akademik,
             },
             {
@@ -610,7 +629,7 @@ export default {
                 this.datatableLoading=false;
             });                                 
             this.firstloading=false;
-            this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
+            this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
@@ -797,11 +816,48 @@ export default {
                 this.initialize();
             }            
         },
+        prodi_id(val)
+        {
+            if (!this.firstloading)
+            {
+                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.initialize();
+            }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/keuangan/konfirmasipembayaran',                 
+                        {
+                            PRODI_ID:this.prodi_id,
+                            TA:this.tahun_akademik,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.transaksi;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
+        }
     },
     components:{
         KeuanganLayout,
         ModuleHeader, 
-        Filter1        
+        Filter18,
+        'dialog-printout':DialogPrintoutKeuangan         
     },
 }
 </script>
