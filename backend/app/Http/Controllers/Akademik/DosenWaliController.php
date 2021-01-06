@@ -47,6 +47,50 @@ class DosenWaliController extends Controller {
                                 'message'=>'Fetch data dosen wali berhasil diperoleh'
                             ],200);  
     }    
+    public function show(Request $request,$id)
+    {
+        $this->hasPermissionTo('SYSTEM-USERS-DOSEN-WALI_SHOW');
+
+        $user = UserDosen::where('is_dw',true)
+                            ->find($id);
+        if (is_null($user))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["User ID ($id) gagal diupdate"]
+                                ],422); 
+        }
+        else
+        {
+            $daftar_mahasiswa = \DB::table('pe3_register_mahasiswa AS A')
+                                ->select(\DB::raw('
+                                    A.nim,
+                                    B.nama_mhs,
+                                    D.nama_prodi,
+                                    E.nkelas,
+                                    A.tahun,
+                                    C.foto,
+                                    A.created_at,
+                                    B.updated_at
+                                '))
+                                ->join('pe3_formulir_pendaftaran AS B','B.user_id','A.user_id')
+                                ->join('users AS C','C.id','A.user_id')
+                                ->join('pe3_prodi AS D','D.id','A.kjur')
+                                ->join('pe3_kelas AS E','E.idkelas','A.idkelas')
+                                ->where('A.dosen_id',$id)
+                                ->orderBy('B.nama_mhs','ASC')
+                                ->get();
+
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',
+                                    'user'=>$user,      
+                                    'daftar_mahasiswa'=>$daftar_mahasiswa,   
+                                    'message'=>'data dosen wali beserta mahaiswanya berhasil diperoleh'                                                                           
+                                ],200);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

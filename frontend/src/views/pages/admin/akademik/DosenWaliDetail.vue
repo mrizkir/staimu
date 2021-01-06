@@ -1,5 +1,5 @@
 <template>
-    <AkademikLayout>
+    <AkademikLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-teach
@@ -45,7 +45,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="daftar_users"
+                        :items="daftar_mahasiswa"
                         :search="search"
                         item-key="id"
                         sort-by="name"
@@ -59,7 +59,7 @@
                     >
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR DOSEN WALI</v-toolbar-title>
+                                <v-toolbar-title>DAFTAR MAHASISWA</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
@@ -74,24 +74,8 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN':'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">                            
-                            <v-icon
-                                small
-                                class="mr-2"
-                                :loading="btnLoading"
-                                :disabled="btnLoading"
-                                @click.stop="viewItem(item)"
-                            >
-                                mdi-eye
-                            </v-icon>
-                            <v-icon
-                                small
-                                :loading="btnLoading"
-                                :disabled="btnLoading"
-                                @click.stop="deleteItem(item)"
-                            >
-                                mdi-delete
-                            </v-icon>
+                        <template v-slot:item.actions>                            
+                            N.A
                         </template>
                         <template v-slot:item.foto="{ item }">                            
                             <v-avatar size="30">
@@ -101,8 +85,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}
-                                    <strong>Email:</strong>{{ item.email }}
+                                    <strong>ID:</strong>{{ item.id }}                                    
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
@@ -123,8 +106,9 @@ import {mapGetters} from 'vuex';
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name: 'DosenWali',  
+    name: 'DosenWaliDetail',  
     created () {
+        this.dosen_id = this.$route.params.dosen_id;
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -138,6 +122,11 @@ export default {
             },
             {
                 text:'DOSEN WALI',
+                disabled:false,
+                href:'/akademik/dosenwali'
+            },
+            {
+                text:'DETAIL',
                 disabled:true,
                 href:'#'
             }
@@ -146,34 +135,33 @@ export default {
     },  
    
     data: () => ({ 
-        role_id:0,
+        dosen_id:null,
         datatableLoading:false,
         btnLoading:false,      
         //tables
         headers: [                        
-            { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'NAMA DOSEN', value: 'name',sortable:true },
-            { text: 'NIDN', value: 'nidn',sortable:true },     
-            { text: 'NIPY', value: 'nipy',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },                 
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: '', value: 'foto',width:70, },
+            { text: 'NIM', value: 'nim',width:100,sortable:true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',width:250,sortable:true },
+            { text: 'PROGRAM STUDI', value: 'nama_prodi',width:150,sortable:true },     
+            { text: 'KELAS', value: 'nkelas',width:150,sortable:true },     
+            { text: 'TAHUN MASUK', value: 'tahun',sortable:true },                 
+            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],
         expanded:[],
         search:'',
-        daftar_users: [],               
+        daftar_mahasiswa: [],               
     }),
     methods: {
         initialize:async function () 
         {
             this.datatableLoading=true;
-            await this.$ajax.get('/akademik/dosenwali',{
+            await this.$ajax.get('/akademik/dosenwali/'+this.dosen_id,{
                 headers: {
                     Authorization:this.TOKEN
                 }
             }).then(({data})=>{               
-                this.daftar_users = data.users;
-                this.role_id=data.role.id;
+                this.daftar_mahasiswa = data.daftar_mahasiswa;                
                 this.datatableLoading=false;
             });          
             
@@ -207,8 +195,8 @@ export default {
                             }
                         }
                     ).then(()=>{   
-                        const index = this.daftar_users.indexOf(item);
-                        this.daftar_users.splice(index, 1);
+                        const index = this.daftar_mahasiswa.indexOf(item);
+                        this.daftar_mahasiswa.splice(index, 1);
                         this.btnLoading=false;
                     }).catch(()=>{
                         this.btnLoading=false;
@@ -222,14 +210,6 @@ export default {
             ACCESS_TOKEN:'AccessToken',          
             TOKEN:'Token',                                  
         }),
-    },
-    watch: {
-        dialog (val) {
-            val || this.close()
-        },
-        dialogAlihkan (val) {
-            val || this.close()
-        },        
     },    
     components:{
         AkademikLayout,

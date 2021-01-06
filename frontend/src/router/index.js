@@ -413,6 +413,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/DosenWali.vue'),		
 	},	
+	{
+		path: '/akademik/dosenwali/:dosen_id',
+		name: 'AkademikDosenWaliDetail',
+		meta:{
+			title: "AKADEMIK - DOSEN WALI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/DosenWaliDetail.vue'),		
+	},	
 	//akademik - daftar ulang
 	{
 		path: '/akademik/dulang/mhsbelumpunyanim',
