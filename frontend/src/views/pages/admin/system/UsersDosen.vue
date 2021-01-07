@@ -543,7 +543,7 @@ export default {
         },
         setPermission: async function (item) {
             this.btnLoading=true;
-            this.$ajax.get('/system/setting/roles/'+this.role_id+'/permission',{
+            this.$ajax.get('/system/setting/roles/'+item.id+'/userpermission',{
                 headers: {
                     Authorization:this.TOKEN
                 }

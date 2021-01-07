@@ -55,6 +55,7 @@ class AuthController extends Controller
         }
         $user['role']=$this->getRoleNames();
         $user['issuperadmin']=$this->hasRole('superadmin');
+        $user['isdw']=$this->hasRole('dosenwali');
         $user['permissions']=$this->guard()->user()->permissions->pluck('id','name')->toArray();
         return response()->json($user);
     }

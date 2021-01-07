@@ -239,6 +239,16 @@
                                 </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>   						 									
+                        <v-list-item link v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_STORE')" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" disabled :to="{path:'/akademik/perkuliahan/krs/'+paramid+'/tambahmatkul'}">
+                            <v-list-item-icon class="mr-2">
+                                <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    VERIFIKASI KRS
+                                </v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>   						 									
 					</div>
                 </v-list-group>
                 <v-list-group group="/akademik/perkuliahan/pembagiankelas" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE')" color="green">
@@ -383,7 +393,7 @@ export default {
     name:'AkademikLayout',     
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                  
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                      
     },
     props:{
         showrightsidebar:{

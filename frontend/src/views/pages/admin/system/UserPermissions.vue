@@ -61,7 +61,7 @@
                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                     <v-col xs="12" sm="6" md="6">
                                        <v-card flat>
-                                            <v-card-title>CREATED :</v-card-title>
+                                            <v-card-title>ROLE :</v-card-title>
                                             <v-card-text>                                                
                                                 {{$date(user.created_at).format('DD/MM/YYYY HH:mm')}}
                                             </v-card-text>
@@ -81,9 +81,9 @@
                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                    <v-col xs="12" sm="6" md="6">
                                        <v-card flat>
-                                            <v-card-title>UPDATED :</v-card-title>
+                                            <v-card-title>CREATED/UPDATED :</v-card-title>
                                             <v-card-text>                                                
-                                                {{$date(user.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                {{$date(user.created_at).format('DD/MM/YYYY HH:mm')}}/{{$date(user.updated_at).format('DD/MM/YYYY HH:mm')}}
                                             </v-card-text>
                                         </v-card>
                                    </v-col>
