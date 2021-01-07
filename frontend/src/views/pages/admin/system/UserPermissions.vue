@@ -96,7 +96,16 @@
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">
                         <v-card>
+                            <v-card-title>
+                                FILTER ROLE DAN PENCARIAN PERMISSION
+                            </v-card-title>
                             <v-card-text>
+                                <v-select
+                                    label="ROLES"
+                                    :items="daftar_role"
+                                    v-model="role_name"
+                                >                                    
+                                </v-select>
                                 <v-text-field
                                     v-model="search"
                                     append-icon="mdi-database-search"
@@ -154,6 +163,11 @@
 import {mapGetters} from 'vuex';
 export default {
     name: 'UserPermissions',
+    mounted()
+    {
+        this.role_name=this.role_default;
+        this.initialize();
+    },
     data: () => ({
         btnLoading:false,
         //tables
@@ -164,9 +178,24 @@ export default {
         ],
         search:'',        
         perm_selected:[],
-        perm_revoked:[]
+        perm_revoked:[],
+        
+        role_name:null,
+        daftar_role:[],
     }),
-    methods: {        
+    methods: {    
+        initialize()
+        {
+            this.$ajax.get('/system/users/'+this.user.id+'/roles',                
+                {
+                    headers:{
+                        Authorization:this.TOKEN
+                    }
+                }
+            ).then(({data})=>{   
+                this.daftar_role=data.roles;
+            });
+        }, 
         save()
         {
             this.btnLoading=true;
@@ -212,10 +241,22 @@ export default {
             this.$emit('closeUserPermissions');
         }
     },
-    props:{
-        user:Object,
-        daftarpermissions:Array,
-        permissionsselected:Array,
+    props:{                        
+        user:{
+            type:Object,
+            required:true
+        },
+        daftarpermissions:{
+            type:Array,
+            required:true
+        },
+        permissionsselected:{
+            type:Array,
+            required:true
+        },
+        role_default:{
+            required:true
+        }
     },
     computed: {
         ...mapGetters('auth',{                        

@@ -217,8 +217,8 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>   
-                                <v-dialog v-model="dialogUserPermission" max-width="800px" persistent>
-                                    <UserPermissions :user="editedItem" :daftarpermissions="daftar_permissions" :permissionsselected="permissions_selected" v-on:closeUserPermissions="closeUserPermissions" />
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>
+                                    <UserPermissions :user="editedItem" :daftarpermissions="daftar_permissions" :permissionsselected="permissions_selected" v-on:closeUserPermissions="closeUserPermissions" role_default="dosen" />
                                 </v-dialog>                             
                             </v-toolbar>
                         </template>
@@ -543,7 +543,7 @@ export default {
         },
         setPermission: async function (item) {
             this.btnLoading=true;
-            this.$ajax.get('/system/setting/roles/'+item.id+'/userpermission',{
+            this.$ajax.get('/system/setting/roles/'+this.role_id+'/permission',{
                 headers: {
                     Authorization:this.TOKEN
                 }

@@ -143,35 +143,7 @@ class RolesController extends Controller {
                                         'message'=>'Fetch permission role '.$role->name.' berhasil diperoleh.'
                                     ],200); 
         }
-    }
-    /**
-     * Display the specified role permissions.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function userpermissions($id)
-    {
-        $this->hasPermissionTo('SYSTEM-SETTING-ROLES_SHOW');
-        $user = User::find($id);
-        if (is_null($user))
-        {
-            return Response()->json([
-                                    'status'=>0,
-                                    'pid'=>'fetchdata',                
-                                    'message'=>["User ID ($id) gagal diperoleh"]
-                                ],422); 
-        }
-        else
-        {
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',
-                                        'permissions'=>$user->getPermissionsViaRoles(),                                    
-                                        'message'=>'Fetch permission role berdasarkan seluruh role yang dimiliki oleh user '.$user->name.' berhasil diperoleh.'
-                                    ],200); 
-        }
-    }
+    }    
     /**
      * Update the specified resource in storage.
      *
