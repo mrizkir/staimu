@@ -229,8 +229,8 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogUserPermission" max-width="800px" persistent>                                                                    
-                                    <UserPermissions :user="editedItem" :daftarpermissions="daftar_permissions" :permissionsselected="permissions_selected" v-on:closeUserPermissions="closeUserPermissions" />
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                                                                    =                                    
+                                    <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="akademik" />
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -329,8 +329,6 @@ export default {
         expanded:[],
         search:'',
         daftar_users: [],
-        daftar_permissions: [],
-        permissions_selected: [],
 
         //form
         form_valid:true,
@@ -537,32 +535,9 @@ export default {
                 this.dialogEdit = true;
             });
         },
-        setPermission: async function (item) {          
-            this.btnLoading=true;  
-            this.$ajax.get('/system/setting/roles/'+this.role_id+'/permission',{
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.daftar_permissions = data.permissions;                           
-            }).catch(()=>{
-                this.btnLoading=false;
-            });          
-
-            await this.$ajax.get('/system/users/'+item.id+'/permission',{
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.permissions_selected = data.permissions;
-                this.btnLoading=false;
-                   
-            }).catch(()=>{
-                this.btnLoading=false;
-            });  
+        setPermission: async function (item) {
+            this.editedItem=item;            
             this.dialogUserPermission = true;
-            this.editedItem=item;
-        
         },
         close () {            
             this.btnLoading=false;
@@ -577,7 +552,6 @@ export default {
         },
         closeUserPermissions () {
             this.btnLoading=false;
-            this.permissions_selected=[];
             this.dialogUserPermission = false;  
         },
         save () {

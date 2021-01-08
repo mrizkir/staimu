@@ -117,7 +117,7 @@ class RolesController extends Controller {
                                 ],200); 
     }
     /**
-     * Display the specified role permissions.
+     * Display the specified role permissions by id.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -126,6 +126,34 @@ class RolesController extends Controller {
     {
         $this->hasPermissionTo('SYSTEM-SETTING-ROLES_SHOW');
         $role=Role::findByID($id);
+        if (is_null($role))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Role ID ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',
+                                        'permissions'=>$role->permissions,                                    
+                                        'message'=>'Fetch permission role '.$role->name.' berhasil diperoleh.'
+                                    ],200); 
+        }
+    }    
+    /**
+     * Display the specified role permissions by name.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rolepermissionsbyname($id)
+    {
+        $this->hasPermissionTo('SYSTEM-SETTING-ROLES_SHOW');
+        $role=Role::findByName($id);
         if (is_null($role))
         {
             return Response()->json([

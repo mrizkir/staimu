@@ -38,13 +38,11 @@ class UsersDosenController extends Controller {
                     '))
                     ->join('pe3_dosen','pe3_dosen.user_id','users.id')
                     ->orderBy('username','ASC')
-                    ->get();       
-                    
-        $role = Role::findByName('dosen');
+                    ->get();                           
+        
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',
-                                'role'=>$role,
+                                'pid'=>'fetchdata',                                
                                 'users'=>$data,
                                 'message'=>'Fetch data users Dosen berhasil diperoleh'
                             ],200);  

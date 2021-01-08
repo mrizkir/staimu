@@ -218,7 +218,7 @@
                                     </v-form>
                                 </v-dialog>   
                                 <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>
-                                    <UserPermissions :user="editedItem" :daftarpermissions="daftar_permissions" :permissionsselected="permissions_selected" v-on:closeUserPermissions="closeUserPermissions" role_default="dosen" />
+                                    <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="dosen" />
                                 </v-dialog>                             
                             </v-toolbar>
                         </template>
@@ -332,8 +332,7 @@ export default {
         this.initialize()
     },  
    
-    data: () => ({ 
-        role_id:0,
+    data: () => ({         
         datatableLoading:false,
         btnLoading:false,      
         //tables
@@ -350,9 +349,7 @@ export default {
         ],
         expanded:[],
         search:'',
-        daftar_users: [],        
-        daftar_permissions: [],
-        permissions_selected: [],
+        daftar_users: [],                       
         
         //form
         form_valid:true,
@@ -442,8 +439,7 @@ export default {
                     Authorization:this.TOKEN
                 }
             }).then(({data})=>{               
-                this.daftar_users = data.users;
-                this.role_id=data.role.id;
+                this.daftar_users = data.users;                
                 this.datatableLoading=false;
             });          
             
@@ -481,8 +477,7 @@ export default {
             );
         },        
         closeUserPermissions () {
-            this.btnLoading=false;
-            this.permissions_selected=[];
+            this.btnLoading=false;            
             this.dialogUserPermission = false;
         },
         save () {
@@ -542,31 +537,8 @@ export default {
             }
         },
         setPermission: async function (item) {
-            this.btnLoading=true;
-            this.$ajax.get('/system/setting/roles/'+this.role_id+'/permission',{
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.daftar_permissions = data.permissions;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });
-
-            await this.$ajax.get('/system/users/'+item.id+'/permission',{
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.permissions_selected = data.permissions;
-                this.btnLoading=false;
-
-            }).catch(()=>{
-                this.btnLoading=false;
-            });
+            this.editedItem=item;            
             this.dialogUserPermission = true;
-            this.editedItem=item;
-
         },
         syncPermission:async function ()
         {
