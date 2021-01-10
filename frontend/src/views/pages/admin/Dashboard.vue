@@ -144,7 +144,8 @@ export default {
     name: 'Dashboard',
     created ()
 	{
-        this.TOKEN = this.$route.params.token;        
+        this.TOKEN = this.$route.params.token;      
+        this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];              
 		this.breadcrumbs = [
 			{
 				text:'HOME',
@@ -178,8 +179,7 @@ export default {
                 this.dashboard = data.role[0];    
                 this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
             });                 
-            this.$store.dispatch('uiadmin/init',this.$ajax);              
-            this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];            
+            this.$store.dispatch('uiadmin/init',this.$ajax);                          
 		}
 	},
 	computed:{

@@ -52,11 +52,19 @@ class PMBController extends Controller {
                                     users.created_at,
                                     users.updated_at'
                                 ))
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id')
-                    ->where('users.ta',$ta)
-                    ->where('kjur1',$prodi_id)
-                    ->get();
+                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id');                    
         
+        if ($request->has('search'))
+        {
+            $data=$data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                                                ->get();
+        }            
+        else
+        {
+            $data=$data->where('users.ta',$ta)
+                        ->where('kjur1',$prodi_id)
+                        ->get();
+        }
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'fetchdata',

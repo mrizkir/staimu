@@ -40,6 +40,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -205,6 +210,26 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
+                                                        <v-card-title>TAHUN PENDAFTARAN:</v-card-title>
+                                                        <v-card-subtitle>                                                            
+                                                            {{formdata.ta}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                            </v-row>
+                                            <v-row no-gutters>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>PROGRAM STUDI :</v-card-title>
+                                                        <v-card-subtitle>                                                            
+                                                            {{$store.getters['uiadmin/getProdiName'](formdata.prodi_id)}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
                                                         <v-card-title>CREATED/UPDATED :</v-card-title>
                                                         <v-card-subtitle>
                                                             {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}} /  
@@ -349,6 +374,8 @@ export default {
         prodi_id:null,
         tahun_pendaftaran:null,
         nama_prodi:null,
+        filter_ignore:false, 
+        awaiting_search:false,
         
         breadcrumbs:[],
         dashboard:null,
@@ -718,7 +745,35 @@ export default {
                 this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
-        },        
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/spmb/pmb',
+                        {
+                            prodi_id:this.prodi_id,
+                            TA:this.tahun_pendaftaran,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.pmb;                
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
+        }        
     },
     computed: {        
         formTitle () {
