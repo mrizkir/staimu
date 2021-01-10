@@ -92,6 +92,7 @@ class PMBController extends Controller {
         $data = FormulirPendaftaranModel::select(\DB::raw('
                                             users.id,
                                             users.name,
+                                            users.username,
                                             COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,                                            
                                             pe3_formulir_pendaftaran.jk,                                            
                                             users.nomor_hp,

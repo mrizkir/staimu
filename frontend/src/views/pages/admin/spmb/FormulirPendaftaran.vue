@@ -186,6 +186,7 @@ export default {
         headers: [                        
             { text: '', value: 'foto', width:70 },               
             { text: 'NO. FORMULIR', value: 'no_formulir',width:140,sortable:true },
+            { text: 'USERNAME', value: 'username',width:150,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'JK', value: 'jk',width:70 },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
