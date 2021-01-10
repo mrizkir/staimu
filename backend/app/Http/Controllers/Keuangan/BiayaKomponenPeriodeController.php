@@ -18,24 +18,50 @@ class BiayaKomponenPeriodeController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-BIAYA-KOMPONEN-PERIODE_BROWSE');
         
-        $this->validate($request, [           
-            'TA'=>'required',
-            'prodi_id'=>'required'
-        ]);
-        
-        $ta=$request->input('TA');
-        $prodi_id=$request->input('prodi_id');
-        
-        $kombi=BiayaKomponenPeriodeModel::join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
-                                        ->where('tahun',$ta)
-                                        ->where('kjur',$prodi_id)
-                                        ->orderBy('pe3_kombi_periode.idkelas','asc')
-                                        ->orderBy('kombi_id','asc');
-        if ($request->has('filter_idkelas'))
+        if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
-            $kombi=$kombi->where('pe3_kombi_periode.idkelas',$request->input('filter_idkelas'));
+            $kombi=BiayaKomponenPeriodeModel::select(\DB::raw('
+                                                pe3_kombi_periode.kombi_id,
+                                                pe3_kombi_periode.nama_kombi,
+                                                pe3_kombi_periode.periode,
+                                                pe3_kelas.nkelas,
+                                                pe3_kombi_periode.biaya
+                                            '))
+                                            ->join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
+                                            ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.idkelas','pe3_kombi_periode.idkelas')
+                                            ->where('pe3_register_mahasiswa.user_id',$this->getUserid())
+                                            ->orderBy('pe3_kombi_periode.idkelas','asc')
+                                            ->orderBy('kombi_id','asc');
         }
-        $kombi=$kombi->get();
+        else
+        {
+            $this->validate($request, [           
+                'TA'=>'required',
+                'prodi_id'=>'required'
+            ]);
+            
+            $ta=$request->input('TA');
+            $prodi_id=$request->input('prodi_id');
+            
+            $kombi=BiayaKomponenPeriodeModel::select(\DB::raw('
+                                                pe3_kombi_periode.kombi_id,
+                                                pe3_kombi_periode.nama_kombi,
+                                                pe3_kombi_periode.periode,
+                                                pe3_kelas.nkelas,
+                                                pe3_kombi_periode.biaya
+                                            '))
+                                            ->join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
+                                            ->where('tahun',$ta)
+                                            ->where('kjur',$prodi_id)
+                                            ->orderBy('pe3_kombi_periode.idkelas','asc')
+                                            ->orderBy('kombi_id','asc');
+
+            if ($request->has('filter_idkelas'))
+            {
+                $kombi=$kombi->where('pe3_kombi_periode.idkelas',$request->input('filter_idkelas'));
+            }
+            $kombi=$kombi->get();
+        }        
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
