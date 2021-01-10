@@ -22,6 +22,10 @@
                         <v-card-subtitle>
                             {{datamhs.nomor_hp}}
                         </v-card-subtitle>
+                        <v-card-title>USERNAME:</v-card-title>  
+                        <v-card-subtitle>
+                            {{datamhs.nim}}
+                        </v-card-subtitle>
                         <v-divider class="mx-4"></v-divider>
                         <v-card-text>
                             <v-chip label outlined color="info">{{datamhs.n_status}}</v-chip>
