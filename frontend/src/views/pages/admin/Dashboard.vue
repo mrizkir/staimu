@@ -21,7 +21,7 @@
                     </v-card>
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
-                <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP') && default_role!='mahasiswa'">
+                <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
                     <v-card 
                         min-height="140"
                         class="clickable green darken-1"
@@ -163,8 +163,7 @@ export default {
 	data: () => ({
         breadcrumbs:[],
         TOKEN:null,
-        dashboard:null,
-        default_role:null,
+        dashboard:null,        
         tahun_pendaftaran:''
 	}),
 	methods : {
@@ -176,8 +175,7 @@ export default {
                     Authorization:'Bearer '+this.TOKEN
                 }
             }).then(({data})=>{          
-                this.dashboard = data.role[0];    
-                this.default_role=data.default_role;
+                this.dashboard = data.role[0];                    
                 this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
             });                 
             this.$store.dispatch('uiadmin/init',this.$ajax);                          
