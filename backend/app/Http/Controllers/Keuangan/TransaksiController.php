@@ -21,13 +21,6 @@ class TransaksiController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI_BROWSE');
         
-        $this->validate($request, [           
-            'TA'=>'required',
-            'PRODI_ID'=>'required',
-        ]);
-        $ta=$request->input('TA');
-        $prodi_id=$request->input('PRODI_ID');
-        
         $select=\DB::raw('
                             pe3_transaksi.id,
                             pe3_transaksi.user_id,
@@ -51,6 +44,11 @@ class TransaksiController extends Controller {
                         ');
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
+            $this->validate($request, [           
+                'TA'=>'required',                
+            ]);
+            $ta=$request->input('TA');           
+
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
@@ -61,6 +59,11 @@ class TransaksiController extends Controller {
         }
         elseif ($request->has('user_id') && $request->filled('user_id') )
         {
+            $this->validate($request, [           
+                'TA'=>'required',                
+            ]);
+            $ta=$request->input('TA');
+            
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
@@ -71,6 +74,13 @@ class TransaksiController extends Controller {
         }
         else
         {
+            $this->validate($request, [           
+                'TA'=>'required',
+                'PRODI_ID'=>'required',
+            ]);
+            $ta=$request->input('TA');
+            $prodi_id=$request->input('PRODI_ID');
+
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')                                            
