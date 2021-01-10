@@ -20,6 +20,8 @@ class BiayaKomponenPeriodeController extends Controller {
         
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
+            $data_mhs=\App\Models\Akademik\RegisterMahasiswaModel::find($this->getUserid());
+            
             $kombi=BiayaKomponenPeriodeModel::select(\DB::raw('
                                                 pe3_kombi_periode.kombi_id,
                                                 pe3_kombi_periode.nama_kombi,
@@ -27,9 +29,10 @@ class BiayaKomponenPeriodeController extends Controller {
                                                 pe3_kelas.nkelas,
                                                 pe3_kombi_periode.biaya
                                             '))
-                                            ->join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')
-                                            ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.idkelas','pe3_kombi_periode.idkelas')
-                                            ->where('pe3_register_mahasiswa.user_id',$this->getUserid())
+                                            ->join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')     
+                                            ->where('tahun',$data_mhs->tahun)
+                                            ->where('kjur',$data_mhs->kjur)                                       
+                                            ->where('pe3_kombi_periode.idkelas',$data_mhs->idkelas)                                       
                                             ->orderBy('pe3_kombi_periode.idkelas','asc')
                                             ->orderBy('kombi_id','asc')
                                             ->get();

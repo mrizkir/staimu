@@ -1,5 +1,5 @@
 <template>
-    <KeuanganLayout>
+    <KeuanganLayout :showrightsidebar="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-video-input-component
@@ -28,7 +28,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar v-if="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
+        <template v-slot:filtersidebar>
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
         <v-container fluid>
@@ -229,7 +229,10 @@ export default {
                 this.datatableLoading=false;
             });                     
             this.firstloading=false;            
-            this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
+            if (this.dashboard!='mahasiswa' && this.dashboard!='mahasiswabaru')         
+            {
+                this.$refs.filter7.setFirstTimeLoading(this.firstloading);     
+            }            
         },
         dataTableRowClicked(item)
         {

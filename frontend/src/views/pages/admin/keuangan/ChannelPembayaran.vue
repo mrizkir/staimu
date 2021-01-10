@@ -1,5 +1,5 @@
 <template>
-    <KeuanganLayout>
+    <KeuanganLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-video-input-component
