@@ -31,7 +31,8 @@ class BiayaKomponenPeriodeController extends Controller {
                                             ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.idkelas','pe3_kombi_periode.idkelas')
                                             ->where('pe3_register_mahasiswa.user_id',$this->getUserid())
                                             ->orderBy('pe3_kombi_periode.idkelas','asc')
-                                            ->orderBy('kombi_id','asc');
+                                            ->orderBy('kombi_id','asc')
+                                            ->get();
         }
         else
         {
