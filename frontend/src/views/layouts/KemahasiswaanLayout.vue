@@ -83,7 +83,17 @@
                     <v-list-item-content>
                         <v-list-item-title>BOARD KEMAHASISWAAN</v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                   
+                </v-list-item>     
+                <v-list-item link to="/kemahasiswaan/daftarmahasiswa" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-account-box-multiple</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            DAFTAR MAHASISWA
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                            
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">

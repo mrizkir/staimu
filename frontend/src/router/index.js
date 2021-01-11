@@ -449,18 +449,7 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/akademik/DulangMahasiswaLama.vue'),		
-	},	
-
-	//akademik - daftar mahasiswa
-	{
-		path: '/akademik/kemahasiswaan/daftarmahasiswa',
-		name: 'KemahasiswaanDaftarMahasiswa',
-		meta:{
-			title: "AKADEMIK - DAFTAR MAHASISWA",
-			requiresAuth:true,
-        },
-		component: () => import('../views/pages/admin/akademik/KemahasiswaanDaftarMahasiswa.vue'),		
-	},	
+	},		
 	
 	//akademik - perkuliahan - penyelenggaraan
 	{
@@ -666,7 +655,16 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/kemahasiswaan/KemahasiswaanProfilMHS.vue'),		
-	},
+	},	
+	{
+		path: '/kemahasiswaan/daftarmahasiswa',
+		name: 'KemahasiswaanDaftarMahasiswa',
+		meta:{
+			title: "KEMAHASISWAAN - DAFTAR MAHASISWA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/kemahasiswaan/KemahasiswaanDaftarMahasiswa.vue'),		
+	},	
 	//system	
 	{
 		path: '/system-setting',

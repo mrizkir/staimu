@@ -135,17 +135,6 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                
-                <v-subheader v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">KEMAHASISWAAN</v-subheader>
-                <v-list-item link to="/akademik/kemahasiswaan/daftarmahasiswa" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-book</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                        <v-list-item-title>
-                            DAFTAR MAHASISWA
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>              
                 <v-subheader v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-KRS_BROWSE')">PERKULIAHAN</v-subheader>                         
                 <v-list-group group="/akademik/perkuliahan/penyelenggaraan" active-class="yellow" no-action v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_BROWSE')" color="green">
                     <template v-slot:activator>
