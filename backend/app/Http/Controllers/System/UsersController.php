@@ -159,12 +159,12 @@ class UsersController extends Controller {
         $this->validate($request, [            
             'role_name'=>'required|exists:roles,name',            
         ]);
-        $role_name=$request->input('role_name');
-        $permission=Role::findByName($role_name)->permissions;
-        $permissions=$permission->pluck('name');
+        $role_name=$request->input('role_name');        
         switch($role_name)
         {
             case 'mahasiswabaru':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $this->validate($request, [           
                     'TA'=>'required',
                     'prodi_id'=>'required'
@@ -186,6 +186,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'mahasiswa':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $this->validate($request, [           
                     'TA'=>'required',
                     'prodi_id'=>'required'
@@ -206,6 +208,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'pmb':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('pmb')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -218,6 +222,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'akademik':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('akademik')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -230,6 +236,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'programstudi':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('programstudi')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -242,6 +250,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'puslahta':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('puslahta')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -254,6 +264,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'keuangan':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('keuangan')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -266,6 +278,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'perpustakaan':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('perpustakaan')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -278,6 +292,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'lppm':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('lppm')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -290,6 +306,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'dosen':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('dosen')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -302,6 +320,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'dosenwali':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('dosenwali')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -314,6 +334,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'alumni':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('alumni')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)
@@ -326,6 +348,8 @@ class UsersController extends Controller {
                 }                
             break;
             case 'orangtuawali':
+                $permission=Role::findByName($role_name)->permissions;
+                $permissions=$permission->pluck('name');
                 $data = User::role('orangtuawali')
                         ->select(\DB::raw('users.id'))                        
                         ->where('active',1)

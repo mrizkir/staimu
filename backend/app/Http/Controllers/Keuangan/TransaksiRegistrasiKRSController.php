@@ -78,7 +78,7 @@ class TransaksiRegistrasiKRSController extends Controller {
     
             $ta=$request->input('TA');
             $idsmt=$request->input('SEMESTER_AKADEMIK');
-            $prodi_id=$request->input('SEMESTER_AKADEMIK');
+            $prodi_id=$request->input('PRODI_ID');
             
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
