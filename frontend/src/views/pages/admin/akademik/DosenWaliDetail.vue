@@ -25,7 +25,8 @@
                 </v-alert>
             </template>
         </ModuleHeader>        
-        <v-container fluid>    
+        <v-container fluid>   
+            <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" /> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -94,8 +95,7 @@
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>
-                    </v-data-table>
-                    <p class="text--secondary">DW : Dosen Wali</p>
+                    </v-data-table>                    
                 </v-col>
             </v-row>
         </v-container>
@@ -105,6 +105,7 @@
 import {mapGetters} from 'vuex';
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
+import ProfilDosen from '@/components/ProfilDosen';
 export default {
     name: 'DosenWaliDetail',  
     created () {
@@ -136,6 +137,7 @@ export default {
    
     data: () => ({ 
         dosen_id:null,
+        data_dosen:{},
         datatableLoading:false,
         btnLoading:false,      
         //tables
@@ -156,6 +158,18 @@ export default {
         initialize:async function () 
         {
             this.datatableLoading=true;
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id,             
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                },
+                
+            ).then(({data})=>{   
+                this.data_dosen=data.biodatadiri;                           
+                console.log(this.data_dosen);
+            });       
+
             await this.$ajax.get('/akademik/dosenwali/'+this.dosen_id,{
                 headers: {
                     Authorization:this.TOKEN
@@ -213,7 +227,8 @@ export default {
     },    
     components:{
         AkademikLayout,
-        ModuleHeader,        
+        ModuleHeader,
+        ProfilDosen          
     },
 }
 </script>

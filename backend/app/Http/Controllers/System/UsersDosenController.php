@@ -254,8 +254,10 @@ class UsersDosenController extends Controller {
 
         $biodatadiri = UserDosen::select(\DB::raw('
                                     pe3_dosen.*,
+                                    users.username,
                                     users.email,
-                                    users.nomor_hp
+                                    users.nomor_hp,
+                                    users.foto
                                 '))
                                 ->join('users','pe3_dosen.user_id','users.id')
                                 ->where('pe3_dosen.active',1)
