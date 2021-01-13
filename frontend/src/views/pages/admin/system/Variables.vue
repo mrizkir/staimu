@@ -162,7 +162,7 @@ export default {
                 this.$ajax.post('/system/setting/variables',
                     {
                         '_method':'PUT', 
-                        'pid':'Identitas Perguruan Tinggi',
+                        'pid':'Variable default sistem',
                         setting:JSON.stringify({
                             201:this.formdata.default_ta,
                             202:this.formdata.default_semester,                            
