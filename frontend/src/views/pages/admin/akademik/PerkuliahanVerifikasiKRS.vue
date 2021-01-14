@@ -5,9 +5,9 @@
                 mdi-format-columns
             </template>
             <template v-slot:name>
-                KARTU RENCANA STUDI
+                VERIFIKASI KRS (KARTU RENCANA STUDI)
             </template>
-            <template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
+            <template v-slot:subtitle>
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
             </template>
             <template v-slot:breadcrumbs>
@@ -24,11 +24,11 @@
                     colored-border
                     type="info"
                     >
-                    Halaman untuk melihat daftar kontrak matakuliah per tahun akademik, dan semester yang telah dilakukan.
+                    Halaman untuk melakukan verifikasi KRS oleh dosen wali per tahun akademik, dan semester yang telah dilakukan.
                 </v-alert>
             </template>
         </ModuleHeader>
-        <template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
+        <template v-slot:filtersidebar>
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
         <v-container fluid>                         
@@ -74,17 +74,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                               
-                                <v-btn 
-                                    color="primary" 
-                                    icon 
-                                    outlined 
-                                    small 
-                                    class="ma-2" 
-                                    to="/akademik/perkuliahan/krs/tambah"
-                                    v-if="$store.getters['auth/can']('AKADEMIK-PERKULIAHAN-KRS_STORE')">
-                                        <v-icon>mdi-plus</v-icon>
-                                </v-btn>                                        
+                                <v-spacer></v-spacer>                                                               
                             </v-toolbar>
                             <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
                                 <v-card>

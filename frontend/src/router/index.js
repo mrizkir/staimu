@@ -517,6 +517,24 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/PerkuliahanKRSTambahMatkul.vue'),		
 	},	
+	{
+		path: '/akademik/perkuliahan/krs/verifikasi',
+		name: 'PerkuliahanKRSVerifikasi',
+		meta:{
+			title: "AKADEMIK - VERIFIKASI KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanVerifikasiKRS.vue'),		
+	},	
+	{
+		path: '/akademik/perkuliahan/krs/verifikasi/:krsid/detail',
+		name: 'PerkuliahanVerifikasiKRSDetail',
+		meta:{
+			title: "AKADEMIK - VERIFIKASI KRS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/PerkuliahanVerifikasiKRSDetail.vue'),		
+	},	
 	//akademik - perkuliahan - pembagian kelas
 	{
 		path: '/akademik/perkuliahan/pembagiankelas/daftar',

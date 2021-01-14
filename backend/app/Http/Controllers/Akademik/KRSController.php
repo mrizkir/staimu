@@ -72,6 +72,56 @@ class KRSController extends Controller
                 return $item;
             });
         }
+        else if ($this->hasRole('dosenwali'))
+        {
+            $this->validate($request, [
+                'ta'=>'required',
+                'semester_akademik'=>'required',
+                'prodi_id'=>'required'
+            ]);
+
+            $ta=$request->input('ta');
+            $prodi_id=$request->input('prodi_id');
+            $semester_akademik=$request->input('semester_akademik');
+
+            $daftar_krs = KRSModel::select(\DB::raw('
+                                    pe3_krs.id,
+                                    pe3_krs.nim,
+                                    pe3_formulir_pendaftaran.nama_mhs,
+                                    pe3_krs.tasmt,
+                                    pe3_krs.sah,
+                                    pe3_formulir_pendaftaran.ta AS tahun_masuk,
+                                    0 AS jumlah_matkul,
+                                    0 AS jumlah_sks,
+                                    pe3_krs.created_at,
+                                    pe3_krs.updated_at
+                                '))
+                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')   
+                                ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id') 
+                                ->where('pe3_register_mahasiswa.dosen_id',$this->getUserid())                            
+                                ->orderBy('nama_mhs','ASC');
+                                
+            
+            if ($request->has('search'))
+            {
+                $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                            ->get();
+            }            
+            else
+            {
+                $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
+                                        ->where('pe3_krs.tahun',$ta)
+                                        ->where('pe3_krs.idsmt',$semester_akademik)                            
+                                        ->get();
+            }
+            $daftar_krs->transform(function ($item,$key) {                
+                $item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
+                $item->jumlah_sks=\DB::table('pe3_krsmatkul')
+                                        ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+                                        ->where('krs_id',$item->id)->sum('pe3_penyelenggaraan.sks');
+                return $item;
+            });
+        }
         else if ($this->hasRole('mahasiswa'))
         {
             $daftar_krs = KRSModel::select(\DB::raw('

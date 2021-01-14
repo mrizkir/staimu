@@ -5,7 +5,7 @@
                 mdi-format-columns
             </template>
             <template v-slot:name>
-                KARTU RENCANA STUDI
+                VERIFIKASI KRS (KARTU RENCANA STUDI)
             </template>
             <template v-slot:subtitle v-if="Object.keys(datakrs).length">
                 TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
@@ -24,7 +24,7 @@
                     colored-border
                     type="info"
                     >
-                    Halaman untuk melihat detail krs mahasiswa 
+                    Halaman untuk melihat detail dan verifikasi krs mahasiswa 
                 </v-alert>
             </template>
         </ModuleHeader>   
@@ -50,7 +50,7 @@
                                     <v-card flat>
                                         <v-card-title>SAH :</v-card-title>
                                         <v-card-subtitle>
-                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>                                            
+                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
