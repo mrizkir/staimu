@@ -158,6 +158,7 @@ class TransaksiSPPController extends Controller {
                 $transaksi=TransaksiModel::select(\DB::raw('
                                         pe3_transaksi.*,
                                         pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,
                                         pe3_kelas.nkelas,
                                         pe3_status_transaksi.nama_status,
                                         pe3_status_transaksi.style
@@ -169,9 +170,9 @@ class TransaksiSPPController extends Controller {
             }
             if (is_null($transaksi))        
             {
-                // throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
+                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
             }
-            $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$transaksi->ta)
+            $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$transaksi->tahun_masuk)
                                                     ->where('idkelas',$transaksi->idkelas)
                                                     ->where('kjur',$transaksi->kjur)
                                                     ->where('kombi_id',201)
@@ -179,7 +180,7 @@ class TransaksiSPPController extends Controller {
             
             if (!($biaya_kombi > 0))
             {
-                // throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
+                throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
             }
             $ta=TAModel::find($transaksi->ta); 
             $awal_semester = $ta->awal_semester;
