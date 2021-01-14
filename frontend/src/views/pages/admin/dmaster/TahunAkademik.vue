@@ -143,7 +143,7 @@
                                                             ref="menuSemesterGenap"
                                                             v-model="menuSemesterGenap"
                                                             :close-on-content-click="false"
-                                                            :return-value.sync="semester_ganjil"
+                                                            :return-value.sync="semester_genap"
                                                             transition="scale-transition"
                                                             offset-y
                                                             max-width="550px"
@@ -160,7 +160,7 @@
                                                                 ></v-text-field>
                                                             </template>
                                                             <v-date-picker
-                                                                v-model="semester_ganjil"                                        
+                                                                v-model="semester_genap"                                        
                                                                 no-title                                
                                                                 scrollable
                                                                 range
@@ -169,7 +169,7 @@
                                                                 >
                                                                 <v-spacer></v-spacer>
                                                                 <v-btn text color="primary" @click="menuSemesterGenap = false">Cancel</v-btn>
-                                                                <v-btn text color="primary" @click="$refs.menuSemesterGenap.save(semester_ganjil)">OK</v-btn>
+                                                                <v-btn text color="primary" @click="$refs.menuSemesterGenap.save(semester_genap)">OK</v-btn>
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
@@ -285,6 +285,18 @@
                                     </v-card>
                                 </v-dialog>
                             </v-toolbar>
+                        </template>
+                        <template v-slot:item.awal_ganjil="{ item }">
+                            {{item.awal_ganjil == null ?'N.A':item.awal_ganjil}}
+                        </template>
+                        <template v-slot:item.akhir_ganjil="{ item }">
+                            {{item.akhir_ganjil == null ?'N.A':item.akhir_ganjil}}
+                        </template>
+                        <template v-slot:item.awal_genap="{ item }">
+                            {{item.awal_genap == null ?'N.A':item.awal_genap}}
+                        </template>
+                        <template v-slot:item.akhir_genap="{ item }">
+                            {{item.akhir_genap == null ?'N.A':item.akhir_genap}}
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon

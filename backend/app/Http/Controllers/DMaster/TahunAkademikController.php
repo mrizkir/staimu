@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\DMaster\TAModel;
 use App\Models\System\ConfigurationModel;
+use App\Helpers\Helper;
 
 class TahunAkademikController extends Controller {
     /**
@@ -26,6 +27,13 @@ class TahunAkademikController extends Controller {
                     '))
                     ->get();
 
+        $ta->transform(function ($item,$key) {                
+                $item->awal_ganjil=Helper::checkformattanggal($item->awal_ganjil)?$item->awal_ganjil:null;
+                $item->akhir_ganjil=Helper::checkformattanggal($item->akhir_ganjil)?$item->akhir_ganjil:null;
+                $item->awal_genap=Helper::checkformattanggal($item->awal_genap)?$item->awal_genap:null;
+                $item->akhir_genap=Helper::checkformattanggal($item->akhir_genap)?$item->akhir_genap:null;
+                return $item;
+            });
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',
@@ -43,28 +51,40 @@ class TahunAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'fetchdata',                
                                     'message'=>["Tahun Akademik ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
         {
-            $awal_ganjil = $ta->awal_ganjil;
             $daftar_bulan=[];
-            for($i=$awal_ganjil;$i<= 12;$i++)
+            if (Helper::checkformattanggal($ta->awal_ganjil))
             {
-                $daftar_bulan[]=[
-                                    'value'=>$i,
-                                    'text'=>\App\Helpers\Helper::getNamaBulan($i)
-                                ];
+                $awal_ganjil=Helper::getNomorBulan($ta->awal_ganjil);
+                for($i=$awal_ganjil;$i<= 12;$i++)
+                {
+                    $daftar_bulan[]=[
+                                        'value'=>$i,
+                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                    ];
+                }
+                for($i=1;$i<$awal_ganjil;$i++)
+                {
+                    $daftar_bulan[]=[
+                                        'value'=>$i,
+                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                    ];
+                }
             }
-            for($i=1;$i<$awal_ganjil;$i++)
+            else
             {
-                $daftar_bulan[]=[
-                                    'value'=>$i,
-                                    'text'=>\App\Helpers\Helper::getNamaBulan($i)
-                                ];
+                return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Awal semester ganjil Tahun Akademik ($id) belum disetting"]
+                                ],422);
             }
+      
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',

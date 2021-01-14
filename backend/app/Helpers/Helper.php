@@ -65,7 +65,16 @@ class Helper {
         {
             return null;
         }
-	}
+    }
+    /**
+     * get nomor bulan dari tanggal
+     */
+    public static function getNomorBulan($date)
+    {
+        Carbon::setLocale(app()->getLocale());
+        $tanggal = Carbon::parse($date);
+        return $tanggal->format('n');
+    }
     /**
      * digunakan untuk mendapatkan format tahun akademik
      */
@@ -134,6 +143,14 @@ class Helper {
                             'November',
                             'Desember'
                         ], $result);
+    }   
+    /**
+     * digunakan untuk mengecek format tanggal valid
+     */
+    public static function checkformattanggal ($tanggal) {
+        
+        $data = explode('-',$tanggal);            
+        return checkdate($data[1],$data[2],$data[0]);
     }
     /**
 	* digunakan untuk mem-format uang
