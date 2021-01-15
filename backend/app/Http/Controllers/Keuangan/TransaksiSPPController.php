@@ -10,6 +10,7 @@ use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
 use Illuminate\Validation\Rule;
+use App\Helpers\Helper;
 
 use Exception;
 
@@ -182,10 +183,14 @@ class TransaksiSPPController extends Controller {
             {
                 throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
             }
-            $ta=TAModel::find($transaksi->ta); 
-            $awal_semester = $ta->awal_semester;
+            $ta=TAModel::find($transaksi->ta);             
+            if (!Helper::checkformattanggal($ta->awal_ganjil))
+            {
+                throw new Exception ("Awal bulan semester ganjil Tahun Akademik (".$transaksi->ta.") belum disetting");
+            }
+            $awal_ganjil=Helper::getNomorBulan($ta->awal_ganjil);
             $transaksi_detail=[];
-            for($i=$awal_semester;$i<= 12;$i++)
+            for($i=$awal_ganjil;$i<= 12;$i++)
             {
                 $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
@@ -198,7 +203,7 @@ class TransaksiSPPController extends Controller {
                                     'status'=>$status
                                 ];
             }
-            for($i=1;$i<$awal_semester;$i++)
+            for($i=1;$i<$awal_ganjil;$i++)
             {
                 $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[

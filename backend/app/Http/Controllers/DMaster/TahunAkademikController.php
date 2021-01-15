@@ -61,18 +61,20 @@ class TahunAkademikController extends Controller {
             if (Helper::checkformattanggal($ta->awal_ganjil))
             {
                 $awal_ganjil=Helper::getNomorBulan($ta->awal_ganjil);
+                $tahun=$ta->tahun;
                 for($i=$awal_ganjil;$i<= 12;$i++)
                 {
                     $daftar_bulan[]=[
                                         'value'=>$i,
-                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)." $tahun"
                                     ];
                 }
+                $tahun+=1;
                 for($i=1;$i<$awal_ganjil;$i++)
                 {
                     $daftar_bulan[]=[
                                         'value'=>$i,
-                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)
+                                        'text'=>\App\Helpers\Helper::getNamaBulan($i)." $tahun"
                                     ];
                 }
             }
@@ -81,7 +83,7 @@ class TahunAkademikController extends Controller {
                 return Response()->json([
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
-                                    'message'=>["Awal semester ganjil Tahun Akademik ($id) belum disetting"]
+                                    'message'=>["Awal bulan semester ganjil Tahun Akademik ($id) belum disetting"]
                                 ],422);
             }
       
