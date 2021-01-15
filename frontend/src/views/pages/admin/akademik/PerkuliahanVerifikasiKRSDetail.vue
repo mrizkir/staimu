@@ -115,34 +115,20 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"                                                                
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                                
-                                <template v-slot:item.actions="{ item }">                                    
-                                    <v-btn
-                                        small
-                                        icon
-                                        :loading="btnLoading"
-                                        :disabled="btnLoading"
-                                        @click.stop="deleteItem(item)">
-                                        <v-icon>
-                                            mdi-delete
-                                        </v-icon>
-                                    </v-btn>   
-                                </template> 
+                                loading-text="Loading... Please wait">                                                                
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
                                         <td>{{totalMatkul}}</td> 
                                         <td></td>
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td></td>                                        
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
                                         <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td></td>                                        
                                         <td></td>
                                     </tr>
                                 </template>   
@@ -216,8 +202,7 @@ export default {
             { text: 'SKS', value: 'sks', sortable:false,width:50 },                           
             { text: 'SMT', value: 'semester', sortable:false,width:50 },                           
             { text: 'KELAS', value: 'nama_kelas', sortable:false,width:200 },                           
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:false,width:200 },                           
-            { text: 'AKSI', value: 'actions', sortable:false,width:50 },                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:false,width:200 },                                                                
         ],  
     }),
     methods: {          
@@ -239,32 +224,7 @@ export default {
                     this.semester_akademik=this.datakrs.idsmt;                        
                 }
             })  
-        },     
-        deleteItem (item)
-        {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
-                if (confirm)
-                {
-                    this.btnLoadingTable=true;
-                    this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
-                        {
-                            '_method':'DELETE',
-                        },
-                        {
-                            headers:{
-                                Authorization:this.$store.getters['auth/Token']
-                            }
-                        }
-                    ).then(()=>{   
-                        const index = this.datatable.indexOf(item);
-                        this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
-                    }).catch(()=>{
-                        this.btnLoadingTable=false;
-                    });
-                }                
-            });
-        },           
+        },             
     },
     computed:{
         totalMatkul()
