@@ -287,16 +287,16 @@
                             </v-toolbar>
                         </template>
                         <template v-slot:item.awal_ganjil="{ item }">
-                            {{item.awal_ganjil == null ?'N.A':item.awal_ganjil}}
+                            {{item.awal_ganjil == null ?'N.A':$date(item.awal_ganjil).format('DD/MM/YYYY')}}
                         </template>
                         <template v-slot:item.akhir_ganjil="{ item }">
-                            {{item.akhir_ganjil == null ?'N.A':item.akhir_ganjil}}
+                            {{item.akhir_ganjil == null ?'N.A':$date(item.akhir_ganjil).format('DD/MM/YYYY')}}
                         </template>
                         <template v-slot:item.awal_genap="{ item }">
-                            {{item.awal_genap == null ?'N.A':item.awal_genap}}
+                            {{item.awal_genap == null ?'N.A':$date(item.awal_genap).format('DD/MM/YYYY')}}
                         </template>
                         <template v-slot:item.akhir_genap="{ item }">
-                            {{item.akhir_genap == null ?'N.A':item.akhir_genap}}
+                            {{item.akhir_genap == null ?'N.A':$date(item.akhir_genap).format('DD/MM/YYYY')}}
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon
