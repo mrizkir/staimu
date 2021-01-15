@@ -65,15 +65,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer> 
-                                <v-btn color="warning"
-                                    :loading="btnLoading"
-                                    :disabled="btnLoading"
-                                    class="mb-2 mr-2" 
-                                    @click.stop="syncPermission" 
-                                    v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
-                                    SYNC PERMISSION
-                                </v-btn>                                                               
+                                <v-spacer></v-spacer>                                 
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
@@ -223,24 +215,6 @@ export default {
                     });
                 }
             });
-        },
-        syncPermission:async function ()
-        {
-            this.btnLoading=true;
-            await this.$ajax.post('/system/users/syncallpermissions',
-                {
-                    role_name:'dosenwali',                    
-                },
-                {
-                    headers:{
-                        Authorization:this.$store.getters['auth/Token']
-                    }
-                }
-            ).then(()=>{                   
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });     
         },
     },
     computed: {        

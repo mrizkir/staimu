@@ -429,22 +429,27 @@ export default {
                 this.expanded=[item];
             }
         },
-        syncPermission:async function ()
+        syncPermission ()
         {
-            this.btnLoading=true;
-            await this.$ajax.post('/system/users/syncallpermissions',
+            this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role puslahta, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning',width:500 }).then(async (confirm) => {
+                if (confirm)
                 {
-                    role_name:'puslahta',
-                },
-                {
-                    headers:{
-                        Authorization:this.$store.getters['auth/Token']
-                    }
+                    this.btnLoading=true;
+                    await this.$ajax.post('/system/users/syncallpermissions',
+                        {
+                            role_name:'puslahta',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{
+                        this.btnLoading=false;
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
                 }
-            ).then(()=>{
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
             });
         },
         showDialogTambahUserPuslahta:async function ()
