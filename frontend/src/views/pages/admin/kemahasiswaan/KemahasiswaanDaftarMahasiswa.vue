@@ -107,7 +107,19 @@
                                     <strong>id:</strong>{{ item.user_id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
-                                </v-col>                                
+                                </v-col> 
+                                <v-col cols="12">
+                                    <v-btn 
+                                        text 
+                                        small 
+                                        color="primary" 
+                                        @click.stop="resetPassword(item)" 
+                                        class="mb-2" 
+                                        :disabled="btnLoading"  
+                                        :loading="btnLoading">
+                                        RESET PASSWORD
+                                    </v-btn>
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -263,6 +275,24 @@ export default {
                 this.btnLoading=false;
             });     
         },
+        async resetPassword(item)
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/kemahasiswaan/profil/resetpassword',
+                {
+                    user_id:item.user_id,         
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    }
+                }
+            ).then(()=>{                   
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });     
+        }
     },
     watch:{
         tahun_pendaftaran()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Kemahasiswaan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class KemahasiswaanProfilController extends Controller {  
     /**
@@ -54,9 +55,9 @@ class KemahasiswaanProfilController extends Controller {
             'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'        
         ]);
         
-        $user=User::find($id);
+        $user=User::find($request->input('user_id'));
 
-        $user->password=Illuminate\Support\Facades\Hash::make(12345678);
+        $user->password=Hash::make(12345678);
         $user->save();
 
         return Response()->json([
