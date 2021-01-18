@@ -165,9 +165,14 @@ class KRSController extends Controller
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
                         pe3_krs.nim,
+                        pe3_register_mahasiswa.nirm,
                         pe3_formulir_pendaftaran.nama_mhs,
+                        pe3_formulir_pendaftaran.jk,
+                        pe3_formulir_pendaftaran.no_formulir,
                         pe3_krs.jumlah_matkul_1,
                         pe3_krs.jumlah_sks_1,
+                        CONCAT(COALESCE(pe3_dosen.gelar_depan,"")," ",pe3_dosen.nama_dosen," ",COALESCE(pe3_dosen.gelar_belakang,"")) AS nama_dosen,
+                        pe3_dosen.nidn,
                         pe3_krs.kjur,
                         pe3_krs.tahun,
                         pe3_krs.idsmt,
@@ -176,7 +181,9 @@ class KRSController extends Controller
                         pe3_krs.created_at,
                         pe3_krs.updated_at
                     '))
+                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
+                    ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
                     ->find($id);
 
         $daftar_matkul=[];

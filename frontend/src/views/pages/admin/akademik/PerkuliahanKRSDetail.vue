@@ -29,73 +29,11 @@
             </template>
         </ModuleHeader>   
         <v-container fluid v-if="Object.keys(datakrs).length">   
-            <v-row>   
-                <v-col cols="12">
-                    <v-card>
-                        <v-card-title>
-                            <span class="headline">DATA KRS</span>
-                        </v-card-title>
-                        <v-card-text>
-                            <v-row no-gutters>
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>ID KRS:</v-card-title>
-                                        <v-card-subtitle>
-                                            {{datakrs.id}}
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>SAH :</v-card-title>
-                                        <v-card-subtitle>
-                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>                                            
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>NIM:</v-card-title>
-                                        <v-card-subtitle>
-                                            {{datakrs.nim}}
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
-                                        <v-card-subtitle>
-                                            {{totalMatkul}} / {{totalSKS}}
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>NAMA MAHASISWA:</v-card-title>
-                                        <v-card-subtitle>
-                                            {{datakrs.nama_mhs}}
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                <v-col xs="12" sm="6" md="6">
-                                    <v-card flat>
-                                        <v-card-title>CREATED / UPDATED :</v-card-title>
-                                        <v-card-subtitle>
-                                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
-                                        </v-card-subtitle>
-                                    </v-card>
-                                </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                            </v-row>            
-                        </v-card-text>
-                    </v-card>
-                </v-col>                
-            </v-row>
+            <v-row> 
+                <v-col cols="12">                  
+                    <DataKRS :datakrs="datakrs" url="/akademik/perkuliahan/krs/daftar" :totalmatkul="totalMatkul" :totalsks="totalSKS" />
+                </v-col>
+            </v-row>            
             <v-row>
                 <v-col cols="12">           
                     <v-card>
@@ -160,6 +98,7 @@
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
+import DataKRS from '@/components/DataKRS';
 export default {
     name: 'PerkuliahanKRSDetail',
     created () {
@@ -284,7 +223,8 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader,
+        DataKRS            
     },
 }
 </script>
