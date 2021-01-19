@@ -139,14 +139,9 @@
     <AdminLayout v-else>
         <div class="text-center">
             <v-progress-circular
-                :rotate="360"
-                :size="100"
-                :width="15"
-                :value="value"
-                color="teal"
-                >
-                {{ value }}
-            </v-progress-circular>
+                indeterminate
+                color="green"
+            ></v-progress-circular>
         </div>
     </AdminLayout>
 </template>
@@ -172,26 +167,12 @@ export default {
 			}
 		];		
 		this.initialize();
-    },
-    beforeDestroy () {
-      clearInterval(this.interval)
-    },
-    mounted () {
-        this.interval = setInterval(() => {
-            if (this.value === 100) {
-                return (this.value = 0)
-            }
-            this.value += 10
-        }, 1000)
-    },
+    },    
 	data: () => ({
         breadcrumbs:[],
         TOKEN:null,
         dashboard:null,        
         tahun_pendaftaran:'',
-
-        interval: {},
-        value: 0,
 	}),
 	methods : {
 		initialize:async function()
@@ -207,9 +188,6 @@ export default {
             });                 
             this.$store.dispatch('uiadmin/init',this.$ajax);                          
 		}
-	},
-	computed:{
-        
 	},
     components:{
 		AdminLayout,        
