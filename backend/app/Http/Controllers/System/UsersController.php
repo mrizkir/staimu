@@ -148,6 +148,13 @@ class UsersController extends Controller {
         }
     }
     /**
+     * digunakan untuk mendapatkan permission dari user
+     */
+    public function mypermission (Request $request,$id)
+    {
+        return $this->userpermissions($this->getUserid());
+    }
+    /**
      * Store user permissions resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -40,6 +40,12 @@
                         </v-list-item-content>
                     </v-list-item>                    
                     <v-divider/>
+                    <v-list-item to="/system-users/mypermission">
+                        <v-list-item-icon class="mr-2">
+							<v-icon>mdi-account-key</v-icon>
+						</v-list-item-icon>
+                        <v-list-item-title>My Permission</v-list-item-title>
+                    </v-list-item>
                     <v-list-item to="/system-users/profil">
                         <v-list-item-icon class="mr-2">
 							<v-icon>mdi-account</v-icon>

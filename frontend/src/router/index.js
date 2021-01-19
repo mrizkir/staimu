@@ -767,6 +767,15 @@ const routes = [
 		component: () => import('../views/pages/admin/system/Permissions.vue'),		
 	},
 	{
+		path: '/system-users/mypermission',
+		name: 'MyPermissions',
+		meta:{
+			title: "USERS - MY PERMISSION",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/MyPermission.vue'),		
+	},
+	{
 		path: '/system-users/roles',
 		name: 'UsersRoles',
 		meta:{

@@ -22,7 +22,7 @@
                     type="info"
                     >
                     Daftar aksi-aksi terhadap sebuah modul. Format penulisan permission, NAMAMODULE atau NAMA MODULE. Nama Permission tighly coupling dengan kode sumber.
-                    </v-alert>
+                </v-alert>
             </template>
         </ModuleHeader>        
         <v-container fluid>    

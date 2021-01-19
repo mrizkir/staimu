@@ -1,5 +1,5 @@
 <template>
-    <AdminLayout>		
+    <AdminLayout v-if="dashboard">		
         <v-container v-if="dashboard=='mahasiswabaru'">
             <DashboardMB />
         </v-container>        
@@ -136,6 +136,19 @@
             </v-row>
         </v-container>
     </AdminLayout>
+    <AdminLayout v-else>
+        <div class="text-center">
+            <v-progress-circular
+                :rotate="360"
+                :size="100"
+                :width="15"
+                :value="value"
+                color="teal"
+                >
+                {{ value }}
+            </v-progress-circular>
+        </div>
+    </AdminLayout>
 </template>
 <script>
 import DashboardMB from '@/components/DashboardMahasiswaBaru';
@@ -159,12 +172,26 @@ export default {
 			}
 		];		
 		this.initialize();
-	},
+    },
+    beforeDestroy () {
+      clearInterval(this.interval)
+    },
+    mounted () {
+        this.interval = setInterval(() => {
+            if (this.value === 100) {
+                return (this.value = 0)
+            }
+            this.value += 10
+        }, 1000)
+    },
 	data: () => ({
         breadcrumbs:[],
         TOKEN:null,
         dashboard:null,        
-        tahun_pendaftaran:''
+        tahun_pendaftaran:'',
+
+        interval: {},
+        value: 0,
 	}),
 	methods : {
 		initialize:async function()
@@ -175,7 +202,7 @@ export default {
                     Authorization:'Bearer '+this.TOKEN
                 }
             }).then(({data})=>{          
-                this.dashboard = data.role[0];                    
+                this.dashboard = data.role[0];                                                       
                 this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
             });                 
             this.$store.dispatch('uiadmin/init',this.$ajax);                          
@@ -190,3 +217,8 @@ export default {
 	}
 }
 </script>
+<style scoped>
+.v-progress-circular {
+    margin: 1rem;
+}
+</style>
