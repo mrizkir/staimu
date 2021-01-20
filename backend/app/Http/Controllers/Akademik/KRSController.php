@@ -379,7 +379,40 @@ class KRSController extends Controller
                                     'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
                                 ],200);  
     }
-    public function cekkrs ($request)
+    public function verifikasi (Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-VERIFIKASI-KRS_UPDATE');
+
+        $krs = KRSModel::find($id); 
+        
+        if (is_null($krs))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["KRS dengan ($id) gagal diverifikasi"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $krs, 
+                                                                'object_id' => $krs->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
+                                                            ]);
+            $krs->sah=1;
+            $krs->save();
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update', 
+                                        'krs'=>$krs,               
+                                        'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
+                                    ],200);    
+        }
+    }
+    public function cekkrs (Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 

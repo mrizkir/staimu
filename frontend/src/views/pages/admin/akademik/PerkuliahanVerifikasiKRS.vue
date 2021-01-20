@@ -126,7 +126,25 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>                               
+                            </v-btn>                                                             
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon 
+                                        outlined 
+                                        small 
+                                        class="ma-2"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading||item.sah==1" 
+                                        @click.stop="verifikasi(item)">
+                                        <v-icon>mdi-check</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Verifikasi KRS</span>                                   
+                            </v-tooltip>                      
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -306,6 +324,26 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             });                 
+        },
+        async verifikasi(item)
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/akademik/perkuliahan/krs/'+item.id+'/verifikasi',
+                {
+                    _method:'put'
+                },             
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(()=>{                              
+                this.$router.go();
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });          
         },
         closedialogprintpdf () {                  
             setTimeout(() => {
