@@ -130,7 +130,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogdetailitem" max-width="700px" persistent>
+                                <v-dialog v-model="dialogdetailitem" max-width="800px" persistent>
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">DETAIL DATA</span>
@@ -166,7 +166,33 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
-                                            </v-row>                                            
+                                                <v-col xs="12" sm="6" md="6">
+                                                    <v-card flat>
+                                                        <v-card-title>KETUA PRODI :</v-card-title>
+                                                        <v-card-subtitle>
+                                                            {{formdata.nama_prodi_alias}}
+                                                        </v-card-subtitle>
+                                                    </v-card>
+                                                </v-col>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                            </v-row>     
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-card flat>
+                                                        <v-card-text>
+                                                            <v-autocomplete
+                                                                label="KETUA PROGRAM STUDI"
+                                                                v-model="dosen_id"
+                                                                :items="daftar_dosen"
+                                                                item-text="nama_dosen"
+                                                                item-value="id"
+                                                                return-object 
+                                                                :disabled="btnLoading"                                                               
+                                                                outlined/>
+                                                        </v-card-text>
+                                                    </v-card>
+                                                </v-col>
+                                            </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -175,6 +201,9 @@
                                     </v-card>                                    
                                 </v-dialog>
                             </v-toolbar>
+                        </template>
+                        <template v-slot:item.config="{ item }">
+                            {{kaprodi(item)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon
@@ -275,6 +304,8 @@ export default {
             kode_jenjang:'', 
             nama_jenjang:'', 
         },
+        dosen_id:null,
+        daftar_dosen:[],
         editedIndex: -1,
 
         //form rules 
@@ -312,6 +343,18 @@ export default {
                 this.datatableLoading=false;
             });  
         },
+        kaprodi(item)
+        {
+            if (item.config)
+            {
+                var config = JSON.parse(item.config);
+                return config.kaprodi.nama_dosen;
+            }
+            else
+            {
+                return 'N.A'
+            }
+        },
         dataTableRowClicked(item)
         {
             if ( item === this.expanded[0])
@@ -337,9 +380,21 @@ export default {
 
             this.dialogfrm=true;
         },
-        viewItem (item) {
-            this.formdata=item;      
-            this.dialogdetailitem=true;                        
+        async viewItem (item) 
+        {           
+            this.datatableLoading=true;
+            await this.$ajax.get('/system/usersdosen',{
+                headers: {
+                    Authorization:this.TOKEN
+                }
+            }).then(({data})=>{    
+
+                this.formdata=item;      
+
+                this.dialogdetailitem=true; 
+                this.daftar_dosen = data.users;                
+                this.datatableLoading=false;
+            }); 
         },    
         editItem:async function (item) {            
             this.editedIndex = this.datatable.indexOf(item);
@@ -472,23 +527,54 @@ export default {
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {
                 return [                        
-                    { text: 'KODE PROGRAM STUDI', value: 'kode_prodi', width:250 },   
-                    { text: 'NAMA PROGRAM STUDI', value: 'nama_prodi' },   
+                    { text: 'KODE PRODI', value: 'kode_prodi', width:120 },   
+                    { text: 'NAMA PRODI', value: 'nama_prodi',width:280 },   
                     { text: 'FAKULTAS', value: 'nama_fakultas',width:200  },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:50 },   
+                    { text: 'JENJANG', value: 'nama_jenjang',width:100 },   
+                    { text: 'KETUA PRODI', value: 'config',width:200 },   
                     { text: 'AKSI', value: 'actions', sortable: false,width:100 },
                 ];
             }
             else
             {
                 return [                        
-                    { text: 'KODE PROGRAM STUDI', value: 'kode_prodi', width:250 },   
-                    { text: 'NAMA PROGRAM STUDI', value: 'nama_prodi' },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:50 },   
+                    { text: 'KODE PRODI', value: 'kode_prodi', width:120 },   
+                    { text: 'NAMA PRODI', value: 'nama_prodi',width:280 },   
+                    { text: 'JENJANG', value: 'nama_jenjang',width:100 },   
+                    { text: 'KETUA PRODI', value: 'config',width:200 },   
                     { text: 'AKSI', value: 'actions', sortable: false,width:100 },
                 ];
             }
         },
+    },
+    watch:{
+        async dosen_id(val)
+        {
+            console.log(val);
+            this.btnLoading=true;
+            await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
+                {
+                    '_method':'PUT',                    
+                    config:JSON.stringify({
+                        kaprodi:{
+                            dosen_id:val.id,
+                            nidn:val.nidn,
+                            nama_dosen:val.name
+                        }
+                    }),                                                                 
+                },
+                {
+                    headers:{
+                        Authorization:this.TOKEN
+                    }
+                }
+            ).then(()=>{   
+                this.initialize();
+                this.btnLoading=false;                    
+            }).catch(()=>{
+                this.btnLoading=false;
+            });        
+        }  
     },
     components:{
         DataMasterLayout,

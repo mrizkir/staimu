@@ -15,7 +15,7 @@ class ProgramStudiController extends Controller {
      */
     public function index(Request $request)
     {
-        $prodi=ProgramStudiModel::select(\DB::raw('id,kode_prodi,nama_prodi,CONCAT(nama_prodi,\' (\',nama_jenjang,\')\') AS nama_prodi2,nama_prodi_alias,kode_jenjang,nama_jenjang,pe3_fakultas.kode_fakultas,nama_fakultas'))
+        $prodi=ProgramStudiModel::select(\DB::raw('id,kode_prodi,nama_prodi,CONCAT(nama_prodi,\' (\',nama_jenjang,\')\') AS nama_prodi2,nama_prodi_alias,kode_jenjang,nama_jenjang,pe3_fakultas.kode_fakultas,nama_fakultas,pe3_prodi.config'))
                                 ->leftJoin('pe3_fakultas','pe3_fakultas.kode_fakultas','pe3_prodi.kode_fakultas')
                                 ->get();
 
@@ -98,6 +98,41 @@ class ProgramStudiController extends Controller {
                                     'jenjangstudi'=>$jenjangstudi,                                    
                                     'message'=>'Jenjang studi berhasil diperoleh.'
                                 ],200);
+    }
+    /**
+     * ubah kaprodi
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateconfig (Request $request,$id)
+    {
+        $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
+
+        $prodi = ProgramStudiModel::find($id);
+        if (is_null($prodi))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'update',                
+                                    'message'=>["Kode Program Studi ($id) gagal diupdate"]
+                                ],422); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'config'=>'required'
+            ]);
+            $kaprodi=$request->input('config');
+            $prodi->config=$request->input('config');
+            $prodi->save();
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',
+                                    'prodi'=>$prodi,      
+                                    'message'=>'Konfigurasi program studi '.$prodi->username.' berhasil disimpan.'
+                                ],200);
+        }
     }
     /**
      * Update the specified resource in storage.
