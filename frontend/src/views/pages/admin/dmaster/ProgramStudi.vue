@@ -274,6 +274,7 @@ export default {
         expanded:[],
         datatable:[],        
         search:'',    
+        firstloading:true,
 
         //dialog
         dialogfrm:false,
@@ -294,6 +295,7 @@ export default {
             nama_prodi_alias:'',         
             kode_jenjang:'', 
             nama_jenjang:'', 
+            config:{}
         },
         formdefault: {
             id:0,                        
@@ -303,6 +305,7 @@ export default {
             nama_prodi_alias:'',         
             kode_jenjang:'', 
             nama_jenjang:'', 
+            config:{}
         },
         dosen_id:null,
         daftar_dosen:[],
@@ -345,15 +348,16 @@ export default {
         },
         kaprodi(item)
         {
+            var message='N.A'
             if (item.config)
             {
                 var config = JSON.parse(item.config);
-                return config.kaprodi.nama_dosen;
+                if (config.kaprodi)
+                {
+                    message=config.kaprodi.name;                    
+                }
             }
-            else
-            {
-                return 'N.A'
-            }
+            return message;
         },
         dataTableRowClicked(item)
         {
@@ -392,8 +396,15 @@ export default {
                 this.formdata=item;      
 
                 this.dialogdetailitem=true; 
-                this.daftar_dosen = data.users;                
+                this.daftar_dosen = data.users;   
+                this.dosen_id=item.config;
+                if (item.config)
+                {
+                    var config = JSON.parse(item.config);
+                    this.dosen_id=config.kaprodi
+                }             
                 this.datatableLoading=false;
+                this.firstloading=false;
             }); 
         },    
         editItem:async function (item) {            
@@ -501,6 +512,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
+                this.firstloading=true
                 }, 300
             );
         },
@@ -549,31 +561,29 @@ export default {
     },
     watch:{
         async dosen_id(val)
-        {
-            console.log(val);
-            this.btnLoading=true;
-            await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
-                {
-                    '_method':'PUT',                    
-                    config:JSON.stringify({
-                        kaprodi:{
-                            dosen_id:val.id,
-                            nidn:val.nidn,
-                            nama_dosen:val.name
+        {         
+            if (!this.firstloading)
+            {
+                this.btnLoading=true;
+                await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
+                    {
+                        '_method':'PUT',                    
+                        config:JSON.stringify({
+                            kaprodi:val                            
+                        }),                                                                 
+                    },
+                    {
+                        headers:{
+                            Authorization:this.TOKEN
                         }
-                    }),                                                                 
-                },
-                {
-                    headers:{
-                        Authorization:this.TOKEN
                     }
-                }
-            ).then(()=>{   
-                this.initialize();
-                this.btnLoading=false;                    
-            }).catch(()=>{
-                this.btnLoading=false;
-            });        
+                ).then(()=>{   
+                    this.initialize();
+                    this.btnLoading=false;                    
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });        
+            }            
         }  
     },
     components:{
