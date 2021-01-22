@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Akademik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\DMaster\ProgramStudiModel;
 use App\Models\Akademik\PenyelenggaraanMatakuliahModel;
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
@@ -520,6 +521,8 @@ class KRSController extends Controller
         $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
                         pe3_krs.nim,
+                        CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+                        pe3_dosen.nidn,
                         pe3_register_mahasiswa.nirm,
                         pe3_formulir_pendaftaran.nama_mhs,
                         pe3_formulir_pendaftaran.jk,
@@ -536,6 +539,7 @@ class KRSController extends Controller
                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
                     ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
                     ->join('pe3_prodi','pe3_register_mahasiswa.kjur','pe3_prodi.id')
+                    ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
                     ->find($id);
 
         if (is_null($krs))
@@ -548,75 +552,89 @@ class KRSController extends Controller
         }
         else
         {
-            $krs->nama_semester=\App\Helpers\HelperAkademik::getSemester($krs->idsmt);
+            $prodi = new ProgramStudiModel();
+            $kaprodi=$prodi->getKAProdi($krs->kjur);
+            if (!is_null($kaprodi))
+            {            
+                $krs->nama_semester=\App\Helpers\HelperAkademik::getSemester($krs->idsmt);
 
-            $daftar_matkul=KRSMatkulModel::select(\DB::raw('
-                                            pe3_krsmatkul.id,
-                                            A.kmatkul,
-                                            A.nmatkul,
-                                            A.sks,
-                                            A.semester,
-                                            B.nama_dosen AS nama_dosen_penyelenggaraan,
-                                            F.nama_dosen AS nama_dosen_kelas,
-                                            \'\' AS nama_dosen,
-                                            pe3_krsmatkul.created_at,
-                                            pe3_krsmatkul.updated_at
-                                        '))
-                                        ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
-                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')                                        
-                                        ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                        ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                        ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
-                                        ->where('krs_id',$krs->id)
-                                        ->orderBy('semester','asc')
-                                        ->orderBy('kmatkul','asc')
-                                        ->get();
-            
-            $daftar_matkul->transform(function ($item,$key) {                 
-                if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
-                {
-                    $item->nama_dosen='N.A';
-                }     
-                else
-                {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
-                }
-                return $item;
-            });
-            $config = ConfigurationModel::getCache();
-            $headers=[
-                'HEADER_1'=>$config['HEADER_1'],
-                'HEADER_2'=>$config['HEADER_2'],
-                'HEADER_3'=>$config['HEADER_3'],
-                'HEADER_4'=>$config['HEADER_4'],
-                'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
-                'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
-            ];
-            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
-                                                                    [
-                                                                        'headers'=>$headers,
-                                                                        'data_krs'=>$krs,
-                                                                        'daftar_matkul'=>$daftar_matkul,                                                                        
-                                                                        'jumlah_sks'=>$daftar_matkul->sum('sks'),
-                                                                        'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
-                                                                    ],
-                                                                    [],
-                                                                    [
-                                                                        'title' => 'KRS',
-                                                                    ]);
+                $daftar_matkul=KRSMatkulModel::select(\DB::raw('
+                                                pe3_krsmatkul.id,
+                                                A.kmatkul,
+                                                A.nmatkul,
+                                                A.sks,
+                                                A.semester,
+                                                B.nama_dosen AS nama_dosen_penyelenggaraan,
+                                                F.nama_dosen AS nama_dosen_kelas,
+                                                \'\' AS nama_dosen,
+                                                pe3_krsmatkul.created_at,
+                                                pe3_krsmatkul.updated_at
+                                            '))
+                                            ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
+                                            ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
+                                            ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')                                        
+                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
+                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
+                                            ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
+                                            ->where('krs_id',$krs->id)
+                                            ->orderBy('semester','asc')
+                                            ->orderBy('kmatkul','asc')
+                                            ->get();
+                
+                $daftar_matkul->transform(function ($item,$key) {                 
+                    if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+                    {
+                        $item->nama_dosen='N.A';
+                    }     
+                    else
+                    {
+                        $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    }
+                    return $item;
+                });
+                $config = ConfigurationModel::getCache();
+                $headers=[
+                    'HEADER_1'=>$config['HEADER_1'],
+                    'HEADER_2'=>$config['HEADER_2'],
+                    'HEADER_3'=>$config['HEADER_3'],
+                    'HEADER_4'=>$config['HEADER_4'],
+                    'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+                    'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
+                ];
+                $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
+                                                                        [
+                                                                            'headers'=>$headers,
+                                                                            'data_krs'=>$krs,
+                                                                            'daftar_matkul'=>$daftar_matkul,                                                                        
+                                                                            'jumlah_sks'=>$daftar_matkul->sum('sks'),
+                                                                            'kaprodi'=>$kaprodi,
+                                                                            'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
+                                                                        ],
+                                                                        [],
+                                                                        [
+                                                                            'title' => 'KRS',
+                                                                        ]);
 
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/krs_".$krs->id.'.pdf');
-            $pdf->save($file_pdf);
+                $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/krs_".$krs->id.'.pdf');
+                $pdf->save($file_pdf);
 
-            $pdf_file="storage/exported/pdf/krs_".$krs->id.".pdf";
+                $pdf_file="storage/exported/pdf/krs_".$krs->id.".pdf";
 
-            return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'krs'=>$krs,
-                                    'pdf_file'=>$pdf_file                                    
-                                ],200);
-        }
+                return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',
+                                        'krs'=>$krs,
+                                        'pdf_file'=>$pdf_file                                    
+                                    ],200);
+            }
+            else
+            {
+                return Response()->json([
+                    'status'=>0,
+                    'pid'=>'fetchdata',                    
+                    'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
+                ],422);
+            }
+        }        
     }
 }

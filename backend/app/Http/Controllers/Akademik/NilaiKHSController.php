@@ -479,8 +479,7 @@ class NilaiKHSController extends Controller
             {
                 return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',
-                                        'kaprodu'=>$kaprodi,
+                                        'pid'=>'fetchdata',                                        
                                         'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
                                     ],422);
             }

@@ -130,7 +130,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-model="dialogdetailitem" max-width="800px" persistent>
+                                <v-dialog v-if="dialogdetailitem" v-model="dialogdetailitem" max-width="800px" persistent>
                                     <v-card>
                                         <v-card-title>
                                             <span class="headline">DETAIL DATA</span>
@@ -170,7 +170,7 @@
                                                     <v-card flat>
                                                         <v-card-title>KETUA PRODI :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.nama_prodi_alias}}
+                                                            {{kaprodi(formdata)}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>

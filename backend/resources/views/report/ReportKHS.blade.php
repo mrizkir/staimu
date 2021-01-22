@@ -141,7 +141,7 @@ h2{
             <span>
                 <strong><u>{{$kaprodi->name}}</u></strong><br>
                 <strong>NIDN/NIDK:</strong> {{$kaprodi->nidn}} / {{$kaprodi->nipy}}
-             </span>                
+            </span>                
         </td>        
         <td width="50%" style="text-align:center">
             <br>
@@ -152,7 +152,7 @@ h2{
             <span>
                 <strong><u>{{$data_krs->nama_mhs}}</u></strong><br>
                 <strong>NIM:</strong> {{$data_krs->nim}}
-             </span>                
+            </span>                
         </td>
     </tr>
 </table>
