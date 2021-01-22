@@ -392,10 +392,6 @@ export default {
                     Authorization:this.TOKEN
                 }
             }).then(({data})=>{    
-
-                this.formdata=item;      
-
-                this.dialogdetailitem=true; 
                 this.daftar_dosen = data.users;   
                 this.dosen_id=item.config;
                 if (item.config)
@@ -404,8 +400,10 @@ export default {
                     this.dosen_id=config.kaprodi
                 }             
                 this.datatableLoading=false;
-                this.firstloading=false;
+                this.formdata=item;      
+                this.dialogdetailitem=true;                 
             }); 
+            this.firstloading=false;
         },    
         editItem:async function (item) {            
             this.editedIndex = this.datatable.indexOf(item);
