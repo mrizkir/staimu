@@ -139,8 +139,8 @@ h2{
             <br>
             <br>
             <span>
-                (_________________________)<br>
-                NIDN/NIDK: ................
+                <strong><u>{{$kaprodi->name}}</u></strong><br>
+                <strong>NIDN/NIDK:</strong> {{$kaprodi->nidn}} / {{$kaprodi->nipy}}
              </span>                
         </td>        
         <td width="50%" style="text-align:center">
@@ -150,8 +150,8 @@ h2{
             <br>
             <br>
             <span>
-                <strong>{{$data_krs->nama_mhs}}</strong><br>
-                NIM: {{$data_krs->nim}}
+                <strong><u>{{$data_krs->nama_mhs}}</u></strong><br>
+                <strong>NIM:</strong> {{$data_krs->nim}}
              </span>                
         </td>
     </tr>

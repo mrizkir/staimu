@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Akademik;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\PenyelenggaraanMatakuliahModel;
+use App\Models\DMaster\ProgramStudiModel;
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
@@ -316,158 +317,173 @@ class NilaiKHSController extends Controller
         }
         else
         {
-            $daftar_matkul=KRSMatkulModel::select(\DB::raw('
-                                            pe3_krsmatkul.id,
-                                            A.kmatkul,
-                                            A.nmatkul,
-                                            A.sks,
-                                            A.semester,                                            
-                                            B.nama_dosen AS nama_dosen_penyelenggaraan,
-                                            F.nama_dosen AS nama_dosen_kelas,
-                                            \'\' AS nama_dosen,
-                                            COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
-                                            COALESCE(G.n_kual,\'-\') AS HM,
-                                            COALESCE(G.n_mutu,\'-\') AS AM,
-                                            \'-\' AS M,
-                                            pe3_krsmatkul.created_at,
-                                            pe3_krsmatkul.updated_at
-                                        '))
-                                        ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
-                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')                                       
-                                        ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                        ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                        ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
-                                        ->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')                                        
-                                        ->where('pe3_krsmatkul.krs_id',$krs->id)
-                                        ->orderBy('semester','asc')
-                                        ->orderBy('kmatkul','asc')
-                                        ->get();
-            
-            $daftar_nilai=[];
-            $jumlah_matkul=0;
-            $jumlah_sks=0;
-            $jumlah_m=0;
-            $jumlah_am=0;
-            $ips=0;
-            $ipk=0;
-            foreach ($daftar_matkul as $key=>$item)
-            {
-                if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+            $prodi = new ProgramStudiModel();
+            $kaprodi=$prodi->getKAProdi($krs->kjur);
+            if (!is_null($kaprodi))
+            {            
+                $daftar_matkul=KRSMatkulModel::select(\DB::raw('
+                                                pe3_krsmatkul.id,
+                                                A.kmatkul,
+                                                A.nmatkul,
+                                                A.sks,
+                                                A.semester,                                            
+                                                B.nama_dosen AS nama_dosen_penyelenggaraan,
+                                                F.nama_dosen AS nama_dosen_kelas,
+                                                \'\' AS nama_dosen,
+                                                COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+                                                COALESCE(G.n_kual,\'-\') AS HM,
+                                                COALESCE(G.n_mutu,\'-\') AS AM,
+                                                \'-\' AS M,
+                                                pe3_krsmatkul.created_at,
+                                                pe3_krsmatkul.updated_at
+                                            '))
+                                            ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
+                                            ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
+                                            ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
+                                            ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')                                       
+                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
+                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
+                                            ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
+                                            ->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')                                        
+                                            ->where('pe3_krsmatkul.krs_id',$krs->id)
+                                            ->orderBy('semester','asc')
+                                            ->orderBy('kmatkul','asc')
+                                            ->get();
+                
+                $daftar_nilai=[];
+                $jumlah_matkul=0;
+                $jumlah_sks=0;
+                $jumlah_m=0;
+                $jumlah_am=0;
+                $ips=0;
+                $ipk=0;
+                foreach ($daftar_matkul as $key=>$item)
                 {
-                    $nama_dosen='N.A';
-                }     
-                else
+                    if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+                    {
+                        $nama_dosen='N.A';
+                    }     
+                    else
+                    {
+                        $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    }
+                    if ($item->HM=='-')
+                    {
+                        $M='-';
+                        $daftar_nilai[]=[
+                            'no'=>$key+1,
+                            'nama_dosen'=>$nama_dosen,
+                            'kmatkul'=>$item->kmatkul,
+                            'nmatkul'=>$item->nmatkul,
+                            'sks'=>$item->sks,
+                            'HM'=>$item->HM,
+                            'AM'=>$item->AM,
+                            'M'=>$M,
+                            'nama_dosen'=>$nama_dosen,
+                        ];
+                    }
+                    else
+                    {
+                        $M=$item->sks*$item->AM;
+                        $jumlah_m+=$M;
+                        $jumlah_am+=$item->AM;               
+                        $daftar_nilai[]=[
+                            'no'=>$key+1,
+                            'nama_dosen'=>$nama_dosen,
+                            'kmatkul'=>$item->kmatkul,
+                            'nmatkul'=>$item->nmatkul,
+                            'sks'=>$item->sks,
+                            'HM'=>$item->HM,
+                            'AM'=>number_format($item->AM,0),
+                            'M'=>number_format($M,0),
+                            'nama_dosen'=>$nama_dosen,
+                        ];
+                    }                    
+                    $jumlah_sks+=$item->sks;
+                    $jumlah_matkul+=1;                
+                }      
+                $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+
+                $krs->jumlah_matkul_1=$jumlah_matkul;
+                $krs->jumlah_sks_1=$jumlah_sks;
+                $krs->jumlah_am_1=$jumlah_am;
+                $krs->jumlah_m_1=$jumlah_m;
+
+                $krs->ips=$ips;
+
+                $data=\DB::table('pe3_krs')
+                            ->select(\DB::raw('
+                                SUM(jumlah_matkul_1) AS jumlah_matkul_1,
+                                SUM(jumlah_sks_1) AS jumlah_sks_1,
+                                SUM(jumlah_am_1) AS jumlah_am_1,
+                                SUM(jumlah_m_1) AS jumlah_m_1
+                            '))
+                            ->where('tasmt','<=',$krs->tasmt)
+                            ->where('user_id',$krs->user_id)
+                            ->get();
+
+                if (isset($data[0]))
                 {
-                    $nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
+                    $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
+                    $krs->jumlah_am_2=$data[0]->jumlah_am_1;
+                    $krs->jumlah_m_2=$data[0]->jumlah_m_1;
+
+                    $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
+                    $krs->ipk=$ipk;
                 }
-                if ($item->HM=='-')
-                {
-                    $M='-';
-                    $daftar_nilai[]=[
-                        'no'=>$key+1,
-                        'nama_dosen'=>$nama_dosen,
-                        'kmatkul'=>$item->kmatkul,
-                        'nmatkul'=>$item->nmatkul,
-                        'sks'=>$item->sks,
-                        'HM'=>$item->HM,
-                        'AM'=>$item->AM,
-                        'M'=>$M,
-                        'nama_dosen'=>$nama_dosen,
-                    ];
-                }
-                else
-                {
-                    $M=$item->sks*$item->AM;
-                    $jumlah_m+=$M;
-                    $jumlah_am+=$item->AM;               
-                    $daftar_nilai[]=[
-                        'no'=>$key+1,
-                        'nama_dosen'=>$nama_dosen,
-                        'kmatkul'=>$item->kmatkul,
-                        'nmatkul'=>$item->nmatkul,
-                        'sks'=>$item->sks,
-                        'HM'=>$item->HM,
-                        'AM'=>number_format($item->AM,0),
-                        'M'=>number_format($M,0),
-                        'nama_dosen'=>$nama_dosen,
-                    ];
-                }                    
-                $jumlah_sks+=$item->sks;
-                $jumlah_matkul+=1;                
-            }      
-            $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+                $krs->save();
 
-            $krs->jumlah_matkul_1=$jumlah_matkul;
-            $krs->jumlah_sks_1=$jumlah_sks;
-            $krs->jumlah_am_1=$jumlah_am;
-            $krs->jumlah_m_1=$jumlah_m;
+                $config = ConfigurationModel::getCache();
+                $headers=[
+                    'HEADER_1'=>$config['HEADER_1'],
+                    'HEADER_2'=>$config['HEADER_2'],
+                    'HEADER_3'=>$config['HEADER_3'],
+                    'HEADER_4'=>$config['HEADER_4'],
+                    'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+                    'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
+                ];
+                $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
+                                                                        [
+                                                                            'headers'=>$headers,
+                                                                            'data_krs'=>$krs,
+                                                                            'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
+                                                                            'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
+                                                                            'jumlah_matkul'=>$jumlah_matkul,
+                                                                            'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
+                                                                            'jumlah_m'=>$jumlah_m,                                                                                                                                   
+                                                                            'jumlah_am'=>$jumlah_am,                                                                                                                                   
+                                                                            'ipk'=>$ipk,                                                                                                                                   
+                                                                            'ips'=>$ips, 
+                                                                            'tanggal'=>\App\Helpers\Helper::tanggal('d F Y'),
+                                                                            'kaprodi'=>$kaprodi
+                                                                        ],
+                                                                        [],
+                                                                        [
+                                                                            'title' => 'KHS',
+                                                                        ]);
 
-            $krs->ips=$ips;
+                $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/khs_".$krs->id.'.pdf');
+                $pdf->save($file_pdf);
 
-            $data=\DB::table('pe3_krs')
-                        ->select(\DB::raw('
-                            SUM(jumlah_matkul_1) AS jumlah_matkul_1,
-                            SUM(jumlah_sks_1) AS jumlah_sks_1,
-                            SUM(jumlah_am_1) AS jumlah_am_1,
-                            SUM(jumlah_m_1) AS jumlah_m_1
-                        '))
-                        ->where('tasmt','<=',$krs->tasmt)
-                        ->where('user_id',$krs->user_id)
-                        ->get();
+                $pdf_file="storage/exported/pdf/khs_".$krs->id.".pdf";
 
-            if (isset($data[0]))
-            {
-                $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
-                $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
-                $krs->jumlah_am_2=$data[0]->jumlah_am_1;
-                $krs->jumlah_m_2=$data[0]->jumlah_m_1;
-
-                $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
-                $krs->ipk=$ipk;
+                return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',
+                                        'krs'=>$krs,
+                                        'pdf_file'=>$pdf_file                                    
+                                    ],200);
             }
-            $krs->save();
-
-            $config = ConfigurationModel::getCache();
-            $headers=[
-                'HEADER_1'=>$config['HEADER_1'],
-                'HEADER_2'=>$config['HEADER_2'],
-                'HEADER_3'=>$config['HEADER_3'],
-                'HEADER_4'=>$config['HEADER_4'],
-                'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
-                'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
-            ];
-            $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
-                                                                    [
-                                                                        'headers'=>$headers,
-                                                                        'data_krs'=>$krs,
-                                                                        'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
-                                                                        'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
-                                                                        'jumlah_matkul'=>$jumlah_matkul,
-                                                                        'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
-                                                                        'jumlah_m'=>$jumlah_m,                                                                                                                                   
-                                                                        'jumlah_am'=>$jumlah_am,                                                                                                                                   
-                                                                        'ipk'=>$ipk,                                                                                                                                   
-                                                                        'ips'=>$ips, 
-                                                                        'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
-                                                                    ],
-                                                                    [],
-                                                                    [
-                                                                        'title' => 'KHS',
-                                                                    ]);
-
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/khs_".$krs->id.'.pdf');
-            $pdf->save($file_pdf);
-
-            $pdf_file="storage/exported/pdf/khs_".$krs->id.".pdf";
-
-            return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'krs'=>$krs,
-                                    'pdf_file'=>$pdf_file                                    
-                                ],200);
+            else
+            {
+                return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'fetchdata',
+                                        'kaprodu'=>$kaprodi,
+                                        'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
+                                    ],422);
+            }
         }
     }
 }
