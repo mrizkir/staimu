@@ -24,6 +24,7 @@ class UserDosen extends Model {
      */
     protected $fillable = [        
         'user_id',
+        'id_jabatan',
         'nidn',
         'nipy',
         'nama_dosen',

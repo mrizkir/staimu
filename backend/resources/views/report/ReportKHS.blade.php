@@ -130,9 +130,24 @@ h2{
     <tr>
         <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>        
         <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>
+    </tr>    
+    <tr>
+        <td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>WAKIL KETUA I</td>        
+        <td style="font-weight:bold;font-size:14px;text-align:left">KETUA PROGRAM STUDI<br>{{$data_krs->nama_prodi}}</td>
     </tr>
     <tr>
-        <td width="50%" style="text-align:center">
+        <td width="50%" style="text-align:left">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <span>
+                <strong><u>SUHARDIMAN</u></strong><br>
+                <strong>LEKTOR NIDN:</strong> 2128087201
+            </span>                
+        </td>        
+        <td width="50%" style="text-align:left">
             <br>
             <br>
             <br>
@@ -141,17 +156,6 @@ h2{
             <span>
                 <strong><u>{{$kaprodi->name}}</u></strong><br>
                 <strong>NIDN/NIDK:</strong> {{$kaprodi->nidn}} / {{$kaprodi->nipy}}
-            </span>                
-        </td>        
-        <td width="50%" style="text-align:center">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <span>
-                <strong><u>{{$data_krs->nama_mhs}}</u></strong><br>
-                <strong>NIM:</strong> {{$data_krs->nim}}
             </span>                
         </td>
     </tr>

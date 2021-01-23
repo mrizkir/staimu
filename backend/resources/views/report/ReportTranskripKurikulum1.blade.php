@@ -151,7 +151,7 @@ h2{
         </tr>        
         <tr>
             <td width="65%"></td>
-            <td><strong>Wakil Ketua 1 Bidang Akademik</strong></td>                                   
+            <td><strong>Wakil Ketua I Bidang Akademik</strong></td>                                   
         </tr>        
         <tr>
             <td width="65%"></td>
@@ -160,9 +160,8 @@ h2{
                 <br>
                 <br>
                 <br>
-                <br>
-                ____________________<br>
-                NIDN.:
+                <br><strong><u>SUHARDMINA, M.Pd.I</u></strong><br>
+                <strong>LEKTOR NIDN:</strong>2128087201
             </td>                                   
         </tr>        
             
