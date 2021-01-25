@@ -379,20 +379,20 @@ export default {
                 this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
 
                 this.provinsi_id={
-                    id:data.formulir.address1_provinsi_id,
-                    nama:data.formulir.address1_provinsi
+                    id:""+data.formulir.address1_provinsi_id,
+                    nama:""+data.formulir.address1_provinsi
                 };
                 this.kabupaten_id={
-                    id:data.formulir.address1_kabupaten_id,
-                    nama:data.formulir.address1_kabupaten
+                    id:""+data.formulir.address1_kabupaten_id,
+                    nama:""+data.formulir.address1_kabupaten
                 };
                 this.kecamatan_id={
-                    id:data.formulir.address1_kecamatan_id,
-                    nama:data.formulir.address1_kecamatan
+                    id:""+data.formulir.address1_kecamatan_id,
+                    nama:""+data.formulir.address1_kecamatan
                 };
                 this.desa_id={
-                    id:data.formulir.address1_desa_id,
-                    nama:data.formulir.address1_kelurahan
+                    id:""+data.formulir.address1_desa_id,
+                    nama:""+data.formulir.address1_kelurahan
                 };
                 
                 this.formdata.alamat_rumah=data.formulir.alamat_rumah;    
