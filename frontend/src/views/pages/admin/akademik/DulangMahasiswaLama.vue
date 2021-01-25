@@ -2,7 +2,7 @@
     <AkademikLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-monitor-dashboard
+                mdi-account-box-multiple
             </template>
             <template v-slot:name>
                 DAFTAR ULANG MAHASISWA LAMA 

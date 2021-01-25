@@ -10,7 +10,7 @@ use App\Models\SPMB\JawabanSoalPMBModel;
 
 use Ramsey\Uuid\Uuid;
 
-class SoalPMBController extends Controller {  
+class SoalPMBController extends Controller {
     /**
      * daftar soal
      */
@@ -18,7 +18,7 @@ class SoalPMBController extends Controller {
     {
         $this->hasPermissionTo('SPMB-PMB-SOAL_BROWSE');
 
-        $this->validate($request, [                       
+        $this->validate($request, [
             'tahun_pendaftaran'=>'required',
             'semester_pendaftaran'=>'required'
         ]);
@@ -31,11 +31,11 @@ class SoalPMBController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'soal'=>$soal,                                                                                                                                   
+                                    'pid'=>'fetchdata',
+                                    'soal'=>$soal,
                                     'message'=>'Fetch data soal pmb berhasil.'
-                                ],200);     
-    }  
+                                ],200);
+    }
     /**
      * simpan soal baru
      */
@@ -43,7 +43,7 @@ class SoalPMBController extends Controller {
     {
         $this->hasPermissionTo('SPMB-PMB-SOAL_STORE');
 
-        $this->validate($request, [           
+        $this->validate($request, [
             'soal'=>'required',
             'gambar'=>'required',
             'jawaban1'=>'required',
@@ -54,54 +54,54 @@ class SoalPMBController extends Controller {
             'tahun_pendaftaran'=>'required',
             'semester_pendaftaran'=>'required'
         ]);
-        
+
         $soal = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();                               
+            $now = \Carbon\Carbon::now()->toDateTimeString();
             $soal=SoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal'=>$request->input('soal'),
                 'gambar'=>null,
                 'ta'=> $request->input('tahun_pendaftaran'),
                 'semester'=>$request->input('semester_pendaftaran'),
-                'active'=>1,                  
-                'created_at'=>$now, 
+                'active'=>1,
+                'created_at'=>$now,
                 'updated_at'=>$now
-            ]);            
+            ]);
             $soal_id=$soal->id;
             JawabanSoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal_id'=>$soal_id,
-                'jawaban'=>$request->input('jawaban1'),                
+                'jawaban'=>$request->input('jawaban1'),
                 'options'=>'{}',
                 'status'=>$request->input('jawaban_benar')==1?1:0,
-                'created_at'=>$now, 
+                'created_at'=>$now,
                 'updated_at'=>$now
             ]);
             JawabanSoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal_id'=>$soal_id,
-                'jawaban'=>$request->input('jawaban2'),                
+                'jawaban'=>$request->input('jawaban2'),
                 'options'=>'{}',
                 'status'=>$request->input('jawaban_benar')==2?1:0,
-                'created_at'=>$now, 
+                'created_at'=>$now,
                 'updated_at'=>$now
             ]);
             JawabanSoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal_id'=>$soal_id,
-                'jawaban'=>$request->input('jawaban3'),                
+                'jawaban'=>$request->input('jawaban3'),
                 'options'=>'{}',
                 'status'=>$request->input('jawaban_benar')==3?1:0,
-                'created_at'=>$now, 
+                'created_at'=>$now,
                 'updated_at'=>$now
             ]);
             JawabanSoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal_id'=>$soal_id,
-                'jawaban'=>$request->input('jawaban4'),                
+                'jawaban'=>$request->input('jawaban4'),
                 'options'=>'{}',
                 'status'=>$request->input('jawaban_benar')==4?1:0,
-                'created_at'=>$now, 
+                'created_at'=>$now,
                 'updated_at'=>$now
             ]);
 
@@ -110,9 +110,9 @@ class SoalPMBController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'soal'=>$soal,                                                                                                                                 
+                                    'soal'=>$soal,
                                     'message'=>'Data soal berhasil disimpan.'
-                                ],200); 
+                                ],200);
     }
     /**
      * daftar soal
@@ -126,22 +126,22 @@ class SoalPMBController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',                
+                                    'pid'=>'show',
                                     'message'=>["Fetch data soal pmb dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ],422);
         }
         else
         {
             $jawaban = $soal->jawaban;
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'soal'=>$soal,   
-                                        'jawaban'=>$jawaban,                                                                                                                                                                                                                                                                                                           
+                                        'pid'=>'fetchdata',
+                                        'soal'=>$soal,
+                                        'jawaban'=>$jawaban,
                                         'message'=>"Fetch data soal pmb dengan id ($id) berhasil diperoleh."
-                                    ],200);     
+                                    ],200);
         }
-    } 
+    }
     /**
      * update soal baru
      */
@@ -154,24 +154,28 @@ class SoalPMBController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',
                                     'message'=>["Fetch data soal pmb dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ],422);
         }
         else
         {
-            $this->validate($request, [           
+            $this->validate($request, [
                 'soal'=>'required',
                 // 'gambar'=>'required',
                 // 'jawaban1'=>'required',
                 // 'jawaban2'=>'required',
                 // 'jawaban3'=>'required',
                 // 'jawaban4'=>'required',
-                'jawaban_benar'=>'required',            
+                'jawaban_benar'=>'required',
             ]);
             $soal->soal=$request->input('soal');
             $soal->save();
-            
+
+            \DB::table('pe3_jawaban_soal')
+                ->where('soal_id',$soal->id)
+                ->update(['status'=>0]);
+                
             $jawaban = JawabanSoalPMBModel::find($request->input('jawaban_benar'));
             if (!is_null($jawaban))
             {
@@ -180,12 +184,12 @@ class SoalPMBController extends Controller {
             }
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',  
-                                        'soal'=>$soal,                                                                                                                                                                                                                                                                                                                                                    
-                                        'message'=>"Mengubah data soal pmb dengan id ($id) berhasil."                                        
-                                    ],200);    
+                                        'pid'=>'update',
+                                        'soal'=>$soal,
+                                        'message'=>"Mengubah data soal pmb dengan id ($id) berhasil."
+                                    ],200);
         }
-    } 
+    }
      /**
      * Menghapus soal ujian pmb
      *
@@ -193,18 +197,18 @@ class SoalPMBController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request,$id)
-    { 
+    {
         $this->hasPermissionTo('SPMB-PMB-SOAL_DESTROY');
 
         $soal=SoalPMBModel::find($id);
-        
+
         if (is_null($soal))
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',
                                     'message'=>["Soal PMB dengan ID ($id) gagal dihapus"]
-                                ],422); 
+                                ],422);
         }
         else
         {
@@ -212,18 +216,18 @@ class SoalPMBController extends Controller {
             $soal->delete();
 
             \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $this->guard()->user(), 
-                                                            'object_id' => $this->guard()->user()->id, 
-                                                            'soal_id' => $soal->id, 
+                                                            'object' => $this->guard()->user(),
+                                                            'object_id' => $this->guard()->user()->id,
+                                                            'soal_id' => $soal->id,
                                                             'message' => 'Menghapus Soal PMB ('.$nama_soal.') berhasil'
                                                         ]);
-        
+
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',
                                         'message'=>"Soal Ujian PMB ($nama_soal) berhasil dihapus"
-                                    ],200);         
+                                    ],200);
         }
-                  
-    } 
+
+    }
 }

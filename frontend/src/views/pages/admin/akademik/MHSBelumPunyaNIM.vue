@@ -2,7 +2,7 @@
     <AkademikLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-book
+                mdi-account-alert
             </template>
             <template v-slot:name>
                 MAHASISWA BELUM PUNYA NIM
