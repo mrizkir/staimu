@@ -203,6 +203,7 @@ class PermissionsTableSeeder extends Seeder
             'DMASTER-PRODI',
             'DMASTER-KELAS',
             'DMASTER-RUANGAN-KELAS',
+            'DMASTER-PERSYARATAN-PMB',
 
             'SPMB-PMB',
             'SPMB-PMB-FORMULIR-PENDAFTARAN',

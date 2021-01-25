@@ -47,6 +47,7 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),		
 	},
+	//fasilitas
 	{
 		path: '/dmaster/ruangkelas',
 		name: 'DMasterRuangKelas',
@@ -64,6 +65,16 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/dmaster/Kelas.vue'),		
+	},
+	//pmb
+	{
+		path: '/dmaster/persyaratanpmb',
+		name: 'DMasterPersyaratanPMB',
+		meta:{
+			title: "DATA MASTER - PERSYARATAN PMB",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/dmaster/PersyaratanPMB.vue'),		
 	},
 	{
 		path: '/dmaster/jabatanakademik',
