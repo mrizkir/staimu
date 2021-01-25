@@ -549,8 +549,7 @@ class PMBController extends Controller {
                 $no_transaksi='N.A';
                 $transaksi_detail=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                                         ->where('pe3_transaksi_detail.user_id',$formulir->user_id)
-                                                        ->where('pe3_transaksi.status',0)
-                                                        ->orWhere('pe3_transaksi.status',1)
+                                                        ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
                                                         ->where('pe3_transaksi_detail.kombi_id',101)
                                                         ->first();                
                 if (is_null($transaksi_detail))
