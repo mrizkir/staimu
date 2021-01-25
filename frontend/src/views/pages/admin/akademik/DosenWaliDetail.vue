@@ -48,7 +48,7 @@
                         :headers="headers"
                         :items="daftar_mahasiswa"
                         :search="search"
-                        item-key="id"
+                        item-key="user_id"
                         sort-by="name"
                         show-expand
                         :expanded.sync="expanded"
@@ -76,7 +76,22 @@
                             {{item.is_dw == false ? 'BUKAN':'YA'}}
                         </template>
                         <template v-slot:item.actions>                            
-                            N.A
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon                                         
+                                        x-small 
+                                        class="ma-2" 
+                                        :disabled="btnLoading"
+                                        @click.stop="changeDosenWali">
+                                        <v-icon>mdi-file-replace-outline</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Ganti Dosen Wali</span>                                   
+                            </v-tooltip>
                         </template>
                         <template v-slot:item.foto="{ item }">                            
                             <v-avatar size="30">
@@ -166,8 +181,7 @@ export default {
                 },
                 
             ).then(({data})=>{   
-                this.data_dosen=data.biodatadiri;                           
-                console.log(this.data_dosen);
+                this.data_dosen=data.biodatadiri;                                           
             });       
 
             await this.$ajax.get('/akademik/dosenwali/'+this.dosen_id,{
@@ -190,34 +204,32 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },                
-        viewItem:async function (item) {
-            this.$router.push('/akademik/dosenwali/'+item.id)
-        },                
-        deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then((confirm) => {
-                if (confirm)
+        },   
+        showDialogChangeDW()
+        {
+
+        },                     
+        changeDosenWali ()
+        {
+            this.btnLoading=true;
+            this.$ajax.post('/akademik/dosenwali/'+item.id,
                 {
-                    this.btnLoading=true;
-                    this.$ajax.post('/akademik/dosenwali/'+item.id,
-                        {
-                            '_method':'DELETE',
-                        },
-                        {
-                            headers:{
-                                Authorization:this.TOKEN
-                            }
-                        }
-                    ).then(()=>{   
-                        const index = this.daftar_mahasiswa.indexOf(item);
-                        this.daftar_mahasiswa.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
-                    });
+                    '_method':'PUT',
+                    'user_id':'PUT',
+                },
+                {
+                    headers:{
+                        Authorization:this.TOKEN
+                    }
                 }
+            ).then(()=>{   
+                const index = this.daftar_mahasiswa.indexOf(item);
+                this.daftar_mahasiswa.splice(index, 1);
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
             });
-        },
+        },        
     },
     computed: {        
         ...mapGetters('auth',{            

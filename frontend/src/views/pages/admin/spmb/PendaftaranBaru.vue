@@ -509,6 +509,7 @@ export default {
             this.btnLoading=true;
             this.$ajax.post('/akademik/kemahasiswaan/updatestatus/'+id,
                 {
+                    '_method':'PUT',
                     'active':1
                 },
                 {

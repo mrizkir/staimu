@@ -65,6 +65,7 @@ class DosenWaliController extends Controller {
         {
             $daftar_mahasiswa = \DB::table('pe3_register_mahasiswa AS A')
                                 ->select(\DB::raw('
+                                    A.user_id,
                                     A.nim,
                                     B.nama_mhs,
                                     D.nama_prodi,
