@@ -70,7 +70,7 @@ class PMBController extends Controller {
                                 'pid'=>'fetchdata',
                                 'pmb'=>$data,
                                 'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
-                            ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);;  
+                            ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }    
     /**
      * digunakan untuk mendapatkan calon mahasiswa baru yang telah mengisi formulir pendaftaran
@@ -371,7 +371,7 @@ class PMBController extends Controller {
                                                                 tempat_lahir,
                                                                 tanggal_lahir,
                                                                 jk,
-                                                                nomor_hp,
+                                                                CONCAT(\'+\',nomor_hp) AS nomor_hp,
                                                                 email,
                                                                 nama_ibu_kandung,
                                                                 address1_desa_id,
@@ -418,7 +418,7 @@ class PMBController extends Controller {
                                         'formulir'=>$formulir,                                        
                                         'no_transaksi'=>$no_transaksi,
                                         'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
-                                    ],200);        
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);     
         }
 
     }
