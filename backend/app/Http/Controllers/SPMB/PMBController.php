@@ -371,7 +371,7 @@ class PMBController extends Controller {
                                                                 tempat_lahir,
                                                                 tanggal_lahir,
                                                                 jk,
-                                                                CONCAT(\'+\',nomor_hp) AS nomor_hp,
+                                                                nomor_hp,
                                                                 email,
                                                                 nama_ibu_kandung,
                                                                 address1_desa_id,

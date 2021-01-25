@@ -374,7 +374,7 @@ export default {
                 this.formdata.tempat_lahir=data.formulir.tempat_lahir;           
                 this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;           
                 this.formdata.jk=data.formulir.jk;           
-                this.formdata.nomor_hp=data.formulir.nomor_hp;           
+                this.formdata.nomor_hp='+'.data.formulir.nomor_hp;           
                 this.formdata.email=data.formulir.email;    
                 this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
 
