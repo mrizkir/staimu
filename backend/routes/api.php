@@ -24,6 +24,10 @@ $router->group(['prefix'=>'v3'], function () use ($router)
 
     //data master - persyaratan
     $router->post('/datamaster/persyaratan',['uses'=>'DMaster\PersyaratanController@index','as'=>'persyaratan.index']);
+    //id disini adalah tahun pendaftaran saat ini
+    $router->post('/datamaster/persyaratan/store',['uses'=>'DMaster\PersyaratanController@store','as'=>'persyaratan.store']);
+    $router->post('/datamaster/persyaratan/salin/{id}',['uses'=>'DMaster\PersyaratanController@salin','as'=>'persyaratan.salin']);
+    $router->put('/datamaster/persyaratan/{id}',['uses'=>'DMaster\PersyaratanController@update','as'=>'persyaratan.update']);
     $router->post('/datamaster/persyaratan/{id}/proses',['uses'=>'DMaster\PersyaratanController@proses','as'=>'persyaratan.proses']);
 
     //data master - fakultas

@@ -70,7 +70,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyMatkul" v-if="$store.getters['auth/can']('DMASTER-PERSYARATAN-PMB_STORE')">SALIN PERSYARATAN PMB</v-btn>
+                                <v-btn color="primary" dark class="mb-2 mr-2" @click.stop="showDialogCopyPersyaratan" v-if="$store.getters['auth/can']('DMASTER-PERSYARATAN-PMB_STORE')">SALIN PERSYARATAN PMB</v-btn>
                                 <v-btn 
                                     color="primary" 
                                     dark 
@@ -88,28 +88,10 @@
                                             <v-card-text>                                                                                                      
                                                 <v-text-field 
                                                     v-model="formdata.nama_persyaratan" 
-                                                    label="NAMA MATAKULIAH"
+                                                    label="NAMA PERSYARATAN"
                                                     outlined
-                                                    :rules="rule_nama_matakuliah">
-                                                </v-text-field>                                                                                                                                                                                                
-                                                
-                                                <v-switch
-                                                    v-model="formdata.islintas_prodi"
-                                                    label="MATAKULIAH LINTAS PROGRAM STUDI">
-                                                </v-switch>
-                                                <v-switch
-                                                    v-model="formdata.syarat_skripsi"
-                                                    label="SYARAT SKRIPSI">
-                                                </v-switch>
-                                                <v-switch
-                                                    v-model="formdata.status"
-                                                    label="STATUS">
-                                                </v-switch>
-                                                <v-switch
-                                                    v-model="formdata.update_penyelenggaraan"
-                                                    label="UPDATE PENYELENGGARAAN"
-                                                    v-if="editedIndex > -1">
-                                                </v-switch>
+                                                    :rules="rule_nama_persyaratan">
+                                                </v-text-field>                    
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -144,9 +126,9 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>SKS :</v-card-title>
+                                                        <v-card-title>TAHUN PENDAFTARAN :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.sks}}
+                                                            {{formdata.ta}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -155,27 +137,7 @@
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>KODE MATAKULIAH :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            {{formdata.kmatkul}}
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>SKS TATAP MUKA :</v-card-title>
-                                                        <v-card-subtitle>
-                                                            {{formdata.sks_tatap_muka}}
-                                                        </v-card-subtitle>
-                                                    </v-card>
-                                                </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
-                                            <v-row no-gutters>
-                                                <v-col xs="12" sm="6" md="6">
-                                                    <v-card flat>
-                                                        <v-card-title>NAMA MATAKULIAH :</v-card-title>
+                                                        <v-card-title>NAMA PERSYARATAN :</v-card-title>
                                                         <v-card-subtitle>
                                                             {{formdata.nama_persyaratan}}
                                                         </v-card-subtitle>
@@ -184,34 +146,34 @@
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>SKS PRAKTIKUM :</v-card-title>
+                                                        <v-card-title>CREATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.sks_praktikum2}}
+                                                            {{ $date(formdata.created_at).format('DD/MM/YYYY HH:mm') }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                     
+                                            </v-row>                                            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>MINIMAL NILAI :</v-card-title>
+                                                        <v-card-title>PROSES :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.minimal_nilai}}
+                                                            {{formdata.proses}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
-                                                        <v-card-title>SYARAT SKRIPSI :</v-card-title>
+                                                        <v-card-title>UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{formdata.syarat_skripsi == 1 ? 'YA' : 'TIDAK'}}
+                                                            {{ $date(formdata.updated_at).format('DD/MM/YYYY HH:mm') }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                                                                        
+                                            </v-row>                                                                                                                                                 
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
@@ -219,8 +181,8 @@
                                         </v-card-actions>
                                     </v-card>                                    
                                 </v-dialog>
-                                <v-dialog v-model="dialogcopymatkul" max-width="500px" persistent>     
-                                    <v-form ref="frmdialogcopymatkul" v-model="form_valid" lazy-validation>
+                                <v-dialog v-model="dialogcopypersyaratan" max-width="500px" persistent>     
+                                    <v-form ref="frmdialogcopypersyaratan" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">SALIN PERSYARATAN PMB</span>
@@ -234,18 +196,18 @@
                                                 <v-select
                                                     v-model="dari_tahun_pendaftaran"
                                                     :items="daftar_ta"                                                    
-                                                    label="TAHUN AKADEMIK"
+                                                    label="TAHUN PENDAFTARAN"
                                                     :rules="rule_dari_tahun_pendaftaran"
                                                     outlined/>                                        
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
                                                 <v-spacer></v-spacer>
-                                                    <v-btn color="blue darken-1" text @click.stop="closedialogsalinama_persyaratan">BATAL</v-btn>
+                                                    <v-btn color="blue darken-1" text @click.stop="closedialogsalinpersyaratan">BATAL</v-btn>
                                                     <v-btn 
                                                         color="blue darken-1" 
                                                         text 
-                                                        @click.stop="salinama_persyaratan" 
+                                                        @click.stop="salinpersyaratan" 
                                                         :loading="btnLoading"
                                                         :disabled="!form_valid||btnLoading">
                                                             SALIN
@@ -285,15 +247,7 @@
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>                                
                             </td>
-                        </template>
-                        <template v-slot:body.append v-if="datatable.length > 0">
-                            <tr class="grey lighten-4 font-weight-black">
-                                <td class="text-right" colspan="4">TOTAL</td>
-                                <td class="text-center">{{totalSKS}}</td> 
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </template>
+                        </template>                        
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>
@@ -353,7 +307,7 @@ export default {
         //dialog
         dialogfrm:false,
         dialogdetailitem:false,
-        dialogcopymatkul:false,
+        dialogcopypersyaratan:false,
 
         //form data   
         form_valid:true, 
@@ -375,27 +329,12 @@ export default {
         },
         editedIndex: -1,
 
-        //form rules            
-        rule_kode_matkul:[
-            value => !!value||"Kode Program Studi mohon untuk diisi !!!",            
-        ], 
-        rule_nama_matakuliah:[
+        //form rules      
+        rule_nama_persyaratan:[
             value => !!value||"Mohon Nama Program Studi untuk diisi !!!",              
-        ], 
-        rule_sks:[
-            value => !!value||"Mohon SKS Matakuliah untuk dipilih !!!",              
         ],         
-        rule_sks_tatap_muka:[
-            value => !!value||"Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",              
-        ],         
-        rule_semester:[
-            value => !!value||"Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",              
-        ],         
-        rule_minimal_nilai:[
-            value => !!value||"Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
-        ], 
         rule_dari_tahun_pendaftaran:[
-            value => !!value||"Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",              
+            value => !!value||"Mohon Tahun Pendaftaran sumber persyaratan untuk dipilih !!!",              
         ],             
     }),
     methods: {
@@ -436,50 +375,18 @@ export default {
         },
         tambahItem:async function()
         {   
-            await this.$ajax.get('/akademik/groupmatakuliah',
-            {
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.group_proses=data.group_proses;
-            });            
             this.dialogfrm=true;
         },
-        async viewItem (item) {
-            this.formdata=item;      
-            await this.$ajax.get('/akademik/matakuliah/'+item.id,
-            {
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.formdata=data.matakuliah;
-            });
+        viewItem (item) {
+            this.formdata=item;                 
             this.dialogdetailitem=true;                        
         },    
         editItem:async function (item) {            
-            this.editedIndex = this.datatable.indexOf(item);            
-            await this.$ajax.get('/akademik/groupmatakuliah',
-            {
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.group_proses=data.group_proses;
-            });  
-
-            await this.$ajax.get('/akademik/matakuliah/'+item.id,
-            {
-                headers: {
-                    Authorization:this.TOKEN
-                }
-            }).then(({data})=>{
-                this.formdata=data.matakuliah;
-            });
+            this.editedIndex = this.datatable.indexOf(item);                  
+            this.formdata=item;      
             this.dialogfrm = true
         },    
-        showDialogCopyMatkul()
+        showDialogCopyPersyaratan()
         {
             let list_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             for (var i =0; i < list_ta.length; i++)
@@ -493,7 +400,7 @@ export default {
                     })
                 }                              
             }            
-            this.dialogcopymatkul=true;
+            this.dialogcopypersyaratan=true;
         },
         save:async function () {
             if (this.$refs.frmdata.validate())
@@ -501,28 +408,10 @@ export default {
                 this.btnLoading=true;
                 if (this.editedIndex > -1) 
                 {
-                    await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
+                    await this.$ajax.post('/datamaster/persyaratan/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            id_group:this.formdata.id_group,                                                    
-                            nama_group:this.formdata.nama_group,                                                    
-                            group_alias:this.formdata.group_alias,                                                    
-                            kmatkul:this.formdata.kmatkul,         
-                            nama_persyaratan:this.formdata.nama_persyaratan, 
-                            sks:this.formdata.sks, 
-                            idkonsentrasi:this.formdata.idkonsentrasi, 
-                            ispilihan:this.formdata.ispilihan, 
-                            islintas_prodi:this.formdata.islintas_prodi, 
-                            semester:this.formdata.semester, 
-                            sks_tatap_muka:this.formdata.sks_tatap_muka, 
-                            sks_praktikum:this.formdata.sks_praktikum, 
-                            sks_praktik_lapangan:this.formdata.sks_praktik_lapangan, 
-                            minimal_nilai:this.formdata.minimal_nilai,  
-                            syarat_skripsi:this.formdata.syarat_skripsi,   
-                            status:this.formdata.status,                             
-                            ta:this.formdata.ta,                             
-                            kjur:this.formdata.kjur,  
-                            update_penyelenggaraan:this.formdata.update_penyelenggaraan,                                                       
+                            '_method':'PUT',                            
+                            nama_persyaratan:this.formdata.nama_persyaratan,                                                                            
                         },
                         {
                             headers:{
@@ -538,26 +427,11 @@ export default {
                     });                 
                     
                 } else {                    
-                    await this.$ajax.post('/akademik/matakuliah/store',
+                    await this.$ajax.post('/datamaster/persyaratan/store',
                         {
-                            id_group:this.formdata.id_group, 
-                            nama_group:this.formdata.nama_group,                                                    
-                            group_alias:this.formdata.group_alias,                                                                                                       
-                            kmatkul:this.formdata.kmatkul,         
-                            nama_persyaratan:this.formdata.nama_persyaratan, 
-                            sks:this.formdata.sks, 
-                            idkonsentrasi:this.formdata.idkonsentrasi, 
-                            ispilihan:this.formdata.ispilihan, 
-                            islintas_prodi:this.formdata.islintas_prodi, 
-                            semester:this.formdata.semester, 
-                            sks_tatap_muka:this.formdata.sks_tatap_muka, 
-                            sks_praktikum:this.formdata.sks_praktikum, 
-                            sks_praktik_lapangan:this.formdata.sks_praktik_lapangan, 
-                            minimal_nilai:this.formdata.minimal_nilai,  
-                            syarat_skripsi:this.formdata.syarat_skripsi,   
-                            status:this.formdata.status,   
-                            ta:this.tahun_pendaftaran,                             
-                            kjur:this.prodi_id,                                                                                   
+                            proses:this.formdata.proses,                                                    
+                            nama_persyaratan:this.formdata.nama_persyaratan,                                                                                                       
+                            ta:this.tahun_pendaftaran,                                     
                         },
                         {
                             headers:{
@@ -574,15 +448,15 @@ export default {
                 }
             }
         },
-        salinama_persyaratan()
+        salinpersyaratan()
         {
-            if (this.$refs.frmdialogcopymatkul.validate())
+            if (this.$refs.frmdialogcopypersyaratan.validate())
             {
                 this.btnLoading=true;
-                this.$ajax.post('/akademik/matakuliah/salinama_persyaratan/'+this.tahun_pendaftaran,
+                this.$ajax.post('/datamaster/persyaratan/salin/'+this.tahun_pendaftaran,
                     {
                         dari_tahun_pendaftaran:this.dari_tahun_pendaftaran,
-                        prodi_id:this.prodi_id,
+                        proses:'pmb',
                     },
                     {
                         headers:{
@@ -590,20 +464,20 @@ export default {
                         }
                     }
                 ).then(({data})=>{   
-                    this.datatable=data.matakuliah;
+                    this.datatable=data.persyaratan;
                     this.btnLoading=false;
-                    this.closedialogsalinama_persyaratan();
+                    this.closedialogsalinpersyaratan();
                 }).catch(()=>{
                     this.btnLoading=false;
                 });            
             }
         },
         deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nama_persyaratan+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
-                    this.$ajax.post('/akademik/matakuliah/'+item.id,
+                    this.$ajax.post('/datamaster/persyaratan/'+item.id,
                         {
                             '_method':'DELETE',
                         },
@@ -639,10 +513,10 @@ export default {
                 }, 300
             );
         },
-        closedialogsalinama_persyaratan () {                       
-            this.dialogcopymatkul = false; 
+        closedialogsalinpersyaratan () {                       
+            this.dialogcopypersyaratan = false; 
             setTimeout(() => {                
-                this.$refs.frmdialogcopymatkul.reset();                                 
+                this.$refs.frmdialogcopypersyaratan.reset();                                 
                 this.editedIndex = -1
                 }, 300
             );           
@@ -655,17 +529,7 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH PERSYARATAN PMB' : 'UBAH PERSYARATAN PMB'
-        },    
-        totalSKS()
-        {
-            var total = 0;
-            for (var i =0; i < this.datatable.length; i++)
-            {
-                var item = this.datatable[i];
-                total=total+parseInt(item.sks);
-            }
-            return total;
-        },            
+        },         
     },
     watch:{
         tahun_pendaftaran()
