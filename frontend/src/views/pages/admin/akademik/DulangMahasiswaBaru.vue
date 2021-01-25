@@ -56,9 +56,7 @@
                         item-key="id"                        
                         show-expand
                         :expanded.sync="expanded"
-                        :single-expand="true"
-                        :disable-pagination="true"
-                        :hide-default-footer="true"
+                        :single-expand="true"                        
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
