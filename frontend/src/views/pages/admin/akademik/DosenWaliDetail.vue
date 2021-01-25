@@ -86,7 +86,7 @@
                                         x-small 
                                         class="ma-2" 
                                         :disabled="btnLoading"
-                                        @click.stop="changeDosenWali">
+                                        @click.stop="showDialogChangeDW(item)">
                                         <v-icon>mdi-file-replace-outline</v-icon>
                                     </v-btn>     
                                 </template>
@@ -205,30 +205,30 @@ export default {
                 this.expanded=[item];
             }               
         },   
-        showDialogChangeDW()
+        showDialogChangeDW(item)
         {
-
+            console.log(item);
         },                     
         changeDosenWali ()
         {
             this.btnLoading=true;
-            this.$ajax.post('/akademik/dosenwali/'+item.id,
-                {
-                    '_method':'PUT',
-                    'user_id':'PUT',
-                },
-                {
-                    headers:{
-                        Authorization:this.TOKEN
-                    }
-                }
-            ).then(()=>{   
-                const index = this.daftar_mahasiswa.indexOf(item);
-                this.daftar_mahasiswa.splice(index, 1);
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });
+            // this.$ajax.post('/akademik/dosenwali/'+item.id,
+            //     {
+            //         '_method':'PUT',
+            //         'dosen_id':'PUT',
+            //     },
+            //     {
+            //         headers:{
+            //             Authorization:this.TOKEN
+            //         }
+            //     }
+            // ).then(()=>{   
+            //     const index = this.daftar_mahasiswa.indexOf(item);
+            //     this.daftar_mahasiswa.splice(index, 1);
+            //     this.btnLoading=false;
+            // }).catch(()=>{
+            //     this.btnLoading=false;
+            // });
         },        
     },
     computed: {        
