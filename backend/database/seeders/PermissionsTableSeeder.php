@@ -182,6 +182,15 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+
+        //kepegawaian
+        \DB::table('permissions')->insert([
+            'name'=>"KEPEGAWAIAN-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
         //system
         \DB::table('permissions')->insert([
             'name'=>"SYSTEM-SETTING-GROUP",
@@ -246,7 +255,9 @@ class PermissionsTableSeeder extends Seeder
 
             'KEMAHASISWAAN-PROFIL-MHS',
             //permission ini digunakan untuk menset dosen wali pada mahasiswa, baik itu tambah atau ubah
-            'name'=>"AKADEMIK-KEMAHASISWAAN-DW",           
+            "AKADEMIK-KEMAHASISWAAN-DW",           
+
+            "KEPEGAWAIAN-DOSEN",           
 
             'SYSTEM-SETTING-PERMISSIONS',
             'SYSTEM-SETTING-ROLES',

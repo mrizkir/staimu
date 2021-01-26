@@ -439,6 +439,11 @@ export default {
                 href:'/akademik'
             },
             {
+                text:'PERKULIAHAN',
+                disabled:false,
+                href:'#'
+            },
+            {
                 text:'MATAKULIAH',
                 disabled:true,
                 href:'#'

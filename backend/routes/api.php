@@ -364,6 +364,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/kemahasiswaan/profil/search',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@search','as'=>'profilmhs.search']);
     $router->post('/kemahasiswaan/profil/resetpassword',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@resetpassword','as'=>'profilmhs.resetpassword']);
 
+    //kepegawaian - dosen
+    $router->get('/kepegawaian/dosen',['uses'=>'Kepegawaian\KepegawaianDosenController@index','as'=>'kepegawaiandosen.index']);           
+    $router->put('/kepegawaian/dosen/{id}',['middleware'=>['role:superadmin|akademik|programstudi|dosen'],'uses'=>'Kepegawaian\KepegawaianDosenController@update','as'=>'kepegawaiandosen.update']);    
+
     //setting - permissions
     $router->get('/system/setting/permissions',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'System\PermissionsController@index','as'=>'permissions.index']);
     $router->post('/system/setting/permissions/store',['middleware'=>['role:superadmin'],'uses'=>'System\PermissionsController@store','as'=>'permissions.store']);
@@ -436,7 +440,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/system/userspuslahta/{id}',['middleware'=>['role:superadmin|puslahta'],'uses'=>'System\UsersPuslahtaController@destroy','as'=>'userspuslahta.destroy']);
 
     //setting - users dosen
-    $router->get('/system/usersdosen',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@index','as'=>'usersdosen.index']);    
+    $router->get('/system/usersdosen',['uses'=>'System\UsersDosenController@index','as'=>'usersdosen.index']);    
     $router->post('/system/usersdosen/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\UsersDosenController@store','as'=>'usersdosen.store']);
     $router->get('/system/usersdosen/biodatadiri/{id}',['middleware'=>['role:superadmin|akademik|programstudi|dosen'],'uses'=>'System\UsersDosenController@biodatadiri','as'=>'usersdosen.biodatadiri']);
     $router->put('/system/usersdosen/biodatadiri/{id}',['middleware'=>['role:superadmin|akademik|programstudi|dosen'],'uses'=>'System\UsersDosenController@updatebiodatadiri','as'=>'usersdosen.updatebiodatadiri']);

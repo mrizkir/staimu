@@ -867,6 +867,25 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/system/UsersProfile.vue'),		
 	},
+	//kepegawaian
+	{
+		path: '/kepegawaian',
+		name: 'Kepegawaian',
+		meta:{
+			title: "KEPEGAWAIAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/kepegawaian/Kepegawaian.vue'),		
+	},
+	{
+		path: '/kepegawaian/dosen',
+		name: 'KepegawaianDosen',
+		meta:{
+			title: "KEPEGAWAIAN - DOSEN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/kepegawaian/KepegawaianDosen.vue'),		
+	},
 	//dosen
 	{
 		path: '/system-users/biodatadiridosen',

@@ -118,6 +118,7 @@ class UsersDosenController extends Controller {
             
             UserDosen::create([
                 'user_id'=>$user->id,
+                'id_jabatan'=>1,
                 'nama_dosen'=>$request->input('name'),                                
                 'nidn'=>$request->input('nidn'),                                
                 'nipy'=>$request->input('nipy'),                                
