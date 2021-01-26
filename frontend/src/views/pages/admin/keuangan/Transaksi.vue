@@ -205,23 +205,27 @@
                                 <td class="text-right" >{{totaltransaksi_paid|formatUang}}</td> 
                                 <td></td>
                                 <td></td>                                
+                                <td></td>                                
                             </tr>                            
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
                                 <td class="text-right" >{{totaltransaksi_unpaid|formatUang}}</td> 
                                 <td></td>
                                 <td></td>                                
+                                <td></td>                                
                             </tr>                            
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
                                 <td class="text-right" >{{totaltransaksi_canceled|formatUang}}</td> 
                                 <td></td>
-                                <td></td>                                
+                                <td></td>                                     
+                                <td></td>                                     
                             </tr>                            
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
                                 <td class="text-right" >{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
                                 <td></td>
+                                <td></td>                                
                                 <td></td>                                
                             </tr>                            
                         </template>          
@@ -289,6 +293,7 @@ export default {
             { text: 'SMT', value: 'idsmt',width:50,sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS', value: 'nama_status',width:50,sortable:true },            
+            { text: 'KET.', value: 'desc',width:150,sortable:false },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
         expanded:[],

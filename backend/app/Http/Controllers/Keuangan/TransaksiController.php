@@ -38,7 +38,8 @@ class TransaksiController extends Controller {
                             pe3_status_transaksi.nama_status,
                             pe3_status_transaksi.style,
                             pe3_transaksi.total,
-                            pe3_transaksi.tanggal,                                                
+                            pe3_transaksi.tanggal,   
+                            COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,                                             
                             pe3_transaksi.created_at,
                             pe3_transaksi.updated_at
                         ');
