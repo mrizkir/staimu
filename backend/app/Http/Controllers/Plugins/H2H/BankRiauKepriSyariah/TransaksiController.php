@@ -120,7 +120,7 @@ class TransaksiController extends Controller {
             $kode_billing=$request->input('kode_billing');
             $transaksi=TransaksiModel::select(\DB::raw('
                                         pe3_transaksi.id,
-                                        pe3_transaksi.no_transaksi,
+                                        CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                         pe3_transaksi.no_faktur,
                                         pe3_formulir_pendaftaran.no_formulir,
                                         pe3_transaksi.nim,                                        

@@ -25,7 +25,7 @@ class TransaksiController extends Controller {
                             pe3_transaksi.id,
                             pe3_transaksi.user_id,
                             pe3_formulir_pendaftaran.nama_mhs,
-                            pe3_transaksi.no_transaksi,
+                            CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                             pe3_transaksi.no_faktur,
                             pe3_transaksi.kjur,
                             pe3_transaksi.ta,

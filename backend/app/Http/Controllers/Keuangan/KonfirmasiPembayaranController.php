@@ -35,7 +35,7 @@ class KonfirmasiPembayaranController extends Controller {
                                                     pe3_transaksi.id,
                                                     pe3_transaksi.user_id,                                                    
                                                     pe3_formulir_pendaftaran.nama_mhs,
-                                                    pe3_transaksi.no_transaksi,
+                                                    CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                                     pe3_transaksi.no_faktur,
                                                     pe3_transaksi.kjur,
                                                     pe3_transaksi.ta,
@@ -72,7 +72,7 @@ class KonfirmasiPembayaranController extends Controller {
                                                     pe3_transaksi.id,
                                                     pe3_transaksi.user_id,                                                    
                                                     pe3_formulir_pendaftaran.nama_mhs,
-                                                    pe3_transaksi.no_transaksi,
+                                                    CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                                     pe3_transaksi.no_faktur,
                                                     pe3_transaksi.kjur,
                                                     pe3_transaksi.ta,
@@ -124,7 +124,7 @@ class KonfirmasiPembayaranController extends Controller {
     {
         $konfirmasi=KonfirmasiPembayaranModel::select(\DB::raw('
                                                 transaksi_id,
-                                                no_transaksi,
+                                                CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                                 nama_channel,
                                                 tanggal_bayar,
                                                 nomor_rekening_pengirim,

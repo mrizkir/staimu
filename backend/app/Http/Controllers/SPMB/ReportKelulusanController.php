@@ -114,7 +114,7 @@ class ReportKelulusanController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                                                        
-                                        'no_transaksi'=>"$no_transaksi",                                                                           
+                                        'no_transaksi'=>"$no_transaksi ",                                                                           
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
                                         'kjur'=>$formulir->kjur1,                                        
