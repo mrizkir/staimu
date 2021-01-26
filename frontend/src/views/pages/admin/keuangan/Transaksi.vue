@@ -29,7 +29,7 @@
             </template>
         </ModuleHeader> 
         <template v-slot:filtersidebar>
-            <Filter18 v-on:changeTahunPendaftaran="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />		
+            <Filter18 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeProdi="changeProdi" ref="filter18" />		
         </template>
         <v-container fluid>             
             <v-row class="mb-4" no-gutters>
@@ -381,6 +381,7 @@ export default {
         {
             if (!this.firstloading)
             {
+                console.log('test');
                 this.initialize();
             }            
         },
