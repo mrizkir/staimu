@@ -350,7 +350,7 @@ class PMBController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'store',
+                                    'pid'=>'update',
                                     'pendaftar'=>$user,                                                                                                  
                                     'message'=>'Data Mahasiswa baru berhasil diubah.'
                                 ],200); 
@@ -416,7 +416,7 @@ class PMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'fetchdata',                
                                         'formulir'=>$formulir,                                        
-                                        'no_transaksi'=>$no_transaksi,
+                                        'no_transaksi'=>"$no_transaksi ",
                                         'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);     
         }
@@ -606,11 +606,11 @@ class PMBController extends Controller {
             });
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'store',
-                                        'formulir'=>$data_mhs['formulir'],                                                                                                  
-                                        'no_transaksi'=>$data_mhs['no_transaksi'],                                                                                                  
+                                        'pid'=>'update',
+                                        'formulir'=>$data_mhs['formulir']. " ",                                                                                                  
+                                        'no_transaksi'=>$data_mhs['no_transaksi']. " ",                                                                                                  
                                         'message'=>'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
-                                    ],200); 
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }           
     /**
