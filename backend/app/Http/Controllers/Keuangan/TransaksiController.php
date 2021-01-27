@@ -30,8 +30,7 @@ class TransaksiController extends Controller {
                             pe3_transaksi.kjur,
                             pe3_transaksi.ta,
                             pe3_transaksi.idsmt,
-                            pe3_transaksi.idkelas,
-                            pe3_transaksi.no_formulir,
+                            pe3_transaksi.idkelas,                            
                             COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
                             COALESCE(pe3_transaksi.nim,"N.A") AS nim,
                             pe3_transaksi.status,
@@ -113,12 +112,33 @@ class TransaksiController extends Controller {
     public function show(Request $request,$id)
     {
         $transaksi=TransaksiModel::select(\DB::raw('
+                                        pe3_transaksi.id,
+                                        pe3_transaksi.user_id,
                                         pe3_formulir_pendaftaran.nama_mhs,
                                         pe3_formulir_pendaftaran.alamat_rumah,
-                                        pe3_formulir_pendaftaran.telp_hp,
-                                        pe3_transaksi.*                                        
+                                        pe3_formulir_pendaftaran.telp_hp,                                                                                
+                                        CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
+                                        pe3_transaksi.no_faktur,
+                                        pe3_transaksi.kjur,
+                                        pe3_transaksi.ta,
+                                        pe3_transaksi.idsmt,
+                                        pe3_transaksi.idkelas,                                        
+                                        COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
+                                        COALESCE(pe3_transaksi.nim,"N.A") AS nim,                                        
+                                        pe3_kelas.nkelas,
+                                        pe3_transaksi.status,
+                                        pe3_status_transaksi.nama_status,
+                                        pe3_status_transaksi.style,
+                                        pe3_transaksi.total,
+                                        pe3_transaksi.tanggal,   
+                                        COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                             
+                                        pe3_transaksi.created_at,
+                                        pe3_transaksi.updated_at                                        
                                     '))
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
+                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
                                     ->where('pe3_transaksi.id',$id)
                                     ->first();
 

@@ -224,7 +224,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 ]);
 
                 $transaksi->total=$biaya_kombi;
-                $transaksi->desc='REGISTRASI KRS';
+                $transaksi->desc='REGISTRASI KRS '.$request->input('TA').$request->input('semester_akademik');
                 $transaksi->save();
 
                 return $transaksi;

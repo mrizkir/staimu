@@ -41,9 +41,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi_detail.bulan,
                                                         \'\' AS nama_bulan,
                                                         pe3_transaksi_detail.sub_total,
-
                                                         pe3_formulir_pendaftaran.nama_mhs,
-
                                                         pe3_transaksi.no_faktur,
                                                         pe3_transaksi.kjur,
                                                         pe3_transaksi.ta,
@@ -88,9 +86,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi_detail.bulan,
                                                         \'\' AS nama_bulan,
                                                         pe3_transaksi_detail.sub_total,
-
                                                         pe3_formulir_pendaftaran.nama_mhs,
-
                                                         pe3_transaksi.no_faktur,
                                                         pe3_transaksi.kjur,
                                                         pe3_transaksi.ta,
@@ -141,12 +137,29 @@ class TransaksiSPPController extends Controller {
         {
             if ($this->hasRole(['mahasiswa','mahasiswabaru']))
             {
-                $transaksi=TransaksiModel::select(\DB::raw('
-                                        pe3_transaksi.*,
+                $transaksi=TransaksiModel::select(\DB::raw('                            
+                                        pe3_transaksi.id,
+                                        pe3_transaksi.user_id,
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
+                                        pe3_transaksi.no_faktur,
+                                        pe3_transaksi.kjur,
+                                        pe3_transaksi.ta,
+                                        pe3_transaksi.idsmt,
+                                        pe3_transaksi.idkelas,                                        
+                                        COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
+                                        COALESCE(pe3_transaksi.nim,"N.A") AS nim,
                                         pe3_formulir_pendaftaran.nama_mhs,
                                         pe3_kelas.nkelas,
+                                        pe3_transaksi.status,
                                         pe3_status_transaksi.nama_status,
-                                        pe3_status_transaksi.style
+                                        pe3_status_transaksi.style,
+                                        pe3_transaksi.total,
+                                        pe3_transaksi.tanggal,   
+                                        COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`, 
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                            
+                                        pe3_transaksi.created_at,
+                                        pe3_transaksi.updated_at
                                     '))
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
@@ -157,12 +170,28 @@ class TransaksiSPPController extends Controller {
             else
             {
                 $transaksi=TransaksiModel::select(\DB::raw('
-                                        pe3_transaksi.*,
+                                        pe3_transaksi.id,
+                                        pe3_transaksi.user_id,
                                         pe3_formulir_pendaftaran.nama_mhs,
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,
+                                        CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
+                                        pe3_transaksi.no_faktur,
+                                        pe3_transaksi.kjur,
+                                        pe3_transaksi.ta,
+                                        pe3_transaksi.idsmt,
+                                        pe3_transaksi.idkelas,                                        
+                                        COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
+                                        COALESCE(pe3_transaksi.nim,"N.A") AS nim,
+                                        pe3_formulir_pendaftaran.nama_mhs,
                                         pe3_kelas.nkelas,
+                                        pe3_transaksi.status,
                                         pe3_status_transaksi.nama_status,
-                                        pe3_status_transaksi.style
+                                        pe3_status_transaksi.style,
+                                        pe3_transaksi.total,
+                                        pe3_transaksi.tanggal,   
+                                        COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                             
+                                        pe3_transaksi.created_at,
+                                        pe3_transaksi.updated_at
                                     '))
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
@@ -181,7 +210,7 @@ class TransaksiSPPController extends Controller {
             
             if (!($biaya_kombi > 0))
             {
-                throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->ta);  
+                throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->tahun_masuk);  
             }
             $ta=TAModel::find($transaksi->ta);             
             if (!Helper::checkformattanggal($ta->awal_ganjil))
@@ -330,6 +359,7 @@ class TransaksiSPPController extends Controller {
                 'commited'=>0,
                 'total'=>0,
                 'tanggal'=>date('Y-m-d'),
+                'desc'=>'PEMBAYARAN SPP'
             ]);  
 
             return Response()->json([
