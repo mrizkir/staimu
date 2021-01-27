@@ -18,7 +18,8 @@
     border: 1px solid #000;	    
 }
 .table td {
-    border: 1px solid #000;	    
+    border: 1px solid #000;	 
+    padding:5px 5px;   
 }
 h2{
     text-align:center;
@@ -126,11 +127,7 @@ h2{
     <tr>
         <td width="65%"></td>
         <td><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
-    </tr>  
-    <tr>
-        <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>        
-        <td style="font-weight:bold;font-size:14px;text-align:center">MAHASISWA</td>
-    </tr>    
+    </tr>      
     <tr>
         <td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>WAKIL KETUA I</td>        
         <td style="font-weight:bold;font-size:14px;text-align:left">KETUA PROGRAM STUDI<br>{{$data_krs->nama_prodi}}</td>
@@ -143,7 +140,7 @@ h2{
             <br>
             <br>
             <span>
-                <strong><u>SUHARDIMAN</u></strong><br>
+                <strong><u>SUHARDIMAN. M.Pd.I</u></strong><br>
                 <strong>LEKTOR NIDN:</strong> 2128087201
             </span>                
         </td>        

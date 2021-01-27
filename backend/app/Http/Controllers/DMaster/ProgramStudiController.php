@@ -130,7 +130,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>1,
                                     'pid'=>'update',
                                     'prodi'=>$prodi,      
-                                    'message'=>'Konfigurasi program studi '.$prodi->username.' berhasil disimpan.'
+                                    'message'=>'Konfigurasi program studi '.$prodi->nama_prodi.' berhasil disimpan.'
                                 ],200);
         }
     }
@@ -237,7 +237,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>1,
                                     'pid'=>'update',
                                     'prodi'=>$prodi,      
-                                    'message'=>'Data program studi '.$prodi->username.' berhasil diubah.'
+                                    'message'=>'Data program studi '.$prodi->nama_prodi.' berhasil diubah.'
                                 ],200); 
         }
     }

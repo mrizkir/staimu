@@ -18,7 +18,8 @@
     border: 1px solid #000;	    
 }
 .table td {
-    border: 1px solid #000;	    
+    border: 1px solid #000;	  
+    padding:5px 5px;    
 }
 h2{
     text-align:center;
@@ -106,7 +107,7 @@ h2{
 <table width="100%" cellspacing="0px" cellpadding="0px">
     <tr>
         <td width="65%"></td>
-        <td><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
+        <td style="padding:5px 5px;"><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
     </tr>  
     <tr>
         <td style="font-weight:bold;font-size:14px;text-align:center">KETUA PROGRAM STUDI</td>
