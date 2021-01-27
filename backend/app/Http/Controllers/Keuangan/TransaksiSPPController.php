@@ -432,6 +432,7 @@ class TransaksiSPPController extends Controller {
                     'biaya'=>$v['biaya_kombi'],                
                     'jumlah'=>1,                
                     'bulan'=>$v['no_bulan'],                
+                    'tahun'=>$v['tahun'],                
                     'sub_total'=>$v['biaya_kombi'],                
                     'created_at'=>\Carbon\Carbon::now(),
                     'updated_at'=>\Carbon\Carbon::now()
