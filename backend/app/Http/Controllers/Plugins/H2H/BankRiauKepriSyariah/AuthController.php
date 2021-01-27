@@ -26,7 +26,7 @@ class AuthController extends Controller
         $credentials = $request->only('username', 'password');
         $credentials['active']=1;
 
-        if (! $token = $this->guard()->attempt($credentials,['exp' => Carbon\Carbon::now()->addDays(1)->timestamp])) {
+        if (! $token = $this->guard()->attempt($credentials,['exp' => \Carbon\Carbon::now()->addDays(1)->timestamp])) {
             $result=[
                 'status'=>'11',
                 'message'=>'Username atau Password salah'
