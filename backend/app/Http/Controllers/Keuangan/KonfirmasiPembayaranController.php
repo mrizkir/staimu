@@ -124,7 +124,7 @@ class KonfirmasiPembayaranController extends Controller {
     {
         $konfirmasi=KonfirmasiPembayaranModel::select(\DB::raw('
                                                 transaksi_id,
-                                                CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
+                                                CONCAT(pe3_konfirmasi_pembayaran.no_transaksi,\' \') AS no_transaksi,
                                                 nama_channel,
                                                 tanggal_bayar,
                                                 nomor_rekening_pengirim,
