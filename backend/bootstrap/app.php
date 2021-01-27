@@ -62,7 +62,8 @@ $app->middleware([
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'permission' => Spatie\Permission\Middlewares\PermissionMiddleware::class,
-    'role'       => Spatie\Permission\Middlewares\RoleMiddleware::class,
+    'role'=> Spatie\Permission\Middlewares\RoleMiddleware::class,
+    'h2hbrk'=> App\Http\Middleware\H2HBRKJWTCheckMiddleware::class,
 ]);
 
 /*

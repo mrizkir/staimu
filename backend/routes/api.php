@@ -460,27 +460,30 @@ $router->group(['prefix'=>'h2h'], function () use ($router)
     //auth login
     $router->post('/brk/auth/login',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@login','as'=>'brk.auth.login']);
 });
-$router->group(['prefix'=>'h2h','middleware'=>'auth:api'], function () use ($router)
-{
-    //setting - zoom api
-    $router->get('/zoom',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@index','as'=>'zoom.index']);
-    $router->post('/zoom/store',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@store','as'=>'zoom.store']);
-    //sync ini digunakan untuk mensinkronkan data akun zoom
-    $router->get('/zoom/sync/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@testing','as'=>'zoom.sync']);
-    $router->get('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@show','as'=>'zoom.show']);
-    $router->put('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@update','as'=>'zoom.update']);
-    $router->delete('/zoom/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@destroy','as'=>'zoom.destroy']);
 
-    //integrasi dengan perbangkan
+//video conference [zoom]
+$router->group(['prefix'=>'h2h/zoom','middleware'=>'auth:api'], function () use ($router)
+{
     
-    //[bank riau kepri]    
+    $router->get('/',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@index','as'=>'zoom.index']);
+    $router->post('/store',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@store','as'=>'zoom.store']);
+    //sync ini digunakan untuk mensinkronkan data akun zoom
+    $router->get('/sync/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@testing','as'=>'zoom.sync']);
+    $router->get('/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@show','as'=>'zoom.show']);
+    $router->put('/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@update','as'=>'zoom.update']);
+    $router->delete('/{id}',['middleware'=>['role:superadmin'],'uses'=>'Plugins\H2H\ZoomAPI\ZoomController@destroy','as'=>'zoom.destroy']);
+});
+
+//payment - [bank riau kepri]
+$router->group(['prefix'=>'h2h/brk','middleware'=>'h2hbrk:api'], function () use ($router)
+{
     //authentication
-    $router->post('/brk/auth/logout',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@logout','as'=>'brk.auth.logout']);
-    $router->get('/brk/auth/refresh',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@refresh','as'=>'brk.auth.refresh']);
-    $router->get('/brk/auth/me',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@me','as'=>'brk.auth.me']);
+    $router->post('/auth/logout',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@logout','as'=>'brk.auth.logout']);
+    $router->get('/auth/refresh',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@refresh','as'=>'brk.auth.refresh']);
+    $router->get('/auth/me',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@me','as'=>'brk.auth.me']);
 
     //inquiry tagihan
-    $router->post('/brk/inquiry-tagihan',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@inquiryTagihan','as'=>'brk.transaksi.inquiry-tagihan']);
+    $router->post('/inquiry-tagihan',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@inquiryTagihan','as'=>'brk.transaksi.inquiry-tagihan']);
     //payment
-    $router->post('/brk/payment',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@payment','as'=>'brk.transaksi.payment']);
+    $router->post('/payment',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\TransaksiController@payment','as'=>'brk.transaksi.payment']);
 });
