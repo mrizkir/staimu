@@ -80,6 +80,9 @@
                                 </v-btn>
                             </v-toolbar>
                         </template>
+                        <template v-slot:item.nama_dosen="{item}">
+                            {{item.nama_dosen==null?'N.A':item.nama_dosen}}
+                        </template>
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
