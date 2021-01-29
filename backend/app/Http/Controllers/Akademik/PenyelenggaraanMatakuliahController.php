@@ -24,30 +24,57 @@ class PenyelenggaraanMatakuliahController extends Controller
             'semester_akademik'=>'required',
             'prodi_id'=>'required'
         ]);
-
+        
         $ta=$request->input('ta');
         $prodi_id=$request->input('prodi_id');
         $semester_akademik=$request->input('semester_akademik');
-
-        $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
-                                                            id,
-                                                            COALESCE(nama_dosen,\'N.A\') AS nama_dosen,
-                                                            kmatkul,
-                                                            nmatkul,                                                            
-                                                            sks,       
-                                                            semester,
-                                                            ta_matkul,                                                                                                                 
-                                                            0 AS jumlah_dosen,
-                                                            0 AS jumlah_mhs
-                                                        '))
-                                                        ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan.user_id')
-                                                        ->where('tahun',$ta)
-                                                        ->where('idsmt',$semester_akademik)
-                                                        ->where('kjur',$prodi_id)
-                                                        ->orderBy('ta_matkul','ASC')    
-                                                        ->orderBy('semester','ASC')                      
-                                                        ->orderBy('kmatkul','ASC')                                                            
-                                                        ->get();
+        
+        if ($this->hasRole('mahasiswa'))
+        {
+            $user = $this->guard()->user()->toArray();            
+            $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
+                                                                id,
+                                                                CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+                                                                kmatkul,
+                                                                nmatkul,                                                            
+                                                                sks,       
+                                                                semester,
+                                                                ta_matkul,                                                                                                                 
+                                                                0 AS jumlah_dosen,
+                                                                0 AS jumlah_mhs
+                                                            '))
+                                                            ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan.user_id')
+                                                            ->where('tahun',$ta)
+                                                            ->where('idsmt',$semester_akademik)
+                                                            ->where('kjur',$prodi_id)
+                                                            ->where('ta_matkul',$user['ta'])
+                                                            ->orderBy('ta_matkul','ASC')    
+                                                            ->orderBy('semester','ASC')                      
+                                                            ->orderBy('kmatkul','ASC')                                                            
+                                                            ->get();
+        }
+        else
+        {        
+            $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
+                                                                id,
+                                                                CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+                                                                kmatkul,
+                                                                nmatkul,                                                            
+                                                                sks,       
+                                                                semester,
+                                                                ta_matkul,                                                                                                                 
+                                                                0 AS jumlah_dosen,
+                                                                0 AS jumlah_mhs
+                                                            '))
+                                                            ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan.user_id')
+                                                            ->where('tahun',$ta)
+                                                            ->where('idsmt',$semester_akademik)
+                                                            ->where('kjur',$prodi_id)
+                                                            ->orderBy('ta_matkul','ASC')    
+                                                            ->orderBy('semester','ASC')                      
+                                                            ->orderBy('kmatkul','ASC')                                                            
+                                                            ->get();
+        }
                                                         
         $penyelenggaraan->transform(function ($item,$key){
             $item->jumlah_dosen=\DB::table('pe3_penyelenggaraan_dosen')->where('penyelenggaraan_id',$item->id)->count();

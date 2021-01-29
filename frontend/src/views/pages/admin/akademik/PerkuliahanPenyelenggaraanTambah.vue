@@ -332,13 +332,14 @@ export default {
                 this.expanded=[item];
             }               
         },
-        fetchMatkul:async function () 
+        fetchMatkul:async function (val) 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/matakuliah/penyelenggaraan',
             {
                 prodi_id:this.prodi_id,
-                ta:this.ta_matkul,
+                ta_matkul:val,
+                ta_akademik:this.tahun_akademik,
                 semester_akademik:this.semester_akademik,
             },
             {

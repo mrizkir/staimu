@@ -418,13 +418,15 @@ class MatakuliahController extends Controller {
     public function penyelenggaraan (Request $request)
     {
         $this->validate($request, [           
-            'ta'=>'required',
+            'ta_matkul'=>'required',
             'prodi_id'=>'required',
+            'ta_akademik'=>'required',
             'semester_akademik'=>'required'
         ]);
         
-        $ta=$request->input('ta');
+        $ta_matkul=$request->input('ta_matkul');
         $prodi_id=$request->input('prodi_id');
+        $ta_akademik=$request->input('ta_akademik');
         $semester_akademik=$request->input('semester_akademik');
 
         $matakuliah=MatakuliahModel::select(\DB::raw('
@@ -440,12 +442,12 @@ class MatakuliahController extends Controller {
                                     ta
                                 '))       
                                 ->where('kjur',$prodi_id)
-                                ->where('ta',$ta)   
-                                ->whereNotIn('id',function($query) use($ta,$prodi_id,$semester_akademik){
+                                ->where('ta',$ta_matkul)   
+                                ->whereNotIn('id',function($query) use($ta_akademik,$prodi_id,$semester_akademik){
                                     $query->select('matkul_id')
                                         ->from('pe3_penyelenggaraan')
                                         ->where('kjur',$prodi_id)
-                                        ->where('tahun',$ta)
+                                        ->where('tahun',$ta_akademik)
                                         ->where('idsmt',$semester_akademik);
                                 })
                                 ->orderBy('semester','ASC')                      
