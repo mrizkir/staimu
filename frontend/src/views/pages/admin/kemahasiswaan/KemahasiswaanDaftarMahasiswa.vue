@@ -148,7 +148,7 @@ export default {
             {
                 text:'KEMAHASISWAAN',
                 disabled:false,
-                href:'#'
+                href:'/kemahasiswaan'
             },
             {
                 text:'DAFTAR MAHASISWA',
