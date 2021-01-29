@@ -76,7 +76,7 @@
                                     @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_absen"
                                     dense 
-                                    :disabled="!props.item.bydosen"
+                                    :disabled="isbydosen(props.item.bydosen)"
                                     style="width:65px">
                                 </VAngkaNilai>                                
                             </template>          
@@ -85,7 +85,7 @@
                                     @input="updateNKuan(props)" 
                                     v-model="props.item.nilai_quiz"                                    
                                     dense    
-                                    :disabled="!props.item.bydosen"                                
+                                    :disabled="isbydosen(props.item.bydosen)"                                
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -94,7 +94,7 @@
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_tugas_individu"                                    
                                     dense      
-                                    :disabled="!props.item.bydosen"                              
+                                    :disabled="isbydosen(props.item.bydosen)"                              
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -103,7 +103,7 @@
                                     @input="updateNKuan(props)"    
                                     v-model="props.item.nilai_tugas_kelompok"                                    
                                     dense      
-                                    :disabled="!props.item.bydosen"                              
+                                    :disabled="isbydosen(props.item.bydosen)"                              
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -112,7 +112,7 @@
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uts"                                    
                                     dense                   
-                                    :disabled="!props.item.bydosen"                 
+                                    :disabled="isbydosen(props.item.bydosen)"                 
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -121,7 +121,7 @@
                                     @input="updateNKuan(props)"
                                     v-model="props.item.nilai_uas"                                    
                                     dense             
-                                    :disabled="!props.item.bydosen"                       
+                                    :disabled="isbydosen(props.item.bydosen)"                       
                                     style="width:65px">
                                 </VAngkaNilai>                                                        
                             </template>                        
@@ -133,7 +133,7 @@
                                     :items="$store.getters['uiadmin/getSkalaNilai']"  
                                     v-model="props.item.n_kual"
                                     style="width:65px"
-                                    :disabled="!props.item.bydosen"
+                                    :disabled="isbydosen(props.item.bydosen)"
                                     dense>
                                </v-select>
                             </template>  
@@ -327,6 +327,17 @@ export default {
                 this.btnLoadingTable=false;
             });            
         },        
+        isbydosen(bool)
+        {
+            if (bool)
+            {
+                return !bool;
+            }
+            else
+            {
+                return false;                
+            }
+        }
     },
     computed:{
         
