@@ -31,28 +31,57 @@ class DulangMahasiswaLamaController extends Controller
         $prodi_id=$request->input('prodi_id');
         $idsmt=$request->input('idsmt');
         
-        $data = DulangModel::select(\DB::raw('
-                                pe3_dulang.id,
-                                pe3_dulang.user_id,
-                                pe3_formulir_pendaftaran.no_formulir,
-                                pe3_dulang.nim,
-                                pe3_register_mahasiswa.nirm,
-                                pe3_formulir_pendaftaran.nama_mhs,                                
-                                pe3_dulang.idkelas,                                                                                                      
-                                pe3_dulang.k_status,                                                                                                      
-                                pe3_status_mahasiswa.n_status,                                                                                                      
-                                pe3_dulang.created_at,                                      
-                                pe3_dulang.updated_at                                      
-                            '))
-                            ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-                            ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_dulang.k_status')
-                            ->where('pe3_dulang.tahun',$ta)   
-                            ->where('pe3_dulang.idsmt',$idsmt)   
-                            ->where('pe3_register_mahasiswa.kjur',$prodi_id)
-                            ->orderBy('pe3_dulang.idsmt','desc')
-                            ->orderBy('nama_mhs','desc')
-                            ->get();
+        if ($this->hasRole('mahasiswa'))
+        {
+            $data = DulangModel::select(\DB::raw('
+                                    pe3_dulang.id,
+                                    pe3_dulang.user_id,
+                                    pe3_formulir_pendaftaran.no_formulir,
+                                    pe3_dulang.nim,
+                                    pe3_register_mahasiswa.nirm,
+                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_dulang.idkelas,                                                                                                      
+                                    pe3_dulang.k_status,                                                                                                      
+                                    pe3_status_mahasiswa.n_status,                                                                                                      
+                                    pe3_dulang.created_at,                                      
+                                    pe3_dulang.updated_at                                      
+                                '))
+                                ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
+                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
+                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_dulang.k_status')
+                                ->where('pe3_dulang.tahun',$ta)   
+                                ->where('pe3_dulang.idsmt',$idsmt)   
+                                ->where('pe3_register_mahasiswa.kjur',$prodi_id)
+                                ->where('pe3_dulang.user_id',$this->getUserid())
+                                ->orderBy('pe3_dulang.idsmt','desc')
+                                ->orderBy('nama_mhs','desc')
+                                ->get();
+        }
+        else
+        {
+            $data = DulangModel::select(\DB::raw('
+                                    pe3_dulang.id,
+                                    pe3_dulang.user_id,
+                                    pe3_formulir_pendaftaran.no_formulir,
+                                    pe3_dulang.nim,
+                                    pe3_register_mahasiswa.nirm,
+                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_dulang.idkelas,                                                                                                      
+                                    pe3_dulang.k_status,                                                                                                      
+                                    pe3_status_mahasiswa.n_status,                                                                                                      
+                                    pe3_dulang.created_at,                                      
+                                    pe3_dulang.updated_at                                      
+                                '))
+                                ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
+                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
+                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_dulang.k_status')
+                                ->where('pe3_dulang.tahun',$ta)   
+                                ->where('pe3_dulang.idsmt',$idsmt)   
+                                ->where('pe3_register_mahasiswa.kjur',$prodi_id)
+                                ->orderBy('pe3_dulang.idsmt','desc')
+                                ->orderBy('nama_mhs','desc')
+                                ->get();
+        }
 
         return Response()->json([
                                     'status'=>1,

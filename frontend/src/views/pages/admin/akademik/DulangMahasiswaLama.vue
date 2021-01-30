@@ -77,7 +77,10 @@
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
-                        <template v-slot:item.actions="{ item }">
+                        <template v-slot:item.actions="{ item }" v-if="dashboard=='mahasiswa'">
+                            N.A
+                        </template>
+                        <template v-slot:item.actions="{ item }" v-else>
                            <v-icon
                                 small
                                 :loading="btnLoading"
@@ -111,6 +114,7 @@ import Filter6 from '@/components/sidebar/FilterMode6';
 export default {
     name: 'DulangMahasiswaBaru',
     created () {
+        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -141,6 +145,7 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
+        dashboard:null,
         firstloading:true,
         prodi_id:null,
         nama_prodi:null,
@@ -153,10 +158,10 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:150  },   
-            { text: 'NIM', value: 'nim', sortable:true,width:150  },   
-            { text: 'NIRM', value: 'nirm', sortable:true,width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                           
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:100  },   
+            { text: 'NIM', value: 'nim', sortable:true,width:100  },   
+            { text: 'NIRM', value: 'nirm', sortable:true,width:100  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },                           
             { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                           
             { text: 'STATUS', value: 'n_status',sortable:true,width:120, },                           
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
