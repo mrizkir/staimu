@@ -249,7 +249,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     pe3_penyelenggaraan_dosen.penyelenggaraan_id,
                                     pe3_penyelenggaraan_dosen.user_id,
                                     pe3_dosen.nidn,                                    
-                                    pe3_dosen.nama_dosen,
+                                    CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                     pe3_penyelenggaraan_dosen.is_ketua,
                                     pe3_penyelenggaraan_dosen.created_at,
                                     pe3_penyelenggaraan_dosen.updated_at
@@ -269,8 +269,8 @@ class PenyelenggaraanMatakuliahController extends Controller
                 $semester_akademik=$request->input('semester_akademik');
                 
                 $data=PenyelenggaraanDosenModel::select(\DB::raw('
-                                                DISTINCT(pe3_dosen.user_id) AS user_id,                                                                                                
-                                                pe3_dosen.nama_dosen,
+                                                DISTINCT(pe3_dosen.user_id) AS user_id,                                                                                                                                                
+                                                CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                 pe3_dosen.nidn
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')

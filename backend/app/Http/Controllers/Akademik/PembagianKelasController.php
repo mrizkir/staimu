@@ -39,7 +39,7 @@ class PembagianKelasController extends Controller
                             pe3_kelas_mhs.kmatkul,
                             pe3_kelas_mhs.nmatkul,
                             pe3_kelas_mhs.sks,
-                            pe3_dosen.nama_dosen,
+                            CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                             pe3_dosen.nidn,
                             pe3_kelas_mhs.ruang_kelas_id,
                             pe3_ruangkelas.namaruang,
@@ -150,7 +150,7 @@ class PembagianKelasController extends Controller
                                                     pe3_kelas_mhs.kmatkul,
                                                     pe3_kelas_mhs.nmatkul,
                                                     pe3_kelas_mhs.sks,
-                                                    pe3_dosen.nama_dosen,
+                                                    CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                     pe3_dosen.nidn,
                                                     pe3_kelas_mhs.ruang_kelas_id,
                                                     pe3_ruangkelas.namaruang,
@@ -299,6 +299,27 @@ class PembagianKelasController extends Controller
                             ],200);
         }
     }
+    public function penyelenggaraan (Request $request,$id)
+    {
+        $daftar_kelas=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
+                                                    pe3_kelas_mhs.id,
+                                                    pe3_kelas_mhs.nmatkul
+                                                '))
+                                                ->join('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id')
+                                                ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
+                                                ->where('pe3_penyelenggaraan_dosen.penyelenggaraan_id',$id)
+                                                ->get();
+        if (is_null($daftar_kelas))
+        {
+            $daftar_kelas=[];
+        }
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',
+                                'daftarkelas'=>$daftar_kelas,
+                                'message'=>'Fetch daftar kelas berhasil diperoleh'
+                            ],200);
+    }
     public function pengampu (Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
@@ -333,7 +354,7 @@ class PembagianKelasController extends Controller
                                     pe3_penyelenggaraan_dosen.penyelenggaraan_id,
                                     pe3_penyelenggaraan_dosen.user_id,
                                     pe3_dosen.nidn,
-                                    pe3_dosen.nama_dosen,
+                                    CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                     pe3_penyelenggaraan_dosen.is_ketua,
                                     pe3_penyelenggaraan_dosen.created_at,
                                     pe3_penyelenggaraan_dosen.updated_at
@@ -379,33 +400,60 @@ class PembagianKelasController extends Controller
     }
     public function storepeserta (Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
-
-        $members_selected=json_decode($request->input('members_selected'),true);
-        $request->merge(['members_selected'=>$members_selected]);
-
-        $this->validate($request, [
-            'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-            'members_selected.*'=>'required',
-        ]);
-        $kelas_mhs_id=$request->input('kelas_mhs_id');
-
-        $daftar_members=[];
-        foreach ($members_selected as $v)
+        if ($this->hasRole('mahasiswa'))
         {
-            $daftar_members[]=[
+            $this->validate($request, [
+                'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
+                'krsmatkul_id'=>'required|exists:pe3_krsmatkul,id',
+            ]);
+            
+            $kelas_mhs_id=$request->input('kelas_mhs_id');
+            $krsmatkul_id=$request->input('krsmatkul_id');
+
+            \DB::table('pe3_kelas_mhs_peserta')
+                    ->where('krsmatkul_id',$krsmatkul_id)
+                    ->delete();
+
+            PembagianKelasPesertaModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'kelas_mhs_id'=>$kelas_mhs_id,
-                'krsmatkul_id'=>$v['id'],
-            ];
+                'krsmatkul_id'=>$krsmatkul_id,
+            ]);
+            
+            $daftar_members=[];
         }
-        PembagianKelasPesertaModel::insert($daftar_members);
+        else
+        {
+            $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
+
+            $members_selected=json_decode($request->input('members_selected'),true);
+            $request->merge(['members_selected'=>$members_selected]);
+
+            $this->validate($request, [
+                'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
+                'members_selected.*'=>'required',
+            ]);
+            $kelas_mhs_id=$request->input('kelas_mhs_id');
+
+            $daftar_members=[];
+            foreach ($members_selected as $v)
+            {
+                $daftar_members[]=[
+                    'id'=>Uuid::uuid4()->toString(),
+                    'kelas_mhs_id'=>$kelas_mhs_id,
+                    'krsmatkul_id'=>$v['id'],
+                    'created_at'=>\Carbon\Carbon::now(),
+                    'updated_at'=>\Carbon\Carbon::now()
+                ];
+            }
+            PembagianKelasPesertaModel::insert($daftar_members);            
+        }        
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'store',
-                                'daftar_members'=>$daftar_members,
-                                'message'=>"Peserta kelas dengan ID($kelas_mhs_id)  berhasil ditambahkan."
-                            ],200);
+                                    'status'=>1,
+                                    'pid'=>'store',
+                                    'daftar_members'=>$daftar_members,
+                                    'message'=>"Peserta kelas dengan ID ($kelas_mhs_id) berhasil ditambahkan."
+                                ],200);
     }
 
     public function update(Request $request,$id)

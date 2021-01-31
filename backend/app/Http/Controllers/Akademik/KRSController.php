@@ -209,6 +209,8 @@ class KRSController extends Controller
                                             CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
                                             COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+                                            C.kelas_mhs_id,
+                                            pe3_krsmatkul.penyelenggaraan_id,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
