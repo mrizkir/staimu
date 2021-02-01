@@ -1,15 +1,12 @@
 <template>
-    <SPMBLayout :showrightsidebar="false">
+    <SystemUserLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-file-document-edit-outline
             </template>
             <template v-slot:name>
-                BIODATA
-            </template>
-            <template v-slot:subtitle v-if="dashboard!='mahasiswabaru'">
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
-            </template>
+                BIODATA DIRI
+            </template>            
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
                     <template v-slot:divider>
@@ -24,7 +21,7 @@
                     colored-border
                     type="info"
                     >
-                        Berisi kelengkapan biodata, silahkan melakukan filter tahun akademik dan program studi.
+                        Halaman ini digunakan untuk merubah informasi biodata diri.
                 </v-alert>
             </template>
         </ModuleHeader> 
@@ -155,46 +152,9 @@
                                     filled
                                 />
                             </v-card-text>
-                        </v-card>
-                        <v-card class="mb-4">
-                            <v-card-title>
-                                RENCANA STUDI
-                            </v-card-title>
-                            <v-card-text>
-                                <v-select
-                                    v-model="kode_fakultas"
-                                    label="FAKULTAS"
-                                    filled
-                                    :rules="rule_fakultas"
-                                    :items="daftar_fakultas"
-                                    item-text="nama_fakultas"
-                                    item-value="kode_fakultas"
-                                    :loading="btnLoadingFakultas"
-                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'"
-                                />
-                                <v-select
-                                    label="PROGRAM STUDI"
-                                    v-model="formdata.kjur1"
-                                    :items="daftar_prodi"
-                                    item-text="nama_prodi2"
-                                    item-value="id"
-                                    :rules="rule_prodi"
-                                    filled
-                                />
-                                <v-select
-                                    label="KELAS"
-                                    v-model="formdata.idkelas"
-                                    :items="daftar_kelas"
-                                    item-text="nkelas"
-                                    item-value="idkelas"
-                                    :rules="rule_kelas"
-                                    filled
-                                />
-                            </v-card-text>
-                        </v-card>
+                        </v-card>                        
                         <v-card class="mb-4">                    
-                            <v-card-actions>
-                                Kode Billing: <strong>{{kode_billing}}</strong>
+                            <v-card-actions>                                
                                 <v-spacer></v-spacer>                        
                                 <v-btn 
                                     color="blue darken-1" 
@@ -208,16 +168,16 @@
                 </v-col>
             </v-row>
         </v-container>                
-    </SPMBLayout>
+    </SystemUserLayout>
 </template>
 <script>
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name: 'FormulirPendaftaranEdit', 
+    name: 'BiodataDiriMahasiswa', 
     created()
     {
-        this.user_id=this.$route.params.user_id;
+        this.user_id=this.$store.getters['auth/AttributeUser']('id');
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
@@ -226,17 +186,12 @@ export default {
                 href:'/dashboard/'+this.$store.getters['auth/AccessToken']
             },
             {
-                text:'SPMB',
+                text:'SYSTEM',
                 disabled:false,
-                href:'/spmb'
+                href:'#'
             },
             {
-                text:'BIODATA',
-                disabled:false,
-                href:'/spmb/formulirpendaftaran'
-            },
-            {
-                text:'EDIT',
+                text:'BIODATA DIRI',
                 disabled:true,
                 href:'#'
             }
@@ -247,9 +202,6 @@ export default {
         breadcrumbs:[],        
         dashboard:null,
 
-        tahun_pendaftaran:null,
-        nama_prodi:null,
-        
         btnLoading:false,
         btnLoadingProv:false,
         btnLoadingKab:false,
@@ -296,7 +248,7 @@ export default {
         rule_nama_mhs:[
             value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-        ],                 
+        ],         
         rule_tempat_lahir:[
             value => !!value||"Tempat Lahir mohon untuk diisi !!!"
         ], 
@@ -320,13 +272,7 @@ export default {
         ], 
         rule_alamat_rumah:[
             value => !!value||"Alamat Rumah mohon untuk diisi !!!"
-        ], 
-        rule_fakultas:[
-            value => !!value||"Fakultas mohon untuk dipilih !!!"
-        ], 
-        rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
-        ], 
+        ],         
         rule_kelas:[
             value => !!value||"Kelas mohon untuk dipilih !!!"
         ], 
@@ -359,15 +305,15 @@ export default {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
                     }
-                },
+            },
                 
-            ).then(({data})=>{   
+            ).then(({data})=>{                   
                 this.formdata.nama_mhs=data.formulir.nama_mhs;           
                 this.formdata.tempat_lahir=data.formulir.tempat_lahir;           
                 this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;           
                 this.formdata.jk=data.formulir.jk;           
                 this.formdata.nomor_hp='+'+data.formulir.nomor_hp;           
-                this.formdata.email=data.formulir.email;    
+                this.formdata.email=data.formulir.email;                    
                 this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
 
                 this.provinsi_id={
@@ -393,14 +339,8 @@ export default {
                     this.kode_fakultas=data.formulir.kode_fakultas;
                 }
                 this.formdata.kjur1=data.formulir.kjur1;    
-                this.formdata.idkelas=data.formulir.idkelas;    
+                this.formdata.idkelas=data.formulir.idkelas;                   
                 
-                this.kode_billing=data.no_transaksi;
-
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1);
-                this.tahun_pendaftaran=data.ta;
-
-                this.$refs.frmdata.resetValidation();       
             });            
         },        
         save: async function ()
@@ -408,7 +348,7 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;                
-                await this.$ajax.post('/spmb/formulirpendaftaran/'+this.user_id,{                    
+                await this.$ajax.post('/kemahasiswaan/biodata/'+this.user_id+'/update',{                    
                     _method:'put',
                     nama_mhs:this.formdata.nama_mhs,           
                     tempat_lahir:this.formdata.tempat_lahir,           
@@ -425,23 +365,19 @@ export default {
                     address1_kecamatan:this.kecamatan_id.nama,
                     address1_desa_id:this.desa_id.id,
                     address1_kelurahan:this.desa_id.nama,
-                    alamat_rumah:this.formdata.alamat_rumah,    
-                    kjur1:this.formdata.kjur1,    
-                    idkelas:this.formdata.idkelas,    
+                    alamat_rumah:this.formdata.alamat_rumah,                           
                 },
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-                ).then(({data})=>{               
-                    this.kode_billing=data.no_transaksi;
+                ).then(()=>{               
+                    this.$router.go();
                     this.btnLoading=false;                        
                 }).catch(() => {                                   
                     this.btnLoading=false;
-                });                                    
-                this.form_valid=true;                                                                                        
-                this.$refs.frmdata.resetValidation();                 
+                });                                                    
             }                             
         },
     },    
@@ -491,7 +427,7 @@ export default {
 
     },
     components:{
-        SPMBLayout,
+        SystemUserLayout,
         ModuleHeader,              
     },
 }

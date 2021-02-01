@@ -886,7 +886,7 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/kepegawaian/KepegawaianDosen.vue'),		
 	},
-	//dosen
+	//biodata dosen
 	{
 		path: '/system-users/biodatadiridosen',
 		name: 'BiodataDiriDosen',
@@ -895,6 +895,16 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/system/BiodataDiriDosen.vue'),		
+	},
+	//biodata mahasiswa
+	{
+		path: '/system-users/biodatadirimahasiswa',
+		name: 'BiodataDiriMahasiswa',
+		meta:{
+			title: "USERS - BIODATA DIRI MAHASISWA",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/BiodataDiriMahasiswa.vue'),		
 	},
 	{
 		path: '/system-migration',
