@@ -77,7 +77,7 @@
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
-                        <template v-slot:item.actions="{ item }" v-if="dashboard=='mahasiswa'">
+                        <template v-slot:item.actions v-if="dashboard=='mahasiswa'">
                             N.A
                         </template>
                         <template v-slot:item.actions="{ item }" v-else>
