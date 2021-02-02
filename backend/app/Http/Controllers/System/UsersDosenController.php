@@ -24,6 +24,7 @@ class UsersDosenController extends Controller {
                     ->select(\DB::raw('
                         users.id,
                         users.username,
+                        users.name AS onlyname,
                         CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS name,
                         CONCAT(\'[\',COALESCE(nidn,\'\'),\']\',COALESCE(pe3_dosen.gelar_depan,\' \'),users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                         pe3_dosen.nidn,

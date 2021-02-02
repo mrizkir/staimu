@@ -36,9 +36,32 @@
             </v-row>            
             <v-row>                 
                 <v-col cols="12">                     
-                    <v-alert type="info">
-                        Catatan: Pilihlah mahasiswa yang akan diisi nilainya. Untuk meningkatkan performance bila jumlah peserta lebih dari 10; maka disarankan mengisi nilai per 10 mahasiswa.
+                    <v-alert type="warning">
+                        Catatan: Pilihlah (CENTANG) mahasiswa yang akan diisi nilainya. Untuk meningkatkan performance bila jumlah peserta lebih dari 10; maka disarankan mengisi nilai per 10 mahasiswa.
                     </v-alert>
+                </v-col>
+                <v-col cols="12">
+                    <v-expansion-panels focusable>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>Range Nilai Huruf</v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                A = 95.00-100.00<br>
+                                A- = 90.00-94.99<br>
+                                A/B = 85.00-89.99<br>
+                                (B+) = 80.00-84.99<br>
+                                B = 75.00-79.99<br>
+                                B- = 70.00-74.99<br>
+                                B/C = 65.00-69.99<br>
+                                (C+) = 60.00-64.99<br>
+                                C = 55.00-59.99<br>
+                                C- = 50.00-54.99<br>
+                                C/D = 45.00-49.99<br>
+                                (D+) = 40.00-44.99<br>
+                                D = 35.00-39.99<br>
+                                E = 34.99-0<br>                                
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
                 </v-col>
                 <v-col cols="12">                     
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -291,7 +314,69 @@ export default {
                 nilai_uas=(this.komponen_nilai.persen_uas/100)*props.item.nilai_uas;
             }
             
-            props.item.n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);            
+            var n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);            
+            props.item.n_kuan=n_kuan;
+
+            var n_kual=null;
+            
+            if (n_kuan >= 95)
+            {
+                n_kual='A';
+            }
+            else if (n_kuan >= 90 && n_kuan <95)
+            {
+                n_kual='A-';
+            }
+            else if (n_kuan >= 85 && n_kuan <90)
+            {
+                n_kual='A/B';
+            }
+            else if (n_kuan >= 80 && n_kuan <85)
+            {
+                n_kual='B+';
+            }
+            else if (n_kuan >= 75 && n_kuan <80)
+            {
+                n_kual='B';
+            }
+            else if (n_kuan >= 70 && n_kuan <75)
+            {
+                n_kual='B-';
+            }
+            else if (n_kuan >= 65 && n_kuan <70)
+            {
+                n_kual='B/C';
+            }
+            else if (n_kuan >= 60 && n_kuan <65)
+            {
+                n_kual='C+';
+            }
+            else if (n_kuan >= 55 && n_kuan <59)
+            {
+                n_kual='C';
+            }
+            else if (n_kuan >= 50 && n_kuan <54)
+            {
+                n_kual='C-';
+            }
+            else if (n_kuan >= 45 && n_kuan <50)
+            {
+                n_kual='C/D';
+            }
+            else if (n_kuan >= 40 && n_kuan <45)
+            {
+                n_kual='C/D';
+            }
+            else if (n_kuan >= 40 && n_kuan <45)
+            {
+                n_kual='D+';
+            }
+            else if (n_kuan <40)
+            {
+                n_kual='E';
+            }            
+            props.item.n_kual=n_kual;
+
         },    
         async save()
         {

@@ -89,7 +89,7 @@
                                             </v-card-title>                                            
                                             <v-card-text>     
                                                 <v-text-field 
-                                                    v-model="editedItem.name" 
+                                                    v-model="editedItem.onlyname" 
                                                     label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
@@ -158,7 +158,7 @@
                                             </v-card-title>                                            
                                             <v-card-text>                                                                                                
                                                 <v-text-field 
-                                                    v-model="editedItem.name" 
+                                                    v-model="editedItem.onlyname" 
                                                     label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
@@ -361,6 +361,7 @@ export default {
             id:0,
             username: '',           
             password: '',           
+            onlyname: '',      
             name: '',      
             nidn:'',   
             nipy:'',         
@@ -374,6 +375,7 @@ export default {
             id:0,
             username: '',           
             password: '',           
+            onlyname: '',    
             name: '',    
             nidn:'',
             nipy:'',       
@@ -489,7 +491,7 @@ export default {
                     this.$ajax.post('/system/usersdosen/'+this.editedItem.id,
                         {
                             '_method':'PUT',
-                            name:this.editedItem.name,
+                            name:this.editedItem.onlyname,
                             nidn:this.editedItem.nidn,
                             nipy:this.editedItem.nipy,
                             email:this.editedItem.email,
@@ -513,7 +515,7 @@ export default {
                 } else {
                     this.$ajax.post('/system/usersdosen/store',
                         {
-                            name:this.editedItem.name,
+                            name:this.editedItem.onlyname,
                             nidn:this.editedItem.nidn,
                             nipy:this.editedItem.nipy,
                             email:this.editedItem.email,
