@@ -55,7 +55,6 @@ class H2HBRKJWTCheckMiddleware
         try {
             $this->checkToken($request);
         } catch (TokenExpiredException $e) {
-
             try {
                 $token = $this->auth->refresh();
                 $request = $this->setAuthenticationHeader($request, $token);
@@ -64,16 +63,30 @@ class H2HBRKJWTCheckMiddleware
 
                 return $token;
             } catch (Throwable $th) {
-                throw new UnauthorizedException;
+                $token='98';
+                return $token;
             }
         } catch (Throwable $th) {
-            throw new UnauthorizedException;
+            $token='98';
+            return $token;
         }
     }
     private function setAuthenticationHeader($object, string $token = null)
     {
-        if ($token) {
-            $object->headers->set('Authorization', "Bearer {$token}");
+        if ($token) {      
+            if ($token=='98')
+            {
+                $object->setData([
+                    'Result'=>[
+                        'status'=>'98',
+                        'message'=>'Token tidak terdaftar'
+                    ]
+                ]);                
+            }   
+            else
+            {
+                $object->headers->set('Authorization', "Bearer {$token}");
+            }                           
         }
 
         return $object;
