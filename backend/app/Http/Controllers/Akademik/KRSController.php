@@ -170,6 +170,7 @@ class KRSController extends Controller
                         pe3_formulir_pendaftaran.nama_mhs,
                         pe3_formulir_pendaftaran.jk,
                         pe3_formulir_pendaftaran.no_formulir,
+                        pe3_register_mahasiswa.tahun AS tahun_pendaftaran,
                         pe3_krs.jumlah_matkul_1,
                         pe3_krs.jumlah_sks_1,
                         CONCAT(COALESCE(pe3_dosen.gelar_depan,"")," ",pe3_dosen.nama_dosen," ",COALESCE(pe3_dosen.gelar_belakang,"")) AS nama_dosen,

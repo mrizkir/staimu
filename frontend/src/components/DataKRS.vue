@@ -26,15 +26,9 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                 <v-col xs="12" sm="12" md="6">
                     <v-card flat>
-                        <v-card-title>SAH :</v-card-title>
+                        <v-card-title>TAHUN MASUK :</v-card-title>
                         <v-card-subtitle>
-                            <v-chip                                
-                                :color="datakrs.sah==1?'green':'warning'"
-                                text-color="white"
-                                small
-                                >
-                                {{datakrs.sah==1?'YA':'TIDAK'}}                            
-                            </v-chip>
+                            {{datakrs.tahun_pendaftaran}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -52,9 +46,15 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                 <v-col xs="12" sm="12" md="6">
                     <v-card flat>
-                        <v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
+                        <v-card-title>SAH :</v-card-title>
                         <v-card-subtitle>
-                            {{totalmatkul}} / {{totalsks}}
+                            <v-chip                                
+                                :color="datakrs.sah==1?'green':'warning'"
+                                text-color="white"
+                                small
+                                >
+                                {{datakrs.sah==1?'YA':'TIDAK'}}                            
+                            </v-chip>
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -72,9 +72,9 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                 <v-col xs="12" sm="12" md="6">
                     <v-card flat>
-                        <v-card-title>CREATED:</v-card-title>
+                        <v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
                         <v-card-subtitle>
-                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}}
+                            {{totalmatkul}} / {{totalsks}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -92,9 +92,9 @@
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                 <v-col xs="12" sm="12" md="6">
                     <v-card flat>
-                        <v-card-title>UPDATED:</v-card-title>  
+                        <v-card-title>CREATED/UPDATED:</v-card-title>  
                         <v-card-subtitle>
-                            {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}} ~ {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
