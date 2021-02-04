@@ -74,7 +74,7 @@ class H2HBRKJWTCheckMiddleware
     private function setAuthenticationHeader($object, string $token = null)
     {
         if ($token) {      
-            if ($token=='98')
+            if ($token=='98' && ($object instanceof JsonResponse))
             {
                 $object->setData([
                     'Result'=>[

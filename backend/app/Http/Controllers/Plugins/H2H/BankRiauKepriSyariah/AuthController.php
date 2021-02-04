@@ -59,8 +59,22 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $user = $this->guard()->user()->toArray();              
-        return response()->json($user);
+        $user = $this->guard()->user();  
+        if (is_null($user))
+        {
+            $result=[
+                'status'=>'98',
+                'message'=>'Token tidak terdaftar'
+            ];
+            return response()->json([
+                'Result'=>$result
+            ]);
+        }
+        else
+        {
+            return response()->json($user->toArray());
+        }            
+        
     }
     /**
      * Log the user out (Invalidate the token).
