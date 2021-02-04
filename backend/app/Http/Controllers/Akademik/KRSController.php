@@ -194,7 +194,7 @@ class KRSController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'fetchdata',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
