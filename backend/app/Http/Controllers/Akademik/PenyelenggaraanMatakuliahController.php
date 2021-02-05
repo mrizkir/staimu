@@ -277,7 +277,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                             ->join('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan_dosen.user_id')
                                             ->where('pe3_penyelenggaraan.tahun',$ta)                                            
                                             ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
-                                            ->orderBy('pe3_dosen.nama_dosen','ASC')
+                                            ->orderBy('nama_dosen','ASC')
                                             ->get();
 
             break;
