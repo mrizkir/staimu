@@ -258,7 +258,7 @@ class KRSController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 
         $this->validate($request, [
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
+            'nim'=>'required',      
             'prodi_id'=>'required',     
             'ta'=>'required',     
             'semester_akademik'=>'required',     
@@ -271,38 +271,49 @@ class KRSController extends Controller
         $semester_akademik=$request->input('semester_akademik');
         
         $datamhs=RegisterMahasiswaModel::select(\DB::raw('tahun'))
-                                        ->where('nim',$nim)
+								        ->whereRaw("nim=\"$nim\"")
                                         ->first();
-                                        
-        $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
-                                    id,
-                                    kmatkul,                                    
-                                    nmatkul,
-                                    sks,
-                                    semester,
-                                    ta_matkul
-                                '))       
-                                ->where('tahun',$ta)                                  
-                                ->where('idsmt',$semester_akademik)                                  
-                                ->where('kjur',$prodi_id)                                  
-                                ->where('ta_matkul',$datamhs->tahun)
-                                ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
-                                    $query->select('penyelenggaraan_id')
-                                        ->from('pe3_krsmatkul')
-                                        ->where('nim',$nim)                                        
-                                        ->where('tahun',$ta)                                        
-                                        ->where('idsmt',$semester_akademik);                                        
-                                })
-                                ->orderBy('semester','ASC')                                                      
-                                ->orderBy('kmatkul','ASC')                                                      
-                                ->get();
+        
+        if (is_null($datamhs))
+        {
+            return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'fetchdata',                
+                                        'message'=>["Data MHS dengan NIM ($nim) gagal diperoleh"]
+                                    ],422); 
+        }
+        else
+        {        
+            $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
+                                        id,
+                                        kmatkul,                                    
+                                        nmatkul,
+                                        sks,
+                                        semester,
+                                        ta_matkul
+                                    '))       
+                                    ->where('tahun',$ta)                                  
+                                    ->where('idsmt',$semester_akademik)                                  
+                                    ->where('kjur',$prodi_id)                                  
+                                    ->where('ta_matkul',$datamhs->tahun)
+                                    ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
+                                        $query->select('penyelenggaraan_id')
+                                            ->from('pe3_krsmatkul')
+                                            ->where('nim',$nim)                                        
+                                            ->where('tahun',$ta)                                        
+                                            ->where('idsmt',$semester_akademik);                                        
+                                    })
+                                    ->orderBy('semester','ASC')                                                      
+                                    ->orderBy('kmatkul','ASC')                                                      
+                                    ->get();
 
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                                                       
-                                    'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',  
+                                        'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                                                       
+                                        'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+        }
     }
     /**
      * digunakan untul menyimpan krs mahasiswa
