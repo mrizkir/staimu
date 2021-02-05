@@ -194,7 +194,7 @@
                             {{$date(item.tanggal).format('DD/MM/YYYY')}}
                         </template>
                         <template v-slot:item.idsmt="{ item }">    
-                            {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+                            {{item.ta}} {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
                         </template>
                         <template v-slot:item.total="{ item }">    
                             {{item.total|formatUang}}
@@ -281,7 +281,7 @@ export default {
             { text: 'TANGGAL', value: 'tanggal',width:100,sortable:true },
             { text: 'NIM', value: 'nim',width:100,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },
-            { text: 'SMT', value: 'idsmt',width:50,sortable:true },
+            { text: 'T.A/SMT', value: 'idsmt',width:100,sortable:true },
             { text: 'TOTAL', value: 'total',width:100,sortable:true },
             { text: 'STATUS', value: 'nama_status',width:50,sortable:true },            
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
