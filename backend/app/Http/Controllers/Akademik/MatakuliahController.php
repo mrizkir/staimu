@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 use App\Models\Akademik\GroupMatakuliahModel;
 use App\Models\Akademik\MatakuliahModel;
 
+use Illuminate\Support\Str;
+
 use Ramsey\Uuid\Uuid;
 
 class MatakuliahController extends Controller {  
@@ -140,8 +142,8 @@ class MatakuliahController extends Controller {
             'id_group'=>$id_group,
             'nama_group'=>$nama_group,
             'group_alias'=>$group_alias,
-            'kmatkul'=>strtoupper($request->input('kmatkul')),
-            'nmatkul'=>ucwords($request->input('nmatkul')),            
+            'kmatkul'=>strtoupper(trim($request->input('kmatkul'))),
+            'nmatkul'=>ucwords(trim($request->input('nmatkul'))),            
             'sks'=>$request->input('sks'),            
             'idkonsentrasi'=>$request->input('idkonsentrasi'),            
             'ispilihan'=>$request->input('ispilihan'),            
@@ -336,8 +338,8 @@ class MatakuliahController extends Controller {
             $matakuliah->id_group = $request->input('id_group');
             $matakuliah->nama_group = $request->input('nama_group');            
             $matakuliah->group_alias = $request->input('group_alias');            
-            $matakuliah->kmatkul = $request->input('kmatkul');            
-            $matakuliah->nmatkul = $request->input('nmatkul');            
+            $matakuliah->kmatkul = strtoupper(trim($request->input('kmatkul')));            
+            $matakuliah->nmatkul = ucwords(trim($request->input('nmatkul')));
             $matakuliah->sks = $request->input('sks');            
             $matakuliah->idkonsentrasi = $request->input('idkonsentrasi');            
             $matakuliah->ispilihan = $request->input('ispilihan');            

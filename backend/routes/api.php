@@ -453,6 +453,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //system-migration
     $router->post('/system/migration',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\SystemMigrationController@index','as'=>'systemmigration.index']);
     $router->post('/system/migration/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'System\SystemMigrationController@store','as'=>'systemmigration.store']);
+    $router->post('/system/migration/penyelenggaraan/store',['middleware'=>['role:superadmin'],'uses'=>'System\SystemMigrationController@penyelenggaraanstore','as'=>'systemmigration.penyelenggaraanstore']);
 
     //untuk ui admin
     $router->get('/system/setting/uiadmin',['uses'=>'System\UIController@admin','as'=>'ui.admin']);

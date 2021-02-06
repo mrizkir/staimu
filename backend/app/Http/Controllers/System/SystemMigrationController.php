@@ -215,4 +215,45 @@ class SystemMigrationController extends Controller {
                                 'message'=>'Proses migrasi mahasiswa ini berhasil dilakukan, silahkan cek dimasing-masing halaman'
                             ],200);
     }
+
+    public function penyelenggaraanstore(Request $request)
+    {
+        $this->hasPermissionTo('SYSTEM-MIGRATION_STORE');
+
+        $this->validate($request, [
+            'ta_matkul'=>'required|numeric', 
+            'prodi_id'=>'required|numeric',                   
+        ]);
+
+        $ta_matkul=$request->input('ta_matkul');
+        $prodi_id=$request->input('prodi_id');
+
+        $daftar_matkul=\DB::table('pe3_matakuliah')
+                        ->where('ta',$ta_matkul)
+                        ->where('kjur',$prodi_id) 
+                        // ->where('kmatkul','like','%ESY 3103%')
+                        ->orderBy('semester','asc')
+                        ->get();
+
+        foreach($daftar_matkul as $v)
+        {
+            echo $v->id . " | ";
+            echo $v->kmatkul . " | ";
+            echo $v->nmatkul ." | ";
+            
+
+            $jumlah_row=\DB::table('pe3_penyelenggaraan')
+                        ->where('nmatkul','like','%'.$v->nmatkul.'%')
+                        ->where('kmatkul','like','%'.$v->kmatkul.'%')
+                        ->where('kjur',$prodi_id)
+                        ->update([
+                            'matkul_id'=>$v->id,
+                            'ta_matkul'=>2020
+                        ]);
+                        
+
+            echo "$jumlah_row affected";
+            echo "<br>";
+        }
+    }
 }
