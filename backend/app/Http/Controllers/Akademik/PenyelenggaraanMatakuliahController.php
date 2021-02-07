@@ -34,6 +34,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             $user = $this->guard()->user()->toArray();            
             $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                                                 id,
+                                                                matkul_id,
                                                                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                                 kmatkul,
                                                                 nmatkul,                                                            
@@ -57,6 +58,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         {        
             $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                                                 id,
+                                                                matkul_id,
                                                                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                                 kmatkul,
                                                                 nmatkul,                                                            

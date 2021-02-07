@@ -35,7 +35,8 @@ class MatakuliahController extends Controller {
                                     semester,
                                     minimal_nilai,
                                     syarat_skripsi,
-                                    status
+                                    status,
+                                    0 AS jummlah_penyelenggaraan
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$ta)   
@@ -43,6 +44,10 @@ class MatakuliahController extends Controller {
                                 ->orderBy('kmatkul','ASC')                      
                                 ->get();
         
+        $matakuliah->transform(function ($item,$key) {                
+            $item->jummlah_penyelenggaraan=\DB::table('pe3_penyelenggaraan')->where('matkul_id',$item->id)->count();                
+            return $item;
+        });
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
