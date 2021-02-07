@@ -364,7 +364,7 @@ class MatakuliahController extends Controller {
                 \DB::table('pe3_penyelenggaraan')
                         ->where('matkul_id',$matakuliah->id)
                         ->update([
-                                    'kmatkul'=>$matakuliah->matakul,
+                                    'kmatkul'=>$matakuliah->kmatkul,
                                     'nmatkul'=>$matakuliah->nmatkul,
                                     'sks'=>$matakuliah->sks,
                                 ]);

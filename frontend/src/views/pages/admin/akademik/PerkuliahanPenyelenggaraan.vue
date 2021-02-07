@@ -179,7 +179,7 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
+            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable:true  },   
             { text: 'SKS', value: 'sks', sortable:true, width:50  },               
             { text: 'SMT. MATKUL', value: 'semester', sortable:true, width:50  },               
