@@ -405,6 +405,7 @@
                                 <td class="text-center">{{totalSKS}}</td> 
                                 <td></td>
                                 <td></td>
+                                <td></td>
                             </tr>
                         </template>
                         <template v-slot:no-data>
