@@ -749,6 +749,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/system/Email.vue'),		
 	},
+	{
+		path: '/system-setting/cache',
+		name: 'SettingCache',
+		meta:{
+			title: "SETTING - CACHE",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/Cache.vue'),		
+	},
 	//plugins
 	{
 		path: '/system-setting/zoom',

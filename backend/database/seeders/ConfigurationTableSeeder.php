@@ -218,15 +218,6 @@ class ConfigurationTableSeeder extends Seeder
 
         //server
         \DB::table('pe3_configuration')->insert([
-            'config_id'=>"910",
-            'config_group'=>'server',
-            'config_key'=>'EMAIL_MHS_ISVALID',
-            'config_value'=>'1',
-            'created_at'=>Carbon::now(),
-            'updated_at'=>Carbon::now()
-        ]);
-
-        \DB::table('pe3_configuration')->insert([
             'config_id'=>"901",
             'config_group'=>'server',
             'config_key'=>'CAPTCHA_SITE_KEY',
@@ -243,7 +234,24 @@ class ConfigurationTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
-        
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"903",
+            'config_group'=>'server',
+            'config_key'=>'TOKEN_TTL_EXPIRE',
+            'config_value'=>'60',//minute
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"910",
+            'config_group'=>'server',
+            'config_key'=>'EMAIL_MHS_ISVALID',
+            'config_value'=>'1',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
         ConfigurationModel::toCache();
     }
 }
