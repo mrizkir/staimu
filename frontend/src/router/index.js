@@ -665,6 +665,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/TranskripNilaiKurikulumDetail.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/konversi',
+		name: 'NilaiKonversi',
+		meta:{
+			title: "AKADEMIK - KONVERSI NILAI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKonversi.vue'),		
+	},	
 
 	//kemahasiswaan
 	{

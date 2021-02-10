@@ -22,8 +22,16 @@ class AuthController extends Controller
         ]);
         $credentials = $request->only('username', 'password');
         $credentials['active']=1;
+        
+        $config = ConfigurationModel::getCache();
+        $ttl_expire=60;
 
-        if (! $token = $this->guard()->attempt($credentials)) {
+        if ($config['TOKEN_TTL_EXPIRE'])
+        {
+            $ttl_expire=$config['TOKEN_TTL_EXPIRE'];
+        }
+        
+        if (! $token = $this->guard()->attempt($credentials, ['exp' => \Carbon\Carbon::now()->addMinutes($ttl_expire)->timestamp])) {
             return response()->json([
                                     'page' => 'login',
                                     'error' => 'Unauthorized',                                    
