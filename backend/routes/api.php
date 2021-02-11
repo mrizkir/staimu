@@ -341,6 +341,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/perkuliahan/pembagiankelas/nilaikomponen/{id}',['uses'=>'Akademik\PembagianKelasController@nilaikomponen','as'=>'pembagiankelas.nilaikomponen']);
     $router->post('/akademik/perkuliahan/pembagiankelas/storenilai',['middleware'=>['role:dosen'],'uses'=>'Akademik\PembagianKelasController@storenilai','as'=>'pembagiankelas.storenilai']);
 
+    //akademik - perkuliahan - nilai konversi
+    $router->post('/akademik/nilai/konversi',['uses'=>'Akademik\NilaiKonversiController@index','as'=>'nilaikonversi.index']);
+    $router->post('/akademik/nilai/konversi/matakuliah',['uses'=>'Akademik\NilaiKonversiController@matakuliah','as'=>'nilaikonversi.matakuliah']);        
+    $router->get('/akademik/nilai/konversi/{id}',['uses'=>'Akademik\NilaiKonversiController@show','as'=>'nilaikonversi.show']);        
+    $router->get('/akademik/nilai/konversi/printpdf1/{id}',['uses'=>'Akademik\NilaiKonversiController@printpdf1','as'=>'nilaikonversi.printpdf1']);    
+
     //akademik - perkuliahan - nilai
     $router->post('/akademik/nilai/matakuliah',['middleware'=>['role:superadmin|akademik|puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@index','as'=>'nilaimatakuliah.index']);
     //id disini adalah kelas_mhs_id
@@ -350,7 +356,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/nilai/matakuliah/perkrs/{id}',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@perkrs','as'=>'nilaimatakuliah.perkrs']);
     $router->post('/akademik/nilai/matakuliah/perkrs/storeperkrs',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkrs','as'=>'nilaimatakuliah.storeperkrs']);
 
-    //khs kartu hasil stuid
+    //khs kartu hasil studi
     $router->post('/akademik/nilai/khs',['uses'=>'Akademik\NilaiKHSController@index','as'=>'khs.index']);
     $router->get('/akademik/nilai/khs/{id}',['uses'=>'Akademik\NilaiKHSController@show','as'=>'khs.show']);
     // id == krs id

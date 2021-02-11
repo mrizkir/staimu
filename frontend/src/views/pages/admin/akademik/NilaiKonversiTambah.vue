@@ -1,11 +1,11 @@
 <template>
-    <AkademikLayout>
+    <AkademikLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-book-open
+                mdi-book-open-outline
             </template>
             <template v-slot:name>
-                TRANSKRIP NILAI KURIKULUM 
+                KONVERSI NILAI 
             </template>
             <template v-slot:subtitle>
                 TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
@@ -24,24 +24,22 @@
                     colored-border
                     type="info"
                     >
-                    Halaman berisi daftar transkrip nilai berdasarkan kurikulum. Jumlah SKS, Jumlah Matkul, dan IPK Sementara nilai-nya tidak realtime.
+                    Halaman ini digunakan untuk mengelola konversi nilai mahasiswa pindahan/ampulan 
                 </v-alert>
             </template>
-        </ModuleHeader>
-        <template v-slot:filtersidebar>
-            <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
-        </template>
+        </ModuleHeader>        
         <v-container fluid>                         
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
+                        <v-card-title>
+                            Data Konversi
+                        </v-card-title>
                         <v-card-text>
                             <v-text-field
-                                v-model="search"
-                                append-icon="mdi-database-search"
-                                label="Search"
-                                single-line
-                                hide-details
+                                v-model="formdata.nim_asal"                                
+                                label="NIM ASAL"
+                                outlined                                
                             ></v-text-field>
                         </v-card-text>
                     </v-card>
@@ -53,10 +51,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="user_id"                        
-                        show-expand
-                        :expanded.sync="expanded"
-                        :single-expand="true"
+                        item-key="id"                                                                        
                         :disable-pagination="true"
                         :hide-default-footer="true"
                         @click:row="dataTableRowClicked"
@@ -65,63 +60,23 @@
                         loading-text="Loading... Please wait">
                         <template v-slot:top>
                             <v-toolbar flat color="white">
-                                <v-toolbar-title>DAFTAR MAHASISWA</v-toolbar-title>
+                                <v-toolbar-title>KURIKULUM MATAKULIAH T.A {{tahun_pendaftaran}}</v-toolbar-title>
                                 <v-divider
                                     class="mx-4"
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>                                  
                             </v-toolbar>
-                        </template>
-                        <template v-slot:item.idkelas="{item}">
-                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
-                        </template>
-                        <template v-slot:item.actions="{ item }">
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
-                                    <v-btn 
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="primary" 
-                                        icon 
-                                        outlined 
-                                        x-small 
-                                        class="ma-2" 
-                                        @click.stop="viewItem(item)"
-                                        :loading="btnLoading"
-                                        :disabled="btnLoading">
-                                        <v-icon>mdi-eye</v-icon>
-                                    </v-btn>     
-                                </template>
-                                <span>Detail Transkrip</span>                                   
-                            </v-tooltip> 
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
-                                    <v-btn 
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        color="primary" 
-                                        icon 
-                                        outlined 
-                                        x-small 
-                                        class="ma-2" 
-                                        @click.stop="printpdf2(item)"
-                                        :loading="btnLoading"
-                                        :disabled="btnLoading">
-                                        <v-icon>mdi-printer</v-icon>
-                                    </v-btn>     
-                                </template>
-                                <span>Cetak Transkrip Dua Kolom</span>                                   
-                            </v-tooltip>                 
-                        </template>           
-                        <template v-slot:expanded-item="{ headers, item }">
-                            <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
-                                    <strong>user_id:</strong>{{ item.user_id }}                                              
-                                </v-col>                                
-                            </td>
-                        </template>
+                        </template>     
+                        <template v-slot:item.n_kual="props">                                
+                            <v-select 
+                                :items="$store.getters['uiadmin/getSkalaNilai']"  
+                                v-model="props.item.n_kual"
+                                style="width:65px"                                
+                                dense>
+                            </v-select>
+                        </template>                                                                                
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>   
@@ -153,9 +108,8 @@
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
 export default {
-    name: 'TranskripNilaiKurikulum',
+    name: 'NilaiKonversiTambah',
     created () {
         this.breadcrumbs = [
             {
@@ -172,9 +126,14 @@ export default {
                 text:'NILAI',
                 disabled:false,
                 href:'#'
+            },            
+            {
+                text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
+                disabled:false,
+                href:'/akademik/nilai/konversi'
             },
             {
-                text:'TRANSKRIP KURIKULUM',
+                text:'TAMBAH',
                 disabled:true,
                 href:'#'
             }
@@ -193,36 +152,32 @@ export default {
 
         btnLoading:false,
         btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
+        datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable:true,width:100  },               
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                           
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                           
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                           
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                           
-            { text: 'IPK SEMENTARA', value: 'ipk',sortable:true,width:100, },                           
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
+            { text: 'KODE', value: 'kmatkul', sortable:false, width:120  },               
+            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },               
+            { text: 'SKS', value: 'sks',sortable:false, width:70 },                           
+            { text: 'SMT', value: 'semester',sortable:true,width:70, },                           
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false },                           
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false },                           
+            { text: 'SKS ASAL', value: 'sks_asal',sortable:false},                           
+            { text: 'NILAI', value: 'n_kual',sortable:false},                                       
         ],  
         search:'', 
 
         dialogprintpdf:false,
-        file_pdf:null
+        file_pdf:null,
+
+        formdata:{
+            nim_asal:''
+        }
     }),
-    methods: {
-        changeTahunPendaftaran (tahun)
-        {
-            this.tahun_pendaftaran=tahun;
-        },
-        changeProdi (id)
-        {
-            this.prodi_id=id;
-        },
+    methods: {        
         initialize:async function () 
-        {
+        {      
             this.datatableLoading=true;
-            await this.$ajax.post('/akademik/nilai/transkripkurikulum',
+            await this.$ajax.post('/akademik/nilai/konversi/matakuliah',
             {
                 prodi_id:this.prodi_id,
                 ta:this.tahun_pendaftaran
@@ -232,25 +187,12 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{               
-                this.datatable = data.mahasiswa;
+                this.datatable = data.matakuliah;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
-            });  
-            this.firstloading=false;
-            this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
-        },
-        dataTableRowClicked(item)
-        {
-            if ( item === this.expanded[0])
-            {
-                this.expanded=[];                
-            }
-            else
-            {
-                this.expanded=[item];
-            }               
-        },
+            });          
+        },        
         viewItem(item)
         {
             this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
@@ -300,8 +242,7 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,    
-        Filter7               
+        ModuleHeader,            
     },
 }
 </script>

@@ -674,6 +674,15 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/NilaiKonversi.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/konversi/tambah',
+		name: 'NilaiKonversiTambah',
+		meta:{
+			title: "AKADEMIK - KONVERSI NILAI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKonversiTambah.vue'),		
+	},	
 
 	//kemahasiswaan
 	{
