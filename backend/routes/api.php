@@ -344,6 +344,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //akademik - perkuliahan - nilai konversi
     $router->post('/akademik/nilai/konversi',['uses'=>'Akademik\NilaiKonversiController@index','as'=>'nilaikonversi.index']);
     $router->post('/akademik/nilai/konversi/matakuliah',['uses'=>'Akademik\NilaiKonversiController@matakuliah','as'=>'nilaikonversi.matakuliah']);        
+    $router->post('/akademik/nilai/konversi/store',['uses'=>'Akademik\NilaiKonversiController@store','as'=>'nilaikonversi.store']);        
     $router->get('/akademik/nilai/konversi/{id}',['uses'=>'Akademik\NilaiKonversiController@show','as'=>'nilaikonversi.show']);        
     $router->get('/akademik/nilai/konversi/printpdf1/{id}',['uses'=>'Akademik\NilaiKonversiController@printpdf1','as'=>'nilaikonversi.printpdf1']);    
 

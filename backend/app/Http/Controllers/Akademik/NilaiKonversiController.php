@@ -90,8 +90,9 @@ class NilaiKonversiController  extends Controller
                                     minimal_nilai,
                                     syarat_skripsi,
                                     status,
-                                    null AS sks_asal,
+                                    null AS kmatkul_asal,
                                     null AS matkul_asal,
+                                    null AS sks_asal,                                    
                                     null AS n_kual,
                                     null AS keterangan                                    
                                 '))       
@@ -107,6 +108,10 @@ class NilaiKonversiController  extends Controller
                                     'matakuliah'=>$matakuliah,                                                                                                                                   
                                     'message'=>'Fetch data matakuliah berhasil.'
                                 ],200);    
+    }
+    public function store(Request $request,$id)
+    {
+
     }
     public function show(Request $request,$id)
     {
