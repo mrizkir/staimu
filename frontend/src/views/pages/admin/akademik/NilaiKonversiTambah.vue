@@ -1,5 +1,5 @@
 <template>
-    <AkademikLayout :showrightsidebar="false">
+    <AkademikLayout :showrightsidebar="false" :temporaryleftsidebar="true">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-book-open-outline
@@ -28,62 +28,148 @@
                 </v-alert>
             </template>
         </ModuleHeader>        
-        <v-container fluid>                         
-            <v-row class="mb-4" no-gutters>
-                <v-col cols="12">
-                    <v-card>
-                        <v-card-title>
-                            Data Konversi
-                        </v-card-title>
-                        <v-card-text>
-                            <v-text-field
-                                v-model="formdata.nim_asal"                                
-                                label="NIM ASAL"
-                                outlined                                
-                            ></v-text-field>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row>
-            <v-row class="mb-4" no-gutters>
-                <v-col cols="12">
-                    <v-data-table
-                        :headers="headers"
-                        :items="datatable"
-                        :search="search"
-                        item-key="id"                                                                        
-                        :disable-pagination="true"
-                        :hide-default-footer="true"
-                        @click:row="dataTableRowClicked"
-                        class="elevation-1"
-                        :loading="datatableLoading"
-                        loading-text="Loading... Please wait">
-                        <template v-slot:top>
-                            <v-toolbar flat color="white">
-                                <v-toolbar-title>KURIKULUM MATAKULIAH T.A {{tahun_pendaftaran}}</v-toolbar-title>
-                                <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                                ></v-divider>
-                                <v-spacer></v-spacer>                                  
-                            </v-toolbar>
-                        </template>     
-                        <template v-slot:item.n_kual="props">                                
-                            <v-select 
-                                :items="$store.getters['uiadmin/getSkalaNilai']"  
-                                v-model="props.item.n_kual"
-                                style="width:65px"                                
-                                dense>
-                            </v-select>
-                        </template>                                                                                
-                        <template v-slot:no-data>
-                            Data belum tersedia
-                        </template>   
-                    </v-data-table>
-                </v-col>
-            </v-row>            
-        </v-container>
+        <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+            <v-container fluid>                         
+                <v-row class="mb-4" no-gutters>
+                    <v-col cols="12">
+                        <v-card>
+                            <v-card-title>
+                                Data Konversi
+                            </v-card-title>
+                            <v-card-text>
+                                <v-text-field
+                                    v-model="formdata.nim_asal"                                
+                                    label="NIM ASAL"
+                                    :rules="rule_nim_asal"
+                                    outlined                                
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.nama_mhs"                                
+                                    label="NAMA"
+                                    :rules="rule_nama_mhs"
+                                    outlined                                
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.alamat"                                
+                                    label="ALAMAT"
+                                    outlined       
+                                    :rules="rule_alamat"                         
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.no_telp"                                
+                                    label="NO. TELEPON/HP"
+                                    outlined       
+                                    :rules="rule_telepon"                          
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.kode_pt_asal"                                
+                                    label="KODE P.T. ASAL"
+                                    outlined        
+                                    :rules="rule_kode_pt_asal"                        
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.nama_pt_asal"                                
+                                    label="NAMA P.T. ASAL"
+                                    outlined            
+                                    :rules="rule_nama_pt_asal"                    
+                                ></v-text-field>
+                                <v-select 
+                                    v-model="formdata.kode_jenjang" 
+                                    label="JENJANG"
+                                    :items="daftar_jenjang"
+                                    item-text="nama_jenjang"
+                                    item-value="kode_jenjang"                                
+                                    outlined
+                                    :rules="rule_kode_jenjang">
+                                </v-select>
+                                <v-text-field
+                                    v-model="formdata.kode_ps_asal"                                
+                                    label="KODE PRODI ASAL"
+                                    :rules="rule_kode_ps_asal"
+                                    outlined                                
+                                ></v-text-field>
+                                <v-text-field
+                                    v-model="formdata.nama_ps_asal"                                
+                                    label="NAMA PRODI ASAL"
+                                    :rules="rule_nama_ps_asal"
+                                    outlined                                
+                                ></v-text-field>
+                            </v-card-text>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                <v-btn 
+                                    color="blue darken-1" 
+                                    text 
+                                    @click.stop="save" 
+                                    :loading="btnLoading"
+                                    :disabled="!form_valid||btnLoading">
+                                        SIMPAN
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                </v-row>
+                <v-row class="mb-4" no-gutters>
+                    <v-col cols="12">
+                        <v-data-table
+                            :headers="headers"
+                            :items="datatable"
+                            :search="search"
+                            item-key="id"                                                                        
+                            :disable-pagination="true"
+                            :hide-default-footer="true"                        
+                            class="elevation-1"
+                            :loading="datatableLoading"
+                            loading-text="Loading... Please wait">
+                            <template v-slot:top>
+                                <v-toolbar flat color="white">
+                                    <v-toolbar-title>KURIKULUM MATAKULIAH T.A {{tahun_pendaftaran}}</v-toolbar-title>
+                                    <v-divider
+                                        class="mx-4"
+                                        inset
+                                        vertical
+                                    ></v-divider>
+                                    <v-spacer></v-spacer>                                  
+                                </v-toolbar>
+                            </template>     
+                            <template v-slot:item.kmatkul_asal="props">                                
+                                <v-text-field
+                                    v-model="props.item.kmatkul_asal"                            
+                                    dense                                                                 
+                                >
+                                </v-text-field>
+                            </template>                                                                                
+                            <template v-slot:item.matkul_asal="props">                                
+                                <v-text-field
+                                    v-model="props.item.matkul_asal"                            
+                                    dense                                 
+                                >
+                                </v-text-field>
+                            </template>                                                                                
+                            <template v-slot:item.sks_asal="props">                                
+                                <v-text-field
+                                    v-model="props.item.sks_asal"                            
+                                    dense                                                             
+                                >
+                                </v-text-field>
+                            </template>                                                                                
+                            <template v-slot:item.n_kual="props">                                
+                                <v-select 
+                                    :items="$store.getters['uiadmin/getSkalaNilai']"  
+                                    v-model="props.item.n_kual"
+                                    style="width:65px"                                
+                                    dense>
+                                </v-select>
+                            </template>                                                                                
+                            <template v-slot:no-data>
+                                Data belum tersedia
+                            </template>   
+                        </v-data-table>
+                    </v-col>
+                </v-row>            
+            </v-container>
+        </v-form>
         <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
             <v-card>
                 <v-card-title>
@@ -155,23 +241,89 @@ export default {
         datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable:false, width:120  },               
+            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },               
             { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },               
             { text: 'SKS', value: 'sks',sortable:false, width:70 },                           
             { text: 'SMT', value: 'semester',sortable:true,width:70, },                           
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false },                           
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false },                           
-            { text: 'SKS ASAL', value: 'sks_asal',sortable:false},                           
-            { text: 'NILAI', value: 'n_kual',sortable:false},                                       
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                           
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                           
+            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                           
+            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                                       
         ],  
         search:'', 
 
         dialogprintpdf:false,
         file_pdf:null,
 
+        form_valid:true,   
+        daftar_jenjang:[],                        
         formdata:{
-            nim_asal:''
-        }
+            'id':'',
+            'user_id':'',
+            'nim':'',
+            'nama_mhs':'',
+            'alamat':'', 
+            'no_telp':'',         
+            'nim_asal':'', 
+            'kode_jenjang':'', 
+            'kode_pt_asal':'',
+            'nama_pt_asal':'',
+            'kode_ps_asal':'',
+            'nama_ps_asal':'',
+            'tahun':'',
+            
+            'kjur':'',
+            'perpanjangan':'',   
+        },
+        formdefault:{
+            'id':'',
+            'user_id':'',
+            'nim':'',
+            'nama_mhs':'',
+            'alamat':'', 
+            'no_telp':'',         
+            'nim_asal':'', 
+            'kode_jenjang':'', 
+            'kode_pt_asal':'',
+            'nama_pt_asal':'',
+            'kode_ps_asal':'',
+            'nama_ps_asal':'',
+            'tahun':'',
+            
+            'kjur':'',
+            'perpanjangan':'',   
+        },
+        rule_nim_asal:[
+            value => !!value||"Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",              
+        ],
+        rule_nama_mhs:[
+            value => !!value||"Mohon di isi nama mahasiswa pindahan/ampulan dari perguruan tinggi asal !!!", 
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama mahasiswa pindahan/ampulan hanya boleh string dan spasi',                
+        ],
+        rule_alamat:[
+            value => !!value||"Mohon di isi alamat mahasiswa pindahan/ampulan !!!",              
+        ],
+        rule_telepon:[
+            value => !!value||"Mohon di isi nomor hp mahasiswa pindahan/ampulan !!!",          
+            value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP/Telepon hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',    
+        ],       
+        rule_kode_pt_asal:[
+            value => !!value||"Mohon di isi kode perguruan tinggi asal !!!",      
+            value => /^[0-9]+$/.test(value) || 'Kode perguruan tinggi asal hanya boleh angka',        
+        ],
+        rule_nama_pt_asal:[
+            value => !!value||"Mohon di isi nama perguruan tinggi asal !!!",              
+        ],
+        rule_kode_jenjang:[
+            value => !!value||"Mohon dipilih Jenjang Studi dari perguruan tinggi asal !!!",              
+        ],
+        rule_kode_ps_asal:[
+            value => !!value||"Mohon di isi kode program studi dari perguruan tinggi asal !!!",        
+            value => /^[0-9]+$/.test(value) || 'Kode program studi asal hanya boleh angka',              
+        ],
+        rule_nama_ps_asal:[
+            value => !!value||"Mohon di isi nama program studi dari tinggi asal !!!",              
+        ],
     }),
     methods: {        
         initialize:async function () 
@@ -191,8 +343,38 @@ export default {
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
-            });          
-        },        
+            });         
+            await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({data})=>{
+                this.daftar_jenjang=data.jenjangstudi;
+            }); 
+        },   
+        save:async function () {
+            if (this.$refs.frmdata.validate())
+            {
+                this.btnLoading=true;                
+                // await this.$ajax.post('/akademik/nilai/konversi/store',
+                //     {
+                //         kode_fakultas:this.formdata.kode_fakultas,                            
+                //         kode_prodi:this.formdata.kode_prodi,                            
+                //         nama_prodi:this.formdata.nama_prodi,   
+                //         nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
+                //         kode_jenjang:this.jenjang_studi.kode_jenjang,                                                        
+                //         nama_jenjang:this.jenjang_studi.nama_jenjang,                                                                                                             
+                //     },
+                //     {
+                //         headers:{
+                //             Authorization:this.TOKEN
+                //         }
+                //     }
+                // ).then(()=>{   
+                //     this.initialize();                  
+                    this.btnLoading=false;
+                //     this.closedialogfrm();
+                // }).catch(()=>{
+                //     this.btnLoading=false;
+                // });                
+            }
+        },     
         viewItem(item)
         {
             this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
