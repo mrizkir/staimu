@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Akademik\NilaiKonversi1Model;
 use App\Models\Akademik\NilaiKonversi2Model;
 use App\Models\Akademik\RegisterMahasiswaModel;
-use App\Models\Akademik\RekapTranskripKurikulumModel;
 use App\Models\Akademik\MatakuliahModel;
 
 use App\Models\System\ConfigurationModel;
+
+use Ramsey\Uuid\Uuid;
 
 class NilaiKonversiController  extends Controller 
 {
@@ -58,7 +59,7 @@ class NilaiKonversiController  extends Controller
                                     ->count();
 
             $item->jumlah_sks=\DB::table('pe3_nilai_konversi2')                                    
-                                    ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_nilai_konversi1.matkul_id')
+                                    ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_nilai_konversi2.matkul_id')
                                     ->where('nilai_konversi_id',$item->id)
                                     ->sum('sks');
             return $item;
@@ -109,9 +110,76 @@ class NilaiKonversiController  extends Controller
                                     'message'=>'Fetch data matakuliah berhasil.'
                                 ],200);    
     }
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_STORE');
 
+        $this->validate($request, [      
+            'nim_asal'=>'required',     
+            'nama_mhs'=>'required',     
+            'alamat'=>'required',     
+            'no_telp'=>'required',     
+            'email'=>'required|email',     
+            'kode_jenjang'=>'required',     
+            'kode_pt_asal'=>'required',     
+            'nama_pt_asal'=>'required',     
+            'kode_ps_asal'=>'required',     
+            'nama_ps_asal'=>'required',     
+            'tahun'=>'required',     
+            'kjur'=>'required|exists:pe3_prodi,id',                  
+            'daftar_nilai'=>'required',            
+        ]);
+        $jumlah_matkul=\DB::transaction(function () use ($request){
+            $data_konversi=NilaiKonversi1Model::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'nim_asal'=>$request->input('nim_asal'),     
+                'nama_mhs'=>$request->input('nama_mhs'),     
+                'alamat'=>$request->input('alamat'),     
+                'no_telp'=>$request->input('no_telp'),     
+                'email'=>$request->input('email'),     
+                'kode_jenjang'=>$request->input('kode_jenjang'),     
+                'kode_pt_asal'=>$request->input('kode_pt_asal'),     
+                'nama_pt_asal'=>$request->input('nama_pt_asal'),     
+                'kode_ps_asal'=>$request->input('kode_ps_asal'),     
+                'nama_ps_asal'=>$request->input('nama_ps_asal'),     
+                'tahun'=>$request->input('tahun'),     
+                'kjur'=>$request->input('kjur'),                                  
+            ]);
+
+            $nilai_konversi_id=$data_konversi->id;
+            $jumlah_matkul=0;        
+            $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+            
+            foreach ($daftar_nilai as $v)
+            {
+                $matkul_id=$v['matkul_id'];
+                $kmatkul_asal=$v['kmatkul_asal'];
+                $matkul_asal=$v['matkul_asal'];
+                $sks_asal=$v['sks_asal'];
+                $n_kual=$v['n_kual'];
+                
+                if ($matkul_id != '' && $kmatkul_asal != '' && $matkul_asal != '' && $sks_asal != '' && $n_kual != '')
+                {
+                    $nilai=NilaiKonversi2Model::create([
+                        'id'=>Uuid::uuid4()->toString(),
+                        'nilai_konversi_id'=>$nilai_konversi_id,
+                        'matkul_id'=>$matkul_id,
+                        'kmatkul_asal'=>$kmatkul_asal,
+                        'matkul_asal'=>$matkul_asal,
+                        'sks_asal'=>$sks_asal,
+                        'n_kual'=>$n_kual,                        
+                    ]);
+                    $jumlah_matkul+=1;
+                }
+            } 
+            return $jumlah_matkul;
+        });
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store', 
+                                    'jumlah_matkul'=>$jumlah_matkul,                                     
+                                    'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+                                ],200);     
     }
     public function show(Request $request,$id)
     {

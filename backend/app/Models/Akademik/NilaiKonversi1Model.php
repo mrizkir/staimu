@@ -29,6 +29,7 @@ class NilaiKonversi1Model extends Model {
         'nama_mhs',
         'alamat', 
         'no_telp',         
+        'email',         
         'nim_asal', 
         'kode_jenjang', 
         'kode_pt_asal',

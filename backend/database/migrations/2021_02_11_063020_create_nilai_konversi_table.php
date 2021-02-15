@@ -22,6 +22,7 @@ class CreateNilaiKonversiTable extends Migration
             $table->string('nama_mhs');               
             $table->string('alamat');
             $table->string('no_telp');
+            $table->string('email');
             $table->string('nim_asal');
             $table->string('kode_jenjang',1);
             $table->string('kode_pt_asal',6); 

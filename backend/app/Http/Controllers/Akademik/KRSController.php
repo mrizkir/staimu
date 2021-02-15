@@ -365,7 +365,7 @@ class KRSController extends Controller
 
         $this->validate($request, [      
             'krs_id'=>'required|exists:pe3_krs,id',     
-            'matkul_selected.*'=>'required',            
+            'matkul_selected'=>'required',            
         ]);
         $krs_id=$request->input('krs_id');
         

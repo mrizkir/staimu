@@ -84,8 +84,8 @@
                                 </v-btn>  
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
-                            {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
+                        <template v-slot:item.nim="{item}">
+                            {{item.nim == null ?'N.A':item.nim}}
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-tooltip bottom>             
@@ -207,13 +207,13 @@ export default {
         expanded:[],
         datatable:[],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable:true  },               
-            { text: 'NAMA', value: 'nama_mhs', sortable:true  },               
-            { text: 'ALAMAT', value: 'alamat',sortable:true },                           
+            { text: 'NIM', value: 'nim_asal', sortable:true,width:100  },               
+            { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },               
+            { text: 'ALAMAT', value: 'alamat',sortable:true,width:200 },                           
             { text: 'NO. TELP', value: 'no_telp',sortable:true,width:120, },                           
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                           
             { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                           
-            { text: 'NIM SIAKAD', value: 'ipk',sortable:true,width:100, },                           
+            { text: 'NIM SISTEM', value: 'nim',sortable:true,width:100, },                           
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search:'', 

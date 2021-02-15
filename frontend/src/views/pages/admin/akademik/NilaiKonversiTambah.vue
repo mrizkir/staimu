@@ -62,6 +62,12 @@
                                     :rules="rule_telepon"                          
                                 ></v-text-field>
                                 <v-text-field
+                                    v-model="formdata.email"                                
+                                    label="EMAIL"
+                                    outlined       
+                                    :rules="rule_email"                          
+                                ></v-text-field>
+                                <v-text-field
                                     v-model="formdata.kode_pt_asal"                                
                                     label="KODE P.T. ASAL"
                                     outlined        
@@ -97,7 +103,7 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                <v-btn color="blue darken-1" text href="/akademik/nilai/konversi">BATAL</v-btn>
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 
@@ -112,7 +118,7 @@
                 </v-row>
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">
-                        <v-data-table
+                        <v-data-table                            
                             :headers="headers"
                             :items="datatable"
                             :search="search"
@@ -307,6 +313,10 @@ export default {
             value => !!value||"Mohon di isi nomor hp mahasiswa pindahan/ampulan !!!",          
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP/Telepon hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',    
         ],       
+        rule_email:[
+            value => !!value||"Mohon di isi email mahasiswa pindahan/ampulan !!!",          
+            value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
+        ],       
         rule_kode_pt_asal:[
             value => !!value||"Mohon di isi kode perguruan tinggi asal !!!",      
             value => /^[0-9]+$/.test(value) || 'Kode perguruan tinggi asal hanya boleh angka',        
@@ -351,28 +361,49 @@ export default {
         save:async function () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;                
-                // await this.$ajax.post('/akademik/nilai/konversi/store',
-                //     {
-                //         kode_fakultas:this.formdata.kode_fakultas,                            
-                //         kode_prodi:this.formdata.kode_prodi,                            
-                //         nama_prodi:this.formdata.nama_prodi,   
-                //         nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
-                //         kode_jenjang:this.jenjang_studi.kode_jenjang,                                                        
-                //         nama_jenjang:this.jenjang_studi.nama_jenjang,                                                                                                             
-                //     },
-                //     {
-                //         headers:{
-                //             Authorization:this.TOKEN
-                //         }
-                //     }
-                // ).then(()=>{   
-                //     this.initialize();                  
+                this.btnLoading=true;  
+
+                var daftar_nilai=[];
+                this.datatable.forEach(item => {
+                    if (item.kmatkul_asal && item.matkul_asal && item.sks_asal && item.n_kual)
+                    {
+                        daftar_nilai.push({
+                            matkul_id:item.id,
+                            kmatkul_asal:item.kmatkul_asal,
+                            matkul_asal:item.matkul_asal,
+                            sks_asal:item.sks_asal,
+                            n_kual:item.n_kual,     
+                        });
+                    }
+                });
+
+                await this.$ajax.post('/akademik/nilai/konversi/store',
+                    {
+                        nim_asal:this.formdata.nim_asal,                            
+                        nama_mhs:this.formdata.nama_mhs,                            
+                        alamat:this.formdata.alamat,   
+                        no_telp:this.formdata.no_telp,                                                        
+                        email:this.formdata.email,                                                        
+                        kode_jenjang:this.formdata.kode_jenjang,                                                        
+                        kode_pt_asal:this.formdata.kode_pt_asal,                                                                                                             
+                        nama_pt_asal:this.formdata.nama_pt_asal,                                                                                                             
+                        kode_ps_asal:this.formdata.kode_ps_asal,                                                                                                             
+                        nama_ps_asal:this.formdata.nama_ps_asal,                                                                                                             
+                        tahun:this.tahun_pendaftaran,                                                                                                             
+                        kjur:this.prodi_id,  
+                        daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
+                    },
+                    {
+                        headers:{
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }
+                ).then(()=>{   
+                    this.$router.push('/akademik/nilai/konversi');                   
                     this.btnLoading=false;
-                //     this.closedialogfrm();
-                // }).catch(()=>{
-                //     this.btnLoading=false;
-                // });                
+                }).catch(()=>{
+                    this.btnLoading=false;
+                });                
             }
         },     
         viewItem(item)

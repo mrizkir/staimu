@@ -166,7 +166,7 @@ class NilaiMatakuliahController extends Controller
 
         $this->validate($request, [      
             'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',     
-            'daftar_nilai.*'=>'required',            
+            'daftar_nilai'=>'required',            
         ]);
         $jumlah_matkul=0;
         foreach ($daftar_nilai as $v)
@@ -293,7 +293,7 @@ class NilaiMatakuliahController extends Controller
 
         $this->validate($request, [      
             'krs_id'=>'required|exists:pe3_krs,id',     
-            'daftar_nilai.*'=>'required',            
+            'daftar_nilai'=>'required',            
         ]);
         $krs_id=$request->input('krs_id');
         
