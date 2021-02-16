@@ -73,8 +73,8 @@ class H2HBRKJWTCheckMiddleware
     }
     private function setAuthenticationHeader($object, string $token = null)
     {
-        if ($token) {      
-            if ($token=='98' && ($object instanceof JsonResponse))
+        if ($token) {                    
+            if ($token=='98')
             {
                 $object->setData([
                     'Result'=>[
@@ -82,7 +82,7 @@ class H2HBRKJWTCheckMiddleware
                         'message'=>'Token tidak terdaftar'
                     ]
                 ]);                
-            }   
+            }               
             else
             {
                 $object->headers->set('Authorization', "Bearer {$token}");

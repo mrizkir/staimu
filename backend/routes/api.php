@@ -490,9 +490,7 @@ $router->group(['prefix'=>'h2h/zoom','middleware'=>'auth:api'], function () use 
 //payment - [bank riau kepri]
 $router->group(['prefix'=>'h2h/brk','middleware'=>'h2hbrk:api'], function () use ($router)
 {
-    //authentication
-    $router->post('/auth/logout',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@logout','as'=>'brk.auth.logout']);
-    $router->get('/auth/refresh',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@refresh','as'=>'brk.auth.refresh']);
+    //authentication        
     $router->get('/auth/me',['uses'=>'Plugins\H2H\BankRiauKepriSyariah\AuthController@me','as'=>'brk.auth.me']);
 
     //inquiry tagihan
