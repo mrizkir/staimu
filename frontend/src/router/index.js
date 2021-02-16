@@ -683,6 +683,24 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/akademik/NilaiKonversiTambah.vue'),		
 	},	
+	{
+		path: '/akademik/nilai/konversi/:nilai_konversi_id',
+		name: 'NilaiKonversiDetail',
+		meta:{
+			title: "AKADEMIK - KONVERSI NILAI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKonversiDetail.vue'),		
+	},	
+	{
+		path: '/akademik/nilai/konversi/:nilai_konversi_id/edit',
+		name: 'NilaiKonversiEdit',
+		meta:{
+			title: "AKADEMIK - KONVERSI NILAI",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/akademik/NilaiKonversiEdit.vue'),		
+	},	
 
 	//kemahasiswaan
 	{

@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="user_id"                        
+                        item-key="id"                        
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -94,17 +94,16 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="primary" 
-                                        icon 
-                                        outlined 
+                                        icon                                         
                                         x-small 
-                                        class="ma-2" 
+                                        class="ma-1" 
                                         @click.stop="viewItem(item)"
                                         :loading="btnLoading"
                                         :disabled="btnLoading">
                                         <v-icon>mdi-eye</v-icon>
                                     </v-btn>     
                                 </template>
-                                <span>Detail Transkrip</span>                                   
+                                <span>Detail Konversi Nilai</span>                                   
                             </v-tooltip> 
                             <v-tooltip bottom>             
                                 <template v-slot:activator="{ on, attrs }">                                             
@@ -112,23 +111,58 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="primary" 
-                                        icon 
-                                        outlined 
+                                        icon                                         
                                         x-small 
-                                        class="ma-2" 
+                                        class="ma-1" 
+                                        @click.stop="editItem(item)"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Ubah Konversi Nilai</span>                                   
+                            </v-tooltip>                             
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="primary" 
+                                        icon                                         
+                                        x-small 
+                                        class="ma-1" 
                                         @click.stop="printpdf2(item)"
                                         :loading="btnLoading"
                                         :disabled="btnLoading">
                                         <v-icon>mdi-printer</v-icon>
                                     </v-btn>     
                                 </template>
-                                <span>Cetak Transkrip Dua Kolom</span>                                   
-                            </v-tooltip>                 
+                                <span>Cetak Konversi Nilai</span>                                   
+                            </v-tooltip>
+                            <v-tooltip bottom>             
+                                <template v-slot:activator="{ on, attrs }">                                             
+                                    <v-btn 
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="warning" 
+                                        icon                                         
+                                        x-small 
+                                        class="ma-1" 
+                                        @click.stop="deleteItem(item)"
+                                        :loading="btnLoading"
+                                        :disabled="btnLoading">
+                                        <v-icon>mdi-delete</v-icon>
+                                    </v-btn>     
+                                </template>
+                                <span>Hapus Konversi Nilai</span>                                   
+                            </v-tooltip>                  
                         </template>           
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
-                                    <strong>user_id:</strong>{{ item.user_id }}                                              
+                                    <strong>ID:</strong>{{ item.id}}     
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}                                         
                                 </v-col>                                
                             </td>
                         </template>
@@ -214,7 +248,7 @@ export default {
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                           
             { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                           
             { text: 'NIM SISTEM', value: 'nim',sortable:true,width:100, },                           
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
+            { text: 'AKSI', value: 'actions', sortable: false,width:150 },
         ],  
         search:'', 
 
@@ -264,7 +298,35 @@ export default {
         },
         viewItem(item)
         {
-            this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
+            this.$router.push('/akademik/nilai/konversi/'+item.id);
+        },
+        editItem(item)
+        {
+            this.$router.push('/akademik/nilai/konversi/'+item.id+'/edit');
+        },
+        deleteItem (item) {           
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data nilai konvesi dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/akademik/nilai/konversi/'+item.id,
+                        {
+                            '_method':'DELETE',
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{   
+                        const index = this.datatable.indexOf(item);
+                        this.datatable.splice(index, 1);
+                        this.btnLoading=false;
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });
         },
         async printpdf2(item)
         {

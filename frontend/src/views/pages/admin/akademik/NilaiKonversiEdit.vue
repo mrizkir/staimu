@@ -29,7 +29,7 @@
             </template>
         </ModuleHeader>        
         <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-            <v-container fluid>                         
+            <v-container fluid v-if="formdata.id">                         
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">
                         <v-card>
@@ -201,8 +201,9 @@
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name: 'NilaiKonversiTambah',
+    name: 'NilaiKonversiEdit',
     created () {
+        this.nilai_konversi_id=this.$route.params.nilai_konversi_id;        
         this.breadcrumbs = [
             {
                 text:'HOME',
@@ -225,7 +226,7 @@ export default {
                 href:'/akademik/nilai/konversi'
             },
             {
-                text:'TAMBAH',
+                text:'UBAH',
                 disabled:true,
                 href:'#'
             }
@@ -236,7 +237,8 @@ export default {
         this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
-    data: () => ({         
+    data: () => ({ 
+        nilai_konversi_id:null,        
         prodi_id:null,
         nama_prodi:null,
         tahun_pendaftaran:null,
@@ -263,7 +265,7 @@ export default {
         form_valid:true,   
         daftar_jenjang:[],                        
         formdata:{
-            'id':'',
+            'id':null,
             'user_id':'',
             'nim':'',
             'nama_mhs':'',
@@ -281,7 +283,7 @@ export default {
             'perpanjangan':'',   
         },
         formdefault:{
-            'id':'',
+            'id':null,
             'user_id':'',
             'nim':'',
             'nama_mhs':'',
@@ -338,17 +340,14 @@ export default {
         initialize:async function () 
         {      
             this.datatableLoading=true;
-            await this.$ajax.post('/akademik/nilai/konversi/matakuliah',
-            {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_pendaftaran
-            },
+            await this.$ajax.get('/akademik/nilai/konversi/'+this.nilai_konversi_id,            
             {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({data})=>{               
-                this.datatable = data.matakuliah;
+                this.datatable = data.nilai_konversi;
+                this.formdata = data.data_konversi;
                 this.datatableLoading=false;
             }).catch(()=>{
                 this.datatableLoading=false;
@@ -376,8 +375,9 @@ export default {
                     }
                 });
 
-                await this.$ajax.post('/akademik/nilai/konversi/store',
+                await this.$ajax.post('/akademik/nilai/konversi/'+this.nilai_konversi_id,
                     {
+                        _method:'put',
                         nim_asal:this.formdata.nim_asal,                            
                         nama_mhs:this.formdata.nama_mhs,                            
                         alamat:this.formdata.alamat,   
@@ -397,8 +397,8 @@ export default {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(({data})=>{   
-                    this.$router.push('/akademik/nilai/konversi/'+data.data_konversi.id+'/edit');                   
+                ).then(()=>{   
+                    this.$router.go();        
                     this.btnLoading=false;
                 }).catch(()=>{
                     this.btnLoading=false;
@@ -434,7 +434,7 @@ export default {
                 }, 300
             );
         }, 
-    },    
+    },
     components:{
         AkademikLayout,
         ModuleHeader,            

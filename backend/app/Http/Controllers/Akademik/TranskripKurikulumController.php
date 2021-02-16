@@ -243,7 +243,7 @@ class TranskripKurikulumController  extends Controller
                                     'jumlah_am'=>$jumlah_am,              
                                     'jumlah_m'=>$jumlah_m,              
                                     'ipk'=>$ipk,
-                                    'message'=>"Transkrip Nilai ($id) berhasil dihapus"
+                                    'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
                                 ],200); 
         }
     }

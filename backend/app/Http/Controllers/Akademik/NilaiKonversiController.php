@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 class NilaiKonversiController  extends Controller 
 {
 /**
-     * daftar nilai mahasiswa
+     * daftar nilai konversi
      */
     public function index(Request $request)
     {
@@ -129,19 +129,19 @@ class NilaiKonversiController  extends Controller
             'kjur'=>'required|exists:pe3_prodi,id',                  
             'daftar_nilai'=>'required',            
         ]);
-        $jumlah_matkul=\DB::transaction(function () use ($request){
+        $data_konversi=\DB::transaction(function () use ($request){
             $data_konversi=NilaiKonversi1Model::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'nim_asal'=>$request->input('nim_asal'),     
-                'nama_mhs'=>$request->input('nama_mhs'),     
-                'alamat'=>$request->input('alamat'),     
-                'no_telp'=>$request->input('no_telp'),     
-                'email'=>$request->input('email'),     
-                'kode_jenjang'=>$request->input('kode_jenjang'),     
-                'kode_pt_asal'=>$request->input('kode_pt_asal'),     
-                'nama_pt_asal'=>$request->input('nama_pt_asal'),     
-                'kode_ps_asal'=>$request->input('kode_ps_asal'),     
-                'nama_ps_asal'=>$request->input('nama_ps_asal'),     
+                'nim_asal'=>addslashes(trim($request->input('nim_asal'))),     
+                'nama_mhs'=>addslashes(trim($request->input('nama_mhs'))),     
+                'alamat'=>addslashes(trim($request->input('alamat'))),     
+                'no_telp'=>addslashes(trim($request->input('no_telp'))),     
+                'email'=>addslashes(trim($request->input('email'))),     
+                'kode_jenjang'=>addslashes(trim($request->input('kode_jenjang'))),     
+                'kode_pt_asal'=>addslashes(trim($request->input('kode_pt_asal'))),     
+                'nama_pt_asal'=>addslashes(trim($request->input('nama_pt_asal'))),     
+                'kode_ps_asal'=>addslashes(trim($request->input('kode_ps_asal'))),     
+                'nama_ps_asal'=>addslashes(trim($request->input('nama_ps_asal'))),     
                 'tahun'=>$request->input('tahun'),     
                 'kjur'=>$request->input('kjur'),                                  
             ]);
@@ -172,193 +172,217 @@ class NilaiKonversiController  extends Controller
                     $jumlah_matkul+=1;
                 }
             } 
-            return $jumlah_matkul;
+            $data=[
+                'data_konversi'=>$data_konversi,
+                'jumlah_matkul'=>$jumlah_matkul,
+            ];
+            return $data;
         });
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store', 
-                                    'jumlah_matkul'=>$jumlah_matkul,                                     
-                                    'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+                                    'data_konversi'=>$data_konversi['data_konversi'],                                     
+                                    'jumlah_matkul'=>$data_konversi['jumlah_matkul'],                                     
+                                    'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                 ],200);     
     }
-    public function show(Request $request,$id)
+    public function update(Request $request,$id)
     {
-        if ($this->hasRole('mahasiswa'))
-        {
-            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                    A.user_id,
-                                                    A.nama_mhs,
-                                                    A.jk,
-                                                    C.email,
-                                                    C.nomor_hp,
-                                                    A.alamat_rumah,
-                                                    A.no_formulir,
-                                                    pe3_register_mahasiswa.nim,
-                                                    pe3_register_mahasiswa.nirm,
-                                                    pe3_register_mahasiswa.kjur,
-                                                    B.nama_prodi,
-                                                    D.nkelas,
-                                                    pe3_register_mahasiswa.tahun,
-                                                    E.n_status,
-                                                    pe3_register_mahasiswa.created_at,
-                                                    pe3_register_mahasiswa.updated_at,
-                                                    C.foto
-                                                '))
-                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-                                                ->find($this->getUserid());
-        }
-        else
-        {
-            $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                    A.user_id,
-                                                    A.nama_mhs,
-                                                    A.jk,
-                                                    C.email,
-                                                    C.nomor_hp,
-                                                    COALESCE(A.alamat_rumah,\'N.A\') AS alamat_rumah,
-                                                    A.no_formulir,
-                                                    pe3_register_mahasiswa.nim,
-                                                    pe3_register_mahasiswa.nirm,
-                                                    pe3_register_mahasiswa.kjur,
-                                                    B.nama_prodi,
-                                                    D.nkelas,
-                                                    pe3_register_mahasiswa.tahun,
-                                                    E.n_status,
-                                                    pe3_register_mahasiswa.created_at,
-                                                    pe3_register_mahasiswa.updated_at,
-                                                    C.foto
-                                                '))
-                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
+
+        $data_konversi=NilaiKonversi1Model::select(\DB::raw('
+                                                    pe3_nilai_konversi1.*
+                                                '))                                                                                                
                                                 ->find($id);
-        }
+
+
         
-        if (is_null($mahasiswa))
+        if (is_null($data_konversi))
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
-                                    'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+                                    'pid'=>'update',                
+                                    'message'=>["Data Konversi dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
         {
-            $daftar_matkul=MatakuliahModel::select(\DB::raw('
-                                                0 AS no,
-                                                id,
-                                                group_alias,                                    
-                                                kmatkul,
-                                                nmatkul,
-                                                sks,
-                                                semester,
-                                                \'-\' AS HM,
-                                                \'-\' AS AM,
-                                                \'-\' AS M                                              
-                                            '))
-                                            ->where('kjur',$mahasiswa->kjur)
-                                            ->where('ta',$mahasiswa->tahun)   
-                                            ->orderBy('semester','ASC')                      
-                                            ->orderBy('kmatkul','ASC')    
-                                            ->get();
-
-            $jumlah_sks=0;            
-            $jumlah_sks_nilai=0;            
-            $jumlah_am=0;
-            $jumlah_m=0;
-            $jumlah_matkul=0;
-
-            $daftar_nilai=[];
-            foreach ($daftar_matkul as $key=>$item)
-            {
-                $user_id=$mahasiswa->user_id;
-                $nilai=\DB::table('pe3_nilai_matakuliah AS A')
-                            ->select(\DB::raw('
-                                A.n_kual,                                
-                                A.n_mutu
-                            '))
-                            ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-                            ->join('pe3_krs AS C','B.krs_id','C.id')
-                            ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
-                            ->where('C.user_id',$mahasiswa->user_id)
-                            ->where('D.matkul_id',$item->id)
-                            ->orderBy('n_mutu','desc')
-                            ->limit(1)
-                            ->get();
+            $this->validate($request, [      
+                'nim_asal'=>'required',     
+                'nama_mhs'=>'required',     
+                'alamat'=>'required',     
+                'no_telp'=>'required',     
+                'email'=>'required|email',     
+                'kode_jenjang'=>'required',     
+                'kode_pt_asal'=>'required',     
+                'nama_pt_asal'=>'required',     
+                'kode_ps_asal'=>'required',     
+                'nama_ps_asal'=>'required',     
+                'tahun'=>'required',     
+                'kjur'=>'required|exists:pe3_prodi,id',                  
+                'daftar_nilai'=>'required',            
+            ]);
+            $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi){
+                $data_konversi->nim_asal=$request->input('nim_asal');     
+                $data_konversi->nama_mhs=$request->input('nama_mhs');     
+                $data_konversi->alamat=$request->input('alamat');     
+                $data_konversi->no_telp=$request->input('no_telp');     
+                $data_konversi->email=$request->input('email');     
+                $data_konversi->kode_jenjang=$request->input('kode_jenjang');     
+                $data_konversi->kode_pt_asal=$request->input('kode_pt_asal');     
+                $data_konversi->nama_pt_asal=$request->input('nama_pt_asal');
+                $data_konversi->kode_ps_asal=$request->input('kode_ps_asal');
+                $data_konversi->nama_ps_asal=$request->input('nama_ps_asal');                
                 
-                $HM=$item->HM;
-                $AM=$item->AM;
-                $M=$item->M;
+                $data_konversi->save();
 
-                if (isset($nilai[0]))
+                $nilai_konversi_id=$data_konversi->id;
+                $jumlah_matkul=0;        
+                $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+                
+                \DB::table('pe3_nilai_konversi2')
+                        ->where('nilai_konversi_id',$data_konversi->id)
+                        ->delete();
+
+                foreach ($daftar_nilai as $v)
                 {
-                    $HM=$nilai[0]->n_kual;
-                    $AM=number_format($nilai[0]->n_mutu,0);
-                    $M=$AM*$item->sks;
-                    $jumlah_m+=$M;
-                    $jumlah_am+=$AM;
-                    $jumlah_matkul+=1;
-                    $jumlah_sks_nilai+=$item->sks;
-                }
-                $daftar_nilai[]=[
-                    'id'=>$item->id,
-                    'no'=>$key+1,
-                    'kmatkul'=>$item->kmatkul,
-                    'nmatkul'=>$item->nmatkul,
-                    'sks'=>$item->sks,
-                    'semester'=>$item->semester,
-                    'group_alias'=>$item->group_alias,
-                    'HM'=>$HM,
-                    'AM'=>$AM,
-                    'M'=>$M
-                ];
-
-                $jumlah_sks+=$item->sks;                 
-            }         
-            $ipk=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks_nilai);            
-            $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
-            if (is_null($rekap))
-            {
-
-                RekapTranskripKurikulumModel::updateOrCreate([
-                    'user_id'=>$mahasiswa->user_id,
+                    $matkul_id=$v['matkul_id'];
+                    $kmatkul_asal=$v['kmatkul_asal'];
+                    $matkul_asal=$v['matkul_asal'];
+                    $sks_asal=$v['sks_asal'];
+                    $n_kual=$v['n_kual'];
+                    
+                    if ($matkul_id != '' && $kmatkul_asal != '' && $matkul_asal != '' && $sks_asal != '' && $n_kual != '')
+                    {
+                        $nilai=NilaiKonversi2Model::create([
+                            'id'=>Uuid::uuid4()->toString(),
+                            'nilai_konversi_id'=>$nilai_konversi_id,
+                            'matkul_id'=>$matkul_id,
+                            'kmatkul_asal'=>addslashes(trim($kmatkul_asal)),
+                            'matkul_asal'=>addslashes(trim($matkul_asal)),
+                            'sks_asal'=>addslashes(trim($sks_asal)),
+                            'n_kual'=>$n_kual,                        
+                        ]);
+                        $jumlah_matkul+=1;
+                    }
+                } 
+                $data=[
+                    'data_konversi'=>$data_konversi,
                     'jumlah_matkul'=>$jumlah_matkul,
-                    'jumlah_sks'=>$jumlah_sks_nilai,
-                    'jumlah_am'=>$jumlah_am,
-                    'jumlah_m'=>$jumlah_m,
-                    'ipk'=>$ipk,
-                ]);   
-            }
-            else
-            {
-                $rekap->jumlah_matkul=$jumlah_matkul;
-                $rekap->jumlah_sks=$jumlah_sks_nilai;
-                $rekap->jumlah_am=$jumlah_am;
-                $rekap->jumlah_m=$jumlah_m;
-                $rekap->ipk=$ipk;
+                ];
+            });
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update', 
+                                        'data_konversi'=>$data_konversi['data_konversi'],                                     
+                                        'jumlah_matkul'=>$data_konversi['jumlah_matkul'],                                                                        
+                                        'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
+                                    ],200);     
+        }
+    }
+    public function show(Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_SHOW');
 
-                $rekap->save();
-            }
+        if ($this->hasRole('mahasiswa'))
+        {
+            $data_konversi=NilaiKonversi1Model::where('user_id',$this->getUserid())
+                                        ->first();
+        }
+        else
+        {
+            $data_konversi=NilaiKonversi1Model::select(\DB::raw('
+                                                    pe3_nilai_konversi1.*
+                                                '))                                                                                                
+                                                ->find($id);
+        }
+        
+        if (is_null($data_konversi))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'show',                
+                                    'message'=>["Data Konversi dengan ($id) gagal diperoleh"]
+                                ],422); 
+        }
+        else
+        {
+            $subquery=\DB::table('pe3_nilai_konversi2 AS B')
+                            ->select(\DB::raw('
+                                B.matkul_id,
+                                B.sks_asal,
+                                B.kmatkul_asal,
+                                B.matkul_asal,
+                                B.n_kual,
+                                B.keterangan
+                            '))                            
+                            ->where('B.nilai_konversi_id',$data_konversi->id);                           
+                            
+            $nilai_konversi=\DB::table('pe3_matakuliah AS A')
+                                ->select(\DB::raw('
+                                    id,
+                                    group_alias,                                    
+                                    kmatkul,
+                                    nmatkul,
+                                    sks,
+                                    semester,
+                                    minimal_nilai,
+                                    syarat_skripsi,
+                                    status,
+                                    kmatkul_asal,
+                                    matkul_asal,
+                                    sks_asal,                                    
+                                    n_kual,
+                                    keterangan                                    
+                                '))   
+                                ->leftJoinSub($subquery,'B',function($join){
+                                    $join->on('B.matkul_id','=','A.id');
+                                })    
+                                ->where('kjur',$data_konversi->kjur)
+                                ->where('ta',$data_konversi->tahun)   
+                                ->orderBy('semester','ASC')                      
+                                ->orderBy('kmatkul','ASC')                      
+                                ->get();
            
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
-                                    'mahasiswa'=>$mahasiswa, 
-                                    'nilai_matakuliah'=>$daftar_nilai,              
-                                    'jumlah_sks'=>$jumlah_sks,              
-                                    'jumlah_sks_nilai'=>$jumlah_sks_nilai,              
-                                    'jumlah_am'=>$jumlah_am,              
-                                    'jumlah_m'=>$jumlah_m,              
-                                    'ipk'=>$ipk,
-                                    'message'=>"Transkrip Nilai ($id) berhasil dihapus"
+                                    'data_konversi'=>$data_konversi, 
+                                    'nilai_konversi'=>$nilai_konversi,                                                  
+                                    'message'=>"Data Nilai Konversi ($id) berhasil diperoleh"
                                 ],200); 
         }
+    }
+    public function destroy(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_DESTROY');
+
+        $data_konversi = NilaiKonversi1Model::find($id); 
+        
+        if (is_null($data_konversi))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Data Konversi ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                                'object' => $data_konversi, 
+                                                                'object_id' => $data_konversi->id, 
+                                                                'user_id' => $this->getUserid(), 
+                                                                'message' => 'Menghapus data konversi dengan id ('.$id.') berhasil'
+                                                            ]);
+            $data_konversi->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message'=>"Data Konversi dengan kode ($id) berhasil dihapus"
+                                    ],200);         
+        }
+                  
     }
     public function history(Request $request,$id)
     {
