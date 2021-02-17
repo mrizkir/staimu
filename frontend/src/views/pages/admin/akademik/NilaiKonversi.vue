@@ -298,7 +298,7 @@ export default {
         },
         viewItem(item)
         {
-            this.$router.push('/akademik/nilai/konversi/'+item.id);
+            this.$router.push('/akademik/nilai/konversi/'+item.id+'/detail');
         },
         editItem(item)
         {

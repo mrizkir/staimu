@@ -684,7 +684,7 @@ const routes = [
 		component: () => import('../views/pages/admin/akademik/NilaiKonversiTambah.vue'),		
 	},	
 	{
-		path: '/akademik/nilai/konversi/:nilai_konversi_id',
+		path: '/akademik/nilai/konversi/:nilai_konversi_id/detail',
 		name: 'NilaiKonversiDetail',
 		meta:{
 			title: "AKADEMIK - KONVERSI NILAI",

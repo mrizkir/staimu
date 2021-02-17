@@ -175,26 +175,7 @@
                     </v-col>
                 </v-row>            
             </v-container>
-        </v-form>
-        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
-            <v-card>
-                <v-card-title>
-                    <span class="headline">Print to PDF</span>
-                </v-card-title>
-                <v-card-text>
-                    <v-btn
-                        color="green"
-                        text
-                        :href="$api.url+'/'+file_pdf">                            
-                        Download
-                    </v-btn>                           
-                </v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
-                </v-card-actions>
-            </v-card>            
-        </v-dialog>
+        </v-form>        
     </AkademikLayout>
 </template>
 <script>
@@ -256,10 +237,7 @@ export default {
             { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                                       
         ],  
         search:'', 
-
-        dialogprintpdf:false,
-        file_pdf:null,
-
+                
         form_valid:true,   
         daftar_jenjang:[],                        
         formdata:{
@@ -404,36 +382,7 @@ export default {
                     this.btnLoading=false;
                 });                
             }
-        },     
-        viewItem(item)
-        {
-            this.$router.push('/akademik/nilai/transkripkurikulum/'+item.user_id);
-        },
-        async printpdf2(item)
-        {
-            this.btnLoading=true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
-                {
-                    headers:{
-                        Authorization:this.$store.getters['auth/Token']
-                    },
-                    
-                }
-            ).then(({data})=>{                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
-            });                 
-        },
-        closedialogprintpdf () {                  
-            setTimeout(() => {
-                this.file_pdf=null;
-                this.dialogprintpdf = false;      
-                }, 300
-            );
-        }, 
+        },        
     },    
     components:{
         AkademikLayout,
