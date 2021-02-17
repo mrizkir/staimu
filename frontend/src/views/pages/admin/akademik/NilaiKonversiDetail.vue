@@ -457,7 +457,7 @@ export default {
             this.datatable.forEach(item => {
                 if (item.kmatkul_asal && item.matkul_asal && item.sks_asal && item.n_kual)
                 {
-                    jumlah_sks+=item.sks;
+                    jumlah_sks+=parseInt(item.sks);
                 }
             });
             return jumlah_sks;
