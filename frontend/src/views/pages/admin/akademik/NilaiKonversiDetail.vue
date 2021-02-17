@@ -69,7 +69,7 @@
                             <v-row>
                                 <v-col xs="12" sm="12" md="6">
                                     <v-card flat>
-                                        <v-card-title>NIM ASAL / NIM SIAKAD:</v-card-title>  
+                                        <v-card-title>NIM ASAL / NIM SISTEM:</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_konversi.nim_asal}} / {{data_konversi.nim==null?'N.A':data_konversi.nim}} 
                                         </v-card-subtitle>

@@ -160,7 +160,7 @@ h2{
                 <br>
                 <br>
                 <br>
-                <br><strong><u>SUHARDMINA, M.Pd.I</u></strong><br>
+                <br><strong><u>SUHARDIMAN, M.Pd.I</u></strong><br>
                 <strong>LEKTOR NIDN:</strong>2128087201
             </td>                                   
         </tr>        

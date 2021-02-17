@@ -131,7 +131,7 @@
                                         icon                                         
                                         x-small 
                                         class="ma-1" 
-                                        @click.stop="printpdf2(item)"
+                                        @click.stop="printpdf1(item)"
                                         :loading="btnLoading"
                                         :disabled="btnLoading">
                                         <v-icon>mdi-printer</v-icon>
@@ -328,10 +328,10 @@ export default {
                 }                
             });
         },
-        async printpdf2(item)
+        async printpdf1(item)
         {
             this.btnLoading=true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
+            await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,                
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
