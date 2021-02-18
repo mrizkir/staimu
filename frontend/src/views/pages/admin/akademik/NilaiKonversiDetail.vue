@@ -150,12 +150,86 @@
                     </v-card>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col cols="12">
+                    <v-card outlined>
+                        <v-list-item three-line>
+                            <v-list-item-content>
+                                <div class="overline mb-1">
+                                    PASANGKAN NIM KE DATA KONVERSI INI
+                                </div>                                
+                                <v-list-item-subtitle>                                    
+                                    <v-autocomplete
+                                        v-model="data_mhs"
+                                        :items="entries"
+                                        :loading="isLoading"
+                                        :search-input.sync="search"     
+                                        cache-items                                        
+                                        dense                                                                                                                
+                                        item-text="nama_mhs_alias"
+                                        item-value="user_id"       
+                                        hide-no-data                                 
+                                        hide-details                                                                              
+                                        prepend-icon="mdi-database-search"
+                                        return-object
+                                        ref="ref_data_mhs"
+                                    ></v-autocomplete>
+                                </v-list-item-subtitle>
+                            </v-list-item-content>
+                            <v-list-item-avatar
+                                tile
+                                size="80"
+                                color="grey"
+                            >
+                                <v-icon>mdi-account</v-icon>
+                            </v-list-item-avatar>
+                        </v-list-item>
+                        <v-divider></v-divider>
+                        <v-expand-transition>
+                            <v-list v-if="data_mhs">
+                                <template v-for="(field, i) in fields">                                    
+                                <v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias'">
+                                    <v-list-item-content>
+                                        <v-list-item-title>                                            
+                                            {{field.value}}
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle>
+                                            <strong>{{field_alias(field.key)}}</strong>
+                                        </v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                                </template>
+                            </v-list>
+                        </v-expand-transition>  
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                :disabled="!data_mhs"                                
+                                @click="pasangkan"
+                            >
+                                Pasangkan
+                                <v-icon right>
+                                    mdi-forward
+                                </v-icon>
+                            </v-btn>
+                            <v-btn
+                                :disabled="!data_mhs"                                
+                                @click="clearDataMhs"
+                            >
+                                Clear
+                                <v-icon right>
+                                    mdi-close-circle
+                                </v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>                    
+                </v-col>
+            </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-data-table                            
                         :headers="headers"
-                        :items="datatable"
-                        :search="search"
+                        :items="datatable"                        
                         item-key="id"                                                                        
                         :disable-pagination="true"
                         :hide-default-footer="true"                        
@@ -283,7 +357,6 @@ export default {
             { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                           
             { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                                       
         ],  
-        search:'', 
 
         dialogprintpdf:false,
         file_pdf:null,
@@ -308,41 +381,12 @@ export default {
             'kjur':'',
             'perpanjangan':'',   
         },        
-        rule_nim_asal:[
-            value => !!value||"Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",              
-        ],
-        rule_nama_mhs:[
-            value => !!value||"Mohon di isi nama mahasiswa pindahan/ampulan dari perguruan tinggi asal !!!", 
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama mahasiswa pindahan/ampulan hanya boleh string dan spasi',                
-        ],
-        rule_alamat:[
-            value => !!value||"Mohon di isi alamat mahasiswa pindahan/ampulan !!!",              
-        ],
-        rule_telepon:[
-            value => !!value||"Mohon di isi nomor hp mahasiswa pindahan/ampulan !!!",          
-            value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP/Telepon hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',    
-        ],       
-        rule_email:[
-            value => !!value||"Mohon di isi email mahasiswa pindahan/ampulan !!!",          
-            value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
-        ],       
-        rule_kode_pt_asal:[
-            value => !!value||"Mohon di isi kode perguruan tinggi asal !!!",      
-            value => /^[0-9]+$/.test(value) || 'Kode perguruan tinggi asal hanya boleh angka',        
-        ],
-        rule_nama_pt_asal:[
-            value => !!value||"Mohon di isi nama perguruan tinggi asal !!!",              
-        ],
-        rule_kode_jenjang:[
-            value => !!value||"Mohon dipilih Jenjang Studi dari perguruan tinggi asal !!!",              
-        ],
-        rule_kode_ps_asal:[
-            value => !!value||"Mohon di isi kode program studi dari perguruan tinggi asal !!!",        
-            value => /^[0-9]+$/.test(value) || 'Kode program studi asal hanya boleh angka',              
-        ],
-        rule_nama_ps_asal:[
-            value => !!value||"Mohon di isi nama program studi dari tinggi asal !!!",              
-        ],
+        
+        //profil mahasiswa        
+        entries:[],
+        isLoading:false,
+        data_mhs:null,
+        search:null
     }),
     methods: {        
         initialize:async function () 
@@ -413,6 +457,26 @@ export default {
                 });                
             }
         },  
+        field_alias(atr)
+        {
+            var alias;
+            switch(atr)
+            {
+                case 'user_id' :
+                    alias = 'USER ID';
+                break;                
+                case 'nim' :
+                    alias = 'NIM';
+                break;                
+                case 'nama_mhs' :
+                    alias = 'NAMA MAHASIWA';
+                break;                
+                case 'nama_prodi' :
+                    alias = 'PROGRAM STUDI';
+                break;                
+            }
+            return alias;
+        },
         async printpdf2(item)
         {
             this.btnLoading=true;
@@ -438,6 +502,31 @@ export default {
                 }, 300
             );
         }, 
+        async pasangkan()
+        {
+            this.btnLoading=true;
+            await this.$ajax.post('/akademik/nilai/konversi/plugtomhs',                
+                {
+                    nilai_konversi_id:this.nilai_konversi_id,
+                    user_id:this.data_mhs.user_id
+                },
+                {
+                    headers:{
+                        Authorization:this.$store.getters['auth/Token']
+                    },
+                    
+                }
+            ).then(()=>{                              
+                this.$router.go();
+            }).catch(()=>{
+                this.btnLoading=false;
+            }); 
+        },
+        clearDataMhs()
+        {
+            this.data_mhs = null;
+            this.$refs.ref_data_mhs.cachedItems=[];            
+        }
     },
     computed:{
         totalMatkul()
@@ -461,6 +550,45 @@ export default {
                 }
             });
             return jumlah_sks;
+        },
+        fields () {
+            if (!this.data_mhs) return [];
+            return Object.keys(this.data_mhs).map(key => {
+                return {
+                    key,
+                    value: this.data_mhs[key] || 'n/a',
+                }
+            })
+        },           
+    },
+    watch:{
+        search (val) 
+        {
+            if (this.isLoading) return;
+            
+            if (val && val !== this.data_mhs && val.length > 1)
+            {
+                setTimeout(async () => {
+                    this.isLoading = true 
+                    await this.$ajax.post('/kemahasiswaan/profil/searchnonampulan',
+                    {
+                        search:val,                    
+                    },
+                    {
+                        headers: {
+                            Authorization:this.$store.getters['auth/Token']
+                        }
+                    }).then(({data})=>{                                                       
+                        const { jumlah, daftar_mhs } = data;
+                        this.count = jumlah;
+                        this.entries = daftar_mhs;
+                        this.isLoading=false;
+                    }).catch(()=>{
+                        this.isLoading=false;
+                    });  
+                    }, 1000
+                );
+            }
         },
     },
     components:{

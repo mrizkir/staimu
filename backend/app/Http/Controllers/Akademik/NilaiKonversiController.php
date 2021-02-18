@@ -11,6 +11,8 @@ use App\Models\Akademik\MatakuliahModel;
 
 use App\Models\System\ConfigurationModel;
 
+use Illuminate\Validation\Rule;
+
 use Ramsey\Uuid\Uuid;
 
 class NilaiKonversiController  extends Controller 
@@ -353,7 +355,43 @@ class NilaiKonversiController  extends Controller
                                 ],200); 
         }
     }
-    public function destroy(Request $request,$id)
+    public function plugtomhs (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
+
+        $this->validate($request, [     
+            'nilai_konversi_id'=>[
+                'required',                                            
+                Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
+                    return $query->whereNotNull('user_id')
+                                ->whereNotNull('nim');
+                })                       
+            ],
+            'user_id'=>[
+                'required',                                            
+                Rule::exists('pe3_register_mahasiswa','user_id')->where(function($query){
+                    return $query->where('k_status','A');
+                                
+                })                       
+            ]                         
+        ]);
+        $data_konversi = NilaiKonversi1Model::find($request->input('nilai_konversi_id')); 
+
+        $mahasiswa=RegisterMahasiswaModel::find($request->input('user_id'));
+
+        $data_konversi->user_id=$mahasiswa->user_id;
+        $data_konversi->nim=$mahasiswa->nim;
+        $data_konversi->save();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                
+                                    'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
+                                ],200); 
+        
+     
+    }
+    public function destroy (Request $request,$id)
     { 
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_DESTROY');
 
@@ -370,11 +408,11 @@ class NilaiKonversiController  extends Controller
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $data_konversi, 
-                                                                'object_id' => $data_konversi->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus data konversi dengan id ('.$id.') berhasil'
-                                                            ]);
+                                                            'object' => $data_konversi, 
+                                                            'object_id' => $data_konversi->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Menghapus data konversi dengan id ('.$id.') berhasil'
+                                                        ]);
             $data_konversi->delete();
             return Response()->json([
                                         'status'=>1,
