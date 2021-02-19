@@ -363,8 +363,8 @@ class NilaiKonversiController  extends Controller
             'nilai_konversi_id'=>[
                 'required',                                            
                 Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
-                    return $query->whereNotNull('user_id')
-                                ->whereNotNull('nim');
+                    return $query->whereNull('user_id')
+                                ->whereNull('nim');
                 })                       
             ],
             'user_id'=>[
@@ -387,6 +387,33 @@ class NilaiKonversiController  extends Controller
                                     'status'=>1,
                                     'pid'=>'update',                
                                     'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
+                                ],200); 
+        
+     
+    }
+    public function unplugtomhs (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
+
+        $this->validate($request, [     
+            'nilai_konversi_id'=>[
+                'required',                                            
+                Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
+                    return $query->whereNotNull('user_id')
+                                ->whereNotNull('nim');
+                })                       
+            ],                          
+        ]);
+        $data_konversi = NilaiKonversi1Model::find($request->input('nilai_konversi_id')); 
+
+        $data_konversi->user_id=null;
+        $data_konversi->nim=null;
+        $data_konversi->save();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',                
+                                    'message'=>"Data Konversi dengan berhasil dilepas dengan data mahasiswa"
                                 ],200); 
         
      

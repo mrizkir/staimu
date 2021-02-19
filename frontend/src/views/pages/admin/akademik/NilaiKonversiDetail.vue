@@ -150,7 +150,53 @@
                     </v-card>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="data_konversi.nim">
+                <v-col cols="12">
+                    <v-card outlined>
+                        <v-expand-transition>
+                            <v-list>
+                                <template>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                {{data_konversi.user_id}}
+                                            </v-list-item-title>
+                                            <v-list-item-subtitle>
+                                                <strong>USER ID</strong>
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </template>
+                                <template>
+                                    <v-list-item>
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                {{data_konversi.nim}}
+                                            </v-list-item-title>
+                                            <v-list-item-subtitle>
+                                                <strong>NIM</strong>
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </template>
+                            </v-list>
+                        </v-expand-transition>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                class="warning"                                                                
+                                @click="putuskan"
+                            >
+                                Putuskan
+                                <v-icon right>
+                                    mdi-close-network-outline
+                                </v-icon>
+                            </v-btn>
+                        </v-card-actions>                    
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row v-else>
                 <v-col cols="12">
                     <v-card outlined>
                         <v-list-item three-line>
@@ -521,6 +567,29 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             }); 
+        },
+        putuskan ()
+        {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then((confirm) => {
+                if (confirm)
+                {
+                    this.btnLoading=true;
+                    this.$ajax.post('/akademik/nilai/konversi/unplugtomhs',
+                        {
+                            nilai_konversi_id:this.nilai_konversi_id,                            
+                        },
+                        {
+                            headers:{
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }
+                    ).then(()=>{   
+                        this.$router.go();
+                    }).catch(()=>{
+                        this.btnLoading=false;
+                    });
+                }                
+            });
         },
         clearDataMhs()
         {

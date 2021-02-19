@@ -348,6 +348,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/nilai/konversi/{id}',['uses'=>'Akademik\NilaiKonversiController@show','as'=>'nilaikonversi.show']);        
     $router->put('/akademik/nilai/konversi/{id}',['uses'=>'Akademik\NilaiKonversiController@update','as'=>'nilaikonversi.update']);        
     $router->post('/akademik/nilai/konversi/plugtomhs',['uses'=>'Akademik\NilaiKonversiController@plugtomhs','as'=>'nilaikonversi.plugtomhs']);        
+    $router->post('/akademik/nilai/konversi/unplugtomhs',['uses'=>'Akademik\NilaiKonversiController@unplugtomhs','as'=>'nilaikonversi.unplugtomhs']);        
     $router->delete('/akademik/nilai/konversi/{id}',['uses'=>'Akademik\NilaiKonversiController@destroy','as'=>'nilaikonversi.destroy']);        
     $router->get('/akademik/nilai/konversi/printpdf1/{id}',['uses'=>'Akademik\NilaiKonversiController@printpdf1','as'=>'nilaikonversi.printpdf1']);    
 
