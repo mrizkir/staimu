@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -190,7 +195,9 @@ export default {
         prodi_id:null,
         nama_prodi:null,
         tahun_pendaftaran:null,
-
+        filter_ignore:false, 
+        awaiting_search:false,
+        
         btnLoading:false,
         btnLoadingTable:false,
         datatableLoading:false,
@@ -296,7 +303,36 @@ export default {
                 this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/akademik/nilai/transkripkurikulum',
+                        {
+                            prodi_id:this.prodi_id,
+                            ta:this.tahun_pendaftaran,            
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.mahasiswa;
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
         }
+        
     },
     components:{
         AkademikLayout,

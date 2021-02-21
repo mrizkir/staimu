@@ -54,12 +54,20 @@ class TranskripKurikulumController  extends Controller
                                     COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                                 '))
                                 ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
-                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
-                                ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
-                                ->where('pe3_register_mahasiswa.tahun',$ta)                            
-                                ->orderBy('nama_mhs','asc')
-                                ->get();                    
-            
+                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
+                                ->orderBy('nama_mhs','asc');                                
+
+            if ($request->has('search'))
+            {
+                $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                                                
+                            ->get();
+            }            
+            else
+            {
+                $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
+                            ->where('pe3_register_mahasiswa.tahun',$ta)                            
+                            ->get();
+            }
         }
         return Response()->json([
                                         'status'=>1,
