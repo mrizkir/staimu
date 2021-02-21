@@ -1,26 +1,38 @@
 <?php
-namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Carbon\Carbon;
-
-class TATableSeeder extends Seeder
+class CreateTaTable extends Migration
 {
     /**
-     * Run the database seeds.
+     * Run the migrations.
      *
      * @return void
      */
-    public function run()
+    public function up()
     {
-        \DB::statement('DELETE FROM pe3_ta');
-        
-        \DB::table('pe3_ta')->insert([
-            'tahun'=>date('Y'),
-            'tahun_akademik'=>date('Y').'/'.(date('Y')+1),            
-            'awal_semester'=>9,            
-        ]);        
+        Schema::defaultStringLength(191);
+        Schema::create('pe3_ta', function (Blueprint $table) {
+            $table->year('tahun')->primary();
+            $table->string('tahun_akademik')->unique();
+            $table->date('awal_ganjil')->nullable();
+            $table->date('akhir_ganjil')->nullable();
+            $table->date('awal_genap')->nullable();
+            $table->date('akhir_genap')->nullable();
+            $table->date('awal_pendek')->nullable();
+            $table->date('akhir_pendek')->nullable();
+        });
+    }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('pe3_ta');
     }
 }

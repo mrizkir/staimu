@@ -43,6 +43,11 @@
                                 single-line
                                 hide-details
                             ></v-text-field>
+                            <v-switch
+                                v-model="filter_ignore"
+                                label="ABAIKAN FILTER"
+                                class="font-weight-bold">
+                            </v-switch>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -188,6 +193,8 @@ export default {
         daftar_ta:[],
         tahun_akademik:null,
         semester_akademik:null,
+        filter_ignore:false, 
+        awaiting_search:false,
         
         btnLoading:false,
         btnLoadingTable:false,
@@ -273,32 +280,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },  
-        deleteItem (item)
-        {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus khs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang berkaitan dengan khs ini.' }).then((confirm) => {
-                if (confirm)
-                {
-                    this.btnLoadingTable=true;
-                    this.$ajax.post('/akademik/nilai/khs/'+item.id,
-                        {
-                            '_method':'DELETE',
-                        },
-                        {
-                            headers:{
-                                Authorization:this.$store.getters['auth/Token']
-                            }
-                        }
-                    ).then(()=>{   
-                        const index = this.datatable.indexOf(item);
-                        this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
-                    }).catch(()=>{
-                        this.btnLoadingTable=false;
-                    });
-                }                
-            });
-        },
+        },          
         async printpdf(item)
         {
             this.btnLoading=true;
@@ -347,6 +329,35 @@ export default {
                 this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
+        },
+        search ()
+        {
+            if (!this.awaiting_search) 
+            {
+                setTimeout(async () => {
+                    if (this.search.length > 0 && this.filter_ignore)
+                    {
+                        this.datatableLoading=true;            
+                        await this.$ajax.post('/akademik/nilai/khs/',            
+                        {
+                            prodi_id:this.prodi_id,
+                            ta:this.tahun_akademik,
+                            semester_akademik:this.semester_akademik,
+                            search:this.search
+                        },
+                        {
+                            headers: {
+                                Authorization:this.$store.getters['auth/Token']
+                            }
+                        }).then(({data})=>{               
+                            this.datatable = data.daftar_khs;
+                            this.datatableLoading=false;
+                        });                     
+                    }
+                    this.awaiting_search = false;
+                }, 1000); // 1 sec delay
+            }
+            this.awaiting_search = true;
         }
     },
     components:{
