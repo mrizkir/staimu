@@ -49,7 +49,7 @@
                             <v-row>
                                 <v-col xs="12" sm="12" md="6">
                                     <v-card flat>
-                                        <v-card-title>ID KRS:</v-card-title>  
+                                        <v-card-title>ID KONVERSI:</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_konversi.id}}
                                         </v-card-subtitle>

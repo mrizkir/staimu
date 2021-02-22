@@ -378,16 +378,28 @@ class NilaiKonversiController  extends Controller
         $data_konversi = NilaiKonversi1Model::find($request->input('nilai_konversi_id')); 
 
         $mahasiswa=RegisterMahasiswaModel::find($request->input('user_id'));
+        
+        if ($data_konversi->tahun == $mahasiswa->tahun)
+        {
+            $data_konversi->user_id=$mahasiswa->user_id;
+            $data_konversi->nim=$mahasiswa->nim;
+            $data_konversi->save();
 
-        $data_konversi->user_id=$mahasiswa->user_id;
-        $data_konversi->nim=$mahasiswa->nim;
-        $data_konversi->save();
-
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',                
-                                    'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
-                                ],200); 
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update',                
+                                        'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
+                                    ],200); 
+        }
+        else
+        {
+            return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'update',                
+                                        'message'=>["Data Konversi tidak bisa dihubungkan dengan nim ini karena beda tahun"]
+                                    ],422); 
+            
+        }
         
      
     }

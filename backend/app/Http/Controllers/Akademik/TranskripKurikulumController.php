@@ -139,7 +139,7 @@ class TranskripKurikulumController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'show',                
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
                                 ],422); 
         }
@@ -169,10 +169,14 @@ class TranskripKurikulumController  extends Controller
             $jumlah_m=0;
             $jumlah_matkul=0;
 
+            $user_id=$mahasiswa->user_id;
+            $data_konversi=\DB::table('pe3_nilai_konversi1')
+                                ->where('user_id',$user_id)
+                                ->first();
+
             $daftar_nilai=[];
             foreach ($daftar_matkul as $key=>$item)
-            {
-                $user_id=$mahasiswa->user_id;
+            {                
                 $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                             ->select(\DB::raw('
                                 A.n_kual,                                
@@ -181,7 +185,7 @@ class TranskripKurikulumController  extends Controller
                             ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
                             ->join('pe3_krs AS C','B.krs_id','C.id')
                             ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
-                            ->where('C.user_id',$mahasiswa->user_id)
+                            ->where('C.user_id',$user_id)
                             ->where('D.matkul_id',$item->id)
                             ->orderBy('n_mutu','desc')
                             ->limit(1)
@@ -201,6 +205,24 @@ class TranskripKurikulumController  extends Controller
                     $jumlah_matkul+=1;
                     $jumlah_sks_nilai+=$item->sks;
                 }
+                if (!is_null($data_konversi))
+                {
+                    $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                        ->where('nilai_konversi_id',$data_konversi->id)
+                        ->where('matkul_id',$item->id)
+                        ->value('n_kual');
+
+                    if (!is_null($n_kual_konversi))
+                    {
+                        $HM=$n_kual_konversi;
+                        $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                        $M=$AM*$item->sks;
+                        $jumlah_m+=$M;
+                        $jumlah_am+=$AM;
+                        $jumlah_matkul+=1;
+                        $jumlah_sks_nilai+=$item->sks;
+                    }
+                }
                 $daftar_nilai[]=[
                     'id'=>$item->id,
                     'no'=>$key+1,
@@ -217,12 +239,12 @@ class TranskripKurikulumController  extends Controller
                 $jumlah_sks+=$item->sks;                 
             }         
             $ipk=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks_nilai);            
-            $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
+            $rekap=RekapTranskripKurikulumModel::find($user_id);
             if (is_null($rekap))
             {
 
                 RekapTranskripKurikulumModel::updateOrCreate([
-                    'user_id'=>$mahasiswa->user_id,
+                    'user_id'=>$user_id,
                     'jumlah_matkul'=>$jumlah_matkul,
                     'jumlah_sks'=>$jumlah_sks_nilai,
                     'jumlah_am'=>$jumlah_am,
