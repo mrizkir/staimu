@@ -214,8 +214,21 @@ class TranskripKurikulumController  extends Controller
 
                     if (!is_null($n_kual_konversi))
                     {
-                        $HM=$n_kual_konversi;
-                        $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                        if ($HM == '-')
+                        {
+                            $HM=$n_kual_konversi;
+                            $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                        }
+                        else
+                        {
+                            $HM_KONVERSI=$n_kual_konversi;
+                            $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                            if ($AM_KONVERSI>$AM)
+                            {
+                                $HM=$HM_KONVERSI;
+                                $AM=$AM_KONVERSI;
+                            }
+                        }                        
                         $M=$AM*$item->sks;
                         $jumlah_m+=$M;
                         $jumlah_am+=$AM;
@@ -267,6 +280,7 @@ class TranskripKurikulumController  extends Controller
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
                                     'mahasiswa'=>$mahasiswa, 
+                                    'jumlah_matkul'=>$jumlah_matkul, 
                                     'nilai_matakuliah'=>$daftar_nilai,              
                                     'jumlah_sks'=>$jumlah_sks,              
                                     'jumlah_sks_nilai'=>$jumlah_sks_nilai,              

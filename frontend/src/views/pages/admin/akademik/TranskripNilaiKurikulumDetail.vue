@@ -76,62 +76,62 @@
                                 </template>
                                 <span>Cetak Transkrip Dua Kolom</span>                                   
                             </v-tooltip>                     
-                        </v-card-title>
-                        <v-card-text>
-                            <v-data-table        
-                                dense                        
-                                :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
-                                :disable-pagination="true"
-                                :hide-default-footer="true"                                                                
-                                :loading="datatableLoading"
-                                loading-text="Loading... Please wait"> 
-                                <template v-slot:item.actions="{ item }">
-                                    <v-tooltip bottom>             
-                                        <template v-slot:activator="{ on, attrs }">                                             
-                                            <v-btn 
-                                                v-bind="attrs"
-                                                v-on="on"
-                                                color="primary" 
-                                                icon 
-                                                outlined 
-                                                x-small 
-                                                class="ma-2" 
-                                                @click.stop="viewItem(item)"
-                                                :loading="btnLoading"
-                                                :disabled="btnLoading">
-                                                <v-icon>mdi-history</v-icon>
-                                            </v-btn>     
-                                        </template>
-                                        <span>Histori Nilai</span>                                   
-                                    </v-tooltip>                                     
-                                </template>                                                                          
-                                <template v-slot:body.append v-if="datatable.length > 0">                                   
-                                    <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="3">JUMLAH</td>
-                                        <td></td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{totalAM}}</td>
-                                        <td>{{totalSKS}}</td>
-                                        <td>{{totalM}}</td>                                        
-                                    </tr>
-                                    <tr class="grey lighten-4 font-weight-black">
-                                        <td class="text-right" colspan="3">IPK SEMENTARA</td>
-                                        <td>{{ipk}}</td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>                                        
-                                    </tr>
-                                </template>   
-                                <template v-slot:no-data>
-                                    Data matakuliah belum tersedia silahkan tambah
-                                </template>
-                            </v-data-table>
-                        </v-card-text>
+                        </v-card-title>                        
+                        <v-data-table        
+                            dense                        
+                            :headers="headers"
+                            :items="datatable"                                
+                            item-key="id"                                                        
+                            :disable-pagination="true"
+                            :hide-default-footer="true"                                                                
+                            :loading="datatableLoading"
+                            loading-text="Loading... Please wait"> 
+                            <template v-slot:item.actions="{ item }">
+                                <v-tooltip bottom>             
+                                    <template v-slot:activator="{ on, attrs }">                                             
+                                        <v-btn 
+                                            v-bind="attrs"
+                                            v-on="on"
+                                            color="primary" 
+                                            icon 
+                                            outlined 
+                                            x-small 
+                                            class="ma-2" 
+                                            @click.stop="viewItem(item)"
+                                            :loading="btnLoading"
+                                            :disabled="btnLoading">
+                                            <v-icon>mdi-history</v-icon>
+                                        </v-btn>     
+                                    </template>
+                                    <span>Histori Nilai</span>                                   
+                                </v-tooltip>                                     
+                            </template>                                                                          
+                            <template v-slot:body.append v-if="datatable.length > 0">                                   
+                                <tr class="grey lighten-4 font-weight-black">
+                                    <td class="text-right" colspan="3">JUMLAH</td>
+                                    <td></td> 
+                                    <td></td>
+                                    <td>{{jumlahMatkul}}</td>
+                                    <td>{{totalAM}}</td>
+                                    <td>{{totalSKS}}</td>
+                                    <td>{{totalM}}</td> 
+                                    <td></td>                                         
+                                </tr>
+                                <tr class="grey lighten-4 font-weight-black">
+                                    <td class="text-right" colspan="3">IPK SEMENTARA</td>
+                                    <td>{{ipk}}</td> 
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>                                        
+                                    <td></td>                                        
+                                </tr>
+                            </template>   
+                            <template v-slot:no-data>
+                                Data matakuliah belum tersedia silahkan tambah
+                            </template>
+                        </v-data-table>                        
                     </v-card>
                 </v-col>
             </v-row>
@@ -281,6 +281,7 @@ export default {
         search:'', 
 
         data_mhs:{},
+        jumlahMatkul:0, 
         totalSKS:0, 
         totalM:0, 
         totalAM:0, 
@@ -322,7 +323,7 @@ export default {
                 }
             }).then(({data})=>{                              
                 this.data_mhs=data.mahasiswa;
-                
+                this.jumlahMatkul=data.jumlah_matkul;
                 this.totalSKS=data.jumlah_sks;
                 this.totalM=data.jumlah_m;
                 this.totalAM=data.jumlah_am;
