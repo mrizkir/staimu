@@ -84,6 +84,7 @@
                         <v-list-item-title>BOARD AKADEMIK</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>                   
+                <v-subheader>PERWALIAN</v-subheader>
                 <v-list-item link to="/akademik/dosenwali" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('SYSTEM-USERS-DOSEN-WALI_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-teach</v-icon>

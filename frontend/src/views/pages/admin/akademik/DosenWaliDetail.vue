@@ -26,7 +26,11 @@
             </template>
         </ModuleHeader>        
         <v-container fluid>   
-            <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" /> 
+            <v-row class="mb-4" no-gutters>
+                <v-col cols="12">
+                    <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" /> 
+                </v-col>
+            </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -67,6 +71,111 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>                                 
+                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>                                    
+                                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
+                                        <v-card>
+                                            <v-toolbar elevation="2"> 
+                                                <v-toolbar-title>GANTI DOSEN WALI MAHASISWA</v-toolbar-title>
+                                                <v-divider
+                                                    class="mx-4"
+                                                    inset
+                                                    vertical
+                                                ></v-divider>
+                                                <v-spacer></v-spacer>
+                                                <v-icon                
+                                                    @click.stop="closedialogfrm()">
+                                                    mdi-close-thick
+                                                </v-icon>
+                                            </v-toolbar>
+                                            <v-card-text>  
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>ID :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.user_id}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>KELAS :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.nkelas}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                </v-row> 
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>NIM :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.nim}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>PROGRAM STUDI :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.nama_prodi}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                </v-row> 
+                                                <v-row no-gutters>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>NAMA MAHASISWA :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.nama_mhs}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-col xs="12" sm="6" md="6">
+                                                        <v-card flat>
+                                                            <v-card-title>TAHUN PENDAFTARAN :</v-card-title>
+                                                            <v-card-subtitle>
+                                                                {{data_mhs.tahun}}
+                                                            </v-card-subtitle>
+                                                        </v-card>
+                                                    </v-col>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                </v-row> 
+                                                <v-row no-gutters>   
+                                                    <v-col xs="12">                                      
+                                                        <v-select
+                                                            label="DOSEN WALI :"
+                                                            v-model="formdata.dosen_id"
+                                                            :items="daftar_dw"
+                                                            item-text="name"
+                                                            item-value="id"
+                                                            :rules="rule_dw"
+                                                            outlined/>                                                   
+                                                    </v-col>
+                                                </v-row>
+                                            </v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
+                                                <v-btn 
+                                                    color="blue darken-1" 
+                                                    text 
+                                                    @click.stop="changeDosenWali" 
+                                                    :loading="btnLoading"
+                                                    :disabled="!form_valid||btnLoading">
+                                                        GANTI
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-form>
+                                </v-dialog>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
@@ -75,7 +184,7 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN':'YA'}}
                         </template>
-                        <template v-slot:item.actions>                            
+                        <template v-slot:item.actions="{ item }">                            
                             <v-tooltip bottom>             
                                 <template v-slot:activator="{ on, attrs }">                                             
                                     <v-btn 
@@ -167,7 +276,24 @@ export default {
         ],
         expanded:[],
         search:'',
-        daftar_mahasiswa: [],               
+        daftar_mahasiswa: [], 
+
+        //form mahasiswa ganti dw
+        dialogfrm:false,
+        form_valid:true,   
+        data_mhs:{},
+        daftar_dw:[],     
+
+        formdata: {                                    
+            dosen_id:''           
+        },
+        formdefault: {                                    
+            dosen_id:''           
+        },
+
+        rule_dw:[
+            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+        ],         
     }),
     methods: {
         initialize:async function () 
@@ -205,31 +331,48 @@ export default {
                 this.expanded=[item];
             }               
         },   
-        showDialogChangeDW(item)
+        async showDialogChangeDW(item)
         {
-            console.log(item);
+            this.data_mhs = item;
+            console.log(this.data_mhs);
+            await this.$ajax.get('/akademik/dosenwali',{
+                headers: {
+                    Authorization:this.$store.getters['auth/Token']
+                }
+            }).then(({data})=>{                                  
+                this.dialogfrm=true;
+                this.daftar_dw = data.users; 
+                this.formdata.dosen_id = this.dosen_id;
+            }); 
         },                     
         changeDosenWali ()
         {
             this.btnLoading=true;
-            // this.$ajax.post('/akademik/dosenwali/'+item.id,
-            //     {
-            //         '_method':'PUT',
-            //         'dosen_id':'PUT',
-            //     },
-            //     {
-            //         headers:{
-            //             Authorization:this.TOKEN
-            //         }
-            //     }
-            // ).then(()=>{   
-            //     const index = this.daftar_mahasiswa.indexOf(item);
-            //     this.daftar_mahasiswa.splice(index, 1);
-            //     this.btnLoading=false;
-            // }).catch(()=>{
-            //     this.btnLoading=false;
-            // });
+            this.$ajax.post('/akademik/kemahasiswaan/updatedw/'+this.data_mhs.user_id,
+                {
+                    '_method':'PUT',
+                    'dosen_id':this.formdata.dosen_id,
+                },
+                {
+                    headers:{
+                        Authorization:this.TOKEN
+                    }
+                }
+            ).then(()=>{   
+                this.$router.go();
+                this.btnLoading=false;
+            }).catch(()=>{
+                this.btnLoading=false;
+            });
         },        
+        closedialogfrm () {            
+            this.dialogfrm = false;            
+            setTimeout(() => {       
+                this.formdata = Object.assign({}, this.formdefault);                                
+                this.data_mhs = Object.assign({}, {});   
+                }, 300
+            );
+        },
     },
     computed: {        
         ...mapGetters('auth',{            
