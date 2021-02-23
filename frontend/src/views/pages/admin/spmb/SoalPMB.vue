@@ -80,7 +80,11 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
-                                            <v-card-text>    
+                                            <v-card-text>  
+                                                <v-alert 
+                                                    class="warning">
+                                                    SOAL mohon jangan diberi nomor soal.
+                                                </v-alert>
                                                 <v-textarea 
                                                     v-model="formdata.soal" 
                                                     label="SOAL" 
@@ -151,6 +155,10 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-text>    
+                                                <v-alert 
+                                                    class="warning">
+                                                    SOAL mohon jangan diberi nomor soal.
+                                                </v-alert>
                                                 <v-textarea 
                                                     v-model="formdata.soal" 
                                                     label="SOAL" 

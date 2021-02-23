@@ -419,8 +419,7 @@ export default {
         },     
         viewItem(item)
         {
-            this.datamhsbaru = item;
-            this.dialogprofilmhsbaru = true;
+            this.$router.push('/spmb/nilaiujian/'+item.id+'/detail');
         },
         async addItem(item)
         {

@@ -223,6 +223,15 @@ const routes = [
 		component: () => import('../views/pages/admin/spmb/NilaiUjian.vue'),		
 	},	
 	{
+		path: '/spmb/nilaiujian/:user_id/detail',
+		name: 'SPMBNilaiUjianHasil',
+		meta:{
+			title: "SPMB - NILAI UJIAN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/spmb/NilaiUjianHasil.vue'),		
+	},	
+	{
 		path: '/spmb/jadwalujianpmb/passinggrade/:idjadwalujian',
 		name: 'SPMBPassingGrade',
 		meta:{

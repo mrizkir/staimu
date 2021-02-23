@@ -15,7 +15,7 @@
             </v-divider>
 		</v-system-bar>	
         <v-main>
-            <v-container fluid>
+            <v-container fluid fill-height>
                 <v-row>
                     <v-col cols="12">
                         <v-card 
@@ -25,7 +25,7 @@
                                 <v-row
                                     justify="center"
                                     alignment="center">
-                                    {{nama_soal}}
+                                    <pre>{{nama_soal}}</pre>
                                 </v-row>
                             </v-card-text>
                         </v-card>
@@ -38,10 +38,7 @@
                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
                 </v-row>
                 <v-row v-if="isprosesujian">
-                    <v-col cols="12">
-                        <v-btn class="mr-2">
-                            Review Kembali
-                        </v-btn>
+                    <v-col cols="12">                       
                         <v-btn 
                             @click.stop="selesaiUjian"
                             color="error">

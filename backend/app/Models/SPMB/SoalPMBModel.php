@@ -50,6 +50,6 @@ class SoalPMBModel extends Model {
 
     public function jawabanUjian()
     {
-        return $this->hasMany('App\Models\SPMB\JawabanSoalPMBModel','soal_id','id')->select(\DB::raw('id,soal_id,jawaban'));
+        return $this->hasMany('App\Models\SPMB\JawabanSoalPMBModel','soal_id','id')->select(\DB::raw('id,soal_id,jawaban'))->orderBy('jawaban','asc');
     }
 }
