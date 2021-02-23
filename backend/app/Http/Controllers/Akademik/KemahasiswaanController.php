@@ -142,11 +142,11 @@ class KemahasiswaanController extends Controller {
 
         $mahasiswa = RegisterMahasiswaModel::find($id); 
         
-        if ($user == null)
+        if (is_null($mahasiswa))
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'update',                
                                     'message'=>["Data Mahasiswa tidak ditemukan."]
                                 ],422);         
         }
