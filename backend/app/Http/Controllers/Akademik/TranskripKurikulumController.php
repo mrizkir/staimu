@@ -405,6 +405,9 @@ class TranskripKurikulumController  extends Controller
         else
         {
             $user_id=$mahasiswa->user_id;
+            $data_konversi=\DB::table('pe3_nilai_konversi1')
+                                ->where('user_id',$user_id)
+                                ->first();
             $daftar_nilai=[];
 
             $jumlah_matkul_all=0;
@@ -470,11 +473,37 @@ class TranskripKurikulumController  extends Controller
                     $M=$item->M;
 
                     if (isset($nilai[0]))
-                    {
+                    {                        
                         $HM=$nilai[0]->n_kual;
-                        $AM=number_format($nilai[0]->n_mutu,0);
-                        $M=$AM*$item->sks;
+                        $AM=number_format($nilai[0]->n_mutu,0);                       
 
+                        if (!is_null($data_konversi))
+                        {
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                            if (!is_null($n_kual_konversi))
+                            {
+                                if ($HM == '-')
+                                {
+                                    $HM=$n_kual_konversi;
+                                    $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                                }
+                                else
+                                {
+                                    $HM_KONVERSI=$n_kual_konversi;
+                                    $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                    if ($AM_KONVERSI>$AM)
+                                    {
+                                        $HM=$HM_KONVERSI;
+                                        $AM=$AM_KONVERSI;
+                                    }
+                                } 
+                            }
+                        }                        
+                        $M=$AM*$item->sks;
                         $jumlah_m_smt+=$M;
                         $jumlah_am_smt+=$AM;
                         $jumlah_matkul_smt+=1;
@@ -484,6 +513,30 @@ class TranskripKurikulumController  extends Controller
                         $jumlah_sks_all+=$item->sks;
                         $jumlah_am_all+=$jumlah_am_smt;                        
                     }
+                    else if (!is_null($data_konversi))
+                    {
+                        $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                        if (!is_null($n_kual_konversi))
+                        {
+                            $HM=$n_kual_konversi;
+                            $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+
+                            $M=$AM*$item->sks;
+                            $jumlah_m_smt+=$M;
+                            $jumlah_am_smt+=$AM;
+                            $jumlah_matkul_smt+=1;
+                            $jumlah_sks_smt+=$item->sks;
+
+                            $jumlah_m_all+=$M;
+                            $jumlah_sks_all+=$item->sks;
+                            $jumlah_am_all+=$jumlah_am_smt;                        
+                        }
+                    }
+
                     $data_nilai_smt[$key]=[
                         'pid'=>'body',
                         'no'=>$key+1,
@@ -643,6 +696,9 @@ class TranskripKurikulumController  extends Controller
         else
         {
             $user_id=$mahasiswa->user_id;
+            $data_konversi=\DB::table('pe3_nilai_konversi1')
+                                ->where('user_id',$user_id)
+                                ->first();
             $daftar_nilai=[];
             
             $pdf = new \App\Helpers\HelperReport('fpdf','Legal');                   
@@ -817,6 +873,33 @@ class TranskripKurikulumController  extends Controller
                         {
                             $HM=$nilai[0]->n_kual;
                             $AM=number_format($nilai[0]->n_mutu,0);
+
+                            if (!is_null($data_konversi))
+                            {
+                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                                if (!is_null($n_kual_konversi))
+                                {
+                                    if ($HM == '-')
+                                    {
+                                        $HM=$n_kual_konversi;
+                                        $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                                    }
+                                    else
+                                    {
+                                        $HM_KONVERSI=$n_kual_konversi;
+                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                        if ($AM_KONVERSI>$AM)
+                                        {
+                                            $HM=$HM_KONVERSI;
+                                            $AM=$AM_KONVERSI;
+                                        }
+                                    } 
+                                }    
+                            }
                             $M=$AM*$item->sks;
                             $genap_total_m+=$M;
                             $totalSks+=$item->sks;
@@ -825,6 +908,33 @@ class TranskripKurikulumController  extends Controller
 
                             $rpt->Cell(1,0.5,$HM,1,null,'C');
                             $rpt->Cell(1,0.5,$AM,1,null,'C');
+                        }
+                        else if (!is_null($data_konversi))
+                        {
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                            if (!is_null($n_kual_konversi))
+                            {
+                                $HM=$n_kual_konversi;
+                                $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+
+                                $M=$AM*$item->sks;
+                                $genap_total_m+=$M;
+                                $totalSks+=$item->sks;
+                                $totalM+=$M;
+                                $totalAM+=$AM;
+
+                                $rpt->Cell(1,0.5,$HM,1,null,'C');
+                                $rpt->Cell(1,0.5,$AM,1,null,'C');
+                            }
+                            else
+                            {
+                                $rpt->Cell(1,0.5,'-',1,null,'C');
+                                $rpt->Cell(1,0.5,'-',1,null,'C');
+                            }
                         }
                         else
                         {
@@ -877,6 +987,32 @@ class TranskripKurikulumController  extends Controller
                         {
                             $HM=$nilai[0]->n_kual;
                             $AM=number_format($nilai[0]->n_mutu,0);
+                            if (!is_null($data_konversi))
+                            {
+                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                                if (!is_null($n_kual_konversi))
+                                {
+                                    if ($HM == '-')
+                                    {
+                                        $HM=$n_kual_konversi;
+                                        $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+                                    }
+                                    else
+                                    {
+                                        $HM_KONVERSI=$n_kual_konversi;
+                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                        if ($AM_KONVERSI>$AM)
+                                        {
+                                            $HM=$HM_KONVERSI;
+                                            $AM=$AM_KONVERSI;
+                                        }
+                                    } 
+                                }    
+                            }
                             $M=$AM*$item->sks;
                             $ganjil_total_m+=$M;
                             $totalSks+=$item->sks;
@@ -885,6 +1021,33 @@ class TranskripKurikulumController  extends Controller
 
                             $rpt->Cell(1,0.5,$HM,1,null,'C');
                             $rpt->Cell(1,0.5,$AM,1,null,'C');
+                        }
+                        else if (!is_null($data_konversi))
+                        {
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                                ->where('nilai_konversi_id',$data_konversi->id)
+                                                ->where('matkul_id',$item->id)
+                                                ->value('n_kual');
+
+                            if (!is_null($n_kual_konversi))
+                            {
+                                $HM=$n_kual_konversi;
+                                $AM=\App\Helpers\HelperAkademik::getNilaiMutu($HM);
+
+                                $M=$AM*$item->sks;
+                                $ganjil_total_m+=$M;
+                                $totalSks+=$item->sks;
+                                $totalM+=$M;
+                                $totalAM+=$AM;
+
+                                $rpt->Cell(1,0.5,$HM,1,null,'C');
+                                $rpt->Cell(1,0.5,$AM,1,null,'C');
+                            }
+                            else
+                            {
+                                $rpt->Cell(1,0.5,'-',1,null,'C');
+                                $rpt->Cell(1,0.5,'-',1,null,'C');
+                            }
                         }
                         else
                         {
