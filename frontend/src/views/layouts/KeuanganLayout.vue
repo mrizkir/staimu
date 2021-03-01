@@ -217,6 +217,17 @@
         <v-main class="mx-4 mb-4">			
 			<slot />
 		</v-main>
+        <v-footer app padless fixed>
+			<v-card class="flex" color="yellow darken-2" flat tile>
+				<v-divider></v-divider>
+				<v-card-text class="py-2 black--text text-center">
+					<strong>{{APP_NAME}} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
+					<v-btn icon href="https://github.com/mrizkir/stiemu">
+						<v-icon>mdi-github</v-icon>
+					</v-btn>					
+				</v-card-text>
+			</v-card>			
+		</v-footer>  
     </div>    
 </template>
 <script>
