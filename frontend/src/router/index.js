@@ -396,6 +396,24 @@ const routes = [
 		component: () => import('../views/pages/admin/keuangan/TransaksiInvoice.vue'),
 	},
 	{
+		path: '/keuangan/transaksi-kkn',
+		name: 'KeuanganTransaksiKKN',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI KKN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiKKN.vue'),
+	},
+	{
+		path: '/keuangan/transaksi-kkn/:transaksi_id',
+		name: 'KeuanganTransaksiKKN',
+		meta:{
+			title: "KEUANGAN - TRANSAKSI KKN",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/keuangan/TransaksiInvoice.vue'),
+	},
+	{
 		path: '/keuangan/konfirmasipembayaran',
 		name: 'KeuanganKonfirmasiPembayaran',
 		meta:{

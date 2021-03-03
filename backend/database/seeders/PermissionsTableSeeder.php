@@ -232,6 +232,11 @@ class PermissionsTableSeeder extends Seeder
             'KEUANGAN-TRANSAKSI-DULANG-MHS-BARU',
             'KEUANGAN-TRANSAKSI-SPP',            
             'KEUANGAN-TRANSAKSI-REGISTRASIKRS',
+            'KEUANGAN-TRANSAKSI-KKN',
+            'KEUANGAN-TRANSAKSI-PKL',
+            'KEUANGAN-TRANSAKSI-SEMINAR',
+            'KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH',
+            'KEUANGAN-TRANSAKSI-WISUDA',
             'KEUANGAN-KONFIRMASI-PEMBAYARAN',
 
             'AKADEMIK-MATAKULIAH',
