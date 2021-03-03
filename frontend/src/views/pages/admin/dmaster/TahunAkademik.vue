@@ -498,7 +498,7 @@ export default {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{
+                    ).then(()=>{
                         this.$router.go();
                         this.btnLoading=false;
                     }).catch(()=>{
