@@ -469,11 +469,11 @@ export default {
         },
         editItem (item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);
-            this.semester_ganjil[0]=this.formdata.awal_ganjil;
-            this.semester_ganjil[1]=this.formdata.akhir_ganjil;
-            this.semester_genap[0]=this.formdata.awal_genap;
-            this.semester_genap[1]=this.formdata.akhir_genap;
+            this.formdata = Object.assign({}, item);            
+            this.semester_ganjil[0]=this.formdata.awal_ganjil == null ? item.tahun+'-09-01':item.awal_ganjil;
+            this.semester_ganjil[1]=this.formdata.akhir_ganjil == null ? (item.tahun+1)+'-02-31':item.akhir_ganjil;            
+            this.semester_genap[0]=this.formdata.awal_genap == null ? (item.tahun+1)+'-03-01':item.awal_genap;
+            this.semester_genap[1]=this.formdata.akhir_genap == null ? (item.tahun+1)+'-08-31':item.akhir_genap;
             this.old_tahun=item.tahun;
             this.dialogfrm = true
         },
@@ -499,8 +499,7 @@ export default {
                             }
                         }
                     ).then(({data})=>{
-                        Object.assign(this.datatable[this.editedIndex], data.ta);
-                        this.closedialogfrm();
+                        this.$router.go();
                         this.btnLoading=false;
                     }).catch(()=>{
                         this.btnLoading=false;
@@ -556,21 +555,10 @@ export default {
             });
         },
         closedialogdetailitem () {
-            this.dialogdetailitem = false;
-            setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault)
-                this.editedIndex = -1
-                }, 300
-            );
+            this.$router.go();
         },
         closedialogfrm () {
-            this.dialogfrm = false;
-            setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);
-                this.$refs.frmdata.reset();
-                this.editedIndex = -1
-                }, 300
-            );
+            this.$router.go();
         },
     },
     computed: {
