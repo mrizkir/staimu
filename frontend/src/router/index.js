@@ -47,7 +47,7 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),
 	},
-	//fasilitas
+	// dmaster - fasilitas
 	{
 		path: '/dmaster/ruangkelas',
 		name: 'DMasterRuangKelas',
@@ -66,7 +66,7 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/dmaster/Kelas.vue'),
 	},
-	//pmb
+	// dmaster - pmb
 	{
 		path: '/dmaster/persyaratanpmb',
 		name: 'DMasterPersyaratanPMB',

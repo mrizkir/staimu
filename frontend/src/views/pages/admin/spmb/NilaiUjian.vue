@@ -192,6 +192,9 @@
                                     </v-avatar>                                                                                                  
                             </v-badge>
                         </template>
+                        <template v-slot:item.no_formulir="{ item }">
+                            {{item.no_formulir == null ? 'N.A':item.no_formulir}}
+                        </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon
                                 small
@@ -211,6 +214,7 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
+                                    <strong>Username:</strong>{{ item.username }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
                                 </v-col>      
@@ -292,7 +296,7 @@ export default {
         datatable:[],
         headers: [                        
             { text: '', value: 'foto', width:70 },               
-            { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable:true },
+            { text: 'NO. FORMULIR', value: 'no_formulir',width:135,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
             { text: 'KELAS', value: 'nkelas',width:100,sortable:true },

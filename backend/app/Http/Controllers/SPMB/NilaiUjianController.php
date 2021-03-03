@@ -33,6 +33,7 @@ class NilaiUjianController extends Controller {
         $data = FormulirPendaftaranModel::select(\DB::raw('
                         users.id,
                         pe3_formulir_pendaftaran.no_formulir,
+                        users.username,
                         users.name,
                         users.nomor_hp,
                         COALESCE(pe3_nilai_ujian_pmb.nilai,\'N.A\') AS nilai,
