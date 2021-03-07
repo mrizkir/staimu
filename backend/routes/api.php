@@ -215,6 +215,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->put('/keuangan/transaksi/verifikasi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@verifikasi','as'=>'transaksi.verifikasi']);
     //digunakan untuk mendapatkan spp milik user_id mhs baru dengan status sudah bayar
     $router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
+    $router->delete('/keuangan/transaksi/{$id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);
 
     //keuangan - transaksi spp
     $router->post('/keuangan/transaksi-spp',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@index','as'=>'transaksi-spp.index']);
