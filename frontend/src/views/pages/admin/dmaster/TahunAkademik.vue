@@ -336,7 +336,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -420,7 +420,7 @@ export default {
 
             //form rules
             rule_tahun:[
-                value => !!value||"Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
+                value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
                 value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',                
                 value => {                    
                     if (value && typeof value !== 'undefined' && value.length > 0){
@@ -433,7 +433,7 @@ export default {
                 }
             ],
             rule_tahun_akademik:[                
-                value => !!value||"Mohon untuk di isi nama tahun akademik !!!",
+                value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
             ],            
         }
     },
@@ -477,7 +477,7 @@ export default {
             this.old_tahun=item.tahun;
             this.dialogfrm = true
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -588,7 +588,7 @@ export default {
             {
                   return this.semester_genap.join(' ~ ');
             }
-        },           
+        },   
     },
     components:{
         DataMasterLayout,

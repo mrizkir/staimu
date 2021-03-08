@@ -229,49 +229,49 @@ export default {
             idkelas:'',
         },
         rule_nama_mhs:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
         rule_nidn:[
-            value => !!value||"Mohon untuk di isi NIDN !!!",                     
+            value => !!value || "Mohon untuk di isi NIDN !!!",                     
             value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',                
         ],         
         rule_nipy:[
-            value => !!value||"Mohon untuk di isi NIP Yayasan !!!",                     
+            value => !!value || "Mohon untuk di isi NIP Yayasan !!!",                     
             value => /^[0-9]+$/.test(value) || 'NIP Yayasan hanya boleh angka',                
         ],         
         rule_tempat_lahir:[
-            value => !!value||"Tempat Lahir mohon untuk diisi !!!"
+            value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
         rule_tanggal_lahir:[
-            value => !!value||"Tanggal Lahir mohon untuk diisi !!!"
+            value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
         ], 
         rule_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_email:[
-            value => !!value||"Email mohon untuk diisi !!!",
+            value => !!value || "Email mohon untuk diisi !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
         ],
         rule_nama_ibu_kandung:[
-            value => !!value||"Nama Ibu Kandung mohon untuk diisi !!!",
+            value => !!value || "Nama Ibu Kandung mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Ibu Kandung hanya boleh string dan spasi',
         ], 
         rule_desa:[
-            value => !!value||"Mohon Desa mohon untuk diisi !!!"
+            value => !!value || "Mohon Desa mohon untuk diisi !!!"
         ], 
         rule_alamat_rumah:[
-            value => !!value||"Alamat Rumah mohon untuk diisi !!!"
+            value => !!value || "Alamat Rumah mohon untuk diisi !!!"
         ], 
         rule_fakultas:[
-            value => !!value||"Fakultas mohon untuk dipilih !!!"
+            value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
         rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
+            value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
         rule_kelas:[
-            value => !!value||"Kelas mohon untuk dipilih !!!"
+            value => !!value || "Kelas mohon untuk dipilih !!!"
         ], 
     }),
     methods: {
@@ -340,7 +340,7 @@ export default {
                 this.kode_billing=data.no_transaksi;
                 this.$refs.frmdata.resetValidation();       
             });
-        },        
+        },
         save: async function ()
         {
             if (this.$refs.frmdata.validate())

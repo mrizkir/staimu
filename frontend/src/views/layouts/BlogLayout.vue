@@ -3,16 +3,12 @@
         <v-system-bar app dark :class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')">
             <strong>Hak Akses Sebagai :</strong> {{ROLE}}
 		</v-system-bar>	
-        <v-app-bar app>            
+        <v-app-bar app>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="grey--text"></v-app-bar-nav-icon>
             <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/'+$store.getters['auth/AccessToken']).catch(err => {})">
 				<span class="hidden-sm-and-down">{{APP_NAME}}</span>
 			</v-toolbar-title>
-            <v-spacer></v-spacer>            
-            <v-divider
-                class="mx-4"
-                inset
-                vertical
-            ></v-divider>
+            <v-spacer></v-spacer>                        
             <v-menu 
                 :close-on-content-click="true"
                 origin="center center"
@@ -40,12 +36,6 @@
                         </v-list-item-content>
                     </v-list-item>                    
                     <v-divider/>
-                    <v-list-item to="/system-users/mypermission">
-                        <v-list-item-icon class="mr-2">
-							<v-icon>mdi-account-key</v-icon>
-						</v-list-item-icon>
-                        <v-list-item-title>My Permission</v-list-item-title>
-                    </v-list-item>
                     <v-list-item to="/system-users/profil">
                         <v-list-item-icon class="mr-2">
 							<v-icon>mdi-account</v-icon>
@@ -60,8 +50,77 @@
                         <v-list-item-title>Logout</v-list-item-title>
                     </v-list-item>
                 </v-list>
-            </v-menu>			
-        </v-app-bar>                    
+            </v-menu>
+            <v-divider
+                class="mx-4"
+                inset
+                vertical
+            ></v-divider>
+			<v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight">
+                <v-icon>mdi-menu-open</v-icon>
+			</v-app-bar-nav-icon>            
+        </v-app-bar>    
+        <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="temporaryleftsidebar" app>
+			<v-list-item>
+				<v-list-item-avatar>
+					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
+				</v-list-item-avatar>
+				<v-list-item-content>					
+					<v-list-item-title class="title">
+						{{ATTRIBUTE_USER('username')}}
+					</v-list-item-title>
+					<v-list-item-subtitle>
+						[{{DEFAULT_ROLE}}]
+					</v-list-item-subtitle>
+				</v-list-item-content>
+			</v-list-item>
+			<v-divider></v-divider>
+            <v-list expand>
+                <v-list-item :to="{path:'/blog'}" v-if="CAN_ACCESS('BLOG-GROUP')" link class="yellow" color="green" >
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-home-floor-b</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>BOARD BLOG</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>                                
+                <v-subheader>PAGES</v-subheader>
+                <v-list-item link to="/blog/pages/infokampus">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-seat-legroom-extra</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            INFO KAMPUS
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>  
+            </v-list>
+        </v-navigation-drawer>
+        <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
+            <v-list dense>
+                <v-list-item>		
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-menu-open</v-icon>
+                    </v-list-item-icon>			
+                    <v-list-item-content>									
+                        <v-list-item-title class="title">
+                            OPTIONS
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item class="teal lighten-5 mb-5">
+                    <v-list-item-icon class="mr-2">
+                        <v-icon>mdi-filter</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>								
+                        <v-list-item-title>FILTER</v-list-item-title>
+                    </v-list-item-content>		
+                </v-list-item>
+                <slot name="filtersidebar"/>		                	
+            </v-list>
+		</v-navigation-drawer>
         <v-main class="mx-4 mb-4">			
 			<slot />
 		</v-main>
@@ -81,7 +140,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'AdminLayout',  
+    name:'BlogLayout',  
     props:{
         showrightsidebar:{
             type:Boolean,
@@ -153,7 +212,7 @@ export default {
 				photo = this.$api.url+'/'+img;	
 			}
 			return photo;
-        },  
+        },   
     },
     watch: {
         loginTime:{

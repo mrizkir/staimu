@@ -231,7 +231,7 @@ export default {
                 }
             });  
         },
-        showPilihJadwal:async function()
+        showPilihJadwal: async function()
         {
             this.dialogpilihjadwal = true;  
             let tahun_pendaftaran=this.$store.getters['auth/AttributeUser']('ta');        
@@ -280,7 +280,7 @@ export default {
             let waktu_selesai = this.$date(item.tanggal_ujian + ' '+item.jam_selesai_ujian);
             return waktu_selesai.diff(waktu_mulai,'minute') + ' menit';
         },
-        mulaiUjian:async function()
+        mulaiUjian: async function()
         {          
             this.btnLoading=false;
             await this.$ajax.post('/spmb/ujianonline/mulaiujian',

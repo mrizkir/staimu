@@ -283,9 +283,9 @@ export default {
         total_tidak_lulus:0,
         daftar_tidak_lulus:[],        
         headers: [                        
-            { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},               
-            { text: 'JENJANG', value: 'nama_jenjang', sortable:false},               
-            { text: 'JUMLAH', align:'end',value: 'jumlah', sortable:false},                
+            { text: 'NAMA PRODI', value: 'nama_prodi', sortable:false},       
+            { text: 'JENJANG', value: 'nama_jenjang', sortable:false},       
+            { text: 'JUMLAH', align:'end',value: 'jumlah', sortable:false},        
         ], 
     }),
     methods : {
@@ -293,7 +293,7 @@ export default {
         {
             this.tahun_pendaftaran=tahun;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             this.datatableLoading=true;            
             await this.$ajax.post('/dashboard/pmb',
@@ -336,7 +336,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,           
+        ModuleHeader,   
         Filter9,        
     },
 }

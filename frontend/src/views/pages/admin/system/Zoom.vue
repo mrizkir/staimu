@@ -334,7 +334,7 @@ export default {
             { text: 'KETERANGAN', value: 'desc' },
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -373,17 +373,17 @@ export default {
 
         //form rules  
         rule_email:[
-            value => !!value||"Mohon untuk mengisi Email !!!",
+            value => !!value || "Mohon untuk mengisi Email !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ], 
         rule_api_key:[
-            value => !!value||"Mohon untuk mengisi API Key !!!",  
+            value => !!value || "Mohon untuk mengisi API Key !!!",  
         ], 
         rule_api_secret:[
-            value => !!value||"Mohon untuk mengisi API Secret !!!",  
+            value => !!value || "Mohon untuk mengisi API Secret !!!",  
         ],
         rule_im_token:[
-            value => !!value||"Mohon mengisi IM Token !!!",  
+            value => !!value || "Mohon mengisi IM Token !!!",  
         ],
     }),
     methods: {
@@ -428,7 +428,7 @@ export default {
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true;
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -543,11 +543,11 @@ export default {
     computed: {        
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     components:{
         SystemConfigLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

@@ -118,7 +118,7 @@
     </v-card>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
     name: 'RolePermissions',
     data: () => ({
@@ -127,9 +127,9 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },      
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },          
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },  
         ],
-        search:'',        
+        search: "",    
         perm_selected:[]
     }),
     methods: {

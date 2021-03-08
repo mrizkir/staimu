@@ -12,7 +12,7 @@ export default {
             post : async function (path)
             {
                 return await ajax.post(path);
-            },            
+            },    
         };        
         Vue.prototype.$ajax = ajax;
     }

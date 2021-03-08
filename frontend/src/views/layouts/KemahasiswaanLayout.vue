@@ -137,7 +137,7 @@
     </div>    
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
     name:'KemahasiswaanLayout',     
     created()
@@ -217,7 +217,7 @@ export default {
 				photo = this.$api.url+'/'+img;	
 			}
 			return photo;
-        },        
+        },
         paramid ()
         {
             var id='empty';                        
@@ -248,7 +248,7 @@ export default {
                 }
             },
             immediate:true
-        },        
+        },
     }
 }
 </script>

@@ -181,32 +181,32 @@ export default {
             status_mhs:[],
         },
         rule_nim:[
-            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
         rule_nirm:[
-            value => !!value||"Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
         ], 
         rule_nama_mhs:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],         
         rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
+            value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
         rule_kelas:[
-            value => !!value||"Kelas mohon untuk dipilih !!!"
+            value => !!value || "Kelas mohon untuk dipilih !!!"
         ],
         rule_dw:[
-            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+            value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
         
         datatableLoading:false,
         headers: [                                                
             { text: 'TAHUN AKADEMIK', value: 'ta',sortable:false },
             { text: 'SEMESTER', value: 'semester',sortable:false },
-            { text: 'STATUS', value: 'k_status',sortable:false, width:250 },                 
+            { text: 'STATUS', value: 'k_status',sortable:false, width:250 },         
         ],
     }),
     methods : {
@@ -214,7 +214,7 @@ export default {
         {
             this.tahun_pendaftaran=tahun;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
             this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];                      
@@ -296,7 +296,7 @@ export default {
     },
     components:{
         SystemMigrationLayout,
-        ModuleHeader,           
+        ModuleHeader,   
         Filter9,        
     },
 }

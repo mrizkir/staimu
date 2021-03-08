@@ -117,7 +117,7 @@ import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter2 from '@/components/sidebar/FilterMode2';
 
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
     name: 'NilaiIsiPerKelasMHS',
@@ -161,11 +161,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable:true  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true  },                           
-            { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },               
-            { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                           
-            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                           
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true  },                   
+            { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },       
+            { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                   
+            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search:'', 
@@ -179,7 +179,7 @@ export default {
         changeSemesterAkademik (semester)
         {
             this.semester_akademik=semester;
-        },        
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;
@@ -211,7 +211,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },                
+        },        
     },
     watch:{
         tahun_akademik()
@@ -227,7 +227,7 @@ export default {
             {
                 this.initialize();
             }            
-        },        
+        },
     },
     computed:{
         ...mapGetters('auth',{            

@@ -74,7 +74,7 @@ export default {
         {
             this.tahun_akademik=tahun;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             this.datatableLoading=true;            
             
@@ -94,7 +94,7 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,           
+        ModuleHeader,   
         Filter1,      
     },
 }

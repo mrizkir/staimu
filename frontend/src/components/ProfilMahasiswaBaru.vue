@@ -190,7 +190,7 @@ export default {
                 tanggal_lahir:tanggal_lahir,
                 created_at:tanggal_sekarang,
                 updated_at:tanggal_sekarang
-            },        
+            },
         }
     },
     methods: {
@@ -201,7 +201,7 @@ export default {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
                     }
-                },                
+                },        
             ).then(({data})=>{   
                 this.datamhs=Object.assign(data.formulir,{
                                                             nama_prodi:this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1),

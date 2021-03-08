@@ -175,7 +175,7 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: '', value: 'foto', width:70 },               
+            { text: '', value: 'foto', width:70 },       
             { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
@@ -192,7 +192,7 @@ export default {
         filter_status:1,  
         form_valid:true,   
 
-        data_mhs:{},        
+        data_mhs:{},
         daftar_prodi:[],        
         
     }),
@@ -205,7 +205,7 @@ export default {
         {
             this.prodi_id=id;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             switch(this.dashboard)
             {
@@ -256,7 +256,7 @@ export default {
         {
             this.datamhsbaru = item;
             this.dialogprofilmhsbaru = true;
-        },                
+        },        
         printtoexcel:async function ()
         {
             this.btnLoading=true;
@@ -286,7 +286,7 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             });     
-        },             
+        },     
         closeProfilMahasiswaBaru ()
         {
             this.dialogprofilmhsbaru = false;                     
@@ -311,7 +311,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,                
+        ModuleHeader,        
         ProfilMahasiswaBaru,
         Filter7    
     },

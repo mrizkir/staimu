@@ -184,7 +184,7 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: '', value: 'foto', width:70 },               
+            { text: '', value: 'foto', width:70 },       
             { text: 'NO. FORMULIR', value: 'no_formulir',width:140,sortable:true },
             { text: 'USERNAME', value: 'username',width:150,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
@@ -206,7 +206,7 @@ export default {
         {
             this.prodi_id=id;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             switch(this.dashboard)
             {
@@ -285,7 +285,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader,
         FormMhsBaru,
         ProfilMahasiswaBaru,
         Filter7    

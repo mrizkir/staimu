@@ -97,8 +97,8 @@ export default {
         kombi_genap_cancelled:[],       
 
         headers: [                        
-            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable:false},               
-            { text: 'JUMLAH', align:'end',value: 'jumlah',width:250, sortable:false},                
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable:false},       
+            { text: 'JUMLAH', align:'end',value: 'jumlah',width:250, sortable:false},        
         ], 
         //statistik
         total_transaction:0,
@@ -113,7 +113,7 @@ export default {
         }
     },
     methods:{
-        initialize:async function()
+        initialize: async function()
 		{	
             this.datatableLoading=true;            
             await this.$ajax.post('/dashboard/keuangan',

@@ -107,13 +107,13 @@ export default {
         expanded:[],
         datatable:[],
         headers: [            
-            { text: 'ID', value: 'id_channel',width:10,sortable:false },                                           
-            { text: 'NAMA CHANNEL', value: 'nama_channel',sortable:false},                                   
+            { text: 'ID', value: 'id_channel',width:10,sortable:false },                                   
+            { text: 'NAMA CHANNEL', value: 'nama_channel',sortable:false},                           
         ],      
         
     }),
     methods : {        
-        initialize:async function()
+        initialize: async function()
 		{
             this.datatableLoading=true;            
             await this.$ajax.get('/keuangan/channelpembayaran',
@@ -137,11 +137,11 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },                
+        },        
     },   
     components:{
         KeuanganLayout,
-        ModuleHeader,            
+        ModuleHeader,    
     },
 }
 </script>

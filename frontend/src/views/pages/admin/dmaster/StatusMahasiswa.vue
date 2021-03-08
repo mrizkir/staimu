@@ -97,11 +97,11 @@ export default {
         datatable:[],
         headers: [                                            
             { text: 'ID', value: 'k_status',width:10,sortable:false },
-            { text: 'NAMA STATUS', value: 'n_status',sortable:false},                        
+            { text: 'NAMA STATUS', value: 'n_status',sortable:false},                
         ],        
     }),
     methods : {
-        initialize:async function()
+        initialize: async function()
 		{
             this.datatableLoading=true;            
             await this.$ajax.get('/datamaster/statusmahasiswa',            
@@ -128,7 +128,7 @@ export default {
     },
     components:{
         DataMasterLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 }
 </script>

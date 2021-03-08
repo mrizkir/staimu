@@ -241,11 +241,11 @@ export default {
         headers: [                                                
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
             { text: 'TANGGAL', value: 'tanggal',width:90,sortable:true },
-            { text: 'NO. FORMULIR', value: 'no_formulir',sortable:true,width:100 },            
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },            
+            { text: 'NO. FORMULIR', value: 'no_formulir',sortable:true,width:100 },    
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },    
             { text: 'SMT', value: 'idsmt',width:100,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false,align:'right' },
-            { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
+            { text: 'STATUS', value: 'nama_status',width:100,sortable:false },    
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],        
         expanded:[],
@@ -263,7 +263,7 @@ export default {
             no_formulir:'',            
         },
         rule_no_formulir:[
-            value => !!value||"Nomor Formulir mohon untuk diisi !!!",
+            value => !!value || "Nomor Formulir mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Formulir hanya boleh angka',
         ],        
     }),
@@ -314,7 +314,7 @@ export default {
         {
             this.$router.push('/keuangan/transaksi-dulangmhsbaru/'+item.transaksi_id);
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -417,7 +417,7 @@ export default {
             {
                 this.initialize();
             }            
-        },        
+        },
         prodi_id(val)
         {
             if (!this.firstloading)

@@ -456,7 +456,7 @@ export default {
                 { text: 'JUMLAH PESERTA', value: 'jumlah_peserta', sortable: true,width:100 },
                 { text: 'AKSI', value: 'actions', sortable: false,width:100 },
             ],
-            search:'',    
+            search: "",
 
             //dialog
             dialogfrm:false,
@@ -509,10 +509,10 @@ export default {
 
             //form rules          
             rule_nama_kegiatan:[
-                value => !!value||"Mohon untuk di isi nama ujian online !!!",                  
+                value => !!value || "Mohon untuk di isi nama ujian online !!!",                  
             ], 
             rule_jumlah_soal:[
-                value => !!value||"Mohon untuk di isi jumlah soal ujian !!!",  
+                value => !!value || "Mohon untuk di isi jumlah soal ujian !!!",  
                 value => /^[0-9]+$/.test(value) || 'Jumlah soal ujian hanya boleh angka',    
                 value => {
                     if (value && typeof value !== 'undefined' && value.length > 0) 
@@ -638,7 +638,7 @@ export default {
                 this.btnLoading=false;
             });              
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -743,11 +743,11 @@ export default {
     computed: {        
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH JADWAL' : 'UBAH JADWAL'
-        },        
+        },
     },
     components:{
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

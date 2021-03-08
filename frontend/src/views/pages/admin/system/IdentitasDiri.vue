@@ -75,7 +75,7 @@
     </SystemConfigLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -119,13 +119,13 @@ export default {
         },
         //form rules        
         rule_nama_pt:[
-            value => !!value||"Mohon untuk di isi Nama Perguruan Tinggi !!!",             
+            value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!",             
         ], 
         rule_nama_singkatan_pt:[
-            value => !!value||"Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",             
+            value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",             
         ],
         rule_kode_pt:[
-            value => !!value||"Mohon untuk di isi Kode Perguruan Tinggi !!!",                     
+            value => !!value || "Mohon untuk di isi Kode Perguruan Tinggi !!!",                     
             value => /^[0-9]+$/.test(value) || 'Kode Perguruan Tinggi hanya boleh angka',
         ]
     }),
@@ -182,7 +182,7 @@ export default {
     },
     components:{
 		SystemConfigLayout,
-        ModuleHeader,        
+        ModuleHeader,
 	}
 }
 </script>

@@ -254,28 +254,28 @@ export default {
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',                
         ], 
         rule_nama_dosen:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],         
         rule_tempat_lahir:[
-            value => !!value||"Tempat Lahir mohon untuk diisi !!!"
+            value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
         rule_tanggal_lahir:[
-            value => !!value||"Tanggal Lahir mohon untuk diisi !!!"
+            value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
         ], 
         rule_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_email:[
-            value => !!value||"Email mohon untuk diisi !!!",
+            value => !!value || "Email mohon untuk diisi !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
         ],   
         rule_desa:[
-            value => !!value||"Mohon Desa mohon untuk diisi !!!"
+            value => !!value || "Mohon Desa mohon untuk diisi !!!"
         ], 
         rule_alamat_rumah:[
-            value => !!value||"Alamat Rumah mohon untuk diisi !!!"
+            value => !!value || "Alamat Rumah mohon untuk diisi !!!"
         ],         
     }),
     methods: {
@@ -313,7 +313,7 @@ export default {
                 this.formdata.alamat_rumah=data.biodatadiri.alamat_rumah;                    
                 this.$refs.frmdata.resetValidation();       
             });
-        },        
+        },
         save: async function ()
         {
             if (this.$refs.frmdata.validate())

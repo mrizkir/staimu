@@ -134,7 +134,7 @@
     </SystemUserLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -169,10 +169,10 @@ export default {
         //tables
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },            
+            { text: 'GUARD', value: 'guard_name' },    
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',        
+        search: "",    
         //form
         form_valid:true,
         dialog: false,
@@ -193,7 +193,7 @@ export default {
         },
         //form rules        
         rule_permission_name:[
-            value => !!value||"Mohon untuk di isi nama Permission !!!",  
+            value => !!value || "Mohon untuk di isi nama Permission !!!",  
             value => /^[0-9\\a-zA-Z\\-]+$/.test(value) || 'Nama Permission hanya boleh angka,huruf,dan tanda -',                
         ], 
     }),

@@ -365,7 +365,7 @@ export default {
                 text:'NILAI',
                 disabled:false,
                 href:'#'
-            },            
+            },    
             {
                 text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled:false,
@@ -394,14 +394,14 @@ export default {
         datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },               
-            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },               
-            { text: 'SKS', value: 'sks',sortable:false, width:70 },                           
-            { text: 'SMT', value: 'semester',sortable:true,width:70, },                           
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                           
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                           
-            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                           
-            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                                       
+            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },       
+            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },       
+            { text: 'SKS', value: 'sks',sortable:false, width:70 },                   
+            { text: 'SMT', value: 'semester',sortable:true,width:70, },                   
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                   
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                   
+            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                   
+            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                               
         ],  
 
         dialogprintpdf:false,
@@ -426,7 +426,7 @@ export default {
             
             'kjur':'',
             'perpanjangan':'',   
-        },        
+        },
         
         //profil mahasiswa        
         entries:[],
@@ -454,7 +454,7 @@ export default {
                 this.daftar_jenjang=data.jenjangstudi;
             }); 
         },   
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;  
@@ -628,7 +628,7 @@ export default {
                     value: this.data_mhs[key] || 'n/a',
                 }
             })
-        },           
+        },   
     },
     watch:{
         search (val) 
@@ -662,7 +662,7 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader,    
     },
 }
 </script>

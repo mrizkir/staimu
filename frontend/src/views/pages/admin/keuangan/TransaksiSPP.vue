@@ -233,11 +233,11 @@ export default {
             { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
             { text: 'TANGGAL', value: 'tanggal',width:90,sortable:true },
             { text: 'NIM', value: 'nim',sortable:true,width:100 },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },            
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true, width:250 },    
             { text: 'BULAN', value: 'nama_bulan',width:100,sortable:true },
             { text: 'TA/SMT', value: 'idsmt',width:50,sortable:false },
             { text: 'JUMLAH', value: 'sub_total',width:100,sortable:false,align:'right' },
-            { text: 'STATUS', value: 'nama_status',width:100,sortable:false },            
+            { text: 'STATUS', value: 'nama_status',width:100,sortable:false },    
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
         expanded:[],
@@ -257,11 +257,11 @@ export default {
             semester_akademik:''
         },
         rule_nim:[
-            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
         rule_semester:[
-            value => !!value||"Mohon dipilih Semester untuk transaksi ini !!!"
+            value => !!value || "Mohon dipilih Semester untuk transaksi ini !!!"
         ],    
 
     }),
@@ -318,7 +318,7 @@ export default {
         {
             this.$router.push('/keuangan/transaksi-spp/'+item.transaksi_id);
         },
-        buatTransaksi:async function () {
+        buatTransaksi: async function() {
             if (this.$refs.frmdata.validate())
             {
                 await this.$ajax.post('/keuangan/transaksi-spp/new',

@@ -226,7 +226,7 @@
     </AkademikLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import ProfilDosen from '@/components/ProfilDosen';
@@ -271,7 +271,7 @@ export default {
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',width:250,sortable:true },
             { text: 'PROGRAM STUDI', value: 'nama_prodi',width:150,sortable:true },     
             { text: 'KELAS', value: 'nkelas',width:150,sortable:true },     
-            { text: 'TAHUN MASUK', value: 'tahun',sortable:true },                 
+            { text: 'TAHUN MASUK', value: 'tahun',sortable:true },         
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],
         expanded:[],
@@ -292,7 +292,7 @@ export default {
         },
 
         rule_dw:[
-            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+            value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
     }),
     methods: {
@@ -344,7 +344,7 @@ export default {
                 this.daftar_dw = data.users; 
                 this.formdata.dosen_id = this.dosen_id;
             }); 
-        },                     
+        },             
         changeDosenWali ()
         {
             this.btnLoading=true;
@@ -364,7 +364,7 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             });
-        },        
+        },
         closedialogfrm () {            
             this.dialogfrm = false;            
             setTimeout(() => {       

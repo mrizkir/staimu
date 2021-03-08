@@ -24,6 +24,14 @@ class PermissionsTableSeeder extends Seeder
             'updated_at'=>Carbon::now()
         ]);
 
+        //blog
+        \DB::table('permissions')->insert([
+            'name'=>"BLOG-GROUP",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
+
         //dmaster
         \DB::table('permissions')->insert([
             'name'=>"DMASTER-GROUP",
@@ -207,6 +215,8 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $modules = [
+            'BLOG-POST',
+
             'DMASTER-TA',
             'DMASTER-FAKULTAS',
             'DMASTER-PRODI',

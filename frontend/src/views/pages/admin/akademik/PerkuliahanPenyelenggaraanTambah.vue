@@ -303,20 +303,20 @@ export default {
         datatable:[],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },               
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },               
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'',    
+        search: "",
 
         //formdata
         form_valid:true,   
         formdata:[],
         daftar_matkul_selected:[],
         rule_tamatkul:[
-            value => !!value||"Mohon tahun matakuliah untuk dipilih !!!",              
+            value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",              
         ]        
 
     }),
@@ -365,7 +365,7 @@ export default {
             });
             this.dialogdetailitem=true;                        
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {                
                 this.btnLoading=true;
@@ -409,11 +409,11 @@ export default {
         ta_matkul(val)
         {
             this.fetchMatkul(val);                        
-        },        
+        },
     },
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader,    
     },
 }
 </script>

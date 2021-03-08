@@ -225,7 +225,7 @@
     </SystemUserLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import RolePermissions from '@/views/pages/admin/system/RolePermissions';
@@ -263,13 +263,13 @@ export default {
         //tables
         headers: [                        
             { text: 'NAMA ROLE', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },            
+            { text: 'GUARD', value: 'guard_name' },    
             { text: 'AKSI', value: 'actions', sortable: false,width:130 },
         ],
         //tables
         headersdetail: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },                          
+            { text: 'GUARD', value: 'guard_name' },                  
         ],
         search:'',
         //form
@@ -294,7 +294,7 @@ export default {
         },
         //form rules        
         rule_role_name:[
-            value => !!value||"Mohon untuk di isi nama Role !!!",  
+            value => !!value || "Mohon untuk di isi nama Role !!!",  
             value => /^[A-Za-z]*$/.test(value) || 'Nama Role hanya boleh string',                
         ], 
         form_error_message:''
@@ -433,7 +433,7 @@ export default {
                     });
                 }
             }
-        },        
+        },
     },
     computed:{        
         formTitle () {

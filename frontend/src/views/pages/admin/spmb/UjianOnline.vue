@@ -97,7 +97,7 @@ export default {
         {
             this.initialize();
         },
-        selesaiUjian:async function()
+        selesaiUjian: async function()
         {
             this.btnLoading=true;
             await this.$ajax.post('/spmb/ujianonline/selesaiujian',    

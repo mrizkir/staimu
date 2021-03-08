@@ -5,6 +5,22 @@
         </v-container>        
         <v-container fluid v-else>
             <v-row>
+                <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('BLOG-GROUP')">
+                    <v-card 
+                        min-height="140"
+                        class="clickable green darken-1"
+                        color="#385F73" 
+                        @click.native="$router.push('/blog')"
+                        dark>
+                        <v-card-title class="headline">
+                            BLOG
+                        </v-card-title>                        
+                        <v-card-text>
+                            Modul digunakan untuk info kampus, pengumuman, berita, informasi kepada mahasiswa atau pihak lainnya.
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                 <v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
                     <v-card 
                         min-height="140"
@@ -191,7 +207,7 @@ export default {
         tahun_pendaftaran:'',
 	}),
 	methods : {
-		initialize:async function()
+		initialize: async function()
 		{	            
             await this.$ajax.get('/auth/me',                
             {

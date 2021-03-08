@@ -126,7 +126,7 @@
     </FrontLayout>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 import VueRecaptcha from 'vue-recaptcha';
 import FrontLayout from '@/views/layouts/FrontLayout';
 export default {
@@ -166,28 +166,28 @@ export default {
             code:''
         },
         rule_name:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
         rule_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_email:[
-            value => !!value||"Email mohon untuk diisi !!!",
+            value => !!value || "Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ],
         rule_fakultas:[
-            value => !!value||"Fakultas mohon untuk dipilih !!!"
+            value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
         rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
+            value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
         rule_username:[
-            value => !!value||"Username mohon untuk diisi !!!"
+            value => !!value || "Username mohon untuk diisi !!!"
         ], 
         rule_password:[
-            value => !!value||"Password mohon untuk diisi !!!"
+            value => !!value || "Password mohon untuk diisi !!!"
         ],        
         rule_code:[
             value => /^[0-9]+$/.test(value) || 'Code hanya boleh angka',

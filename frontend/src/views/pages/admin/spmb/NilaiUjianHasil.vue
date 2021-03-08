@@ -88,7 +88,7 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: '', value: 'foto', width:70 },               
+            { text: '', value: 'foto', width:70 },       
             { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
@@ -134,7 +134,7 @@ export default {
         }, 
     }),
     methods : {        
-		initialize:async function()
+		initialize: async function()
 		{	
             switch(this.dashboard)
             {
@@ -228,7 +228,7 @@ export default {
                         kjur:this.formdata.kjur,
                         ket_lulus:this.formdata.ket_lulus,
                         desc:this.formdata.desc,
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -252,7 +252,7 @@ export default {
                         kjur:this.formdata.kjur,
                         ket_lulus:this.formdata.ket_lulus,
                         desc:this.formdata.desc,
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -277,7 +277,7 @@ export default {
                     this.$ajax.post('/spmb/nilaiujian/'+item.id,
                     {
                         '_method':'DELETE',
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -309,7 +309,7 @@ export default {
     },    
     components:{
         SPMBLayout,
-        ModuleHeader,                        
+        ModuleHeader,                
     },
 }
 </script>

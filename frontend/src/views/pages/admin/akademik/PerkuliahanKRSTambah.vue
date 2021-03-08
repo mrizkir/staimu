@@ -140,13 +140,13 @@ export default {
         datatable:[],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },               
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },               
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'',    
+        search: "",
 
         //formdata
         form_valid:true,   
@@ -154,13 +154,13 @@ export default {
         formdata:{
             nim:'',
             dulang_id:''
-        },        
+        },
         rule_nim:[
-            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
         rule_dulang:[
-            value => !!value||"Mohon dipilih Daftar Ulang yang telah dilakukan !!!"
+            value => !!value || "Mohon dipilih Daftar Ulang yang telah dilakukan !!!"
         ],         
     }),
     methods: {          
@@ -185,7 +185,7 @@ export default {
                 this.fetchDulang();
             }
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -217,7 +217,7 @@ export default {
     
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader,    
     },
 }
 </script>

@@ -83,7 +83,7 @@
     </SystemConfigLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -130,13 +130,13 @@ export default {
         },
         //form rules        
         rule_default_ta:[
-            value => !!value||"Mohon untuk dipilih Tahun Akademik !!!",             
+            value => !!value || "Mohon untuk dipilih Tahun Akademik !!!",             
         ], 
         rule_default_semester:[
-            value => !!value||"Mohon untuk diisi Semester !!!",             
+            value => !!value || "Mohon untuk diisi Semester !!!",             
         ],
         rule_tahun_pendaftaran:[
-            value => !!value||"Mohon untuk dipilih Tahun Pendaftaran !!!",                                 
+            value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",                                 
         ]
     }),
     methods: {
@@ -190,7 +190,7 @@ export default {
     },
     components:{
 		SystemConfigLayout,
-        ModuleHeader,        
+        ModuleHeader,
 	}
 }
 </script>

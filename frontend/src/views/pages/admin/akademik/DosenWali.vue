@@ -119,7 +119,7 @@
     </AkademikLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -156,7 +156,7 @@ export default {
             { text: 'NAMA DOSEN', value: 'name',sortable:true },
             { text: 'NIDN', value: 'nidn',sortable:true },     
             { text: 'NIPY', value: 'nipy',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },                 
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },         
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
         expanded:[],
@@ -188,10 +188,10 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },                
+        },        
         viewItem:async function (item) {
             this.$router.push('/akademik/dosenwali/'+item.id)
-        },                
+        },        
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
@@ -229,11 +229,11 @@ export default {
         },
         dialogAlihkan (val) {
             val || this.close()
-        },        
+        },
     },    
     components:{
         AkademikLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 }
 </script>

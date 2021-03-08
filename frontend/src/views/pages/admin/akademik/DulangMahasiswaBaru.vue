@@ -152,8 +152,8 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:150  },   
             { text: 'NIM', value: 'nim', sortable:true,width:150  },   
             { text: 'NIRM', value: 'nirm', sortable:true,width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                           
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                           
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                   
+            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'', 
@@ -176,15 +176,15 @@ export default {
             dosen_id:''           
         },
         rule_nim:[
-            value => !!value||"Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
         rule_nirm:[
-            value => !!value||"Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
+            value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
         ], 
         rule_dw:[
-            value => !!value||"Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+            value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],
 
     }),

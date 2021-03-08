@@ -15,6 +15,13 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-container fluid>
+            <v-row>
+                <v-col cols="12">
+                    <h3>INFO KAMPUS</h3>
+                </v-col>
+            </v-row>
+        </v-container>
     </FrontLayout>
 </template>
 <script>

@@ -286,7 +286,7 @@
     </SystemUserLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
@@ -364,23 +364,23 @@ export default {
         },
         //form rules        
         rule_user_name:[
-            value => !!value||"Mohon untuk di isi nama User !!!",  
+            value => !!value || "Mohon untuk di isi nama User !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',                
         ], 
         rule_user_email:[
-            value => !!value||"Mohon untuk di isi email User !!!",  
+            value => !!value || "Mohon untuk di isi email User !!!",  
             value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',       
         ], 
         rule_user_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_user_username:[
-            value => !!value||"Mohon untuk di isi username User !!!",  
+            value => !!value || "Mohon untuk di isi username User !!!",  
             value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',                    
         ], 
         rule_user_password:[
-            value => !!value||"Mohon untuk di isi password User !!!",
+            value => !!value || "Mohon untuk di isi password User !!!",
             value => {
                 if (value && typeof value !== 'undefined' && value.length > 0){
                     return value.length >= 8 || 'Minimial Password 8 karaketer';
@@ -655,7 +655,7 @@ export default {
         },
         dialogEdit (val) {
             val || this.close()
-        },        
+        },
     },    
     components:{
         SystemUserLayout,

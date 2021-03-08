@@ -280,10 +280,10 @@ export default {
         datatable:[], 
         headers: [                                                
             { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable:false },
-            { text: 'BULAN', value: 'nama_bulan',sortable:false },            
-            { text: 'TAHUN', value: 'tahun',sortable:false },            
+            { text: 'BULAN', value: 'nama_bulan',sortable:false },    
+            { text: 'TAHUN', value: 'tahun',sortable:false },    
             { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable:false },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },           
+            { text: 'AKSI', value: 'actions', sortable: false,width:100 },   
         ],              
         //form
         form_valid:true  
@@ -308,7 +308,7 @@ export default {
                 this.datatableLoading=false;
             });                     
         }, 
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 
@@ -330,7 +330,7 @@ export default {
                     this.btnLoading=false;
                 });
             }
-        },        
+        },
         deleteItem (item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
@@ -391,7 +391,7 @@ export default {
     },
     components:{
         KeuanganLayout,
-        ModuleHeader,             
+        ModuleHeader,     
     },
 }
 </script>

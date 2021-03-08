@@ -98,11 +98,11 @@ export default {
         headers: [                                            
             { text: 'ID', value: 'id',width:10,sortable:false },
             { text: 'NAMA KOMPONEN', value: 'nama',sortable:false},
-            { text: 'PERIODE', value: 'periode',width:150,sortable:false },            
+            { text: 'PERIODE', value: 'periode',width:150,sortable:false },    
         ],        
     }),
     methods : {
-        initialize:async function()
+        initialize: async function()
 		{
             this.datatableLoading=true;            
             await this.$ajax.get('/keuangan/komponenbiaya',            
@@ -129,7 +129,7 @@ export default {
     },
     components:{
         KeuanganLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 }
 </script>

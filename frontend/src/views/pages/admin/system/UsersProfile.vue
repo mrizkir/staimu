@@ -276,11 +276,11 @@ export default {
             },
             //form rules  
             rule_foto:[
-                value => !!value||"Mohon pilih gambar !!!",  
+                value => !!value || "Mohon pilih gambar !!!",  
                 value =>  !value || value.size < 2000000 || 'File foto harus kurang dari 2MB.'                
             ], 
             rule_user_password:[
-                value => !!value||"Mohon untuk di isi password User !!!",
+                value => !!value || "Mohon untuk di isi password User !!!",
                 value => {
                     if (value && typeof value !== 'undefined' && value.length > 0){
                         return value.length >= 8 || 'Minimial Password 8 karaketer';
@@ -364,7 +364,7 @@ export default {
         resetFoto:async function () 
         {
             this.btnLoading=true;
-            await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},                    
+            await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},            
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token'],                              

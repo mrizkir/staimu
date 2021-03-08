@@ -261,7 +261,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter9 from '@/components/sidebar/FilterMode9';
@@ -298,11 +298,11 @@ export default {
         datatable:[],      
         headers: [
             { text: 'PROSES', value: 'proses', sortable:true,width:120  },   
-            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable:true },                           
-            { text: 'TA', value: 'ta',sortable:true,width:80, align:'center' },                           
+            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable:true },                   
+            { text: 'TA', value: 'ta',sortable:true,width:80, align:'center' },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -331,17 +331,17 @@ export default {
 
         //form rules      
         rule_nama_persyaratan:[
-            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",              
+            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",              
         ],         
         rule_dari_tahun_pendaftaran:[
-            value => !!value||"Mohon Tahun Pendaftaran sumber persyaratan untuk dipilih !!!",              
+            value => !!value || "Mohon Tahun Pendaftaran sumber persyaratan untuk dipilih !!!",              
         ],             
     }),
     methods: {
         ChangeTahunPendaftaran (tahun)
         {
             this.tahun_pendaftaran=tahun;
-        },        
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;
@@ -373,7 +373,7 @@ export default {
                 this.expanded=[item];
             }               
         },
-        tambahItem:async function()
+        tambahItem: async function()
         {   
             this.dialogfrm=true;
         },
@@ -402,7 +402,7 @@ export default {
             }            
             this.dialogcopypersyaratan=true;
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -529,7 +529,7 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH PERSYARATAN PMB' : 'UBAH PERSYARATAN PMB'
-        },         
+        }, 
     },
     watch:{
         tahun_pendaftaran()
@@ -538,7 +538,7 @@ export default {
             {
                 this.initialize();
             }            
-        },        
+        },
     },
     components:{
         DataMasterLayout,

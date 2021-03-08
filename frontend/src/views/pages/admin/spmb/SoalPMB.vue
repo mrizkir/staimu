@@ -361,7 +361,7 @@ export default {
             { text: 'JAWABAN', value: 'jawaban', sortable: false,}, 
             { text: 'KET.', value: 'status', sortable: false,width:100 },
         ],
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -419,16 +419,16 @@ export default {
 
         //form rules      
         rule_soal:[
-            value => !!value||"Mohon untuk di isi soal !!!",              
+            value => !!value || "Mohon untuk di isi soal !!!",              
         ], 
         rule_gambar:[            
             value =>  !value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
         ],
         rule_jawaban:[
-            value => !!value||"Mohon isi jawaban dari soal ini",              
+            value => !!value || "Mohon isi jawaban dari soal ini",              
         ], 
         rule_jawaban_benar:[
-            value => !!value||"Mohon pilih jawaban benar dari soal ini",              
+            value => !!value || "Mohon pilih jawaban benar dari soal ini",              
         ], 
     }),
     methods: {
@@ -518,7 +518,7 @@ export default {
                 }                
             }          
         },   
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -555,7 +555,7 @@ export default {
                             jawaban_benar:this.formdata.jawaban_benar,                            
                             tahun_pendaftaran:this.tahun_pendaftaran,
                             semester_pendaftaran:this.semester_pendaftaran
-                        },                        
+                        },                
                         {
                             headers:{
                                 Authorization:this.$store.getters['auth/Token']
@@ -643,7 +643,7 @@ export default {
         },
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     watch:{
         tahun_pendaftaran()
@@ -672,7 +672,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader,
         Filter19,        
     },
 

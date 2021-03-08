@@ -75,7 +75,7 @@
     </SystemConfigLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -118,7 +118,7 @@ export default {
             header_3:null,
             header_4:null,
             header_address:null,
-        },        
+        },
     }),
     methods: {
         initialize:async function () 
@@ -176,7 +176,7 @@ export default {
     },
     components:{
 		SystemConfigLayout,
-        ModuleHeader,        
+        ModuleHeader,
 	}
 }
 </script>

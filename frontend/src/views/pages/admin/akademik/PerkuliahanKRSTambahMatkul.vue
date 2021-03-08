@@ -147,10 +147,10 @@ export default {
         datatable:[],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'SKS', value: 'sks', sortable:false,width:120 },                           
-            { text: 'SMT', value: 'semester', sortable:false,width:120 },                                       
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable:false,width:120 },                                       
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
+            { text: 'SKS', value: 'sks', sortable:false,width:120 },                   
+            { text: 'SMT', value: 'semester', sortable:false,width:120 },                               
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable:false,width:120 },                               
         ],  
     }),
     methods: {          
@@ -195,7 +195,7 @@ export default {
                 });  
             }
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 

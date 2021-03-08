@@ -76,7 +76,7 @@
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
                                             <v-card-text>
-                                                 <v-select 
+                                                <v-select 
                                                     v-model="formdata.kode_fakultas" 
                                                     label="FAKULTAS"
                                                     :items="daftar_fakultas"
@@ -243,7 +243,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -427,7 +427,7 @@ export default {
             }
             this.dialogfrm = true
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;

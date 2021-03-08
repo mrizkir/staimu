@@ -388,11 +388,11 @@ export default {
                   
         //tables
         headers: [                        
-            { text: '', value: 'foto', width:70 },            
+            { text: '', value: 'foto', width:70 },    
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'USERNAME', value: 'username',sortable:true },
             { text: 'EMAIL', value: 'email',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:false,width:130 },                
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable:false,width:130 },        
             { text: 'TGL.DAFTAR', value: 'created_at',sortable:true,width:100 },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
@@ -436,28 +436,28 @@ export default {
         editedIndex: -1,
 
         rule_name:[
-            value => !!value||"Nama Mahasiswa mohon untuk diisi !!!",
+            value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
         rule_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_email:[
-            value => !!value||"Email mohon untuk diisi !!!",
+            value => !!value || "Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ],   
         rule_fakultas:[
-            value => !!value||"Fakultas mohon untuk dipilih !!!"
+            value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
         rule_prodi:[
-            value => !!value||"Program studi mohon untuk dipilih !!!"
+            value => !!value || "Program studi mohon untuk dipilih !!!"
         ],      
         rule_username:[
-            value => !!value||"Username mohon untuk diisi !!!"
+            value => !!value || "Username mohon untuk diisi !!!"
         ], 
         rule_password:[
-            value => !!value||"Password mohon untuk diisi !!!"
+            value => !!value || "Password mohon untuk diisi !!!"
         ], 
     }),
     methods: {
@@ -567,7 +567,7 @@ export default {
             }   
             this.dialogfrm = true;                       
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -782,7 +782,7 @@ export default {
     computed: {        
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     
     components:{

@@ -267,14 +267,14 @@ export default {
         datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'NO', value: 'no', sortable:true,width:50  },               
-            { text: 'MATAKULIAH', value: 'nmatkul',sortable:true,width:350 },                           
-            { text: 'KODE', value: 'kmatkul',sortable:true,width:120, },                           
-            { text: 'SMT', value: 'semester',sortable:true,width:80, },                           
-            { text: 'KLP', value: 'group_alias',sortable:true,width:100, },                           
-            { text: 'HM', value: 'HM',sortable:false,width:100, },                           
-            { text: 'AM', value: 'AM',sortable:false,width:100, },                           
-            { text: 'K', value: 'sks',sortable:true,width:100, },                           
+            { text: 'NO', value: 'no', sortable:true,width:50  },       
+            { text: 'MATAKULIAH', value: 'nmatkul',sortable:true,width:350 },                   
+            { text: 'KODE', value: 'kmatkul',sortable:true,width:120, },                   
+            { text: 'SMT', value: 'semester',sortable:true,width:80, },                   
+            { text: 'KLP', value: 'group_alias',sortable:true,width:100, },                   
+            { text: 'HM', value: 'HM',sortable:false,width:100, },                   
+            { text: 'AM', value: 'AM',sortable:false,width:100, },                   
+            { text: 'K', value: 'sks',sortable:true,width:100, },                   
             { text: 'M', value: 'M', sortable: false,width:100 },
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],  
@@ -292,12 +292,12 @@ export default {
         data_history:[],
         expanded:[],
         history_headers: [                                    
-            { text: 'NILAI HURUF', value: 'n_kual',sortable:true,width:80, },                                       
-            { text: 'NILAI AKHIR', value: 'n_kuan',sortable:false,width:100, },                           
-            { text: 'NILAI MUTU', value: 'n_mutu',sortable:true,width:100, },                           
-            { text: 'TA.SMT', value: 'tasmt',sortable:false,width:100, },                           
-            { text: 'TA.MATKUL', value: 'ta_matkul',sortable:false,width:100, },                                       
-            { text: 'DI INPUT OLEH', value: 'username',sortable:false,width:100, },                                       
+            { text: 'NILAI HURUF', value: 'n_kual',sortable:true,width:80, },                               
+            { text: 'NILAI AKHIR', value: 'n_kuan',sortable:false,width:100, },                   
+            { text: 'NILAI MUTU', value: 'n_mutu',sortable:true,width:100, },                   
+            { text: 'TA.SMT', value: 'tasmt',sortable:false,width:100, },                   
+            { text: 'TA.MATKUL', value: 'ta_matkul',sortable:false,width:100, },                               
+            { text: 'DI INPUT OLEH', value: 'username',sortable:false,width:100, },                               
         ],  
 
         dialoghistory:false,
@@ -335,7 +335,7 @@ export default {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;                        
-        },        
+        },
         async viewItem(item)
         {
             this.btnLoading=true;
@@ -357,7 +357,7 @@ export default {
             }).catch(()=>{
                 this.btnLoading=false;
             });   
-        },        
+        },
         dataTableRowClicked(item)
         {
             if ( item === this.expanded[0])
@@ -423,7 +423,7 @@ export default {
     },
     components:{
         AkademikLayout,
-        ModuleHeader,          
+        ModuleHeader,  
         ProfilMahasiswa  
     },
 }

@@ -231,11 +231,11 @@ export default {
         headers: [
             { text: 'NIM', value: 'nim', sortable:true,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },   
-            { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },               
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },               
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },               
-            { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                           
-            { text: 'SAH', value: 'sah',sortable:true, width:100},                           
+            { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },       
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },       
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },       
+            { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                   
+            { text: 'SAH', value: 'sah',sortable:true, width:100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:140 },
         ],  
         search:'', 
@@ -306,7 +306,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },          
+        },  
         async printpdf(item)
         {
             this.btnLoading=true;
@@ -331,7 +331,7 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/krs/'+item.id+'/verifikasi',
                 {
                     _method:'put'
-                },             
+                },     
                 {
                     headers:{
                         Authorization:this.$store.getters['auth/Token']
@@ -375,7 +375,7 @@ export default {
                 this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
-        },        
+        },
         search ()
         {
             if (!this.awaiting_search) 

@@ -181,7 +181,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -238,10 +238,10 @@ export default {
 
         //form rules
         rule_nama_ruang:[
-            value => !!value||"Mohon untuk di isi nama ruang !!!",
+            value => !!value || "Mohon untuk di isi nama ruang !!!",
         ],
         rule_kapasitas:[
-            value => !!value||"Kapasitas Ruangan mohon untuk diisi !!!",
+            value => !!value || "Kapasitas Ruangan mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Kapasitas Ruangan Kelas hanya boleh angka',            
         ],        
     }),
@@ -280,7 +280,7 @@ export default {
             this.formdata = Object.assign({}, item);            
             this.dialogfrm = true
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;

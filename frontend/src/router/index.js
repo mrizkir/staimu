@@ -20,7 +20,7 @@ const routes = [
 			title: "PENDAFTARAN MAHASISWA BARU"
 		},
 		component: () => import('../views/pages/front/PMB.vue')
-	},
+	},	
 	{
 		path: '/login',
 		name: 'FrontLogin',
@@ -36,6 +36,24 @@ const routes = [
 			title: "DASHBOARD",
         },
 		component: () => import('../views/pages/admin/Dashboard.vue'),
+	},
+	//blog
+	{
+		path: '/blog',
+		name: 'Blog',
+		meta:{
+			title: "BLOG"
+		},
+		component: () => import('../views/pages/admin/blog/Blog.vue')
+	},
+	//blog - pages
+	{
+		path: '/blog/pages/infokampus',
+		name: 'BlogPageInfoKapus',
+		meta:{
+			title: "BLOG - PAGE - INFO KAMPUS"
+		},
+		component: () => import('../views/pages/admin/blog/PageInfoKampus.vue')
 	},
 	//dmaster
 	{
@@ -406,7 +424,7 @@ const routes = [
 	},
 	{
 		path: '/keuangan/transaksi-kkn/:transaksi_id',
-		name: 'KeuanganTransaksiKKN',
+		name: 'KeuanganTransaksiKKNDetail',
 		meta:{
 			title: "KEUANGAN - TRANSAKSI KKN",
 			requiresAuth:true,

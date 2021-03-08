@@ -268,36 +268,36 @@ export default {
             ruang_kelas_id:'',
         },
         rule_dosen:[
-            value => !!value||"Mohon dipilih Dosen pengampu matakuliah !!!"
+            value => !!value || "Mohon dipilih Dosen pengampu matakuliah !!!"
         ],
         rule_kode_matkul:[
-            value => !!value||"Kode Program Studi mohon untuk diisi !!!",
+            value => !!value || "Kode Program Studi mohon untuk diisi !!!",
         ],
         rule_nama_matakuliah:[
-            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",
+            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",
         ],
         rule_sks:[
-            value => !!value||"Mohon SKS Matakuliah untuk dipilih !!!",
+            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",
         ],
         rule_matakuliah:[
-            value => !!value||"Mohon dipilih matakuliah yang diselenggaran untuk dosen pengampu ini!!!"
+            value => !!value || "Mohon dipilih matakuliah yang diselenggaran untuk dosen pengampu ini!!!"
         ],
         rule_kelas:[
-            value => !!value||"Mohon dipilih kelas matakuliah ini!!!"
+            value => !!value || "Mohon dipilih kelas matakuliah ini!!!"
         ],
         rule_hari:[
-            value => !!value||"Mohon dipilih hari mengajar!!!"
+            value => !!value || "Mohon dipilih hari mengajar!!!"
         ],
         rule_jam_masuk:[
-            value => !!value||"Mohon diisi jam masuk mengajar!!!",
+            value => !!value || "Mohon diisi jam masuk mengajar!!!",
             value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
         ],
         rule_jam_keluar:[
-            value => !!value||"Mohon diisi jam keluar mengajar!!!",
+            value => !!value || "Mohon diisi jam keluar mengajar!!!",
             value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
         ],
         rule_ruang_kelas:[
-            value => !!value||"Mohon dipilih ruang kelas mengajar!!!"
+            value => !!value || "Mohon dipilih ruang kelas mengajar!!!"
         ],
     }),
     methods: {
@@ -335,7 +335,7 @@ export default {
             });
             
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;

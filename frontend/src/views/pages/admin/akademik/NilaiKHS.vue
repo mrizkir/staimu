@@ -204,12 +204,12 @@ export default {
         headers: [
             { text: 'NIM', value: 'nim', sortable:true,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },   
-            { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },               
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },               
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },               
-            { text: 'IPS', value: 'ips',sortable:true, width:50},                           
-            { text: 'IPK', value: 'ipk',sortable:true, width:50},                           
-            { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                                       
+            { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },       
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },       
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },       
+            { text: 'IPS', value: 'ips',sortable:true, width:50},                   
+            { text: 'IPK', value: 'ipk',sortable:true, width:50},                   
+            { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                               
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search:'', 
@@ -280,7 +280,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },          
+        },  
         async printpdf(item)
         {
             this.btnLoading=true;

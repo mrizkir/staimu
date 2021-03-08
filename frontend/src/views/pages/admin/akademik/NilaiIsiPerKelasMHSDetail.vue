@@ -163,16 +163,16 @@ export default {
         datatableLoading:false,
         btnLoading:false,  
         
-        datatable:[],            
+        datatable: [],    
         datatable_peserta:[],                 
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
             { text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
-            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                                   
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false },                                                   
-            { text: 'NILAI HURUP', value: 'n_kual', sortable:false },                                                   
+            { text: 'KELAS', value: 'idkelas', sortable:false  },                   
+            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                           
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false },                                           
+            { text: 'NILAI HURUP', value: 'n_kual', sortable:false },                                           
         ],                
 
         //formdata
@@ -215,7 +215,7 @@ export default {
                 this.datatableLoading=false;
                 this.datatable_peserta=data.peserta;   
             })              
-        },        
+        },
         async fetchPeserta()
         {
             this.datatableLoading=true;
@@ -228,7 +228,7 @@ export default {
                 this.datatable_peserta=data.peserta;                                
                 this.datatableLoading=false;
             })   
-        },          
+        },  
         save()
         {
             

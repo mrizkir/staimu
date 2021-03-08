@@ -80,7 +80,7 @@ export default {
     },    
     components:{
         KeuanganLayout,
-        ModuleHeader,           
+        ModuleHeader,   
         Filter1,      
         DashboardKeuanganMHS,
         DashboardKeuanganAdmin 

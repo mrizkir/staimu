@@ -228,7 +228,7 @@ export default {
         datatableLoading:false,
         btnLoading:false,  
         
-        datatable:[],            
+        datatable: [],    
         datatable_peserta:[],                 
         headers_peserta: [             
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
@@ -236,11 +236,11 @@ export default {
             { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable:false,width:100   },   
             { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable:false,width:100   },   
             { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable:false,width:100   },   
-            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable:false,width:100   },               
-            { text: 'NILAI UTS', value: 'nilai_uts', sortable:false,width:100   },                           
-            { text: 'NILAI UAS', value: 'nilai_uas', sortable:false,width:100  },                                                   
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                                                   
-            { text: 'NILAI HURUP', value: 'n_kual', sortable:false,width:100 },                                                   
+            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable:false,width:100   },       
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable:false,width:100   },                   
+            { text: 'NILAI UAS', value: 'nilai_uas', sortable:false,width:100  },                                           
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                                           
+            { text: 'NILAI HURUP', value: 'n_kual', sortable:false,width:100 },                                           
         ],                
 
         //formdata
@@ -276,7 +276,7 @@ export default {
                 this.datatableLoading=false;                
                 this.datatable_peserta=data.peserta;   
             })              
-        },             
+        },     
         updateNKuan(props)
         {
             var nilai_absen=0;
@@ -411,7 +411,7 @@ export default {
             }).catch(()=>{
                 this.btnLoadingTable=false;
             });            
-        },        
+        },
         isbydosen(bool)
         {
             if (bool)

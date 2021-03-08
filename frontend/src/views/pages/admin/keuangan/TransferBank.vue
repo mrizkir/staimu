@@ -233,7 +233,7 @@
     </KeuanganLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -270,7 +270,7 @@ export default {
             { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -300,19 +300,19 @@ export default {
 
         //form rules  
         rule_nama_bank:[
-            value => !!value||"Mohon untuk di isi nama bank !!!",  
+            value => !!value || "Mohon untuk di isi nama bank !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi',                
         ],   
         rule_nama_cabang:[
-            value => !!value||"Mohon untuk di isi nama cabang bank !!!",  
+            value => !!value || "Mohon untuk di isi nama cabang bank !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi',                
         ],         
         rule_no_rekening:[
-            value => !!value||"Mohon untuk di isi nomor rekening !!!",                     
+            value => !!value || "Mohon untuk di isi nomor rekening !!!",                     
             value => /^[0-9]+$/.test(value) || 'Nomor rekening hanya boleh angka',
         ],
         rule_pemilik:[
-            value => !!value||"Mohon untuk di isi nama pemilik rekening !!!",  
+            value => !!value || "Mohon untuk di isi nama pemilik rekening !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama pemilik rekening hanya boleh string dan spasi',                
         ],
     }),
@@ -351,7 +351,7 @@ export default {
             this.formdata = Object.assign({}, item);            
             this.dialogfrm = true
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -450,11 +450,11 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     components:{
         KeuanganLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

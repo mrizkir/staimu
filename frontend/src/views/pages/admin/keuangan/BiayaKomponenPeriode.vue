@@ -195,13 +195,13 @@ export default {
         expanded:[],
         datatable:[],
         headers: [            
-            { text: 'ID KOMPONEN', value: 'kombi_id',width:10,sortable:false },                                           
+            { text: 'ID KOMPONEN', value: 'kombi_id',width:10,sortable:false },                                   
             { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable:false},
-            { text: 'PERIODE', value: 'periode',width:150,sortable:false },            
-            { text: 'KELAS', value: 'nkelas',width:120,sortable:false },            
-            { text: 'BIAYA', value: 'biaya',width:150,sortable:false },            
+            { text: 'PERIODE', value: 'periode',width:150,sortable:false },    
+            { text: 'KELAS', value: 'nkelas',width:120,sortable:false },    
+            { text: 'BIAYA', value: 'biaya',width:150,sortable:false },    
         ],    
-        search:'',      
+        search: "",  
     }),
     methods : {
         changeTahunPendaftaran (tahun)
@@ -212,7 +212,7 @@ export default {
         {
             this.prodi_id=id;
         },
-        initialize:async function()
+        initialize: async function()
 		{
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/biayakomponenperiode',            

@@ -308,7 +308,7 @@ export default {
                 this.formdata.kelas_mhs_id=item.kelas_mhs_id;
             })
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;                

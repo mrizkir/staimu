@@ -241,7 +241,7 @@ export default {
             { text: 'ID', value: 'id' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -266,11 +266,11 @@ export default {
 
         //form rules  
         rule_user_nomorhp:[
-            value => !!value||"Kode mohon untuk diisi !!!",
+            value => !!value || "Kode mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode hanya boleh angka',
         ], 
         rule_name:[
-            value => !!value||"Mohon untuk di isi name !!!",  
+            value => !!value || "Mohon untuk di isi name !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',                
         ], 
     }),
@@ -316,7 +316,7 @@ export default {
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true;
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -405,11 +405,11 @@ export default {
     computed: {        
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     components:{
         AdminLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

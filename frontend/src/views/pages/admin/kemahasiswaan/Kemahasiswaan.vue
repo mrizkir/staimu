@@ -153,7 +153,7 @@ export default {
         {
             this.tahun_akademik=tahun;
         },
-		initialize:async function()
+		initialize: async function()
 		{	            
             this.firstloading=false;            
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
@@ -197,7 +197,7 @@ export default {
                     value: this.data_mhs[key] || 'n/a',
                 }
             })
-        },        
+        },
     },
     watch:{
         tahun_akademik()
@@ -238,7 +238,7 @@ export default {
     },
     components:{
         KemahasiswaanLayout,
-        ModuleHeader,           
+        ModuleHeader,   
         Filter1,      
     },
 }

@@ -179,7 +179,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -214,7 +214,7 @@ export default {
             { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -235,11 +235,11 @@ export default {
 
         //form rules  
         rule_kode_fakultas:[
-            value => !!value||"Kode Fakultas mohon untuk diisi !!!",
+            value => !!value || "Kode Fakultas mohon untuk diisi !!!",
             value => /^[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode Fakultas hanya boleh angka',
         ], 
         rule_nama_fakultas:[
-            value => !!value||"Mohon Nama Fakultas untuk di isi !!!",  
+            value => !!value || "Mohon Nama Fakultas untuk di isi !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',                
         ], 
     }),
@@ -279,7 +279,7 @@ export default {
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -374,11 +374,11 @@ export default {
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
-        },        
+        },
     },
     components:{
         DataMasterLayout,
-        ModuleHeader,        
+        ModuleHeader,
     },
 
 }

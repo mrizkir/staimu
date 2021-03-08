@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex from "vuex"
 import VuexPersistence from 'vuex-persist'
 import Uifront from './modules/uifront'
 import Uiadmin from './modules/uiadmin'

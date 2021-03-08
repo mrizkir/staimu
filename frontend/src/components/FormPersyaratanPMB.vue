@@ -36,7 +36,7 @@ export default {
             ).then(({data})=>{                   
                 this.daftar_persyaratan=data.persyaratan;
             })
-        },                
+        },        
     },
     components:{
         FileUpload

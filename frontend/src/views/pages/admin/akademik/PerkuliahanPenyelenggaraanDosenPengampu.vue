@@ -185,9 +185,9 @@ export default {
         datatable:[],      
         headers: [
             { text: 'NIDN', value: 'nidn', sortable:false,width:120  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:false },               
-            { text: 'KETUA', value: 'is_ketua', sortable:false,width:120 },                           
-            { text: 'AKSI', value: 'actions', sortable:false,width:120 },                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:false },       
+            { text: 'KETUA', value: 'is_ketua', sortable:false,width:120 },                   
+            { text: 'AKSI', value: 'actions', sortable:false,width:120 },                   
         ],  
         
         //formdata
@@ -200,14 +200,14 @@ export default {
             idpenyelenggaraan:null,
             dosen_id:null,
             is_ketua:false,
-        },        
+        },
         formdefault:{
             idpenyelenggaraan:null,
             dosen_id:null,
             is_ketua:false,
-        },        
+        },
         rule_dosen:[
-            value => !!value||"Mohon dipilih Dosen untuk matakuliah ini !!!"
+            value => !!value || "Mohon dipilih Dosen untuk matakuliah ini !!!"
         ],
     }),
     methods: {   
@@ -252,7 +252,7 @@ export default {
                 this.daftar_dosen = data.dosen;                
             })  
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -303,7 +303,7 @@ export default {
                     });
                 }                
             });
-        },        
+        },
         async updateketua(item)
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/'+item.id,

@@ -421,7 +421,7 @@
     </AkademikLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter18 from '@/components/sidebar/FilterMode18';
@@ -468,14 +468,14 @@ export default {
         datatable:[],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },               
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },               
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },               
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },               
-            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable:true,width:100 },               
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
+            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable:true,width:100 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'',    
+        search: "",
 
         //dialog
         dialogfrm:false,
@@ -558,28 +558,28 @@ export default {
 
         //form rules    
         rule_group_matakuliah:[
-            value => !!value||"Mohon Group Matakuliah untuk dipilih !!!",              
+            value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",              
         ],      
         rule_kode_matkul:[
-            value => !!value||"Kode Program Studi mohon untuk diisi !!!",            
+            value => !!value || "Kode Program Studi mohon untuk diisi !!!",            
         ], 
         rule_nama_matakuliah:[
-            value => !!value||"Mohon Nama Program Studi untuk diisi !!!",              
+            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",              
         ], 
         rule_sks:[
-            value => !!value||"Mohon SKS Matakuliah untuk dipilih !!!",              
+            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",              
         ],         
         rule_sks_tatap_muka:[
-            value => !!value||"Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",              
+            value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",              
         ],         
         rule_semester:[
-            value => !!value||"Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",              
+            value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",              
         ],         
         rule_minimal_nilai:[
-            value => !!value||"Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
+            value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
         ], 
         rule_dari_tahun_akademik:[
-            value => !!value||"Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",              
+            value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",              
         ],             
     }),
     methods: {
@@ -623,7 +623,7 @@ export default {
                 this.expanded=[item];
             }               
         },
-        tambahItem:async function()
+        tambahItem: async function()
         {   
             await this.$ajax.get('/akademik/groupmatakuliah',
             {
@@ -684,7 +684,7 @@ export default {
             }            
             this.dialogcopymatkul=true;
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -854,7 +854,7 @@ export default {
                 total=total+parseInt(item.sks);
             }
             return total;
-        },            
+        },    
     },
     watch:{
         tahun_akademik()

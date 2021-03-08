@@ -193,7 +193,7 @@
     </KepegawaianLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import KepegawaianLayout from '@/views/layouts/KepegawaianLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -224,7 +224,7 @@ export default {
         btnLoading:false,      
         //tables
         headers: [                        
-            { text: '', value: 'foto' },            
+            { text: '', value: 'foto' },    
             { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:true, width:250 },
             { text: 'NIDN', value: 'nidn',sortable:true },     
             { text: 'NIPY', value: 'nipy',sortable:true },     
@@ -275,7 +275,7 @@ export default {
         },
         //form rules        
         rule_user_name:[
-            value => !!value||"Mohon untuk di isi nama Dosen !!!",  
+            value => !!value || "Mohon untuk di isi nama Dosen !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',                
         ],         
         rule_nidn:[                         
@@ -285,11 +285,11 @@ export default {
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',                
         ], 
         rule_user_email:[
-            value => !!value||"Mohon untuk di isi email User !!!",  
+            value => !!value || "Mohon untuk di isi email User !!!",  
             value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',       
         ], 
         rule_user_nomorhp:[
-            value => !!value||"Nomor HP mohon untuk diisi !!!",
+            value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ],         
     }),
@@ -317,7 +317,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },                        
+        },                
         editItem:async function (item) {
             this.$ajax.get('/datamaster/jabatanakademik',                
                 {
@@ -332,7 +332,7 @@ export default {
             this.editedIndex = this.daftar_dosen.indexOf(item);                  
             this.editedItem = Object.assign({}, item);                              
             this.dialogEdit = true;
-        },        
+        },
         close () {            
             this.btnLoading=false;            
             this.dialogEdit = false;            
@@ -342,7 +342,7 @@ export default {
                 this.editedIndex = -1                
                 }, 300
             );
-        },                
+        },        
         save () {
             if (this.$refs.frmdata.validate())
             {
@@ -375,7 +375,7 @@ export default {
                     
                 } 
             }
-        },                
+        },        
     },
     computed: {        
         ...mapGetters('auth',{            
@@ -387,11 +387,11 @@ export default {
     watch: {        
         dialogEdit (val) {
             val || this.close()
-        },        
+        },
     },    
     components:{
         KepegawaianLayout,
-        ModuleHeader,         
+        ModuleHeader, 
     },
 }
 </script>

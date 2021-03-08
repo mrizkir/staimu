@@ -176,7 +176,7 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: '', value: 'foto', width:70 },               
+            { text: '', value: 'foto', width:70 },       
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
             { text: 'KELAS', value: 'nkelas',width:100,sortable:true },
@@ -199,7 +199,7 @@ export default {
         {
             this.prodi_id=id;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             if (this.dashboard == 'mahasiswabaru' || this.dashboard =='mahasiswa')
             {
@@ -282,7 +282,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader,
         FormPersyaratan,
         ProfilMahasiswaBaru,
         Filter7

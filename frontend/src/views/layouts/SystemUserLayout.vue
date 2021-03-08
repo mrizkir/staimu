@@ -222,7 +222,7 @@
     </div>    
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
     name:'SystemUserLayout',
     created()
@@ -321,7 +321,7 @@ export default {
                 }
             },
             immediate:true
-        },        
+        },
     }
 }
 </script>

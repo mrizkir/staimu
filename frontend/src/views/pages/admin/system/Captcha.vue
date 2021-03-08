@@ -64,7 +64,7 @@
     </SystemConfigLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -102,10 +102,10 @@ export default {
         },
         //form rules
         rule_site_key:[
-            value => !!value||"Mohon untuk di isi site key !!!",
+            value => !!value || "Mohon untuk di isi site key !!!",
         ],
         rule_private_key:[
-            value => !!value||"Mohon untuk di isi private key !!!",
+            value => !!value || "Mohon untuk di isi private key !!!",
         ],
     }),
     methods: {

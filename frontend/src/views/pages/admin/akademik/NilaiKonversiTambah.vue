@@ -199,7 +199,7 @@ export default {
                 text:'NILAI',
                 disabled:false,
                 href:'#'
-            },            
+            },    
             {
                 text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled:false,
@@ -227,14 +227,14 @@ export default {
         datatableLoading:false,        
         datatable:[],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },               
-            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },               
-            { text: 'SKS', value: 'sks',sortable:false, width:70 },                           
-            { text: 'SMT', value: 'semester',sortable:true,width:70, },                           
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                           
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                           
-            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                           
-            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                                       
+            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },       
+            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },       
+            { text: 'SKS', value: 'sks',sortable:false, width:70 },                   
+            { text: 'SMT', value: 'semester',sortable:true,width:70, },                   
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                   
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                   
+            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                   
+            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                               
         ],  
         search:'', 
                 
@@ -277,39 +277,39 @@ export default {
             'perpanjangan':'',   
         },
         rule_nim_asal:[
-            value => !!value||"Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",              
+            value => !!value || "Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",              
         ],
         rule_nama_mhs:[
-            value => !!value||"Mohon di isi nama mahasiswa pindahan/ampulan dari perguruan tinggi asal !!!", 
+            value => !!value || "Mohon di isi nama mahasiswa pindahan/ampulan dari perguruan tinggi asal !!!", 
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama mahasiswa pindahan/ampulan hanya boleh string dan spasi',                
         ],
         rule_alamat:[
-            value => !!value||"Mohon di isi alamat mahasiswa pindahan/ampulan !!!",              
+            value => !!value || "Mohon di isi alamat mahasiswa pindahan/ampulan !!!",              
         ],
         rule_telepon:[
-            value => !!value||"Mohon di isi nomor hp mahasiswa pindahan/ampulan !!!",          
+            value => !!value || "Mohon di isi nomor hp mahasiswa pindahan/ampulan !!!",          
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP/Telepon hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',    
         ],       
         rule_email:[
-            value => !!value||"Mohon di isi email mahasiswa pindahan/ampulan !!!",          
+            value => !!value || "Mohon di isi email mahasiswa pindahan/ampulan !!!",          
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
         ],       
         rule_kode_pt_asal:[
-            value => !!value||"Mohon di isi kode perguruan tinggi asal !!!",      
+            value => !!value || "Mohon di isi kode perguruan tinggi asal !!!",      
             value => /^[0-9]+$/.test(value) || 'Kode perguruan tinggi asal hanya boleh angka',        
         ],
         rule_nama_pt_asal:[
-            value => !!value||"Mohon di isi nama perguruan tinggi asal !!!",              
+            value => !!value || "Mohon di isi nama perguruan tinggi asal !!!",              
         ],
         rule_kode_jenjang:[
-            value => !!value||"Mohon dipilih Jenjang Studi dari perguruan tinggi asal !!!",              
+            value => !!value || "Mohon dipilih Jenjang Studi dari perguruan tinggi asal !!!",              
         ],
         rule_kode_ps_asal:[
-            value => !!value||"Mohon di isi kode program studi dari perguruan tinggi asal !!!",        
+            value => !!value || "Mohon di isi kode program studi dari perguruan tinggi asal !!!",        
             value => /^[0-9]+$/.test(value) || 'Kode program studi asal hanya boleh angka',              
         ],
         rule_nama_ps_asal:[
-            value => !!value||"Mohon di isi nama program studi dari tinggi asal !!!",              
+            value => !!value || "Mohon di isi nama program studi dari tinggi asal !!!",              
         ],
     }),
     methods: {        
@@ -335,7 +335,7 @@ export default {
                 this.daftar_jenjang=data.jenjangstudi;
             }); 
         },   
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;  
@@ -382,11 +382,11 @@ export default {
                     this.btnLoading=false;
                 });                
             }
-        },        
+        },
     },    
     components:{
         AkademikLayout,
-        ModuleHeader,            
+        ModuleHeader,    
     },
 }
 </script>

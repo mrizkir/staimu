@@ -55,7 +55,7 @@
     </SystemConfigLayout>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
@@ -92,7 +92,7 @@ export default {
         },
         //form rules
         rule_ttl_token_expire:[
-            value => !!value||"Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
+            value => !!value || "Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
             value => /^[0-9]+$/.test(value) || 'TTL Expire dari token hanya boleh angka',    
         ],        
     }),

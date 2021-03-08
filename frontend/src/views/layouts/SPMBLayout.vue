@@ -220,7 +220,7 @@
     </div>    
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
     name:'SPMBLayout',     
     created()
@@ -320,7 +320,7 @@ export default {
                 }
             },
             immediate:true
-        },        
+        },
     }
 }
 </script>

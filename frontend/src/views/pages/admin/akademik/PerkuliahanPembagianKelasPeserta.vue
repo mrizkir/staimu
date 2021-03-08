@@ -307,24 +307,24 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nmatkul', sortable:false  },   
-            { text: 'SKS', value: 'sks', sortable:false  },                           
-            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false, width:200 },                           
-            { text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable:false, width:100 },                           
+            { text: 'SKS', value: 'sks', sortable:false  },                   
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false, width:200 },                   
+            { text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable:false, width:100 },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:60 },
         ],  
         headers_peserta: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
             { text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
-            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                       
+            { text: 'KELAS', value: 'idkelas', sortable:false  },                   
+            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                               
             { text: 'AKSI', value: 'actions', sortable: false,width:60 },
         ],  
         headers_members: [
             { text: 'NIM', value: 'nim', sortable:false,width:100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-            { text: 'KELAS', value: 'idkelas', sortable:false  },                           
-            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                                   
+            { text: 'KELAS', value: 'idkelas', sortable:false  },                   
+            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                           
         ],  
         search_members:'',    
 
@@ -415,7 +415,7 @@ export default {
                 this.showdialogpeserta=true;
             })             
         },
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -437,7 +437,7 @@ export default {
                 });
             }            
         },
-        savematakuliah:async function () {
+        savematakuliah: async function() {
             if (this.$refs.frmdatamatkul.validate())
             {
                 this.btnLoading=true;

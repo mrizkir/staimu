@@ -199,7 +199,7 @@ import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter2 from '@/components/sidebar/FilterMode2';
 
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
     name: 'PerkuliahanPembagianKelas',
@@ -243,11 +243,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable:true  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true  },                           
-            { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },               
-            { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                           
-            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                           
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                           
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true  },                   
+            { text: 'HARI', value: 'nama_hari', sortable:true, width:100 },       
+            { text: 'JAM', value: 'jam_masuk',sortable:true, width:100 },                   
+            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search:'',
@@ -301,21 +301,21 @@ export default {
             jam_keluar:'',
             penyelenggaraan_dosen_id:'',
             ruang_kelas_id:'',            
-        },         
+        }, 
 
         rule_hari:[
-            value => !!value||"Mohon dipilih hari mengajar!!!"
+            value => !!value || "Mohon dipilih hari mengajar!!!"
         ],
         rule_jam_masuk:[
-            value => !!value||"Mohon diisi jam masuk mengajar!!!",
+            value => !!value || "Mohon diisi jam masuk mengajar!!!",
             value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
         ],
         rule_jam_keluar:[
-            value => !!value||"Mohon diisi jam keluar mengajar!!!",
+            value => !!value || "Mohon diisi jam keluar mengajar!!!",
             value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
         ],
         rule_ruang_kelas:[
-            value => !!value||"Mohon dipilih ruang kelas mengajar!!!"
+            value => !!value || "Mohon dipilih ruang kelas mengajar!!!"
         ],
 
     }),
@@ -327,7 +327,7 @@ export default {
         changeSemesterAkademik (semester)
         {
             this.semester_akademik=semester;
-        },        
+        },
         initialize:async function () 
         {
             this.datatableLoading=true;
@@ -359,7 +359,7 @@ export default {
             {
                 this.expanded=[item];
             }               
-        },        
+        },
         async editItem (item) {
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
@@ -371,7 +371,7 @@ export default {
                 this.dialogfrm = true;               
             });
         },    
-        save:async function () {
+        save: async function() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading=true;
@@ -397,7 +397,7 @@ export default {
                     this.btnLoading=false;
                 });
             }
-        },            
+        },    
         deleteItem (item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini membuat mahasiswa tidak memiliki kelas.' }).then((confirm) => {
@@ -446,7 +446,7 @@ export default {
             {
                 this.initialize();
             }            
-        },        
+        },
     },
     computed:{
         ...mapGetters('auth',{            

@@ -295,7 +295,7 @@ export default {
         expanded:[],
         datatable:[],
         headers: [                        
-            { text: '', value: 'foto', width:70 },               
+            { text: '', value: 'foto', width:70 },       
             { text: 'NO. FORMULIR', value: 'no_formulir',width:135,sortable:true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
@@ -360,10 +360,10 @@ export default {
         editedItem:-1,
 
         rule_prodi:[
-            value => !!value||"Mohon dipilih Prodi Mahasiswa ini !!!"
+            value => !!value || "Mohon dipilih Prodi Mahasiswa ini !!!"
         ], 
         rule_status:[
-            value => !!value||"Mohon dipilih status kelulusan mahasiswan ini !!!"
+            value => !!value || "Mohon dipilih status kelulusan mahasiswan ini !!!"
         ], 
     }),
     methods : {
@@ -375,7 +375,7 @@ export default {
         {
             this.prodi_id=id;
         },
-		initialize:async function()
+		initialize: async function()
 		{	
             switch(this.dashboard)
             {
@@ -471,7 +471,7 @@ export default {
                         kjur:this.formdata.kjur,
                         ket_lulus:this.formdata.ket_lulus,
                         desc:this.formdata.desc,
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -495,7 +495,7 @@ export default {
                         kjur:this.formdata.kjur,
                         ket_lulus:this.formdata.ket_lulus,
                         desc:this.formdata.desc,
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -520,7 +520,7 @@ export default {
                     this.$ajax.post('/spmb/nilaiujian/'+item.id,
                     {
                         '_method':'DELETE',
-                    },                    
+                    },            
                     {
                         headers:{
                             Authorization:this.$store.getters['auth/Token'],                        
@@ -569,7 +569,7 @@ export default {
     },
     components:{
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader,
         FormMhsBaru,
         ProfilMahasiswaBaru,
         Filter7    

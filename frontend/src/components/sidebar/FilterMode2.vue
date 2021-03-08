@@ -50,7 +50,7 @@ export default {
                 this.$store.dispatch('uiadmin/updateTahunAkademik',val);  
                 this.$emit('changeTahunAkademik',val);          
             }            
-        },        
+        },
         semester_akademik(val)
         {
             if (!this.firstloading)
