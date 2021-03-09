@@ -839,6 +839,16 @@ const routes = [
         },
 		component: () => import('../views/pages/admin/system/Cache.vue'),
 	},
+	//system - konfigurasi - blog
+	{
+		path: '/system-setting/blog-infokampus',
+		name: 'SettingBlogInfokampus',
+		meta:{
+			title: "SETTING - BLOG - INFO KAMPUS",
+			requiresAuth:true,
+        },
+		component: () => import('../views/pages/admin/system/InfoKampus.vue'),
+	},
 	//plugins
 	{
 		path: '/system-setting/zoom',

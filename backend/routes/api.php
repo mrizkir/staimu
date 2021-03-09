@@ -6,6 +6,9 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix'=>'v3'], function () use ($router)
 {
 
+    //blog - categories    
+    $router->get('/blog/categories',['uses'=>'Blog\CategoriesController@index','as'=>'blog-categories.index']);
+
     //dmaster - provinsi
     $router->get('/datamaster/provinsi',['uses'=>'DMaster\ProvinsiController@index','as'=>'provinsi.index']);
     $router->get('/datamaster/provinsi/{id}/kabupaten',['uses'=>'DMaster\ProvinsiController@kabupaten','as'=>'provinsi.kabupaten']);
@@ -72,10 +75,20 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/dashboard/pmb',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\SPMBController@index','as'=>'dashboardspmb.index']);
     $router->post('/dashboard/keuangan',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\KeuanganController@index','as'=>'dashboardkeuangan.index']);
 
+    //blog - categories (term)
+    $router->post('/blog/categories',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\CategoriesController@store','as'=>'blog-categories.store']);
+    $router->put('/blog/categories/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\CategoriesController@update','as'=>'blog-categories.update']);
+    $router->delete('/blog/categories/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\CategoriesController@destroy','as'=>'blog-categories.destroy']);
+    
+    //blog - post
+    $router->post('/blog/pages/infokampus',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PostController@store','as'=>'blog-infokampus.store']);
+    $router->put('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PostController@update','as'=>'blog-infokampus.update']);
+    $router->delete('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PostController@destroy','as'=>'blog-infokampus.destroy']);
+    
     //data master - kelas
     $router->post('/datamaster/kelas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@store','as'=>'kelas.store']);
     $router->put('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@update','as'=>'kelas.update']);
-    $router->delete('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@destroy','as'=>'`kelas`.destroy']);
+    $router->delete('/datamaster/kelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\KelasController@destroy','as'=>'kelas.destroy']);
 
     //data master - ruangan kelas
     $router->get('/datamaster/ruangankelas',['middleware'=>['role:superadmin|pmb'],'uses'=>'DMaster\RuanganKelasController@index','as'=>'ruangankelas.index']);
@@ -87,12 +100,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //data master - persyaratan
     $router->post('/datamaster/persyaratan/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@store','as'=>'persyaratan.store']);
     $router->put('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@update','as'=>'persyaratan.update']);
-    $router->delete('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@destroy','as'=>'`persyaratan.destroy']);
+    $router->delete('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@destroy','as'=>'persyaratan.destroy']);
 
     //data master - tahun akademik
     $router->post('/datamaster/tahunakademik/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@store','as'=>'tahunakademik.store']);
     $router->put('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@update','as'=>'tahunakademik.update']);
-    $router->delete('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@destroy','as'=>'`tahunakademik.destroy']);
+    $router->delete('/datamaster/tahunakademik/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\TahunAkademikController@destroy','as'=>'tahunakademik.destroy']);
 
     //data master - jabatan akademik
     $router->get('/datamaster/jabatanakademik',['uses'=>'DMaster\JabatanAkademikController@index','as'=>'jabatanakademik.index']);
@@ -106,13 +119,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //data master - fakultas
     $router->post('/datamaster/fakultas/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@store','as'=>'fakultas.store']);
     $router->put('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@update','as'=>'fakultas.update']);
-    $router->delete('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@destroy','as'=>'`fakultas.destroy']);
+    $router->delete('/datamaster/fakultas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\FakultasController@destroy','as'=>'fakultas.destroy']);
 
     //data master - program studi
     $router->post('/datamaster/programstudi/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@store','as'=>'programstudi.store']);
     $router->put('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@update','as'=>'programstudi.update']);
     $router->put('/datamaster/programstudi/updateconfig/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updateconfig','as'=>'programstudi.updateconfig']);
-    $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'`programstudi`.destroy']);
+    $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'programstudi.destroy']);
 
     //spmb - soal pmb
     $router->post('/spmb/soalpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'soalpmb.index']);

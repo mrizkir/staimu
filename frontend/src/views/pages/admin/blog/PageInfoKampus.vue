@@ -25,7 +25,7 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid>             
+        <v-container fluid v-if="INFO_KAMPUS_TERM_ID">
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -84,8 +84,7 @@
                                                 />
                                                 <tiptap-vuetify
                                                     v-model="formdata.content"
-                                                    :extensions="extensions"
-                                                    :card-props="{ flat: true}"
+                                                    :extensions="extensions"                                                    
                                                     :rules="rule_content"
                                                 />
                                             </v-card-text>
@@ -158,6 +157,11 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-container fluid v-else>
+            <v-alert type="info">
+                INFO_KAMPUS_TERM_ID belum disetting.
+            </v-alert>
+        </v-container>
     </BlogLayout>
 </template>
 <script>
@@ -208,6 +212,7 @@ export default {
         ];
     },
     data: () => ({
+        INFO_KAMPUS_TERM_ID:null,
         //tiptap extension
         extensions: [
             History,
@@ -226,6 +231,7 @@ export default {
             }],
             Bold,
             Code,
+            CodeBlock,
             HorizontalRule,
             Paragraph,
             HardBreak

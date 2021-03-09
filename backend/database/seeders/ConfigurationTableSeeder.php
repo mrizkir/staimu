@@ -124,6 +124,16 @@ class ConfigurationTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+
+        //blog
+        \DB::table('pe3_configuration')->insert([
+            'config_id'=>"601",
+            'config_group'=>'blog',
+            'config_key'=>'INFO_KAMPUS_TERM_ID',
+            'config_value'=>'',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
         
         \DB::table('pe3_configuration')->insert([
             'config_id'=>"702",
