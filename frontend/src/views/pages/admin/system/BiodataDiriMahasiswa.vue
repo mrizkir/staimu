@@ -282,32 +282,32 @@ export default {
 		initialize: async function()
 		{	
             let bentukpt=this.$store.getters['uifront/getBentukPT'];
-            this.$ajax.get('/datamaster/provinsi').then(({data})=>{                
+            this.$ajax.get('/datamaster/provinsi').then(({ data }) => {                
                 this.daftar_provinsi=data.provinsi;                
             });            
             if (bentukpt=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
                 });
             }
             else
             {
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
             }           
-            this.$ajax.get('/datamaster/kelas').then(({data})=>{                
+            this.$ajax.get('/datamaster/kelas').then(({ data }) => {                
                 this.daftar_kelas=data.kelas;
             });
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id,             
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
             },
                 
-            ).then(({data})=>{                   
+            ).then(({ data }) => {                   
                 this.formdata.nama_mhs=data.formulir.nama_mhs;           
                 this.formdata.tempat_lahir=data.formulir.tempat_lahir;           
                 this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;           
@@ -368,15 +368,15 @@ export default {
                     alamat_rumah:this.formdata.alamat_rumah,                           
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-                ).then(()=>{               
+                ).then(() => {               
                     this.$router.go();
-                    this.btnLoading=false;                        
+                    this.btnLoading = false;                        
                 }).catch(() => {                                   
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                 });                                                    
             }                             
         },
@@ -387,7 +387,7 @@ export default {
             if (val.id != null && val.id != '')
             {
                 this.btnLoadingProv=true;
-                this.$ajax.get('/datamaster/provinsi/'+val.id+'/kabupaten').then(({data})=>{                
+                this.$ajax.get('/datamaster/provinsi/'+val.id+'/kabupaten').then(({ data }) => {                
                     this.daftar_kabupaten=data.kabupaten;
                     this.btnLoadingProv=false;
                 });
@@ -399,7 +399,7 @@ export default {
             if (val.id != null && val.id != '')
             {
                 this.btnLoadingKab=true;
-                this.$ajax.get('/datamaster/kabupaten/'+val.id+'/kecamatan').then(({data})=>{                                
+                this.$ajax.get('/datamaster/kabupaten/'+val.id+'/kecamatan').then(({ data }) => {                                
                     this.daftar_kecamatan=data.kecamatan;
                     this.btnLoadingKab=false;
                 });
@@ -410,7 +410,7 @@ export default {
             if (val.id != null && val.id != '')
             {
                 this.btnLoadingKec=true;
-                this.$ajax.get('/datamaster/kecamatan/'+val.id+'/desa').then(({data})=>{                                
+                this.$ajax.get('/datamaster/kecamatan/'+val.id+'/desa').then(({ data }) => {                                
                     this.daftar_desa=data.desa;
                     this.btnLoadingKec=false;
                 });
@@ -419,7 +419,7 @@ export default {
         kode_fakultas (val)
         {
             this.btnLoadingFakultas=true;
-            this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({data})=>{                                
+            this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {                                
                 this.daftar_prodi=data.programstudi;
                 this.btnLoadingFakultas=false;
             });

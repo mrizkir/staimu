@@ -129,7 +129,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{  
+            }).then(({ data }) => {  
                 let setting = data.setting;                           
                 this.formdata.header_1=setting.HEADER_1;
                 this.formdata.header_2=setting.HEADER_2;
@@ -156,14 +156,14 @@ export default {
                         }),                                                                                                                            
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(()=>{                       
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                ).then(() => {                       
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });        
             }
         }

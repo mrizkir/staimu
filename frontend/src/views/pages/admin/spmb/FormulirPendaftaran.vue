@@ -224,7 +224,7 @@ export default {
                         headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
-                    }).then(({data})=>{               
+                    }).then(({ data }) => {               
                         this.datatable = data.pmb;                
                         this.datatableLoading=false;
                     });         
@@ -259,7 +259,7 @@ export default {
         },
         editItem(item)
         {
-            this.$router.push('/spmb/formulirpendaftaran/'+item.id+'/edit')
+            this.$router.push('/spmb/formulirpendaftaran/' + item.id + '/edit')
         },
         closeProfilMahasiswaBaru ()
         {

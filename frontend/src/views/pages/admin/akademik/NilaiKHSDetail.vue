@@ -251,7 +251,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                               
+            }).then(({ data }) => {                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.daftar_nilai;                
                 if (Object.keys(this.datakrs).length)
@@ -275,17 +275,17 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         closedialogprintpdf () {                  

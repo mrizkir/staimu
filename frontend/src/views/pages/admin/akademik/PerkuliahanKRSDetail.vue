@@ -282,7 +282,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)
@@ -301,7 +301,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.dialogfrm=true;
                 this.datamatkul=item;
                 this.daftar_kelas=data.daftarkelas;
@@ -318,20 +318,20 @@ export default {
                         krsmatkul_id:this.datamatkul.id                                                                                                    
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{                           
+                ).then(() => {                           
                     this.closedialogfrm();
                     this.fetchKRS();
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         },
-        deleteItem (item)
+        deleteItem(item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
                 if (confirm)
@@ -339,18 +339,18 @@ export default {
                     this.btnLoadingTable=true;
                     this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.btnLoadingTable=false;
                     });
                 }

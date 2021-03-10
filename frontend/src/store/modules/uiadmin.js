@@ -307,11 +307,11 @@ const actions = {
             let token=rootGetters['auth/Token'];                                                     
             await ajax.get('/system/setting/uiadmin',               
                 {
-                    headers:{
+                    headers: {
                         Authorization:token
                     }
                 }
-            ).then(({data})=>{                   
+            ).then(({ data }) => {                   
                 commit('setDaftarTA',data.daftar_ta); 
                 commit('setTahunPendaftaran',data.tahun_pendaftaran);   
                 commit('setTahunAkademik',data.tahun_akademik);           

@@ -132,7 +132,7 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/krs/'+item.id+'/detail')">
+                                @click.stop="$router.push('/akademik/perkuliahan/krs/' + item.id + '/detail')">
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
@@ -269,10 +269,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                           
+            }).then(({ data }) => {                                           
                 this.datatable = data.daftar_krs;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });              
         },
@@ -289,12 +289,12 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                        
+            }).then(({ data }) => {                                        
                 this.datatable = data.daftar_krs;
                 this.datatableLoading=false;
                 this.firstloading=false;     
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });              
         },
@@ -309,7 +309,7 @@ export default {
                 this.expanded=[item];
             }               
         },  
-        deleteItem (item)
+        deleteItem(item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then((confirm) => {
                 if (confirm)
@@ -317,18 +317,18 @@ export default {
                     this.btnLoadingTable=true;
                     this.$ajax.post('/akademik/perkuliahan/krs/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.btnLoadingTable=false;
                     });
                 }                
@@ -339,17 +339,17 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         closedialogprintpdf () {                  
@@ -402,7 +402,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.daftar_krs;
                             this.datatableLoading=false;
                         });                     

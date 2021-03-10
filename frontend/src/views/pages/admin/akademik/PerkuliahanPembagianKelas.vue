@@ -147,7 +147,7 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/'+item.id+'/peserta')">
+                                @click.stop="$router.push('/akademik/perkuliahan/pembagiankelas/' + item.id + '/peserta')">
                                 <v-icon>
                                     mdi-account-child-outline
                                 </v-icon>
@@ -340,10 +340,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                               
+            }).then(({ data }) => {                               
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -365,7 +365,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan;                 
                 this.formdata = Object.assign({}, item);
                 this.dialogfrm = true;               
@@ -385,20 +385,20 @@ export default {
                         ruang_kelas_id:this.formdata.ruang_kelas_id,                            
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{
-                    this.btnLoading=false;
+                ).then(() => {
+                    this.btnLoading = false;
                     this.closedialogfrm();
                     this.initialize();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         },    
-        deleteItem (item)
+        deleteItem(item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini membuat mahasiswa tidak memiliki kelas.' }).then((confirm) => {
                 if (confirm)
@@ -406,18 +406,18 @@ export default {
                     this.btnLoadingTable=true;
                     this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.btnLoadingTable=false;
                     });
                 }                

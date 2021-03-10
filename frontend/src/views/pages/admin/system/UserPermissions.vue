@@ -201,11 +201,11 @@ export default {
         {
             this.$ajax.get('/system/users/'+this.user.id+'/roles',                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(({data})=>{   
+            ).then(({ data }) => {   
                 this.daftar_role=data.roles;
             });            
         }, 
@@ -218,14 +218,14 @@ export default {
                     chkpermission:this.permissions_selected
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{   
+            ).then(() => {   
                 this.exit();                
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         revoke(item)
@@ -237,14 +237,14 @@ export default {
                     name:item.name
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{   
+            ).then(() => {   
                 this.exit();                
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         exit()
@@ -268,14 +268,14 @@ export default {
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data})=>{
+                }).then(({ data }) => {
                     this.daftar_permissions = data.permissions;
                 });
                 await this.$ajax.get('/system/users/'+this.user.id+'/permission',{
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data})=>{
+                }).then(({ data }) => {
                     this.permissions_selected = data.permissions;                    
                 });
                 this.datatableLoading=false;

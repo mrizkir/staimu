@@ -332,7 +332,7 @@ export default {
             this.editedIndex = this.datatable.indexOf(item);
             this.editedItem = Object.assign({}, item);
 
-            this.$ajax.get('/system/setting/roles/'+item.id+'/permission',{
+            this.$ajax.get('/system/setting/roles/' + item.id + '/permission',{
                 headers: {
                     Authorization:this.TOKEN
                 }
@@ -362,7 +362,7 @@ export default {
                 }                 
             });          
 
-            this.$ajax.get('/system/setting/roles/'+item.id+'/permission',{
+            this.$ajax.get('/system/setting/roles/' + item.id + '/permission',{
                 headers: {
                     Authorization:this.TOKEN
                 }
@@ -377,7 +377,7 @@ export default {
         
         },
         close () {
-            this.btnLoading=false;
+            this.btnLoading = false;
             this.dialog = false;
             this.$refs.frmdata.reset(); 
             this.form_error_message='';           
@@ -404,15 +404,15 @@ export default {
                             name:this.editedItem.name.toLowerCase(),
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({ data }) => {   
                         Object.assign(this.datatable[this.editedIndex], data.roles);
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                    
                     
                 } else {
@@ -421,15 +421,15 @@ export default {
                             name:this.editedItem.name.toLowerCase()
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({ data }) => {   
                         this.datatable.push(data.roles);
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }

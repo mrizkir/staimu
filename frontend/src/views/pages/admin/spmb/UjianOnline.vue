@@ -77,7 +77,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                       
+            }).then(({ data }) => {                       
                 if (data.status==0)
                 {
                     this.isprosesujian=true;
@@ -89,7 +89,7 @@ export default {
                     this.nama_soal = data.soal.soal;                 
                     this.daftar_jawaban = data.jawaban;
                 }
-            }).catch(()=>{
+            }).catch(() => {
                 
             }); 
         },
@@ -109,11 +109,11 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(()=>{                       
-               this.btnLoading=false;
+            }).then(() => {                       
+               this.btnLoading = false;
                this.$router.push('/dashboard/'+this.$store.getters['auth/AccessToken']);
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             }); 
         }
     },    

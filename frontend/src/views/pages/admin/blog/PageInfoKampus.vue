@@ -26,36 +26,17 @@
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-				<v-list-item>		
-					<v-list-item-icon class="mr-2">
-						<v-icon>mdi-menu-open</v-icon>
-					</v-list-item-icon>			
-					<v-list-item-content>									
-						<v-list-item-title class="title">
-							OPTIONS
-						</v-list-item-title>
-					</v-list-item-content>
-				</v-list-item>
-				<v-divider></v-divider>
-				<v-list-item class="teal lighten-5 mb-5">
-						<v-list-item-icon class="mr-2">
-							<v-icon>mdi-filter</v-icon>
-						</v-list-item-icon>
-						<v-list-item-content>								
-							<v-list-item-title>Kategori</v-list-item-title>
-						</v-list-item-content>		
-				</v-list-item>            
-			<v-list-item>
-				<v-list-item-content>                     
-					<v-select
-							v-model="INFO_KAMPUS_TERM_ID" 
-							:items="daftar_category"                
-							label="KATEGORI"							
-							item-value="id"
-							item-text="name"
-							outlined />
+			<v-list-item>		
+				<v-list-item-icon class="mr-2">
+					<v-icon>mdi-menu-open</v-icon>
+				</v-list-item-icon>
+				<v-list-item-content>
+					<v-list-item-title class="title">
+						OPTIONS
+					</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
+			<v-divider></v-divider>         			
 		</template>
 			<v-container fluid v-if="INFO_KAMPUS_TERM_ID">
 					<v-row class="mb-4" no-gutters>
@@ -80,7 +61,7 @@
 											:items="datatable"
 											:search="search"
 											item-key="id"
-											sort-by="nama_prodi"
+											sort-by="post_title"
 											show-expand
 											:expanded.sync="expanded"
 											:single-expand="true"
@@ -98,61 +79,13 @@
 																	vertical
 															></v-divider>
 															<v-spacer></v-spacer>                                
-															<v-btn color="primary" icon outlined small class="ma-2" @click.stop="tambahItem">
+															<v-btn color="primary" icon outlined small class="ma-2" @click.stop="$router.push('/blog/pages/infokampus/tambah')">
 																	<v-icon>mdi-plus</v-icon>
-															</v-btn>                                        
-															<v-dialog v-model="dialogfrm" max-width="700px" persistent>                                    
-																	<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-																			<v-card>
-																					<v-card-title>
-																							<span class="headline">{{ formTitle }}</span>
-																					</v-card-title>
-																					<v-card-text>
-																							<v-text-field                                                     
-																									v-model="formdata.judul" 
-																									label="JUDUL INFORMASI"
-																									outlined
-																									:rules="rule_judul"
-																							/>
-																							<tiptap-vuetify
-																									v-model="formdata.content"
-																									:extensions="extensions"                                                    
-																									:rules="rule_content"
-																							/>
-																					</v-card-text>
-																					<v-card-actions>
-																							<v-spacer></v-spacer>
-																							<v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
-																							<v-btn 
-																									color="blue darken-1" 
-																									text 
-																									@click.stop="save" 
-																									:loading="btnLoading"
-																									:disabled="!form_valid||btnLoading">
-																											SIMPAN
-																							</v-btn>
-																					</v-card-actions>
-																			</v-card>
-																	</v-form>
-															</v-dialog>
-															<v-dialog v-if="dialogdetailitem" v-model="dialogdetailitem" max-width="700px" persistent>
-																	<v-card>
-																			<v-card-title>
-																					<span class="headline">DETAIL INFORMASI</span>
-																			</v-card-title>
-																			<v-card-text>
-																					{{formdata.content}}
-																			</v-card-text>
-																			<v-card-actions>
-																					<v-spacer></v-spacer>
-																					<v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
-																			</v-card-actions>
-																	</v-card>                                    
-															</v-dialog>
+															</v-btn>
 													</v-toolbar>
 											</template>
-											<template v-slot:item.config="{ item }">
-													{{kaprodi(item)}}
+											<template v-slot:item.created_at="{ item }">
+													{{ $date(item.created_at).format('DD/MM/YYYY') }}
 											</template>
 											<template v-slot:item.actions="{ item }">
 													<v-icon
@@ -198,28 +131,7 @@
 </template>
 <script>
 	import BlogLayout from "@/views/layouts/BlogLayout";
-	import ModuleHeader from "@/components/ModuleHeader";
-	import {
-			// component
-			TiptapVuetify,
-			// extensions
-			Heading,
-			Bold,
-			Italic,
-			Strike,
-			Underline,
-			Code,
-			CodeBlock,
-			Paragraph,
-			BulletList,
-			OrderedList,
-			ListItem,
-			Link,
-			Blockquote,
-			HardBreak,
-			HorizontalRule,
-			History
-	} from "tiptap-vuetify";
+	import ModuleHeader from "@/components/ModuleHeader";	
 
 	export default {
 		name: "PageInfoKampus",
@@ -238,79 +150,35 @@
 				{
 						text:"INFO KAMPUS",
 						disabled:true,
-						href:"#"
+						href:"#",
 				},
-			];
-			this.fetchConfig();
-			this.fetchCategories();			
-			this.fetchPost();			
+			];						
 		},
-		data: () => ({      
-				firstloading:true,  
-				//tiptap extension
-				extensions: [
-						History,
-						Blockquote,
-						Link,
-						Underline,
-						Strike,
-						Italic,
-						ListItem,
-						BulletList,
-						OrderedList,
-						[Heading, {
-								options: {
-								levels: [1, 2, 3]
-								}
-						}],
-						Bold,
-						Code,
-						CodeBlock,
-						HorizontalRule,
-						Paragraph,
-						HardBreak
-				],
-
+		mounted()
+		{
+			this.fetchConfig();
+			this.fetchPost();
+		},
+		data: () => ({
+				firstloading: true,				
 				btnLoading:false,
 				datatableLoading:false,
 				expanded:[],
 				datatable: [],
 				headers: [
-						{ text: "JUDUL", value: "judul",width:150 },            
-						{ text: "AKSI", value: "actions", sortable: false,width:100 },
+						{ text: "JUDUL", value: "post_title", width:300 },
+						{ text: "PENULIS", value: "username", width:150 },
+						{ text: "TANGGAL", value: "created_at", width:150 },
+						{ text: "AKSI", value: "actions", sortable: false, width:100 },
 				],
 				search: "",
-
-				//dialog
-				dialogfrm:false,
-				dialogdetailitem:false,
 
 				//page config
 				daftar_category:[],
 				INFO_KAMPUS_TERM_ID:null,
-
-				//form data
-				form_valid:true,
-				formdata: {
-					judul: "",
-					content:``,
-				},
-				formdefault: {
-						judul: "",
-						content:``,
-				},
-				editedIndex: -1,
-
-				//form rules 
-				rule_judul: [
-					value => !!value || "Mohon judul informasi untuk di isi !!!",              
-				], 
-				rule_content: [
-					value => !!value || "Mohon konten informasi untuk di isi !!!",              
-				], 
 		}),
 		methods: {
-			async fetchConfig() {
+			async fetchConfig() {				
 				await this.$ajax
 					.get("/blog/pages/infokampus/config",
 						{
@@ -319,28 +187,24 @@
 							},
 						}
 					)
-					.then(({data})=>{
-						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;
-						this.firstloading = false;
+					.then(({ data }) => {
+						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;						
 					});
+					this.firstloading = false;
 			},
-			async fetchCategories() {
+			async fetchPost() {
 				await this.$ajax
-					.get("/blog/categories",
+					.get("/blog/pages/infokampus",
 						{
 							headers: {
 								Authorization: this.$store.getters["auth/Token"],
 							},
 						}
 					)
-					.then(({data})=>{
-						this.daftar_category=data.categories;
+					.then(({ data }) => {
+						this.datatable = data.post;
 					});
-			},
-			async fetchPost() {},
-			tambahItem: async function() {
-				this.dialogfrm = true;
-			},
+			},			
 			dataTableRowClicked(item) {
 				if (item === this.expanded[0]) {
 					this.expanded = [];
@@ -348,60 +212,34 @@
 					this.expanded = [item];
 				}
 			},
-			save: async function() {},
-			closedialogfrm() {
-				this.dialogfrm = false;
-				setTimeout(() => {
-					this.formdata = Object.assign({}, this.formdefault);
-					this.$refs.frmdata.reset();
-					this.editedIndex = -1;
-				}, 300);
-			},
-			closedialogdetailitem() {
-				this.dialogdetailitem = false;
-				setTimeout(() => {
-					this.formdata = Object.assign({}, this.formdefault);
-					this.editedIndex = -1;
-					this.firstloading = true;
-				}, 300);
-			},
-		},
-		computed: {
-			formTitle() {
-				return this.editedIndex === -1 ? "TAMBAH INFO" : "UBAH INFO";
-			},
-		},
-		watch: {
-			async INFO_KAMPUS_TERM_ID(val) {
-				if (!this.firstloading) {
-					this.$ajax
-						.post(
-							"/system/setting/variables",
-							{
-								_method: "PUT",
-								pid: "blog",
-								setting: JSON.stringify({
-									601: val,
-								}),
-							},
-							{
-								headers: {
-									Authorization: this.$store.getters["auth/Token"],
+			deleteItem(item) {           
+					this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus informasi dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+						if (confirm) {
+							this.btnLoading=true;
+							this.$ajax.post('/blog/pages/infokampus/' + item.id,
+								{
+									_method: "DELETE",
 								},
-							}
-						)
-						.then(() => {
-							this.btnLoading = false;
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						});
-				}
-			},
+								{
+										headers: {
+												Authorization:this.$store.getters['auth/Token']
+										}
+								}
+							)
+							.then(() => {   
+								const index = this.datatable.indexOf(item);
+								this.datatable.splice(index, 1);
+								this.btnLoading = false;
+							})
+							.catch(() => {
+									this.btnLoading = false;
+							});
+						}                
+					});
+        },
 		},
 		components: {
 			BlogLayout,
-			TiptapVuetify,
 			ModuleHeader,
 		},
 	};

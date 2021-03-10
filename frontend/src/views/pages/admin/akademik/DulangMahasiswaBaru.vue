@@ -209,10 +209,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -239,7 +239,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(()=>{                                  
+            }).then(() => {                                  
                 
             });   
 
@@ -247,13 +247,13 @@ export default {
             //     headers: {
             //         Authorization:this.$store.getters['auth/Token']
             //     }
-            // }).then(({data})=>{                                  
+            // }).then(({ data }) => {                                  
             //     this.dialogfrm=true;
             //     this.daftar_dw = data.users; 
             // });   
 
         },
-        deleteItem (item)
+        deleteItem(item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then((confirm) => {
                 if (confirm)
@@ -261,18 +261,18 @@ export default {
                     this.btnLoadingTable=true;
                     this.$ajax.post('/akademik/dulang/mhsbaru'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.btnLoadingTable=false;
                     });
                 }                

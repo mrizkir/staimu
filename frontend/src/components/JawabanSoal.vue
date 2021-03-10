@@ -37,13 +37,13 @@ export default {
                 jawaban_id:this.item.id
             },
             {
-                headers:{
+                headers: {
                     Authorization:this.$store.getters['auth/Token'],                                          
                 }
             }
-            ).then(()=>{                                                   
+            ).then(() => {                                                   
                 this.$emit('selesaiJawab');
-            }).catch(()=>{
+            }).catch(() => {
                 
             });
         }

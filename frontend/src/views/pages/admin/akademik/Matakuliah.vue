@@ -603,10 +603,10 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.matakuliah;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -630,7 +630,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.group_matakuliah=data.group_matakuliah;
             });            
             this.dialogfrm=true;
@@ -642,7 +642,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.formdata=data.matakuliah;
             });
             this.dialogdetailitem=true;                        
@@ -654,7 +654,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.group_matakuliah=data.group_matakuliah;
             });  
 
@@ -663,7 +663,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.formdata=data.matakuliah;
             });
             this.dialogfrm = true
@@ -714,16 +714,16 @@ export default {
                             update_penyelenggaraan:this.formdata.update_penyelenggaraan,                                                       
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.closedialogfrm();                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                 
                     
                 } else {                    
@@ -749,16 +749,16 @@ export default {
                             kjur:this.prodi_id,                                                                                   
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();                  
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.closedialogfrm();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
@@ -774,39 +774,39 @@ export default {
                         prodi_id:this.prodi_id,
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(({data})=>{   
+                ).then(({ data }) => {   
                     this.datatable=data.matakuliah;
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                     this.closedialogsalinmatkul();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });            
             }
         },
-        deleteItem (item) {           
+        deleteItem(item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/akademik/matakuliah/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });

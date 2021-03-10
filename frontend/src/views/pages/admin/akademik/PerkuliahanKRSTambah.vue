@@ -174,7 +174,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                               
+            }).then(({ data }) => {                               
                 this.daftar_dulang=data.daftar_dulang;                
             })
         }, 
@@ -198,11 +198,11 @@ export default {
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data})=>{               
+                }).then(({ data }) => {               
                     this.$router.push('/akademik/perkuliahan/krs/'+data.krs.id+'/detail');
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });                  
             }
         },

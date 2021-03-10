@@ -205,7 +205,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{                
+            }).then(({ data }) => {                
                 this.daftar_permissions = data.permissions;
                 this.datatableLoading=false;
             });          
@@ -228,7 +228,7 @@ export default {
             this.dialog = true
         },
         close () {
-            this.btnLoading=false;
+            this.btnLoading = false;
             this.dialog = false;
             this.$refs.frmdata.reset(); 
             setTimeout(() => {
@@ -248,39 +248,39 @@ export default {
                             name:this.editedItem.name.toLowerCase()
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
         },
-        deleteItem (item) {   
+        deleteItem(item) {   
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus permission '+item.name+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/system/setting/permissions/'+item.id,
                     {
-                        '_method':'DELETE',
+                        _method: "DELETE",
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.daftar_permissions.indexOf(item);
                         this.daftar_permissions.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });      

@@ -104,7 +104,7 @@ export default {
             this.$ajax.post('/auth/logout',
                 {},
                 {
-                    headers:{
+                    headers: {
                         'Authorization': this.TOKEN,
                     }
                 }

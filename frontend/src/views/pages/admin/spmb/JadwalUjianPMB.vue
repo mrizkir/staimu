@@ -550,11 +550,11 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                      
+            }).then(({ data }) => {                      
                 this.jumlah_bank_soal=data.jumlah_bank_soal;                
                 this.datatable = data.jadwal_ujian;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
         },
@@ -577,12 +577,12 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_ruangan = data.ruangan;
-                this.btnLoading=false;
+                this.btnLoading = false;
                 this.dialogfrm=true;
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });              
         },
         durasiUjian (item)
@@ -599,7 +599,7 @@ export default {
             //     headers: {
             //         Authorization:this.$store.getters['auth/Token']
             //     }
-            // }).then(({data})=>{               
+            // }).then(({ data }) => {               
                                            
             // });                      
         },  
@@ -612,14 +612,14 @@ export default {
                 status_ujian:1,                
             },
             {
-                headers:{
+                headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }
-        ).then(()=>{                                       
-            this.btnLoading=false;            
-        }).catch(()=>{
-            this.btnLoading=false;
+        ).then(() => {                                       
+            this.btnLoading = false;            
+        }).catch(() => {
+            this.btnLoading = false;
         });
         },
         editItem:async function (item) {            
@@ -628,14 +628,14 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_ruangan = data.ruangan;
-                this.btnLoading=false;
+                this.btnLoading = false;
                 this.editedIndex = this.datatable.indexOf(item);
                 this.formdata = Object.assign({}, item);
                 this.dialogfrm=true;
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });              
         },    
         save: async function() {
@@ -657,16 +657,16 @@ export default {
                             ruangkelas_id:this.formdata.ruangkelas_id,                                  
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                           
+                    ).then(() => {                           
                         this.closedialogfrm();
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.initialize();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                 
                     
                 } else {
@@ -684,40 +684,40 @@ export default {
                             idsmt:this.semester_pendaftaran,                                       
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                           
+                    ).then(() => {                           
                         this.closedialogfrm();
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.initialize();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
         },
-        deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+        deleteItem(item) {           
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/spmb/jadwalujianpmb/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });

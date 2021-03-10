@@ -440,7 +440,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_users = data.users;                
                 this.datatableLoading=false;
             });          
@@ -468,7 +468,7 @@ export default {
             this.dialogEdit = true;
         },
         close () {            
-            this.btnLoading=false;
+            this.btnLoading = false;
             this.dialog = false;
             this.dialogEdit = false;            
             setTimeout(() => {
@@ -479,7 +479,7 @@ export default {
             );
         },
         closeUserPermissions () {
-            this.btnLoading=false;            
+            this.btnLoading = false;            
             this.dialogUserPermission = false;
         },
         save () {
@@ -501,15 +501,15 @@ export default {
                             is_dw:this.editedItem.is_dw,                                
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                    
                     
                 } else {
@@ -525,15 +525,15 @@ export default {
                             is_dw:this.editedItem.is_dw,                                        
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({ data }) => {   
                         this.daftar_users.push(data.user);
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
@@ -553,38 +553,38 @@ export default {
                             role_name:'dosen',                    
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                   
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    ).then(() => {                   
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });     
                 }
             });
         },
-        deleteItem (item) {           
+        deleteItem(item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/system/usersdosen/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.daftar_users.indexOf(item);
                         this.daftar_users.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });

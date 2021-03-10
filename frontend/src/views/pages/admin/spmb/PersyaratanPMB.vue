@@ -205,12 +205,12 @@ export default {
             {
                 await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),             
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     },
                     
-                ).then(({data})=>{                       
+                ).then(({ data }) => {                       
                     this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false:true;                    
                 });  
             }
@@ -226,7 +226,7 @@ export default {
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data})=>{                                   
+                }).then(({ data }) => {                                   
                     this.datatable = data.persyaratan;   
                     this.datatableLoading=false;
                 });  

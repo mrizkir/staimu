@@ -36,7 +36,7 @@
                                     :items="daftar_category"                
                                     label="KATEGORI"
                                     item-value="id"
-							        item-text="name"
+							        							item-text="name"
                                     outlined
                                     :rules="rule_term_id" />
                             </v-card-text>
@@ -105,7 +105,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN,
                 },
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_category=data.categories;
             });
 
@@ -114,7 +114,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 let setting = data.setting;
                 this.formdata.term_id=setting.INFO_KAMPUS_TERM_ID;                
             });
@@ -133,14 +133,14 @@ export default {
                         }),
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(()=>{
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                ).then(() => {
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         }

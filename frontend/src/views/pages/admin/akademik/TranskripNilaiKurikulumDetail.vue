@@ -321,7 +321,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                              
+            }).then(({ data }) => {                              
                 this.data_mhs=data.mahasiswa;
                 this.jumlahMatkul=data.jumlah_matkul;
                 this.totalSKS=data.jumlah_sks;
@@ -331,7 +331,7 @@ export default {
 
                 this.datatable=data.nilai_matakuliah;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;                        
@@ -339,23 +339,23 @@ export default {
         async viewItem(item)
         {
             this.btnLoading=true;
-            await this.$ajax.post('/akademik/nilai/transkripkurikulum/'+item.id+'/history',                
+            await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history',                
                 {
                     user_id:this.data_mhs.user_id,
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.data_matkul=data.matakuliah;
                 this.data_history=data.history;
                 this.dialoghistory=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });   
         },
         dataTableRowClicked(item)
@@ -374,17 +374,17 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         async printpdf2()
@@ -392,17 +392,17 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         closedialogprintpdf () {                  

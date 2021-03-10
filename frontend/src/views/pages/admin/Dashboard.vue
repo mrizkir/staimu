@@ -214,7 +214,7 @@ export default {
                 headers: {
                     Authorization:'Bearer '+this.TOKEN
                 }
-            }).then(({data})=>{          
+            }).then(({ data }) => {          
                 this.dashboard = data.role[0];                                                       
                 this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
             });                 

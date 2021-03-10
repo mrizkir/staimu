@@ -83,9 +83,9 @@ export default {
                 await this.$ajax.post('/auth/login',{
                     username:this.formlogin.username,
                     password:this.formlogin.password
-                }).then(({data})=>{
+                }).then(({ data }) => {
                     this.$ajax.get('/auth/me',{
-                        headers:{
+                        headers: {
                             'Authorization': data.token_type+' '+data.access_token,
                         }
                     })
@@ -96,12 +96,12 @@ export default {
                         }
                         this.$store.dispatch('auth/afterLoginSuccess',data_user);
                     });
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                     this.form_error=false;
                     this.$router.push('/dashboard/'+data.access_token);
                 }).catch(() => {
                     this.form_error=true;
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                 });
             }
         }

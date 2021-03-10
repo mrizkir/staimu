@@ -276,10 +276,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -298,32 +298,32 @@ export default {
         },
         viewItem(item)
         {
-            this.$router.push('/akademik/nilai/konversi/'+item.id+'/detail');
+            this.$router.push('/akademik/nilai/konversi/' + item.id + '/detail');
         },
         editItem(item)
         {
-            this.$router.push('/akademik/nilai/konversi/'+item.id+'/edit');
+            this.$router.push('/akademik/nilai/konversi/' + item.id + '/edit');
         },
-        deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data nilai konvesi dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+        deleteItem(item) {           
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data nilai konvesi dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/akademik/nilai/konversi/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });
@@ -333,17 +333,17 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         closedialogprintpdf () {                  

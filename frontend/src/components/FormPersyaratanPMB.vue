@@ -29,11 +29,11 @@ export default {
         {
             await this.$ajax.get('/spmb/pmbpersyaratan/'+this.user_id,             
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(({data})=>{                   
+            ).then(({ data }) => {                   
                 this.daftar_persyaratan=data.persyaratan;
             })
         },        

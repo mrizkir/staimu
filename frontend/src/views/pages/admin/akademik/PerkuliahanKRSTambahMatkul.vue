@@ -161,7 +161,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                               
+            }).then(({ data }) => {                                               
                 this.datakrs=data.krs;
                 if (Object.keys(this.datakrs).length)
                 {
@@ -187,10 +187,10 @@ export default {
                     headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
-                }).then(({data})=>{               
+                }).then(({ data }) => {               
                     this.datatable = data.penyelenggaraan;
                     this.datatableLoading=false;
-                }).catch(()=>{
+                }).catch(() => {
                     this.datatableLoading=false;
                 });  
             }
@@ -206,15 +206,15 @@ export default {
                         matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{                       
-                    this.btnLoading=false;
+                ).then(() => {                       
+                    this.btnLoading = false;
                     this.closedialogfrm();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         }, 

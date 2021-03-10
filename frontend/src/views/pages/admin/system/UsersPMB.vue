@@ -411,7 +411,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading=false;
@@ -440,14 +440,14 @@ export default {
                             role_name:'pmb',                    
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                   
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    ).then(() => {                   
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });     
                 }
             });
@@ -458,7 +458,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{      
+            }).then(({ data }) => {      
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
@@ -487,13 +487,13 @@ export default {
             item.password='';            
             this.editedItem = Object.assign({}, item);      
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-            await this.$ajax.get('/system/users/'+item.id+'/prodi',               
+            await this.$ajax.get('/system/users/' + item.id + '/prodi',               
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.TOKEN
                     }
                 }
-            ).then(({data})=>{                                   
+            ).then(({ data }) => {                                   
                 let daftar_prodi = data.daftar_prodi;
                 var prodi=[];
                 daftar_prodi.forEach(element => {
@@ -506,7 +506,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{      
+            }).then(({ data }) => {      
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
@@ -529,14 +529,14 @@ export default {
             });    
 
             this.btnLoading=true;
-            await this.$ajax.get('/system/users/'+item.id+'/roles',
+            await this.$ajax.get('/system/users/' + item.id + '/roles',
             {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{  
+            }).then(({ data }) => {  
                 this.editedItem.role_id=data.roles;                   
-                this.btnLoading=false;
+                this.btnLoading = false;
                 this.dialogEdit = true;
             });
         },
@@ -546,7 +546,7 @@ export default {
         
         },
         close () {            
-            this.btnLoading=false;
+            this.btnLoading = false;
             this.dialog = false;
             this.dialogEdit = false;            
             setTimeout(() => {
@@ -557,7 +557,7 @@ export default {
             );
         },
         closeUserPermissions () {
-            this.btnLoading=false;            
+            this.btnLoading = false;            
             this.dialogUserPermission = false;  
         },
         save () {
@@ -578,15 +578,15 @@ export default {
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({ data }) => {   
                         Object.assign(this.daftar_users[this.editedIndex], data.user);
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                    
                     
                 } else {
@@ -601,39 +601,39 @@ export default {
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),                          
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(({data})=>{   
+                    ).then(({ data }) => {   
                         this.daftar_users.push(data.user);
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
         },
-        deleteItem (item) {           
+        deleteItem(item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/system/userspmb/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.daftar_users.indexOf(item);
                         this.daftar_users.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });

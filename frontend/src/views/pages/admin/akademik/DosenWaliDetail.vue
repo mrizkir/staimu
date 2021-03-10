@@ -301,12 +301,12 @@ export default {
             this.datatableLoading=true;
             await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id,             
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 },
                 
-            ).then(({data})=>{   
+            ).then(({ data }) => {   
                 this.data_dosen=data.biodatadiri;                                           
             });       
 
@@ -314,7 +314,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_mahasiswa = data.daftar_mahasiswa;                
                 this.datatableLoading=false;
             });          
@@ -339,7 +339,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                  
+            }).then(({ data }) => {                                  
                 this.dialogfrm=true;
                 this.daftar_dw = data.users; 
                 this.formdata.dosen_id = this.dosen_id;
@@ -354,15 +354,15 @@ export default {
                     'dosen_id':this.formdata.dosen_id,
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.TOKEN
                     }
                 }
-            ).then(()=>{   
+            ).then(() => {   
                 this.$router.go();
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         closedialogfrm () {            

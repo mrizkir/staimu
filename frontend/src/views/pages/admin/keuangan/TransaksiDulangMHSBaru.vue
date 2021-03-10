@@ -288,7 +288,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.transaksi;                
                 this.datatableLoading=false;
             });                     
@@ -324,17 +324,17 @@ export default {
                         TA:this.tahun_pendaftaran,                                                     
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{   
+                ).then(() => {   
                     this.closedialogfrm();
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                     this.initialize();                    
                     
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }            
         },
@@ -350,26 +350,26 @@ export default {
                 }, 300
             );
         },
-        deleteItem (item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data transaksi daftar ulang mahasiswa baru dengan ID '+item.id+' ?', { color: 'red',width:'500px' }).then((confirm) => {
+        deleteItem(item) {           
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data transaksi daftar ulang mahasiswa baru dengan ID ' + item.id + ' ?', { color: 'red',width:'500px' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/keuangan/transaksi-dulangmhsbaru/'+item.transaksi_id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });
@@ -444,7 +444,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.transaksi;                
                             this.datatableLoading=false;
                         });                     

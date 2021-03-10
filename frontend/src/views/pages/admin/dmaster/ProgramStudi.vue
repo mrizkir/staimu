@@ -339,10 +339,10 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.prodi;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
         },
@@ -374,11 +374,11 @@ export default {
         {   
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {
                     this.daftar_fakultas=data.fakultas;
                 });
             }
-            await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({data})=>{
+            await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
             });
 
@@ -391,7 +391,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{    
+            }).then(({ data }) => {    
                 this.daftar_dosen = data.users;   
                 this.dosen_id=item.config;
                 if (item.config)
@@ -411,13 +411,13 @@ export default {
 
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;                    
                     this.formdata.kode_fakultas=item.kode_fakultas;
                 });
             }
 
-            await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({data})=>{
+            await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
             });
 
@@ -444,16 +444,16 @@ export default {
                             nama_jenjang:this.formdata.nama_jenjang,                                                                                                             
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.closedialogfrm();                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                 
                     
                 } else {                    
@@ -467,40 +467,40 @@ export default {
                             nama_jenjang:this.jenjang_studi.nama_jenjang,                                                                                                             
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();                  
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         this.closedialogfrm();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
         },
-        deleteItem (item) {           
+        deleteItem(item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data program studi dengan kode '+item.kode_prodi+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/datamaster/programstudi/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });
@@ -571,15 +571,15 @@ export default {
                         }),                                                                 
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(()=>{   
+                ).then(() => {   
                     this.initialize();
-                    this.btnLoading=false;                    
-                }).catch(()=>{
-                    this.btnLoading=false;
+                    this.btnLoading = false;                    
+                }).catch(() => {
+                    this.btnLoading = false;
                 });        
             }            
         }  

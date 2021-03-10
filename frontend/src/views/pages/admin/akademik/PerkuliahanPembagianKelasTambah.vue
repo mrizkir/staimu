@@ -313,7 +313,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_dosen = data.dosen;
             });
 
@@ -321,7 +321,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan;
             });
 
@@ -330,7 +330,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_zoom = data.zoom;
             });
             
@@ -357,15 +357,15 @@ export default {
 
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{
-                    this.btnLoading=false;
+                ).then(() => {
+                    this.btnLoading = false;
                     this.$router.push('/akademik/perkuliahan/pembagiankelas/daftar');
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         },
@@ -383,7 +383,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_matakuliah = data.matakuliah;
 
                 this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];

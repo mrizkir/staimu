@@ -198,13 +198,13 @@ export default {
         {
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
                 });
             }
             else
             {
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
             }                       
@@ -222,17 +222,17 @@ export default {
                     prodi_id:this.prodi_id,
                     password:this.formdata.password,
                     captcha_response:this.formdata.captcha_response,
-                }).then(({data})=>{
+                }).then(({ data }) => {
                     this.formkonfirmasi.email=data.email;
                     this.formkonfirmasi.code=data.code;
-                    this.btnLoading=false;    
+                    this.btnLoading = false;    
                     this.dialogkonfirmasiemail=true;  
                     
                     this.form_valid=true;                                                                                        
                     this.$refs.frmpendaftaran.reset(); 
                     this.formdata = Object.assign({}, this.formdefault)
                 }).catch(() => {                                   
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                 });     
             }
             this.resetRecaptcha();                        
@@ -245,11 +245,11 @@ export default {
                 await this.$ajax.post('/spmb/pmb/konfirmasi',{                                        
                     email:this.formkonfirmasi.email,                    
                     code:this.formkonfirmasi.code,
-                }).then(()=>{             
+                }).then(() => {             
                     this.dialogkonfirmasiemail=false;       
-                    this.btnLoading=false;                                                                                           
+                    this.btnLoading = false;                                                                                           
                 }).catch(() => {                                   
-                    this.btnLoading=false;
+                    this.btnLoading = false;
                 });                       
                 this.form_valid=true;                          
                 this.$refs.frmkonfirmasi.reset(); 
@@ -289,7 +289,7 @@ export default {
             if (val != null && val != '')
             {
                 this.btnLoadingFakultas=true;
-                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({data})=>{                                
+                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {                                
                     this.daftar_prodi=data.programstudi;
                     this.btnLoadingFakultas=false;
                 });

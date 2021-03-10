@@ -142,15 +142,15 @@ export default {
                     chkpermission:this.permissions_selected
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.TOKEN
                     }
                 }
-            ).then(()=>{   
-                this.btnLoading=false;
+            ).then(() => {   
+                this.btnLoading = false;
                 this.close();                
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         revoke(item)
@@ -162,20 +162,20 @@ export default {
                     name:item.name
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.TOKEN
                     }
                 }
-            ).then(()=>{   
-                this.btnLoading=false;
+            ).then(() => {   
+                this.btnLoading = false;
                 this.close();                
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         close()
         {
-            this.btnLoading=false;
+            this.btnLoading = false;
             this.permissions_selected=[];
             this.$emit('closeRolePermissions',this.role.id);
         }

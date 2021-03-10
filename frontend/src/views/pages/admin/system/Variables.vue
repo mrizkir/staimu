@@ -147,7 +147,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{  
+            }).then(({ data }) => {  
                 let setting = data.setting;                           
                 this.formdata.default_ta=setting.DEFAULT_TA;
                 this.formdata.default_semester=setting.DEFAULT_SEMESTER;                
@@ -170,14 +170,14 @@ export default {
                         }),                                                                                                                            
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.TOKEN
                         }
                     }
-                ).then(()=>{                       
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                ).then(() => {                       
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });        
             }
         }

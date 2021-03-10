@@ -244,7 +244,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                               
+            }).then(({ data }) => {                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.krsmatkul;                
                 if (Object.keys(this.datakrs).length)
@@ -274,13 +274,13 @@ export default {
                     daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                   
+            ).then(() => {                   
                 this.$router.go();
-            }).catch(()=>{
+            }).catch(() => {
                 this.btnLoadingTable=false;
             });
         },   

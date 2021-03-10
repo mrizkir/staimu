@@ -264,7 +264,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{           
+            }).then(({ data }) => {           
                 this.data_kelas_mhs=data.pembagiankelas;                                         
             });
             await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,            
@@ -272,7 +272,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                                                                 
+            }).then(({ data }) => {                                                                                 
                 this.datatableLoading=false;                
                 this.datatable_peserta=data.peserta;   
             })              
@@ -402,13 +402,13 @@ export default {
                     daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                   
+            ).then(() => {                   
                 this.$router.go();
-            }).catch(()=>{
+            }).catch(() => {
                 this.btnLoadingTable=false;
             });            
         },

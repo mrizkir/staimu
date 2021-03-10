@@ -224,7 +224,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.kombi;                
                 this.datatableLoading=false;
             });                     
@@ -257,9 +257,9 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.kombi;                
-                this.btnLoading=false;
+                this.btnLoading = false;
             });   
         },
         saveItem:async function ({id,biaya})
@@ -273,7 +273,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(()=>{               
+            }).then(() => {               
                 this.initialize();                        
             });  
         },
@@ -323,7 +323,7 @@ export default {
                         headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
-                    }).then(({data})=>{               
+                    }).then(({ data }) => {               
                         this.datatable = data.kombi;                
                         this.datatableLoading=false;
                     });                     

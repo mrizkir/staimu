@@ -305,17 +305,17 @@ export default {
                         password:this.formdata.password,                           
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(({data})=>{                                                                            
+                ).then(({ data }) => {                                                                            
                     this.$refs.frmdata.reset(); 
                     this.formdata.foto=data.foto;       
                     this.formdata=this.formdefault; 
-                    this.btnLoading=false;
-                }).catch(()=>{
-                    this.btnLoading=false;
+                    this.btnLoading = false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });                     
             }
         },
@@ -346,16 +346,16 @@ export default {
                     formdata.append('foto',this.formdata.foto);
                     await this.$ajax.post('/setting/users/uploadfoto/'+this.$store.getters.User.id,formdata,                    
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token'],  
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(({data})=>{                           
-                        this.btnLoading=false;
+                    ).then(({ data }) => {                           
+                        this.btnLoading = false;
                         this.$store.dispatch('updateFoto',data.user.foto);                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });    
                     this.$refs.frmdata.reset(); 
                 }   
@@ -366,26 +366,26 @@ export default {
             this.btnLoading=true;
             await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},            
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token'],                              
                     }
                 }
-            ).then(({data})=>{                           
-                this.btnLoading=false;
+            ).then(({ data }) => {                           
+                this.btnLoading = false;
                 this.$store.dispatch('updateFoto',data.user.foto);
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });    
         },
         async fetchMahasiswa()
         {
             await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),                    
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token'],                              
                     }
                 }
-            ).then(({data})=>{                           
+            ).then(({ data }) => {                           
                 this.data_mhs=data.mahasiswa;            
             })
         }

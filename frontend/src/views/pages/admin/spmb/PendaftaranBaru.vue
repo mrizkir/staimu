@@ -481,7 +481,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.pmb;                
                 this.datatableLoading=false;
             });          
@@ -516,15 +516,15 @@ export default {
                     'active':1
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{   
+            ).then(() => {   
                 this.initialize();
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         syncPermission:async function ()
@@ -537,14 +537,14 @@ export default {
                     prodi_id:this.prodi_id                     
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                   
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+            ).then(() => {                   
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });     
         },
         async addItem ()
@@ -555,13 +555,13 @@ export default {
 
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
                 });
             }
             else
             {
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
             }   
@@ -585,16 +585,16 @@ export default {
                             password:this.formdata.password,                     
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
                         this.closedialogfrm();
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                 
                     
                 } else {
@@ -609,16 +609,16 @@ export default {
                             password:this.formdata.password,                            
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(({data})=>{                           
+                    ).then(({ data }) => {                           
                         this.datatable.push(data.pendaftar);
                         this.closedialogfrm();
-                        this.btnLoading=false;                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;                        
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             }
@@ -631,15 +631,15 @@ export default {
                     id:id,                    
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                                           
+            ).then(() => {                                           
                 this.closedialogdetailitem();
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         },
         viewItem (item) {           
@@ -653,26 +653,26 @@ export default {
             this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
-                await this.$ajax.get('/datamaster/fakultas').then(({data})=>{                    
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
                 });
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
             }
             else
             {
-                await this.$ajax.get('/datamaster/programstudi').then(({data})=>{
+                await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
             }   
             await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(({data})=>{           
+            ).then(({ data }) => {           
                 this.registered = data.status==1;                                        
                 this.dialogfrm = true; 
             this.dialogfrm = true;
@@ -681,26 +681,26 @@ export default {
                 this.dialogfrm = true; 
             });            
         },   
-        deleteItem (item) {           
+        deleteItem(item) {           
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/spmb/pmb/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });
@@ -736,7 +736,7 @@ export default {
             if (val != null && val != '')
             {
                 this.btnLoadingFakultas=true;
-                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({data})=>{                                
+                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {                                
                     this.daftar_prodi=data.programstudi;
                     this.btnLoadingFakultas=false;
                 });
@@ -768,7 +768,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.pmb;                
                             this.datatableLoading=false;
                         });                     

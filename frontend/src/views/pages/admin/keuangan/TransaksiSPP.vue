@@ -286,7 +286,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.transaksi;                
                 this.datatableLoading=false;
             });                     
@@ -328,15 +328,15 @@ export default {
                         TA:this.tahun_akademik,                                                     
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(({data})=>{                                        
-                    this.btnLoading=false;                                        
+                ).then(({ data }) => {                                        
+                    this.btnLoading = false;                                        
                     this.$router.push('/keuangan/transaksi-spp/tambah/'+data.transaksi.id);
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });                
             }            
         },
@@ -418,7 +418,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.transaksi;                
                             this.datatableLoading=false;
                         });                     

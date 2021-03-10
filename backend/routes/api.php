@@ -9,6 +9,9 @@ $router->group(['prefix'=>'v3'], function () use ($router)
     //blog - categories    
     $router->get('/blog/categories',['uses'=>'Blog\CategoriesController@index','as'=>'blog-categories.index']);
 
+    //blog - infokampus
+    $router->get('/blog/pages/infokampus',['uses'=>'Blog\PageInfoKampusController@index','as'=>'blog-infokampus.index']);
+
     //dmaster - provinsi
     $router->get('/datamaster/provinsi',['uses'=>'DMaster\ProvinsiController@index','as'=>'provinsi.index']);
     $router->get('/datamaster/provinsi/{id}/kabupaten',['uses'=>'DMaster\ProvinsiController@kabupaten','as'=>'provinsi.kabupaten']);
@@ -81,7 +84,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/blog/categories/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\CategoriesController@destroy','as'=>'blog-categories.destroy']);
     
     //blog - pages
-    $router->post('/blog/pages/infokampus',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@store','as'=>'blog-infokampus.store']);
+    $router->post('/blog/pages/infokampus/store',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@store','as'=>'blog-infokampus.store']);
     $router->get('/blog/pages/infokampus/config',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@config','as'=>'blog-infokampus.config']);
     $router->put('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@update','as'=>'blog-infokampus.update']);
     $router->delete('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@destroy','as'=>'blog-infokampus.destroy']);

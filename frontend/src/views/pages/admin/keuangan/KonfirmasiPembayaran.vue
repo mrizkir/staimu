@@ -624,7 +624,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.datatable = data.transaksi;
                 this.datatableLoading=false;
             });
@@ -649,7 +649,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.daftar_channel=data.channel;
                 this.data_transaksi=item;
                 this.dialogfrm=true;
@@ -663,7 +663,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{
+            }).then(({ data }) => {
                 this.data_konfirmasi=data.konfirmasi;
                 this.image_prev=this.$api.url+'/'+data.konfirmasi.bukti_bayar;
                 this.dialogdetailitem=true;
@@ -702,17 +702,17 @@ export default {
 
                 this.$ajax.post('/keuangan/konfirmasipembayaran/store',data,
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token'],
                             'Content-Type': 'multipart/form-data'
                         }
                     }
-                ).then(()=>{
-                    this.btnLoading=false;
+                ).then(() => {
+                    this.btnLoading = false;
                     this.closedialogfrm();
                     this.initialize();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
 
             }
@@ -728,15 +728,15 @@ export default {
                             _method:'put'
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token'],
                             }
                         }
-                    ).then(()=>{
+                    ).then(() => {
                         this.initialize();
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });
@@ -752,15 +752,15 @@ export default {
                             transaksi_id:item.id
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token'],
                             }
                         }
-                    ).then(()=>{
+                    ).then(() => {
                         this.initialize();
-                        this.btnLoading=false;
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }
             });
@@ -843,7 +843,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{
+                        }).then(({ data }) => {
                             this.datatable = data.transaksi;
                             this.datatableLoading=false;
                         });

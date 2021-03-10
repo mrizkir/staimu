@@ -393,7 +393,7 @@ export default {
                         headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
-                    }).then(({data})=>{               
+                    }).then(({ data }) => {               
                         this.datatable = data.pmb;                
                         this.datatableLoading=false;
                     });         
@@ -423,7 +423,7 @@ export default {
         },     
         viewItem(item)
         {
-            this.$router.push('/spmb/nilaiujian/'+item.id+'/detail');
+            this.$router.push('/spmb/nilaiujian/' + item.id + '/detail');
         },
         async addItem(item)
         {
@@ -432,7 +432,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{   
+            }).then(({ data }) => {   
                 if (data.transaksi_status==1)
                 {
                     this.dialogfrm=true;        
@@ -473,16 +473,16 @@ export default {
                         desc:this.formdata.desc,
                     },            
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token'],                        
                         }
                     }
-                    ).then(()=>{               
-                        this.btnLoading=false;          
+                    ).then(() => {               
+                        this.btnLoading = false;          
                         this.closedialogfrm();
                         this.initialize();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });   
                 }
                 else
@@ -497,16 +497,16 @@ export default {
                         desc:this.formdata.desc,
                     },            
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token'],                        
                         }
                     }
-                    ).then(()=>{               
-                        this.btnLoading=false;          
+                    ).then(() => {               
+                        this.btnLoading = false;          
                         this.closedialogfrm();
                         this.initialize();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });   
                 }                
             
@@ -514,23 +514,23 @@ export default {
         },
         ulangujian (item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+item.id,
                     {
-                        '_method':'DELETE',
+                        _method: "DELETE",
                     },            
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token'],                        
                         }
                     }
-                    ).then(()=>{               
-                        this.btnLoading=false;                          
+                    ).then(() => {               
+                        this.btnLoading = false;                          
                         this.initialize();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });   
                 }
             });

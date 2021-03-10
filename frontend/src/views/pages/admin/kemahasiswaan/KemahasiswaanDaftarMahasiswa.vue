@@ -206,10 +206,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -236,12 +236,12 @@ export default {
                     nama_prodi:this.nama_prodi,                 
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     responseType:'arraybuffer'
                 }
-            ).then(({data})=>{              
+            ).then(({ data }) => {              
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
@@ -250,9 +250,9 @@ export default {
                 document.body.appendChild(link);
                 link.click();                     
                 document.body.removeChild(link);
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });     
         },    
         syncPermission:async function ()
@@ -265,14 +265,14 @@ export default {
                     prodi_id:this.prodi_id                     
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                   
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+            ).then(() => {                   
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });     
         },
         async resetPassword(item)
@@ -283,14 +283,14 @@ export default {
                     user_id:item.user_id,         
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{                   
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+            ).then(() => {                   
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });     
         }
     },
@@ -328,7 +328,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.mahasiswa;                
                             this.datatableLoading=false;
                         });                     

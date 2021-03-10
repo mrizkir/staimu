@@ -334,7 +334,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.transaksi;                
                 this.datatableLoading=false;
             });                     
@@ -359,11 +359,11 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                                             
+            }).then(({ data }) => {                                                             
                 this.data_transaksi=item;   
                 this.data_transaksi_detail=data.transaksi_detail;   
                 this.dialogdetailitem=true;
-                this.btnLoading=false;
+                this.btnLoading = false;
             });                                        
         },
         closedialogdetailitem () {
@@ -411,7 +411,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.transaksi;                
                             this.datatableLoading=false;
                         });                     

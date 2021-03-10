@@ -175,11 +175,11 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                 
+            }).then(({ data }) => {                 
                 this.datatableLoading=false;
                 this.jadwal_ujian=data.jadwal_ujian;      
                 this.datatable=data.passing_grade;                               
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;                
             });  
         },
@@ -202,15 +202,15 @@ export default {
                     jadwal_ujian_id:this.jadwal_ujian_id,               
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{         
-                this.btnLoading=false;
+            ).then(() => {         
+                this.btnLoading = false;
                 this.initialize();
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });        
         },
         saveItem:async function ({id,nilai})
@@ -226,8 +226,8 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(()=>{        
-                this.btnLoading=false;       
+            }).then(() => {        
+                this.btnLoading = false;       
                 this.initialize();                        
             });  
         },

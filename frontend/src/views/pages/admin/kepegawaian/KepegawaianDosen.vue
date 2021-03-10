@@ -301,7 +301,7 @@ export default {
                 headers: {
                     Authorization:this.TOKEN
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.daftar_dosen = data.dosen;                
                 this.datatableLoading=false;
             });          
@@ -321,11 +321,11 @@ export default {
         editItem:async function (item) {
             this.$ajax.get('/datamaster/jabatanakademik',                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.TOKEN
                     }
                 }
-            ).then(({data})=>{   
+            ).then(({ data }) => {   
                 this.daftar_jabatan=data.jabatan_akademik;
             });             
             
@@ -334,7 +334,7 @@ export default {
             this.dialogEdit = true;
         },
         close () {            
-            this.btnLoading=false;            
+            this.btnLoading = false;            
             this.dialogEdit = false;            
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
@@ -362,15 +362,15 @@ export default {
                             nomor_hp:this.editedItem.nomor_hp,                                                                                         
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.TOKEN
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         this.initialize();
                         this.close();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                    
                     
                 } 

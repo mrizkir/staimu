@@ -295,10 +295,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{               
+            }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });  
             this.firstloading=false;
@@ -321,7 +321,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                  
+            }).then(({ data }) => {                  
                 this.data_mhs = item;
                 this.dialogfrm=true;
                 this.daftar_dw = data.users; 
@@ -339,16 +339,16 @@ export default {
                     dosen_id:this.formdata.dosen_id,                       
                 },            
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token'],                        
                     }
                 }
-                ).then(()=>{               
-                    this.btnLoading=false;
+                ).then(() => {               
+                    this.btnLoading = false;
                     this.initialize();          
                     this.closedialogfrm();                        
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });   
             }
         },

@@ -223,7 +223,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                              
+            }).then(({ data }) => {                              
                 this.daftar_dw = data.users; 
             });
 
@@ -236,7 +236,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                              
+            }).then(({ data }) => {                              
                 this.daftar_tasmt = data.daftar_tasmt; 
                 var dt = this.daftar_tasmt;
                 var i=0;
@@ -268,18 +268,18 @@ export default {
                         status_mhs:JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                                                          
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{                                       
+                ).then(() => {                                       
                     setTimeout(() => {
                         this.$router.go();    
-                        this.btnLoading=false;
+                        this.btnLoading = false;
                         }, 300
                     );                                  
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });                                   
                  
             }

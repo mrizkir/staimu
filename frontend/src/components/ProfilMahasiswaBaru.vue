@@ -198,11 +198,11 @@ export default {
         {
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,             
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 },        
-            ).then(({data})=>{   
+            ).then(({ data }) => {   
                 this.datamhs=Object.assign(data.formulir,{
                                                             nama_prodi:this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1),
                                                             nama_kelas:this.$store.getters['uiadmin/getNamaKelas'](data.formulir.idkelas)
@@ -211,11 +211,11 @@ export default {
 
             await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id,             
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(({data})=>{    
+            ).then(({ data }) => {    
                 let persyaratan = data.persyaratan;
                 persyaratan.forEach(element => {
                     if (element.path != null)

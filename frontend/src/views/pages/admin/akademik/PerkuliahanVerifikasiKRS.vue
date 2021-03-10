@@ -122,7 +122,7 @@
                             <v-btn
                                 small
                                 icon
-                                @click.stop="$router.push('/akademik/perkuliahan/krs/verifikasi/'+item.id+'/detail')">
+                                @click.stop="$router.push('/akademik/perkuliahan/krs/verifikasi/' + item.id + '/detail')">
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
@@ -267,10 +267,10 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                           
+            }).then(({ data }) => {                                           
                 this.datatable = data.daftar_krs;
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });              
         },
@@ -287,12 +287,12 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                        
+            }).then(({ data }) => {                                        
                 this.datatable = data.daftar_krs;
                 this.datatableLoading=false;
                 this.firstloading=false;     
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });              
         },
@@ -312,37 +312,37 @@ export default {
             this.btnLoading=true;
             await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(({data})=>{                              
+            ).then(({ data }) => {                              
                 this.file_pdf=data.pdf_file;
                 this.dialogprintpdf=true;
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });                 
         },
         async verifikasi(item)
         {
             this.btnLoading=true;
-            await this.$ajax.post('/akademik/perkuliahan/krs/'+item.id+'/verifikasi',
+            await this.$ajax.post('/akademik/perkuliahan/krs/' + item.id + '/verifikasi',
                 {
                     _method:'put'
                 },     
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     },
                     
                 }
-            ).then(()=>{                              
+            ).then(() => {                              
                 this.$router.go();
-                this.btnLoading=false;
-            }).catch(()=>{
-                this.btnLoading=false;
+                this.btnLoading = false;
+            }).catch(() => {
+                this.btnLoading = false;
             });          
         },
         closedialogprintpdf () {                  
@@ -395,7 +395,7 @@ export default {
                             headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
-                        }).then(({data})=>{               
+                        }).then(({ data }) => {               
                             this.datatable = data.daftar_krs;
                             this.datatableLoading=false;
                         });                     

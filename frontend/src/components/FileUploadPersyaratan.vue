@@ -146,17 +146,17 @@ export default {
                     formdata.append('foto',this.filepersyaratan[index]);
                     await this.$ajax.post('/spmb/pmbpersyaratan/upload/'+this.user_id,formdata,                    
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token'],
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(()=>{                                                   
+                    ).then(() => {                                                   
                         this.btnHapus=false;
                         this.btnSimpan=true;
-                        this.btnLoading=false;                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;                        
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });                    
                 }               
             }            
@@ -171,16 +171,16 @@ export default {
                             _method:'DELETE'
                         },            
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']                
                             }
                         }
-                    ).then(()=>{                   
+                    ).then(() => {                   
                         this.btnHapus=true;
                         this.photoPersyaratan=require('@/assets/no-image.png');        
-                        this.btnLoading=false;                        
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                        this.btnLoading = false;                        
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });  
                 }
             });
@@ -209,18 +209,18 @@ export default {
                 
             },
             {
-                headers:{
+                headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }
-            ).then(({data})=>{   
+            ).then(({ data }) => {   
                 this.badgeColor=data.persyaratan.verified;              
                 this.badgeIcon=data.persyaratan.verified;              
                 this.btnHapus=true;          
                 this.btnVerifikasi=true;     
-                this.btnLoading=false;                        
+                this.btnLoading = false;                        
             }).catch(() => {                                                   
-                this.btnLoading=false;
+                this.btnLoading = false;
             });                             
         }
     },

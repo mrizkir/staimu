@@ -304,7 +304,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                            
+            }).then(({ data }) => {                            
                 this.daftar_registrasi = data.daftar_registrasi;
                 this.total_registrasi = data.total_registrasi;
                 
@@ -318,7 +318,7 @@ export default {
                 this.total_tidak_lulus = data.total_tidak_lulus;
 
                 this.datatableLoading=false;
-            }).catch(()=>{
+            }).catch(() => {
                 this.datatableLoading=false;
             });
             this.firstloading=false;            

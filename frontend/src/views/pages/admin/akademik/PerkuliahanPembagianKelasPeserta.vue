@@ -348,7 +348,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{           
+            }).then(({ data }) => {           
                 this.data_kelas_mhs=data.pembagiankelas;    
                 this.datatable=data.penyelenggaraan;                                
                 this.datatable_peserta=data.peserta;                                
@@ -363,7 +363,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                                      
+            }).then(({ data }) => {                                                      
                 this.datatable=data.penyelenggaraan;                                
                 this.datatableLoading=false;
             })   
@@ -376,7 +376,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                                      
+            }).then(({ data }) => {                                                      
                 this.datatable_peserta=data.peserta;                                
                 this.datatableLoading=false;
             })   
@@ -393,7 +393,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                                                               
+            }).then(({ data }) => {                                                               
                 this.daftar_matakuliah = data.matakuliah; 
                 this.showdialogmatakuliah=true;                      
             })  
@@ -410,7 +410,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{           
+            }).then(({ data }) => {           
                 this.datatable_members=data.members;                
                 this.showdialogpeserta=true;
             })             
@@ -425,15 +425,15 @@ export default {
                         members_selected:JSON.stringify(Object.assign({},this.members_selected)),                                                                    
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{                       
-                    this.btnLoading=false;
+                ).then(() => {                       
+                    this.btnLoading = false;
                     this.closedialogpeserta();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }            
         },
@@ -447,62 +447,62 @@ export default {
                         penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{                       
-                    this.btnLoading=false;
+                ).then(() => {                       
+                    this.btnLoading = false;
                     this.closedialogmatakuliah();
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }            
         },
         deleteMatkul(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID '+item.id+' ?', { color: 'red', width:600,'desc':'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc':'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletematkul/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                           
-                        this.btnLoading=false;
+                    ).then(() => {                           
+                        this.btnLoading = false;
                         this.$router.go();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });
         },       
         deletePeserta(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID '+item.id+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoading=true;
                     this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletepeserta/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{                           
-                        this.btnLoading=false;
+                    ).then(() => {                           
+                        this.btnLoading = false;
                         this.$router.go();
-                    }).catch(()=>{
-                        this.btnLoading=false;
+                    }).catch(() => {
+                        this.btnLoading = false;
                     });
                 }                
             });

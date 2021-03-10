@@ -222,7 +222,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                               
+            }).then(({ data }) => {                               
                 this.datatable = data.dosen;                
             })  
         },
@@ -233,7 +233,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                               
+            }).then(({ data }) => {                               
                 this.data_matkul = data.penyelenggaraan;                
             })  
         },
@@ -248,7 +248,7 @@ export default {
                 headers: {
                     Authorization:this.$store.getters['auth/Token']
                 }
-            }).then(({data})=>{                               
+            }).then(({ data }) => {                               
                 this.daftar_dosen = data.dosen;                
             })  
         },
@@ -263,23 +263,23 @@ export default {
                         is_ketua:this.formdata.is_ketua,                                                                                                                               
                     },
                     {
-                        headers:{
+                        headers: {
                             Authorization:this.$store.getters['auth/Token']
                         }
                     }
-                ).then(()=>{   
+                ).then(() => {   
                     setTimeout(() => {
-                        this.btnLoading=false;                    
+                        this.btnLoading = false;                    
                         this.$router.go();                                 
                         }, 500
                     );
                     
-                }).catch(()=>{
-                    this.btnLoading=false;
+                }).catch(() => {
+                    this.btnLoading = false;
                 });
             }
         },
-        deleteItem (item)
+        deleteItem(item)
         {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then((confirm) => {
                 if (confirm)
@@ -287,18 +287,18 @@ export default {
                     this.btnLoadingTable=true;
                     this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/'+item.id,
                         {
-                            '_method':'DELETE',
+                            _method: "DELETE",
                         },
                         {
-                            headers:{
+                            headers: {
                                 Authorization:this.$store.getters['auth/Token']
                             }
                         }
-                    ).then(()=>{   
+                    ).then(() => {   
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.btnLoadingTable=false;
                     });
                 }                
@@ -313,18 +313,18 @@ export default {
                     is_ketua:item.is_ketua,                                                                                                                               
                 },
                 {
-                    headers:{
+                    headers: {
                         Authorization:this.$store.getters['auth/Token']
                     }
                 }
-            ).then(()=>{   
+            ).then(() => {   
                 setTimeout(() => {                                     
                     this.initialize();                                 
                     }, 500
                 );
                 
-            }).catch(()=>{
-                this.btnLoading=false;
+            }).catch(() => {
+                this.btnLoading = false;
             });
         }
     },
