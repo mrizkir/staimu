@@ -243,8 +243,7 @@
 			];
 			this.fetchConfig();
 			this.fetchCategories();			
-			this.fetchPost();
-			this.firstloading = false;
+			this.fetchPost();			
 		},
 		data: () => ({      
 				firstloading:true,  
@@ -304,10 +303,10 @@
 
 				//form rules 
 				rule_judul: [
-						value => !!value || "Mohon judul informasi untuk di isi !!!",              
+					value => !!value || "Mohon judul informasi untuk di isi !!!",              
 				], 
 				rule_content: [
-						value => !!value || "Mohon konten informasi untuk di isi !!!",              
+					value => !!value || "Mohon konten informasi untuk di isi !!!",              
 				], 
 		}),
 		methods: {
@@ -321,7 +320,8 @@
 						}
 					)
 					.then(({data})=>{
-						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;						
+						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;
+						this.firstloading = false;
 					});
 			},
 			async fetchCategories() {
