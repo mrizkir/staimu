@@ -1,6 +1,9 @@
 <template>
 	<v-app>
-		<router-view/>		
+		<router-view />
+		<v-overlay :value="isLoading">
+			<v-progress-circular indeterminate size="64" color="amber" />
+		</v-overlay>
 		<v-snackbar v-model="snackbar_success" :color="snackbar_color" :top="true">
 			{{ page_message }}<br>			
 		</v-snackbar>
@@ -19,8 +22,16 @@
 <script>
 import confirm from "./components/Confirm";
 export default {	
-	name: 'PortalEkampus',
-	created(){
+	name: "PortalEkampus",
+	created() {
+		this.$ajax.interceptors.request.use((config) => {
+			this.setLoading(true);
+			return config;
+		}, (error) => {
+			this.setLoading(false);
+			return Promise.reject(error);
+		});
+
 		this.$ajax.interceptors.response.use (response => {
 			let data = response.data;			
 			switch (data.pid)
@@ -34,6 +45,7 @@ export default {
 					this.page_message = data.message;
 				break;
 			}
+			this.setLoading(false);
 			return response;
 		},error => {
 			const {
@@ -109,6 +121,7 @@ export default {
 					this.page_message='('+status+' (internal server eror): '+data.message;										
 				break;
 			}
+			this.setLoading(false);
 			return Promise.reject(error);
 		});
 	},
@@ -116,9 +129,12 @@ export default {
 	{
 		this.$root.$confirm = this.$refs.confirm;
 	},
-	data ()
-	{
+	data() {
 		return {
+			// ajaxloading
+			refCount: 0,
+			isLoading: false,
+			
 			snackbar_success:false,
 			snackbar_error:false,
 			snackbar_color:'error',
@@ -126,6 +142,17 @@ export default {
 			page_form_error_message:{}
 		}
 	},	
+	methods: {
+		setLoading(isLoading) {
+			if (isLoading) {
+				this.refCount++;
+				this.isLoading = true;
+			} else if (this.refCount > 0) {
+				this.refCount--;
+				this.isLoading = this.refCount > 0;
+			}
+		},
+	},
 	components:{
 		confirm
 	}

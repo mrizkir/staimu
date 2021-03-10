@@ -35,8 +35,8 @@
                                     v-model="formdata.term_id" 
                                     :items="daftar_category"                
                                     label="KATEGORI"
-                                    item-key="id"
-                                    item-text="name"
+                                    item-value="id"
+							        item-text="name"
                                     outlined
                                     :rules="rule_term_id" />
                             </v-card-text>

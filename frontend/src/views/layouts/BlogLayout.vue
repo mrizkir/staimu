@@ -98,26 +98,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
-            <v-list dense>
-                <v-list-item>		
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-menu-open</v-icon>
-                    </v-list-item-icon>			
-                    <v-list-item-content>									
-                        <v-list-item-title class="title">
-                            OPTIONS
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-divider></v-divider>
-                <v-list-item class="teal lighten-5 mb-5">
-                    <v-list-item-icon class="mr-2">
-                        <v-icon>mdi-filter</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>								
-                        <v-list-item-title>FILTER</v-list-item-title>
-                    </v-list-item-content>		
-                </v-list-item>
+            <v-list dense>                
                 <slot name="filtersidebar"/>		                	
             </v-list>
 		</v-navigation-drawer>
