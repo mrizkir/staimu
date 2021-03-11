@@ -137,7 +137,7 @@ export default {
         ]; 
         this.initialize();    
     },
-    data:()=>({
+    data: () => ({
         jadwal_ujian_id:null,
         jadwal_ujian:{
             id:0,                        

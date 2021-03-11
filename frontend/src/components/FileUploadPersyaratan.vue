@@ -94,7 +94,7 @@ export default {
             required:true
         }
     },
-    data:()=>({     
+    data: () => ({     
         dashboard:null,
 
         btnSimpan:true,  

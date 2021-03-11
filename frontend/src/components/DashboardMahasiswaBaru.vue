@@ -184,7 +184,7 @@ export default {
         this.initialize();          
         this.$store.dispatch('uiadmin/deletePage','ujianonline');
     },
-    data:()=>({
+    data: () => ({
         btnLoading:false,
         datatableLoading:false,        
         datatable:[],

@@ -11,6 +11,7 @@ $router->group(['prefix'=>'v3'], function () use ($router)
 
     //blog - infokampus
     $router->get('/blog/pages/infokampus',['uses'=>'Blog\PageInfoKampusController@index','as'=>'blog-infokampus.index']);
+    $router->post('/blog/pages/infokampus/all',['uses'=>'Blog\PageInfoKampusController@all','as'=>'blog-infokampus.all']);
 
     //dmaster - provinsi
     $router->get('/datamaster/provinsi',['uses'=>'DMaster\ProvinsiController@index','as'=>'provinsi.index']);

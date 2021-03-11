@@ -178,7 +178,7 @@ export default {
     {
         this.initialize();
     },
-    data:()=>({
+    data: () => ({
         btnLoading:false,
         btnLoadingProv:false,
         btnLoadingKab:false,

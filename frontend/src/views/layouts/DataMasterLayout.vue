@@ -235,7 +235,7 @@ export default {
             default:false
         },
     },      
-    data:()=>({
+    data: () => ({
         loginTime:0,
         drawer:null,
         drawerRight:null,   

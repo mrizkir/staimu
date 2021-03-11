@@ -10,8 +10,7 @@
 import FileUpload from '@/components/FileUploadPersyaratan';
 export default {
     name:'FormPersyaratanPMB',
-    created()
-    {
+    created() {
         this.initialize();
     },
     props:{
@@ -20,7 +19,7 @@ export default {
             required:true
         }
     },
-    data:()=>({
+    data: () => ({
         //form        
         daftar_persyaratan:[],        
     }),    

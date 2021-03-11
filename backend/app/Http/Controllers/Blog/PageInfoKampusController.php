@@ -31,6 +31,29 @@ class PageInfoKampusController extends Controller {
                                     'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
                                 ],200);
     }
+    public function all (Request $request)
+    {
+        $setting = ConfigurationModel::getCache();
+
+        $data = BlogPostModel::select(\DB::raw('
+                                    blog_post.id,
+                                    blog_post.post_title,
+                                    blog_post.post_content,
+                                    users.username,
+                                    blog_post.created_at,
+                                    blog_post.updated_at
+                                '))
+                                ->join('users','users.id','blog_post.user_id')
+                                ->orderBy('created_at','desc')
+                                ->get();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',                                
+                                    'post'=>$data,
+                                    'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
+                                ],200);
+    }
     public function show (Request $request,$id)
     {
         $this->hasPermissionTo('BLOG-POST_SHOW');
