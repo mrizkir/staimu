@@ -64,6 +64,15 @@ const routes = [
 		},
 		component: () => import('../views/pages/admin/blog/PageInfoKampusTambah.vue')
 	},
+	//blog - pages - info kampus - tambah
+	{
+		path: "/blog/pages/infokampus/:post_id/edit",
+		name: 'BlogPageInfoKampusEdit',
+		meta: {
+			title: "BLOG - PAGE - INFO KAMPUS"
+		},
+		component: () => import('../views/pages/admin/blog/PageInfoKampusEdit.vue')
+	},
 	//dmaster
 	{
 		path: '/dmaster',

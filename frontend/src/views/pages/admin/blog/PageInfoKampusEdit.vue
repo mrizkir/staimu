@@ -33,13 +33,13 @@
 			</v-list-item>
 			<v-divider></v-divider>
 		</template>
-		<v-container fluid v-if="INFO_KAMPUS_TERM_ID">
+		<v-container fluid v-if="INFO_KAMPUS_TERM_ID && post_id">
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 						<v-card>
 							<v-card-title>
-								<span class="headline">TAMBAH INFORMASI</span>
+								<span class="headline">UBAH INFORMASI</span>
 							</v-card-title>
 							<v-card-text>
 								<v-text-field
@@ -116,6 +116,9 @@
 	export default {
 		name: "PageInfoKampus",
 		created() {
+			this.post_id = this.$route.params.post_id;
+			this.fetchConfig();
+			this.fetchPost();
 			this.breadcrumbs = [
 				{
 					text: "HOME",
@@ -133,14 +136,11 @@
 					href: "/blog/infokampus",
 				},
 				{
-					text: "TAMBAH",
+					text: "UBAH",
 					disabled: true,
 					href: "#",
 				},
 			];
-		},
-		mounted() {
-			this.fetchConfig();
 		},
 		data: () => ({
 			firstloading: true,
@@ -148,6 +148,7 @@
 
 			//page config
 			INFO_KAMPUS_TERM_ID: null,
+			post_id: null,
 
 			//tiptap extension
 			extensions: [
@@ -175,7 +176,6 @@
 				Paragraph,
 				HardBreak,
 			],
-
 			//form data
 			form_valid: true,
 			formdata: {
@@ -208,13 +208,26 @@
 					});
 				this.firstloading = false;
 			},
+			async fetchPost() {
+				await this.$ajax
+					.get("/blog/pages/infokampus/" + this.post_id, {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.formdata.post_title = data.post.post_title;
+						this.formdata.post_content = data.post.post_content;
+					});
+			},
 			save: async function() {
 				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
 					await this.$ajax
 						.post(
-							"/blog/pages/infokampus/store",
+							"/blog/pages/infokampus/" + this.post_id,
 							{
+								_method: "put",
 								post_title: this.formdata.post_title,
 								post_content: this.formdata.post_content,
 								term_id: this.INFO_KAMPUS_TERM_ID,
@@ -225,9 +238,9 @@
 								},
 							}
 						)
-						.then(({ data }) => {
+						.then(() => {
 							this.btnLoading = false;
-							this.$router.push("/blog/pages/infokampus/" + data.post.id + "/edit");
+							this.$router.go();
 						})
 						.catch(() => {
 							this.btnLoading = false;

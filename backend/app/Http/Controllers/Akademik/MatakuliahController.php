@@ -266,12 +266,12 @@ class MatakuliahController extends Controller {
                                 ->orderBy('kmatkul','ASC')                      
                                 ->get();
 
-            \App\Models\System\ActivityLog::log($request,[
-                                                        'object' => $matakuliah,
-                                                        'object_id'=>'N.A', 
-                                                        'user_id' => $this->getUserid(), 
-                                                        'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
-                                                    ]);
+		\App\Models\System\ActivityLog::log($request,[
+													'object' => $matakuliah,
+													'object_id'=>'N.A', 
+													'user_id' => $this->getUserid(), 
+													'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
+												]);
                                                     
         return Response()->json([
                                 'status'=>1,
@@ -408,11 +408,11 @@ class MatakuliahController extends Controller {
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $matakuliah, 
-                                                                'object_id' => $matakuliah->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus matakuliah dengan id ('.$id.') berhasil'
-                                                            ]);
+															'object' => $matakuliah, 
+															'object_id' => $matakuliah->id, 
+															'user_id' => $this->getUserid(), 
+															'message' => 'Menghapus matakuliah dengan id ('.$id.') berhasil'
+														]);
             $matakuliah->delete();
             return Response()->json([
                                         'status'=>1,

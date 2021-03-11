@@ -86,6 +86,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //blog - pages
     $router->post('/blog/pages/infokampus/store',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@store','as'=>'blog-infokampus.store']);
     $router->get('/blog/pages/infokampus/config',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@config','as'=>'blog-infokampus.config']);
+    $router->get('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@show','as'=>'blog-infokampus.show']);
     $router->put('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@update','as'=>'blog-infokampus.update']);
     $router->delete('/blog/pages/infokampus/{id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|pmb'],'uses'=>'Blog\PageInfoKampusController@destroy','as'=>'blog-infokampus.destroy']);
     
