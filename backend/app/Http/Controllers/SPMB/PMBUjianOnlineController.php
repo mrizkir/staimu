@@ -186,6 +186,36 @@ class PMBUjianOnlineController extends Controller {
                             ],200);
     }
     /**
+     * digunakan untuk keluar dari sebuah jadwal ujian
+     */
+    public function keluar (Request $request)
+    {   
+        $this->hasPermissionTo('SPMB-PMB-JADWAL-UJIAN_DESTROY');
+
+        $this->validate($request,[
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',            
+        ]);
+
+        \DB::transaction(function () use ($request) {
+
+            \DB::table('pe3_jawaban_ujian')
+                ->where('user_id', $request->input('user_id'))
+                ->delete();
+
+            \DB::table('pe3_peserta_ujian_pmb')
+                ->where('user_id', $request->input('user_id'))
+                ->delete();
+        });
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'destroy',                
+                                    'message'=>"Peserta berhasil dihapus dari jadwal ujian ini"
+                                ],200); 
+        
+    
+    }
+    /**
      * digunakan untuk menyimpan jawaban ujian
      */
     public function store (Request $request)

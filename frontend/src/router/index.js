@@ -27,14 +27,14 @@ const routes = [
 		meta: {
 			title: "LOGIN"
 		},
-		component: () => import('../views/pages/front/Login.vue')
+		component: () => import('../views/pages/front/Login.vue'),
 	},
 	{
 		path: '/dashboard/:token',
 		name: 'AdminDashboard',
 		meta: {
 			title: "DASHBOARD",
-        },
+		},
 		component: () => import('../views/pages/admin/Dashboard.vue'),
 	},
 	//blog
@@ -42,9 +42,9 @@ const routes = [
 		path: '/blog',
 		name: 'Blog',
 		meta: {
-			title: "BLOG"
+			title: "BLOG",
 		},
-		component: () => import('../views/pages/admin/blog/Blog.vue')
+		component: () => import('../views/pages/admin/blog/Blog.vue'),
 	},
 	//blog - pages - info kampus
 	{
@@ -69,9 +69,9 @@ const routes = [
 		path: "/blog/pages/infokampus/:post_id/edit",
 		name: 'BlogPageInfoKampusEdit',
 		meta: {
-			title: "BLOG - PAGE - INFO KAMPUS"
+			title: "BLOG - PAGE - INFO KAMPUS",
 		},
-		component: () => import('../views/pages/admin/blog/PageInfoKampusEdit.vue')
+		component: () => import('../views/pages/admin/blog/PageInfoKampusEdit.vue'),
 	},
 	//dmaster
 	{
@@ -80,7 +80,7 @@ const routes = [
 		meta: {
 			title: "DATA MASTER",
 			requiresAuth:true,
-        },
+		},
 		component: () => import('../views/pages/admin/dmaster/DMaster.vue'),
 	},
 	// dmaster - fasilitas
@@ -239,6 +239,15 @@ const routes = [
 			requiresAuth:true,
         },
 		component: () => import('../views/pages/admin/spmb/JadwalUjianPMB.vue'),
+	},
+	{
+		path: "/spmb/jadwalujianpmb/:jadwal_ujian_id/detail",
+		name: "SPMBJadwalUjianPMBDetail",
+		meta: {
+			title: "SPMB - JADWAL UJIAN PMB",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/spmb/JadwalUjianPMBDetail.vue"),
 	},
 	{
 		path: '/spmb/ujianonline',

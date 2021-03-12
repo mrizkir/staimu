@@ -12,10 +12,10 @@ class CreateJadwalUjianPmbTable extends Migration
      * @return void
      */
     public function up()
-    {   
+    {
         Schema::defaultStringLength(191);
         Schema::create('pe3_jadwal_ujian_pmb', function (Blueprint $table) {
-            $table->uuid('id')->primary();                                    
+            $table->uuid('id')->primary();
             $table->string('nama_kegiatan');
             $table->smallInteger('jumlah_soal')->default(0);
             $table->date('tanggal_ujian');
@@ -28,13 +28,13 @@ class CreateJadwalUjianPmbTable extends Migration
             $table->tinyInteger('idsmt')->default(1);
             //status pendaftaran; 0 buka 1 tutup
             $table->boolean('status_pendaftaran')->default(0);
-            //status ujian; 0 stop, 1 selesai
-            $table->boolean('status_ujian')->default(0);
+            //status ujian; 0 belum mulai, 1 berjalan, 2 selesai
+            $table->tinyInteger('status_ujian')->default(0);
 
             $table->timestamps();
-            
+
             $table->index('ruangkelas_id');
-            
+
         });
     }
 
