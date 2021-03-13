@@ -149,20 +149,38 @@ class PMBUjianOnlineController extends Controller {
             'jadwal_ujian_id'=>'required|exists:pe3_jadwal_ujian_pmb,id',                    
         ]);
         
-        $jadwal_ujian_id=$request->input('jadwal_ujian_id');
-        $no_peserta=\DB::table('pe3_peserta_ujian_pmb')->where('jadwal_ujian_id',$jadwal_ujian_id)->count()+1;
-        $peserta=PesertaUjianPMBModel::create([
-            'user_id'=>$request->input('user_id'),
-            'no_peserta'=>$no_peserta,
-            'jadwal_ujian_id'=>$jadwal_ujian_id,            
-        ]);
+        $is_bayar = \DB::table('pe3_transaksi')
+                        ->join('pe3_transaksi_detail','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+                        ->where('kombi_id',101)
+                        ->where('status',1)
+                        ->where('pe3_transaksi_detail.user_id', $request->input('user_id'))
+                        ->exists();
+        
+        if ($is_bayar)
+        {
+            $jadwal_ujian_id=$request->input('jadwal_ujian_id');
+            $no_peserta=\DB::table('pe3_peserta_ujian_pmb')->where('jadwal_ujian_id',$jadwal_ujian_id)->count()+1;
+            $peserta=PesertaUjianPMBModel::create([
+                'user_id'=>$request->input('user_id'),
+                'no_peserta'=>$no_peserta,
+                'jadwal_ujian_id'=>$jadwal_ujian_id,   
+            ]);
 
-        return Response()->json([
-                                'status'=>1,
-                                'pid'=>'store',  
-                                'peserta'=>$peserta,
-                                'message'=>'Mendaftarkan peserta ujian pmb ke jadwal ujian berhasil.'
-                            ],200);     
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store',  
+                                    'peserta'=>$peserta,
+                                    'message'=>'Mendaftarkan peserta ujian pmb ke jadwal ujian berhasil.'
+                                ],200);     
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'store',  
+                                    'message'=>'Mendaftarkan peserta ujian pmb ke jadwal ujian gagal karena belum melakukan pembayaran.'
+                                ],422);    
+        }     
     
     }
     /**
@@ -211,8 +229,7 @@ class PMBUjianOnlineController extends Controller {
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>"Peserta berhasil dihapus dari jadwal ujian ini"
-                                ],200); 
-        
+                                ],200);       
     
     }
     /**

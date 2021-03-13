@@ -45,7 +45,7 @@ class PageInfoKampusController extends Controller {
                                 '))
                                 ->join('users','users.id','blog_post.user_id')
                                 ->orderBy('created_at','desc')
-                                ->get();
+                                ->paginate(10);
 
         return Response()->json([
                                     'status'=>1,
