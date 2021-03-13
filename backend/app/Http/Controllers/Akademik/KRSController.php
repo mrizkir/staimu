@@ -210,9 +210,9 @@ class KRSController extends Controller
                                             A.sks,
                                             A.semester,
                                             CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
-                                            CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
+                                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(E.gelar_belakang,\'\')) AS nama_dosen_kelas,
                                             \'\' AS nama_dosen,
-                                            COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+                                            COALESCE(D.nmatkul,\'N.A\') AS nama_kelas,
                                             C.kelas_mhs_id,
                                             pe3_krsmatkul.penyelenggaraan_id,
                                             pe3_krsmatkul.created_at,
@@ -221,10 +221,10 @@ class KRSController extends Controller
                                         ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
                                         ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
                                         ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-                                        ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')                                       
-                                        ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                        ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                        ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
+                                        ->leftJoin('pe3_kelas_mhs AS D','D.id','C.kelas_mhs_id')                                       
+                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
+                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
+                                        ->leftJoin('pe3_dosen AS E','E.user_id','D.user_id')                                        
                                         ->where('krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')

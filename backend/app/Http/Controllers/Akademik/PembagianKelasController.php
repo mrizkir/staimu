@@ -432,6 +432,7 @@ class PembagianKelasController extends Controller
             $this->validate($request, [
                 'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
                 'members_selected'=>'required',
+                'pid'=>'required|in:krs,pembagiankelas'
             ]);
             $kelas_mhs_id=$request->input('kelas_mhs_id');
 
