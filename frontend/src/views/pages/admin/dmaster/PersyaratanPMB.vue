@@ -340,7 +340,7 @@ export default {
     methods: {
         ChangeTahunPendaftaran (tahun)
         {
-            this.tahun_pendaftaran=tahun;
+            this.tahun_pendaftaran = tahun;
         },
         initialize:async function () 
         {

@@ -266,9 +266,9 @@ export default {
 
     }),
     methods : {
-        changeProdi (id)
+        changeProdi(id)
         {
-            this.prodi_id=id;
+            this.prodi_id = id;
         },
         changeTahunAkademik (tahun)
         {

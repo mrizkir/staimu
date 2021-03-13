@@ -25,7 +25,7 @@
 </template>
 <script>
 export default {
-    name:'FilterMode6',
+    name: 'FilterMode6',
     created()
     {
         this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  

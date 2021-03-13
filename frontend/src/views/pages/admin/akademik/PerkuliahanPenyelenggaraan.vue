@@ -201,9 +201,9 @@ export default {
         {
             this.semester_akademik=semester;
         },
-        changeProdi (id)
+        changeProdi(id)
         {
-            this.prodi_id=id;
+            this.prodi_id = id;
         },
         initialize:async function () 
         {

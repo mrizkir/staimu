@@ -130,7 +130,7 @@
 				{
 					text: "INFO KAMPUS",
 					disabled: false,
-					href: "/blog/infokampus",
+					href: "/blog/pages/infokampus",
 				},
 				{
 					text: "TAMBAH",

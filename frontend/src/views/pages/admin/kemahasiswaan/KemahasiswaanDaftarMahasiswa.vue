@@ -186,13 +186,13 @@ export default {
         search:'', 
     }),
     methods: {
-        changeTahunPendaftaran (tahun)
+        changeTahunPendaftaran(tahun)
         {
-            this.tahun_pendaftaran=tahun;
+            this.tahun_pendaftaran = tahun;
         },
-        changeProdi (id)
+        changeProdi(id)
         {
-            this.prodi_id=id;
+            this.prodi_id = id;
         },
         initialize:async function () 
         {

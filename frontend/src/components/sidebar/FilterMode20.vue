@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-    name:'FilterMode20',
+    name: 'FilterMode20',
     created()
     {
         this.daftar_fakultas=this.$store.getters['uiadmin/getDaftarFakultas'];  

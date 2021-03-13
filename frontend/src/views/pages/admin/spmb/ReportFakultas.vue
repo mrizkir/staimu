@@ -170,9 +170,9 @@ export default {
         datamhsbaru:{}
     }),
     methods : {
-        changeTahunPendaftaran (tahun)
+        changeTahunPendaftaran(tahun)
         {
-            this.tahun_pendaftaran=tahun;
+            this.tahun_pendaftaran = tahun;
         },
         changeFakultas (id)
         {
