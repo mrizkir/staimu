@@ -426,7 +426,7 @@ import AkademikLayout from '@/views/layouts/AkademikLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter18 from '@/components/sidebar/FilterMode18';
 export default {
-    name:'Matakuliah',
+    name: 'Matakuliah',
     created () {
         this.breadcrumbs = [
             {
@@ -873,7 +873,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,
         Filter18        

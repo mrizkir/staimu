@@ -79,7 +79,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'TransaksiInvoice',
+    name: 'TransaksiInvoice',
     created()
     {
         this.transaksi_id=this.$route.params.transaksi_id;   

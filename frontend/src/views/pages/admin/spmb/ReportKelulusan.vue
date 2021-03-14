@@ -309,7 +309,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,        
         ProfilMahasiswaBaru,

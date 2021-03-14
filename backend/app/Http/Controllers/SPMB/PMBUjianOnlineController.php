@@ -9,6 +9,8 @@ use App\Models\SPMB\JadwalUjianPMBModel;
 use App\Models\SPMB\PesertaUjianPMBModel;
 use App\Models\SPMB\SoalPMBModel;
 use App\Models\SPMB\JawabanUjianPMBModel;
+use App\Models\SPMB\NilaiUjianPMBModel;
+use App\Models\SPMB\PMBPassingGradeModel;
 
 use Ramsey\Uuid\Uuid;
 
@@ -29,6 +31,14 @@ class PMBUjianOnlineController extends Controller {
                                         'pid'=>'fetchdata',                
                                         'message'=>["Peserta Ujian dengan ID ($id) gagal diperoleh, mungkin belum mendaftar"]
                                     ],422); 
+        }
+        else if ($peserta->isfinish)        
+        {
+            return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'fetchdata',                
+                                        'message'=>['Jadwal Ujian PMB ini sudah dinyatakan selesai, oleh karena itu tidak bisa dilanjutkan']
+                                    ],422);
         }
         else
         {
@@ -243,19 +253,32 @@ class PMBUjianOnlineController extends Controller {
                                   'jawaban_id'=>'required|exists:pe3_jawaban_soal,id',
                                 ]);
         
-        
-        $jawaban_ujian = JawabanUjianPMBModel::create([
-            'id'=>Uuid::uuid4()->toString(),
-            'user_id'=>$request->input('user_id'),
-            'soal_id'=>$request->input('soal_id'),
-            'jawaban_id'=>$request->input('jawaban_id'),
-        ]);
-        
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',                                                                                                                                    
-                                    'message'=>'Data Jawaban Ujian berhasil disimpan.'
-                                ],200); 
+        $user_id = $request->input('user_id');
+        $isfinish=PesertaUjianPMBModel::where('user_id',$user_id)
+                                        ->where('isfinish',1)
+                                        ->exists();
+        if ($isfinish)
+        {
+            return Response()->json([
+                                        'status'=>0,
+                                        'pid'=>'store',                                                                                                                                    
+                                        'message'=>['Jadwal Ujian PMB ini sudah dinyatakan selesai, oleh karena itu tidak bisa dilanjutkan']
+                                    ], 422); 
+        } 
+        else
+        {
+            $jawaban_ujian = JawabanUjianPMBModel::create([
+                                                            'id'=>Uuid::uuid4()->toString(),
+                                                            'user_id'=>$user_id,
+                                                            'soal_id'=>$request->input('soal_id'),
+                                                            'jawaban_id'=>$request->input('jawaban_id'),
+                                                        ]);
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'store',                                                                                                                                    
+                                        'message'=>'Data Jawaban Ujian berhasil disimpan.'
+                                    ],200); 
+        }               
     }  
     /**
      * digunakan untuk menyimpan jawaban ujian
@@ -266,10 +289,64 @@ class PMBUjianOnlineController extends Controller {
             'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
         ]);
         
-        $peserta =PesertaUjianPMBModel::find($request->input('user_id'));        
-        $peserta->selesai_ujian=\Carbon\Carbon::now()->toDateTimeString();
-        $peserta->isfinish=1;
-        $peserta->save();
+        $peserta = \DB::transaction(function () use ($request) {
+
+            $user_id = $request->input('user_id');
+            $peserta = PesertaUjianPMBModel::find($user_id);        
+            $jadwalujian = $peserta->jadwalujian;
+            
+            $jadwal_ujian_id = $peserta->jadwal_ujian_id;
+
+            $passing_grade = PMBPassingGradeModel::where('jadwal_ujian_id',$jadwal_ujian_id)
+                                                    ->first();
+
+            $jawaban = JawabanUjianPMBModel::select(\DB::raw('
+                                                pe3_jawaban_soal.`status`,
+                                                COUNT(pe3_jawaban_ujian.id) AS jumlah
+                                            '))
+                                            ->join('pe3_jawaban_soal','pe3_jawaban_soal.id','pe3_jawaban_ujian.jawaban_id')
+                                            ->where('user_id',$user_id)
+                                            ->groupBy('pe3_jawaban_soal.status')
+                                            ->orderBy('pe3_jawaban_soal.status','asc')
+                                            ->get();
+
+            $salah = 0;
+            $benar = 0;
+            foreach($jawaban as $v)
+            {
+                switch($v->status)
+                {
+                    case 0:
+                        $salah = $v->jumlah;
+                    break;
+                    case 1:
+                        $benar = $v->jumlah;
+                    break;
+                }
+            }
+            $jumlah_soal = $jadwalujian->jumlah_soal;            
+            $nilai = \App\Helpers\Helper::formatPersen($benar,$jumlah_soal);            
+            $nilai_passing_grade = is_null($passing_grade)?0:$passing_grade->nilai;
+            NilaiUjianPMBModel::create([
+                'user_id'=>$user_id,
+                'jadwal_ujian_id'=>$jadwal_ujian_id,
+                'jumlah_soal'=>$jumlah_soal,
+                'jawaban_benar'=>$benar,
+                'jawaban_salah'=>$salah,
+                'soal_tidak_terjawab'=>$jumlah_soal - ($benar+$salah),
+                'passing_grade_1'=>$nilai_passing_grade,
+                'passing_grade_2'=>0,
+                'nilai'=>$nilai,
+                'ket_lulus'=>(($nilai>$nilai_passing_grade)?1:0),
+                'desc'=>'Dihitung otomatis oleh sistem'
+            ]);           
+
+            $peserta->selesai_ujian=\Carbon\Carbon::now()->toDateTimeString();
+            $peserta->isfinish=1;
+            $peserta->save();
+
+            return $peserta;
+        });
 
         return Response()->json([
                                 'status'=>1,

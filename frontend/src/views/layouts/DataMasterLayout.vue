@@ -224,7 +224,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'DataMasterLayout',  
+    name: 'DataMasterLayout',  
     props:{
         showrightsidebar:{
             type:Boolean,

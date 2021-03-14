@@ -427,7 +427,7 @@ export default {
     computed:{
         
     },  
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,     
         DataKelasMHS,

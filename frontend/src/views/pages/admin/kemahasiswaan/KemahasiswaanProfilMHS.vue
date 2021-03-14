@@ -360,7 +360,7 @@ export default {
             );
         },
     },
-    components:{
+    components: {
         KemahasiswaanLayout,
         ModuleHeader,   
         ProfilMahasiswa            

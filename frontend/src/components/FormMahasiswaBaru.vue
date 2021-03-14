@@ -180,7 +180,7 @@
 </template>
 <script>
 export default {
-    name:'FormMahasiswaBaru',
+    name: 'FormMahasiswaBaru',
     created()
     {
         this.initialize();
@@ -347,7 +347,7 @@ export default {
             {
                 this.btnLoading=true;                
                 await this.$ajax.post('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),{                    
-                    _method:'put',
+                    _method: "put",
                     nama_mhs:this.formdata.nama_mhs,           
                     tempat_lahir:this.formdata.tempat_lahir,           
                     tanggal_lahir:this.formdata.tanggal_lahir,           

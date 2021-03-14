@@ -340,7 +340,7 @@ import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'TahunAkademik',
+    name: 'TahunAkademik',
     created () {
         this.breadcrumbs = [
             {
@@ -590,7 +590,7 @@ export default {
             }
         },   
     },
-    components:{
+    components: {
         DataMasterLayout,
         ModuleHeader,
     },

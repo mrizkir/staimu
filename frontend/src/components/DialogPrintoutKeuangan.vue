@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-    name:'DialogPrintoutKeuangan',
+    name: 'DialogPrintoutKeuangan',
     props:{
         pid:{
             type:String,

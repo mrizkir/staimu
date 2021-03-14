@@ -9,7 +9,7 @@
 <script>
 import FileUpload from '@/components/FileUploadPersyaratan';
 export default {
-    name:'FormPersyaratanPMB',
+    name: 'FormPersyaratanPMB',
     created() {
         this.initialize();
     },
@@ -37,7 +37,7 @@ export default {
             })
         },        
     },
-    components:{
+    components: {
         FileUpload
     }
 }

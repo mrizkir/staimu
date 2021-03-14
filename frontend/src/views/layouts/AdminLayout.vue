@@ -81,7 +81,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'AdminLayout',  
+    name: 'AdminLayout',  
     props:{
         showrightsidebar:{
             type:Boolean,

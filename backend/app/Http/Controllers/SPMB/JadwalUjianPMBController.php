@@ -166,8 +166,10 @@ class JadwalUjianPMBController extends Controller {
             $peserta = PesertaUjianPMBModel::select(\DB::raw('
                                                 pe3_peserta_ujian_pmb.user_id,                                                
                                                 no_peserta,
+                                                username,
                                                 nama_mhs,
                                                 jk,
+                                                telp_hp,
                                                 mulai_ujian,
                                                 selesai_ujian,
                                                 sisa_waktu,
@@ -175,6 +177,7 @@ class JadwalUjianPMBController extends Controller {
                                                 pe3_peserta_ujian_pmb.created_at,
                                                 pe3_peserta_ujian_pmb.updated_at
                                             '))
+                                            ->join('users','users.id','pe3_peserta_ujian_pmb.user_id')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_peserta_ujian_pmb.user_id')
                                             ->where('jadwal_ujian_id', $jadwal_ujian->id)
                                             ->orderBy('nama_mhs', 'asc')
@@ -265,6 +268,7 @@ class JadwalUjianPMBController extends Controller {
                 $now = \Carbon\Carbon::now()->toDateTimeString();        
                 \DB::table('pe3_peserta_ujian_pmb')
                     ->where('jadwal_ujian_id', $jadwal_ujian->id)
+                    ->where('isfinish','!=',1)
                     ->update([
                         'isfinish'=>1,
                         'selesai_ujian'=>$now

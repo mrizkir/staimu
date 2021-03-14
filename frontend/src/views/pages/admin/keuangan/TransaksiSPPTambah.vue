@@ -237,7 +237,7 @@
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'TransaksiSPPTambah',
+    name: 'TransaksiSPPTambah',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -389,7 +389,7 @@ export default {
             return total;
         }
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,     
     },

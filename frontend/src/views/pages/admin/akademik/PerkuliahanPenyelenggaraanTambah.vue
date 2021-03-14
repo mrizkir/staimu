@@ -411,7 +411,7 @@ export default {
             this.fetchMatkul(val);                        
         },
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
     },

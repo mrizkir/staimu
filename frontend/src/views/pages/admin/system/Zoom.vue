@@ -300,7 +300,7 @@
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'Zoom',
+    name: 'Zoom',
     created () {
         this.breadcrumbs = [
             {
@@ -545,7 +545,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },
-    components:{
+    components: {
         SystemConfigLayout,
         ModuleHeader,
     },

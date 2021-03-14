@@ -99,7 +99,7 @@
 </template>
 <script>
 export default {
-    name:'DataMatakuliahPenyelenggaraan',
+    name: 'DataMatakuliahPenyelenggaraan',
     props:{
         datakelas:{
             default:null,

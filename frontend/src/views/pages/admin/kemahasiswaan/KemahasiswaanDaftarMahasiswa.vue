@@ -339,7 +339,7 @@ export default {
             this.awaiting_search = true;
         }
     },
-    components:{
+    components: {
         KemahasiswaanLayout,
         ModuleHeader,    
         Filter7               

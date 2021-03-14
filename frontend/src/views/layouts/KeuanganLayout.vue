@@ -243,7 +243,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'KeuanganLayout',     
+    name: 'KeuanganLayout',     
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];        

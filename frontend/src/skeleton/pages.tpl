@@ -211,7 +211,7 @@
 import AdminLayout from '@/views/layouts/AdminLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'PAGE',
+    name: 'PAGE',
     created () {
         this.breadcrumbs = [
             {
@@ -251,14 +251,14 @@ export default {
         form_valid:true,         
         formdata: {
             id:0,                        
-            name:'',                        
+            name: '',                        
             created_at: '',           
             updated_at: '',           
 
         },
         formdefault: {
             id:0,           
-            name:'',                                     
+            name: '',                                     
             created_at: '',           
             updated_at: '',       
         },
@@ -407,7 +407,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },
-    components:{
+    components: {
         AdminLayout,
         ModuleHeader,
     },

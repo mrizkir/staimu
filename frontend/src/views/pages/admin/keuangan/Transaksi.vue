@@ -457,7 +457,7 @@ export default {
             return total;
         }
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,    
         Filter18,

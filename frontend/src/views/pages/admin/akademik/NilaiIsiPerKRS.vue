@@ -345,7 +345,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
         Filter6               

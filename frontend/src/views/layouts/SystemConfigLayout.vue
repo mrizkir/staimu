@@ -187,7 +187,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'SystemConfigLayout',   
+    name: 'SystemConfigLayout',   
     props:{
         showrightsidebar:{
             type:Boolean,

@@ -62,7 +62,7 @@
  * }
  */
 export default {
-    name:'Confirm',
+    name: 'Confirm',
     data: () => ({
         dialog: false,
         resolve: null,

@@ -533,7 +533,7 @@ export default {
 		watch:{
 				
 		},    
-		components:{
+		components: {
 				AkademikLayout,
 				ModuleHeader,     
 				DataKelasMHS       

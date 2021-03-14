@@ -185,7 +185,7 @@ import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter18 from '@/components/sidebar/FilterMode18';
 export default {
-    name:'TransaksiSPP',
+    name: 'TransaksiSPP',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -429,7 +429,7 @@ export default {
             this.awaiting_search = true;
         }
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,     
         Filter18    

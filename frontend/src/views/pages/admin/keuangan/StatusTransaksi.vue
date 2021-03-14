@@ -96,7 +96,7 @@ import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 
 export default {
-    name:'StatusTransaksi',
+    name: 'StatusTransaksi',
     created()
     {
         this.breadcrumbs = [
@@ -163,7 +163,7 @@ export default {
         {
             await this.$ajax.post('/keuangan/statustransaksi/'+id,            
             {
-                _method:'put',                
+                _method: "put",                
                 id_status:id,
                 style:style
             },
@@ -188,7 +188,7 @@ export default {
 
         },
     },   
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,    
     },

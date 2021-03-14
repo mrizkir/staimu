@@ -201,7 +201,7 @@ import ModuleHeader from '@/components/ModuleHeader';
 import Filter6 from '@/components/sidebar/FilterMode6';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
-    name:'TransaksiKKN',
+    name: 'TransaksiKKN',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -491,7 +491,7 @@ export default {
             this.awaiting_search = true;
         }
     }, 
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,     
         Filter6,

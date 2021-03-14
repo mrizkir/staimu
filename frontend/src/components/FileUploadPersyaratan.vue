@@ -64,7 +64,7 @@
 </template>
 <script>
 export default {
-    name:'FileUploadPersyaratan',
+    name: 'FileUploadPersyaratan',
     created ()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   

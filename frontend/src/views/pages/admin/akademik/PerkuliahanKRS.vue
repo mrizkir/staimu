@@ -413,7 +413,7 @@ export default {
             this.awaiting_search = true;
         }
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
         Filter6               

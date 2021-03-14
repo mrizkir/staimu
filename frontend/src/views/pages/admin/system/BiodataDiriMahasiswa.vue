@@ -349,7 +349,7 @@ export default {
             {
                 this.btnLoading=true;                
                 await this.$ajax.post('/kemahasiswaan/biodata/'+this.user_id+'/update',{                    
-                    _method:'put',
+                    _method: "put",
                     nama_mhs:this.formdata.nama_mhs,           
                     tempat_lahir:this.formdata.tempat_lahir,           
                     tanggal_lahir:this.formdata.tanggal_lahir,           
@@ -426,7 +426,7 @@ export default {
         }
 
     },
-    components:{
+    components: {
         SystemUserLayout,
         ModuleHeader,      
     },

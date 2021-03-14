@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-    name:'JawabanSoal',
+    name: 'JawabanSoal',
     created ()
     {
              

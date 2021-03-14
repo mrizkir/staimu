@@ -160,7 +160,7 @@ export default {
             ATTRIBUTE_USER:'AttributeUser',          
         }),
     },    
-    components:{
+    components: {
 		SystemUserLayout,
 		ModuleHeader,
 	}

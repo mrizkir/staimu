@@ -139,7 +139,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'KemahasiswaanLayout',     
+    name: 'KemahasiswaanLayout',     
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                  

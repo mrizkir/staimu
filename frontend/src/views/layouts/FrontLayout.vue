@@ -35,7 +35,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-    name:'FrontLayout',
+    name: 'FrontLayout',
     created ()
     {
         this.$store.dispatch('uifront/init',this.$ajax);           

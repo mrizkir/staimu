@@ -421,7 +421,7 @@ export default {
             );
         }, 
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,  
         ProfilMahasiswa  

@@ -66,7 +66,7 @@
                 </v-timeline-item>                
                 <v-timeline-item color="indigo" icon="mdi-head-question-outline" fill-dot v-if="status_ujian">
                     <v-card color="indigo">
-                        <v-card-title class="title text--white">Ujian Online</v-card-title>
+                        <v-card-title class="title white--text">Ujian Online</v-card-title>
                         <v-card-text class="white text--primary">
                             <table width="100%">
                                 <tbody>
@@ -74,7 +74,11 @@
                                         <td width="25%">No. Peserta</td>
                                         <td>: {{peserta.no_peserta}}</td>
                                     </tr>
-                                     <tr>
+                                    <tr>
+                                        <td width="25%">Nama Ujian</td>
+                                        <td>: {{ jadwal_ujian.nama_kegiatan }}</td>
+                                    </tr>
+                                    <tr>
                                         <td width="25%">Tanggal Daftar</td>
                                         <td>: {{$date(peserta.created_at).format('DD/MM/YYYY HH:mm')}}</td>
                                     </tr>
@@ -105,7 +109,7 @@
                 </v-timeline-item>
                 <v-timeline-item color="indigo" icon="mdi-head-question-outline" fill-dot v-else>
                     <v-card color="indigo">
-                        <v-card-title class="title text--white">Ujian Online</v-card-title>
+                        <v-card-title class="title white--text">Ujian Online</v-card-title>
                         <v-card-text class="white text--primary">
                             <p>Untuk mengikuti ujian online, silahkan pilih jadwal terlebih dahulu</p>
                             <v-btn
@@ -285,7 +289,7 @@ export default {
             this.btnLoading = false;
             await this.$ajax.post('/spmb/ujianonline/mulaiujian',
             {
-                _method:'put',
+                _method: "put",
                 user_id:this.$store.getters['auth/AttributeUser']('id'),                
             },
             {
@@ -295,7 +299,7 @@ export default {
             }).then(({ data }) => {               
                 this.btnLoading = false;
                 this.$store.dispatch('uiadmin/addToPages',{
-                    name:'ujianonline',
+                    name: 'ujianonline',
                     data_ujian:this.jadwal_ujian,
                     data_peserta:data.peserta,                
                 });

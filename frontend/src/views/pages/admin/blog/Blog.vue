@@ -6,8 +6,8 @@
 <script>
 import BlogLayout from '@/views/layouts/BlogLayout';
 export default {
-    name:'Blog',
-    components:{
+    name: 'Blog',
+    components: {
         BlogLayout,      
     },
 }

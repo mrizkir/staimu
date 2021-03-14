@@ -412,7 +412,7 @@ export default {
         daftar_prodi:[],   
         daftar_ta:[],         
         formdata: {
-            name:'',
+            name: '',
             email:'',            
             nomor_hp:'',
             username:'',
@@ -423,7 +423,7 @@ export default {
             updated_at: '',     
         },     
         formdefault: {
-            name:'',
+            name: '',
             email:'',            
             nomor_hp:'',
             username:'',
@@ -785,7 +785,7 @@ export default {
         },
     },
     
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,    
         Filter7    

@@ -237,7 +237,7 @@ import { mapGetters } from "vuex";
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'Kelas',
+    name: 'Kelas',
     created () {
         this.breadcrumbs = [
             {
@@ -452,7 +452,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,
     },

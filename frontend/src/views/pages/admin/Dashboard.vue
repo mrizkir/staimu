@@ -221,7 +221,7 @@ export default {
             this.$store.dispatch('uiadmin/init',this.$ajax);                          
 		}
 	},
-    components:{
+    components: {
 		AdminLayout,        
         DashboardMB,        
 	}

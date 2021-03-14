@@ -105,7 +105,7 @@
 </template>
 <script>    
 export default {
-    name:'DataKRS',
+    name: 'DataKRS',
     created()
     {
         this.initialize();                     

@@ -110,7 +110,7 @@
 import SPMBLayout from '@/views/layouts/SPMBLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'PassingGrade',
+    name: 'PassingGrade',
     created () {
         this.jadwal_ujian_id = this.$route.params.idjadwalujian;     
         this.breadcrumbs = [
@@ -218,7 +218,7 @@ export default {
             this.btnLoading=true;
             await this.$ajax.post('/spmb/passinggrade/'+id,            
             {
-                _method:'put',
+                _method: "put",
                 id:id,
                 nilai:nilai
             },
@@ -247,7 +247,7 @@ export default {
     computed: {        
         
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,
     },

@@ -92,7 +92,7 @@ export default {
             }            
         },
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,   
         Filter1,      

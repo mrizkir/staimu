@@ -234,7 +234,7 @@ export default {
             CAN_ACCESS:'can',                     
         }),
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
         Filter2               

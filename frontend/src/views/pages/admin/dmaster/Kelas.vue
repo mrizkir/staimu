@@ -183,7 +183,7 @@ import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'Kelas',
+    name: 'Kelas',
     created () {
         this.breadcrumbs = [
             {
@@ -376,7 +376,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },
-    components:{
+    components: {
         DataMasterLayout,
         ModuleHeader,
     },

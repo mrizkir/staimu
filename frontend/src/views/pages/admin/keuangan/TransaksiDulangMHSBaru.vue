@@ -193,7 +193,7 @@ import ModuleHeader from '@/components/ModuleHeader';
 import Filter7 from '@/components/sidebar/FilterMode7';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
-    name:'TransaksiDulangMHSBaru',
+    name: 'TransaksiDulangMHSBaru',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
@@ -455,7 +455,7 @@ export default {
             this.awaiting_search = true;
         }
     }, 
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,     
         Filter7,

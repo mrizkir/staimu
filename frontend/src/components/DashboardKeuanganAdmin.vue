@@ -148,7 +148,7 @@
 </template>
 <script>
 export default {
-    name:'DashboardKeuanganMHS',
+    name: 'DashboardKeuanganMHS',
     created()
     {
         this.initialize();

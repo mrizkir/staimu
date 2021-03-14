@@ -308,7 +308,7 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/'+item.id,
                 {
-                    _method:'put',
+                    _method: "put",
                     penyelenggaraan_id:item.penyelenggaraan_id,                                                                                                                               
                     is_ketua:item.is_ketua,                                                                                                                               
                 },
@@ -329,7 +329,7 @@ export default {
         }
     },
    
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader, 
         DataMatakuliahPenyelenggaraan           

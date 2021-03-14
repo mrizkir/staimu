@@ -170,7 +170,7 @@
 <script>    
 import FormPersyaratan from '@/components/FormPersyaratanPMB';
 export default {
-    name:'ProfilMahasiswaBaru',
+    name: 'ProfilMahasiswaBaru',
     created()
     {
         this.initialize();                     
@@ -244,7 +244,7 @@ export default {
             );            
         }
     },
-    components:{        
+    components: {        
         FormPersyaratan,        
     },
 }

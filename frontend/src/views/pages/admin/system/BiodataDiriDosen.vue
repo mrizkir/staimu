@@ -35,7 +35,7 @@ import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import FormBiodataDiriDosen from '@/components/FormBiodataDiriDosen';
 export default {
-    name:'UsersProfile',
+    name: 'UsersProfile',
     created () {
         this.dashboard=this.$store.getters['uiadmin/getDefaultDashboard'];
         this.formdata=this.$store.getters['auth/User'];
@@ -68,7 +68,7 @@ export default {
     },
     methods: {
     },
-    components:{
+    components: {
         SystemUserLayout,
         ModuleHeader,
         'form-biodata-diri-dosen':FormBiodataDiriDosen,

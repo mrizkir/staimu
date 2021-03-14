@@ -78,7 +78,7 @@ export default {
             this.tahun_akademik=tahun;
         },		
     },    
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,   
         Filter1,      

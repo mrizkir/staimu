@@ -270,7 +270,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,        
         Filter7    

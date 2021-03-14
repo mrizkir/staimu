@@ -854,7 +854,7 @@ export default {
             this.awaiting_search = true;
         }
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,
         Filter18,

@@ -200,7 +200,7 @@
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'UsersProfile',
+    name: 'UsersProfile',
     created () {
         this.dashboard=this.$store.getters['uiadmin/getDefaultDashboard'];
         this.formdata=this.$store.getters['auth/User'];
@@ -248,7 +248,7 @@ export default {
                 id:0,                        
                 username:'',         
                 password: '',                
-                name:'',                        
+                name: '',                        
                 email:'',                        
                 nomor_hp:'',                        
                 theme:'',                                        
@@ -263,7 +263,7 @@ export default {
                 id:0,                        
                 username:'',         
                 password: '',                
-                name:'',                        
+                name: '',                        
                 email:'',                        
                 nomor_hp:'',                        
                 theme:'',                                        
@@ -416,7 +416,7 @@ export default {
             return this.formdata.active == 1 ?'green':'red';
         }
     },
-    components:{
+    components: {
         SystemUserLayout,
         ModuleHeader,
     },

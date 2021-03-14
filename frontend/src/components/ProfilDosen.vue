@@ -122,7 +122,7 @@
 </template>
 <script>    
 export default {
-    name:'ProfiDosen',
+    name: 'ProfiDosen',
     created()
     {
         this.initialize();                     

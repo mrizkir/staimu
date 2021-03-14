@@ -66,7 +66,7 @@
 import KeuanganLayout from '@/views/layouts/KeuanganLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 export default {
-    name:'BiayaKomponen',
+    name: 'BiayaKomponen',
     created()
     {
         this.breadcrumbs = [
@@ -127,7 +127,7 @@ export default {
             }               
         },
     },
-    components:{
+    components: {
         KeuanganLayout,
         ModuleHeader,
     },

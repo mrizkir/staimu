@@ -380,7 +380,7 @@ export default {
             TOKEN:'Token',                                  
         }),
     },    
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,
         ProfilDosen          

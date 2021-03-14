@@ -224,7 +224,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'SystemUserLayout',
+    name: 'SystemUserLayout',
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];          

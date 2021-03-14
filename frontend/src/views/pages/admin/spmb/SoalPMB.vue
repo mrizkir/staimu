@@ -317,7 +317,7 @@ import SPMBLayout from '@/views/layouts/SPMBLayout';
 import ModuleHeader from '@/components/ModuleHeader';
 import Filter19 from '@/components/sidebar/FilterMode19';
 export default {
-    name:'SoalPMB',
+    name: 'SoalPMB',
     created () {
         this.breadcrumbs = [
             {
@@ -670,7 +670,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,
         Filter19,        

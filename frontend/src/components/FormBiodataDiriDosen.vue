@@ -173,7 +173,7 @@
 </template>
 <script>
 export default {
-    name:'FormBiodataDiriDosen',
+    name: 'FormBiodataDiriDosen',
     created()
     {
         this.initialize();
@@ -320,7 +320,7 @@ export default {
             {
                 this.btnLoading=true;                
                 await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{                    
-                    _method:'put',
+                    _method: "put",
                     nidn:this.formdata.nidn,           
                     nipy:this.formdata.nipy,           
                     gelar_depan:this.formdata.gelar_depan,                               

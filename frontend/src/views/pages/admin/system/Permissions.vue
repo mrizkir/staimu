@@ -302,7 +302,7 @@ export default {
             val || this.close()
         },
     },   
-    components:{
+    components: {
 		SystemUserLayout,
 		ModuleHeader,
 	}

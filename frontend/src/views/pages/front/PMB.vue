@@ -146,7 +146,7 @@ export default {
         daftar_prodi:[],
         prodi_id:'',                  
         formdata: {
-            name:'',
+            name: '',
             email:'',            
             nomor_hp:'',
             username:'',
@@ -154,7 +154,7 @@ export default {
             captcha_response:''
         },     
         formdefault: {
-            name:'',
+            name: '',
             email:'',            
             nomor_hp:'',
             username:'',

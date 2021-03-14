@@ -401,7 +401,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'AkademikLayout',     
+    name: 'AkademikLayout',     
     created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];                      

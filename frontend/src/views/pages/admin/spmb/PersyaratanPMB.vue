@@ -280,7 +280,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,
         FormPersyaratan,

@@ -236,7 +236,7 @@ export default {
             }
         },
     },
-    components:{
+    components: {
         KemahasiswaanLayout,
         ModuleHeader,   
         Filter1,      

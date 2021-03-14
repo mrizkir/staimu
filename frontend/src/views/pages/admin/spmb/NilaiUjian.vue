@@ -465,7 +465,7 @@ export default {
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,
                     {
-                        _method:'put',
+                        _method: "put",
                         no_transaksi:this.data_mhs.no_transaksi,
                         nilai:this.formdata.nilai,
                         kjur:this.formdata.kjur,
@@ -567,7 +567,7 @@ export default {
             }            
         }
     },
-    components:{
+    components: {
         SPMBLayout,
         ModuleHeader,
         FormMhsBaru,

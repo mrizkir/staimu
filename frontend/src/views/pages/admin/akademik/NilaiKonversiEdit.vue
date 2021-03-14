@@ -355,7 +355,7 @@ export default {
 
                 await this.$ajax.post('/akademik/nilai/konversi/'+this.nilai_konversi_id,
                     {
-                        _method:'put',
+                        _method: "put",
                         nim_asal:this.formdata.nim_asal,                            
                         nama_mhs:this.formdata.nama_mhs,                            
                         alamat:this.formdata.alamat,   
@@ -384,7 +384,7 @@ export default {
             }
         },  
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
     },

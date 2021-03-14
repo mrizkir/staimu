@@ -294,7 +294,7 @@ export default {
             }            
         },
     },
-    components:{
+    components: {
         SystemMigrationLayout,
         ModuleHeader,   
         Filter9,        

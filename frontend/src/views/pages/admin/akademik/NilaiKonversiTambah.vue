@@ -384,7 +384,7 @@ export default {
             }
         },
     },    
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader,    
     },

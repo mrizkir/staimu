@@ -151,7 +151,7 @@ export default {
 						TOKEN:'Token',
 				}),
 		},
-		components:{
+		components: {
 		SystemConfigLayout,
 				ModuleHeader,
 	}

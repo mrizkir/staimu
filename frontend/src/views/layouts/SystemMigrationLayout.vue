@@ -129,7 +129,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name:'SystemMigrationLayout',    
+    name: 'SystemMigrationLayout',    
     props:{
         showrightsidebar:{
             type:Boolean,

@@ -65,7 +65,7 @@
 </template>
 <script>
 export default {
-    name:'DataMatakuliahPenyelenggaraan',
+    name: 'DataMatakuliahPenyelenggaraan',
     props:{
         datamatkul:{
             default:null,

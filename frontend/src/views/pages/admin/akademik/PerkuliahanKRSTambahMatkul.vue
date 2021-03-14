@@ -237,7 +237,7 @@ export default {
             return total;
         }
     },
-    components:{
+    components: {
         AkademikLayout,
         ModuleHeader, 
         DataKRS           
