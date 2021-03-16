@@ -10,6 +10,7 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
+use App\Logic\LogicNilai;
 
 use App\Models\System\ConfigurationModel;
 
@@ -237,28 +238,31 @@ class NilaiKHSController extends Controller
             $krs->jumlah_m_1=$jumlah_m;
 
             $krs->ips=$ips;
+            $nilai = new LogicNilai (RegisterMahasiswaModel::find($krs->user_id));
+            $transkrip=$nilai->getTranskrip();
+            $krs->ipk = $transkrip['ipk'];
 
-            $data=\DB::table('pe3_krs')
-                        ->select(\DB::raw('
-                            SUM(jumlah_matkul_1) AS jumlah_matkul_1,
-                            SUM(jumlah_sks_1) AS jumlah_sks_1,
-                            SUM(jumlah_am_1) AS jumlah_am_1,
-                            SUM(jumlah_m_1) AS jumlah_m_1
-                        '))
-                        ->where('tasmt','<=',$krs->tasmt)
-                        ->where('user_id',$krs->user_id)
-                        ->get();
+            // $data=\DB::table('pe3_krs')
+            //             ->select(\DB::raw('
+            //                 SUM(jumlah_matkul_1) AS jumlah_matkul_1,
+            //                 SUM(jumlah_sks_1) AS jumlah_sks_1,
+            //                 SUM(jumlah_am_1) AS jumlah_am_1,
+            //                 SUM(jumlah_m_1) AS jumlah_m_1
+            //             '))
+            //             ->where('tasmt','<=',$krs->tasmt)
+            //             ->where('user_id',$krs->user_id)
+            //             ->get();
 
-            if (isset($data[0]))
-            {
-                $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
-                $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
-                $krs->jumlah_am_2=$data[0]->jumlah_am_1;
-                $krs->jumlah_m_2=$data[0]->jumlah_m_1;
+            // if (isset($data[0]))
+            // {
+            //     $krs->jumlah_matkul_2=$data[0]->jumlah_matkul_1;
+            //     $krs->jumlah_sks_2=$data[0]->jumlah_sks_1;
+            //     $krs->jumlah_am_2=$data[0]->jumlah_am_1;
+            //     $krs->jumlah_m_2=$data[0]->jumlah_m_1;
 
-                $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
-                $krs->ipk=$ipk;
-            }
+            //     $ipk=\App\Helpers\HelperAkademik::formatIPK($krs->jumlah_m_2,$krs->jumlah_sks_2);
+            //     $krs->ipk=$ipk;
+            // }
             $krs->save();
 
             return Response()->json([
@@ -270,7 +274,7 @@ class NilaiKHSController extends Controller
                                         'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
                                         'jumlah_m'=>$jumlah_m,                                                                                                                                   
                                         'jumlah_am'=>$jumlah_am,                                                                                                                                   
-                                        'ipk'=>$ipk,                                                                                                                                   
+                                        'ipk'=>$krs->ipk ,                                                                                                                                   
                                         'ips'=>$ips,                                                                                                                                   
                                         'message'=>'Fetch data khs dan detail khs mahasiswa berhasil diperoleh' 
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
