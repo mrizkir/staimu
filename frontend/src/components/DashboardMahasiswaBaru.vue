@@ -222,11 +222,15 @@ export default {
                     this.status_ujian=true;
                     this.peserta = data.peserta;                       
                     this.jadwal_ujian = data.jadwal_ujian;      
-                    this.ismulai=this.jadwal_ujian.status_ujian == 0 ?true:false;
+                    this.ismulai=this.jadwal_ujian.status_ujian == 0 ? true:false;
                     if (this.peserta.isfinish==1)
                     {
                         this.ismulai=true;
-                        this.keterangan_ujian='SELESAI UJIAN';
+                        if (data.nilai.ket_lulus == 1) {
+                            this.keterangan_ujian="LULUS DENGAN NILAI " + data.nilai.nilai;
+                        }else{
+                            this.keterangan_ujian="TIDAK LULUS KARENA NILAI " + data.nilai.nilai + " DIBAWAH PASSING GRADE " + data.nilai.passing_grade_1;
+                        }
                     }
                     else
                     {

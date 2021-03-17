@@ -139,11 +139,19 @@ class PMBUjianOnlineController extends Controller {
         else
         {   
             $jadwal_ujian=$peserta->jadwalujian;
+            $nilai = $peserta->nilaiujian;
+
+            if ($peserta->isfinish == 1 && is_null($nilai))
+            {
+                $this->hitungNilaiUjian($peserta->user_id);
+                $nilai = NilaiUjianPMBModel::find($peserta->user_id);                            
+            }
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'peserta'=>$peserta,
                                     'jadwal_ujian'=>$jadwal_ujian,
+                                    'nilai'=>$nilai,
                                     'message'=>'Fetch data peserta ujian pmb berhasil.'
                                 ],200);     
         }
@@ -288,10 +296,19 @@ class PMBUjianOnlineController extends Controller {
         $this->validate($request,[
             'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
         ]);
-        
-        $peserta = \DB::transaction(function () use ($request) {
+        $peserta = $this->hitungNilaiUjian($user_id);
 
-            $user_id = $request->input('user_id');
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'update',  
+                                'peserta'=>$peserta,
+                                'message'=>'peserta ujian berhasil menyelesaikan ujian pmb.'
+                            ],200);
+    }
+
+    private function hitungNilaiUjian($user_id)
+    {
+        $peserta = \DB::transaction(function () use ($user_id) {
             $peserta = PesertaUjianPMBModel::find($user_id);        
             $jadwalujian = $peserta->jadwalujian;
             
@@ -348,11 +365,6 @@ class PMBUjianOnlineController extends Controller {
             return $peserta;
         });
 
-        return Response()->json([
-                                'status'=>1,
-                                'pid'=>'update',  
-                                'peserta'=>$peserta,
-                                'message'=>'peserta ujian berhasil menyelesaikan ujian pmb.'
-                            ],200);
+        return $peserta;
     }
 }
