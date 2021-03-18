@@ -11,6 +11,7 @@ use App\Models\SPMB\SoalPMBModel;
 use App\Models\SPMB\JawabanUjianPMBModel;
 use App\Models\SPMB\NilaiUjianPMBModel;
 use App\Models\SPMB\PMBPassingGradeModel;
+use App\Models\SPMB\FormulirPendaftaranModel;
 
 use Ramsey\Uuid\Uuid;
 
@@ -344,6 +345,7 @@ class PMBUjianOnlineController extends Controller {
             $jumlah_soal = $jadwalujian->jumlah_soal;            
             $nilai = \App\Helpers\Helper::formatPersen($benar,$jumlah_soal);            
             $nilai_passing_grade = is_null($passing_grade)?0:$passing_grade->nilai;
+            $kjur = $nilai>$nilai_passing_grade ? FormulirPendaftaranModel::find($user_id)->kjur1 : null;
             NilaiUjianPMBModel::create([
                 'user_id'=>$user_id,
                 'jadwal_ujian_id'=>$jadwal_ujian_id,
@@ -355,6 +357,7 @@ class PMBUjianOnlineController extends Controller {
                 'passing_grade_2'=>0,
                 'nilai'=>$nilai,
                 'ket_lulus'=>(($nilai>$nilai_passing_grade)?1:0),
+                'nilai'=>$kjur,
                 'desc'=>'Dihitung otomatis oleh sistem'
             ]);           
 
