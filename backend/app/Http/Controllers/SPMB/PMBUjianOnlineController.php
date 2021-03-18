@@ -297,7 +297,7 @@ class PMBUjianOnlineController extends Controller {
         $this->validate($request,[
             'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
         ]);
-        $peserta = $this->hitungNilaiUjian($user_id);
+        $peserta = $this->hitungNilaiUjian($request->input('user_id'));
 
         return Response()->json([
                                 'status'=>1,
@@ -306,7 +306,21 @@ class PMBUjianOnlineController extends Controller {
                                 'message'=>'peserta ujian berhasil menyelesaikan ujian pmb.'
                             ],200);
     }
+    public function recalculate(Request $request)
+    {
+        $this->validate($request,[
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
+        ]);
+        
+        $peserta = $this->hitungNilaiUjian($request->input('user_id'));
 
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'update',  
+                                'peserta'=>$peserta,
+                                'message'=>'peserta ujian berhasil menyelesaikan ujian pmb.'
+                            ],200);
+    }
     private function hitungNilaiUjian($user_id)
     {
         $peserta = \DB::transaction(function () use ($user_id) {
