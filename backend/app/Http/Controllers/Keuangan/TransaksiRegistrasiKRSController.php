@@ -8,6 +8,7 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Keuangan\BiayaKomponenPeriodeModel;
 use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
+use App\Models\Report\ReportKeuanganRegistrasiKRSModel;
 
 use Exception;
 
@@ -295,4 +296,29 @@ class TransaksiRegistrasiKRSController extends Controller {
                                 ],422); 
         }
     }
+    /**
+     * cetak seluruh transaksi registrasi krs per prodi, ta, dan semester
+     */
+    public function printtoexcel1 (Request $request)
+    {
+        $this->validate($request, [           
+            'TA'=>'required',
+            'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
+            'NAMA_SEMESTER'=>'required|in:GANJIL,GENAP,PENDEK',
+            'PRODI_ID'=>'required',
+            'NAMA_PRODI'=>'required',
+        ]);
+
+        $data_report=[
+            'TA'=>$request->input('TA'),
+            'prodi_id'=>$request->input('PRODI_ID'),            
+            'nama_prodi'=>$request->input('NAMA_PRODI'),            
+            'semester_akademik'=>$request->input('SEMESTER_AKADEMIK'),            
+            'nama_semester'=>$request->input('NAMA_SEMESTER'),            
+        ];
+
+        $report= new \App\Models\Report\ReportKeuanganRegistrasiKRSModel ($data_report);
+        return $report->printtoexcel1();
+    }
+
 }

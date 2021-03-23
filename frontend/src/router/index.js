@@ -159,7 +159,7 @@ const routes = [
 		beforeEnter: (to, from, next) => {
 			if(store.getters['uifront/getBentukPT']=='sekolahtinggi')
 			{
-				next('/dashboard/'+store.getters['auth/AccessToken']);
+				next('/dashboard/'+store.getters["auth/AccessToken"]);
 			}
 			else
 			{

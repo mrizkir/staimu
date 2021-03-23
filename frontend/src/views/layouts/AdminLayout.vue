@@ -4,7 +4,7 @@
             <strong>Hak Akses Sebagai :</strong> {{ROLE}}
 		</v-system-bar>	
         <v-app-bar app>            
-            <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/'+$store.getters['auth/AccessToken']).catch(err => {})">
+            <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/' + $store.getters['auth/AccessToken']).catch(err => {})">
 				<span class="hidden-sm-and-down">{{APP_NAME}}</span>
 			</v-toolbar-title>
             <v-spacer></v-spacer>            

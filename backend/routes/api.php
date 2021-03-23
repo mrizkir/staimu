@@ -254,6 +254,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //keuangan - transaksi regisrasikrs
     $router->post('/keuangan/transaksi-registrasikrs',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@index','as'=>'transaksi-registrasikrs.index']);
     $router->post('/keuangan/transaksi-registrasikrs/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@store','as'=>'transaksi-registrasikrs.store']);
+    $router->post('/keuangan/transaksi-registrasikrs/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@printtoexcel1','as'=>'transaksi-registrasikrs.printtoexcel1']);
     $router->delete('/keuangan/transaksi-registrasikrs/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@destroy','as'=>'transaksi-registrasikrs.destroy']);
     
     //keuangan - transaksi kkn

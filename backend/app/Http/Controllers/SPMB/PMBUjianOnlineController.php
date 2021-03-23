@@ -371,7 +371,7 @@ class PMBUjianOnlineController extends Controller {
                 'passing_grade_2'=>0,
                 'nilai'=>$nilai,
                 'ket_lulus'=>(($nilai>$nilai_passing_grade)?1:0),
-                'nilai'=>$kjur,
+                'kjur'=>$kjur,
                 'desc'=>'Dihitung otomatis oleh sistem'
             ]);           
 
