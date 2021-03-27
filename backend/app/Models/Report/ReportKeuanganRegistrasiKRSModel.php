@@ -174,8 +174,8 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
     );																					 
     $sheet->getStyle("E$row_awal:E$row")->applyFromArray($styleArray);    
 
-
     $row+=1;
+    $row_awal_mhs=$row;
     $sheet->mergeCells("F$row:G$row");				                
     $sheet->setCellValue("F$row",'SUB TOTAL PAID');
     $sheet->setCellValueExplicit("H$row",Helper::formatUang($total_paid),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
@@ -191,6 +191,16 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
     $sheet->mergeCells("F$row:G$row");			
     $sheet->setCellValue("F$row",'TOTAL');
     $sheet->setCellValueExplicit("H$row",Helper::formatUang($total_paid+$total_unpaid+$total_cancel),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+
+    $styleArray=array(
+    'font' => array('bold' => true)
+    );
+    $sheet->getStyle("F$row_awal_mhs:GH$row")->applyFromArray($styleArray);
+
+    $styleArray=array(								
+        'alignment' => array('horizontal'=>Alignment::HORIZONTAL_RIGHT)
+    );																					 
+    $sheet->getStyle("H$row_awal:H$row")->applyFromArray($styleArray);    
 
     $generate_date=date('Y-m-d_H_m_s');
     return $this->download("registrasi_krs_$generate_date.xlsx");

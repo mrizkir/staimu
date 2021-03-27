@@ -520,4 +520,24 @@ class TransaksiSPPController extends Controller {
                     ->where('pe3_transaksi_detail.bulan',$no_bulan)
                     ->exists();
     }
+    /**
+     * cetak seluruh transaksi registrasi krs per prodi, ta, dan semester
+     */
+    public function printtoexcel1 (Request $request)
+    {
+        $this->validate($request, [           
+            'TA'=>'required',            
+            'PRODI_ID'=>'required',
+            'NAMA_PRODI'=>'required',
+        ]);
+
+        $data_report=[
+            'TA'=>$request->input('TA'),
+            'prodi_id'=>$request->input('PRODI_ID'),            
+            'nama_prodi'=>$request->input('NAMA_PRODI'),                        
+        ];
+
+        $report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
+        return $report->printtoexcel1();
+    }
 }
