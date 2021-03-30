@@ -209,19 +209,19 @@
 </template>
 <script>
 import AdminLayout from '@/views/layouts/AdminLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PAGE',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'PAGE_GROUP',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -233,10 +233,10 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                        
             { text: 'ID', value: 'id' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
@@ -244,11 +244,11 @@ export default {
         search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
 
         //form data   
-        form_valid:true,         
+        form_valid: true,         
         formdata: {
             id:0,                        
             name: '',                        
@@ -275,7 +275,7 @@ export default {
         ], 
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/path',{
@@ -319,7 +319,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/path/'+this.formdata.id,
@@ -364,7 +364,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/path/'+item.id,
                         {
                             _method: "DELETE",

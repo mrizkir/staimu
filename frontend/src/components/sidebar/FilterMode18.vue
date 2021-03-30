@@ -28,20 +28,20 @@ export default {
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
     },
     data: () => ({
-        firstloading:true,
-        daftar_prodi:[],
-        prodi_id:null,
+        firstloading: true,
+        daftar_prodi: [],
+        prodi_id: null,
 
-        daftar_ta:[],
-        tahun_akademik:null
+        daftar_ta: [],
+        tahun_akademik: null
     }),
-    methods:{
+    methods: {
         setFirstTimeLoading (bool)
         {
             this.firstloading=bool;
         }
     },
-    watch:{
+    watch: {
         tahun_akademik(val)
         {
             if (!this.firstloading)

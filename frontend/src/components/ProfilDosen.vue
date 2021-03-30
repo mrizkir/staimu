@@ -127,19 +127,19 @@ export default {
     {
         this.initialize();                     
     },
-    props:{
-        datadosen:{
+    props: {
+        datadosen: {
             type:Object,            
             required:true
         },
-        url:{
+        url: {
             type:String,
-            default:null            
+            default: null            
         }
     },
     
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             
         },
@@ -151,7 +151,7 @@ export default {
             }            
         }
     },    
-    computed:{
+    computed: {
         active()
         {
             return this.datadosen.active==1?'AKTIF':'TIDAK AKTIF';

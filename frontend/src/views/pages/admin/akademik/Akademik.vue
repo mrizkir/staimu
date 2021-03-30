@@ -38,7 +38,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Akademik',
@@ -47,7 +47,7 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
@@ -63,13 +63,13 @@ export default {
         this.initialize();
     },
     data: () => ({        
-        datatableLoading:false,
-        firstloading:true,
-        breadcrumbs:[],        
+        datatableLoading: false,
+        firstloading: true,
+        breadcrumbs: [],        
         tahun_akademik:0,
         
     }),
-    methods : {
+    methods: {
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;
@@ -83,7 +83,7 @@ export default {
 
         }
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)

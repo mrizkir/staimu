@@ -172,7 +172,7 @@
 </template>
 <script>
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'BiodataDiriMahasiswa', 
     created()
@@ -182,12 +182,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SYSTEM',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -199,41 +199,41 @@ export default {
         this.initialize();    
     },  
     data: () => ({
-        breadcrumbs:[],        
-        dashboard:null,
+        breadcrumbs: [],        
+        dashboard: null,
 
-        btnLoading:false,
-        btnLoadingProv:false,
-        btnLoadingKab:false,
-        btnLoadingKec:false,
-        btnLoadingFakultas:false,
+        btnLoading: false,
+        btnLoadingProv: false,
+        btnLoadingKab: false,
+        btnLoadingKec: false,
+        btnLoadingFakultas: false,
 
         //form
-        user_id:null,
+        user_id: null,
         kode_billing:'N.A',
-        form_valid:true,
+        form_valid: true,
 
-        menuTanggalLahir:false,
+        menuTanggalLahir: false,
 
-        daftar_provinsi:[],
+        daftar_provinsi: [],
         provinsi_id:0,
 
-        daftar_kabupaten:[],
+        daftar_kabupaten: [],
         kabupaten_id:0,
 
-        daftar_kecamatan:[],
+        daftar_kecamatan: [],
         kecamatan_id:0,
 
-        daftar_desa:[],
+        daftar_desa: [],
         desa_id:0,
 
-        daftar_fakultas:[],
+        daftar_fakultas: [],
         kode_fakultas:'',
 
-        daftar_prodi:[],        
-        daftar_kelas:[],
+        daftar_prodi: [],        
+        daftar_kelas: [],
         
-        formdata:{
+        formdata: {
             nama_mhs:'',           
             tempat_lahir:'',
             tanggal_lahir:'',
@@ -278,7 +278,7 @@ export default {
         ], 
 
     }),
-    methods : {        
+    methods: {        
 		initialize: async function()
 		{	
             let bentukpt=this.$store.getters['uifront/getBentukPT'];
@@ -317,20 +317,20 @@ export default {
                 this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
 
                 this.provinsi_id={
-                    id:""+data.formulir.address1_provinsi_id,
-                    nama:""+data.formulir.address1_provinsi
+                    id: ""+data.formulir.address1_provinsi_id,
+                    nama: ""+data.formulir.address1_provinsi
                 };
                 this.kabupaten_id={
-                    id:""+data.formulir.address1_kabupaten_id,
-                    nama:""+data.formulir.address1_kabupaten
+                    id: ""+data.formulir.address1_kabupaten_id,
+                    nama: ""+data.formulir.address1_kabupaten
                 };
                 this.kecamatan_id={
-                    id:""+data.formulir.address1_kecamatan_id,
-                    nama:""+data.formulir.address1_kecamatan
+                    id: ""+data.formulir.address1_kecamatan_id,
+                    nama: ""+data.formulir.address1_kecamatan
                 };
                 this.desa_id={
-                    id:""+data.formulir.address1_desa_id,
-                    nama:""+data.formulir.address1_kelurahan
+                    id: ""+data.formulir.address1_desa_id,
+                    nama: ""+data.formulir.address1_kelurahan
                 };
                 
                 this.formdata.alamat_rumah=data.formulir.alamat_rumah;    
@@ -347,7 +347,7 @@ export default {
         {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;                
+                this.btnLoading = true;                
                 await this.$ajax.post('/kemahasiswaan/biodata/'+this.user_id+'/update',{                    
                     _method: "put",
                     nama_mhs:this.formdata.nama_mhs,           
@@ -381,7 +381,7 @@ export default {
             }                             
         },
     },    
-    watch:{
+    watch: {
         provinsi_id(val)
         {
             if (val.id != null && val.id != '')

@@ -175,7 +175,7 @@ export default {
     {
         this.initialize();                     
     },
-    props:{
+    props: {
         item:Object,
     },
     data()
@@ -183,10 +183,10 @@ export default {
         let tanggal_lahir=this.$date().format('YYYY-MM-DD');
         let tanggal_sekarang=this.$date().format('YYYY-MM-DD HH:mm:ss');
         return {           
-            slides:[],
-            dialogpreviewpersyaratan:false,         
+            slides: [],
+            dialogpreviewpersyaratan: false,         
 
-            datamhs:{                    
+            datamhs: {                    
                 tanggal_lahir:tanggal_lahir,
                 created_at:tanggal_sekarang,
                 updated_at:tanggal_sekarang
@@ -194,7 +194,7 @@ export default {
         }
     },
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,             
                 {

@@ -36,8 +36,8 @@
     </KeuanganLayout>
 </template>
 <script>
-import KeuanganLayout from '@/views/layouts/KeuanganLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import KeuanganLayout from "@/views/layouts/KeuanganLayout";
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from '@/components/sidebar/FilterMode1';
 import DashboardKeuanganMHS from '@/components/DashboardKeuanganMHS';
 import DashboardKeuanganAdmin from '@/components/DashboardKeuanganAdmin';
@@ -49,7 +49,7 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
@@ -66,13 +66,13 @@ export default {
         this.$refs.filter1.setFirstTimeLoading(this.firstloading);
     },
     data: () => ({
-        firstloading:true,
-        breadcrumbs:[],        
+        firstloading: true,
+        breadcrumbs: [],        
         tahun_akademik:0,
 
-        dashboard:null
+        dashboard: null
     }),
-    methods : {
+    methods: {
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;

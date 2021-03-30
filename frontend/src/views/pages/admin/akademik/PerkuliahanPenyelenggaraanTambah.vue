@@ -8,7 +8,7 @@
                 PENYELENGGARAAN PERKULIAHAN
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -247,29 +247,29 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PerkuliahanPenyelenggaraanTambah',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
                 text:'PENYELENGGARAAN MATAKULIAH',
-                disabled:false,
+                disabled: false,
                 href:'/akademik/perkuliahan/penyelenggaraan/daftar'
             },
             {
@@ -279,42 +279,42 @@ export default {
             },
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);        
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);        
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
         
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_akademik:null,
-        ta_matkul:null,
-        semester_akademik:null,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_akademik: null,
+        ta_matkul: null,
+        semester_akademik: null,
 
-        btnLoading:false,        
+        btnLoading: false,        
 
         //table
-        dialogdetailitem:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        dialogdetailitem: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable: true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search: "",
 
         //formdata
-        form_valid:true,   
-        formdata:[],
-        daftar_matkul_selected:[],
+        form_valid: true,   
+        formdata: [],
+        daftar_matkul_selected: [],
         rule_tamatkul:[
             value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",              
         ]        
@@ -368,7 +368,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {                
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',
                     {
                         prodi_id:this.prodi_id,
@@ -405,7 +405,7 @@ export default {
             );
         },
     },
-    watch:{
+    watch: {
         ta_matkul(val)
         {
             this.fetchMatkul(val);                        

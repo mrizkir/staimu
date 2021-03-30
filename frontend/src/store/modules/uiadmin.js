@@ -2,30 +2,30 @@
 const getDefaultState = () => 
 {
     return {      
-        loaded:false, 
+        loaded: false, 
         //page
-        default_dashboard:null,
-        pages:[],
+        default_dashboard: null,
+        pages: [],
 
-        daftar_ta:[],
-        tahun_pendaftaran:null,
-        tahun_akademik:null,
+        daftar_ta: [],
+        tahun_pendaftaran: null,
+        tahun_akademik: null,
 
-        daftar_semester:[],
-        semester_pendaftaran:null,
-        semester_akademik:null,
+        daftar_semester: [],
+        semester_pendaftaran: null,
+        semester_akademik: null,
 
-        daftar_fakultas:[],
-        fakultas_id:null,
+        daftar_fakultas: [],
+        fakultas_id: null,
         
-        daftar_prodi:[],
-        prodi_id:null,
+        daftar_prodi: [],
+        prodi_id: null,
 
-        daftar_kelas:[],
-        idkelas:null,
+        daftar_kelas: [],
+        idkelas: null,
 
-        daftar_status_mhs:[],
-        k_status:null,
+        daftar_status_mhs: [],
+        k_status: null,
         
         skala_nilai:[
             'A',
@@ -43,7 +43,7 @@ const getDefaultState = () =>
             'D',
             'E'
         ],       
-        theme:null
+        theme: null
     }
 }
 const state = getDefaultState();

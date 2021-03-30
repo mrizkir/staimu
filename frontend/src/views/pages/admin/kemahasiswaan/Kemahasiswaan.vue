@@ -112,7 +112,7 @@
 </template>
 <script>
 import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Kemahasiswaan',
@@ -121,7 +121,7 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
@@ -137,18 +137,18 @@ export default {
         this.initialize();
     },
     data: () => ({                
-        firstloading:true,
-        breadcrumbs:[],        
+        firstloading: true,
+        breadcrumbs: [],        
         tahun_akademik:0,
         
         //profil mahasiswa        
-        entries:[],
-        isLoading:false,
-        data_mhs:null,
-        search:null
+        entries: [],
+        isLoading: false,
+        data_mhs: null,
+        search: null
         
     }),
-    methods : {
+    methods: {
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;
@@ -199,7 +199,7 @@ export default {
             })
         },
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)

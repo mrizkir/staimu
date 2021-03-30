@@ -87,7 +87,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Permissions',
     created()
@@ -95,12 +95,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'USER SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-users'
             },
             {
@@ -112,17 +112,17 @@ export default {
         this.initialize();
     },
     data: () => ({
-        breadcrumbs:[],
-        datatableLoading:false,
-        btnLoading:false,  
-        expanded:[],        
+        breadcrumbs: [],
+        datatableLoading: false,
+        btnLoading: false,  
+        expanded: [],        
         daftar_permissions: [],
         //tables
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },                
         ],
-        search:'', 
+        search: "", 
    
     }),
     methods: {
@@ -152,7 +152,7 @@ export default {
             }               
         },
     },
-    computed:{
+    computed: {
         ...mapGetters('auth',{            
             ACCESS_TOKEN:'AccessToken',          
             TOKEN:'Token',          

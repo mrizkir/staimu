@@ -122,7 +122,7 @@ import { mapGetters } from "vuex";
 export default {
     name: 'RolePermissions',
     data: () => ({
-        btnLoading:false,
+        btnLoading: false,
         //tables
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
@@ -130,12 +130,12 @@ export default {
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },  
         ],
         search: "",    
-        perm_selected:[]
+        perm_selected: []
     }),
     methods: {
         save()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             this.$ajax.post('/system/setting/roles/storerolepermissions',
                 {
                     role_id:this.role.id,
@@ -155,7 +155,7 @@ export default {
         },
         revoke(item)
         {   
-            this.btnLoading=true;         
+            this.btnLoading = true;         
             this.$ajax.post('/system/setting/roles/revokerolepermissions',
                 {
                     role_id:this.role.id,
@@ -180,7 +180,7 @@ export default {
             this.$emit('closeRolePermissions',this.role.id);
         }
     },
-    props:{
+    props: {
         role:Object,
         daftarpermissions:Array,
         permissionsselected:Array,

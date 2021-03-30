@@ -8,7 +8,7 @@
                 TRANSKRIP NILAI KURIKULUM 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -157,25 +157,25 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'TranskripNilaiKurikulum',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -185,37 +185,37 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_pendaftaran:null,
-        filter_ignore:false, 
-        awaiting_search:false,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_pendaftaran: null,
+        filter_ignore: false, 
+        awaiting_search: false,
         
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable:true,width:100  },       
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                   
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                   
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                   
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                   
-            { text: 'IPK SEMENTARA', value: 'ipk',sortable:true,width:100, },                   
+            { text: 'NIM', value: 'nim', sortable: true,width:100  },       
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },                   
+            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width:100, },                   
+            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width:100, },                   
+            { text: 'IPK SEMENTARA', value: 'ipk',sortable: true,width:100, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
-        search:'', 
+        search: "", 
 
-        dialogprintpdf:false,
-        file_pdf:null
+        dialogprintpdf: false,
+        file_pdf: null
     }),
     methods: {
         changeTahunPendaftaran(tahun)
@@ -226,7 +226,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/nilai/transkripkurikulum',
@@ -264,7 +264,7 @@ export default {
         },
         async printpdf2(item)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
                 {
                     headers: {
@@ -288,7 +288,7 @@ export default {
             );
         }, 
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -300,7 +300,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },

@@ -8,7 +8,7 @@
 								KONFIRMASI PEMBAYARAN
 						</template>
 						<template v-slot:subtitle>
-								TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
+								TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -464,7 +464,7 @@
 																				color="primary"
 																				@click.stop="cancel(item)"
 																				class="mb-2"
-																				:disabled="(item.nama_status=='PAID'?true:false)||btnLoading"
+																				:disabled="(item.nama_status=='PAID'?true: false)||btnLoading"
 																				:loading="btnLoading">
 																				BATALKAN
 																		</v-btn>
@@ -485,8 +485,8 @@
 		</KeuanganLayout>
 </template>
 <script>
-import KeuanganLayout from '@/views/layouts/KeuanganLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import KeuanganLayout from "@/views/layouts/KeuanganLayout";
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter18 from '@/components/sidebar/FilterMode18';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
@@ -496,12 +496,12 @@ export default {
 				this.breadcrumbs = [
 						{
 								text:'HOME',
-								disabled:false,
+								disabled: false,
 								href:'/dashboard/'+this.ACCESS_TOKEN
 						},
 						{
 								text:'KEUANGAN',
-								disabled:false,
+								disabled: false,
 								href:'/keuangan'
 						},
 						{
@@ -512,56 +512,56 @@ export default {
 				];
 				this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
 				let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-				this.prodi_id=prodi_id;
-				this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+				this.prodi_id = prodi_id;
+				this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
 				this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];
 				this.initialize()
 		},
 		data: () => ({
-				firstloading:true,
-				breadcrumbs:[],
-				dashboard:null,
-				btnLoading:false,
-				prodi_id:null,
-				nama_prodi:null,
-				tahun_akademik:null,
+				firstloading: true,
+				breadcrumbs: [],
+				dashboard: null,
+				btnLoading: false,
+				prodi_id: null,
+				nama_prodi: null,
+				tahun_akademik: null,
 
 				//tables
-				filter_ignore:false,
-				awaiting_search:false,
-				datatableLoading:false,
-				datatable:[],
+				filter_ignore: false,
+				awaiting_search: false,
+				datatableLoading: false,
+				datatable: [],
 				headers: [
-						{ text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
-						{ text: 'NO.REF', value: 'no_faktur',width:100,sortable:true },
-						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal',width:100,sortable:true },
-						{ text: 'NO. FORMULIR', value: 'no_formulir',sortable:true,width:100 },
-						{ text: 'NIM', value: 'nim',sortable:true,width:100 },
-						{ text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },
-						{ text: 'SMT', value: 'idsmt',width:100,sortable:true },
-						{ text: 'TOTAL', value: 'total',width:100,sortable:true },
-						{ text: 'STATUS TRANSAKSI', value: 'nama_status',width:50,sortable:true },
-						{ text: 'KONFIRM.', value: 'status_konfirmasi',width:50,sortable:true },
-						{ text: 'KET.', value: 'desc',width:80,sortable:false },
+						{ text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable: true },
+						{ text: 'NO.REF', value: 'no_faktur',width:100,sortable: true },
+						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal',width:100,sortable: true },
+						{ text: 'NO. FORMULIR', value: 'no_formulir',sortable: true,width:100 },
+						{ text: 'NIM', value: 'nim',sortable: true,width:100 },
+						{ text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },
+						{ text: 'SMT', value: 'idsmt',width:100,sortable: true },
+						{ text: 'TOTAL', value: 'total',width:100,sortable: true },
+						{ text: 'STATUS TRANSAKSI', value: 'nama_status',width:50,sortable: true },
+						{ text: 'KONFIRM.', value: 'status_konfirmasi',width:50,sortable: true },
+						{ text: 'KET.', value: 'desc',width:80,sortable: false },
 						{ text: 'AKSI', value: 'actions', sortable: false,width:82 },
 				],
-				expanded:[],
-				search:'',
+				expanded: [],
+				search: "",
 
 				//dialog
-				dialogfrm:false,
-				dialogdetailitem:false,
-				dialogcanceltransaksi:false,
+				dialogfrm: false,
+				dialogdetailitem: false,
+				dialogcanceltransaksi: false,
 
 				//form data
-				form_valid:true,
-				menuTanggalBayar:false,
-				image_prev:null,
+				form_valid: true,
+				menuTanggalBayar: false,
+				image_prev: null,
 				data_transaksi: {
 
 				},
-				data_konfirmasi:{},
-				daftar_channel:[],
+				data_konfirmasi: {},
+				daftar_channel: [],
 				formdata: {
 						id_channel:1,
 						total_bayar:0,
@@ -570,7 +570,7 @@ export default {
 						nama_bank_pengirim:'',
 						desc:'',
 						tanggal_bayar:'',
-						bukti_bayar:[],
+						bukti_bayar: [],
 				},
 				formdefault: {
 						id_channel:1,
@@ -580,7 +580,7 @@ export default {
 						nama_bank_pengirim:'',
 						desc:'',
 						tanggal_bayar:'',
-						bukti_bayar:[],
+						bukti_bayar: [],
 				},
 				//form rules
 				rule_channel_pembayaran:[
@@ -613,7 +613,7 @@ export default {
 				{
 						this.prodi_id = id;
 				},
-				initialize:async function ()
+				initialize: async function()
 				{
 						this.datatableLoading=true;
 						await this.$ajax.post('/keuangan/konfirmasipembayaran',
@@ -653,7 +653,7 @@ export default {
 						}).then(({ data }) => {
 								this.daftar_channel=data.channel;
 								this.data_transaksi=item;
-								this.dialogfrm=true;
+								this.dialogfrm = true;
 						});
 
 				},
@@ -689,7 +689,7 @@ export default {
 				save () {
 						if (this.$refs.frmdata.validate())
 						{
-								this.btnLoading=true;
+								this.btnLoading = true;
 								var data = new FormData();
 								data.append('transaksi_id',this.data_transaksi.id);
 								data.append('id_channel',this.formdata.id_channel);
@@ -723,7 +723,7 @@ export default {
 						this.$root.$confirm.open('Konfirmasi Pembayaran', 'Apakah sudah benar data bukti bayar kode billing '+item.no_transaksi+' ?', { color: 'primary' }).then((confirm) => {
 								if (confirm)
 								{
-										this.btnLoading=true;
+										this.btnLoading = true;
 										this.$ajax.post('/keuangan/transaksi/verifikasi/'+item.id,
 												{
 														_method:'put'
@@ -747,7 +747,7 @@ export default {
 						this.$root.$confirm.open('Batalkan Transaksi', 'Apakah Anda ingin membatalkan transaksi dengan kode billing '+item.no_transaksi+' ?', { color: 'red' }).then((confirm) => {
 								if (confirm)
 								{
-										this.btnLoading=true;
+										this.btnLoading = true;
 										this.$ajax.post('/keuangan/transaksi/cancel',
 												{
 														transaksi_id:item.id
@@ -791,7 +791,7 @@ export default {
 				{
 						return this.$store.getters['uiadmin/getTahunPendaftaran'];
 				},
-				buktiBayar:{
+				buktiBayar: {
 						get ()
 						{
 								if (this.image_prev==null)
@@ -810,7 +810,7 @@ export default {
 
 				},
 		},
-		watch:{
+		watch: {
 				tahun_akademik()
 				{
 						if (!this.firstloading)
@@ -822,7 +822,7 @@ export default {
 				{
 						if (!this.firstloading)
 						{
-								this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+								this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
 								this.initialize();
 						}
 				},

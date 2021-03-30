@@ -227,7 +227,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import RolePermissions from '@/views/pages/admin/system/RolePermissions';
 export default {
     name: 'Roles',
@@ -236,12 +236,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'USER SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-users'
             },
             {
@@ -253,10 +253,10 @@ export default {
         this.initialize()
     },    
     data: () => ({
-        breadcrumbs:[],
-        datatableLoading:false,
-        btnLoading:false,          
-        expanded:[],        
+        breadcrumbs: [],
+        datatableLoading: false,
+        btnLoading: false,          
+        expanded: [],        
         datatable: [],
         daftar_permissions: [],
         permissions_selected: [],
@@ -271,9 +271,9 @@ export default {
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },                  
         ],
-        search:'',
+        search: "",
         //form
-        form_valid:true,
+        form_valid: true,
         dialog: false,
         dialogdetail: false,
         dialogRolePermission: false,
@@ -395,7 +395,7 @@ export default {
             this.form_error_message='';
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     this.$ajax.post('/system/setting/roles/'+this.editedItem.id,
@@ -435,7 +435,7 @@ export default {
             }
         },
     },
-    computed:{        
+    computed: {        
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH ROLE' : 'EDIT ROLE'
         },

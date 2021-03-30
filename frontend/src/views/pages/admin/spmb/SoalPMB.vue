@@ -8,7 +8,7 @@
                 SOAL PMB
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_semester_pendaftaran}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{nama_semester_pendaftaran}}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -314,7 +314,7 @@
 </template>
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter19 from '@/components/sidebar/FilterMode19';
 export default {
     name: 'SoalPMB',
@@ -322,12 +322,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SPMB',
-                disabled:false,
+                disabled: false,
                 href:'/spmb'
             },
             {
@@ -336,23 +336,23 @@ export default {
                 href:'#'
             }
         ];
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];        
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
         this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];  
         this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);  
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,        
-        nama_prodi:null,
-        tahun_pendaftaran:null,
-        semester_pendaftaran:null,
-        nama_semester_pendaftaran:null,
+        firstloading: true,
+        prodi_id: null,        
+        nama_prodi: null,
+        tahun_pendaftaran: null,
+        semester_pendaftaran: null,
+        nama_semester_pendaftaran: null,
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                                    
             { text: 'NAMA SOAL', value: 'soal'},   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
@@ -364,14 +364,14 @@ export default {
         search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
-        dialogeditfrm:false,
-        daftar_soal_jawaban:[],
+        dialogfrm: false,
+        dialogdetailitem: false,
+        dialogeditfrm: false,
+        daftar_soal_jawaban: [],
 
         //form data   
-        form_valid:true,    
-        image_prev:null,      
+        form_valid: true,    
+        image_prev: null,      
         daftar_jawaban:[
             {
                 id:1,
@@ -440,7 +440,7 @@ export default {
         {
             this.semester_pendaftaran=semester;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/spmb/soalpmb',
@@ -494,7 +494,7 @@ export default {
                 this.dialogeditfrm = true;
                 let jawaban_benar ='';
                 data.soal.jawaban.forEach(element => {
-                    if (element.status==1)
+                    if (element.status == 1)
                     {
                         jawaban_benar=element.id;                        
                     }                     
@@ -521,7 +521,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/spmb/soalpmb/'+this.formdata.id,
@@ -575,7 +575,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/spmb/soalpmb/'+item.id,
                         {
                             _method: "DELETE",
@@ -624,7 +624,7 @@ export default {
         },
     },
     computed: {
-        gambarSoal:{
+        gambarSoal: {
             get ()
             {   
                 if (this.image_prev==null)
@@ -645,7 +645,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -665,7 +665,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

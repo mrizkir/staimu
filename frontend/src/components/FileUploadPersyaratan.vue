@@ -80,33 +80,33 @@ export default {
             this.badgeIcon=this.item.verified;
         }        
     },
-    props:{
-        user_id:{
+    props: {
+        user_id: {
             type:String,
             required:true
         },
-        index:{
+        index: {
             type:Number,
             required:true
         },
-        item:{
+        item: {
             type:Object,
             required:true
         }
     },
     data: () => ({     
-        dashboard:null,
+        dashboard: null,
 
         btnSimpan:true,  
         btnHapus:true,  
         btnVerifikasi:true,       
-        btnLoading:false,
-        image_prev:null,
+        btnLoading: false,
+        image_prev: null,
 
         //form
         verified:0,
-        form_valid:true,
-        filepersyaratan:[],
+        form_valid: true,
+        filepersyaratan: [],
         //form rules  
         rule_foto:[
             value => !!value || "Mohon pilih foto !!!",  
@@ -138,7 +138,7 @@ export default {
             {
                 if (typeof this.filepersyaratan[index] !== 'undefined')
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     var formdata = new FormData();                    
                     formdata.append('nama_persyaratan',data.nama_persyaratan);
                     formdata.append('persyaratan_id',data.persyaratan_id);
@@ -203,7 +203,7 @@ export default {
         },
         verifikasipersyaratan: async function (item)
         {
-            this.btnLoading=true;                    
+            this.btnLoading = true;                    
             await this.$ajax.post('/spmb/pmbpersyaratan/verifikasipersyaratan/'+item.persyaratan_pmb_id,
             {                    
                 
@@ -225,7 +225,7 @@ export default {
         }
     },
     computed: {
-        photoPersyaratan:{
+        photoPersyaratan: {
             get ()
             {   
                 if (this.image_prev==null)
@@ -243,7 +243,7 @@ export default {
             }
             
         },
-        badgeColor:{
+        badgeColor: {
             get()
             {
                 return this.verified == 1 ? 'success':'error'
@@ -254,7 +254,7 @@ export default {
             }
             
         },
-        badgeIcon:{
+        badgeIcon: {
             get()
             {
                 return this.verified == 1 ? 'mdi-check-bold':'mdi-close-thick';

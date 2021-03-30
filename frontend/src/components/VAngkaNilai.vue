@@ -19,7 +19,7 @@ export default {
     data: () => ({        
         fractDigitsEdited: false,
         fractPart: null,
-        isFocused:false
+        isFocused: false
     }),
     mounted()
     {
@@ -29,7 +29,7 @@ export default {
             this.fractPart=b[1];
             this.fractDigitsEdited=true;
         }
-        this.fractPart=b.length > 0 ? b[1]:null;        
+        this.fractPart=b.length > 0 ? b[1]: null;        
     },
     methods: {
         clearValue()

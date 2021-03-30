@@ -521,7 +521,7 @@ class TransaksiSPPController extends Controller {
                     ->exists();
     }
     /**
-     * cetak seluruh transaksi registrasi krs per prodi, ta, dan semester
+     * cetak seluruh transaksi spp per prodi dan ta
      */
     public function printtoexcel1 (Request $request)
     {

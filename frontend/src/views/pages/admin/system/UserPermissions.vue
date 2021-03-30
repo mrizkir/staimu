@@ -170,29 +170,29 @@ export default {
         this.initialize();
     },
     data: () => ({
-        btnLoading:false,
-        datatableLoading:false,
+        btnLoading: false,
+        datatableLoading: false,
         //tables
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 }, 
         ],
-        search:'',
+        search: "",
 
-        role_name:null,
-        daftar_role:[],
+        role_name: null,
+        daftar_role: [],
 
         daftar_permissions: [],
         permissions_selected: [],
 
     }),
-    props:{                        
-        user:{
+    props: {                        
+        user: {
             type:Object,
             required:true
         },
-        role_default:{
+        role_default: {
             required:true
         }
     },
@@ -211,7 +211,7 @@ export default {
         }, 
         save()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             this.$ajax.post('/system/users/storeuserpermissions',
                 {
                     user_id:this.user.id,
@@ -230,7 +230,7 @@ export default {
         },
         revoke(item)
         {   
-            this.btnLoading=true;         
+            this.btnLoading = true;         
             this.$ajax.post('/system/users/revokeuserpermissions',
                 {
                     user_id:this.user.id,
@@ -252,13 +252,13 @@ export default {
             this.$emit('closeUserPermissions');           
         }
     },
-    computed:{
+    computed: {
         role_user()
         {
             return this.daftar_role.join(',').toUpperCase();
         }
     },
-    watch:{
+    watch: {
         async role_name(val)
         {
             if(val)

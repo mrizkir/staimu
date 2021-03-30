@@ -14,12 +14,12 @@ export default {
     {
              
     },
-    props:{
-        index:{
+    props: {
+        index: {
             type:Number,
             required:true
         },
-        item:{
+        item: {
             type:Object,
             required:true
         }
@@ -28,7 +28,7 @@ export default {
         
     }),
     methods: {        
-        jawabSoal:async function ()
+        jawabSoal: async function()
         {
             await this.$ajax.post('/spmb/ujianonline/store',
             {

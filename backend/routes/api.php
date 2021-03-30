@@ -251,6 +251,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/transaksi-dulangmhsbaru',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@index','as'=>'transaksi-dulangmhsbaru.index']);
     $router->post('/keuangan/transaksi-dulangmhsbaru/store',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@store','as'=>'transaksi-dulangmhsbaru.store']);
     $router->delete('/keuangan/transaksi-dulangmhsbaru/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@destroy','as'=>'transaksi-dulangmhsbaru.destroy']);
+    $router->post('/keuangan/transaksi-dulangmhsbaru/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@printtoexcel1','as'=>'transaksi-dulangmhsbaru.printtoexcel1']);
 
     //keuangan - transaksi regisrasikrs
     $router->post('/keuangan/transaksi-registrasikrs',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiRegistrasiKRSController@index','as'=>'transaksi-registrasikrs.index']);

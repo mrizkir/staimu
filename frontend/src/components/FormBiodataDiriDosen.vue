@@ -179,37 +179,37 @@ export default {
         this.initialize();
     },
     data: () => ({
-        btnLoading:false,
-        btnLoadingProv:false,
-        btnLoadingKab:false,
-        btnLoadingKec:false,
-        btnLoadingFakultas:false,
+        btnLoading: false,
+        btnLoadingProv: false,
+        btnLoadingKab: false,
+        btnLoadingKec: false,
+        btnLoadingFakultas: false,
 
         //form
         kode_billing:'N.A',
-        form_valid:true,
+        form_valid: true,
 
-        menuTanggalLahir:false,
+        menuTanggalLahir: false,
 
-        daftar_provinsi:[],
+        daftar_provinsi: [],
         provinsi_id:0,
 
-        daftar_kabupaten:[],
+        daftar_kabupaten: [],
         kabupaten_id:0,
 
-        daftar_kecamatan:[],
+        daftar_kecamatan: [],
         kecamatan_id:0,
 
-        daftar_desa:[],
+        daftar_desa: [],
         desa_id:0,
 
-        daftar_fakultas:[],
+        daftar_fakultas: [],
         kode_fakultas:'',
 
-        daftar_prodi:[],        
-        daftar_kelas:[],
+        daftar_prodi: [],        
+        daftar_kelas: [],
         
-        formdata:{
+        formdata: {
             user_id:'',
             nidn:'',
             nipy:'',
@@ -279,7 +279,7 @@ export default {
         ],         
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             this.$ajax.get('/datamaster/provinsi').then(({ data }) => {                
                 this.daftar_provinsi=data.provinsi;                
@@ -318,7 +318,7 @@ export default {
         {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;                
+                this.btnLoading = true;                
                 await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{                    
                     _method: "put",
                     nidn:this.formdata.nidn,           
@@ -359,7 +359,7 @@ export default {
             }                             
         },
     },
-    watch:{
+    watch: {
         provinsi_id(val)
         {
             if (val.id != null && val.id != '')

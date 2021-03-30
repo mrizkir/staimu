@@ -252,7 +252,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import DataKelasMHS from '@/components/DataKelasMHS';
 
 export default {
@@ -261,22 +261,22 @@ export default {
 				this.breadcrumbs = [
 						{
 								text:'HOME',
-								disabled:false,
+								disabled: false,
 								href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 						},
 						{
 								text:'AKADEMIK',
-								disabled:false,
+								disabled: false,
 								href:'/akademik'
 						},
 						{
 								text:'PERKULIAHAN',
-								disabled:false,
+								disabled: false,
 								href:'#'
 						},
 						{
 								text:'PEMBAGIAN KELAS',
-								disabled:false,
+								disabled: false,
 								href:'/akademik/perkuliahan/pembagiankelas/daftar'
 						},
 						{
@@ -291,56 +291,56 @@ export default {
 				this.initialize()
 		},  
 		data: () => ({ 
-				kelas_mhs_id:null,
-				data_kelas_mhs:null,
-				tahun_akademik:null,
-				semester_akademik:null,
+				kelas_mhs_id: null,
+				data_kelas_mhs: null,
+				tahun_akademik: null,
+				semester_akademik: null,
 
-				btnLoadingTable:false,
-				datatableLoading:false,
-				btnLoading:false,  
+				btnLoadingTable: false,
+				datatableLoading: false,
+				btnLoading: false,  
 				
-				datatable:[],    
-				daftar_matakuliah:[],     
-				datatable_peserta:[], 
-				datatable_members:[],          
+				datatable: [],    
+				daftar_matakuliah: [],     
+				datatable_peserta: [], 
+				datatable_members: [],          
 				headers: [
-						{ text: 'KODE', value: 'kmatkul', sortable:false,width:100  },   
-						{ text: 'NAMA', value: 'nmatkul', sortable:false  },   
-						{ text: 'SKS', value: 'sks', sortable:false  },                   
-						{ text: 'PROGRAM STUDI', value: 'kjur', sortable:false, width:200 },                   
-						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable:false, width:100 },                   
+						{ text: 'KODE', value: 'kmatkul', sortable: false,width:100  },   
+						{ text: 'NAMA', value: 'nmatkul', sortable: false  },   
+						{ text: 'SKS', value: 'sks', sortable: false  },                   
+						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width:200 },                   
+						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width:100 },                   
 						{ text: 'AKSI', value: 'actions', sortable: false,width:60 },
 				],  
 				headers_peserta: [
-						{ text: 'NIM', value: 'nim', sortable:false,width:100  },   
-						{ text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-						{ text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
-						{ text: 'KELAS', value: 'idkelas', sortable:false  },                   
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable:false },                               
+						{ text: 'NIM', value: 'nim', sortable: false,width:100  },   
+						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },   
+						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
+						{ text: 'KELAS', value: 'idkelas', sortable: false  },                   
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                               
 						{ text: 'AKSI', value: 'actions', sortable: false,width:60 },
 				],  
 				headers_members: [
-						{ text: 'NIM', value: 'nim', sortable:false,width:100  },   
-						{ text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-						{ text: 'KELAS', value: 'idkelas', sortable:false  },                   
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                           
+						{ text: 'NIM', value: 'nim', sortable: false,width:100  },   
+						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },   
+						{ text: 'KELAS', value: 'idkelas', sortable: false  },                   
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                           
 				],  
 				search_members:'',    
 
-				showdialogmatakuliah:false,      
-				showdialogpeserta:false,      
+				showdialogmatakuliah: false,      
+				showdialogpeserta: false,      
 
 				//formdata
-				form_valid:true,  
+				form_valid: true,  
 				members_selected: [],
-				formdata:{                        
+				formdata: {                        
 						penyelenggaraan_dosen_id:'',                        
 				},  
 				
 		}),
 		methods: {        
-				initialize:async function () 
+				initialize: async function() 
 				{
 						this.datatableLoading=true;
 						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
@@ -418,7 +418,7 @@ export default {
 				save: async function() {
 						if (this.$refs.frmdata.validate())
 						{
-							this.btnLoading=true;
+							this.btnLoading = true;
 							await this.$ajax
 								.post(
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
@@ -445,7 +445,7 @@ export default {
 				savematakuliah: async function() {
 						if (this.$refs.frmdatamatkul.validate())
 						{
-								this.btnLoading=true;
+								this.btnLoading = true;
 								await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
 										{
 												kelas_mhs_id:this.kelas_mhs_id,                        
@@ -469,7 +469,7 @@ export default {
 						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc':'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then((confirm) => {
 								if (confirm)
 								{
-										this.btnLoading=true;
+										this.btnLoading = true;
 										this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletematkul/'+item.id,
 												{
 														_method: "DELETE",
@@ -493,7 +493,7 @@ export default {
 						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
 								if (confirm)
 								{
-										this.btnLoading=true;
+										this.btnLoading = true;
 										this.$ajax.post('/akademik/perkuliahan/pembagiankelas/deletepeserta/'+item.id,
 												{
 														_method: "DELETE",
@@ -530,7 +530,7 @@ export default {
 						);
 				},
 		},
-		watch:{
+		watch: {
 				
 		},    
 		components: {

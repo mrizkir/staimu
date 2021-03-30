@@ -8,7 +8,7 @@
                 KARTU RENCANA STUDI
             </template>
             <template v-slot:subtitle v-if="Object.keys(datakrs).length">
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -90,7 +90,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import DataKRS from '@/components/DataKRS';
 export default {
     name: 'PerkuliahanKRSDetail',
@@ -99,22 +99,22 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
                 text:'KRS',
-                disabled:false,
+                disabled: false,
                 href:'/akademik/perkuliahan/krs/daftar'
             },
             {
@@ -126,31 +126,31 @@ export default {
         this.fetchKRS();               
     },  
     data: () => ({ 
-        firstloading:true,        
-        nama_prodi:null,
-        tahun_akademik:null,        
-        semester_akademik:null,
+        firstloading: true,        
+        nama_prodi: null,
+        tahun_akademik: null,        
+        semester_akademik: null,
     
-        btnLoading:false, 
+        btnLoading: false, 
         
         //formdata
-        form_valid:true,   
-        krs_id:null,
-        datakrs:{},
+        form_valid: true,   
+        krs_id: null,
+        datakrs: {},
         jumlah_matkul:0,
         jumlah_sks:0,
-        daftar_matkul_selected:[],
+        daftar_matkul_selected: [],
 
         //table        
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
-            { text: 'SKS', value: 'sks', sortable:false,width:120 },                   
-            { text: 'SMT', value: 'semester', sortable:false,width:120 },                               
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable:false,width:120 },                               
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
+            { text: 'SKS', value: 'sks', sortable: false,width:120 },                   
+            { text: 'SMT', value: 'semester', sortable: false,width:120 },                               
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false,width:120 },                               
         ],  
     }),
     methods: {          
@@ -166,7 +166,7 @@ export default {
                 if (Object.keys(this.datakrs).length)
                 {
                     let prodi_id=this.datakrs.kjur;                    
-                    this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);                
+                    this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);                
                     this.tahun_akademik=this.datakrs.tahun;                                                      
                     this.semester_akademik=this.datakrs.idsmt;                        
                 }
@@ -199,7 +199,7 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/krs/storematkul',
                     {
                         krs_id:this.krs_id,                        
@@ -225,7 +225,7 @@ export default {
             );
         },   
     },
-    computed:{
+    computed: {
         totalSKS()
         {
             var total = 0;

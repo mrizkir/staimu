@@ -8,7 +8,7 @@
                 MAHASISWA BELUM PUNYA NIM
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -193,25 +193,25 @@
 <script>
 
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'MHSBelumPunyaNIM',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'DAFTAR ULANG',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -221,36 +221,36 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_pendaftaran:null,        
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_pendaftaran: null,        
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },       
-            { text: 'TELP. HP', value: 'telp_hp', sortable:true,width:150 },       
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width:150  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },       
+            { text: 'TELP. HP', value: 'telp_hp', sortable: true,width:150 },       
+            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'', 
+        search: "", 
         
-        data_mhs:{},  
+        data_mhs: {},  
 
         //formdata
-        form_valid:true,   
-        dialogfrm:false, 
-        daftar_dw:[],     
+        form_valid: true,   
+        dialogfrm: false, 
+        daftar_dw: [],     
         
         formdata: {                        
             nim:'',
@@ -283,7 +283,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/dulang/mhsbelumpunyanim',
@@ -323,14 +323,14 @@ export default {
                 }
             }).then(({ data }) => {                  
                 this.data_mhs = item;
-                this.dialogfrm=true;
+                this.dialogfrm = true;
                 this.daftar_dw = data.users; 
             });     
         },
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;  
+                this.btnLoading = true;  
                 this.$ajax.post('/akademik/dulang/mhsbelumpunyanim/store',
                 {
                     user_id:this.data_mhs.user_id,
@@ -361,7 +361,7 @@ export default {
             );
         },
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -373,7 +373,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

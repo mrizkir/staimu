@@ -198,7 +198,7 @@
 </template>
 <script>
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'UsersProfile',
     created () {
@@ -207,12 +207,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SYSTEM',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -229,21 +229,21 @@ export default {
     data ()
     {
         return {
-            dashboard:null,
+            dashboard: null,
 
-            btnLoading:false,
-            datatable:[],
+            btnLoading: false,
+            datatable: [],
             avatar : null,
 
             //form data        
-            data_mhs:{
+            data_mhs: {
                 nim:'N.A',
                 nirm:'N.A',
                 nama_prodi:'N.A',
                 nama_kelas:'N.A',
                 dosen_wali:'N.A',
             },       
-            form_valid:true,         
+            form_valid: true,         
             formdata: {
                 id:0,                        
                 username:'',         
@@ -298,7 +298,7 @@ export default {
         {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 this.$ajax.post('/system/users/updatepassword/'+this.$store.getters['auth/AttributeUser']('id'),
                     {
                         '_method':'PUT',                        
@@ -335,13 +335,13 @@ export default {
             }            
             
         },
-        uploadFoto:async function () 
+        uploadFoto: async function() 
         {
             if (this.$refs.frmuploadfoto.validate())
             {
                 if (this.formdata.foto)
                 {                
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     var formdata = new FormData();
                     formdata.append('foto',this.formdata.foto);
                     await this.$ajax.post('/setting/users/uploadfoto/'+this.$store.getters.User.id,formdata,                    
@@ -361,9 +361,9 @@ export default {
                 }   
             }
         },
-        resetFoto:async function () 
+        resetFoto: async function() 
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},            
                 {
                     headers: {
@@ -391,7 +391,7 @@ export default {
         }
         
     },
-    computed:{        
+    computed: {        
 		photoUser: {
             get()
             {

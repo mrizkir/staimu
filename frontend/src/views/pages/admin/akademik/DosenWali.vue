@@ -121,19 +121,19 @@
 <script>
 import { mapGetters } from "vuex";
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'DosenWali',  
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
@@ -147,24 +147,24 @@ export default {
    
     data: () => ({ 
         role_id:0,
-        datatableLoading:false,
-        btnLoading:false,      
+        datatableLoading: false,
+        btnLoading: false,      
         //tables
         headers: [                        
             { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'NAMA DOSEN', value: 'name',sortable:true },
-            { text: 'NIDN', value: 'nidn',sortable:true },     
-            { text: 'NIPY', value: 'nipy',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },         
+            { text: 'USERNAME', value: 'username',sortable: true },
+            { text: 'NAMA DOSEN', value: 'name',sortable: true },
+            { text: 'NIDN', value: 'nidn',sortable: true },     
+            { text: 'NIPY', value: 'nipy',sortable: true },     
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },         
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        expanded:[],
-        search:'',
+        expanded: [],
+        search: "",
         daftar_users: [],               
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/akademik/dosenwali',{
@@ -196,7 +196,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/akademik/dosenwali/'+item.id,
                         {
                             _method: "DELETE",

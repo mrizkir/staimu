@@ -8,7 +8,7 @@
                 LAPORAN PMB PROGRAM STUDI
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -115,8 +115,8 @@
 </template>
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'ReportProdi', 
     created()
@@ -125,12 +125,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SPMB',
-                disabled:false,
+                disabled: false,
                 href:'/spmb'
             },
             {
@@ -140,36 +140,36 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()   
     },  
     data: () => ({
-        firstloading:true,
-        prodi_id:null,
-        tahun_pendaftaran:null,
-        nama_prodi:null,
+        firstloading: true,
+        prodi_id: null,
+        tahun_pendaftaran: null,
+        nama_prodi: null,
 
-        dialogprofilmhsbaru:false,
-        breadcrumbs:[],        
-        dashboard:null,
+        dialogprofilmhsbaru: false,
+        breadcrumbs: [],        
+        dashboard: null,
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
-            { text: 'KELAS', value: 'nkelas',width:100,sortable:true },    
+            { text: 'KELAS', value: 'nkelas',width:100,sortable: true },    
         ],
-        search:'',  
+        search: "",  
         
-        datamhsbaru:{}
+        datamhsbaru: {}
     }),
-    methods : {
+    methods: {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
@@ -223,9 +223,9 @@ export default {
         {
             return item.active == 1 ? 'mdi-check-bold':'mdi-close-thick'
         },
-        printtoexcel:async function ()
+        printtoexcel: async function()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbprodi/printtoexcel',
                 {
                     TA:this.tahun_pendaftaran,                                                                
@@ -253,7 +253,7 @@ export default {
             });     
         }     
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -265,7 +265,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

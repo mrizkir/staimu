@@ -108,7 +108,7 @@
 </template>
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PassingGrade',
     created () {
@@ -116,17 +116,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SPMB',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
                 text:'JADWAL UJIAN PMB',
-                disabled:false,
+                disabled: false,
                 href:'/spmb/jadwalujianpmb'
             },
             {
@@ -138,25 +138,25 @@ export default {
         this.initialize();    
     },
     data: () => ({
-        jadwal_ujian_id:null,
-        jadwal_ujian:{
+        jadwal_ujian_id: null,
+        jadwal_ujian: {
             id:0,                        
             nama_kegiatan:'',            
             ta:'',                        
             idsmt:'',                                    
         },
-        breadcrumbs:[],        
-        dashboard:null,
+        breadcrumbs: [],        
+        dashboard: null,
 
-        btnLoading:false,
-        datatableLoading:false,        
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,        
+        expanded: [],
+        datatable: [],
         headers: [                                        
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
             { text: 'NILAI', value: 'nilai', sortable: false,width:100 },                
         ],
-        search:'',
+        search: "",
 
         //form rules
         rule_angka:[
@@ -164,7 +164,7 @@ export default {
         ],
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/spmb/passinggrade',
@@ -194,9 +194,9 @@ export default {
                 this.expanded = [item];
             }               
         },
-        loadprodi:async function ()
+        loadprodi: async function()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/loadprodi',
                 {
                     jadwal_ujian_id:this.jadwal_ujian_id,               
@@ -215,7 +215,7 @@ export default {
         },
         saveItem:async function ({id,nilai})
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/'+id,            
             {
                 _method: "put",

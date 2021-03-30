@@ -8,7 +8,7 @@
 								TRANSAKSI REGISTRASI KRS
 						</template>
 						<template v-slot:subtitle>
-								TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters["uiadmin/getNamaSemester"](semester_akademik)}} - {{nama_prodi}}
+								TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters["uiadmin/getNamaSemester"](semester_akademik)}} - {{ nama_prodi }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -208,12 +208,12 @@
 				this.breadcrumbs = [
 						{
 							text: "HOME",
-							disabled:false,
+							disabled: false,
 							href: "/dashboard/"+this.$store.getters["auth/AccessToken"]
 						},
 						{
 							text: "KEUANGAN",
-							disabled:false,
+							disabled: false,
 							href: "/keuangan"
 						},
 						{
@@ -222,9 +222,9 @@
 							href: "#"
 						}
 				];        
-				let prodi_id=this.$store.getters["uiadmin/getProdiID"];
-				this.prodi_id=prodi_id;
-				this.nama_prodi=this.$store.getters["uiadmin/getProdiName"](prodi_id);
+				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
+				this.prodi_id = prodi_id;
+				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];             
 				this.semester_akademik=this.$store.getters["uiadmin/getSemesterAkademik"];           
 			},
@@ -232,40 +232,40 @@
 					this.initialize()
 			},
 			data: () => ({
-					dashboard:null,
-					firstloading:true,
-					breadcrumbs:[],     
+					dashboard: null,
+					firstloading: true,
+					breadcrumbs: [],     
 					tahun_akademik:0,
-					semester_akademik:null,
-					prodi_id:null,
-					nama_prodi:null,
-					filter_ignore:false, 
-					awaiting_search:false,
+					semester_akademik: null,
+					prodi_id: null,
+					nama_prodi: null,
+					filter_ignore: false, 
+					awaiting_search: false,
 					
-					btnLoading:false,      
+					btnLoading: false,      
 
 					//tables
-					datatableLoading:false,       
-					datatable:[], 
+					datatableLoading: false,       
+					datatable: [], 
 					headers: [                                                
-							{ text: "KODE BILLING", value: "no_transaksi",width:100,sortable:true },
-							{ text: "TANGGAL", value: "tanggal",width:90,sortable:true },
-							{ text: "NIM", value: "nim",sortable:true,width:100 },
-							{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable:true, width:250 },    
-							{ text: "SMT", value: "idsmt",width:100,sortable:false },
-							{ text: "JUMLAH", value: "sub_total",width:100,sortable:false,align: "right" },
-							{ text: "STATUS", value: "nama_status",width:100,sortable:false },    
+							{ text: "KODE BILLING", value: "no_transaksi",width:100,sortable: true },
+							{ text: "TANGGAL", value: "tanggal",width:90,sortable: true },
+							{ text: "NIM", value: "nim",sortable: true,width:100 },
+							{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable: true, width:250 },    
+							{ text: "SMT", value: "idsmt",width:100,sortable: false },
+							{ text: "JUMLAH", value: "sub_total",width:100,sortable: false,align: "right" },
+							{ text: "STATUS", value: "nama_status",width:100,sortable: false },    
 							{ text: "AKSI", value: "actions", sortable: false,width:100 },
 					],        
-					expanded:[],
+					expanded: [],
 					search: "", 
 
 					//dialog
-					dialogfrm:false,        
+					dialogfrm: false,        
 
 					//form data   
-					form_valid:true,      
-					daftar_semester:[],        
+					form_valid: true,      
+					daftar_semester: [],        
 					formdata: {
 							nim: "",
 							semester_akademik: ""
@@ -282,7 +282,7 @@
 							value => !!value || "Mohon dipilih Semester untuk transaksi ini !!!"
 					],         
 			}),
-			methods : {
+			methods: {
 					changeTahunAkademik (tahun)
 					{
 							this.tahun_akademik=tahun;
@@ -326,7 +326,7 @@
 									this.expanded = [item];
 							}               
 					},
-					async addItem ()
+					async addItem()
 					{
 							this.daftar_semester=this.$store.getters["uiadmin/getDaftarSemester"];  
 							this.formdata.semester_akademik=this.semester_akademik;
@@ -334,7 +334,7 @@
 							{
 									this.formdata.nim=this.$store.getters["auth/AttributeUser"]("username");
 							}
-							this.dialogfrm=true;            
+							this.dialogfrm = true;            
 					},
 					viewItem(item)
 					{
@@ -343,7 +343,7 @@
 					save: async function() {
 							if (this.$refs.frmdata.validate())
 							{
-									this.btnLoading=true;
+									this.btnLoading = true;
 									await this.$ajax.post("/keuangan/transaksi-registrasikrs/store",
 											{
 													nim: this.formdata.nim, 
@@ -366,7 +366,7 @@
 							}            
 					},					
 					printtoexcel: async function () {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax
 							.post("/keuangan/transaksi-registrasikrs/printtoexcel1",
                 {
@@ -408,7 +408,7 @@
 							this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus data transaksi registrasi krs dengan ID " + item.id + " ?", { color: "red",width: "500px" }).then((confirm) => {
 									if (confirm)
 									{
-											this.btnLoading=true;
+											this.btnLoading = true;
 											this.$ajax.post("/keuangan/transaksi-registrasikrs/"+item.transaksi_id,
 													{
 															_method: "DELETE",
@@ -432,9 +432,9 @@
 			computed: {
 					totaltransaksi_paid()
 					{
-							var total=0;
+							var total = 0;
 							this.datatable.forEach(item => {
-									if (item.status==1)
+									if (item.status == 1)
 									{
 											total+=item.total;
 									}
@@ -443,7 +443,7 @@
 					},
 					totaltransaksi_unpaid()
 					{
-							var total=0;
+							var total = 0;
 							this.datatable.forEach(item => {
 									if (item.status==0)
 									{
@@ -454,7 +454,7 @@
 					},
 					totaltransaksi_canceled()
 					{
-							var total=0;
+							var total = 0;
 							this.datatable.forEach(item => {
 									if (item.status==2)
 									{
@@ -483,7 +483,7 @@
 					{
 							if (!this.firstloading)
 							{
-									this.nama_prodi=this.$store.getters["uiadmin/getProdiName"](val);
+									this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
 									this.initialize();
 							}            
 					},

@@ -13,7 +13,7 @@ export default {
     created() {
         this.initialize();
     },
-    props:{
+    props: {
         user_id: {
             type:String,
             required:true
@@ -21,10 +21,10 @@ export default {
     },
     data: () => ({
         //form        
-        daftar_persyaratan:[],        
+        daftar_persyaratan: [],        
     }),    
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             await this.$ajax.get('/spmb/pmbpersyaratan/'+this.user_id,             
                 {

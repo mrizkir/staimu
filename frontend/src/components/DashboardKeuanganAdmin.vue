@@ -154,21 +154,21 @@ export default {
         this.initialize();
     },
     data: () => ({
-        datatableLoading:false,
+        datatableLoading: false,
 
         //daftar komponen biaya
-        kombi_ganjil_unpaid:[],       
-        kombi_genap_unpaid:[],       
+        kombi_ganjil_unpaid: [],       
+        kombi_genap_unpaid: [],       
 
-        kombi_ganjil_paid:[],       
-        kombi_genap_paid:[],       
+        kombi_ganjil_paid: [],       
+        kombi_genap_paid: [],       
 
-        kombi_ganjil_cancelled:[],       
-        kombi_genap_cancelled:[],       
+        kombi_ganjil_cancelled: [],       
+        kombi_genap_cancelled: [],       
 
         headers: [                        
-            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable:false},       
-            { text: 'JUMLAH', align:'end',value: 'jumlah',width:250, sortable:false},        
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable: false},       
+            { text: 'JUMLAH', align:'end',value: 'jumlah',width:250, sortable: false},        
         ], 
         //statistik
         total_transaction:0,
@@ -176,13 +176,13 @@ export default {
         total_transaction_unpaid:0,
         total_transaction_cancelled:0
     }),
-    props:{
-        ta:{
+    props: {
+        ta: {
             type:Number,
             required:true
         }
     },
-    methods:{
+    methods: {
         initialize: async function()
 		{	
             this.datatableLoading=true;            
@@ -216,7 +216,7 @@ export default {
 
         }
     },
-    computed:{        
+    computed: {        
         totalKombiGanjilPaid()
         {
             var total = 0;            
@@ -238,7 +238,7 @@ export default {
             return total;
         }
     },    
-    watch:{
+    watch: {
         ta ()
         {
             this.initialize();

@@ -48,7 +48,7 @@
 							SPMB
 						</v-card-title>                        
 						<v-card-text>
-							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{tahun_pendaftaran}}.
+							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{ tahun_pendaftaran }}.
 						</v-card-text>
 					</v-card>
 				</v-col>
@@ -189,7 +189,7 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.TOKEN
 			},
 			{
@@ -201,12 +201,12 @@ export default {
 		this.initialize();
 	},    
 	data: () => ({
-		breadcrumbs:[],
-		TOKEN:null,
-		dashboard:null,        
+		breadcrumbs: [],
+		TOKEN: null,
+		dashboard: null,        
 		tahun_pendaftaran:'',
 	}),
-	methods : {
+	methods: {
 		initialize: async function()
 		{	            
 			await this.$ajax.get('/auth/me',                

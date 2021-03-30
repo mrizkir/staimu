@@ -230,7 +230,7 @@
 </template>
 <script>
 import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import ProfilMahasiswa from '@/components/ProfilMahasiswaLama';
 export default {
     name: 'Kemahasiswaan',
@@ -240,12 +240,12 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
 				text:'KEMAHASISWAAN',
-				disabled:false,
+				disabled: false,
 				href:'/kemahasiswaan'
 			},
 			{
@@ -260,12 +260,12 @@ export default {
         this.initialize();
     },
     data: () => ({    
-        firstloading:true,                    
-        breadcrumbs:[],              
+        firstloading: true,                    
+        breadcrumbs: [],              
         
         //profil mahasiswa      
-        user_id:null,  
-        datamhs:{
+        user_id: null,  
+        datamhs: {
             nama_mhs:''
         },
         totalSKS:0, 
@@ -274,26 +274,26 @@ export default {
         ipk:0.00, 
 
         //tables
-        datatableLoading:false,       
-        datatable:[], 
+        datatableLoading: false,       
+        datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
-            { text: 'TANGGAL', value: 'tanggal',width:100,sortable:true },
-            { text: 'NIM', value: 'nim',width:100,sortable:true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },
-            { text: 'T.A/SMT', value: 'idsmt',width:100,sortable:true },
-            { text: 'TOTAL', value: 'total',width:100,sortable:true },
-            { text: 'STATUS', value: 'nama_status',width:50,sortable:true },    
+            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable: true },
+            { text: 'TANGGAL', value: 'tanggal',width:100,sortable: true },
+            { text: 'NIM', value: 'nim',width:100,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },
+            { text: 'T.A/SMT', value: 'idsmt',width:100,sortable: true },
+            { text: 'TOTAL', value: 'total',width:100,sortable: true },
+            { text: 'STATUS', value: 'nama_status',width:50,sortable: true },    
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
-        expanded:[],
-        search:'', 
+        expanded: [],
+        search: "", 
         //form data
-        dialogdetailitem:false,
-        data_transaksi:{}, 
-        data_transaksi_detail:{},  
+        dialogdetailitem: false,
+        data_transaksi: {}, 
+        data_transaksi_detail: {},  
     }),
-    methods : {        
+    methods: {        
 		initialize: async function()
 		{	
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,           
@@ -337,7 +337,7 @@ export default {
             }               
         },   
         async viewItem (item) {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/keuangan/transaksi/'+item.id,  
             {
                 headers: {

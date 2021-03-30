@@ -181,19 +181,19 @@
 <script>
 import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Kelas',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -205,24 +205,24 @@ export default {
         this.initialize()
     },
     data: () => ({
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [
             { text: 'KODE KELAS', value: 'idkelas',width:150 },
             { text: 'NAMA KELAS', value: 'nkelas' },
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        search:'',
+        search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
 
         //form data
         old_idkelas:'',
-        form_valid:true,
+        form_valid: true,
         formdata: {
             idkelas:'',
             nkelas:'',
@@ -244,7 +244,7 @@ export default {
         ],
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             this.datatableLoading=true;
             await this.$ajax.get('/datamaster/kelas',{
@@ -282,7 +282,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1)
                 {
                     await this.$ajax.post('/datamaster/kelas/'+this.old_idkelas,
@@ -329,7 +329,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.idkelas+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/datamaster/kelas/'+item.idkelas,
                         {
                             _method: "DELETE",

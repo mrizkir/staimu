@@ -245,19 +245,19 @@
 <script>
 import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'ProgramStudi',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -269,23 +269,23 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],        
-        search:'',    
-        firstloading:true,
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],        
+        search: "",    
+        firstloading: true,
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
 
         //form data   
-        form_valid:true,   
-        daftar_fakultas:[],           
+        form_valid: true,   
+        daftar_fakultas: [],           
 
-        daftar_jenjang:[],      
-        jenjang_studi:null,          
+        daftar_jenjang: [],      
+        jenjang_studi: null,          
         kode_prodi:'',          
         formdata: {
             id:0,                        
@@ -295,7 +295,7 @@ export default {
             nama_prodi_alias:'',         
             kode_jenjang:'', 
             nama_jenjang:'', 
-            config:{}
+            config: {}
         },
         formdefault: {
             id:0,                        
@@ -305,10 +305,10 @@ export default {
             nama_prodi_alias:'',         
             kode_jenjang:'', 
             nama_jenjang:'', 
-            config:{}
+            config: {}
         },
-        dosen_id:null,
-        daftar_dosen:[],
+        dosen_id: null,
+        daftar_dosen: [],
         editedIndex: -1,
 
         //form rules 
@@ -332,7 +332,7 @@ export default {
         ], 
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/datamaster/programstudi',{
@@ -382,7 +382,7 @@ export default {
                 this.daftar_jenjang=data.jenjangstudi;
             });
 
-            this.dialogfrm=true;
+            this.dialogfrm = true;
         },
         async viewItem (item) 
         {           
@@ -430,7 +430,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/datamaster/programstudi/'+this.formdata.id,
@@ -485,7 +485,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data program studi dengan kode '+item.kode_prodi+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/datamaster/programstudi/'+item.id,
                         {
                             _method: "DELETE",
@@ -557,12 +557,12 @@ export default {
             }
         },
     },
-    watch:{
+    watch: {
         async dosen_id(val)
         {         
             if (!this.firstloading)
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
                     {
                         '_method':'PUT',                    

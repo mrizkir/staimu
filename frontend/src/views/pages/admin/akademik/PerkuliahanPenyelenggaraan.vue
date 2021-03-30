@@ -8,7 +8,7 @@
                 PENYELENGGARAAN PERKULIAHAN
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -130,7 +130,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter6 from '@/components/sidebar/FilterMode6';
 
 import { mapGetters } from "vuex";
@@ -141,17 +141,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -161,35 +161,35 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,        
-        tahun_akademik:null,
-        semester_akademik:null,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,        
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable:true  },   
-            { text: 'SKS', value: 'sks', sortable:true, width:50  },       
-            { text: 'SMT. MATKUL', value: 'semester', sortable:true, width:50  },       
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable:true, width:50 },       
-            { text: 'KETUA GROUP', value: 'nama_dosen', sortable:true },       
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen',sortable:true, width:50 },                   
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs',sortable:true, width:50},                   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true  },   
+            { text: 'SKS', value: 'sks', sortable: true, width:50  },       
+            { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },       
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },       
+            { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },       
+            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen',sortable: true, width:50 },                   
+            { text: 'JUMLAH MHS', value: 'jumlah_mhs',sortable: true, width:50},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'', 
+        search: "", 
 
     }),
     methods: {
@@ -205,7 +205,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah',
@@ -264,7 +264,7 @@ export default {
             });
         },
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -283,12 +283,12 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }
     },
-    computed:{
+    computed: {
         ...mapGetters('auth',{            
             CAN_ACCESS:'can',                     
         }),

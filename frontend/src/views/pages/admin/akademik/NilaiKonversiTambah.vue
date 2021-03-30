@@ -8,7 +8,7 @@
                 KONVERSI NILAI 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -130,7 +130,7 @@
                             loading-text="Loading... Please wait">
                             <template v-slot:top>
                                 <v-toolbar flat color="white">
-                                    <v-toolbar-title>KURIKULUM MATAKULIAH T.A {{tahun_pendaftaran}}</v-toolbar-title>
+                                    <v-toolbar-title>KURIKULUM MATAKULIAH T.A {{ tahun_pendaftaran }}</v-toolbar-title>
                                     <v-divider
                                         class="mx-4"
                                         inset
@@ -180,29 +180,29 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'NilaiKonversiTambah',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },    
             {
                 text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
-                disabled:false,
+                disabled: false,
                 href:'/akademik/nilai/konversi'
             },
             {
@@ -212,35 +212,35 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({         
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_pendaftaran:null,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_pendaftaran: null,
 
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,        
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,        
+        datatable: [],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable:false, width:100  },       
-            { text: 'NAMA', value: 'nmatkul', sortable:false, width:250  },       
-            { text: 'SKS', value: 'sks',sortable:false, width:70 },                   
-            { text: 'SMT', value: 'semester',sortable:true,width:70, },                   
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable:false,width:120 },                   
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable:false,width:170 },                   
-            { text: 'SKS ASAL', value: 'sks_asal',sortable:false,width:70},                   
-            { text: 'NILAI', value: 'n_kual',sortable:false,width:70},                               
+            { text: 'KODE', value: 'kmatkul', sortable: false, width:100  },       
+            { text: 'NAMA', value: 'nmatkul', sortable: false, width:250  },       
+            { text: 'SKS', value: 'sks',sortable: false, width:70 },                   
+            { text: 'SMT', value: 'semester',sortable: true,width:70, },                   
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable: false,width:120 },                   
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal',sortable: false,width:170 },                   
+            { text: 'SKS ASAL', value: 'sks_asal',sortable: false,width:70},                   
+            { text: 'NILAI', value: 'n_kual',sortable: false,width:70},                               
         ],  
-        search:'', 
+        search: "", 
                 
-        form_valid:true,   
-        daftar_jenjang:[],                        
-        formdata:{
+        form_valid: true,   
+        daftar_jenjang: [],                        
+        formdata: {
             'id':'',
             'user_id':'',
             'nim':'',
@@ -258,7 +258,7 @@ export default {
             'kjur':'',
             'perpanjangan':'',   
         },
-        formdefault:{
+        formdefault: {
             'id':'',
             'user_id':'',
             'nim':'',
@@ -313,7 +313,7 @@ export default {
         ],
     }),
     methods: {        
-        initialize:async function () 
+        initialize: async function() 
         {      
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/nilai/konversi/matakuliah',
@@ -338,7 +338,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;  
+                this.btnLoading = true;  
 
                 var daftar_nilai=[];
                 this.datatable.forEach(item => {

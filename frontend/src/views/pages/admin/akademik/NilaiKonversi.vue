@@ -8,7 +8,7 @@
                 KONVERSI NILAI 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -196,25 +196,25 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'NilaiKonversi',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -224,36 +224,36 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_pendaftaran:null,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_pendaftaran: null,
 
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [            
-            { text: 'NIM', value: 'nim_asal', sortable:true,width:100  },       
-            { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },       
-            { text: 'ALAMAT', value: 'alamat',sortable:true,width:200 },                   
-            { text: 'NO. TELP', value: 'no_telp',sortable:true,width:120, },                   
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable:false,width:100, },                   
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable:false,width:100, },                   
-            { text: 'NIM SISTEM', value: 'nim',sortable:true,width:100, },                   
+            { text: 'NIM', value: 'nim_asal', sortable: true,width:100  },       
+            { text: 'NAMA', value: 'nama_mhs', sortable: true,width:250  },       
+            { text: 'ALAMAT', value: 'alamat',sortable: true,width:200 },                   
+            { text: 'NO. TELP', value: 'no_telp',sortable: true,width:120, },                   
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width:100, },                   
+            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width:100, },                   
+            { text: 'NIM SISTEM', value: 'nim',sortable: true,width:100, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:150 },
         ],  
-        search:'', 
+        search: "", 
 
-        dialogprintpdf:false,
-        file_pdf:null
+        dialogprintpdf: false,
+        file_pdf: null
     }),
     methods: {
         changeTahunPendaftaran(tahun)
@@ -264,7 +264,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/nilai/konversi',
@@ -308,7 +308,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data nilai konvesi dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/akademik/nilai/konversi/'+item.id,
                         {
                             _method: "DELETE",
@@ -330,7 +330,7 @@ export default {
         },
         async printpdf1(item)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,                
                 {
                     headers: {
@@ -354,7 +354,7 @@ export default {
             );
         }, 
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -366,7 +366,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

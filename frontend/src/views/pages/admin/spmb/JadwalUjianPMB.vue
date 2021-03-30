@@ -8,7 +8,7 @@
 				JADWAL UJIAN PMB
 			</template>
 			<template v-slot:subtitle>
-				TAHUN PENDAFTARAN {{tahun_pendaftaran}} - SEMESTER {{nama_semester_pendaftaran}}
+				TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - SEMESTER {{nama_semester_pendaftaran}}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -469,7 +469,7 @@
 				}).then(({ data }) => {    
 					this.daftar_ruangan = data.ruangan;
 					this.btnLoading = false;
-					this.dialogfrm=true;
+					this.dialogfrm = true;
 				}).catch(() => {
 					this.btnLoading = false;
 				});  
@@ -495,7 +495,7 @@
 							this.btnLoading = false;
 							this.editedIndex = this.datatable.indexOf(item);
 							this.formdata = Object.assign({}, item);
-							this.dialogfrm=true;
+							this.dialogfrm = true;
 						}).catch(() => {
 							this.btnLoading = false;
 						});  

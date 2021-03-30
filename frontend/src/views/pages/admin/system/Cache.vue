@@ -57,7 +57,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Cache',
     created()
@@ -65,12 +65,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'KONFIGURASI SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-setting'
             },  
             {
@@ -82,11 +82,11 @@ export default {
         this.initialize();
     },
     data: () => ({
-        breadcrumbs:[],
-        datatableLoading:false,
-        btnLoading:false,
+        breadcrumbs: [],
+        datatableLoading: false,
+        btnLoading: false,
         //form
-        form_valid:true,
+        form_valid: true,
         formdata: {            
             token_ttl_expire:60          
         },
@@ -97,7 +97,7 @@ export default {
         ],        
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             this.datatableLoading=true;
             await this.$ajax.get('/system/setting/variables',
@@ -114,7 +114,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
                         '_method':'PUT',
@@ -136,7 +136,7 @@ export default {
             }
         }
     },
-    computed:{
+    computed: {
         ...mapGetters('auth',{
             ACCESS_TOKEN:'AccessToken',
             TOKEN:'Token',

@@ -288,7 +288,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
 export default {
     name: 'UsersProgramStudi',
@@ -296,12 +296,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'USER SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-users'
             },
             {
@@ -315,29 +315,29 @@ export default {
 
     data: () => ({
         role_id:0,
-        datatableLoading:false,
-        btnLoading:false,
+        datatableLoading: false,
+        btnLoading: false,
         //tables
         headers: [
             { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'NAME', value: 'name',sortable:true },
-            { text: 'EMAIL', value: 'email',sortable:true },
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },
+            { text: 'USERNAME', value: 'username',sortable: true },
+            { text: 'NAME', value: 'name',sortable: true },
+            { text: 'EMAIL', value: 'email',sortable: true },
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        expanded:[],
-        search:'',
+        expanded: [],
+        search: "",
         daftar_users: [],
         
         //form
-        form_valid:true,
-        daftar_roles:[],
+        form_valid: true,
+        daftar_roles: [],
         dialog: false,
         dialogEdit: false,
         dialogUserPermission: false,
         editedIndex: -1,
-        daftar_prodi:[],
+        daftar_prodi: [],
         editedItem: {
             id:0,
             username: '',
@@ -345,7 +345,7 @@ export default {
             name: '',
             email: '',
             nomor_hp:'',
-            prodi_id:[],
+            prodi_id: [],
             role_id:['programstudi'],
             created_at: '',
             updated_at: '',
@@ -357,7 +357,7 @@ export default {
             name: '',
             email: '',
             nomor_hp: '',
-            prodi_id:[],
+            prodi_id: [],
             role_id:['programstudi'],
             created_at: '',
             updated_at: '',
@@ -404,7 +404,7 @@ export default {
         ],
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             this.datatableLoading=true;
             await this.$ajax.get('/system/usersprodi',{
@@ -434,7 +434,7 @@ export default {
             this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role program studi, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning',width:500 }).then(async (confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
                             role_name:'programstudi',
@@ -452,7 +452,7 @@ export default {
                 }
             });
         },
-        showDialogTambahUserProgramStudi:async function ()
+        showDialogTambahUserProgramStudi: async function()
         {
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
@@ -473,7 +473,7 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled:false,
+                            disabled: false,
                         });
                     }
                 });
@@ -521,14 +521,14 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled:false,
+                            disabled: false,
                         });
                     }
                 });
                 this.daftar_roles=daftar_roles;
             });
 
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/system/users/' + item.id + '/roles',
             {
                 headers: {
@@ -562,7 +562,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1)
                 {
                     this.$ajax.post('/system/usersprodi/'+this.editedItem.id,
@@ -617,7 +617,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/system/usersprodi/'+item.id,
                         {
                             _method: "DELETE",

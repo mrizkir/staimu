@@ -131,12 +131,12 @@
 			this.breadcrumbs = [
 				{
 					text:"HOME",
-					disabled:false,
+					disabled: false,
 					href:"/dashboard/"+this.ACCESS_TOKEN,
 				},
 				{
 					text: "BLOG",
-					disabled:false,
+					disabled: false,
 					href: "/blog",
 				},
 				{
@@ -149,9 +149,9 @@
 		},
 		data: () => ({
 				firstloading: true,				
-				btnLoading:false,
-				datatableLoading:false,
-				expanded:[],
+				btnLoading: false,
+				datatableLoading: false,
+				expanded: [],
 				datatable: [],
 				headers: [
 						{ text: "JUDUL", value: "post_title", width:300 },
@@ -162,8 +162,8 @@
 				search: "",
 
 				//page config
-				daftar_category:[],
-				INFO_KAMPUS_TERM_ID:null,
+				daftar_category: [],
+				INFO_KAMPUS_TERM_ID: null,
 		}),
 		methods: {
 			async fetchConfig() {				

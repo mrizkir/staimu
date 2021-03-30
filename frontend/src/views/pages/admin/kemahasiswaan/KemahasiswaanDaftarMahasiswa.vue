@@ -8,7 +8,7 @@
                 DAFTAR MAHASISWA 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -133,8 +133,8 @@
 </template>
 <script>
 import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 
 export default {
     name: 'KemahasiswaanDaftarMahasiswa',
@@ -142,12 +142,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },    
             {
                 text:'KEMAHASISWAAN',
-                disabled:false,
+                disabled: false,
                 href:'/kemahasiswaan'
             },
             {
@@ -157,33 +157,33 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_pendaftaran:null,
-        filter_ignore:false, 
-        awaiting_search:false,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_pendaftaran: null,
+        filter_ignore: false, 
+        awaiting_search: false,
 
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:150  },   
-            { text: 'NIM', value: 'nim', sortable:true,width:150  },   
-            { text: 'NIRM', value: 'nirm', sortable:true,width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true },                   
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                               
-            { text: 'STATUS', value: 'k_status',sortable:true,width:120, },                               
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width:150  },   
+            { text: 'NIM', value: 'nim', sortable: true,width:150  },   
+            { text: 'NIRM', value: 'nirm', sortable: true,width:150  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },                   
+            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                               
+            { text: 'STATUS', value: 'k_status',sortable: true,width:120, },                               
         ],  
-        search:'', 
+        search: "", 
     }),
     methods: {
         changeTahunPendaftaran(tahun)
@@ -194,7 +194,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs',
@@ -226,9 +226,9 @@ export default {
                 this.expanded = [item];
             }               
         },
-        printtoexcel:async function ()
+        printtoexcel: async function()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs/printtoexcel',
                 {
                     TA:this.tahun_pendaftaran,                                                                
@@ -255,9 +255,9 @@ export default {
                 this.btnLoading = false;
             });     
         },    
-        syncPermission:async function ()
+        syncPermission: async function()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
                     role_name:'mahasiswa',
@@ -277,7 +277,7 @@ export default {
         },
         async resetPassword(item)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/profil/resetpassword',
                 {
                     user_id:item.user_id,         
@@ -294,7 +294,7 @@ export default {
             });     
         }
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -306,7 +306,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },

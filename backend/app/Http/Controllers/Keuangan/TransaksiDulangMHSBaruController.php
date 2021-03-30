@@ -285,4 +285,24 @@ class TransaksiDulangMHSBaruController extends Controller {
                                 ],422); 
         }
     }
+    /**
+     * cetak seluruh transaksi spp per prodi dan ta
+     */
+    public function printtoexcel1 (Request $request)
+    {
+        $this->validate($request, [           
+            'TA'=>'required',            
+            'PRODI_ID'=>'required',
+            'NAMA_PRODI'=>'required',
+        ]);
+
+        $data_report=[
+            'TA'=>$request->input('TA'),
+            'prodi_id'=>$request->input('PRODI_ID'),            
+            'nama_prodi'=>$request->input('NAMA_PRODI'),                        
+        ];
+
+        $report= new \App\Models\Report\ReportKeuanganDulangMHSBaruModel ($data_report);
+        return $report->printtoexcel1();
+    }
 }

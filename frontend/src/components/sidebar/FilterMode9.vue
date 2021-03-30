@@ -15,21 +15,21 @@ export default {
     created()
     {
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];  
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
     },
     data: () => ({
-        firstloading:true,
+        firstloading: true,
         
-        daftar_ta:[],
-        tahun_pendaftaran:null
+        daftar_ta: [],
+        tahun_pendaftaran: null
     }),
-    methods:{
+    methods: {
         setFirstTimeLoading (bool)
         {
             this.firstloading=bool;
         }
     },
-    watch:{
+    watch: {
         tahun_pendaftaran(val)
         {
             if (!this.firstloading)

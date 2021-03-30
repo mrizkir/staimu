@@ -59,9 +59,9 @@ export default {
 		}
 	},
     data: () => ({
-        btnLoading:false,
+        btnLoading: false,
         //form
-        form_error:false,
+        form_error: false,
         formlogin: {
             username:'',
             password:''
@@ -79,7 +79,7 @@ export default {
         {
             if (this.$refs.frmlogin.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/auth/login',{
                     username:this.formlogin.username,
                     password:this.formlogin.password

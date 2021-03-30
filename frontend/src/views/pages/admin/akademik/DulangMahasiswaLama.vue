@@ -8,7 +8,7 @@
                 DAFTAR ULANG MAHASISWA LAMA 
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -109,7 +109,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter6 from '@/components/sidebar/FilterMode6';
 export default {
     name: 'DulangMahasiswaBaru',
@@ -118,17 +118,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'DAFTAR ULANG',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -138,35 +138,35 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];   
         this.initialize()
     },  
     data: () => ({ 
-        dashboard:null,
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_akademik:null,
-        semester_akademik:null,
+        dashboard: null,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable:true,width:100  },   
-            { text: 'NIM', value: 'nim', sortable:true,width:100  },   
-            { text: 'NIRM', value: 'nirm', sortable:true,width:100  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },                   
-            { text: 'KELAS', value: 'idkelas',sortable:true,width:120, },                   
-            { text: 'STATUS', value: 'n_status',sortable:true,width:120, },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width:100  },   
+            { text: 'NIM', value: 'nim', sortable: true,width:100  },   
+            { text: 'NIRM', value: 'nirm', sortable: true,width:100  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },                   
+            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
+            { text: 'STATUS', value: 'n_status',sortable: true,width:120, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'', 
+        search: "", 
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -181,7 +181,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/dulang/mhslama',
@@ -248,7 +248,7 @@ export default {
             );
         },
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -267,7 +267,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

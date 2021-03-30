@@ -185,7 +185,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import DataKelasMHS from '@/components/DataKelasMHS';
 import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
@@ -194,17 +194,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'ISI NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -219,33 +219,33 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        kelas_mhs_id:null,
-        data_kelas_mhs:null,
-        tahun_akademik:null,
-        semester_akademik:null,
+        kelas_mhs_id: null,
+        data_kelas_mhs: null,
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoadingTable:false,
-        datatableLoading:false,
-        btnLoading:false,  
+        btnLoadingTable: false,
+        datatableLoading: false,
+        btnLoading: false,  
         
         datatable: [],    
-        datatable_peserta:[],                 
+        datatable_peserta: [],                 
         headers_peserta: [             
-            { text: 'NIM', value: 'nim', sortable:false,width:100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable:false,width:250   },   
-            { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable:false,width:100   },   
-            { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable:false,width:100   },   
-            { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable:false,width:100   },   
-            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable:false,width:100   },       
-            { text: 'NILAI UTS', value: 'nilai_uts', sortable:false,width:100   },                   
-            { text: 'NILAI UAS', value: 'nilai_uas', sortable:false,width:100  },                                           
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false,width:100 },                                           
-            { text: 'NILAI HURUP', value: 'n_kual', sortable:false,width:100 },                                           
+            { text: 'NIM', value: 'nim', sortable: false,width:100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable: false,width:250   },   
+            { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable: false,width:100   },   
+            { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false,width:100   },   
+            { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable: false,width:100   },   
+            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable: false,width:100   },       
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false,width:100   },                   
+            { text: 'NILAI UAS', value: 'nilai_uas', sortable: false,width:100  },                                           
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false,width:100 },                                           
+            { text: 'NILAI HURUP', value: 'n_kual', sortable: false,width:100 },                                           
         ],                
 
         //formdata
-        form_valid:true, 
-        komponen_nilai:{
+        form_valid: true, 
+        komponen_nilai: {
             'persen_absen':15,
             'persen_quiz':0,
             'persen_tugas_individu':35,
@@ -253,10 +253,10 @@ export default {
             'persen_uts':25,
             'persen_uas':25,            
         },
-        daftar_nilai:[],
+        daftar_nilai: [],
     }),
     methods: {        
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
@@ -424,7 +424,7 @@ export default {
             }
         }
     },
-    computed:{
+    computed: {
         
     },  
     components: {

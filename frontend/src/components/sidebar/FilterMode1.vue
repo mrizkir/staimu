@@ -17,18 +17,18 @@ export default {
 				this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
 		},
 		data: () => ({
-				firstloading:true,
+				firstloading: true,
 				
-				daftar_ta:[],
-				tahun_akademik:null
+				daftar_ta: [],
+				tahun_akademik: null
 		}),
-		methods:{
+		methods: {
 				setFirstTimeLoading (bool)
 				{
 						this.firstloading=bool;
 				}
 		},
-		watch:{
+		watch: {
 				tahun_akademik(val)
 				{
 						if (!this.firstloading)

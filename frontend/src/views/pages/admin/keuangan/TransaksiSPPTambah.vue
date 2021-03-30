@@ -142,7 +142,7 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status==1 || data_transaksi.status==2)" :loading="btnLoading">SIMPAN</v-btn>                                                            
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status == 1 || data_transaksi.status==2)" :loading="btnLoading">SIMPAN</v-btn>                                                            
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  
@@ -201,7 +201,7 @@
                             <tr>
                                 <td>
                                     <v-checkbox                                                       
-                                        :disabled="item.status==1"
+                                        :disabled="item.status == 1"
                                         class="pa-0 ma-0"
                                         :ripple="false"
                                         v-model="item_selected"
@@ -234,8 +234,8 @@
     </KeuanganLayout>
 </template>
 <script>
-import KeuanganLayout from '@/views/layouts/KeuanganLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import KeuanganLayout from "@/views/layouts/KeuanganLayout";
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TransaksiSPPTambah',
     created()
@@ -245,17 +245,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'KEUANGAN',
-                disabled:false,
+                disabled: false,
                 href:'/keuangan'
             },
             {
                 text:'TRANSAKSI SPP',
-                disabled:false,
+                disabled: false,
                 href:'/keuangan/transaksi-spp'
             },
             {
@@ -268,32 +268,32 @@ export default {
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
     },    
     data: () => ({
-        transaksi_id:null,
-        data_transaksi:null,
-        item_selected:[],
+        transaksi_id: null,
+        data_transaksi: null,
+        item_selected: [],
 
-        breadcrumbs:[],     
+        breadcrumbs: [],     
         tahun_akademik:0,
-        btnLoading:false,              
+        btnLoading: false,              
         //tables
-        datatableLoading:false,       
-        datatable:[], 
+        datatableLoading: false,       
+        datatable: [], 
         headers: [                                                
-            { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable:false },
-            { text: 'BULAN', value: 'nama_bulan',sortable:false },    
-            { text: 'TAHUN', value: 'tahun',sortable:false },    
-            { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable:false },   
+            { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable: false },
+            { text: 'BULAN', value: 'nama_bulan',sortable: false },    
+            { text: 'TAHUN', value: 'tahun',sortable: false },    
+            { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable: false },   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },   
         ],              
         //form
-        form_valid:true  
+        form_valid: true  
     }),
-    methods : {
+    methods: {
         changeTahunAkademik (tahun)
         {
             this.tahun_akademik=tahun;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;            
             await this.$ajax.get('/keuangan/transaksi-spp/'+this.transaksi_id,                        
@@ -312,7 +312,7 @@ export default {
             if (this.$refs.frmdata.validate())
             {
                 
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
                         id:this.transaksi_id,                        
@@ -335,7 +335,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     var bulan=[1,2,3,4,5,6,7,8,9,10,11,12];
                     if (bulan.includes(item.id))
                     {
@@ -369,7 +369,7 @@ export default {
             this.$router.push('/keuangan/transaksi-spp/'+transaksi_id);
         },
     },     
-    computed:{
+    computed: {
         enrichedDataTable()
         {
             return this.datatable.map(x => ({ ...x, isSelectable: x.status ==0 }));

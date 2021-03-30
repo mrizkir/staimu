@@ -64,7 +64,7 @@
 </template>
 <script>
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'JabatanAkademik',
     created()
@@ -72,12 +72,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'/dmaster'
             },
             {
@@ -89,18 +89,18 @@ export default {
         this.initialize();
     },
     data: () => ({
-        breadcrumbs:[],  
+        breadcrumbs: [],  
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                                            
-            { text: 'ID', value: 'id_jabatan',width:10,sortable:false },
-            { text: 'NAMA JABATAN', value: 'nama_jabatan',sortable:false},                
+            { text: 'ID', value: 'id_jabatan',width:10,sortable: false },
+            { text: 'NAMA JABATAN', value: 'nama_jabatan',sortable: false},                
         ],        
     }),
-    methods : {
+    methods: {
         initialize: async function()
 		{
             this.datatableLoading=true;            

@@ -307,7 +307,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
 export default {
     name: 'UsersDosen',  
@@ -315,12 +315,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'USER SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-users'
             },
             {
@@ -333,26 +333,26 @@ export default {
     },  
    
     data: () => ({         
-        datatableLoading:false,
-        btnLoading:false,      
+        datatableLoading: false,
+        btnLoading: false,      
         //tables
         headers: [                        
             { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username',sortable:true, width:150 },
-            { text: 'NAMA DOSEN', value: 'name',sortable:true, width:250 },
-            { text: 'NIDN', value: 'nidn',sortable:true },     
-            { text: 'NIPY', value: 'nipy',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
-            { text: 'DW', value: 'is_dw',sortable:true },     
-            { text: 'ROLE ASAL', value: 'default_role',sortable:true },     
+            { text: 'USERNAME', value: 'username',sortable: true, width:150 },
+            { text: 'NAMA DOSEN', value: 'name',sortable: true, width:250 },
+            { text: 'NIDN', value: 'nidn',sortable: true },     
+            { text: 'NIPY', value: 'nipy',sortable: true },     
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },     
+            { text: 'DW', value: 'is_dw',sortable: true },     
+            { text: 'ROLE ASAL', value: 'default_role',sortable: true },     
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],
-        expanded:[],
-        search:'',
+        expanded: [],
+        search: "",
         daftar_users: [],                       
         
         //form
-        form_valid:true,
+        form_valid: true,
         dialog: false,
         dialogEdit: false,   
         dialogUserPermission: false,     
@@ -367,7 +367,7 @@ export default {
             nipy:'',         
             email: '',           
             nomor_hp:'',                 
-            is_dw:false,      
+            is_dw: false,      
             created_at: '',           
             updated_at: '',   
         },
@@ -381,7 +381,7 @@ export default {
             nipy:'',       
             email: '',           
             nomor_hp: '',          
-            is_dw:false,    
+            is_dw: false,    
             created_at: '',           
             updated_at: '',        
         },
@@ -433,7 +433,7 @@ export default {
         ],
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/system/usersdosen',{
@@ -457,7 +457,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        showDialogTambahUserDosen:async function ()
+        showDialogTambahUserDosen: async function()
         {
             this.dialog = true;            
         },
@@ -485,7 +485,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     this.$ajax.post('/system/usersdosen/'+this.editedItem.id,
@@ -547,7 +547,7 @@ export default {
             this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role dosen, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning',width:500 }).then(async (confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
                             role_name:'dosen',                    
@@ -569,7 +569,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/system/usersdosen/'+item.id,
                         {
                             _method: "DELETE",

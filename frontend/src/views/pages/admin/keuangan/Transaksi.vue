@@ -8,7 +8,7 @@
                 TRANSAKSI
             </template>
             <template v-slot:subtitle>                
-                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -237,8 +237,8 @@
     </KeuanganLayout>
 </template>
 <script>
-import KeuanganLayout from '@/views/layouts/KeuanganLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import KeuanganLayout from "@/views/layouts/KeuanganLayout";
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter18 from '@/components/sidebar/FilterMode18';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
@@ -248,12 +248,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'KEUANGAN',
-                disabled:false,
+                disabled: false,
                 href:'/keuangan'
             },
             {
@@ -264,8 +264,8 @@ export default {
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
     },   
     mounted()
@@ -273,45 +273,45 @@ export default {
         this.initialize()
     },
     data: () => ({ 
-        firstloading:true,
-        breadcrumbs:[],     
-        prodi_id:null,
-        nama_prodi:null, 
+        firstloading: true,
+        breadcrumbs: [],     
+        prodi_id: null,
+        nama_prodi: null, 
         tahun_akademik:0,
-        btnLoading:false,       
-        filter_ignore:false, 
-        awaiting_search:false,
+        btnLoading: false,       
+        filter_ignore: false, 
+        awaiting_search: false,
 
         //tables
-        datatableLoading:false,       
-        datatable:[], 
+        datatableLoading: false,       
+        datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable:true },
-            { text: 'TANGGAL', value: 'tanggal',width:100,sortable:true },
-            { text: 'NIM', value: 'nim',width:100,sortable:true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable:true,width:250 },
-            { text: 'SMT', value: 'idsmt',width:50,sortable:true },
-            { text: 'TOTAL', value: 'total',width:100,sortable:true },
-            { text: 'STATUS', value: 'nama_status',width:50,sortable:true },    
-            { text: 'KET.', value: 'desc',width:150,sortable:false },    
+            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable: true },
+            { text: 'TANGGAL', value: 'tanggal',width:100,sortable: true },
+            { text: 'NIM', value: 'nim',width:100,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },
+            { text: 'SMT', value: 'idsmt',width:50,sortable: true },
+            { text: 'TOTAL', value: 'total',width:100,sortable: true },
+            { text: 'STATUS', value: 'nama_status',width:50,sortable: true },    
+            { text: 'KET.', value: 'desc',width:150,sortable: false },    
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
-        expanded:[],
-        search:'', 
+        expanded: [],
+        search: "", 
 
         //dialog        
-        dialogdetailitem:false,
+        dialogdetailitem: false,
         headers_detail:[
-            { text: 'KODE', value: 'kombi_id',width:50,sortable:false },
-            { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable:false },
-            { text: 'BIAYA', value: 'biaya',width:60,sortable:false },
-            { text: 'JUMLAH', value: 'jumlah',width:60,sortable:false },
-            { text: 'BULAN', value: 'bulan',width:60,sortable:false },
-            { text: 'JUMLAH', value: 'sub_total',width:60,sortable:false },
+            { text: 'KODE', value: 'kombi_id',width:50,sortable: false },
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable: false },
+            { text: 'BIAYA', value: 'biaya',width:60,sortable: false },
+            { text: 'JUMLAH', value: 'jumlah',width:60,sortable: false },
+            { text: 'BULAN', value: 'bulan',width:60,sortable: false },
+            { text: 'JUMLAH', value: 'sub_total',width:60,sortable: false },
         ],
         //form data
-        data_transaksi:{}, 
-        data_transaksi_detail:{},      
+        data_transaksi: {}, 
+        data_transaksi_detail: {},      
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -322,7 +322,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/keuangan/transaksi',            
@@ -353,7 +353,7 @@ export default {
             }               
         },
         async viewItem (item) {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/keuangan/transaksi/'+item.id,  
             {
                 headers: {
@@ -376,7 +376,7 @@ export default {
             );
         },
     },    
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -389,7 +389,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },
@@ -422,12 +422,12 @@ export default {
             this.awaiting_search = true;
         }
     },
-    computed:{
+    computed: {
         totaltransaksi_paid()
         {
-            var total=0;
+            var total = 0;
             this.datatable.forEach(item => {
-                if (item.status==1)
+                if (item.status == 1)
                 {
                     total+=item.total;
                 }
@@ -436,7 +436,7 @@ export default {
         },
         totaltransaksi_unpaid()
         {
-            var total=0;
+            var total = 0;
             this.datatable.forEach(item => {
                 if (item.status==0)
                 {
@@ -447,7 +447,7 @@ export default {
         },
         totaltransaksi_canceled()
         {
-            var total=0;
+            var total = 0;
             this.datatable.forEach(item => {
                 if (item.status==2)
                 {

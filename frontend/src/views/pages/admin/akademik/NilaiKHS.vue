@@ -8,7 +8,7 @@
                 KARTUS HASIL STUDI (KHS)
             </template>
             <template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -139,7 +139,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter6 from '@/components/sidebar/FilterMode6';
 export default {
     name: 'NilaiKHS',
@@ -147,17 +147,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -173,8 +173,8 @@ export default {
         else
         {
             let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-            this.prodi_id=prodi_id;
-            this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+            this.prodi_id = prodi_id;
+            this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
             this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
             this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                            
         }     
@@ -187,35 +187,35 @@ export default {
         }
     },
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        daftar_ta:[],
-        tahun_akademik:null,
-        semester_akademik:null,
-        filter_ignore:false, 
-        awaiting_search:false,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        daftar_ta: [],
+        tahun_akademik: null,
+        semester_akademik: null,
+        filter_ignore: false, 
+        awaiting_search: false,
         
-        btnLoading:false,
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'NIM', value: 'nim', sortable:true,width:100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable:true,width:250  },   
-            { text: 'ANGK.', value: 'tahun_masuk', sortable:true, width:100  },       
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable:true, width:100  },       
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable:true, width:100 },       
-            { text: 'IPS', value: 'ips',sortable:true, width:50},                   
-            { text: 'IPK', value: 'ipk',sortable:true, width:50},                   
-            { text: 'TA.SMT', value: 'tasmt',sortable:true, width:100 },                               
+            { text: 'NIM', value: 'nim', sortable: true,width:100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable: true,width:250  },   
+            { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width:100  },       
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width:100  },       
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width:100 },       
+            { text: 'IPS', value: 'ips',sortable: true, width:50},                   
+            { text: 'IPK', value: 'ipk',sortable: true, width:50},                   
+            { text: 'TA.SMT', value: 'tasmt',sortable: true, width:100 },                               
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
-        search:'', 
+        search: "", 
 
-        dialogprintpdf:false,
-        file_pdf:null
+        dialogprintpdf: false,
+        file_pdf: null
     }),
     methods: {
         changeTahunAkademik (tahun)
@@ -248,7 +248,7 @@ export default {
                 this.datatableLoading=false;
             });              
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/nilai/khs',
@@ -283,7 +283,7 @@ export default {
         },  
         async printpdf(item)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.get('/akademik/nilai/khs/printpdf/'+item.id,                
                 {
                     headers: {
@@ -307,7 +307,7 @@ export default {
             );
         },    
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -326,7 +326,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },

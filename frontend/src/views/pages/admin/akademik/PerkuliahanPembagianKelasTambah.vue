@@ -170,7 +170,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 
 export default {
     name: 'PerkuliahanPembagianKelasTambah',
@@ -178,22 +178,22 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
                 text:'PEMBAGIAN KELAS',
-                disabled:false,
+                disabled: false,
                 href:'/akademik/perkuliahan/pembagiankelas/daftar'
             },
             {
@@ -207,25 +207,25 @@ export default {
         this.initialize()
     },
     data: () => ({
-        tahun_akademik:null,
-        semester_akademik:null,
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoading:false,
+        btnLoading: false,
         //formdata
-        form_valid:true,
-        daftar_dosen:[],
-        dosen_id:null,
-        daftar_zoom:[],
+        form_valid: true,
+        daftar_dosen: [],
+        dosen_id: null,
+        daftar_zoom: [],
 
         daftar_sks:[
             1,2,3,4,5,6,7,8,9,10,11,12
         ],
 
-        daftar_matakuliah:[],
+        daftar_matakuliah: [],
 
-        daftar_kelas:[],
+        daftar_kelas: [],
 
-        daftar_ruang_kelas:[],
+        daftar_ruang_kelas: [],
 
         daftar_hari:[
             {
@@ -253,7 +253,7 @@ export default {
                 value:6,
             },
         ],
-        formdata:{
+        formdata: {
             id:'',
             user_id:'',
             zoom_id:'',
@@ -301,7 +301,7 @@ export default {
         ],
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
@@ -338,7 +338,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
                     {
                         user_id:this.dosen_id,
@@ -370,7 +370,7 @@ export default {
             }
         },
     },
-    watch:{
+    watch: {
         async dosen_id(val)
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',

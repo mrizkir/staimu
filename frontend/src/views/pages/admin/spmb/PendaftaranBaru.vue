@@ -8,7 +8,7 @@
                 PENDAFTAR 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -89,7 +89,7 @@
                                             </v-card-title>
                                             <v-card-subtitle>
                                                 <span class="info--text">
-                                                    Secara default akan tersimpan di prodi <strong>{{nama_prodi}} - {{tahun_pendaftaran}}.</strong>
+                                                    Secara default akan tersimpan di prodi <strong>{{ nama_prodi }} - {{ tahun_pendaftaran }}.</strong>
                                                     Anda bisa merubahnya dengan memilih PRODI atau Tahun Akademik dibawah ini. Namun bila sudah memiliki NIM, T.A dan PRODI tidak bisa diubah.
                                                 </span>
                                             </v-card-subtitle>
@@ -340,8 +340,8 @@
 </template>
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
-import ModuleHeader from '@/components/ModuleHeader';
-import Filter7 from '@/components/sidebar/FilterMode7';
+import ModuleHeader from "@/components/ModuleHeader";
+import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'PendaftaranBaru',  
     created()
@@ -350,12 +350,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SPMB',
-                disabled:false,
+                disabled: false,
                 href:'/spmb'
             },
             {
@@ -367,50 +367,50 @@ export default {
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
 
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];        
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
         this.initialize();
     },
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        tahun_pendaftaran:null,
-        nama_prodi:null,
-        filter_ignore:false, 
-        awaiting_search:false,
+        firstloading: true,
+        prodi_id: null,
+        tahun_pendaftaran: null,
+        nama_prodi: null,
+        filter_ignore: false, 
+        awaiting_search: false,
         
-        breadcrumbs:[],
-        dashboard:null,
-        datatableLoading:false,
-        btnLoading:false,    
-        btnLoadingFakultas:false,
+        breadcrumbs: [],
+        dashboard: null,
+        datatableLoading: false,
+        btnLoading: false,    
+        btnLoadingFakultas: false,
                   
         //tables
         headers: [                        
             { text: '', value: 'foto', width:70 },    
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
-            { text: 'USERNAME', value: 'username',sortable:true },
-            { text: 'EMAIL', value: 'email',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:false,width:130 },        
-            { text: 'TGL.DAFTAR', value: 'created_at',sortable:true,width:100 },     
+            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
+            { text: 'USERNAME', value: 'username',sortable: true },
+            { text: 'EMAIL', value: 'email',sortable: true },     
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable: false,width:130 },        
+            { text: 'TGL.DAFTAR', value: 'created_at',sortable: true,width:100 },     
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        expanded:[],
-        search:'',
-        datatable:[],
+        expanded: [],
+        search: "",
+        datatable: [],
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
         
         //form data   
-        form_valid:true,  
-        registered:false,   
-        daftar_fakultas:[],
+        form_valid: true,  
+        registered: false,   
+        daftar_fakultas: [],
         kode_fakultas:'',
-        daftar_prodi:[],   
-        daftar_ta:[],         
+        daftar_prodi: [],   
+        daftar_ta: [],         
         formdata: {
             name: '',
             email:'',            
@@ -469,7 +469,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;            
             await this.$ajax.post('/spmb/pmb',
@@ -509,7 +509,7 @@ export default {
         },
         aktifkan(id)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             this.$ajax.post('/akademik/kemahasiswaan/updatestatus/'+id,
                 {
                     '_method':'PUT',
@@ -527,9 +527,9 @@ export default {
                 this.btnLoading = false;
             });
         },
-        syncPermission:async function ()
+        syncPermission: async function()
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
                     role_name:'mahasiswabaru',
@@ -547,7 +547,7 @@ export default {
                 this.btnLoading = false;
             });     
         },
-        async addItem ()
+        async addItem()
         {
             this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
             this.formdata.ta=this.tahun_pendaftaran;
@@ -570,7 +570,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/spmb/pmb/updatependaftar/'+this.formdata.id,
@@ -625,7 +625,7 @@ export default {
         },
         async resend(id)
         {
-            this.btnLoading=true;
+            this.btnLoading = true;
             await this.$ajax.post('/spmb/pmb/resend',
                 {
                     id:id,                    
@@ -673,7 +673,7 @@ export default {
                     }
                 }
             ).then(({ data }) => {           
-                this.registered = data.status==1;                                        
+                this.registered = data.status == 1;                                        
                 this.dialogfrm = true; 
             this.dialogfrm = true;
                 this.dialogfrm = true; 
@@ -685,7 +685,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/spmb/pmb/'+item.id,
                         {
                             _method: "DELETE",
@@ -723,7 +723,7 @@ export default {
             );
         },
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)
@@ -746,7 +746,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         },

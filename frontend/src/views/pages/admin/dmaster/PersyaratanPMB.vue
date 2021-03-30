@@ -8,7 +8,7 @@
                 PERSYARATAN PMB
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -191,7 +191,7 @@
                                                 <v-alert
                                                     class="info"
                                                     dark>
-                                                    Salin persyaratan PMB dari tahun pendaftaran berikut ke tahun akademik {{tahun_pendaftaran}}
+                                                    Salin persyaratan PMB dari tahun pendaftaran berikut ke tahun akademik {{ tahun_pendaftaran }}
                                                 </v-alert>
                                                 <v-select
                                                     v-model="dari_tahun_pendaftaran"
@@ -263,7 +263,7 @@
 <script>
 import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter9 from '@/components/sidebar/FilterMode9';
 export default {
     name: 'PersyaratanPMB',
@@ -271,12 +271,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'/dmaster'
             },
             {
@@ -285,46 +285,46 @@ export default {
                 href:'#'
             }
         ];        
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,        
-        tahun_pendaftaran:null,        
+        firstloading: true,        
+        tahun_pendaftaran: null,        
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'PROSES', value: 'proses', sortable:true,width:120  },   
-            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable:true },                   
-            { text: 'TA', value: 'ta',sortable:true,width:80, align:'center' },                   
+            { text: 'PROSES', value: 'proses', sortable: true,width:120  },   
+            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable: true },                   
+            { text: 'TA', value: 'ta',sortable: true,width:80, align:'center' },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
-        dialogcopypersyaratan:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
+        dialogcopypersyaratan: false,
 
         //form data   
-        form_valid:true, 
-        daftar_ta:[],         
-        dari_tahun_pendaftaran:null,          
+        form_valid: true, 
+        daftar_ta: [],         
+        dari_tahun_pendaftaran: null,          
         formdata: {
             id:'',                        
             proses:'pmb',                        
-            nama_persyaratan:null,                        
-            prodi_id:null, 
+            nama_persyaratan: null,                        
+            prodi_id: null, 
             ta:'',                   
         },
         formdefault: {
             id:'',                        
             proses:'pmb',                                         
-            nama_persyaratan:null,                        
-            prodi_id:null, 
+            nama_persyaratan: null,                        
+            prodi_id: null, 
             ta:'',                   
         },
         editedIndex: -1,
@@ -342,7 +342,7 @@ export default {
         {
             this.tahun_pendaftaran = tahun;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/datamaster/persyaratan',
@@ -375,7 +375,7 @@ export default {
         },
         tambahItem: async function()
         {   
-            this.dialogfrm=true;
+            this.dialogfrm = true;
         },
         viewItem (item) {
             this.formdata=item;                 
@@ -405,7 +405,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/datamaster/persyaratan/'+this.formdata.id,
@@ -452,7 +452,7 @@ export default {
         {
             if (this.$refs.frmdialogcopypersyaratan.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 this.$ajax.post('/datamaster/persyaratan/salin/'+this.tahun_pendaftaran,
                     {
                         dari_tahun_pendaftaran:this.dari_tahun_pendaftaran,
@@ -476,7 +476,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/datamaster/persyaratan/'+item.id,
                         {
                             _method: "DELETE",
@@ -531,7 +531,7 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH PERSYARATAN PMB' : 'UBAH PERSYARATAN PMB'
         }, 
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)

@@ -195,19 +195,19 @@
 <script>
 import { mapGetters } from "vuex";
 import KepegawaianLayout from '@/views/layouts/KepegawaianLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'KepegawaianDosen',  
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'KEPEGAWAIAN',
-                disabled:false,
+                disabled: false,
                 href:'/kepegawaian'
             },
             {
@@ -220,27 +220,27 @@ export default {
     },  
    
     data: () => ({         
-        datatableLoading:false,
-        btnLoading:false,      
+        datatableLoading: false,
+        btnLoading: false,      
         //tables
         headers: [                        
             { text: '', value: 'foto' },    
-            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable:true, width:250 },
-            { text: 'NIDN', value: 'nidn',sortable:true },     
-            { text: 'NIPY', value: 'nipy',sortable:true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable:true },     
-            { text: 'JABATAN AKADEMIK', value: 'nama_jabatan',sortable:true },  
+            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable: true, width:250 },
+            { text: 'NIDN', value: 'nidn',sortable: true },     
+            { text: 'NIPY', value: 'nipy',sortable: true },     
+            { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },     
+            { text: 'JABATAN AKADEMIK', value: 'nama_jabatan',sortable: true },  
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        expanded:[],
-        search:'',
+        expanded: [],
+        search: "",
         daftar_dosen: [],                       
         
         //form
-        form_valid:true,        
+        form_valid: true,        
         dialogEdit: false,           
         editedIndex: -1,      
-        daftar_jabatan:[],  
+        daftar_jabatan: [],  
         editedItem: {
             id:0,
             username: '',           
@@ -253,7 +253,7 @@ export default {
             nipy:'',         
             email: '',           
             nomor_hp:'',                 
-            is_dw:false,      
+            is_dw: false,      
             created_at: '',           
             updated_at: '',   
         },
@@ -269,7 +269,7 @@ export default {
             nipy:'',       
             email: '',           
             nomor_hp: '',          
-            is_dw:false,    
+            is_dw: false,    
             created_at: '',           
             updated_at: '',        
         },
@@ -294,7 +294,7 @@ export default {
         ],         
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/kepegawaian/dosen',{
@@ -346,7 +346,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     this.$ajax.post('/kepegawaian/dosen/'+this.editedItem.id,

@@ -28,21 +28,21 @@ export default {
         this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];  
     },
     data: () => ({
-        firstloading:true,
+        firstloading: true,
         
-        daftar_ta:[],
-        tahun_akademik:null,
+        daftar_ta: [],
+        tahun_akademik: null,
 
-        daftar_semester:[],
-        semester_akademik:null
+        daftar_semester: [],
+        semester_akademik: null
     }),
-    methods:{
+    methods: {
         setFirstTimeLoading (bool)
         {
             this.firstloading=bool;
         }
     },
-    watch:{
+    watch: {
         tahun_akademik(val)
         {
             if (!this.firstloading)

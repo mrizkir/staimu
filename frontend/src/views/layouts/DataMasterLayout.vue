@@ -225,20 +225,20 @@
 import { mapGetters } from "vuex";
 export default {
     name: 'DataMasterLayout',  
-    props:{
-        showrightsidebar:{
+    props: {
+        showrightsidebar: {
             type:Boolean,
             default:true
         },
-        temporaryleftsidebar:{
+        temporaryleftsidebar: {
             type:Boolean,
-            default:false
+            default: false
         },
     },      
     data: () => ({
         loginTime:0,
-        drawer:null,
-        drawerRight:null,   
+        drawer: null,
+        drawerRight: null,   
     }),       
     methods: {        
         logout ()
@@ -266,10 +266,10 @@ export default {
         },
         isBentukPT (bentuk_pt)
         {
-            return this.$store.getters['uifront/getBentukPT']==bentuk_pt?true:false;
+            return this.$store.getters['uifront/getBentukPT']==bentuk_pt?true: false;
         }
 	},
-    computed:{
+    computed: {
         ...mapGetters('auth',{
             AUTHENTICATED:'Authenticated',  
             ACCESS_TOKEN:'AccessToken',          
@@ -299,7 +299,7 @@ export default {
         },   
     },
     watch: {
-        loginTime:{
+        loginTime: {
             handler(value)
             {
                 

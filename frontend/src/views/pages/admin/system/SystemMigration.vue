@@ -8,7 +8,7 @@
                 MIGRASI SISTEM 
             </template>
             <template v-slot:subtitle>
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -132,7 +132,7 @@
 </template>
 <script>
 import SystemMigrationLayout from '@/views/layouts/SystemMigrationLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter9 from '@/components/sidebar/FilterMode9';
 export default {
     name: 'SystemMigration',
@@ -141,7 +141,7 @@ export default {
 		this.breadcrumbs = [
 			{
 				text:'HOME',
-				disabled:false,
+				disabled: false,
 				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
@@ -157,20 +157,20 @@ export default {
         this.initialize();
     },
     data: () => ({        
-        firstloading:true,
-        breadcrumbs:[],        
-        tahun_pendaftaran:0,  
+        firstloading: true,
+        breadcrumbs: [],        
+        tahun_pendaftaran: 0,  
         
         //form
-        form_valid:true, 
-        btnLoading:false,
+        form_valid: true, 
+        btnLoading: false,
 
-        daftar_prodi:[],
-        daftar_kelas:[],                
-        daftar_dw:[],     
+        daftar_prodi: [],
+        daftar_kelas: [],                
+        daftar_dw: [],     
 
-        daftar_tasmt:[],
-        daftar_status_mhs:[],        
+        daftar_tasmt: [],
+        daftar_status_mhs: [],        
         formdata: {
             nim:'',
             nirm:'',
@@ -178,7 +178,7 @@ export default {
             dosen_id:'',           
             prodi_id:'',
             idkelas:'',
-            status_mhs:[],
+            status_mhs: [],
         },
         rule_nim:[
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
@@ -202,14 +202,14 @@ export default {
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
         
-        datatableLoading:false,
+        datatableLoading: false,
         headers: [                                                
-            { text: 'TAHUN AKADEMIK', value: 'ta',sortable:false },
-            { text: 'SEMESTER', value: 'semester',sortable:false },
-            { text: 'STATUS', value: 'k_status',sortable:false, width:250 },         
+            { text: 'TAHUN AKADEMIK', value: 'ta',sortable: false },
+            { text: 'SEMESTER', value: 'semester',sortable: false },
+            { text: 'STATUS', value: 'k_status',sortable: false, width:250 },         
         ],
     }),
-    methods : {
+    methods: {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
@@ -254,7 +254,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 
                 this.$ajax.post('/system/migration/store',
                     {
@@ -285,7 +285,7 @@ export default {
             }
         },
     },
-    watch:{
+    watch: {
         tahun_pendaftaran()
         {
             if (!this.firstloading)

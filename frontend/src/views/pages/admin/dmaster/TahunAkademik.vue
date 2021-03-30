@@ -338,19 +338,19 @@
 <script>
 import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TahunAkademik',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -367,10 +367,10 @@ export default {
         let semester_ganjil = [d.getFullYear()+'-09-01',(d.getFullYear()+1)+'-02-28'];                
         let semester_genap = [(d.getFullYear()+1)+'-03-01',(d.getFullYear()+1)+'-08-31'];                
         return {
-            btnLoading:false,
-            datatableLoading:false,
-            expanded:[],
-            datatable:[],
+            btnLoading: false,
+            datatableLoading: false,
+            expanded: [],
+            datatable: [],
             headers: [
                 { text: 'TA', value: 'tahun', width:50 },
                 { text: 'TAHUN AKADEMIK', value: 'tahun_akademik',width:150 },
@@ -382,18 +382,18 @@ export default {
                 { text: 'AKHIR PENDEK', value: 'akhir_pendek',width:50 },
                 { text: 'AKSI', value: 'actions', sortable: false,width:100 },
             ],
-            search:'',
+            search: "",
 
             //dialog
-            dialogfrm:false,
-            dialogdetailitem:false,
+            dialogfrm: false,
+            dialogdetailitem: false,
 
             //form data
             old_tahun:'',
-            form_valid:true,
-            menuSemesterGanjil:false,        
+            form_valid: true,
+            menuSemesterGanjil: false,        
             semester_ganjil:semester_ganjil,
-            menuSemesterGenap:false,        
+            menuSemesterGenap: false,        
             semester_genap:semester_genap,
 
             formdata: {
@@ -438,7 +438,7 @@ export default {
         }
     },
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             this.datatableLoading=true;
             await this.$ajax.get('/datamaster/tahunakademik',{
@@ -480,7 +480,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1)
                 {
                     await this.$ajax.post('/datamaster/tahunakademik/'+this.old_tahun,
@@ -534,7 +534,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.tahun+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/datamaster/tahunakademik/'+item.tahun,
                         {
                             _method: "DELETE",
@@ -579,7 +579,7 @@ export default {
                 return this.semester_ganjil.join(' ~ ');
             }
         },
-        semesterGenapText:{
+        semesterGenapText: {
             set()
             {
 

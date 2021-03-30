@@ -135,11 +135,11 @@ export default {
 			refCount: 0,
 			isLoading: false,
 			
-			snackbar_success:false,
-			snackbar_error:false,
+			snackbar_success: false,
+			snackbar_error: false,
 			snackbar_color:'error',
 			page_message:'',
-			page_form_error_message:{}
+			page_form_error_message: {}
 		}
 	},	
 	methods: {

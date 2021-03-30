@@ -127,19 +127,19 @@ export default {
     {
         this.initialize();                     
     },
-    props:{
-        datamhs:{
+    props: {
+        datamhs: {
             type:Object,            
             required:true
         },
-        url:{
+        url: {
             type:String,
-            default:null            
+            default: null            
         }
     },
     
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             
         },

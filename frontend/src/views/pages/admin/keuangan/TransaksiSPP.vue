@@ -8,7 +8,7 @@
 				TRANSAKSI SPP
 			</template>
 			<template v-slot:subtitle>
-				TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
+				TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -195,12 +195,12 @@
 			this.breadcrumbs = [
 				{
 					text:"HOME",
-					disabled:false,
+					disabled: false,
 					href:"/dashboard/"+this.$store.getters["auth/AccessToken"]
 				},
 				{
 					text:"KEUANGAN",
-					disabled:false,
+					disabled: false,
 					href:"/keuangan"
 				},
 				{
@@ -209,9 +209,9 @@
 					href:"#"
 				}
 			];
-			let prodi_id=this.$store.getters["uiadmin/getProdiID"];
-			this.prodi_id=prodi_id;
-			this.nama_prodi=this.$store.getters["uiadmin/getProdiName"](prodi_id);
+			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
+			this.prodi_id = prodi_id;
+			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 		},
 		mounted()
@@ -219,45 +219,45 @@
 			this.initialize()
 		},
 		data:() => ({
-			firstloading:true,
-			breadcrumbs:[],
-			prodi_id:null,
-			nama_prodi:null,
+			firstloading: true,
+			breadcrumbs: [],
+			prodi_id: null,
+			nama_prodi: null,
 			tahun_akademik:0,
-			filter_ignore:false, 
-			awaiting_search:false,
+			filter_ignore: false, 
+			awaiting_search: false,
 
-			btnLoading:false, 
+			btnLoading: false, 
 
 			//tables
-			datatableLoading:false,  
-			datatable:[], 
+			datatableLoading: false,  
+			datatable: [], 
 			headers: [                                                
-				{ text: "KODE BILLING", value: "no_transaksi",width:100,sortable:true },
-				{ text: "TANGGAL", value: "tanggal",width:90,sortable:true },
-				{ text: "NIM", value: "nim",sortable:true,width:100 },
-				{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable:true, width:250 }, 
-				{ text: "BULAN", value: "nama_bulan",width:100,sortable:true },
-				{ text: "TA/SMT", value: "idsmt",width:50,sortable:false },
-				{ text: "JUMLAH", value: "sub_total",width:100,sortable:false,align:"right" },
-				{ text: "STATUS", value: "nama_status",width:100,sortable:false }, 
+				{ text: "KODE BILLING", value: "no_transaksi",width:100,sortable: true },
+				{ text: "TANGGAL", value: "tanggal",width:90,sortable: true },
+				{ text: "NIM", value: "nim",sortable: true,width:100 },
+				{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable: true, width:250 }, 
+				{ text: "BULAN", value: "nama_bulan",width:100,sortable: true },
+				{ text: "TA/SMT", value: "idsmt",width:50,sortable: false },
+				{ text: "JUMLAH", value: "sub_total",width:100,sortable: false,align:"right" },
+				{ text: "STATUS", value: "nama_status",width:100,sortable: false }, 
 				{ text: "AKSI", value: "actions", sortable: false,width:50 },
 			],
-			expanded:[],
-			search:"", 
+			expanded: [],
+			search: "", 
 
-			dialogfrm:false,
+			dialogfrm: false,
 
 			//form data   
-			form_valid:true, 
-			daftar_semester:[],
+			form_valid: true, 
+			daftar_semester: [],
 			formdata: {
-				nim:"",
-				semester_akademik:""
+				nim: "",
+				semester_akademik: ""
 			},
 			formdefault: {
-				nim:"",
-				semester_akademik:""
+				nim: "",
+				semester_akademik: ""
 			},
 			rule_nim:[
 				value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
@@ -268,7 +268,7 @@
 			], 
 
 		}),
-		methods : {
+		methods: {
 			changeProdi(id)
 			{
 				this.prodi_id = id;

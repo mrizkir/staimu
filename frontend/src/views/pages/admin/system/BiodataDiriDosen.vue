@@ -32,7 +32,7 @@
 </template>
 <script>
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import FormBiodataDiriDosen from '@/components/FormBiodataDiriDosen';
 export default {
     name: 'UsersProfile',
@@ -42,12 +42,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SYSTEM',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {

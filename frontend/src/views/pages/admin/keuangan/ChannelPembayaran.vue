@@ -72,8 +72,8 @@
     </KeuanganLayout>
 </template>
 <script>
-import KeuanganLayout from '@/views/layouts/KeuanganLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import KeuanganLayout from "@/views/layouts/KeuanganLayout";
+import ModuleHeader from "@/components/ModuleHeader";
 
 export default {
     name: 'ChannelPembayaran',
@@ -82,12 +82,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'KEUANGAN',
-                disabled:false,
+                disabled: false,
                 href:'/keuangan'
             },
             {
@@ -99,20 +99,20 @@ export default {
         this.initialize();
     },  
     data: () => ({
-        firstloading:true,
-        breadcrumbs:[],         
+        firstloading: true,
+        breadcrumbs: [],         
         
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_channel',width:10,sortable:false },                                   
-            { text: 'NAMA CHANNEL', value: 'nama_channel',sortable:false},                           
+            { text: 'ID', value: 'id_channel',width:10,sortable: false },                                   
+            { text: 'NAMA CHANNEL', value: 'nama_channel',sortable: false},                           
         ],      
         
     }),
-    methods : {        
+    methods: {        
         initialize: async function()
 		{
             this.datatableLoading=true;            

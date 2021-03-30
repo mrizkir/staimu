@@ -120,7 +120,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import DataKelasMHS from '@/components/DataKelasMHS';
 
 export default {
@@ -129,17 +129,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'ISI NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -154,30 +154,30 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        kelas_mhs_id:null,
-        data_kelas_mhs:null,
-        tahun_akademik:null,
-        semester_akademik:null,
+        kelas_mhs_id: null,
+        data_kelas_mhs: null,
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoadingTable:false,
-        datatableLoading:false,
-        btnLoading:false,  
+        btnLoadingTable: false,
+        datatableLoading: false,
+        btnLoading: false,  
         
         datatable: [],    
-        datatable_peserta:[],                 
+        datatable_peserta: [],                 
         headers_peserta: [
-            { text: 'NIM', value: 'nim', sortable:false,width:100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable:false  },   
-            { text: 'PROGRAM STUDI', value: 'kjur', sortable:false  },   
-            { text: 'KELAS', value: 'idkelas', sortable:false  },                   
-            { text: 'TAHUN MASUK', value: 'tahun', sortable:false },                                           
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable:false },                                           
-            { text: 'NILAI HURUP', value: 'n_kual', sortable:false },                                           
+            { text: 'NIM', value: 'nim', sortable: false,width:100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable: false  },   
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
+            { text: 'KELAS', value: 'idkelas', sortable: false  },                   
+            { text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                           
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },                                           
+            { text: 'NILAI HURUP', value: 'n_kual', sortable: false },                                           
         ],                
 
         //formdata
-        form_valid:true, 
-        daftar_nilai:[],        
+        form_valid: true, 
+        daftar_nilai: [],        
         skala_nilai:[
             'A',
             'A-',
@@ -195,7 +195,7 @@ export default {
         
     }),
     methods: {        
-        initialize:async function () 
+        initialize: async function() 
         {
             await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
             {
@@ -234,7 +234,7 @@ export default {
             
         }      
     },
-    watch:{
+    watch: {
         
     },    
     components: {

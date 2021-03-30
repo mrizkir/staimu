@@ -181,19 +181,19 @@
 <script>
 import { mapGetters } from "vuex";
 import DataMasterLayout from '@/views/layouts/DataMasterLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Fakultas',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'DATA MASTER',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -205,10 +205,10 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                        
             { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },   
             { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },   
@@ -217,11 +217,11 @@ export default {
         search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
 
         //form data   
-        form_valid:true,         
+        form_valid: true,         
         kode_fakultas:'',
         formdata: {
             kode_fakultas:'',                        
@@ -244,7 +244,7 @@ export default {
         ], 
     }),
     methods: {
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.get('/datamaster/fakultas',{
@@ -282,7 +282,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/datamaster/fakultas/'+this.kode_fakultas,
@@ -329,7 +329,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data fakultas dengan kode '+item.kode_fakultas+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/datamaster/fakultas/'+item.kode_fakultas,
                         {
                             _method: "DELETE",

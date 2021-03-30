@@ -8,7 +8,7 @@
                 NILAI UJIAN
             </template>
             <template v-slot:subtitle v-if="dashboard!='mahasiswabaru'">
-                TAHUN PENDAFTARAN {{tahun_pendaftaran}} - {{nama_prodi}}
+                TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -37,7 +37,7 @@
 </template>
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'NilaiUjianHasil', 
     created()
@@ -47,17 +47,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'SPMB',
-                disabled:false,
+                disabled: false,
                 href:'/spmb'
             },
             {
                 text:'NILAI UJIAN',
-                disabled:false,
+                disabled: false,
                 href:'/spmb/nilaiujian'
             },
             {
@@ -69,42 +69,42 @@ export default {
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
         
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_pendaftaran=this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()   
     },  
     data: () => ({        
-        prodi_id:null,
-        tahun_pendaftaran:null,
-        nama_prodi:null,
+        prodi_id: null,
+        tahun_pendaftaran: null,
+        nama_prodi: null,
 
-        breadcrumbs:[],        
-        dashboard:null,
-        user_id:null,
+        breadcrumbs: [],        
+        dashboard: null,
+        user_id: null,
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable:true },
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable:true },
+            { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp',width:100},
-            { text: 'KELAS', value: 'nkelas',width:100,sortable:true },
-            { text: 'NILAI', value: 'nilai',width:100,sortable:true },
-            { text: 'STATUS', value: 'status',width:100,sortable:true },
+            { text: 'KELAS', value: 'nkelas',width:100,sortable: true },
+            { text: 'NILAI', value: 'nilai',width:100,sortable: true },
+            { text: 'STATUS', value: 'status',width:100,sortable: true },
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],
-        datamhsbaru:{},
+        datamhsbaru: {},
 
         //form data   
-        form_valid:true,   
+        form_valid: true,   
 
-        data_mhs:{},
+        data_mhs: {},
         
-        daftar_prodi:[],
+        daftar_prodi: [],
 
         daftar_status:[
             {
@@ -118,22 +118,22 @@ export default {
         ],
         formdata: {            
             user_id:'',            
-            jadwal_ujian_id:null,            
-            jumlah_soal:null,            
-            jawaban_benar:null,            
-            jawaban_salah:null,            
-            soal_tidak_terjawab:null,            
-            passing_grade_1:null,            
-            passing_grade_2:null,            
+            jadwal_ujian_id: null,            
+            jumlah_soal: null,            
+            jawaban_benar: null,            
+            jawaban_salah: null,            
+            soal_tidak_terjawab: null,            
+            passing_grade_1: null,            
+            passing_grade_2: null,            
             nilai:0,            
             ket_lulus:'',            
-            kjur:null,            
+            kjur: null,            
             desc:'',            
             created_at:'',            
             updated_at:'',            
         }, 
     }),
-    methods : {        
+    methods: {        
 		initialize: async function()
 		{	
             switch(this.dashboard)
@@ -190,9 +190,9 @@ export default {
                     Authorization:this.$store.getters['auth/Token']
                 }
             }).then(({ data }) => {   
-                if (data.transaksi_status==1)
+                if (data.transaksi_status == 1)
                 {
-                    this.dialogfrm=true;        
+                    this.dialogfrm = true;        
                     this.data_mhs=item;
                     this.data_mhs['no_transaksi']=data.no_transaksi;                                        
                     this.daftar_prodi=data.daftar_prodi;
@@ -217,7 +217,7 @@ export default {
         save () {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;                      
+                this.btnLoading = true;                      
                 if (this.editedItem > 0)
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,

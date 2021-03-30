@@ -2,10 +2,10 @@
 const getDefaultState = () => 
 {
     return {              
-        access_token:null,
-        token_type:null,
-        expires_in:null,
-        user:null
+        access_token: null,
+        token_type: null,
+        expires_in: null,
+        user: null
     }
 }
 const state = getDefaultState();

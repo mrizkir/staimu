@@ -8,7 +8,7 @@
                 MATAKULIAH
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -336,7 +336,7 @@
                                                 <span class="headline">SALIN MATAKULIAH</span>
                                             </v-card-title>
                                             <v-card-subtitle>
-                                                Program Studi {{nama_prodi}}
+                                                Program Studi {{ nama_prodi }}
                                             </v-card-subtitle>
                                             <v-card-text>       
                                                 <v-alert
@@ -423,7 +423,7 @@
 <script>
 import { mapGetters } from "vuex";
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter18 from '@/components/sidebar/FilterMode18';
 export default {
     name: 'Matakuliah',
@@ -431,17 +431,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -451,43 +451,43 @@ export default {
             }
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_akademik:null,        
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_akademik: null,        
 
-        btnLoading:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoading: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
-            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable:true,width:100 },       
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable: true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
+            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable: true,width:100 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search: "",
 
         //dialog
-        dialogfrm:false,
-        dialogdetailitem:false,
-        dialogcopymatkul:false,
+        dialogfrm: false,
+        dialogdetailitem: false,
+        dialogcopymatkul: false,
 
         //form data   
-        form_valid:true, 
-        daftar_ta:[],         
-        dari_tahun_akademik:null,  
-        group_matakuliah:[],   
-        daftar_konsentrasi:[],   
+        form_valid: true, 
+        daftar_ta: [],         
+        dari_tahun_akademik: null,  
+        group_matakuliah: [],   
+        daftar_konsentrasi: [],   
         daftar_semester:[
             1,2,3,4,5,6,7,8
         ],  
@@ -512,47 +512,47 @@ export default {
         ],
         formdata: {
             id:'',                        
-            id_group:null,                        
-            nama_group:null,                        
-            group_alias:null, 
+            id_group: null,                        
+            nama_group: null,                        
+            group_alias: null, 
             kmatkul:'',         
             nmatkul:'', 
             sks:'', 
-            idkonsentrasi:null, 
-            ispilihan:false, 
-            islintas_prodi:false, 
+            idkonsentrasi: null, 
+            ispilihan: false, 
+            islintas_prodi: false, 
             semester:'', 
             sks_tatap_muka:'', 
-            sks_praktikum:null, 
-            sks_praktik_lapangan:null, 
+            sks_praktikum: null, 
+            sks_praktik_lapangan: null, 
             minimal_nilai:'C', 
             syarat_skripsi:true, 
             status:true, 
             ta:'', 
             kjur:'', 
-            update_penyelenggaraan:false,
+            update_penyelenggaraan: false,
         },
         formdefault: {
             id:'',                        
-            id_group:null,                        
-            nama_group:null,                        
-            group_alias:null, 
+            id_group: null,                        
+            nama_group: null,                        
+            group_alias: null, 
             kmatkul:'',         
             nmatkul:'', 
             sks:'', 
-            idkonsentrasi:null, 
-            ispilihan:false, 
-            islintas_prodi:false, 
+            idkonsentrasi: null, 
+            ispilihan: false, 
+            islintas_prodi: false, 
             semester:'', 
             sks_tatap_muka:'', 
-            sks_praktikum:null, 
-            sks_praktik_lapangan:null, 
+            sks_praktikum: null, 
+            sks_praktik_lapangan: null, 
             minimal_nilai:'C', 
             syarat_skripsi:true, 
             status:true, 
             ta:'', 
             kjur:'',  
-            update_penyelenggaraan:false,
+            update_penyelenggaraan: false,
         },
         editedIndex: -1,
 
@@ -591,7 +591,7 @@ export default {
         {
             this.prodi_id = id;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/matakuliah',
@@ -633,7 +633,7 @@ export default {
             }).then(({ data }) => {
                 this.group_matakuliah=data.group_matakuliah;
             });            
-            this.dialogfrm=true;
+            this.dialogfrm = true;
         },
         async viewItem (item) {
             this.formdata=item;      
@@ -687,7 +687,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 if (this.editedIndex > -1) 
                 {
                     await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
@@ -767,7 +767,7 @@ export default {
         {
             if (this.$refs.frmdialogcopymatkul.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 this.$ajax.post('/akademik/matakuliah/salinmatkul/'+this.tahun_akademik,
                     {
                         dari_tahun_akademik:this.dari_tahun_akademik,
@@ -791,7 +791,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/akademik/matakuliah/'+item.id,
                         {
                             _method: "DELETE",
@@ -856,7 +856,7 @@ export default {
             return total;
         },    
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -868,7 +868,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
                 this.initialize();
             }            
         }

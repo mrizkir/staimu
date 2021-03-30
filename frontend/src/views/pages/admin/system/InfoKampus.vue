@@ -59,7 +59,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
 		name: 'InfoKampus',
 		created()
@@ -67,12 +67,12 @@ export default {
 				this.breadcrumbs = [
 						{
 								text:'HOME',
-								disabled:false,
+								disabled: false,
 								href:'/dashboard/'+this.ACCESS_TOKEN
 						},
 						{
 								text:'KONFIGURASI SISTEM',
-								disabled:false,
+								disabled: false,
 								href:'/system-setting'
 						},  
 						{
@@ -84,11 +84,11 @@ export default {
 				this.initialize();
 		},
 		data: () => ({
-				breadcrumbs:[],        
-				btnLoading:false,
+				breadcrumbs: [],        
+				btnLoading: false,
 				//form
-				form_valid:true,
-				daftar_category:[],
+				form_valid: true,
+				daftar_category: [],
 				formdata: {
 						term_id: null            
 				},        
@@ -98,7 +98,7 @@ export default {
 				], 
 		}),
 		methods: {
-				initialize:async function ()
+				initialize: async function()
 				{
 						await this.$ajax.get('/blog/categories',
 						{
@@ -123,7 +123,7 @@ export default {
 				save () {
 						if (this.$refs.frmdata.validate())
 						{
-								this.btnLoading=true;
+								this.btnLoading = true;
 								this.$ajax.post('/system/setting/variables',
 										{
 												'_method':'PUT',
@@ -145,7 +145,7 @@ export default {
 						}
 				}
 		},
-		computed:{
+		computed: {
 				...mapGetters('auth',{
 						ACCESS_TOKEN:'AccessToken',
 						TOKEN:'Token',

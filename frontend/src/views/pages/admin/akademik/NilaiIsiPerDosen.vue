@@ -114,7 +114,7 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 import Filter2 from '@/components/sidebar/FilterMode2';
 
 import { mapGetters } from "vuex";
@@ -125,17 +125,17 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'ISI NILAI',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
@@ -149,26 +149,26 @@ export default {
         this.initialize()
     },  
     data: () => ({ 
-        firstloading:true,        
-        daftar_ta:[],
-        tahun_akademik:null,
-        semester_akademik:null,
+        firstloading: true,        
+        daftar_ta: [],
+        tahun_akademik: null,
+        semester_akademik: null,
 
-        btnLoadingTable:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        btnLoadingTable: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:100  },   
-            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable:true,width:250  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable:true,width:250  },                   
-            { text: 'HARI', value: 'nama_hari', sortable:true, width:70 },       
-            { text: 'JAM', value: 'jam_masuk',sortable:true, width:70 },                   
-            { text: 'RUANG', value: 'namaruang',sortable:true, width:100},                   
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable:true, width:100},                   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:100  },   
+            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true,width:250  },   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true,width:250  },                   
+            { text: 'HARI', value: 'nama_hari', sortable: true, width:70 },       
+            { text: 'JAM', value: 'jam_masuk',sortable: true, width:70 },                   
+            { text: 'RUANG', value: 'namaruang',sortable: true, width:100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width:100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
-        search:'', 
+        search: "", 
 
     }),
     methods: {
@@ -180,7 +180,7 @@ export default {
         {
             this.semester_akademik=semester;
         },
-        initialize:async function () 
+        initialize: async function() 
         {
             this.datatableLoading=true;
             await this.$ajax.post('/akademik/perkuliahan/pembagiankelas',
@@ -213,7 +213,7 @@ export default {
             }               
         },        
     },
-    watch:{
+    watch: {
         tahun_akademik()
         {
             if (!this.firstloading)
@@ -229,7 +229,7 @@ export default {
             }            
         },
     },
-    computed:{
+    computed: {
         ...mapGetters('auth',{            
             CAN_ACCESS:'can',                     
         }),

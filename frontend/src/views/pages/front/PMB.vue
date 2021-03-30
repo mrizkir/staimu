@@ -136,14 +136,14 @@ export default {
         this.initialize();
     },
     data: () => ({            
-        btnLoading:false,
-        btnLoadingFakultas:false,
+        btnLoading: false,
+        btnLoadingFakultas: false,
         //form
-        form_valid:true,                 
-        dialogkonfirmasiemail:false,  
-        daftar_fakultas:[],
+        form_valid: true,                 
+        dialogkonfirmasiemail: false,  
+        daftar_fakultas: [],
         kode_fakultas:'',
-        daftar_prodi:[],
+        daftar_prodi: [],
         prodi_id:'',                  
         formdata: {
             name: '',
@@ -161,7 +161,7 @@ export default {
             password:'',
             captcha_response:''       
         },    
-        formkonfirmasi:{
+        formkonfirmasi: {
             email:'',
             code:''
         },
@@ -194,7 +194,7 @@ export default {
         ]
     }),
     methods: {
-        initialize:async function ()
+        initialize: async function()
         {
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
@@ -213,7 +213,7 @@ export default {
         {
             if (this.$refs.frmpendaftaran.validate())
             {
-                this.btnLoading=true;                
+                this.btnLoading = true;                
                 await this.$ajax.post('/spmb/pmb/store',{                    
                     name:this.formdata.name,
                     email:this.formdata.email,                    
@@ -241,7 +241,7 @@ export default {
         {
             if (this.$refs.frmkonfirmasi.validate())
             {
-                this.btnLoading=true;                
+                this.btnLoading = true;                
                 await this.$ajax.post('/spmb/pmb/konfirmasi',{                                        
                     email:this.formkonfirmasi.email,                    
                     code:this.formkonfirmasi.code,
@@ -277,13 +277,13 @@ export default {
             );
         },
     },
-    computed :{
+    computed : {
         ...mapGetters('uifront',{
             sitekey: 'getCaptchaKey',
             tahunPendaftaran: 'getTahunPendaftaran',
         })
     },
-    watch:{
+    watch: {
         kode_fakultas (val)
         {
             if (val != null && val != '')

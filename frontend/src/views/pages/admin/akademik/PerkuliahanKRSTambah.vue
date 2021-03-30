@@ -8,7 +8,7 @@
                 KARTU RENCANA STUDI
             </template>
             <template v-slot:subtitle  v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{nama_prodi}}
+                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -78,29 +78,29 @@
 </template>
 <script>
 import AkademikLayout from '@/views/layouts/AkademikLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PerkuliahanKRSTambah',
     created () {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
                 text:'AKADEMIK',
-                disabled:false,
+                disabled: false,
                 href:'/akademik'
             },
             {
                 text:'PERKULIAHAN',
-                disabled:false,
+                disabled: false,
                 href:'#'
             },
             {
                 text:'KRS',
-                disabled:false,
+                disabled: false,
                 href:'/akademik/perkuliahan/krs/daftar'
             },
             {
@@ -110,8 +110,8 @@ export default {
             },
         ];
         let prodi_id=this.$store.getters['uiadmin/getProdiID'];
-        this.prodi_id=prodi_id;
-        this.nama_prodi=this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.prodi_id = prodi_id;
+        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
         this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
         this.ta_matkul=this.tahun_akademik;
@@ -124,34 +124,34 @@ export default {
         }
     },  
     data: () => ({ 
-        firstloading:true,
-        prodi_id:null,
-        nama_prodi:null,
-        tahun_akademik:null,
-        ta_matkul:null,
-        semester_akademik:null,
+        firstloading: true,
+        prodi_id: null,
+        nama_prodi: null,
+        tahun_akademik: null,
+        ta_matkul: null,
+        semester_akademik: null,
 
-        btnLoading:false,        
+        btnLoading: false,        
 
         //table
-        dialogdetailitem:false,
-        datatableLoading:false,
-        expanded:[],
-        datatable:[],      
+        dialogdetailitem: false,
+        datatableLoading: false,
+        expanded: [],
+        datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable:true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable:true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable:true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable:true,width:80, align:'center' },       
-            { text: 'SMT', value: 'semester', sortable:true,width:80 },       
+            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
+            { text: 'SKS', value: 'sks',sortable: true,width:80, align:'center' },       
+            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
             { text: 'AKSI', value: 'actions', sortable: false,width:100 },
         ],  
         search: "",
 
         //formdata
-        form_valid:true,   
-        daftar_dulang:[],
-        formdata:{
+        form_valid: true,   
+        daftar_dulang: [],
+        formdata: {
             nim:'',
             dulang_id:''
         },
@@ -188,7 +188,7 @@ export default {
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading=true;
+                this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/krs/store',
                 {
                     nim:this.formdata.nim,

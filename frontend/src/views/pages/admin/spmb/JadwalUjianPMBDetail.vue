@@ -8,7 +8,7 @@
 				JADWAL UJIAN PMB
 			</template>
 			<template v-slot:subtitle>
-				TAHUN PENDAFTARAN {{tahun_pendaftaran}} - SEMESTER {{nama_semester_pendaftaran}}
+				TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - SEMESTER {{nama_semester_pendaftaran}}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -406,7 +406,7 @@
 				});
 			},
 		},
-		computed:{
+		computed: {
 			StatusJadwanUjian: {
 				set(newStatus) {
 					this.status_jadwan_ujian = newStatus;

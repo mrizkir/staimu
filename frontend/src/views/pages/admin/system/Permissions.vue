@@ -136,7 +136,7 @@
 <script>
 import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
-import ModuleHeader from '@/components/ModuleHeader';
+import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Permissions',
     created()
@@ -144,12 +144,12 @@ export default {
         this.breadcrumbs = [
             {
                 text:'HOME',
-                disabled:false,
+                disabled: false,
                 href:'/dashboard/'+this.ACCESS_TOKEN
             },
             {
                 text:'USER SISTEM',
-                disabled:false,
+                disabled: false,
                 href:'/system-users'
             },
             {
@@ -161,10 +161,10 @@ export default {
         this.initialize();
     },
     data: () => ({
-        breadcrumbs:[],
-        datatableLoading:false,
-        btnLoading:false,  
-        expanded:[],        
+        breadcrumbs: [],
+        datatableLoading: false,
+        btnLoading: false,  
+        expanded: [],        
         daftar_permissions: [],
         //tables
         headers: [                        
@@ -174,7 +174,7 @@ export default {
         ],
         search: "",    
         //form
-        form_valid:true,
+        form_valid: true,
         dialog: false,
         editedIndex: -1,
         editedItem: {
@@ -242,7 +242,7 @@ export default {
             {
                 if (!(this.editedIndex > -1)) 
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/system/setting/permissions/store',
                         {
                             name:this.editedItem.name.toLowerCase()
@@ -265,7 +265,7 @@ export default {
             this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus permission '+item.name+' ?', { color: 'red' }).then((confirm) => {
                 if (confirm)
                 {
-                    this.btnLoading=true;
+                    this.btnLoading = true;
                     this.$ajax.post('/system/setting/permissions/'+item.id,
                     {
                         _method: "DELETE",
@@ -286,7 +286,7 @@ export default {
             });      
         },
     },
-    computed:{
+    computed: {
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH PERMISSION' : 'EDIT PERMISSION'
         },
