@@ -34,7 +34,7 @@
                                  <v-btn
                                     color="primary"
                                     @click="doLogin"
-                                    :loading="btnLoading"
+                                    
                                     :disabled="btnLoading"
                                     block>
                                         Login

@@ -163,7 +163,7 @@
 												<template v-slot:item.actions="{ item }">
 														<v-icon                                
 																@click.stop="pilihJadwal(item)"
-																:loading="btnLoading"
+																
 																:disabled="btnLoading">
 																mdi-select-drag
 														</v-icon>

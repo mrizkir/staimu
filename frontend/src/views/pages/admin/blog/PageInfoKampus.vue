@@ -93,7 +93,7 @@
 								</v-icon>
 								<v-icon
 									small
-									:loading="btnLoading"
+									
 									:disabled="btnLoading"
 									@click.stop="deleteItem(item)">
 									mdi-delete

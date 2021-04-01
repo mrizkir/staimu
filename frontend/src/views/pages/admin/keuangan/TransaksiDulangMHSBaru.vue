@@ -125,7 +125,7 @@
 													color="blue darken-1"
 													text
 													@click.stop="save"
-													:loading="btnLoading"
+													
 													:disabled="!form_valid || btnLoading"
 												>
 													BUAT
@@ -205,7 +205,7 @@
 							</v-icon>
 							<v-icon
 								small
-								:loading="btnLoading"
+								
 								:disabled="btnLoading"
 								@click.stop="deleteItem(item)"
 								v-if="item.status == 0"

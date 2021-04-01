@@ -80,7 +80,7 @@
                                  <v-btn 
                                     color="primary" 
                                     @click="save" 
-                                    :loading="btnLoading"
+                                    
                                     :disabled="btnLoading"
                                     block>
                                         DAFTAR
@@ -112,7 +112,7 @@
                                         color="blue darken-1" 
                                         text 
                                         @click.stop="konfirmasi" 
-                                        :loading="btnLoading"
+                                        
                                         :disabled="btnLoading">
                                             KONFIRMASI
                                     </v-btn>
