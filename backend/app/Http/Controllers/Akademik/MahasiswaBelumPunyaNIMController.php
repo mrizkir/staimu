@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Keuangan\TransaksiDetailModel;
 
@@ -62,12 +63,14 @@ class MahasiswaBelumPunyaNIMController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-DULANG-BARU_STORE');
 
+        $request->request->add(['username'=>$request->input('nim')]);
         $this->validate($request, [                       
             'user_id'=>[
                 'required',
             ],
             'nim'=>'required|numeric|unique:pe3_register_mahasiswa,nim',
             'nirm'=>'required|numeric|unique:pe3_register_mahasiswa,nirm',
+            'username'=>'required|unique:users,username',
             'dosen_id'=>[
                 'required',
                 Rule::exists('pe3_dosen','user_id')->where(function($query){
@@ -95,7 +98,8 @@ class MahasiswaBelumPunyaNIMController extends Controller
             ]);
             
             $user=$formulir->user;
-            $user->username=$request->input('nim');
+            $user->username=$request->input('username');
+            $user->password=Hash::make('12345678');
             $user->default_role='mahasiswa';
             $user->save();
 

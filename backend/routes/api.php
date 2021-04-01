@@ -371,6 +371,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/akademik/perkuliahan/pembagiankelas/nilaikomponen/{id}',['uses'=>'Akademik\PembagianKelasController@nilaikomponen','as'=>'pembagiankelas.nilaikomponen']);
     $router->post('/akademik/perkuliahan/pembagiankelas/storenilai',['middleware'=>['role:dosen'],'uses'=>'Akademik\PembagianKelasController@storenilai','as'=>'pembagiankelas.storenilai']);
 
+    //akademik - perkuliahan - ujian munaqasah
+    $router->post('/akademik/perkuliahan/ujianmunaqasah',['middleware'=>['role:superadmin|akademik|puslahta|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@index','as'=>'ujianmunaqasah.index']);
+    
     //akademik - perkuliahan - nilai konversi
     $router->post('/akademik/nilai/konversi',['uses'=>'Akademik\NilaiKonversiController@index','as'=>'nilaikonversi.index']);
     $router->post('/akademik/nilai/konversi/matakuliah',['uses'=>'Akademik\NilaiKonversiController@matakuliah','as'=>'nilaikonversi.matakuliah']);        

@@ -175,7 +175,7 @@
 							</v-icon>
 							<v-icon
 								small
-								:disabled="btnLoading || item.status == 1 || item.status == 2"
+								:disabled="btnLoading || item.status == 1"
 								@click.stop="deleteItem(item)"
 							>
 								mdi-delete

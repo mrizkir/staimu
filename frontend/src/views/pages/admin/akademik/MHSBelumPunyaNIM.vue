@@ -88,7 +88,7 @@
                                                 color="cyan"                                                                   
                                                 colored-border
                                                 type="info">
-                                                Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{$tahun_pendaftaran}} belum bisa daftar ulang otomatis
+                                                Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{tahun_pendaftaran}} belum bisa daftar ulang otomatis
                                             </v-alert>
                                             <v-row>
                                                 <v-col cols="12">

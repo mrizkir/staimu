@@ -482,7 +482,7 @@ class TransaksiSPPController extends Controller {
                                     'message'=>["Transaksi Detail dengan ID ($id) gagal dihapus"]
                                 ],422); 
         }
-        else if ($transaksi->status==1 || $transaksi->status==2)
+        else if ($transaksi->status==1)
         {
             return Response()->json([
                                     'status'=>1,
