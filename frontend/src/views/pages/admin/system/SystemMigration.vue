@@ -136,18 +136,18 @@ import ModuleHeader from "@/components/ModuleHeader";
 import Filter9 from '@/components/sidebar/FilterMode9';
 export default {
     name: 'SystemMigration',
-    created ()
+    created()
 	{
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'MIGRASI SISTEM',
-				disabled:true,
-				href:'#'
+				text: 'MIGRASI SISTEM',
+				disabled: true,
+				href: "#"
 			}
         ];				
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
@@ -172,12 +172,12 @@ export default {
         daftar_tasmt: [],
         daftar_status_mhs: [],        
         formdata: {
-            nim:'',
-            nirm:'',
-            nama_mhs:'',            
-            dosen_id:'',           
-            prodi_id:'',
-            idkelas:'',
+            nim: '',
+            nirm: '',
+            nama_mhs: '',            
+            dosen_id: '',           
+            prodi_id: '',
+            idkelas: '',
             status_mhs: [],
         },
         rule_nim:[
@@ -206,7 +206,7 @@ export default {
         headers: [                                                
             { text: 'TAHUN AKADEMIK', value: 'ta',sortable: false },
             { text: 'SEMESTER', value: 'semester',sortable: false },
-            { text: 'STATUS', value: 'k_status',sortable: false, width:250 },         
+            { text: 'STATUS', value: 'k_status',sortable: false, width: 250 },         
         ],
     }),
     methods: {
@@ -221,20 +221,20 @@ export default {
 
             await this.$ajax.get('/akademik/dosenwali',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                              
                 this.daftar_dw = data.users; 
             });
 
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/system/migration',
             {
-                TA:this.tahun_pendaftaran
+                TA: this.tahun_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                              
                 this.daftar_tasmt = data.daftar_tasmt; 
@@ -244,7 +244,7 @@ export default {
                     this.formdata.status_mhs[i]='A';
                     i+=1;
                 });
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });
             this.daftar_status_mhs=this.$store.getters['uiadmin/getDaftarStatusMahasiswa'];  
 
@@ -258,18 +258,18 @@ export default {
                 
                 this.$ajax.post('/system/migration/store',
                     {
-                        nim:this.formdata.nim,
-                        nirm:this.formdata.nirm,
-                        nama_mhs:this.formdata.nama_mhs,
-                        dosen_id:this.formdata.dosen_id,
-                        prodi_id:this.formdata.prodi_id,     
-                        idkelas:this.formdata.idkelas,       
-                        tahun_pendaftaran:this.tahun_pendaftaran,                 
+                        nim: this.formdata.nim,
+                        nirm: this.formdata.nirm,
+                        nama_mhs: this.formdata.nama_mhs,
+                        dosen_id: this.formdata.dosen_id,
+                        prodi_id: this.formdata.prodi_id,     
+                        idkelas: this.formdata.idkelas,       
+                        tahun_pendaftaran: this.tahun_pendaftaran,                 
                         status_mhs:JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                                                          
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {                                       

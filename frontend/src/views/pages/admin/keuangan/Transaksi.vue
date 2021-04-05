@@ -243,27 +243,27 @@ import Filter18 from '@/components/sidebar/FilterMode18';
 import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
 export default {
     name: 'Transaksi',
-    created () {
+    created() {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KEUANGAN',
+                text: 'KEUANGAN',
                 disabled: false,
-                href:'/keuangan'
+                href: '/keuangan'
             },
             {
-                text:'DAFTAR TRANSAKSI',
-                disabled:true,
-                href:'#'
+                text: 'DAFTAR TRANSAKSI',
+                disabled: true,
+                href: "#"
             }
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                  
@@ -286,12 +286,12 @@ export default {
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable: true },
-            { text: 'TANGGAL', value: 'tanggal',width:100,sortable: true },
-            { text: 'NIM', value: 'nim',width:100,sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },
+            { text: 'KODE BILLING', value: 'no_transaksi',width: 100,sortable: true },
+            { text: 'TANGGAL', value: 'tanggal',width: 100,sortable: true },
+            { text: 'NIM', value: 'nim',width: 100,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },
             { text: 'SMT', value: 'idsmt',width:50,sortable: true },
-            { text: 'TOTAL', value: 'total',width:100,sortable: true },
+            { text: 'TOTAL', value: 'total',width: 100,sortable: true },
             { text: 'STATUS', value: 'nama_status',width:50,sortable: true },    
             { text: 'KET.', value: 'desc',width:150,sortable: false },    
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
@@ -314,9 +314,9 @@ export default {
         data_transaksi_detail: {},      
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
         changeProdi(id)
         {
@@ -324,19 +324,19 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.post('/keuangan/transaksi',            
             {
-                TA:this.tahun_akademik,
-                PRODI_ID:this.prodi_id,
+                TA: this.tahun_akademik,
+                PRODI_ID: this.prodi_id,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.transaksi;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });                     
             this.firstloading=false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading);       
@@ -357,7 +357,7 @@ export default {
             await this.$ajax.get('/keuangan/transaksi/'+item.id,  
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                                             
                 this.data_transaksi=item;   
@@ -393,27 +393,27 @@ export default {
                 this.initialize();
             }            
         },
-        search ()
+        search()
         {
             if (!this.awaiting_search) 
             {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading=true;            
+                        this.datatableLoading = true;            
                         await this.$ajax.post('/keuangan/transaksi',                 
                         {
-                            PRODI_ID:this.prodi_id,
-                            TA:this.tahun_akademik,
-                            search:this.search
+                            PRODI_ID: this.prodi_id,
+                            TA: this.tahun_akademik,
+                            search: this.search
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }).then(({ data }) => {               
                             this.datatable = data.transaksi;                
-                            this.datatableLoading=false;
+                            this.datatableLoading = false;
                         });                     
                     }
                     this.awaiting_search = false;

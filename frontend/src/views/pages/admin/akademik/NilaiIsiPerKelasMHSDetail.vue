@@ -119,38 +119,38 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import DataKelasMHS from '@/components/DataKelasMHS';
 
 export default {
     name: 'NilaiIsiPerKelasMHSDetail',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'ISI NILAI',
+                text: 'ISI NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PER KELAS MAHASISWA',
-                disabled:true,
-                href:'#'
+                text: 'PER KELAS MAHASISWA',
+                disabled: true,
+                href: "#"
             }
         ];
         this.kelas_mhs_id=this.$route.params.kelas_mhs_id;        
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
@@ -166,7 +166,7 @@ export default {
         datatable: [],    
         datatable_peserta: [],                 
         headers_peserta: [
-            { text: 'NIM', value: 'nim', sortable: false,width:100  },   
+            { text: 'NIM', value: 'nim', sortable: false,width: 100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable: false  },   
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
             { text: 'KELAS', value: 'idkelas', sortable: false  },                   
@@ -200,33 +200,33 @@ export default {
             await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {           
                 this.data_kelas_mhs=data.pembagiankelas;                                         
             });
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                                                                 
-                this.datatableLoading=false;
+                this.datatableLoading = false;
                 this.datatable_peserta=data.peserta;   
             })              
         },
         async fetchPeserta()
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                                      
                 this.datatable_peserta=data.peserta;                                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             })   
         },  
         save()

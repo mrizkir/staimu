@@ -267,22 +267,22 @@ import ModuleHeader from "@/components/ModuleHeader";
 import Filter9 from '@/components/sidebar/FilterMode9';
 export default {
     name: 'PersyaratanPMB',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'/dmaster'
+                href: '/dmaster'
             },
             {
-                text:'PERSYARATAN PMB',
-                disabled:true,
-                href:'#'
+                text: 'PERSYARATAN PMB',
+                disabled: true,
+                href: "#"
             }
         ];        
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -299,8 +299,8 @@ export default {
         headers: [
             { text: 'PROSES', value: 'proses', sortable: true,width:120  },   
             { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable: true },                   
-            { text: 'TA', value: 'ta',sortable: true,width:80, align:'center' },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'TA', value: 'ta',sortable: true,width:80, align: 'center' },                   
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "",
 
@@ -314,18 +314,18 @@ export default {
         daftar_ta: [],         
         dari_tahun_pendaftaran: null,          
         formdata: {
-            id:'',                        
-            proses:'pmb',                        
+            id: '',                        
+            proses: 'pmb',                        
             nama_persyaratan: null,                        
             prodi_id: null, 
-            ta:'',                   
+            ta: '',                   
         },
         formdefault: {
-            id:'',                        
-            proses:'pmb',                                         
+            id: '',                        
+            proses: 'pmb',                                         
             nama_persyaratan: null,                        
             prodi_id: null, 
-            ta:'',                   
+            ta: '',                   
         },
         editedIndex: -1,
 
@@ -344,20 +344,20 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/datamaster/persyaratan',
             {
-                TA:this.tahun_pendaftaran
+                TA: this.tahun_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.datatable = data.persyaratan;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter19.setFirstTimeLoading(this.firstloading); 
@@ -410,12 +410,12 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/persyaratan/'+this.formdata.id,
                         {
-                            '_method':'PUT',                            
-                            nama_persyaratan:this.formdata.nama_persyaratan,                                                                            
+                            '_method': 'PUT',                            
+                            nama_persyaratan: this.formdata.nama_persyaratan,                                                                            
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -429,13 +429,13 @@ export default {
                 } else {                    
                     await this.$ajax.post('/datamaster/persyaratan/store',
                         {
-                            proses:this.formdata.proses,                                                    
-                            nama_persyaratan:this.formdata.nama_persyaratan,                                                                                                       
-                            ta:this.tahun_pendaftaran,                                     
+                            proses: this.formdata.proses,                                                    
+                            nama_persyaratan: this.formdata.nama_persyaratan,                                                                                                       
+                            ta: this.tahun_pendaftaran,                                     
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -455,12 +455,12 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/datamaster/persyaratan/salin/'+this.tahun_pendaftaran,
                     {
-                        dari_tahun_pendaftaran:this.dari_tahun_pendaftaran,
-                        proses:'pmb',
+                        dari_tahun_pendaftaran: this.dari_tahun_pendaftaran,
+                        proses: 'pmb',
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(({ data }) => {   
@@ -483,7 +483,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -524,8 +524,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH PERSYARATAN PMB' : 'UBAH PERSYARATAN PMB'

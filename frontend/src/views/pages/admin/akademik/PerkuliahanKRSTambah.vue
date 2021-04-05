@@ -77,46 +77,46 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PerkuliahanKRSTambah',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'KRS',
+                text: 'KRS',
                 disabled: false,
-                href:'/akademik/perkuliahan/krs/daftar'
+                href: '/akademik/perkuliahan/krs/daftar'
             },
             {
-                text:'TAMBAH',
-                disabled:true,
-                href:'#'
+                text: 'TAMBAH',
+                disabled: true,
+                href: "#"
             },
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
         this.ta_matkul=this.tahun_akademik;
         this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];          
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
         {
             this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
@@ -142,9 +142,9 @@ export default {
             { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
             { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable: true,width:80, align:'center' },       
+            { text: 'SKS', value: 'sks',sortable: true,width:80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true,width:80 },       
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "",
 
@@ -152,8 +152,8 @@ export default {
         form_valid: true,   
         daftar_dulang: [],
         formdata: {
-            nim:'',
-            dulang_id:''
+            nim: '',
+            dulang_id: ''
         },
         rule_nim:[
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
@@ -168,11 +168,11 @@ export default {
         {
             await this.$ajax.post('/akademik/dulang/dulangnotinkrs',
             {
-                nim:this.formdata.nim,                
+                nim: this.formdata.nim,                
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.daftar_dulang=data.daftar_dulang;                
@@ -191,12 +191,12 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/krs/store',
                 {
-                    nim:this.formdata.nim,
-                    dulang_id:this.formdata.dulang_id,                    
+                    nim: this.formdata.nim,
+                    dulang_id: this.formdata.dulang_id,                    
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {               
                     this.$router.push('/akademik/perkuliahan/krs/'+data.krs.id+'/detail');

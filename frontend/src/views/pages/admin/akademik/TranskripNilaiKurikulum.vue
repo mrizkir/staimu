@@ -156,35 +156,35 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'TranskripNilaiKurikulum',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'NILAI',
+                text: 'NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'TRANSKRIP KURIKULUM',
-                disabled:true,
-                href:'#'
+                text: 'TRANSKRIP KURIKULUM',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -204,12 +204,12 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable: true,width:100  },       
+            { text: 'NIM', value: 'nim', sortable: true,width: 100  },       
             { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },                   
             { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width:100, },                   
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width:100, },                   
-            { text: 'IPK SEMENTARA', value: 'ipk',sortable: true,width:100, },                   
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width: 100, },                   
+            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width: 100, },                   
+            { text: 'IPK SEMENTARA', value: 'ipk',sortable: true,width: 100, },                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search: "", 
@@ -228,21 +228,21 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/nilai/transkripkurikulum',
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_pendaftaran
+                prodi_id: this.prodi_id,
+                ta: this.tahun_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
@@ -268,13 +268,13 @@ export default {
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -304,27 +304,27 @@ export default {
                 this.initialize();
             }            
         },
-        search ()
+        search()
         {
             if (!this.awaiting_search) 
             {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading=true;            
+                        this.datatableLoading = true;            
                         await this.$ajax.post('/akademik/nilai/transkripkurikulum',
                         {
-                            prodi_id:this.prodi_id,
-                            ta:this.tahun_pendaftaran,            
-                            search:this.search
+                            prodi_id: this.prodi_id,
+                            ta: this.tahun_pendaftaran,            
+                            search: this.search
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }).then(({ data }) => {               
                             this.datatable = data.mahasiswa;
-                            this.datatableLoading=false;
+                            this.datatableLoading = false;
                         });                     
                     }
                     this.awaiting_search = false;

@@ -246,44 +246,44 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PerkuliahanPenyelenggaraanTambah',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PENYELENGGARAAN MATAKULIAH',
+                text: 'PENYELENGGARAAN MATAKULIAH',
                 disabled: false,
-                href:'/akademik/perkuliahan/penyelenggaraan/daftar'
+                href: '/akademik/perkuliahan/penyelenggaraan/daftar'
             },
             {
-                text:'TAMBAH',
-                disabled:true,
-                href:'#'
+                text: 'TAMBAH',
+                disabled: true,
+                href: "#"
             },
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);        
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];  
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         
     },  
     data: () => ({ 
@@ -305,9 +305,9 @@ export default {
             { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
             { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable: true,width:80, align:'center' },       
+            { text: 'SKS', value: 'sks',sortable: true,width:80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true,width:80 },       
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "",
 
@@ -334,23 +334,23 @@ export default {
         },
         fetchMatkul:async function (val) 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/matakuliah/penyelenggaraan',
             {
-                prodi_id:this.prodi_id,
+                prodi_id: this.prodi_id,
                 ta_matkul:val,
-                ta_akademik:this.tahun_akademik,
-                semester_akademik:this.semester_akademik,
+                ta_akademik: this.tahun_akademik,
+                semester_akademik: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.matakuliah;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         async viewItem (item) {
@@ -358,7 +358,7 @@ export default {
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.formdata=data.matakuliah;
@@ -371,14 +371,14 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/store',
                     {
-                        prodi_id:this.prodi_id,
-                        ta:this.tahun_akademik,
-                        semester_akademik:this.semester_akademik,                          
+                        prodi_id: this.prodi_id,
+                        ta: this.tahun_akademik,
+                        semester_akademik: this.semester_akademik,                          
                         matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {                       

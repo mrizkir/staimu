@@ -84,24 +84,24 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KONFIGURASI SISTEM',
+                text: 'KONFIGURASI SISTEM',
                 disabled: false,
-                href:'/system-setting'
+                href: '/system-setting'
             },  
             {
-                text:'PERGURUAN TINGGI',
+                text: 'PERGURUAN TINGGI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'IDENTITAS DIRI',
-                disabled:true,
-                href:'#'
+                text: 'IDENTITAS DIRI',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -112,9 +112,9 @@ export default {
         //form
         form_valid: true,   
         formdata: {
-            nama_pt:'',
-            nama_alias_pt:'',
-            bentuk_pt:'',
+            nama_pt: '',
+            nama_alias_pt: '',
+            bentuk_pt: '',
             kode_pt:0,
         },
         //form rules        
@@ -135,7 +135,7 @@ export default {
             await this.$ajax.get('/system/setting/variables',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
                 let setting = data.setting;                           
@@ -152,18 +152,18 @@ export default {
                 this.btnLoading = true;                
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method':'PUT', 
-                        'pid':'Identitas Perguruan Tinggi',
+                        '_method': 'PUT', 
+                        'pid': 'Identitas Perguruan Tinggi',
                         setting:JSON.stringify({
-                            101:this.formdata.nama_pt,
-                            102:this.formdata.nama_alias_pt,
-                            103:this.formdata.bentuk_pt,
-                            104:this.formdata.kode_pt,
+                            101: this.formdata.nama_pt,
+                            102: this.formdata.nama_alias_pt,
+                            103: this.formdata.bentuk_pt,
+                            104: this.formdata.kode_pt,
                         }),                                                                                                                            
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(() => {                       
@@ -176,8 +176,8 @@ export default {
     },
     computed: { 
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
     components: {

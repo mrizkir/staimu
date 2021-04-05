@@ -248,22 +248,22 @@ import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'ProgramStudi',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PROGRAM STUDI',
-                disabled:true,
-                href:'#'
+                text: 'PROGRAM STUDI',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -286,25 +286,25 @@ export default {
 
         daftar_jenjang: [],      
         jenjang_studi: null,          
-        kode_prodi:'',          
+        kode_prodi: '',          
         formdata: {
             id:0,                        
-            kode_fakultas:'',                        
-            kode_prodi:'',                        
-            nama_prodi:'', 
-            nama_prodi_alias:'',         
-            kode_jenjang:'', 
-            nama_jenjang:'', 
+            kode_fakultas: '',                        
+            kode_prodi: '',                        
+            nama_prodi: '', 
+            nama_prodi_alias: '',         
+            kode_jenjang: '', 
+            nama_jenjang: '', 
             config: {}
         },
         formdefault: {
             id:0,                        
-            kode_fakultas:'',   
-            kode_prodi:'',                        
-            nama_prodi:'',         
-            nama_prodi_alias:'',         
-            kode_jenjang:'', 
-            nama_jenjang:'', 
+            kode_fakultas: '',   
+            kode_prodi: '',                        
+            nama_prodi: '',         
+            nama_prodi_alias: '',         
+            kode_jenjang: '', 
+            nama_jenjang: '', 
             config: {}
         },
         dosen_id: null,
@@ -334,16 +334,16 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/datamaster/programstudi',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.datatable = data.prodi;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         kaprodi(item)
@@ -386,10 +386,10 @@ export default {
         },
         async viewItem (item) 
         {           
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/usersdosen',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {    
                 this.daftar_dosen = data.users;   
@@ -399,7 +399,7 @@ export default {
                     var config = JSON.parse(item.config);
                     this.dosen_id=config.kaprodi
                 }             
-                this.datatableLoading=false;
+                this.datatableLoading = false;
                 this.formdata=item;      
                 this.dialogdetailitem=true;                 
             }); 
@@ -435,17 +435,17 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/programstudi/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            kode_prodi:this.formdata.kode_prodi,                            
-                            nama_prodi:this.formdata.nama_prodi,                                                        
-                            nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
-                            kode_jenjang:this.formdata.kode_jenjang,                                                        
-                            nama_jenjang:this.formdata.nama_jenjang,                                                                                                             
+                            '_method': 'PUT',
+                            kode_fakultas: this.formdata.kode_fakultas,                            
+                            kode_prodi: this.formdata.kode_prodi,                            
+                            nama_prodi: this.formdata.nama_prodi,                                                        
+                            nama_prodi_alias: this.formdata.nama_prodi_alias,                                                        
+                            kode_jenjang: this.formdata.kode_jenjang,                                                        
+                            nama_jenjang: this.formdata.nama_jenjang,                                                                                                             
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -459,16 +459,16 @@ export default {
                 } else {                    
                     await this.$ajax.post('/datamaster/programstudi/store',
                         {
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            kode_prodi:this.formdata.kode_prodi,                            
-                            nama_prodi:this.formdata.nama_prodi,   
-                            nama_prodi_alias:this.formdata.nama_prodi_alias,                                                        
-                            kode_jenjang:this.jenjang_studi.kode_jenjang,                                                        
-                            nama_jenjang:this.jenjang_studi.nama_jenjang,                                                                                                             
+                            kode_fakultas: this.formdata.kode_fakultas,                            
+                            kode_prodi: this.formdata.kode_prodi,                            
+                            nama_prodi: this.formdata.nama_prodi,   
+                            nama_prodi_alias: this.formdata.nama_prodi_alias,                                                        
+                            kode_jenjang: this.jenjang_studi.kode_jenjang,                                                        
+                            nama_jenjang: this.jenjang_studi.nama_jenjang,                                                                                                             
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -492,7 +492,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -526,8 +526,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
@@ -540,9 +540,9 @@ export default {
                     { text: 'KODE PRODI', value: 'kode_prodi', width:120 },   
                     { text: 'NAMA PRODI', value: 'nama_prodi',width:280 },   
                     { text: 'FAKULTAS', value: 'nama_fakultas',width:200  },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:100 },   
+                    { text: 'JENJANG', value: 'nama_jenjang',width: 100 },   
                     { text: 'KETUA PRODI', value: 'config',width:200 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+                    { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
                 ];
             }
             else
@@ -550,9 +550,9 @@ export default {
                 return [                        
                     { text: 'KODE PRODI', value: 'kode_prodi', width:120 },   
                     { text: 'NAMA PRODI', value: 'nama_prodi',width:280 },   
-                    { text: 'JENJANG', value: 'nama_jenjang',width:100 },   
+                    { text: 'JENJANG', value: 'nama_jenjang',width: 100 },   
                     { text: 'KETUA PRODI', value: 'config',width:200 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+                    { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
                 ];
             }
         },
@@ -565,14 +565,14 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
                     {
-                        '_method':'PUT',                    
+                        '_method': 'PUT',                    
                         config:JSON.stringify({
                             kaprodi:val                            
                         }),                                                                 
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(() => {   

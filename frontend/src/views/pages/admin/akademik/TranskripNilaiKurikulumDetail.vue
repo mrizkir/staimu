@@ -214,42 +214,42 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import ProfilMahasiswa from '@/components/ProfilMahasiswaLama';
 
 export default {
     name: 'TranskripNilaiKurikulumDetail',
-    created () {
+    created() {
         this.user_id=this.$route.params.user_id;        
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'NILAI',
+                text: 'NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'TRANSKRIP KURIKULUM',
+                text: 'TRANSKRIP KURIKULUM',
                 disabled: false,
-                href:'/akademik/nilai/transkripkurikulum'
+                href: '/akademik/nilai/transkripkurikulum'
             },
             {
-                text:'DETAIL',
-                disabled:true,
-                href:'#'
+                text: 'DETAIL',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -271,11 +271,11 @@ export default {
             { text: 'MATAKULIAH', value: 'nmatkul',sortable: true,width:350 },                   
             { text: 'KODE', value: 'kmatkul',sortable: true,width:120, },                   
             { text: 'SMT', value: 'semester',sortable: true,width:80, },                   
-            { text: 'KLP', value: 'group_alias',sortable: true,width:100, },                   
-            { text: 'HM', value: 'HM',sortable: false,width:100, },                   
-            { text: 'AM', value: 'AM',sortable: false,width:100, },                   
-            { text: 'K', value: 'sks',sortable: true,width:100, },                   
-            { text: 'M', value: 'M', sortable: false,width:100 },
+            { text: 'KLP', value: 'group_alias',sortable: true,width: 100, },                   
+            { text: 'HM', value: 'HM',sortable: false,width: 100, },                   
+            { text: 'AM', value: 'AM',sortable: false,width: 100, },                   
+            { text: 'K', value: 'sks',sortable: true,width: 100, },                   
+            { text: 'M', value: 'M', sortable: false,width: 100 },
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],  
         search: "", 
@@ -293,11 +293,11 @@ export default {
         expanded: [],
         history_headers: [                                    
             { text: 'NILAI HURUF', value: 'n_kual',sortable: true,width:80, },                               
-            { text: 'NILAI AKHIR', value: 'n_kuan',sortable: false,width:100, },                   
-            { text: 'NILAI MUTU', value: 'n_mutu',sortable: true,width:100, },                   
-            { text: 'TA.SMT', value: 'tasmt',sortable: false,width:100, },                   
-            { text: 'TA.MATKUL', value: 'ta_matkul',sortable: false,width:100, },                               
-            { text: 'DI INPUT OLEH', value: 'username',sortable: false,width:100, },                               
+            { text: 'NILAI AKHIR', value: 'n_kuan',sortable: false,width: 100, },                   
+            { text: 'NILAI MUTU', value: 'n_mutu',sortable: true,width: 100, },                   
+            { text: 'TA.SMT', value: 'tasmt',sortable: false,width: 100, },                   
+            { text: 'TA.MATKUL', value: 'ta_matkul',sortable: false,width: 100, },                               
+            { text: 'DI INPUT OLEH', value: 'username',sortable: false,width: 100, },                               
         ],  
 
         dialoghistory: false,
@@ -315,11 +315,11 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,           
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                              
                 this.data_mhs=data.mahasiswa;
@@ -330,9 +330,9 @@ export default {
                 this.ipk=data.ipk;
 
                 this.datatable=data.nilai_matakuliah;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;                        
         },
@@ -341,11 +341,11 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history',                
                 {
-                    user_id:this.data_mhs.user_id,
+                    user_id: this.data_mhs.user_id,
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
@@ -375,13 +375,13 @@ export default {
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -393,13 +393,13 @@ export default {
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;

@@ -292,22 +292,22 @@ import ModuleHeader from "@/components/ModuleHeader";
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
 export default {
     name: 'UsersKeuangan',  
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'USER SISTEM',
+                text: 'USER SISTEM',
                 disabled: false,
-                href:'/system-users'
+                href: '/system-users'
             },
             {
-                text:'USERS KEUANGAN',
-                disabled:true,
-                href:'#'
+                text: 'USERS KEUANGAN',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -324,7 +324,7 @@ export default {
             { text: 'NAME', value: 'name',sortable: true },
             { text: 'EMAIL', value: 'email',sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },     
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         expanded: [],
         search: "",
@@ -344,7 +344,7 @@ export default {
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp:'',           
+            nomor_hp: '',           
             prodi_id: [],   
             role_id:['keuangan'],         
             created_at: '',           
@@ -406,15 +406,15 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/userskeuangan',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             
         },
@@ -437,11 +437,11 @@ export default {
                     this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
-                            role_name:'keuangan',                    
+                            role_name: 'keuangan',                    
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {                   
@@ -456,7 +456,7 @@ export default {
         {
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {      
                 let roles = data.roles;
@@ -466,7 +466,7 @@ export default {
                     {                        
                         daftar_roles.push({
                             text:element.name,
-                            disabled:true,
+                            disabled: true,
                         });                        
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
@@ -490,7 +490,7 @@ export default {
             await this.$ajax.get('/system/users/' + item.id + '/prodi',               
                 {
                     headers: {
-                        Authorization:this.TOKEN
+                        Authorization: this.TOKEN
                     }
                 }
             ).then(({ data }) => {                                   
@@ -504,7 +504,7 @@ export default {
 
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {      
                 let roles = data.roles;
@@ -514,7 +514,7 @@ export default {
                     {                        
                         daftar_roles.push({
                             text:element.name,
-                            disabled:true,
+                            disabled: true,
                         });                        
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
@@ -532,7 +532,7 @@ export default {
             await this.$ajax.get('/system/users/' + item.id + '/roles',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
                 this.editedItem.role_id=data.roles;                   
@@ -567,18 +567,18 @@ export default {
                 {
                     this.$ajax.post('/system/userskeuangan/'+this.editedItem.id,
                         {
-                            '_method':'PUT',
-                            name:this.editedItem.name,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password,   
+                            '_method': 'PUT',
+                            name: this.editedItem.name,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password,   
                             prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),  
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),                          
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -591,17 +591,17 @@ export default {
                 } else {
                     this.$ajax.post('/system/userskeuangan/store',
                         {
-                            name:this.editedItem.name,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password,            
+                            name: this.editedItem.name,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password,            
                             prodi_id:JSON.stringify(Object.assign({},this.editedItem.prodi_id)),       
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),                      
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -624,7 +624,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -643,8 +643,8 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH USER KEUANGAN' : 'EDIT USER KEUANGAN'
         },
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
 

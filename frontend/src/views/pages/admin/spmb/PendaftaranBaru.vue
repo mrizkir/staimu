@@ -349,24 +349,24 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];      
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'SPMB',
+                text: 'SPMB',
                 disabled: false,
-                href:'/spmb'
+                href: '/spmb'
             },
             {
-                text:'PENDAFTAR BARU',
-                disabled:true,
-                href:'#'
+                text: 'PENDAFTAR BARU',
+                disabled: true,
+                href: "#"
             }
         ];   
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
 
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
@@ -393,8 +393,8 @@ export default {
             { text: 'USERNAME', value: 'username',sortable: true },
             { text: 'EMAIL', value: 'email',sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable: false,width:130 },        
-            { text: 'TGL.DAFTAR', value: 'created_at',sortable: true,width:100 },     
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'TGL.DAFTAR', value: 'created_at',sortable: true,width: 100 },     
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         expanded: [],
         search: "",
@@ -408,28 +408,28 @@ export default {
         form_valid: true,  
         registered: false,   
         daftar_fakultas: [],
-        kode_fakultas:'',
+        kode_fakultas: '',
         daftar_prodi: [],   
         daftar_ta: [],         
         formdata: {
             name: '',
-            email:'',            
-            nomor_hp:'',
-            username:'',
-            password:'',   
-            prodi_id:'', 
-            ta:'',   
+            email: '',            
+            nomor_hp: '',
+            username: '',
+            password: '',   
+            prodi_id: '', 
+            ta: '',   
             created_at: '',           
             updated_at: '',     
         },     
         formdefault: {
             name: '',
-            email:'',            
-            nomor_hp:'',
-            username:'',
-            password:'',
-            prodi_id:'',
-            ta:'',
+            email: '',            
+            nomor_hp: '',
+            username: '',
+            password: '',
+            prodi_id: '',
+            ta: '',
             created_at: '',           
             updated_at: '',              
         },    
@@ -471,30 +471,30 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.post('/spmb/pmb',
             {
-                TA:this.tahun_pendaftaran,
-                prodi_id:this.prodi_id,
+                TA: this.tahun_pendaftaran,
+                prodi_id: this.prodi_id,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.pmb;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             this.firstloading=false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         badgeColor(item)
         {
-            return item.active == 1 ? 'success':'error'
+            return item.active == 1 ? 'success': 'error'
         },
         badgeIcon(item)
         {
-            return item.active == 1 ? 'mdi-check-bold':'mdi-close-thick'
+            return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
         },      
         dataTableRowClicked(item)
         {
@@ -512,12 +512,12 @@ export default {
             this.btnLoading = true;
             this.$ajax.post('/akademik/kemahasiswaan/updatestatus/'+id,
                 {
-                    '_method':'PUT',
+                    '_method': 'PUT',
                     'active':1
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {   
@@ -532,13 +532,13 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
-                    role_name:'mahasiswabaru',
-                    TA:this.tahun_pendaftaran,                    
-                    prodi_id:this.prodi_id                     
+                    role_name: 'mahasiswabaru',
+                    TA: this.tahun_pendaftaran,                    
+                    prodi_id: this.prodi_id                     
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {                   
@@ -575,18 +575,18 @@ export default {
                 {
                     await this.$ajax.post('/spmb/pmb/updatependaftar/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            name:this.formdata.name,
-                            email:this.formdata.email,                    
-                            nomor_hp:this.formdata.nomor_hp,
-                            prodi_id:this.formdata.prodi_id,
-                            tahun_pendaftaran:this.formdata.ta,
-                            username:this.formdata.username,                                                                  
-                            password:this.formdata.password,                     
+                            '_method': 'PUT',
+                            name: this.formdata.name,
+                            email: this.formdata.email,                    
+                            nomor_hp: this.formdata.nomor_hp,
+                            prodi_id: this.formdata.prodi_id,
+                            tahun_pendaftaran: this.formdata.ta,
+                            username: this.formdata.username,                                                                  
+                            password: this.formdata.password,                     
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -600,17 +600,17 @@ export default {
                 } else {
                     await this.$ajax.post('/spmb/pmb/storependaftar',
                         {
-                            name:this.formdata.name,
-                            email:this.formdata.email,                    
-                            nomor_hp:this.formdata.nomor_hp,
-                            username:this.formdata.username,                                      
-                            prodi_id:this.formdata.prodi_id,                            
-                            tahun_pendaftaran:this.formdata.ta,
-                            password:this.formdata.password,                            
+                            name: this.formdata.name,
+                            email: this.formdata.email,                    
+                            nomor_hp: this.formdata.nomor_hp,
+                            username: this.formdata.username,                                      
+                            prodi_id: this.formdata.prodi_id,                            
+                            tahun_pendaftaran: this.formdata.ta,
+                            password: this.formdata.password,                            
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {                           
@@ -632,7 +632,7 @@ export default {
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {                                           
@@ -669,7 +669,7 @@ export default {
             await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(({ data }) => {           
@@ -692,7 +692,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -750,27 +750,27 @@ export default {
                 this.initialize();
             }            
         },
-        search ()
+        search()
         {
             if (!this.awaiting_search) 
             {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading=true;            
+                        this.datatableLoading = true;            
                         await this.$ajax.post('/spmb/pmb',
                         {
-                            prodi_id:this.prodi_id,
-                            TA:this.tahun_pendaftaran,
-                            search:this.search
+                            prodi_id: this.prodi_id,
+                            TA: this.tahun_pendaftaran,
+                            search: this.search
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }).then(({ data }) => {               
                             this.datatable = data.pmb;                
-                            this.datatableLoading=false;
+                            this.datatableLoading = false;
                         });                     
                     }
                     this.awaiting_search = false;

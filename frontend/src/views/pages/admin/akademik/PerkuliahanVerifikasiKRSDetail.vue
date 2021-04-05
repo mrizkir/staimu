@@ -79,38 +79,38 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import DataKRS from '@/components/DataKRS';
 export default {
     name: 'PerkuliahanKRSDetail',
-    created () {
+    created() {
         this.krs_id=this.$route.params.krsid;        
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'KRS',
+                text: 'KRS',
                 disabled: false,
-                href:'/akademik/perkuliahan/krs/daftar'
+                href: '/akademik/perkuliahan/krs/daftar'
             },
             {
-                text:'DETAIL',
-                disabled:true,
-                href:'#'
+                text: 'DETAIL',
+                disabled: true,
+                href: "#"
             },
         ];
         this.fetchKRS();               
@@ -147,17 +147,17 @@ export default {
             await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,                        
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.krsmatkul;                
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id=this.datakrs.kjur;                    
+                    let prodi_id = this.datakrs.kjur;                    
                     this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);                
-                    this.tahun_akademik=this.datakrs.tahun;                                                      
-                    this.semester_akademik=this.datakrs.idsmt;                        
+                    this.tahun_akademik = this.datakrs.tahun;                                                      
+                    this.semester_akademik = this.datakrs.idsmt;                        
                 }
             })  
         },     

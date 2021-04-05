@@ -63,8 +63,8 @@ export default {
         //form
         form_error: false,
         formlogin: {
-            username:'',
-            password:''
+            username: '',
+            password: ''
         },
         rule_username:[
             value => !!value || "Kolom Username mohon untuk diisi !!!"
@@ -81,8 +81,8 @@ export default {
             {
                 this.btnLoading = true;
                 await this.$ajax.post('/auth/login',{
-                    username:this.formlogin.username,
-                    password:this.formlogin.password
+                    username: this.formlogin.username,
+                    password: this.formlogin.password
                 }).then(({ data }) => {
                     this.$ajax.get('/auth/me',{
                         headers: {

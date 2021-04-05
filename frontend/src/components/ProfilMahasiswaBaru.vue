@@ -199,20 +199,20 @@ export default {
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,             
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 },        
             ).then(({ data }) => {   
                 this.datamhs=Object.assign(data.formulir,{
-                                                            nama_prodi:this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1),
-                                                            nama_kelas:this.$store.getters['uiadmin/getNamaKelas'](data.formulir.idkelas)
+                                                            nama_prodi: this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1),
+                                                            nama_kelas: this.$store.getters['uiadmin/getNamaKelas'](data.formulir.idkelas)
                                                         }); 
             });
 
             await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id,             
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(({ data }) => {    
@@ -221,7 +221,7 @@ export default {
                     if (element.path != null)
                     {
                         this.slides.push({
-                            path:this.$api.url+'/'+element.path,
+                            path: this.$api.url+'/'+element.path,
                             nama_persyaratan:element.nama_persyaratan
                         });
                     }

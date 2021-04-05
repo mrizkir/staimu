@@ -236,7 +236,7 @@
 	export default {
 		name: "TransaksiSPP",
 		created() {
-			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
+			this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
 			this.breadcrumbs = [
 				{
 					text: "HOME",

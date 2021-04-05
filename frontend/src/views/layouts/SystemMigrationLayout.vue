@@ -76,7 +76,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/system-migration'}" link  class="yellow" color="green" v-if="CAN_ACCESS('SYSTEM-MIGRATION_BROWSE')">
+                <v-list-item :to="{path: '/system-migration'}" link  class="yellow" color="green" v-if="CAN_ACCESS('SYSTEM-MIGRATION_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-bank-transfer-in</v-icon>
                     </v-list-item-icon>
@@ -132,11 +132,11 @@ export default {
     name: 'SystemMigrationLayout',    
     props: {
         showrightsidebar: {
-            type:Boolean,
-            default:true
+            type: Boolean,
+            default: true
         },
         temporaryleftsidebar: {
-            type:Boolean,
+            type: Boolean,
             default: false
         },
     }, 
@@ -182,13 +182,13 @@ export default {
 	},
     computed: {
         ...mapGetters('auth',{
-            AUTHENTICATED:'Authenticated',  
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',      
-            DEFAULT_ROLE:'DefaultRole',    
-            ROLE:'Role',
-            CAN_ACCESS:'can',         
-            ATTRIBUTE_USER:'AttributeUser',               
+            AUTHENTICATED: 'Authenticated',  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',      
+            DEFAULT_ROLE: 'DefaultRole',    
+            ROLE: 'Role',
+            CAN_ACCESS: 'can',         
+            ATTRIBUTE_USER: 'AttributeUser',               
         }),
         APP_NAME ()
         {
@@ -226,7 +226,7 @@ export default {
                     this.$router.replace('/login');
                 }
             },
-            immediate:true
+            immediate: true
         },
     }
 }

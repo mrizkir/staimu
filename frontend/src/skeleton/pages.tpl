@@ -212,22 +212,22 @@ import AdminLayout from '@/views/layouts/AdminLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PAGE',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'PAGE_GROUP',
+                text: 'PAGE_GROUP',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PAGE',
-                disabled:true,
-                href:'#'
+                text: 'PAGE',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -239,7 +239,7 @@ export default {
         datatable: [],
         headers: [                        
             { text: 'ID', value: 'id' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -277,16 +277,16 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/path',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.object;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         dataTableRowClicked(item)
@@ -305,7 +305,7 @@ export default {
             this.dialogdetailitem=true;              
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
-            //         Authorization:this.$store.getters['auth/Token']
+            //         Authorization: this.$store.getters["auth/Token"]
             //     }
             // }).then(({ data }) => {               
                                            
@@ -324,12 +324,12 @@ export default {
                 {
                     await this.$ajax.post('/path/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            name:this.formdata.name,                       
+                            '_method': 'PUT',
+                            name: this.formdata.name,                       
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -343,11 +343,11 @@ export default {
                 } else {
                     await this.$ajax.post('/path/store',
                         {
-                            name:this.formdata.name,                            
+                            name: this.formdata.name,                            
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -371,7 +371,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   

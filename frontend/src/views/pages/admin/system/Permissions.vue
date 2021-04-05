@@ -143,19 +143,19 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'USER SISTEM',
+                text: 'USER SISTEM',
                 disabled: false,
-                href:'/system-users'
+                href: '/system-users'
             },
             {
-                text:'PERMISSIONS',
-                disabled:true,
-                href:'#'
+                text: 'PERMISSIONS',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -170,7 +170,7 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },    
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",    
         //form
@@ -200,14 +200,14 @@ export default {
     methods: {
         initialize () 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             this.$ajax.get('/system/setting/permissions',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {                
                 this.daftar_permissions = data.permissions;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             
         },
@@ -245,11 +245,11 @@ export default {
                     this.btnLoading = true;
                     this.$ajax.post('/system/setting/permissions/store',
                         {
-                            name:this.editedItem.name.toLowerCase()
+                            name: this.editedItem.name.toLowerCase()
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -272,7 +272,7 @@ export default {
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                     ).then(() => {   
@@ -291,10 +291,10 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH PERMISSION' : 'EDIT PERMISSION'
         },
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',          
-            CAN_ACCESS:'can',         
-            ATTRIBUTE_USER:'AttributeUser',          
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',          
+            CAN_ACCESS: 'can',         
+            ATTRIBUTE_USER: 'AttributeUser',          
         }),
     },
     watch: {

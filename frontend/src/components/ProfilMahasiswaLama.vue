@@ -130,7 +130,7 @@ export default {
     props: {
         datamhs: {
             type:Object,            
-            required:true
+            required: true
         },
         url: {
             type:String,

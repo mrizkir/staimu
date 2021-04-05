@@ -137,8 +137,8 @@ export default {
 			
 			snackbar_success: false,
 			snackbar_error: false,
-			snackbar_color:'error',
-			page_message:'',
+			snackbar_color: 'error',
+			page_message: '',
 			page_form_error_message: {}
 		}
 	},	

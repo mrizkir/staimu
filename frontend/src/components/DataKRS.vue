@@ -49,11 +49,11 @@
                         <v-card-title>SAH :</v-card-title>
                         <v-card-subtitle>
                             <v-chip                                
-                                :color="datakrs.sah==1?'green':'warning'"
+                                :color="datakrs.sah==1?'green': 'warning'"
                                 text-color="white"
                                 small
                                 >
-                                {{datakrs.sah==1?'YA':'TIDAK'}}                            
+                                {{datakrs.sah==1?'YA': 'TIDAK'}}                            
                             </v-chip>
                         </v-card-subtitle>
                     </v-card>
@@ -113,15 +113,15 @@ export default {
     props: {
         datakrs: {
             type:Object,            
-            required:true
+            required: true
         },
         totalmatkul: {
             type:Number,
-            requreid:true
+            requreid: true
         },
         totalsks: {
             type:Number,
-            requreid:true
+            requreid: true
         },
         url: {
             type:String,

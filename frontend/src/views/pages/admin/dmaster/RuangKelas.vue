@@ -186,22 +186,22 @@ import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TahunAkademik',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'RUANG KELAS',
-                disabled:true,
-                href:'#'
+                text: 'RUANG KELAS',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -214,7 +214,7 @@ export default {
         headers: [
             { text: 'NAMA RUANG', value: 'namaruang' },
             { text: 'KAPASITAS', value: 'kapasitas' },
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -225,13 +225,13 @@ export default {
         //form data        
         form_valid: true,
         formdata: {
-            id:'',
-            namaruang:'',
+            id: '',
+            namaruang: '',
             kapasitas:0,
         },
         formdefault: {
-            id:'',
-            namaruang:'',
+            id: '',
+            namaruang: '',
             kapasitas:0,
         },
         editedIndex: -1,
@@ -248,16 +248,16 @@ export default {
     methods: {
         initialize: async function()
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
                 this.datatable = data.ruangan;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });
         },
         dataTableRowClicked(item)
@@ -288,13 +288,13 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/ruangankelas/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            namaruang:this.formdata.namaruang,
-                            kapasitas:this.formdata.kapasitas,
+                            '_method': 'PUT',
+                            namaruang: this.formdata.namaruang,
+                            kapasitas: this.formdata.kapasitas,
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {
@@ -308,12 +308,12 @@ export default {
                 } else {
                     await this.$ajax.post('/datamaster/ruangankelas/store',
                         {
-                            namaruang:this.formdata.namaruang,
-                            kapasitas:this.formdata.kapasitas,
+                            namaruang: this.formdata.namaruang,
+                            kapasitas: this.formdata.kapasitas,
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {
@@ -337,7 +337,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {
@@ -370,8 +370,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{
-            ACCESS_TOKEN:'AccessToken',
-            TOKEN:'Token',
+            ACCESS_TOKEN: 'AccessToken',
+            TOKEN: 'Token',
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

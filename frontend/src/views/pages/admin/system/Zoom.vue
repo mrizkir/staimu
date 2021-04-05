@@ -301,22 +301,22 @@ import SystemConfigLayout from '@/views/layouts/SystemConfigLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Zoom',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'KONFIGURASI SISTEM',
+                text: 'KONFIGURASI SISTEM',
                 disabled: false,
-                href:'/system-setting'
+                href: '/system-setting'
             },
             {
-                text:'PLUGIN - ZOOM',
-                disabled:true,
-                href:'#'
+                text: 'PLUGIN - ZOOM',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -332,7 +332,7 @@ export default {
             { text: 'API KEY', value: 'api_key' },
             { text: 'STATUS', value: 'status' },
             { text: 'KETERANGAN', value: 'desc' },
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -344,28 +344,28 @@ export default {
         form_valid: true,         
         formdata: {
             id:0,
-            zoom_id:'',                        
-            email:'',                        
-            api_key:'',
-            api_secret:'',
-            im_token:'',
-            jwt_token:'',
-            status:'',
-            desc:'',                        
+            zoom_id: '',                        
+            email: '',                        
+            api_key: '',
+            api_secret: '',
+            im_token: '',
+            jwt_token: '',
+            status: '',
+            desc: '',                        
             created_at: '',           
             updated_at: '',           
 
         },
         formdefault: {
             id:0,
-            zoom_id:'',                        
-            email:'',                        
-            api_key:'',
-            api_secret:'',
-            im_token:'',
-            jwt_token:'',
-            status:'',
-            desc:'',                        
+            zoom_id: '',                        
+            email: '',                        
+            api_key: '',
+            api_secret: '',
+            im_token: '',
+            jwt_token: '',
+            status: '',
+            desc: '',                        
             created_at: '',           
             updated_at: '',         
         },
@@ -389,16 +389,16 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get(process.env.VUE_APP_API_HOST+'/h2h/zoom',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.zoom;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         dataTableRowClicked(item)
@@ -417,7 +417,7 @@ export default {
             this.dialogdetailitem=true;              
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
-            //         Authorization:this.$store.getters['auth/Token']
+            //         Authorization: this.$store.getters["auth/Token"]
             //     }
             // }).then(({ data }) => {               
                                            
@@ -436,15 +436,15 @@ export default {
                 {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            email:this.formdata.email,                            
-                            api_key:this.formdata.api_key, 
-                            api_secret:this.formdata.api_secret,                            
-                            im_token:this.formdata.im_token, 
+                            '_method': 'PUT',
+                            email: this.formdata.email,                            
+                            api_key: this.formdata.api_key, 
+                            api_secret: this.formdata.api_secret,                            
+                            im_token: this.formdata.im_token, 
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -458,14 +458,14 @@ export default {
                 } else {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/store',
                         {
-                            email:this.formdata.email,                            
-                            api_key:this.formdata.api_key, 
-                            api_secret:this.formdata.api_secret,                            
-                            im_token:this.formdata.im_token,                                                       
+                            email: this.formdata.email,                            
+                            api_key: this.formdata.api_key, 
+                            api_secret: this.formdata.api_secret,                            
+                            im_token: this.formdata.im_token,                                                       
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -486,7 +486,7 @@ export default {
                     this.$ajax.get(process.env.VUE_APP_API_HOST+'/h2h/zoom/sync/'+item.id,
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -509,7 +509,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   

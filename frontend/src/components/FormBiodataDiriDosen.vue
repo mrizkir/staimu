@@ -186,7 +186,7 @@ export default {
         btnLoadingFakultas: false,
 
         //form
-        kode_billing:'N.A',
+        kode_billing: 'N.A',
         form_valid: true,
 
         menuTanggalLahir: false,
@@ -204,48 +204,48 @@ export default {
         desa_id:0,
 
         daftar_fakultas: [],
-        kode_fakultas:'',
+        kode_fakultas: '',
 
         daftar_prodi: [],        
         daftar_kelas: [],
         
         formdata: {
-            user_id:'',
-            nidn:'',
-            nipy:'',
-            nama_dosen:'',
-            gelar_depan:'',
-            gelar_belakang:'',
+            user_id: '',
+            nidn: '',
+            nipy: '',
+            nama_dosen: '',
+            gelar_depan: '',
+            gelar_belakang: '',
             
-            tempat_lahir:'', 
-            tanggal_lahir:'', 
+            tempat_lahir: '', 
+            tanggal_lahir: '', 
 
-            address1_desa_id:'', 
-            address1_kelurahan:'', 
-            address1_kecamatan_id:'',
-            address1_kecamatan:'', 
-            address1_kabupaten_id:'', 
-            address1_kabupaten:'', 
-            address1_provinsi_id:'',
-            address1_provinsi:'', 
-            alamat_rumah:'', 
+            address1_desa_id: '', 
+            address1_kelurahan: '', 
+            address1_kecamatan_id: '',
+            address1_kecamatan: '', 
+            address1_kabupaten_id: '', 
+            address1_kabupaten: '', 
+            address1_provinsi_id: '',
+            address1_provinsi: '', 
+            alamat_rumah: '', 
             
-            nik:'',
-            email:'',
-            nomor_hp:'',
-            address2_desa_id:'', 
-            address2_kelurahan:'', 
-            address2_kecamatan_id:'',
-            address2_kecamatan:'', 
-            address2_kabupaten_id:'', 
-            address2_kabupaten:'', 
-            address2_provinsi_id:'', 
-            address2_provinsi:'', 
-            alamat_ktp:'', 
+            nik: '',
+            email: '',
+            nomor_hp: '',
+            address2_desa_id: '', 
+            address2_kelurahan: '', 
+            address2_kecamatan_id: '',
+            address2_kecamatan: '', 
+            address2_kabupaten_id: '', 
+            address2_kabupaten: '', 
+            address2_provinsi_id: '', 
+            address2_provinsi: '', 
+            alamat_ktp: '', 
 
-            is_dw:'',
-            desc:'',
-            active:'',
+            is_dw: '',
+            desc: '',
+            active: '',
         },
         rule_nidn:[                         
             value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',                
@@ -287,7 +287,7 @@ export default {
             await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),             
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 },
                 
@@ -321,33 +321,33 @@ export default {
                 this.btnLoading = true;                
                 await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{                    
                     _method: "put",
-                    nidn:this.formdata.nidn,           
-                    nipy:this.formdata.nipy,           
-                    gelar_depan:this.formdata.gelar_depan,                               
-                    nama_dosen:this.formdata.nama_dosen,           
-                    gelar_belakang:this.formdata.gelar_belakang,           
+                    nidn: this.formdata.nidn,           
+                    nipy: this.formdata.nipy,           
+                    gelar_depan: this.formdata.gelar_depan,                               
+                    nama_dosen: this.formdata.nama_dosen,           
+                    gelar_belakang: this.formdata.gelar_belakang,           
 
-                    tempat_lahir:this.formdata.tempat_lahir,           
-                    tanggal_lahir:this.formdata.tanggal_lahir,           
-                    jk:this.formdata.jk,           
-                    nomor_hp:this.formdata.nomor_hp,           
-                    email:this.formdata.email,    
+                    tempat_lahir: this.formdata.tempat_lahir,           
+                    tanggal_lahir: this.formdata.tanggal_lahir,           
+                    jk: this.formdata.jk,           
+                    nomor_hp: this.formdata.nomor_hp,           
+                    email: this.formdata.email,    
                        
-                    address1_provinsi_id:this.provinsi_id.id,
-                    address1_provinsi:this.provinsi_id.nama,
-                    address1_kabupaten_id:this.kabupaten_id.id,
-                    address1_kabupaten:this.kabupaten_id.nama,
-                    address1_kecamatan_id:this.kecamatan_id.id,
-                    address1_kecamatan:this.kecamatan_id.nama,
-                    address1_desa_id:this.desa_id.id,
-                    address1_kelurahan:this.desa_id.nama,
-                    alamat_rumah:this.formdata.alamat_rumah,    
+                    address1_provinsi_id: this.provinsi_id.id,
+                    address1_provinsi: this.provinsi_id.nama,
+                    address1_kabupaten_id: this.kabupaten_id.id,
+                    address1_kabupaten: this.kabupaten_id.nama,
+                    address1_kecamatan_id: this.kecamatan_id.id,
+                    address1_kecamatan: this.kecamatan_id.nama,
+                    address1_desa_id: this.desa_id.id,
+                    address1_kelurahan: this.desa_id.nama,
+                    alamat_rumah: this.formdata.alamat_rumah,    
 
                     
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
                 ).then(() => {                                   

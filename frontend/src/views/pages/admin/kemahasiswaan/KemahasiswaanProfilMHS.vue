@@ -234,24 +234,24 @@ import ModuleHeader from "@/components/ModuleHeader";
 import ProfilMahasiswa from '@/components/ProfilMahasiswaLama';
 export default {
     name: 'Kemahasiswaan',
-    created ()
+    created()
 	{
         this.user_id=this.$route.params.user_id;
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'KEMAHASISWAAN',
+				text: 'KEMAHASISWAAN',
 				disabled: false,
-				href:'/kemahasiswaan'
+				href: '/kemahasiswaan'
 			},
 			{
-				text:'PROFIL',
-				disabled:true,
-				href:'#'
+				text: 'PROFIL',
+				disabled: true,
+				href: "#"
 			}
         ];				                        
     },
@@ -266,7 +266,7 @@ export default {
         //profil mahasiswa      
         user_id: null,  
         datamhs: {
-            nama_mhs:''
+            nama_mhs: ''
         },
         totalSKS:0, 
         totalM:0, 
@@ -277,12 +277,12 @@ export default {
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width:100,sortable: true },
-            { text: 'TANGGAL', value: 'tanggal',width:100,sortable: true },
-            { text: 'NIM', value: 'nim',width:100,sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },
-            { text: 'T.A/SMT', value: 'idsmt',width:100,sortable: true },
-            { text: 'TOTAL', value: 'total',width:100,sortable: true },
+            { text: 'KODE BILLING', value: 'no_transaksi',width: 100,sortable: true },
+            { text: 'TANGGAL', value: 'tanggal',width: 100,sortable: true },
+            { text: 'NIM', value: 'nim',width: 100,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },
+            { text: 'T.A/SMT', value: 'idsmt',width: 100,sortable: true },
+            { text: 'TOTAL', value: 'total',width: 100,sortable: true },
             { text: 'STATUS', value: 'nama_status',width:50,sortable: true },    
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],        
@@ -299,7 +299,7 @@ export default {
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,           
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                              
                 this.datamhs=data.mahasiswa;
@@ -310,19 +310,19 @@ export default {
                 this.ipk=data.ipk;                
             });
 
-            this.datatableLoading=true;     
+            this.datatableLoading = true;     
             await this.$ajax.post('/keuangan/transaksi',            
             {
-                TA:this.$store.getters['uiadmin/getTahunAkademik'],
-                user_id:this.user_id
+                TA: this.$store.getters['uiadmin/getTahunAkademik'],
+                user_id: this.user_id
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.transaksi;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });                     
         },     
         dataTableRowClicked(item)
@@ -341,7 +341,7 @@ export default {
             await this.$ajax.get('/keuangan/transaksi/'+item.id,  
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                                             
                 this.data_transaksi=item;   

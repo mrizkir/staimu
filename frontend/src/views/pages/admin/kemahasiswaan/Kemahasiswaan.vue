@@ -116,18 +116,18 @@ import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Kemahasiswaan',
-    created ()
+    created()
 	{
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'KEMAHASISWAAN',
-				disabled:true,
-				href:'#'
+				text: 'KEMAHASISWAAN',
+				disabled: true,
+				href: "#"
 			}
         ];				
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                 
@@ -149,9 +149,9 @@ export default {
         
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
 		initialize: async function()
 		{	            
@@ -221,7 +221,7 @@ export default {
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }).then(({ data }) => {                                                       
                         const { jumlah, daftar_mhs } = data;

@@ -341,22 +341,22 @@ import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TahunAkademik',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'TAHUN AKADEMIK',
-                disabled:true,
-                href:'#'
+                text: 'TAHUN AKADEMIK',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -380,7 +380,7 @@ export default {
                 { text: 'AKHIR GENAP', value: 'akhir_genap',width:50 },
                 { text: 'AWAL PENDEK', value: 'awal_pendek',width:50 },
                 { text: 'AKHIR PENDEK', value: 'akhir_pendek',width:50 },
-                { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+                { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
             ],
             search: "",
 
@@ -389,7 +389,7 @@ export default {
             dialogdetailitem: false,
 
             //form data
-            old_tahun:'',
+            old_tahun: '',
             form_valid: true,
             menuSemesterGanjil: false,        
             semester_ganjil:semester_ganjil,
@@ -397,24 +397,24 @@ export default {
             semester_genap:semester_genap,
 
             formdata: {
-                tahun:'',
-                tahun_akademik:'',
-                awal_ganjil:'',
-                akhir_ganjil:'',
-                awal_genap:'',
-                akhir_genap:'',
-                awal_pendek:'',
-                akhir_pendek:'',  
+                tahun: '',
+                tahun_akademik: '',
+                awal_ganjil: '',
+                akhir_ganjil: '',
+                awal_genap: '',
+                akhir_genap: '',
+                awal_pendek: '',
+                akhir_pendek: '',  
             },
             formdefault: {
-                tahun:'',
-                tahun_akademik:'',
-                awal_ganjil:'',
-                akhir_ganjil:'',
-                awal_genap:'',
-                akhir_genap:'',
-                awal_pendek:'',
-                akhir_pendek:'',  
+                tahun: '',
+                tahun_akademik: '',
+                awal_ganjil: '',
+                akhir_ganjil: '',
+                awal_genap: '',
+                akhir_genap: '',
+                awal_pendek: '',
+                akhir_pendek: '',  
             },
             editedIndex: -1,
 
@@ -440,16 +440,16 @@ export default {
     methods: {
         initialize: async function()
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/datamaster/tahunakademik',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
                 this.datatable = data.ta;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });
         },
         dataTableRowClicked(item)
@@ -485,17 +485,17 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/tahunakademik/'+this.old_tahun,
                         {
-                            '_method':'PUT',
-                            tahun:this.formdata.tahun,
-                            tahun_akademik:this.formdata.tahun_akademik,
-                            awal_ganjil:this.semester_ganjil[0],
-                            akhir_ganjil:this.semester_ganjil[1],
-                            awal_genap:this.semester_genap[0],
-                            akhir_genap:this.semester_genap[1],
+                            '_method': 'PUT',
+                            tahun: this.formdata.tahun,
+                            tahun_akademik: this.formdata.tahun_akademik,
+                            awal_ganjil: this.semester_ganjil[0],
+                            akhir_ganjil: this.semester_ganjil[1],
+                            awal_genap: this.semester_genap[0],
+                            akhir_genap: this.semester_genap[1],
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {
@@ -508,16 +508,16 @@ export default {
                 } else {
                     await this.$ajax.post('/datamaster/tahunakademik/store',
                         {
-                            tahun:this.formdata.tahun,
-                            tahun_akademik:this.formdata.tahun_akademik,
-                            awal_ganjil:this.semester_ganjil[0],
-                            akhir_ganjil:this.semester_ganjil[1],
-                            awal_genap:this.semester_genap[0],
-                            akhir_genap:this.semester_genap[1],
+                            tahun: this.formdata.tahun,
+                            tahun_akademik: this.formdata.tahun_akademik,
+                            awal_ganjil: this.semester_ganjil[0],
+                            akhir_ganjil: this.semester_ganjil[1],
+                            awal_genap: this.semester_genap[0],
+                            akhir_genap: this.semester_genap[1],
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {
@@ -541,7 +541,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {
@@ -563,8 +563,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{
-            ACCESS_TOKEN:'AccessToken',
-            TOKEN:'Token',
+            ACCESS_TOKEN: 'AccessToken',
+            TOKEN: 'Token',
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

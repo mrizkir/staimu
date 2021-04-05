@@ -10,18 +10,18 @@
 <script>
 export default {
     name: 'JawabanSoal',
-    created ()
+    created()
     {
              
     },
     props: {
         index: {
             type:Number,
-            required:true
+            required: true
         },
         item: {
             type:Object,
-            required:true
+            required: true
         }
     },
     data: () => ({     
@@ -32,13 +32,13 @@ export default {
         {
             await this.$ajax.post('/spmb/ujianonline/store',
             {
-                user_id:this.$store.getters['auth/AttributeUser']('id'),
-                soal_id:this.item.soal_id,
-                jawaban_id:this.item.id
+                user_id: this.$store.getters['auth/AttributeUser']('id'),
+                soal_id: this.item.soal_id,
+                jawaban_id: this.item.id
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token'],                                          
+                    Authorization: this.$store.getters["auth/Token"],                                          
                 }
             }
             ).then(() => {                                                   

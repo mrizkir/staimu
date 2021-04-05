@@ -204,7 +204,7 @@
 			name: "TransaksiRegistrasiKRS",
 			created()
 			{
-				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
+				this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
 				this.breadcrumbs = [
 						{
 							text: "HOME",
@@ -218,7 +218,7 @@
 						},
 						{
 							text: "TRANSAKSI REGISTRASI KRS",
-							disabled:true,
+							disabled: true,
 							href: "#"
 						}
 				];        
@@ -226,7 +226,7 @@
 				this.prodi_id = prodi_id;
 				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];             
-				this.semester_akademik=this.$store.getters["uiadmin/getSemesterAkademik"];           
+				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];           
 			},
 			mounted() {
 					this.initialize()
@@ -248,14 +248,14 @@
 					datatableLoading: false,       
 					datatable: [], 
 					headers: [                                                
-							{ text: "KODE BILLING", value: "no_transaksi",width:100,sortable: true },
+							{ text: "KODE BILLING", value: "no_transaksi",width: 100,sortable: true },
 							{ text: "TANGGAL", value: "tanggal",width:90,sortable: true },
-							{ text: "NIM", value: "nim",sortable: true,width:100 },
-							{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable: true, width:250 },    
-							{ text: "SMT", value: "idsmt",width:100,sortable: false },
-							{ text: "JUMLAH", value: "sub_total",width:100,sortable: false,align: "right" },
-							{ text: "STATUS", value: "nama_status",width:100,sortable: false },    
-							{ text: "AKSI", value: "actions", sortable: false,width:100 },
+							{ text: "NIM", value: "nim",sortable: true,width: 100 },
+							{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable: true, width: 250 },    
+							{ text: "SMT", value: "idsmt",width: 100,sortable: false },
+							{ text: "JUMLAH", value: "sub_total",width: 100,sortable: false,align: "right" },
+							{ text: "STATUS", value: "nama_status",width: 100,sortable: false },    
+							{ text: "AKSI", value: "actions", sortable: false,width: 100 },
 					],        
 					expanded: [],
 					search: "", 
@@ -283,13 +283,13 @@
 					],         
 			}),
 			methods: {
-					changeTahunAkademik (tahun)
+					changeTahunAkademik(tahun)
 					{
-							this.tahun_akademik=tahun;
+							this.tahun_akademik = tahun;
 					},
-					changeSemesterAkademik (semester)
+					changeSemesterAkademik(semester)
 					{
-							this.semester_akademik=semester;
+							this.semester_akademik = semester; 
 					},
 					changeProdi(id)
 					{
@@ -297,7 +297,7 @@
 					},
 					initialize: async function () 
 					{
-							this.datatableLoading=true;            
+							this.datatableLoading = true;            
 							await this.$ajax.post("/keuangan/transaksi-registrasikrs",            
 							{
 								TA: this.tahun_akademik,
@@ -310,7 +310,7 @@
 									}
 							}).then(({ data }) => {               
 									this.datatable = data.transaksi;                
-									this.datatableLoading=false;
+									this.datatableLoading = false;
 							});                     
 							this.firstloading=false;
 							this.$refs.filter6.setFirstTimeLoading(this.firstloading);       
@@ -329,7 +329,7 @@
 					async addItem()
 					{
 							this.daftar_semester=this.$store.getters["uiadmin/getDaftarSemester"];  
-							this.formdata.semester_akademik=this.semester_akademik;
+							this.formdata.semester_akademik = this.semester_akademik;
 							if (this.dashboard =="mahasiswa")
 							{
 									this.formdata.nim=this.$store.getters["auth/AttributeUser"]("username");
@@ -487,14 +487,14 @@
 									this.initialize();
 							}            
 					},
-					search ()
+					search()
 					{
 							if (!this.awaiting_search) 
 							{
 									setTimeout(async () => {
 											if (this.search.length > 0 && this.filter_ignore)
 											{
-													this.datatableLoading=true;            
+													this.datatableLoading = true;            
 													await this.$ajax.post("/keuangan/transaksi-registrasikrs",            
 													{
 															TA: this.tahun_akademik,
@@ -508,7 +508,7 @@
 															}
 													}).then(({ data }) => {               
 															this.datatable = data.transaksi;                
-															this.datatableLoading=false;
+															this.datatableLoading = false;
 													});                     
 											}
 											this.awaiting_search = false;

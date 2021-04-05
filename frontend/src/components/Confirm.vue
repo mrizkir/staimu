@@ -75,8 +75,8 @@ export default {
             width: 290,
             zIndex: 200,
             desc: null,
-            type:'error',
-            action:'yescancel'
+            type: 'error',
+            action: 'yescancel'
         }
 
     }),

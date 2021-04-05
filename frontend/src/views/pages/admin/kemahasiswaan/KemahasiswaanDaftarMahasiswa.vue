@@ -138,25 +138,25 @@ import Filter7 from "@/components/sidebar/FilterMode7";
 
 export default {
     name: 'KemahasiswaanDaftarMahasiswa',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },    
             {
-                text:'KEMAHASISWAAN',
+                text: 'KEMAHASISWAAN',
                 disabled: false,
-                href:'/kemahasiswaan'
+                href: '/kemahasiswaan'
             },
             {
-                text:'DAFTAR MAHASISWA',
-                disabled:true,
-                href:'#'
+                text: 'DAFTAR MAHASISWA',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -196,21 +196,21 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs',
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_pendaftaran
+                prodi_id: this.prodi_id,
+                ta: this.tahun_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
@@ -231,15 +231,15 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs/printtoexcel',
                 {
-                    TA:this.tahun_pendaftaran,                                                                
-                    prodi_id:this.prodi_id,    
-                    nama_prodi:this.nama_prodi,                 
+                    TA: this.tahun_pendaftaran,                                                                
+                    prodi_id: this.prodi_id,    
+                    nama_prodi: this.nama_prodi,                 
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
-                    responseType:'arraybuffer'
+                    responseType: 'arraybuffer'
                 }
             ).then(({ data }) => {              
                 const url = window.URL.createObjectURL(new Blob([data]));
@@ -260,13 +260,13 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
-                    role_name:'mahasiswa',
-                    TA:this.tahun_pendaftaran,                    
-                    prodi_id:this.prodi_id                     
+                    role_name: 'mahasiswa',
+                    TA: this.tahun_pendaftaran,                    
+                    prodi_id: this.prodi_id                     
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {                   
@@ -284,7 +284,7 @@ export default {
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {                   
@@ -310,27 +310,27 @@ export default {
                 this.initialize();
             }            
         },
-        search ()
+        search()
         {
             if (!this.awaiting_search) 
             {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading=true;            
+                        this.datatableLoading = true;            
                         await this.$ajax.post('/kemahasiswaan/daftarmhs',            
                         {
-                            prodi_id:this.prodi_id,
-                            ta:this.tahun_pendaftaran,
-                            search:this.search
+                            prodi_id: this.prodi_id,
+                            ta: this.tahun_pendaftaran,
+                            search: this.search
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }).then(({ data }) => {               
                             this.datatable = data.mahasiswa;                
-                            this.datatableLoading=false;
+                            this.datatableLoading = false;
                         });                     
                     }
                     this.awaiting_search = false;

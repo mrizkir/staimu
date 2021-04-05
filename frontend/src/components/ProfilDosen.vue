@@ -130,7 +130,7 @@ export default {
     props: {
         datadosen: {
             type:Object,            
-            required:true
+            required: true
         },
         url: {
             type:String,
@@ -154,7 +154,7 @@ export default {
     computed: {
         active()
         {
-            return this.datadosen.active==1?'AKTIF':'TIDAK AKTIF';
+            return this.datadosen.active==1?'AKTIF': 'TIDAK AKTIF';
         },
         tempat_tanggal_lahir()
         {

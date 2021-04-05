@@ -254,24 +254,24 @@
 					this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
 					this.breadcrumbs = [
 							{
-									text:'HOME',
+									text: 'HOME',
 									disabled: false,
-									href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+									href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 							},
 							{
-									text:'SPMB',
+									text: 'SPMB',
 									disabled: false,
-									href:'/spmb'
+									href: '/spmb'
 							},
 							{
-									text:'NILAI UJIAN',
-									disabled:true,
-									href:'#'
+									text: 'NILAI UJIAN',
+									disabled: true,
+									href: "#"
 							}
 					];
 					this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
 					
-					let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+					let prodi_id = this.$store.getters['uiadmin/getProdiID'];
 					this.prodi_id = prodi_id;
 					this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
 					this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -297,11 +297,11 @@
 							{ text: '', value: 'foto', width:70 },
 							{ text: 'NO. FORMULIR', value: 'no_formulir',width:135,sortable: true },
 							{ text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
-							{ text: 'NOMOR HP', value: 'nomor_hp',width:100},
-							{ text: 'KELAS', value: 'nkelas',width:100,sortable: true },
-							{ text: 'NILAI', value: 'nilai',width:100,sortable: true },
-							{ text: 'STATUS', value: 'status',width:100,sortable: true },
-							{ text: 'AKSI', value: 'actions', sortable: false,width:100 },
+							{ text: 'NOMOR HP', value: 'nomor_hp',width: 100},
+							{ text: 'KELAS', value: 'nkelas',width: 100,sortable: true },
+							{ text: 'NILAI', value: 'nilai',width: 100,sortable: true },
+							{ text: 'STATUS', value: 'status',width: 100,sortable: true },
+							{ text: 'AKSI', value: 'actions', sortable: false,width: 100 },
 					],
 					search: "",
 					
@@ -316,16 +316,16 @@
 
 					daftar_status:[
 							{
-									value:'0',
-									text:'TIDAK LULUS',
+									value: '0',
+									text: 'TIDAK LULUS',
 							},
 							{
-									value:'1',
-									text:'LULUS',
+									value: '1',
+									text: 'LULUS',
 							},
 					],
 					formdata: {            
-							user_id:'',
+							user_id: '',
 							jadwal_ujian_id: null,
 							jumlah_soal: null,
 							jawaban_benar: null,
@@ -334,14 +334,14 @@
 							passing_grade_1: null,
 							passing_grade_2: null,
 							nilai:0,
-							ket_lulus:'',
+							ket_lulus: '',
 							kjur: null,
-							desc:'',
-							created_at:'',
-							updated_at:'',
+							desc: '',
+							created_at: '',
+							updated_at: '',
 					},
 					formdefault: {            
-							user_id:'',
+							user_id: '',
 							jadwal_ujian_id: null,
 							jumlah_soal: null,
 							jawaban_benar: null,
@@ -350,11 +350,11 @@
 							passing_grade_1: null,
 							passing_grade_2: null,
 							nilai:0,
-							ket_lulus:'',
+							ket_lulus: '',
 							kjur: null,
-							desc:'',
-							created_at:'',
-							updated_at:'',
+							desc: '',
+							created_at: '',
+							updated_at: '',
 					},
 					editedItem:-1,
 
@@ -382,19 +382,19 @@
 
 									break;
 									default :
-											this.datatableLoading=true;            
+											this.datatableLoading = true;            
 											await this.$ajax.post('/spmb/nilaiujian',
 											{
-													TA:this.tahun_pendaftaran,
-													prodi_id:this.prodi_id,
+													TA: this.tahun_pendaftaran,
+													prodi_id: this.prodi_id,
 											},
 											{
 													headers: {
-															Authorization:this.$store.getters['auth/Token']
+															Authorization: this.$store.getters["auth/Token"]
 													}
 											}).then(({ data }) => {               
 													this.datatable = data.pmb;                
-													this.datatableLoading=false;
+													this.datatableLoading = false;
 											});         
 											this.firstloading=false;
 											this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
@@ -414,11 +414,11 @@
 					},
 					badgeColor(item)
 					{
-							return item.active == 1 ? 'success':'error'
+							return item.active == 1 ? 'success': 'error'
 					},
 					badgeIcon(item)
 					{
-							return item.active == 1 ? 'mdi-check-bold':'mdi-close-thick'
+							return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
 					}, 
 					viewItem(item)
 					{
@@ -429,7 +429,7 @@
 							await this.$ajax.get('/spmb/nilaiujian/'+item.id,
 							{
 									headers: {
-											Authorization:this.$store.getters['auth/Token']
+											Authorization: this.$store.getters["auth/Token"]
 									}
 							}).then(({ data }) => {   
 									if (data.transaksi_status == 1)
@@ -452,7 +452,7 @@
 									}       
 									else
 									{
-											this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning',width:400,action:'ok' });
+											this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning',width:400,action: 'ok' });
 									}         
 							});              
 					},
@@ -465,15 +465,15 @@
 											this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,
 											{
 													_method: "put",
-													no_transaksi:this.data_mhs.no_transaksi,
-													nilai:this.formdata.nilai,
-													kjur:this.formdata.kjur,
-													ket_lulus:this.formdata.ket_lulus,
-													desc:this.formdata.desc,
+													no_transaksi: this.data_mhs.no_transaksi,
+													nilai: this.formdata.nilai,
+													kjur: this.formdata.kjur,
+													ket_lulus: this.formdata.ket_lulus,
+													desc: this.formdata.desc,
 											},
 											{
 													headers: {
-															Authorization:this.$store.getters['auth/Token'],
+															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
 											).then(() => {               
@@ -488,16 +488,16 @@
 									{
 											this.$ajax.post('/spmb/nilaiujian/store',
 											{
-													no_transaksi:this.data_mhs.no_transaksi,
-													user_id:this.data_mhs.id,
-													nilai:this.formdata.nilai,
-													kjur:this.formdata.kjur,
-													ket_lulus:this.formdata.ket_lulus,
-													desc:this.formdata.desc,
+													no_transaksi: this.data_mhs.no_transaksi,
+													user_id: this.data_mhs.id,
+													nilai: this.formdata.nilai,
+													kjur: this.formdata.kjur,
+													ket_lulus: this.formdata.ket_lulus,
+													desc: this.formdata.desc,
 											},
 											{
 													headers: {
-															Authorization:this.$store.getters['auth/Token'],
+															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
 											).then(() => {               
@@ -522,7 +522,7 @@
 											},
 											{
 													headers: {
-															Authorization:this.$store.getters['auth/Token'],
+															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
 											).then(() => {               

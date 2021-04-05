@@ -344,40 +344,40 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'NilaiKonversiDetail',
-    created () {
+    created() {
         this.nilai_konversi_id=this.$route.params.nilai_konversi_id;        
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'NILAI',
+                text: 'NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },    
             {
-                text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
+                text: 'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled: false,
-                href:'/akademik/nilai/konversi'
+                href: '/akademik/nilai/konversi'
             },
             {
-                text:'DETAIL',
-                disabled:true,
-                href:'#'
+                text: 'DETAIL',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -394,8 +394,8 @@ export default {
         datatableLoading: false,        
         datatable: [],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable: false, width:100  },       
-            { text: 'NAMA', value: 'nmatkul', sortable: false, width:250  },       
+            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },       
+            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },       
             { text: 'SKS', value: 'sks',sortable: false, width:70 },                   
             { text: 'SMT', value: 'semester',sortable: true,width:70, },                   
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable: false,width:120 },                   
@@ -411,21 +411,21 @@ export default {
         daftar_jenjang: [],                        
         data_konversi: {
             'id': null,
-            'user_id':'',
-            'nim':'',
-            'nama_mhs':'',
-            'alamat':'', 
-            'no_telp':'',         
-            'nim_asal':'', 
-            'kode_jenjang':'', 
-            'kode_pt_asal':'',
-            'nama_pt_asal':'',
-            'kode_ps_asal':'',
-            'nama_ps_asal':'',
-            'tahun':'',
+            'user_id': '',
+            'nim': '',
+            'nama_mhs': '',
+            'alamat': '', 
+            'no_telp': '',         
+            'nim_asal': '', 
+            'kode_jenjang': '', 
+            'kode_pt_asal': '',
+            'nama_pt_asal': '',
+            'kode_ps_asal': '',
+            'nama_ps_asal': '',
+            'tahun': '',
             
-            'kjur':'',
-            'perpanjangan':'',   
+            'kjur': '',
+            'perpanjangan': '',   
         },
         
         //profil mahasiswa        
@@ -437,18 +437,18 @@ export default {
     methods: {        
         initialize: async function() 
         {      
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/akademik/nilai/konversi/'+this.nilai_konversi_id,            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.nilai_konversi;
                 this.data_konversi = data.data_konversi;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });         
             await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
@@ -476,23 +476,23 @@ export default {
                 await this.$ajax.post('/akademik/nilai/konversi/'+this.nilai_konversi_id,
                     {
                         _method: "put",
-                        nim_asal:this.data_konversi.nim_asal,                            
-                        nama_mhs:this.data_konversi.nama_mhs,                            
-                        alamat:this.data_konversi.alamat,   
-                        no_telp:this.data_konversi.no_telp,                                                        
-                        email:this.data_konversi.email,                                                        
-                        kode_jenjang:this.data_konversi.kode_jenjang,                                                        
-                        kode_pt_asal:this.data_konversi.kode_pt_asal,                                                                                                             
-                        nama_pt_asal:this.data_konversi.nama_pt_asal,                                                                                                             
-                        kode_ps_asal:this.data_konversi.kode_ps_asal,                                                                                                             
-                        nama_ps_asal:this.data_konversi.nama_ps_asal,                                                                                                             
-                        tahun:this.tahun_pendaftaran,                                                                                                             
-                        kjur:this.prodi_id,  
+                        nim_asal: this.data_konversi.nim_asal,                            
+                        nama_mhs: this.data_konversi.nama_mhs,                            
+                        alamat: this.data_konversi.alamat,   
+                        no_telp: this.data_konversi.no_telp,                                                        
+                        email: this.data_konversi.email,                                                        
+                        kode_jenjang: this.data_konversi.kode_jenjang,                                                        
+                        kode_pt_asal: this.data_konversi.kode_pt_asal,                                                                                                             
+                        nama_pt_asal: this.data_konversi.nama_pt_asal,                                                                                                             
+                        kode_ps_asal: this.data_konversi.kode_ps_asal,                                                                                                             
+                        nama_ps_asal: this.data_konversi.nama_ps_asal,                                                                                                             
+                        tahun: this.tahun_pendaftaran,                                                                                                             
+                        kjur: this.prodi_id,  
                         daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {   
@@ -529,13 +529,13 @@ export default {
             await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -553,12 +553,12 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/akademik/nilai/konversi/plugtomhs',                
                 {
-                    nilai_konversi_id:this.nilai_konversi_id,
-                    user_id:this.data_mhs.user_id
+                    nilai_konversi_id: this.nilai_konversi_id,
+                    user_id: this.data_mhs.user_id
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
@@ -576,11 +576,11 @@ export default {
                     this.btnLoading = true;
                     this.$ajax.post('/akademik/nilai/konversi/unplugtomhs',
                         {
-                            nilai_konversi_id:this.nilai_konversi_id,                            
+                            nilai_konversi_id: this.nilai_konversi_id,                            
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -645,7 +645,7 @@ export default {
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }).then(({ data }) => {                                                       
                         const { jumlah, daftar_mhs } = data;

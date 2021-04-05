@@ -65,7 +65,7 @@
 <script>
 export default {
     name: 'FileUploadPersyaratan',
-    created ()
+    created()
     {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         if (this.item.path == null || this.item.persyaratan_pmb_id==null)
@@ -83,23 +83,23 @@ export default {
     props: {
         user_id: {
             type:String,
-            required:true
+            required: true
         },
         index: {
             type:Number,
-            required:true
+            required: true
         },
         item: {
             type:Object,
-            required:true
+            required: true
         }
     },
     data: () => ({     
         dashboard: null,
 
-        btnSimpan:true,  
-        btnHapus:true,  
-        btnVerifikasi:true,       
+        btnSimpan: true,  
+        btnHapus: true,  
+        btnVerifikasi: true,       
         btnLoading: false,
         image_prev: null,
 
@@ -147,7 +147,7 @@ export default {
                     await this.$ajax.post('/spmb/pmbpersyaratan/upload/'+this.user_id,formdata,                    
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token'],
+                                Authorization: this.$store.getters["auth/Token"],
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
@@ -168,11 +168,11 @@ export default {
                 {
                     this.$ajax.post('/spmb/pmbpersyaratan/hapusfilepersyaratan/'+item.persyaratan_pmb_id,
                         {
-                            _method:'DELETE'
+                            _method: 'DELETE'
                         },            
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']                
+                                Authorization: this.$store.getters["auth/Token"]                
                             }
                         }
                     ).then(() => {                   
@@ -210,7 +210,7 @@ export default {
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }
             ).then(({ data }) => {   
@@ -246,7 +246,7 @@ export default {
         badgeColor: {
             get()
             {
-                return this.verified == 1 ? 'success':'error'
+                return this.verified == 1 ? 'success': 'error'
             },
             set(val)
             {
@@ -257,7 +257,7 @@ export default {
         badgeIcon: {
             get()
             {
-                return this.verified == 1 ? 'mdi-check-bold':'mdi-close-thick';
+                return this.verified == 1 ? 'mdi-check-bold': 'mdi-close-thick';
             },
             set(val)
             {

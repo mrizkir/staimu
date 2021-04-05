@@ -245,22 +245,22 @@ import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'UsersSuperAdmin',  
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'USER SISTEM',
+                text: 'USER SISTEM',
                 disabled: false,
-                href:'/system-users'
+                href: '/system-users'
             },
             {
-                text:'USERS SUPER ADMIN',
-                disabled:true,
-                href:'#'
+                text: 'USERS SUPER ADMIN',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -277,7 +277,7 @@ export default {
             { text: 'NAME', value: 'name',sortable: true },
             { text: 'EMAIL', value: 'email',sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },     
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         expanded: [],
         search: "",
@@ -295,7 +295,7 @@ export default {
             password: '',           
             name: '',           
             email: '',           
-            nomor_hp:'',       
+            nomor_hp: '',       
             role_id:['superadmin'],
             created_at: '',           
             updated_at: '',   
@@ -355,15 +355,15 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/users',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             
         },
@@ -382,7 +382,7 @@ export default {
         {
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {      
                 let roles = data.roles;
@@ -392,7 +392,7 @@ export default {
                     {                        
                         daftar_roles.push({
                             text:element.name,
-                            disabled:true,
+                            disabled: true,
                         });                        
                     }
                     else
@@ -415,7 +415,7 @@ export default {
 
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {      
                 let roles = data.roles;
@@ -425,7 +425,7 @@ export default {
                     {                        
                         daftar_roles.push({
                             text:element.name,
-                            disabled:true,
+                            disabled: true,
                         });                        
                     }
                     else
@@ -443,7 +443,7 @@ export default {
             await this.$ajax.get('/system/users/' + item.id + '/roles',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
                 this.editedItem.role_id=data.roles;                   
@@ -470,17 +470,17 @@ export default {
                 {
                     this.$ajax.post('/system/users/'+this.editedItem.id,
                         {
-                            '_method':'PUT',
-                            name:this.editedItem.name,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password,
+                            '_method': 'PUT',
+                            name: this.editedItem.name,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password,
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -493,16 +493,16 @@ export default {
                 } else {
                     this.$ajax.post('/system/users/store',
                         {
-                            name:this.editedItem.name,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password, 
+                            name: this.editedItem.name,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password, 
                             role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -525,7 +525,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -544,8 +544,8 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH USER SUPER ADMIN' : 'EDIT USER SUPER ADMIN'
         },
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
 

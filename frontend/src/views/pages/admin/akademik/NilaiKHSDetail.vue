@@ -50,7 +50,7 @@
                                     <v-card flat>
                                         <v-card-title>SAH :</v-card-title>
                                         <v-card-subtitle>
-                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>
+                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA': 'TIDAK'}}</v-chip>
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -171,37 +171,37 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'NilaiKHSDetail',
-    created () {
+    created() {
         this.krs_id=this.$route.params.krs_id;          
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'NILAI',
+                text: 'NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'KHS',
+                text: 'KHS',
                 disabled: false,
-                href:'/akademik/nilai/khs'
+                href: '/akademik/nilai/khs'
             },
             {
-                text:'DETAIL',
-                disabled:true,
-                href:'#'
+                text: 'DETAIL',
+                disabled: true,
+                href: "#"
             },
         ];
         this.fetchKHS();               
@@ -224,7 +224,7 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:100  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
             { text: 'SKS', value: 'sks', sortable: false,width:50 },                   
             { text: 'HM', value: 'HM', sortable: false,width:50 },                   
@@ -249,17 +249,17 @@ export default {
             await this.$ajax.get('/akademik/nilai/khs/'+this.krs_id,                        
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.daftar_nilai;                
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id=this.datakrs.kjur;                    
+                    let prodi_id = this.datakrs.kjur;                    
                     this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);                
-                    this.tahun_akademik=this.datakrs.tahun;                                                      
-                    this.semester_akademik=this.datakrs.idsmt;
+                    this.tahun_akademik = this.datakrs.tahun;                                                      
+                    this.semester_akademik = this.datakrs.idsmt;
                     
                     this.jumlah_sks=data.jumlah_sks;
                     this.jumlah_matkul=data.jumlah_matkul;
@@ -276,13 +276,13 @@ export default {
             await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;

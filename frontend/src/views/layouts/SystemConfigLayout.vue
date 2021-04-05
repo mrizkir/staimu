@@ -73,7 +73,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/system-setting'}" v-if="CAN_ACCESS('SYSTEM-SETTING-GROUP')" link class="yellow" color="green" >
+                <v-list-item :to="{path: '/system-setting'}" v-if="CAN_ACCESS('SYSTEM-SETTING-GROUP')" link class="yellow" color="green" >
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -190,11 +190,11 @@ export default {
     name: 'SystemConfigLayout',   
     props: {
         showrightsidebar: {
-            type:Boolean,
-            default:true
+            type: Boolean,
+            default: true
         },
         temporaryleftsidebar: {
-            type:Boolean,
+            type: Boolean,
             default: false
         },
     },     
@@ -233,13 +233,13 @@ export default {
 	},
     computed: {
         ...mapGetters('auth',{
-            AUTHENTICATED:'Authenticated',  
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',          
-            DEFAULT_ROLE:'DefaultRole',
-            ROLE:'Role',
-            CAN_ACCESS:'can',         
-            ATTRIBUTE_USER:'AttributeUser',               
+            AUTHENTICATED: 'Authenticated',  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',          
+            DEFAULT_ROLE: 'DefaultRole',
+            ROLE: 'Role',
+            CAN_ACCESS: 'can',         
+            ATTRIBUTE_USER: 'AttributeUser',               
         }),
         APP_NAME ()
         {
@@ -277,7 +277,7 @@ export default {
                     this.$router.replace('/login');
                 }
             },
-            immediate:true
+            immediate: true
         },
     }
 }

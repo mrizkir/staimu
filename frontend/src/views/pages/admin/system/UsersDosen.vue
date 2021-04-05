@@ -223,10 +223,10 @@
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
-                            {{(item.nidn && item.nidn.length > 0) > 0 ? item.nidn:'N.A'}}
+                            {{(item.nidn && item.nidn.length > 0) > 0 ? item.nidn: 'N.A'}}
                         </template>
                         <template v-slot:item.is_dw="{ item }">
-                            {{item.is_dw == false ? 'BUKAN':'YA'}}
+                            {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
                         <template v-slot:item.actions="{ item }">               
                             <v-tooltip bottom v-if="item.default_role=='dosen'">             
@@ -311,22 +311,22 @@ import ModuleHeader from "@/components/ModuleHeader";
 import UserPermissions from '@/views/pages/admin/system/UserPermissions';
 export default {
     name: 'UsersDosen',  
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'USER SISTEM',
+                text: 'USER SISTEM',
                 disabled: false,
-                href:'/system-users'
+                href: '/system-users'
             },
             {
-                text:'USERS DOSEN',
-                disabled:true,
-                href:'#'
+                text: 'USERS DOSEN',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -339,7 +339,7 @@ export default {
         headers: [                        
             { text: '', value: 'foto' },
             { text: 'USERNAME', value: 'username',sortable: true, width:150 },
-            { text: 'NAMA DOSEN', value: 'name',sortable: true, width:250 },
+            { text: 'NAMA DOSEN', value: 'name',sortable: true, width: 250 },
             { text: 'NIDN', value: 'nidn',sortable: true },     
             { text: 'NIPY', value: 'nipy',sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },     
@@ -363,10 +363,10 @@ export default {
             password: '',           
             onlyname: '',      
             name: '',      
-            nidn:'',   
-            nipy:'',         
+            nidn: '',   
+            nipy: '',         
             email: '',           
-            nomor_hp:'',                 
+            nomor_hp: '',                 
             is_dw: false,      
             created_at: '',           
             updated_at: '',   
@@ -377,8 +377,8 @@ export default {
             password: '',           
             onlyname: '',    
             name: '',    
-            nidn:'',
-            nipy:'',       
+            nidn: '',
+            nipy: '',       
             email: '',           
             nomor_hp: '',          
             is_dw: false,    
@@ -435,14 +435,14 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/usersdosen',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.daftar_users = data.users;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             
         },
@@ -490,19 +490,19 @@ export default {
                 {
                     this.$ajax.post('/system/usersdosen/'+this.editedItem.id,
                         {
-                            '_method':'PUT',
-                            name:this.editedItem.onlyname,
-                            nidn:this.editedItem.nidn,
-                            nipy:this.editedItem.nipy,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password,    
-                            is_dw:this.editedItem.is_dw,                                
+                            '_method': 'PUT',
+                            name: this.editedItem.onlyname,
+                            nidn: this.editedItem.nidn,
+                            nipy: this.editedItem.nipy,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password,    
+                            is_dw: this.editedItem.is_dw,                                
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -515,18 +515,18 @@ export default {
                 } else {
                     this.$ajax.post('/system/usersdosen/store',
                         {
-                            name:this.editedItem.onlyname,
-                            nidn:this.editedItem.nidn,
-                            nipy:this.editedItem.nipy,
-                            email:this.editedItem.email,
-                            nomor_hp:this.editedItem.nomor_hp,     
-                            username:this.editedItem.username,
-                            password:this.editedItem.password,                                        
-                            is_dw:this.editedItem.is_dw,                                        
+                            name: this.editedItem.onlyname,
+                            nidn: this.editedItem.nidn,
+                            nipy: this.editedItem.nipy,
+                            email: this.editedItem.email,
+                            nomor_hp: this.editedItem.nomor_hp,     
+                            username: this.editedItem.username,
+                            password: this.editedItem.password,                                        
+                            is_dw: this.editedItem.is_dw,                                        
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -550,11 +550,11 @@ export default {
                     this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
-                            role_name:'dosen',                    
+                            role_name: 'dosen',                    
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {                   
@@ -576,7 +576,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -595,8 +595,8 @@ export default {
             return this.editedIndex === -1 ? 'TAMBAH USER DOSEN' : 'EDIT USER DOSEN'
         },
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
 

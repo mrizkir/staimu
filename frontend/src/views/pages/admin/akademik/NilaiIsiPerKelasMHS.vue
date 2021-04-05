@@ -113,7 +113,7 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter2 from '@/components/sidebar/FilterMode2';
 
@@ -121,31 +121,31 @@ import { mapGetters } from "vuex";
 
 export default {
     name: 'NilaiIsiPerKelasMHS',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'ISI NILAI',
+                text: 'ISI NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PER KELAS MAHASISWA',
-                disabled:true,
-                href:'#'
+                text: 'PER KELAS MAHASISWA',
+                disabled: true,
+                href: "#"
             }
         ];
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
@@ -159,44 +159,44 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:100  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },                   
-            { text: 'HARI', value: 'nama_hari', sortable: true, width:100 },       
-            { text: 'JAM', value: 'jam_masuk',sortable: true, width:100 },                   
-            { text: 'RUANG', value: 'namaruang',sortable: true, width:100},                   
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width:100},                   
+            { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },       
+            { text: 'JAM', value: 'jam_masuk',sortable: true, width: 100 },                   
+            { text: 'RUANG', value: 'namaruang',sortable: true, width: 100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width: 100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search: "", 
 
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
-        changeSemesterAkademik (semester)
+        changeSemesterAkademik(semester)
         {
-            this.semester_akademik=semester;
+            this.semester_akademik = semester; 
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/perkuliahan/pembagiankelas',
             {
-                ta:this.tahun_akademik,
-                semester_akademik:this.semester_akademik,
+                ta: this.tahun_akademik,
+                semester_akademik: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.datatable = data.pembagiankelas;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
@@ -231,7 +231,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            CAN_ACCESS:'can',                     
+            CAN_ACCESS: 'can',                     
         }),
     },
     components: {

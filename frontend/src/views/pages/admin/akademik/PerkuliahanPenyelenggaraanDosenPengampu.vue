@@ -94,7 +94,7 @@
                                 <template v-slot:item.is_ketua="{ item }">                                    
                                     <v-switch
                                         v-model="item.is_ketua"
-                                        :label="item.is_ketua == 1?'YA':'TIDAK'"
+                                        :label="item.is_ketua == 1?'YA': 'TIDAK'"
                                         @change="updateketua(item)">
                                     </v-switch>  
                                 </template>
@@ -122,45 +122,45 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import DataMatakuliahPenyelenggaraan from '@/components/DataMatakuliahPenyelenggaraan';
 export default {
     name: 'PerkuliahanPenyelenggaraanDosenPengampu',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PENYELENGGARAAN MATAKULIAH',
+                text: 'PENYELENGGARAAN MATAKULIAH',
                 disabled: false,
-                href:'/akademik/perkuliahan/penyelenggaraan/daftar'
+                href: '/akademik/perkuliahan/penyelenggaraan/daftar'
             },
             {
-                text:'DOSEN PENGAMPU',
-                disabled:true,
-                href:'#'
+                text: 'DOSEN PENGAMPU',
+                disabled: true,
+                href: "#"
             },
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                        
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                        
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.formdata.idpenyelenggaraan=this.$route.params.idpenyelenggaraan;
         this.initialize();
     }, 
@@ -215,12 +215,12 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',            
             {
-                idpenyelenggaraan:this.formdata.idpenyelenggaraan,
-                pid:'terdaftar'
+                idpenyelenggaraan: this.formdata.idpenyelenggaraan,
+                pid: 'terdaftar'
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.datatable = data.dosen;                
@@ -231,7 +231,7 @@ export default {
             await this.$ajax.get('/akademik/perkuliahan/penyelenggaraanmatakuliah/'+this.formdata.idpenyelenggaraan,            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.data_matkul = data.penyelenggaraan;                
@@ -241,12 +241,12 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',            
             {
-                idpenyelenggaraan:this.formdata.idpenyelenggaraan,
-                pid:'belumterdaftar'
+                idpenyelenggaraan: this.formdata.idpenyelenggaraan,
+                pid: 'belumterdaftar'
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.daftar_dosen = data.dosen;                
@@ -258,13 +258,13 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/storedosenpengampu',
                     {
-                        penyelenggaraan_id:this.formdata.idpenyelenggaraan, 
-                        dosen_id:this.formdata.dosen_id,                                                    
-                        is_ketua:this.formdata.is_ketua,                                                                                                                               
+                        penyelenggaraan_id: this.formdata.idpenyelenggaraan, 
+                        dosen_id: this.formdata.dosen_id,                                                    
+                        is_ketua: this.formdata.is_ketua,                                                                                                                               
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {   
@@ -281,7 +281,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
@@ -291,7 +291,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -314,7 +314,7 @@ export default {
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {   

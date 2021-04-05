@@ -142,28 +142,28 @@ export default {
         form_valid: true,                 
         dialogkonfirmasiemail: false,  
         daftar_fakultas: [],
-        kode_fakultas:'',
+        kode_fakultas: '',
         daftar_prodi: [],
-        prodi_id:'',                  
+        prodi_id: '',                  
         formdata: {
             name: '',
-            email:'',            
-            nomor_hp:'',
-            username:'',
-            password:'',
-            captcha_response:''
+            email: '',            
+            nomor_hp: '',
+            username: '',
+            password: '',
+            captcha_response: ''
         },     
         formdefault: {
             name: '',
-            email:'',            
-            nomor_hp:'',
-            username:'',
-            password:'',
-            captcha_response:''       
+            email: '',            
+            nomor_hp: '',
+            username: '',
+            password: '',
+            captcha_response: ''       
         },    
         formkonfirmasi: {
-            email:'',
-            code:''
+            email: '',
+            code: ''
         },
         rule_name:[
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
@@ -215,13 +215,13 @@ export default {
             {
                 this.btnLoading = true;                
                 await this.$ajax.post('/spmb/pmb/store',{                    
-                    name:this.formdata.name,
-                    email:this.formdata.email,                    
-                    nomor_hp:this.formdata.nomor_hp,
-                    username:this.formdata.username,                                      
-                    prodi_id:this.prodi_id,
-                    password:this.formdata.password,
-                    captcha_response:this.formdata.captcha_response,
+                    name: this.formdata.name,
+                    email: this.formdata.email,                    
+                    nomor_hp: this.formdata.nomor_hp,
+                    username: this.formdata.username,                                      
+                    prodi_id: this.prodi_id,
+                    password: this.formdata.password,
+                    captcha_response: this.formdata.captcha_response,
                 }).then(({ data }) => {
                     this.formkonfirmasi.email=data.email;
                     this.formkonfirmasi.code=data.code;
@@ -243,8 +243,8 @@ export default {
             {
                 this.btnLoading = true;                
                 await this.$ajax.post('/spmb/pmb/konfirmasi',{                                        
-                    email:this.formkonfirmasi.email,                    
-                    code:this.formkonfirmasi.code,
+                    email: this.formkonfirmasi.email,                    
+                    code: this.formkonfirmasi.code,
                 }).then(() => {             
                     this.dialogkonfirmasiemail=false;       
                     this.btnLoading = false;                                                                                           
@@ -253,7 +253,7 @@ export default {
                 });                       
                 this.form_valid=true;                          
                 this.$refs.frmkonfirmasi.reset(); 
-                this.frmkonfirmasi = Object.assign({}, {email:'',code:''});
+                this.frmkonfirmasi = Object.assign({}, {email: '',code: ''});
                 this.$router.replace('/login');
             }                           
         },

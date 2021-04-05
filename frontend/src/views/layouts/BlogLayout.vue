@@ -76,7 +76,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
 						<v-list expand>
-								<v-list-item :to="{path:'/blog'}" v-if="CAN_ACCESS('BLOG-GROUP')" link class="yellow" color="green" >
+								<v-list-item :to="{path: '/blog'}" v-if="CAN_ACCESS('BLOG-GROUP')" link class="yellow" color="green" >
 										<v-list-item-icon class="mr-2">
 												<v-icon>mdi-home-floor-b</v-icon>
 										</v-list-item-icon>
@@ -137,7 +137,7 @@ export default {
 			},
 			showrightsidebar: {
 				type: Boolean,
-				default:true,
+				default: true,
 			},
 			temporaryleftsidebar: {
 				type: Boolean,
@@ -180,13 +180,13 @@ export default {
 	},
 		computed: {
 				...mapGetters('auth', {
-						AUTHENTICATED:'Authenticated',  
-						ACCESS_TOKEN:'AccessToken',          
-						TOKEN:'Token',          
-						DEFAULT_ROLE:'DefaultRole',
-						ROLE:'Role',
-						CAN_ACCESS:'can',         
-						ATTRIBUTE_USER:'AttributeUser',               
+						AUTHENTICATED: 'Authenticated',  
+						ACCESS_TOKEN: 'AccessToken',          
+						TOKEN: 'Token',          
+						DEFAULT_ROLE: 'DefaultRole',
+						ROLE: 'Role',
+						CAN_ACCESS: 'can',         
+						ATTRIBUTE_USER: 'AttributeUser',               
 				}),
 				APP_NAME () {
 						return process.env.VUE_APP_NAME;
@@ -222,7 +222,7 @@ export default {
 										this.$router.replace('/login');
 								}
 						},
-						immediate:true
+						immediate: true
 				},
 		}
 }

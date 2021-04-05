@@ -108,40 +108,40 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter6 from '@/components/sidebar/FilterMode6';
+import Filter6 from "@/components/sidebar/FilterMode6";
 export default {
     name: 'DulangMahasiswaBaru',
-    created () {
+    created() {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'DAFTAR ULANG',
+                text: 'DAFTAR ULANG',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'DAFTAR ULANG MAHASISWA LAMA',
-                disabled:true,
-                href:'#'
+                text: 'DAFTAR ULANG MAHASISWA LAMA',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];   
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];   
         this.initialize()
     },  
     data: () => ({ 
@@ -158,24 +158,24 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width:100  },   
-            { text: 'NIM', value: 'nim', sortable: true,width:100  },   
-            { text: 'NIRM', value: 'nirm', sortable: true,width:100  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width:250 },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width: 100  },   
+            { text: 'NIM', value: 'nim', sortable: true,width: 100  },   
+            { text: 'NIRM', value: 'nirm', sortable: true,width: 100  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },                   
             { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
             { text: 'STATUS', value: 'n_status',sortable: true,width:120, },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "", 
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
-        changeSemesterAkademik (semester)
+        changeSemesterAkademik(semester)
         {
-            this.semester_akademik=semester;
+            this.semester_akademik = semester; 
         },
         changeProdi(id)
         {
@@ -183,22 +183,22 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/dulang/mhslama',
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_akademik,
-                idsmt:this.semester_akademik,
+                prodi_id: this.prodi_id,
+                ta: this.tahun_akademik,
+                idsmt: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.mahasiswa;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
@@ -216,7 +216,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
@@ -226,7 +226,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   

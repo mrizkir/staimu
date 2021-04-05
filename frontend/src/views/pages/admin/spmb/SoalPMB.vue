@@ -255,7 +255,7 @@
                                                     >
                                                         <template v-slot:item.status="{ item }">
                                                             <v-icon>    
-                                                                {{item.status == 1 ?'mdi-check-bold':'mdi-close-thick'}}
+                                                                {{item.status == 1 ?'mdi-check-bold': 'mdi-close-thick'}}
                                                             </v-icon>
                                                         </template>
                                                     </v-data-table>
@@ -318,22 +318,22 @@ import ModuleHeader from "@/components/ModuleHeader";
 import Filter19 from '@/components/sidebar/FilterMode19';
 export default {
     name: 'SoalPMB',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'SPMB',
+                text: 'SPMB',
                 disabled: false,
-                href:'/spmb'
+                href: '/spmb'
             },
             {
-                text:'SOAL PMB',
-                disabled:true,
-                href:'#'
+                text: 'SOAL PMB',
+                disabled: true,
+                href: "#"
             }
         ];
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
@@ -355,11 +355,11 @@ export default {
         datatable: [],
         headers: [                                    
             { text: 'NAMA SOAL', value: 'soal'},   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         headers_detail:[
             { text: 'JAWABAN', value: 'jawaban', sortable: false,}, 
-            { text: 'KET.', value: 'status', sortable: false,width:100 },
+            { text: 'KET.', value: 'status', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -375,43 +375,43 @@ export default {
         daftar_jawaban:[
             {
                 id:1,
-                text:'JAWABAN KE 1'
+                text: 'JAWABAN KE 1'
             },
             {
                 id:2,
-                text:'JAWABAN KE 2'
+                text: 'JAWABAN KE 2'
             },
             {
                 id:3,
-                text:'JAWABAN KE 3'
+                text: 'JAWABAN KE 3'
             },
             {
                 id:4,
-                text:'JAWABAN KE 4'
+                text: 'JAWABAN KE 4'
             },
         ],     
         formdata: {
             id:0,                        
-            soal:'',  
-            gambar:'',  
-            jawaban1:'',                    
-            jawaban2:'',                    
-            jawaban3:'',                    
-            jawaban4:'',                    
-            jawaban_benar:'',                    
+            soal: '',  
+            gambar: '',  
+            jawaban1: '',                    
+            jawaban2: '',                    
+            jawaban3: '',                    
+            jawaban4: '',                    
+            jawaban_benar: '',                    
             created_at: '',           
             updated_at: '',           
 
         },
         formdefault: {
             id:0,           
-            soal:'',    
-            gambar:'',                      
-            jawaban1:'',                    
-            jawaban2:'',                    
-            jawaban3:'',                    
-            jawaban4:'',        
-            jawaban_benar:'',                                
+            soal: '',    
+            gambar: '',                      
+            jawaban1: '',                    
+            jawaban2: '',                    
+            jawaban3: '',                    
+            jawaban4: '',        
+            jawaban_benar: '',                                
             created_at: '',           
             updated_at: '',       
         },
@@ -442,21 +442,21 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/spmb/soalpmb',
             {
-                tahun_pendaftaran:this.tahun_pendaftaran,
-                semester_pendaftaran:this.semester_pendaftaran
+                tahun_pendaftaran: this.tahun_pendaftaran,
+                semester_pendaftaran: this.semester_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                        
                 this.datatable = data.soal;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }); 
             this.firstloading=false;   
             this.$refs.filter19.setFirstTimeLoading(this.firstloading);          
@@ -475,7 +475,7 @@ export default {
         viewItem:async function (item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {         
                 this.formdata=item;      
@@ -486,7 +486,7 @@ export default {
         editItem:async function (item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {          
                 this.editedIndex = this.datatable.indexOf(item);
@@ -526,13 +526,13 @@ export default {
                 {
                     await this.$ajax.post('/spmb/soalpmb/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            soal:this.formdata.soal, 
-                            jawaban_benar:this.formdata.jawaban_benar                      
+                            '_method': 'PUT',
+                            soal: this.formdata.soal, 
+                            jawaban_benar: this.formdata.jawaban_benar                      
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -546,19 +546,19 @@ export default {
                 } else {
                     await this.$ajax.post('/spmb/soalpmb/store',
                         {  
-                            soal:this.formdata.soal,                            
-                            gambar:'gambar',                            
-                            jawaban1:this.formdata.jawaban1,                            
-                            jawaban2:this.formdata.jawaban2,                            
-                            jawaban3:this.formdata.jawaban3,                            
-                            jawaban4:this.formdata.jawaban4,                            
-                            jawaban_benar:this.formdata.jawaban_benar,                            
-                            tahun_pendaftaran:this.tahun_pendaftaran,
-                            semester_pendaftaran:this.semester_pendaftaran
+                            soal: this.formdata.soal,                            
+                            gambar: 'gambar',                            
+                            jawaban1: this.formdata.jawaban1,                            
+                            jawaban2: this.formdata.jawaban2,                            
+                            jawaban3: this.formdata.jawaban3,                            
+                            jawaban4: this.formdata.jawaban4,                            
+                            jawaban_benar: this.formdata.jawaban_benar,                            
+                            tahun_pendaftaran: this.tahun_pendaftaran,
+                            semester_pendaftaran: this.semester_pendaftaran
                         },                
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(({ data }) => {   
@@ -582,7 +582,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   

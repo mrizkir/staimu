@@ -195,7 +195,7 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter2 from '@/components/sidebar/FilterMode2';
 
@@ -203,31 +203,31 @@ import { mapGetters } from "vuex";
 
 export default {
     name: 'PerkuliahanPembagianKelas',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PEMBAGIAN KELAS',
-                disabled:true,
-                href:'#'
+                text: 'PEMBAGIAN KELAS',
+                disabled: true,
+                href: "#"
             }
         ];        
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
@@ -241,13 +241,13 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:100  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },                   
-            { text: 'HARI', value: 'nama_hari', sortable: true, width:100 },       
-            { text: 'JAM', value: 'jam_masuk',sortable: true, width:100 },                   
-            { text: 'RUANG', value: 'namaruang',sortable: true, width:100},                   
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width:100},                   
+            { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },       
+            { text: 'JAM', value: 'jam_masuk',sortable: true, width: 100 },                   
+            { text: 'RUANG', value: 'namaruang',sortable: true, width: 100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width: 100},                   
             { text: 'AKSI', value: 'actions', sortable: false,width:120 },
         ],  
         search: "",
@@ -260,47 +260,47 @@ export default {
         daftar_ruang_kelas: [],
         daftar_hari:[
             {
-                text:'SENIN',
+                text: 'SENIN',
                 value:1,
             },
             {
-                text:'SELASA',
+                text: 'SELASA',
                 value:2,
             },
             {
-                text:'RABU',
+                text: 'RABU',
                 value:3,
             },
             {
-                text:'KAMIS',
+                text: 'KAMIS',
                 value:4,
             },
             {
-                text:'JUMAT',
+                text: 'JUMAT',
                 value:5,
             },
             {
-                text:'SABTU',
+                text: 'SABTU',
                 value:6,
             },
         ],
         formdata: {            
-            id:'',
-            idkelas:'',            
-            hari:'',            
-            jam_masuk:'',
-            jam_keluar:'',
-            penyelenggaraan_dosen_id:'',
-            ruang_kelas_id:'',            
+            id: '',
+            idkelas: '',            
+            hari: '',            
+            jam_masuk: '',
+            jam_keluar: '',
+            penyelenggaraan_dosen_id: '',
+            ruang_kelas_id: '',            
         }, 
         formdefault: {            
-            id:'',
-            idkelas:'',            
-            hari:'',            
-            jam_masuk:'',
-            jam_keluar:'',
-            penyelenggaraan_dosen_id:'',
-            ruang_kelas_id:'',            
+            id: '',
+            idkelas: '',            
+            hari: '',            
+            jam_masuk: '',
+            jam_keluar: '',
+            penyelenggaraan_dosen_id: '',
+            ruang_kelas_id: '',            
         }, 
 
         rule_hari:[
@@ -320,31 +320,31 @@ export default {
 
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
-        changeSemesterAkademik (semester)
+        changeSemesterAkademik(semester)
         {
-            this.semester_akademik=semester;
+            this.semester_akademik = semester; 
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/perkuliahan/pembagiankelas',
             {
-                ta:this.tahun_akademik,
-                semester_akademik:this.semester_akademik,
+                ta: this.tahun_akademik,
+                semester_akademik: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
                 this.datatable = data.pembagiankelas;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
@@ -363,7 +363,7 @@ export default {
         async editItem (item) {
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan;                 
@@ -378,15 +378,15 @@ export default {
                 
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
                     {
-                        '_method':'PUT',                        
-                        hari:this.formdata.hari,                            
-                        jam_masuk:this.formdata.jam_masuk,
-                        jam_keluar:this.formdata.jam_keluar,                        
-                        ruang_kelas_id:this.formdata.ruang_kelas_id,                            
+                        '_method': 'PUT',                        
+                        hari: this.formdata.hari,                            
+                        jam_masuk: this.formdata.jam_masuk,
+                        jam_keluar: this.formdata.jam_keluar,                        
+                        ruang_kelas_id: this.formdata.ruang_kelas_id,                            
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {
@@ -400,7 +400,7 @@ export default {
         },    
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini membuat mahasiswa tidak memiliki kelas.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini membuat mahasiswa tidak memiliki kelas.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
@@ -410,7 +410,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -450,7 +450,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            CAN_ACCESS:'can',                     
+            CAN_ACCESS: 'can',                     
         }),
     },
     components: {

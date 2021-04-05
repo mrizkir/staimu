@@ -176,7 +176,7 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 }, 
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 }, 
         ],
         search: "",
 
@@ -190,10 +190,10 @@ export default {
     props: {                        
         user: {
             type:Object,
-            required:true
+            required: true
         },
         role_default: {
-            required:true
+            required: true
         }
     },
     methods: {
@@ -202,7 +202,7 @@ export default {
             this.$ajax.get('/system/users/'+this.user.id+'/roles',                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(({ data }) => {   
@@ -214,12 +214,12 @@ export default {
             this.btnLoading = true;
             this.$ajax.post('/system/users/storeuserpermissions',
                 {
-                    user_id:this.user.id,
-                    chkpermission:this.permissions_selected
+                    user_id: this.user.id,
+                    chkpermission: this.permissions_selected
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {   
@@ -233,12 +233,12 @@ export default {
             this.btnLoading = true;         
             this.$ajax.post('/system/users/revokeuserpermissions',
                 {
-                    user_id:this.user.id,
+                    user_id: this.user.id,
                     name:item.name
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {   
@@ -263,22 +263,22 @@ export default {
         {
             if(val)
             {
-                this.datatableLoading=true;
+                this.datatableLoading = true;
                 await this.$ajax.get('/system/setting/rolesbyname/'+this.role_name+'/permission',{
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {
                     this.daftar_permissions = data.permissions;
                 });
                 await this.$ajax.get('/system/users/'+this.user.id+'/permission',{
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {
                     this.permissions_selected = data.permissions;                    
                 });
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }
         }
     }

@@ -16,7 +16,7 @@ export default {
     props: {
         user_id: {
             type:String,
-            required:true
+            required: true
         }
     },
     data: () => ({
@@ -29,7 +29,7 @@ export default {
             await this.$ajax.get('/spmb/pmbpersyaratan/'+this.user_id,             
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(({ data }) => {                   

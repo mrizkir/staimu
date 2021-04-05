@@ -71,19 +71,19 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'/dmaster'
+                href: '/dmaster'
             },
             {
-                text:'JENJANG STUDI',
-                disabled:true,
-                href:'#'
+                text: 'JENJANG STUDI',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -103,15 +103,15 @@ export default {
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.get('/datamaster/jenjangstudi',            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.jenjang_studi;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });                     
         },
         dataTableRowClicked(item)

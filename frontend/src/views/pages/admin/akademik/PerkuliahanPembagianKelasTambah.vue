@@ -169,41 +169,41 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 
 export default {
     name: 'PerkuliahanPembagianKelasTambah',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PEMBAGIAN KELAS',
+                text: 'PEMBAGIAN KELAS',
                 disabled: false,
-                href:'/akademik/perkuliahan/pembagiankelas/daftar'
+                href: '/akademik/perkuliahan/pembagiankelas/daftar'
             },
             {
-                text:'TAMBAH',
-                disabled:true,
-                href:'#'
+                text: 'TAMBAH',
+                disabled: true,
+                href: "#"
             }
         ];
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];
         this.initialize()
     },
     data: () => ({
@@ -229,43 +229,43 @@ export default {
 
         daftar_hari:[
             {
-                text:'SENIN',
+                text: 'SENIN',
                 value:1,
             },
             {
-                text:'SELASA',
+                text: 'SELASA',
                 value:2,
             },
             {
-                text:'RABU',
+                text: 'RABU',
                 value:3,
             },
             {
-                text:'KAMIS',
+                text: 'KAMIS',
                 value:4,
             },
             {
-                text:'JUMAT',
+                text: 'JUMAT',
                 value:5,
             },
             {
-                text:'SABTU',
+                text: 'SABTU',
                 value:6,
             },
         ],
         formdata: {
-            id:'',
-            user_id:'',
-            zoom_id:'',
-            kmatkul:'',
-            nmatkul:'',
-            sks:'',
-            idkelas:'',
-            hari:'',
-            jam_masuk:'',
-            jam_keluar:'',
-            penyelenggaraan_dosen_id:'',
-            ruang_kelas_id:'',
+            id: '',
+            user_id: '',
+            zoom_id: '',
+            kmatkul: '',
+            nmatkul: '',
+            sks: '',
+            idkelas: '',
+            hari: '',
+            jam_masuk: '',
+            jam_keluar: '',
+            penyelenggaraan_dosen_id: '',
+            ruang_kelas_id: '',
         },
         rule_dosen:[
             value => !!value || "Mohon dipilih Dosen pengampu matakuliah !!!"
@@ -305,13 +305,13 @@ export default {
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
-                ta:this.$store.getters['uiadmin/getTahunAkademik'],
-                semester_akademik:this.$store.getters['uiadmin/getSemesterAkademik'],
-                pid:'daftarpengampu'
+                ta: this.$store.getters['uiadmin/getTahunAkademik'],
+                semester_akademik: this.$store.getters['uiadmin/getSemesterAkademik'],
+                pid: 'daftarpengampu'
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.daftar_dosen = data.dosen;
@@ -319,7 +319,7 @@ export default {
 
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan;
@@ -328,7 +328,7 @@ export default {
             await this.$ajax.get(process.env.VUE_APP_API_HOST+'/h2h/zoom',
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.daftar_zoom = data.zoom;
@@ -341,24 +341,24 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/store',
                     {
-                        user_id:this.dosen_id,
-                        zoom_id:this.formdata.zoom_id,
-                        idkelas:this.formdata.idkelas,
-                        kmatkul:this.formdata.kmatkul,
-                        nmatkul:this.formdata.nmatkul,
-                        sks:this.formdata.sks,
-                        hari:this.formdata.hari,
-                        jam_masuk:this.formdata.jam_masuk,
-                        jam_keluar:this.formdata.jam_keluar,
+                        user_id: this.dosen_id,
+                        zoom_id: this.formdata.zoom_id,
+                        idkelas: this.formdata.idkelas,
+                        kmatkul: this.formdata.kmatkul,
+                        nmatkul: this.formdata.nmatkul,
+                        sks: this.formdata.sks,
+                        hari: this.formdata.hari,
+                        jam_masuk: this.formdata.jam_masuk,
+                        jam_keluar: this.formdata.jam_keluar,
                         penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
-                        ruang_kelas_id:this.formdata.ruang_kelas_id,
-                        tahun:this.tahun_akademik,
-                        idsmt:this.semester_akademik,
+                        ruang_kelas_id: this.formdata.ruang_kelas_id,
+                        tahun: this.tahun_akademik,
+                        idsmt: this.semester_akademik,
 
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(() => {
@@ -376,12 +376,12 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',
             {
                 user_id:val,
-                ta:this.$store.getters['uiadmin/getTahunAkademik'],
-                semester_akademik:this.$store.getters['uiadmin/getSemesterAkademik'],
+                ta: this.$store.getters['uiadmin/getTahunAkademik'],
+                semester_akademik: this.$store.getters['uiadmin/getSemesterAkademik'],
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
                 this.daftar_matakuliah = data.matakuliah;

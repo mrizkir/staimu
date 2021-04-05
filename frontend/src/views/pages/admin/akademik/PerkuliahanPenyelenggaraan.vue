@@ -129,42 +129,42 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter6 from '@/components/sidebar/FilterMode6';
+import Filter6 from "@/components/sidebar/FilterMode6";
 
 import { mapGetters } from "vuex";
 
 export default {
     name: 'PerkuliahanPenyelenggaraan',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'PERKULIAHAN',
+                text: 'PERKULIAHAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PENYELENGGARAAN MATAKULIAH',
-                disabled:true,
-                href:'#'
+                text: 'PENYELENGGARAAN MATAKULIAH',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.initialize()
     },  
     data: () => ({ 
@@ -187,19 +187,19 @@ export default {
             { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },       
             { text: 'JUMLAH DOSEN', value: 'jumlah_dosen',sortable: true, width:50 },                   
             { text: 'JUMLAH MHS', value: 'jumlah_mhs',sortable: true, width:50},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "", 
 
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
-        changeSemesterAkademik (semester)
+        changeSemesterAkademik(semester)
         {
-            this.semester_akademik=semester;
+            this.semester_akademik = semester; 
         },
         changeProdi(id)
         {
@@ -207,22 +207,22 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah',
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_akademik,
-                semester_akademik:this.semester_akademik,
+                prodi_id: this.prodi_id,
+                ta: this.tahun_akademik,
+                semester_akademik: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.penyelenggaraan;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
             this.firstloading=false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
@@ -240,7 +240,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus penyelenggaraan matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data kontrak matakuliah MHS.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus penyelenggaraan matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data kontrak matakuliah MHS.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
@@ -250,7 +250,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -290,7 +290,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            CAN_ACCESS:'can',                     
+            CAN_ACCESS: 'can',                     
         }),
     },
     components: {

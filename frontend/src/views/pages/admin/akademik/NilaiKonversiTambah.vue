@@ -179,39 +179,39 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'NilaiKonversiTambah',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'NILAI',
+                text: 'NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },    
             {
-                text:'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
+                text: 'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled: false,
-                href:'/akademik/nilai/konversi'
+                href: '/akademik/nilai/konversi'
             },
             {
-                text:'TAMBAH',
-                disabled:true,
-                href:'#'
+                text: 'TAMBAH',
+                disabled: true,
+                href: "#"
             }
         ];
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -227,8 +227,8 @@ export default {
         datatableLoading: false,        
         datatable: [],      
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable: false, width:100  },       
-            { text: 'NAMA', value: 'nmatkul', sortable: false, width:250  },       
+            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },       
+            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },       
             { text: 'SKS', value: 'sks',sortable: false, width:70 },                   
             { text: 'SMT', value: 'semester',sortable: true,width:70, },                   
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal',sortable: false,width:120 },                   
@@ -241,40 +241,40 @@ export default {
         form_valid: true,   
         daftar_jenjang: [],                        
         formdata: {
-            'id':'',
-            'user_id':'',
-            'nim':'',
-            'nama_mhs':'',
-            'alamat':'', 
-            'no_telp':'',         
-            'nim_asal':'', 
-            'kode_jenjang':'', 
-            'kode_pt_asal':'',
-            'nama_pt_asal':'',
-            'kode_ps_asal':'',
-            'nama_ps_asal':'',
-            'tahun':'',
+            'id': '',
+            'user_id': '',
+            'nim': '',
+            'nama_mhs': '',
+            'alamat': '', 
+            'no_telp': '',         
+            'nim_asal': '', 
+            'kode_jenjang': '', 
+            'kode_pt_asal': '',
+            'nama_pt_asal': '',
+            'kode_ps_asal': '',
+            'nama_ps_asal': '',
+            'tahun': '',
             
-            'kjur':'',
-            'perpanjangan':'',   
+            'kjur': '',
+            'perpanjangan': '',   
         },
         formdefault: {
-            'id':'',
-            'user_id':'',
-            'nim':'',
-            'nama_mhs':'',
-            'alamat':'', 
-            'no_telp':'',         
-            'nim_asal':'', 
-            'kode_jenjang':'', 
-            'kode_pt_asal':'',
-            'nama_pt_asal':'',
-            'kode_ps_asal':'',
-            'nama_ps_asal':'',
-            'tahun':'',
+            'id': '',
+            'user_id': '',
+            'nim': '',
+            'nama_mhs': '',
+            'alamat': '', 
+            'no_telp': '',         
+            'nim_asal': '', 
+            'kode_jenjang': '', 
+            'kode_pt_asal': '',
+            'nama_pt_asal': '',
+            'kode_ps_asal': '',
+            'nama_ps_asal': '',
+            'tahun': '',
             
-            'kjur':'',
-            'perpanjangan':'',   
+            'kjur': '',
+            'perpanjangan': '',   
         },
         rule_nim_asal:[
             value => !!value || "Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",              
@@ -315,21 +315,21 @@ export default {
     methods: {        
         initialize: async function() 
         {      
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.post('/akademik/nilai/konversi/matakuliah',
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_pendaftaran
+                prodi_id: this.prodi_id,
+                ta: this.tahun_pendaftaran
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.matakuliah;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });         
             await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
@@ -356,23 +356,23 @@ export default {
 
                 await this.$ajax.post('/akademik/nilai/konversi/store',
                     {
-                        nim_asal:this.formdata.nim_asal,                            
-                        nama_mhs:this.formdata.nama_mhs,                            
-                        alamat:this.formdata.alamat,   
-                        no_telp:this.formdata.no_telp,                                                        
-                        email:this.formdata.email,                                                        
-                        kode_jenjang:this.formdata.kode_jenjang,                                                        
-                        kode_pt_asal:this.formdata.kode_pt_asal,                                                                                                             
-                        nama_pt_asal:this.formdata.nama_pt_asal,                                                                                                             
-                        kode_ps_asal:this.formdata.kode_ps_asal,                                                                                                             
-                        nama_ps_asal:this.formdata.nama_ps_asal,                                                                                                             
-                        tahun:this.tahun_pendaftaran,                                                                                                             
-                        kjur:this.prodi_id,  
+                        nim_asal: this.formdata.nim_asal,                            
+                        nama_mhs: this.formdata.nama_mhs,                            
+                        alamat: this.formdata.alamat,   
+                        no_telp: this.formdata.no_telp,                                                        
+                        email: this.formdata.email,                                                        
+                        kode_jenjang: this.formdata.kode_jenjang,                                                        
+                        kode_pt_asal: this.formdata.kode_pt_asal,                                                                                                             
+                        nama_pt_asal: this.formdata.nama_pt_asal,                                                                                                             
+                        kode_ps_asal: this.formdata.kode_ps_asal,                                                                                                             
+                        nama_ps_asal: this.formdata.nama_ps_asal,                                                                                                             
+                        tahun: this.tahun_pendaftaran,                                                                                                             
+                        kjur: this.prodi_id,  
                         daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }
                 ).then(({ data }) => {   

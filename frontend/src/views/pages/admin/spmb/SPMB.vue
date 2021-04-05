@@ -244,18 +244,18 @@ import ModuleHeader from "@/components/ModuleHeader";
 import Filter9 from '@/components/sidebar/FilterMode9';
 export default {
     name: 'SPMB',
-    created ()
+    created()
 	{
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'SPMB',
-				disabled:true,
-				href:'#'
+				text: 'SPMB',
+				disabled: true,
+				href: "#"
 			}
         ];				
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
@@ -285,7 +285,7 @@ export default {
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable: false},       
             { text: 'JENJANG', value: 'nama_jenjang', sortable: false},       
-            { text: 'JUMLAH', align:'end',value: 'jumlah', sortable: false},        
+            { text: 'JUMLAH', align: 'end',value: 'jumlah', sortable: false},        
         ], 
     }),
     methods: {
@@ -295,14 +295,14 @@ export default {
         },
 		initialize: async function()
 		{	
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.post('/dashboard/pmb',
             {
-                TA:this.tahun_pendaftaran,                
+                TA: this.tahun_pendaftaran,                
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                            
                 this.daftar_registrasi = data.daftar_registrasi;
@@ -317,9 +317,9 @@ export default {
                 this.daftar_tidak_lulus = data.daftar_tidak_lulus;
                 this.total_tidak_lulus = data.total_tidak_lulus;
 
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });
             this.firstloading=false;            
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 

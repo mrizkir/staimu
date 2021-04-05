@@ -64,19 +64,19 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KONFIGURASI SISTEM',
+                text: 'KONFIGURASI SISTEM',
                 disabled: false,
-                href:'/system-setting'
+                href: '/system-setting'
             },  
             {
-                text:'SERVER - CACHE',
-                disabled:true,
-                href:'#'
+                text: 'SERVER - CACHE',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -99,11 +99,11 @@ export default {
     methods: {
         initialize: async function()
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/setting/variables',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
                 let setting = data.setting;
@@ -117,15 +117,15 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method':'PUT',
-                        'pid':'token_ttl_expire',
+                        '_method': 'PUT',
+                        'pid': 'token_ttl_expire',
                         setting:JSON.stringify({
-                            903:this.formdata.token_ttl_expire,                            
+                            903: this.formdata.token_ttl_expire,                            
                         }),
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(() => {
@@ -138,8 +138,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{
-            ACCESS_TOKEN:'AccessToken',
-            TOKEN:'Token',
+            ACCESS_TOKEN: 'AccessToken',
+            TOKEN: 'Token',
         }),
     },
     components: {

@@ -40,7 +40,7 @@
 												<v-card-title>
 														DAFTAR MATAKULIAH
 														<v-spacer></v-spacer>
-														<v-btn color="primary" icon outlined small class="ma-2" :to="{path:'/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">
+														<v-btn color="primary" icon outlined small class="ma-2" :to="{path: '/akademik/perkuliahan/krs/'+this.krs_id+'/tambahmatkul'}">
 																<v-icon>mdi-plus</v-icon>
 														</v-btn>
 												</v-card-title>
@@ -203,38 +203,38 @@
 		</AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import DataKRS from '@/components/DataKRS';
 export default {
 		name: 'PerkuliahanKRSDetail',
-		created () {
+		created() {
 				this.krs_id=this.$route.params.krsid;
 				this.breadcrumbs = [
 						{
-								text:'HOME',
+								text: 'HOME',
 								disabled: false,
-								href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+								href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 						},
 						{
-								text:'AKADEMIK',
+								text: 'AKADEMIK',
 								disabled: false,
-								href:'/akademik'
+								href: '/akademik'
 						},
 						{
-								text:'PERKULIAHAN',
+								text: 'PERKULIAHAN',
 								disabled: false,
-								href:'#'
+								href: "#"
 						},
 						{
-								text:'KRS',
+								text: 'KRS',
 								disabled: false,
-								href:'/akademik/perkuliahan/krs/daftar'
+								href: '/akademik/perkuliahan/krs/daftar'
 						},
 						{
-								text:'DETAIL',
-								disabled:true,
-								href:'#'
+								text: 'DETAIL',
+								disabled: true,
+								href: "#"
 						},
 				];
 				this.fetchKRS();
@@ -265,13 +265,13 @@ export default {
 				expanded: [],
 				datatable: [],
 				headers: [
-						{ text: 'KODE', value: 'kmatkul', sortable: true,width:100  },
+						{ text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },
 						{ text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true, width:300 },
 						{ text: 'SKS', value: 'sks', sortable: false,width:50 },
 						{ text: 'SMT', value: 'semester', sortable: false,width:50 },
 						{ text: 'KELAS', value: 'nama_kelas', sortable: false,width:200 },
 						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false,width:200 },
-						{ text: 'AKSI', value: 'actions', sortable: false,width:100 },
+						{ text: 'AKSI', value: 'actions', sortable: false,width: 100 },
 				],
 		}),
 		methods: {
@@ -280,17 +280,17 @@ export default {
 						await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,
 						{
 								headers: {
-										Authorization:this.$store.getters['auth/Token']
+										Authorization: this.$store.getters["auth/Token"]
 								}
 						}).then(({ data }) => {
 								this.datakrs=data.krs;
 								this.datatable=data.krsmatkul;
 								if (Object.keys(this.datakrs).length)
 								{
-										let prodi_id=this.datakrs.kjur;
+										let prodi_id = this.datakrs.kjur;
 										this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-										this.tahun_akademik=this.datakrs.tahun;
-										this.semester_akademik=this.datakrs.idsmt;
+										this.tahun_akademik = this.datakrs.tahun;
+										this.semester_akademik = this.datakrs.idsmt;
 								}
 						})
 				},
@@ -299,7 +299,7 @@ export default {
 						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+item.penyelenggaraan_id+'/penyelenggaraan',
 						{
 								headers: {
-										Authorization:this.$store.getters['auth/Token']
+										Authorization: this.$store.getters["auth/Token"]
 								}
 						}).then(({ data }) => {
 								this.dialogfrm = true;
@@ -320,14 +320,14 @@ export default {
 							.post(
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
 								{
-									kelas_mhs_id:this.formdata.kelas_mhs_id,
+									kelas_mhs_id: this.formdata.kelas_mhs_id,
 									krsmatkul_id: this.datamatkul.id,
 									members_selected: JSON.stringify(Object.assign({}, members_selected)),
 									pid: "krs",
 								},
 								{
 									headers: {
-										Authorization:this.$store.getters["auth/Token"],
+										Authorization: this.$store.getters["auth/Token"],
 									},
 								}
 							)
@@ -343,7 +343,7 @@ export default {
 				},
 				deleteItem(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
+						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
 								if (confirm)
 								{
 										this.btnLoadingTable=true;
@@ -353,7 +353,7 @@ export default {
 												},
 												{
 														headers: {
-																Authorization:this.$store.getters['auth/Token']
+																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
 										).then(() => {

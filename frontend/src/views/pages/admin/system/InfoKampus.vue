@@ -66,19 +66,19 @@ export default {
 		{
 				this.breadcrumbs = [
 						{
-								text:'HOME',
+								text: 'HOME',
 								disabled: false,
-								href:'/dashboard/'+this.ACCESS_TOKEN
+								href: '/dashboard/'+this.ACCESS_TOKEN
 						},
 						{
-								text:'KONFIGURASI SISTEM',
+								text: 'KONFIGURASI SISTEM',
 								disabled: false,
-								href:'/system-setting'
+								href: '/system-setting'
 						},  
 						{
-								text:'BLOG - HALAMAN INFO KAMPUS',
-								disabled:true,
-								href:'#'
+								text: 'BLOG - HALAMAN INFO KAMPUS',
+								disabled: true,
+								href: "#"
 						}
 				];
 				this.initialize();
@@ -103,7 +103,7 @@ export default {
 						await this.$ajax.get('/blog/categories',
 						{
 								headers: {
-										Authorization:this.TOKEN,
+										Authorization: this.TOKEN,
 								},
 						}).then(({ data }) => {
 								this.daftar_category=data.categories;
@@ -112,7 +112,7 @@ export default {
 						await this.$ajax.get('/system/setting/variables',
 						{
 								headers: {
-										Authorization:this.TOKEN
+										Authorization: this.TOKEN
 								}
 						}).then(({ data }) => {
 								let setting = data.setting;
@@ -126,15 +126,15 @@ export default {
 								this.btnLoading = true;
 								this.$ajax.post('/system/setting/variables',
 										{
-												'_method':'PUT',
-												'pid':'blog',
+												'_method': 'PUT',
+												'pid': 'blog',
 												setting:JSON.stringify({
-														601:this.formdata.term_id,                            
+														601: this.formdata.term_id,                            
 												}),
 										},
 										{
 												headers: {
-														Authorization:this.TOKEN
+														Authorization: this.TOKEN
 												}
 										}
 								).then(() => {
@@ -147,8 +147,8 @@ export default {
 		},
 		computed: {
 				...mapGetters('auth',{
-						ACCESS_TOKEN:'AccessToken',
-						TOKEN:'Token',
+						ACCESS_TOKEN: 'AccessToken',
+						TOKEN: 'Token',
 				}),
 		},
 		components: {

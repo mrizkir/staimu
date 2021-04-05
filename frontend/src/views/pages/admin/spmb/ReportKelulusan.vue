@@ -136,24 +136,24 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'SPMB',
+                text: 'SPMB',
                 disabled: false,
-                href:'/spmb'
+                href: '/spmb'
             },
             {
-                text:'NILAI UJIAN',
-                disabled:true,
-                href:'#'
+                text: 'NILAI UJIAN',
+                disabled: true,
+                href: "#"
             }
         ];
         this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
         
-        let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
@@ -178,10 +178,10 @@ export default {
             { text: '', value: 'foto', width:70 },       
             { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable: true },
             { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
-            { text: 'NOMOR HP', value: 'nomor_hp',width:100},
-            { text: 'KELAS', value: 'nkelas',width:100,sortable: true },
-            { text: 'NILAI', value: 'nilai',width:100,sortable: true },
-            { text: 'STATUS', value: 'status',width:100,sortable: true },
+            { text: 'NOMOR HP', value: 'nomor_hp',width: 100},
+            { text: 'KELAS', value: 'nkelas',width: 100,sortable: true },
+            { text: 'NILAI', value: 'nilai',width: 100,sortable: true },
+            { text: 'STATUS', value: 'status',width: 100,sortable: true },
             { text: 'AKSI', value: 'actions', sortable: false,width:50 },
         ],
         search: "",  
@@ -213,20 +213,20 @@ export default {
 
                 break;
                 default :
-                    this.datatableLoading=true;            
+                    this.datatableLoading = true;            
                     await this.$ajax.post('/spmb/reportspmbkelulusan',
                     {
-                        TA:this.tahun_pendaftaran,
-                        prodi_id:this.prodi_id,
-                        filter_status:this.filter_status
+                        TA: this.tahun_pendaftaran,
+                        prodi_id: this.prodi_id,
+                        filter_status: this.filter_status
                     },
                     {
                         headers: {
-                            Authorization:this.$store.getters['auth/Token']
+                            Authorization: this.$store.getters["auth/Token"]
                         }
                     }).then(({ data }) => {               
                         this.datatable = data.pmb;                
-                        this.datatableLoading=false;
+                        this.datatableLoading = false;
                     });         
                     this.firstloading=false;
                     this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
@@ -246,11 +246,11 @@ export default {
         },
         badgeColor(item)
         {
-            return item.active == 1 ? 'success':'error'
+            return item.active == 1 ? 'success': 'error'
         },
         badgeIcon(item)
         {
-            return item.active == 1 ? 'mdi-check-bold':'mdi-close-thick'
+            return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
         },     
         viewItem(item)
         {
@@ -262,16 +262,16 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbkelulusan/printtoexcel',
                 {
-                    TA:this.tahun_pendaftaran,                                                                
-                    prodi_id:this.prodi_id,    
-                    nama_prodi:this.nama_prodi,                 
-                    filter_status:this.filter_status,                 
+                    TA: this.tahun_pendaftaran,                                                                
+                    prodi_id: this.prodi_id,    
+                    nama_prodi: this.nama_prodi,                 
+                    filter_status: this.filter_status,                 
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
-                    responseType:'arraybuffer'
+                    responseType: 'arraybuffer'
                 }
             ).then(({ data }) => {              
                 const url = window.URL.createObjectURL(new Blob([data]));

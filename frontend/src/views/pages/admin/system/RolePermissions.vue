@@ -127,7 +127,7 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },      
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },  
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },  
         ],
         search: "",    
         perm_selected: []
@@ -138,12 +138,12 @@ export default {
             this.btnLoading = true;
             this.$ajax.post('/system/setting/roles/storerolepermissions',
                 {
-                    role_id:this.role.id,
-                    chkpermission:this.permissions_selected
+                    role_id: this.role.id,
+                    chkpermission: this.permissions_selected
                 },
                 {
                     headers: {
-                        Authorization:this.TOKEN
+                        Authorization: this.TOKEN
                     }
                 }
             ).then(() => {   
@@ -158,12 +158,12 @@ export default {
             this.btnLoading = true;         
             this.$ajax.post('/system/setting/roles/revokerolepermissions',
                 {
-                    role_id:this.role.id,
+                    role_id: this.role.id,
                     name:item.name
                 },
                 {
                     headers: {
-                        Authorization:this.TOKEN
+                        Authorization: this.TOKEN
                     }
                 }
             ).then(() => {   
@@ -187,7 +187,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{                             
-            TOKEN:'Token',                                  
+            TOKEN: 'Token',                                  
         }),
         daftar_permissions()
         {

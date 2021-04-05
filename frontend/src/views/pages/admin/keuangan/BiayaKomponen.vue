@@ -71,19 +71,19 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'KEUANGAN',
+                text: 'KEUANGAN',
                 disabled: false,
-                href:'/keuangan'
+                href: '/keuangan'
             },
             {
-                text:'KOMPONEN BIAYA',
-                disabled:true,
-                href:'#'
+                text: 'KOMPONEN BIAYA',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -104,15 +104,15 @@ export default {
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.get('/keuangan/komponenbiaya',            
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {               
                 this.datatable = data.kombi;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });                     
         },
         dataTableRowClicked(item)

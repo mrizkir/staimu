@@ -37,23 +37,23 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from '@/components/sidebar/FilterMode1';
 export default {
     name: 'Akademik',
-    created ()
+    created()
 	{
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'AKADEMIK',
-				disabled:true,
-				href:'#'
+				text: 'AKADEMIK',
+				disabled: true,
+				href: "#"
 			}
         ];				
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                 
@@ -70,13 +70,13 @@ export default {
         
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
 		initialize: async function()
 		{	
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             
             this.firstloading=false;            
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 

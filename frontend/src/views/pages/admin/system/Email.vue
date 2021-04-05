@@ -67,19 +67,19 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KONFIGURASI SISTEM',
+                text: 'KONFIGURASI SISTEM',
                 disabled: false,
-                href:'/system-setting'
+                href: '/system-setting'
             },  
             {
-                text:'SERVER - EMAIL',
-                disabled:true,
-                href:'#'
+                text: 'SERVER - EMAIL',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize();
@@ -98,11 +98,11 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/system/setting/variables',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {                  
                 let setting = data.setting;             
@@ -116,15 +116,15 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method':'PUT', 
-                        'pid':'email',
+                        '_method': 'PUT', 
+                        'pid': 'email',
                         setting:JSON.stringify({
-                            910:this.formdata.email_mhs_isvalid,                            
+                            910: this.formdata.email_mhs_isvalid,                            
                         }),                                                                                                                            
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(() => {                       
@@ -137,8 +137,8 @@ export default {
     },
     computed: { 
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
     components: {

@@ -76,7 +76,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/spmb'}" link  class="yellow" color="green" v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">
+                <v-list-item :to="{path: '/spmb'}" link  class="yellow" color="green" v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
@@ -229,11 +229,11 @@ export default {
     },
     props: {
         showrightsidebar: {
-            type:Boolean,
-            default:true
+            type: Boolean,
+            default: true
         },
         temporaryleftsidebar: {
-            type:Boolean,
+            type: Boolean,
             default: false
         },
     },
@@ -275,13 +275,13 @@ export default {
 	},
     computed: {
         ...mapGetters('auth',{
-            AUTHENTICATED:'Authenticated',  
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',   
-            DEFAULT_ROLE:'DefaultRole',       
-            ROLE:'Role',
-            CAN_ACCESS:'can',         
-            ATTRIBUTE_USER:'AttributeUser',               
+            AUTHENTICATED: 'Authenticated',  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',   
+            DEFAULT_ROLE: 'DefaultRole',       
+            ROLE: 'Role',
+            CAN_ACCESS: 'can',         
+            ATTRIBUTE_USER: 'AttributeUser',               
         }),
         APP_NAME ()
         {
@@ -319,7 +319,7 @@ export default {
                     this.$router.replace('/login');
                 }
             },
-            immediate:true
+            immediate: true
         },
     }
 }

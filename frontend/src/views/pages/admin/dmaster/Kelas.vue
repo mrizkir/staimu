@@ -184,22 +184,22 @@ import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Kelas',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'KELAS',
-                disabled:true,
-                href:'#'
+                text: 'KELAS',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -212,7 +212,7 @@ export default {
         headers: [
             { text: 'KODE KELAS', value: 'idkelas',width:150 },
             { text: 'NAMA KELAS', value: 'nkelas' },
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -221,15 +221,15 @@ export default {
         dialogdetailitem: false,
 
         //form data
-        old_idkelas:'',
+        old_idkelas: '',
         form_valid: true,
         formdata: {
-            idkelas:'',
-            nkelas:'',
+            idkelas: '',
+            nkelas: '',
         },
         formdefault: {
-           idkelas:'',
-            nkelas:'',
+           idkelas: '',
+            nkelas: '',
         },
         editedIndex: -1,
 
@@ -246,16 +246,16 @@ export default {
     methods: {
         initialize: async function()
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/datamaster/kelas',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
                 this.datatable = data.kelas;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });
         },
         dataTableRowClicked(item)
@@ -287,13 +287,13 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/kelas/'+this.old_idkelas,
                         {
-                            '_method':'PUT',
-                            idkelas:this.formdata.idkelas,
-                            nkelas:this.formdata.nkelas,
+                            '_method': 'PUT',
+                            idkelas: this.formdata.idkelas,
+                            nkelas: this.formdata.nkelas,
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {
@@ -307,12 +307,12 @@ export default {
                 } else {
                     await this.$ajax.post('/datamaster/kelas/store',
                         {
-                            idkelas:this.formdata.idkelas,
-                            nkelas:this.formdata.nkelas,
+                            idkelas: this.formdata.idkelas,
+                            nkelas: this.formdata.nkelas,
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {
@@ -336,7 +336,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {
@@ -369,8 +369,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{
-            ACCESS_TOKEN:'AccessToken',
-            TOKEN:'Token',
+            ACCESS_TOKEN: 'AccessToken',
+            TOKEN: 'Token',
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

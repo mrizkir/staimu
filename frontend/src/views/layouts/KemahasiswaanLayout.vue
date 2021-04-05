@@ -76,7 +76,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path:'/kemahasiswaan'}" link :class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-CSS-CLASS')" :color="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-COLOR')" v-if="CAN_ACCESS('KEMAHASISWAAN-GROUP')">
+                <v-list-item :to="{path: '/kemahasiswaan'}" link :class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-CSS-CLASS')" :color="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-COLOR')" v-if="CAN_ACCESS('KEMAHASISWAAN-GROUP')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-monitor-dashboard</v-icon>
                     </v-list-item-icon>
@@ -146,11 +146,11 @@ export default {
     },
     props: {
         showrightsidebar: {
-            type:Boolean,
-            default:true
+            type: Boolean,
+            default: true
         },
         temporaryleftsidebar: {
-            type:Boolean,
+            type: Boolean,
             default: false
         },
     },
@@ -192,13 +192,13 @@ export default {
 	},
     computed: {
         ...mapGetters('auth',{
-            AUTHENTICATED:'Authenticated',  
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',          
-            DEFAULT_ROLE:'DefaultRole',
-            ROLE:'Role',
-            CAN_ACCESS:'can',         
-            ATTRIBUTE_USER:'AttributeUser',               
+            AUTHENTICATED: 'Authenticated',  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',          
+            DEFAULT_ROLE: 'DefaultRole',
+            ROLE: 'Role',
+            CAN_ACCESS: 'can',         
+            ATTRIBUTE_USER: 'AttributeUser',               
         }),
         APP_NAME ()
         {
@@ -247,7 +247,7 @@ export default {
                     this.$router.replace('/login');
                 }
             },
-            immediate:true
+            immediate: true
         },
     }
 }

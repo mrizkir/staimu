@@ -238,22 +238,22 @@ import KeuanganLayout from "@/views/layouts/KeuanganLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Kelas',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KEUANGAN',
+                text: 'KEUANGAN',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'TRANSFER BANK',
-                disabled:true,
-                href:'#'
+                text: 'TRANSFER BANK',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -268,7 +268,7 @@ export default {
             { text: 'CABANG', value: 'nama_cabang' },   
             { text: 'NOMOR REKENING', value: 'nomor_rekening' },   
             { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -279,22 +279,22 @@ export default {
         //form data           
         form_valid: true,         
         formdata: {
-            id:'',                        
-            nama_bank:'',                        
-            nama_cabang:'',                        
-            nomor_rekening:'',                        
-            pemilik_rekening:'',                        
-            created_at:'',                        
-            updated_at:'',                        
+            id: '',                        
+            nama_bank: '',                        
+            nama_cabang: '',                        
+            nomor_rekening: '',                        
+            pemilik_rekening: '',                        
+            created_at: '',                        
+            updated_at: '',                        
         },
         formdefault: {
-            id:'',                        
-            nama_bank:'',                        
-            nama_cabang:'',                        
-            nomor_rekening:'',                        
-            pemilik_rekening:'',                        
-            created_at:'',                        
-            updated_at:'',                               
+            id: '',                        
+            nama_bank: '',                        
+            nama_cabang: '',                        
+            nomor_rekening: '',                        
+            pemilik_rekening: '',                        
+            created_at: '',                        
+            updated_at: '',                               
         },
         editedIndex: -1,
 
@@ -319,16 +319,16 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/keuangan/transferbank',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.datatable = data.bank;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         dataTableRowClicked(item)
@@ -359,15 +359,15 @@ export default {
                 {
                     await this.$ajax.post('/keuangan/transferbank/'+this.formdata.id,
                         {
-                            '_method':'PUT',
-                            nama_bank:this.formdata.nama_bank,                            
-                            nama_cabang:this.formdata.nama_cabang,                            
-                            nomor_rekening:this.formdata.nomor_rekening,                            
-                            pemilik_rekening:this.formdata.pemilik_rekening,                            
+                            '_method': 'PUT',
+                            nama_bank: this.formdata.nama_bank,                            
+                            nama_cabang: this.formdata.nama_cabang,                            
+                            nomor_rekening: this.formdata.nomor_rekening,                            
+                            pemilik_rekening: this.formdata.pemilik_rekening,                            
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -381,14 +381,14 @@ export default {
                 } else {
                     await this.$ajax.post('/keuangan/transferbank/store',
                         {
-                            nama_bank:this.formdata.nama_bank,                            
-                            nama_cabang:this.formdata.nama_cabang,                            
-                            nomor_rekening:this.formdata.nomor_rekening,                            
-                            pemilik_rekening:this.formdata.pemilik_rekening,                            
+                            nama_bank: this.formdata.nama_bank,                            
+                            nama_cabang: this.formdata.nama_cabang,                            
+                            nomor_rekening: this.formdata.nomor_rekening,                            
+                            pemilik_rekening: this.formdata.pemilik_rekening,                            
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -412,7 +412,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -445,8 +445,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

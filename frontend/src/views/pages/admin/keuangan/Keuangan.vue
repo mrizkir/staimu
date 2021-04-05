@@ -43,19 +43,19 @@ import DashboardKeuanganMHS from '@/components/DashboardKeuanganMHS';
 import DashboardKeuanganAdmin from '@/components/DashboardKeuanganAdmin';
 export default {
     name: 'Keuangan',
-    created ()
+    created()
 	{
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard']; 
 		this.breadcrumbs = [
 			{
-				text:'HOME',
+				text: 'HOME',
 				disabled: false,
-				href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text:'KEUANGAN',
-				disabled:true,
-				href:'#'
+				text: 'KEUANGAN',
+				disabled: true,
+				href: "#"
 			}
         ];				
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];         
@@ -73,9 +73,9 @@ export default {
         dashboard: null
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },		
     },    
     components: {

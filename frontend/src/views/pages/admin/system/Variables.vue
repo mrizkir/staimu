@@ -92,24 +92,24 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'KONFIGURASI SISTEM',
+                text: 'KONFIGURASI SISTEM',
                 disabled: false,
-                href:'/system-setting'
+                href: '/system-setting'
             },  
             {
-                text:'PERGURUAN TINGGI',
+                text: 'PERGURUAN TINGGI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'VARIABLES',
-                disabled:true,
-                href:'#'
+                text: 'VARIABLES',
+                disabled: true,
+                href: "#"
             }
         ];
         this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
@@ -124,8 +124,8 @@ export default {
         daftar_ta: [],
         daftar_semester: [],
         formdata: {
-            default_ta:'',
-            default_semester:'',            
+            default_ta: '',
+            default_semester: '',            
             tahun_pendaftaran: 0,
         },
         //form rules        
@@ -145,7 +145,7 @@ export default {
             await this.$ajax.get('/system/setting/variables',
             {
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
                 let setting = data.setting;                           
@@ -161,17 +161,17 @@ export default {
                 this.btnLoading = true;                
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method':'PUT', 
-                        'pid':'Variable default sistem',
+                        '_method': 'PUT', 
+                        'pid': 'Variable default sistem',
                         setting:JSON.stringify({
-                            201:this.formdata.default_ta,
-                            202:this.formdata.default_semester,                            
-                            203:this.formdata.tahun_pendaftaran,
+                            201: this.formdata.default_ta,
+                            202: this.formdata.default_semester,                            
+                            203: this.formdata.tahun_pendaftaran,
                         }),                                                                                                                            
                     },
                     {
                         headers: {
-                            Authorization:this.TOKEN
+                            Authorization: this.TOKEN
                         }
                     }
                 ).then(() => {                       
@@ -184,8 +184,8 @@ export default {
     },
     computed: { 
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
     components: {

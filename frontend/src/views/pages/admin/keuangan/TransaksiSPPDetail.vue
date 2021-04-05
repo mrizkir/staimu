@@ -142,7 +142,7 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>                                        
-                                    <v-btn color="primary" icon outlined small class="ma-2" :to="{path:'/keuangan/transaksi-spp/tambah/'+transaksi_id}" :disabled="data_transaksi.status == 1 || data_transaksi.status==2">
+                                    <v-btn color="primary" icon outlined small class="ma-2" :to="{path: '/keuangan/transaksi-spp/tambah/'+transaksi_id}" :disabled="data_transaksi.status == 1 || data_transaksi.status==2">
                                         <v-icon>mdi-plus</v-icon>
                                     </v-btn>                                        
                                 </v-toolbar>
@@ -189,24 +189,24 @@ export default {
         this.transaksi_id=this.$route.params.transaksi_id;        
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'KEUANGAN',
+                text: 'KEUANGAN',
                 disabled: false,
-                href:'/keuangan'
+                href: '/keuangan'
             },
             {
-                text:'TRANSAKSI SPP',
+                text: 'TRANSAKSI SPP',
                 disabled: false,
-                href:'/keuangan/transaksi-spp'
+                href: '/keuangan/transaksi-spp'
             },
             {
-                text:'DETAIL',
-                disabled:true,
-                href:'#'
+                text: 'DETAIL',
+                disabled: true,
+                href: "#"
             }
         ];                          
         this.initialize();
@@ -228,28 +228,28 @@ export default {
             { text: 'BULAN', value: 'nama_bulan',sortable: false },    
             { text: 'TAHUN', value: 'tahun',sortable: false },    
             { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable: false },    
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],              
         //form
         form_valid: true  
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;            
+            this.datatableLoading = true;            
             await this.$ajax.get('/keuangan/transaksi-spp/'+this.transaksi_id,                        
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {       
                 this.data_transaksi=data.transaksi;                                       
                 this.item_selected = data.item_selected;                
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });                     
         }, 
         deleteItem(item) {           
@@ -263,7 +263,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   

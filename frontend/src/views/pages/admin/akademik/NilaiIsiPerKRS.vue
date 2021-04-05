@@ -131,32 +131,32 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter6 from '@/components/sidebar/FilterMode6';
+import Filter6 from "@/components/sidebar/FilterMode6";
 export default {
     name: 'NilaiIsiPerKRS',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'ISI NILAI',
+                text: 'ISI NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PER KRS',
-                disabled:true,
-                href:'#'
+                text: 'PER KRS',
+                disabled: true,
+                href: "#"
             }
         ];  
         if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
@@ -165,11 +165,11 @@ export default {
         }   
         else
         {
-            let prodi_id=this.$store.getters['uiadmin/getProdiID'];
+            let prodi_id = this.$store.getters['uiadmin/getProdiID'];
             this.prodi_id = prodi_id;
             this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-            this.tahun_akademik=this.$store.getters['uiadmin/getTahunAkademik'];                
-            this.semester_akademik=this.$store.getters['uiadmin/getSemesterAkademik'];                            
+            this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+            this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                            
         }     
     },  
     mounted()
@@ -192,14 +192,14 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NIM', value: 'nim', sortable: true,width:100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable: true,width:250  },   
+            { text: 'NIM', value: 'nim', sortable: true,width: 100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable: true,width: 250  },   
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width:80  },       
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width:80  },       
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width:80 },       
             { text: 'TA.SMT', value: 'tasmt',sortable: true, width:80 },                   
             { text: 'SAH', value: 'sah',sortable: true, width:50},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],  
         search: "", 
 
@@ -207,13 +207,13 @@ export default {
         file_pdf: null
     }),
     methods: {
-        changeTahunAkademik (tahun)
+        changeTahunAkademik(tahun)
         {
-            this.tahun_akademik=tahun;
+            this.tahun_akademik = tahun;
         },
-        changeSemesterAkademik (semester)
+        changeSemesterAkademik(semester)
         {
-            this.semester_akademik=semester;
+            this.semester_akademik = semester; 
         },
         changeProdi(id)
         {
@@ -221,42 +221,42 @@ export default {
         },
         async initializeMhs ()
         {
-            this.datatableLoading=true;
-            await this.$ajax.post('/akademik/perkuliahan/krs',
+            this.datatableLoading = true;
+            await this.$ajax.post("/akademik/perkuliahan/krs",
             {
                 
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                           
                 this.datatable = data.daftar_krs;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });              
         },
         initialize: async function() 
         {
-            this.datatableLoading=true;
-            await this.$ajax.post('/akademik/perkuliahan/krs',
+            this.datatableLoading = true;
+            await this.$ajax.post("/akademik/perkuliahan/krs",
             {
-                prodi_id:this.prodi_id,
-                ta:this.tahun_akademik,
-                semester_akademik:this.semester_akademik,
+                prodi_id: this.prodi_id,
+                ta: this.tahun_akademik,
+                semester_akademik: this.semester_akademik,
             },
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                        
                 this.datatable = data.daftar_krs;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
                 this.firstloading=false;     
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });              
         },
         dataTableRowClicked(item)
@@ -272,7 +272,7 @@ export default {
         },  
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc':'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then((confirm) => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
@@ -282,7 +282,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.$store.getters['auth/Token']
+                                Authorization: this.$store.getters["auth/Token"]
                             }
                         }
                     ).then(() => {   
@@ -301,13 +301,13 @@ export default {
             await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
             ).then(({ data }) => {                              
-                this.file_pdf=data.pdf_file;
-                this.dialogprintpdf=true;
+                this.file_pdf = data.pdf_file;
+                this.dialogprintpdf = true;
                 this.btnLoadingTable=false;
             }).catch(() => {
                 this.btnLoadingTable=false;

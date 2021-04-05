@@ -184,22 +184,22 @@ import DataMasterLayout from '@/views/layouts/DataMasterLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Fakultas',
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'DATA MASTER',
+                text: 'DATA MASTER',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'FAKULTAS',
-                disabled:true,
-                href:'#'
+                text: 'FAKULTAS',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -212,7 +212,7 @@ export default {
         headers: [                        
             { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },   
             { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         search: "",
 
@@ -222,14 +222,14 @@ export default {
 
         //form data   
         form_valid: true,         
-        kode_fakultas:'',
+        kode_fakultas: '',
         formdata: {
-            kode_fakultas:'',                        
-            nama_fakultas:'', 
+            kode_fakultas: '',                        
+            nama_fakultas: '', 
         },
         formdefault: {
-            kode_fakultas:'',                        
-            nama_fakultas:'',         
+            kode_fakultas: '',                        
+            nama_fakultas: '',         
         },
         editedIndex: -1,
 
@@ -246,16 +246,16 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/datamaster/fakultas',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.datatable = data.fakultas;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             }).catch(() => {
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });  
         },
         dataTableRowClicked(item)
@@ -287,13 +287,13 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/fakultas/'+this.kode_fakultas,
                         {
-                            '_method':'PUT',
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            nama_fakultas:this.formdata.nama_fakultas,                                                        
+                            '_method': 'PUT',
+                            kode_fakultas: this.formdata.kode_fakultas,                            
+                            nama_fakultas: this.formdata.nama_fakultas,                                                        
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -307,12 +307,12 @@ export default {
                 } else {                    
                     await this.$ajax.post('/datamaster/fakultas/store',
                         {
-                            kode_fakultas:this.formdata.kode_fakultas,                            
-                            nama_fakultas:this.formdata.nama_fakultas,                                                        
+                            kode_fakultas: this.formdata.kode_fakultas,                            
+                            nama_fakultas: this.formdata.nama_fakultas,                                                        
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(({ data }) => {   
@@ -336,7 +336,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -369,8 +369,8 @@ export default {
     },
     computed: {
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

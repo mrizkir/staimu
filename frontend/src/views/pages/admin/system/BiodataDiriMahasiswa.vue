@@ -181,19 +181,19 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'SYSTEM',
+                text: 'SYSTEM',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'BIODATA DIRI',
-                disabled:true,
-                href:'#'
+                text: 'BIODATA DIRI',
+                disabled: true,
+                href: "#"
             }
         ];    
         this.initialize();    
@@ -210,7 +210,7 @@ export default {
 
         //form
         user_id: null,
-        kode_billing:'N.A',
+        kode_billing: 'N.A',
         form_valid: true,
 
         menuTanggalLahir: false,
@@ -228,22 +228,22 @@ export default {
         desa_id:0,
 
         daftar_fakultas: [],
-        kode_fakultas:'',
+        kode_fakultas: '',
 
         daftar_prodi: [],        
         daftar_kelas: [],
         
         formdata: {
-            nama_mhs:'',           
-            tempat_lahir:'',
-            tanggal_lahir:'',
-            jk:'L',
-            nomor_hp:'',    
-            email:'',
-            alamat_rumah:'',
-            nama_ibu_kandung:'',
-            kjur1:'',
-            idkelas:'',
+            nama_mhs: '',           
+            tempat_lahir: '',
+            tanggal_lahir: '',
+            jk: 'L',
+            nomor_hp: '',    
+            email: '',
+            alamat_rumah: '',
+            nama_ibu_kandung: '',
+            kjur1: '',
+            idkelas: '',
         },
         rule_nama_mhs:[
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
@@ -303,7 +303,7 @@ export default {
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id,             
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
             },
                 
@@ -350,26 +350,26 @@ export default {
                 this.btnLoading = true;                
                 await this.$ajax.post('/kemahasiswaan/biodata/'+this.user_id+'/update',{                    
                     _method: "put",
-                    nama_mhs:this.formdata.nama_mhs,           
-                    tempat_lahir:this.formdata.tempat_lahir,           
-                    tanggal_lahir:this.formdata.tanggal_lahir,           
-                    jk:this.formdata.jk,           
-                    nomor_hp:this.formdata.nomor_hp,           
-                    email:this.formdata.email,    
-                    nama_ibu_kandung:this.formdata.nama_ibu_kandung,    
-                    address1_provinsi_id:this.provinsi_id.id,
-                    address1_provinsi:this.provinsi_id.nama,
-                    address1_kabupaten_id:this.kabupaten_id.id,
-                    address1_kabupaten:this.kabupaten_id.nama,
-                    address1_kecamatan_id:this.kecamatan_id.id,
-                    address1_kecamatan:this.kecamatan_id.nama,
-                    address1_desa_id:this.desa_id.id,
-                    address1_kelurahan:this.desa_id.nama,
-                    alamat_rumah:this.formdata.alamat_rumah,                           
+                    nama_mhs: this.formdata.nama_mhs,           
+                    tempat_lahir: this.formdata.tempat_lahir,           
+                    tanggal_lahir: this.formdata.tanggal_lahir,           
+                    jk: this.formdata.jk,           
+                    nomor_hp: this.formdata.nomor_hp,           
+                    email: this.formdata.email,    
+                    nama_ibu_kandung: this.formdata.nama_ibu_kandung,    
+                    address1_provinsi_id: this.provinsi_id.id,
+                    address1_provinsi: this.provinsi_id.nama,
+                    address1_kabupaten_id: this.kabupaten_id.id,
+                    address1_kabupaten: this.kabupaten_id.nama,
+                    address1_kecamatan_id: this.kecamatan_id.id,
+                    address1_kecamatan: this.kecamatan_id.nama,
+                    address1_desa_id: this.desa_id.id,
+                    address1_kelurahan: this.desa_id.nama,
+                    alamat_rumah: this.formdata.alamat_rumah,                           
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
                 ).then(() => {               

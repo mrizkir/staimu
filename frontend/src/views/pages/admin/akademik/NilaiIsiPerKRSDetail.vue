@@ -50,7 +50,7 @@
                                     <v-card flat>
                                         <v-card-title>SAH :</v-card-title>
                                         <v-card-subtitle>
-                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA':'TIDAK'}}</v-chip>
+                                            <v-chip label outlined color="info">{{datakrs.sah==1?'YA': 'TIDAK'}}</v-chip>
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -174,33 +174,33 @@
     </AkademikLayout>
 </template>
 <script>
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'NilaiIsiPerKRSDetail',
-    created () {
+    created() {
         this.krs_id=this.$route.params.krsid;        
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'ISI NILAI',
+                text: 'ISI NILAI',
                 disabled: false,
-                href:'#'
+                href: "#"
             },
             {
-                text:'PER KRS',
-                disabled:true,
-                href:'#'
+                text: 'PER KRS',
+                disabled: true,
+                href: "#"
             }
         ];  
         this.fetchKRS();               
@@ -224,13 +224,13 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:100  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true,width:260 },       
             { text: 'SKS', value: 'sks', sortable: false,width:50 },                   
             { text: 'SMT', value: 'semester', sortable: false,width:50 },                   
             { text: 'KELAS', value: 'nama_kelas', sortable: false,width:200 },                   
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false,width:70 },                   
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: false,width:100 },                   
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: false,width: 100 },                   
                                    
         ],  
         //formdata
@@ -242,17 +242,17 @@ export default {
             await this.$ajax.get('/akademik/nilai/matakuliah/perkrs/'+this.krs_id,                        
             {
                 headers: {
-                    Authorization:this.$store.getters['auth/Token']
+                    Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                                               
                 this.datakrs=data.krs;                
                 this.datatable=data.krsmatkul;                
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id=this.datakrs.kjur;                    
+                    let prodi_id = this.datakrs.kjur;                    
                     this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);                
-                    this.tahun_akademik=this.datakrs.tahun;                                                      
-                    this.semester_akademik=this.datakrs.idsmt;                        
+                    this.tahun_akademik = this.datakrs.tahun;                                                      
+                    this.semester_akademik = this.datakrs.idsmt;                        
                 }
             })  
         },     
@@ -270,12 +270,12 @@ export default {
             });            
             await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs',
                 {
-                    krs_id:this.krs_id,
+                    krs_id: this.krs_id,
                     daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
                 },
                 {
                     headers: {
-                        Authorization:this.$store.getters['auth/Token']
+                        Authorization: this.$store.getters["auth/Token"]
                     }
                 }
             ).then(() => {                   

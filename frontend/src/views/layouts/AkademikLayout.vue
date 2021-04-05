@@ -513,10 +513,10 @@
 							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
 						)
 					"
-					v-if="CAN_ACCESS('AKADEMIK-UJIAN-MUNAQASAH_BROWSE')"
+					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE')"
 				>
 					<v-list-item-icon class="mr-2">
-						<v-icon>mdi-book</v-icon>
+						<v-icon>mdi-run-fast</v-icon>
 					</v-list-item-icon>
 					<v-list-item-content>
 						<v-list-item-title>
@@ -734,7 +734,7 @@
 	export default {
 		name: "AkademikLayout",
 		created() {
-			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
+			this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
 		},
 		props: {
 			showrightsidebar: {

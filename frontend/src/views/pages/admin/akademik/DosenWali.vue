@@ -69,10 +69,10 @@
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
-                            {{(item.nidn && item.nidn.length > 0) > 0 ? item.nidn:'N.A'}}
+                            {{(item.nidn && item.nidn.length > 0) > 0 ? item.nidn: 'N.A'}}
                         </template>
                         <template v-slot:item.is_dw="{ item }">
-                            {{item.is_dw == false ? 'BUKAN':'YA'}}
+                            {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
                         <template v-slot:item.actions="{ item }">                            
                             <v-icon
@@ -120,26 +120,26 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import AkademikLayout from '@/views/layouts/AkademikLayout';
+import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'DosenWali',  
-    created () {
+    created() {
         this.breadcrumbs = [
             {
-                text:'HOME',
+                text: 'HOME',
                 disabled: false,
-                href:'/dashboard/'+this.ACCESS_TOKEN
+                href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text:'AKADEMIK',
+                text: 'AKADEMIK',
                 disabled: false,
-                href:'/akademik'
+                href: '/akademik'
             },
             {
-                text:'DOSEN WALI',
-                disabled:true,
-                href:'#'
+                text: 'DOSEN WALI',
+                disabled: true,
+                href: "#"
             }
         ];
         this.initialize()
@@ -157,7 +157,7 @@ export default {
             { text: 'NIDN', value: 'nidn',sortable: true },     
             { text: 'NIPY', value: 'nipy',sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp',sortable: true },         
-            { text: 'AKSI', value: 'actions', sortable: false,width:100 },
+            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
         ],
         expanded: [],
         search: "",
@@ -166,15 +166,15 @@ export default {
     methods: {
         initialize: async function() 
         {
-            this.datatableLoading=true;
+            this.datatableLoading = true;
             await this.$ajax.get('/akademik/dosenwali',{
                 headers: {
-                    Authorization:this.TOKEN
+                    Authorization: this.TOKEN
                 }
             }).then(({ data }) => {               
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
-                this.datatableLoading=false;
+                this.datatableLoading = false;
             });          
             
         },
@@ -203,7 +203,7 @@ export default {
                         },
                         {
                             headers: {
-                                Authorization:this.TOKEN
+                                Authorization: this.TOKEN
                             }
                         }
                     ).then(() => {   
@@ -219,8 +219,8 @@ export default {
     },
     computed: {        
         ...mapGetters('auth',{            
-            ACCESS_TOKEN:'AccessToken',          
-            TOKEN:'Token',                                  
+            ACCESS_TOKEN: 'AccessToken',          
+            TOKEN: 'Token',                                  
         }),
     },
     watch: {
