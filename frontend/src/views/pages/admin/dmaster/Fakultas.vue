@@ -187,7 +187,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -212,7 +212,7 @@ export default {
         headers: [                        
             { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },   
             { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -234,11 +234,11 @@ export default {
         editedIndex: -1,
 
         //form rules  
-        rule_kode_fakultas:[
+        rule_kode_fakultas: [
             value => !!value || "Kode Fakultas mohon untuk diisi !!!",
             value => /^[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode Fakultas hanya boleh angka',
         ], 
-        rule_nama_fakultas:[
+        rule_nama_fakultas: [
             value => !!value || "Mohon Nama Fakultas untuk di isi !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',                
         ], 
@@ -357,7 +357,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;
             this.$refs.frmdata.reset(); 
             setTimeout(() => {

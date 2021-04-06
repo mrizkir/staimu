@@ -84,7 +84,7 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -118,13 +118,13 @@ export default {
             kode_pt:0,
         },
         //form rules        
-        rule_nama_pt:[
+        rule_nama_pt: [
             value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!",             
         ], 
-        rule_nama_singkatan_pt:[
+        rule_nama_singkatan_pt: [
             value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",             
         ],
-        rule_kode_pt:[
+        rule_kode_pt: [
             value => !!value || "Mohon untuk di isi Kode Perguruan Tinggi !!!",                     
             value => /^[0-9]+$/.test(value) || 'Kode Perguruan Tinggi hanya boleh angka',
         ]

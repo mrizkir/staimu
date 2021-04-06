@@ -121,12 +121,12 @@
                                                                     v-model="formdata.nim"
                                                                     label="NIM"   
                                                                     :rules="rule_nim"                                                                  
-                                                                    outlined /> 
+                                                                    outlined />
                                                                 <v-text-field 
                                                                     v-model="formdata.nirm"
                                                                     label="NIRM" 
                                                                     :rules="rule_nirm"                                                                    
-                                                                    outlined /> 
+                                                                    outlined />
                                                                 <v-select
                                                                     label="DOSEN WALI :"
                                                                     v-model="formdata.dosen_id"
@@ -134,7 +134,7 @@
                                                                     item-text="name"
                                                                     item-value="id"
                                                                     :rules="rule_dw"
-                                                                    outlined/>  
+                                                                    outlined/> 
                                                             </v-card-text>
                                                             <v-card-actions>
                                                                 <v-spacer></v-spacer>
@@ -200,14 +200,14 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'DAFTAR ULANG',
@@ -238,10 +238,10 @@ export default {
         datatable: [],      
         headers: [
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },       
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true },       
             { text: 'TELP. HP', value: 'telp_hp', sortable: true,width:150 },       
-            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "", 
         
@@ -262,15 +262,15 @@ export default {
             nirm: '',
             dosen_id: ''           
         },
-        rule_nim:[
+        rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
-        rule_nirm:[
+        rule_nirm: [
             value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
         ], 
-        rule_dw:[
+        rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
     }),
@@ -352,7 +352,7 @@ export default {
                 });   
             }
         },
-        closedialogfrm () {            
+        closedialogfrm() {            
             this.dialogfrm = false;            
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                

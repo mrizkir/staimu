@@ -165,7 +165,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>KETUA PRODI :</v-card-title>
@@ -174,7 +174,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                             </v-row>     
                                             <v-row>
                                                 <v-col cols="12">
@@ -251,7 +251,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -312,22 +312,22 @@ export default {
         editedIndex: -1,
 
         //form rules 
-        rule_kode_fakultas:[
+        rule_kode_fakultas: [
             value => !!value||"Mohon fakultas untuk dipilih !!!",              
         ],  
-        rule_kode_prodi:[
+        rule_kode_prodi: [
             value => !!value||"Kode Program Studi mohon untuk diisi !!!",
             value => /^[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode Program Studi hanya boleh angka',
         ], 
-        rule_nama_prodi:[
+        rule_nama_prodi: [
             value => !!value||"Mohon Nama Program Studi untuk diisi !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Program Studi hanya boleh string dan spasi',                
         ], 
-        rule_nama_prodi_alias:[
+        rule_nama_prodi_alias: [
             value => !!value||"Mohon Nama Singkat Program Studi untuk diisi !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama Singkat Program Studi hanya boleh string dan spasi',                
         ], 
-        rule_kode_jenjang:[
+        rule_kode_jenjang: [
             value => !!value||"Mohon Jenjang Studi untuk dipilih !!!",              
         ], 
     }),
@@ -514,7 +514,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                
@@ -542,7 +542,7 @@ export default {
                     { text: 'FAKULTAS', value: 'nama_fakultas',width:200  },   
                     { text: 'JENJANG', value: 'nama_jenjang',width: 100 },   
                     { text: 'KETUA PRODI', value: 'config',width:200 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+                    { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
                 ];
             }
             else
@@ -552,7 +552,7 @@ export default {
                     { text: 'NAMA PRODI', value: 'nama_prodi',width:280 },   
                     { text: 'JENJANG', value: 'nama_jenjang',width: 100 },   
                     { text: 'KETUA PRODI', value: 'config',width:200 },   
-                    { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+                    { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
                 ];
             }
         },

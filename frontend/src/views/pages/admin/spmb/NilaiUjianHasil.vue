@@ -46,9 +46,9 @@ export default {
         this.user_id=this.$route.params.user_id;     
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -89,13 +89,13 @@ export default {
         datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NO.FORMULIR', value: 'no_formulir',width:120,sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
+            { text: 'NO.FORMULIR', value: 'no_formulir',width:120, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp',width: 100},
-            { text: 'KELAS', value: 'nkelas',width: 100,sortable: true },
-            { text: 'NILAI', value: 'nilai',width: 100,sortable: true },
-            { text: 'STATUS', value: 'status',width: 100,sortable: true },
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'KELAS', value: 'nkelas',width: 100, sortable: true },
+            { text: 'NILAI', value: 'nilai',width: 100, sortable: true },
+            { text: 'STATUS', value: 'status',width: 100, sortable: true },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         datamhsbaru: {},
 
@@ -106,7 +106,7 @@ export default {
         
         daftar_prodi: [],
 
-        daftar_status:[
+        daftar_status: [
             {
                 value: '0',
                 text: 'TIDAK LULUS',
@@ -292,7 +292,7 @@ export default {
                 }
             });
         },
-        closedialogfrm () {            
+        closedialogfrm() {            
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                                

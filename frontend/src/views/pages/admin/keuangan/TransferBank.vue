@@ -241,7 +241,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -268,7 +268,7 @@ export default {
             { text: 'CABANG', value: 'nama_cabang' },   
             { text: 'NOMOR REKENING', value: 'nomor_rekening' },   
             { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -299,19 +299,19 @@ export default {
         editedIndex: -1,
 
         //form rules  
-        rule_nama_bank:[
+        rule_nama_bank: [
             value => !!value || "Mohon untuk di isi nama bank !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi',                
         ],   
-        rule_nama_cabang:[
+        rule_nama_cabang: [
             value => !!value || "Mohon untuk di isi nama cabang bank !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi',                
         ],         
-        rule_no_rekening:[
+        rule_no_rekening: [
             value => !!value || "Mohon untuk di isi nomor rekening !!!",                     
             value => /^[0-9]+$/.test(value) || 'Nomor rekening hanya boleh angka',
         ],
-        rule_pemilik:[
+        rule_pemilik: [
             value => !!value || "Mohon untuk di isi nama pemilik rekening !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama pemilik rekening hanya boleh string dan spasi',                
         ],
@@ -433,7 +433,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {            
+        closedialogfrm() {            
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);

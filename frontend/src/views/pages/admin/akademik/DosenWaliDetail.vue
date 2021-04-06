@@ -28,7 +28,7 @@
         <v-container fluid>   
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
-                    <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" /> 
+                    <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" />
                 </v-col>
             </v-row>
             <v-row class="mb-4" no-gutters>
@@ -157,7 +157,7 @@
                                                             item-text="name"
                                                             item-value="id"
                                                             :rules="rule_dw"
-                                                            outlined/>                                                   
+                                                            outlined/>                 
                                                     </v-col>
                                                 </v-row>
                                             </v-card-text>
@@ -204,7 +204,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">                            
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                                
+                                <v-img :src="$api.url+'/'+item.foto" />                               
                             </v-avatar>                                                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -236,14 +236,14 @@ export default {
         this.dosen_id = this.$route.params.dosen_id;
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'DOSEN WALI',
@@ -267,12 +267,12 @@ export default {
         //tables
         headers: [                        
             { text: '', value: 'foto',width:70, },
-            { text: 'NIM', value: 'nim',width: 100,sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',width: 250,sortable: true },
-            { text: 'PROGRAM STUDI', value: 'nama_prodi',width:150,sortable: true },     
-            { text: 'KELAS', value: 'nkelas',width:150,sortable: true },     
-            { text: 'TAHUN MASUK', value: 'tahun',sortable: true },         
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'NIM', value: 'nim',width: 100, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs',width: 250, sortable: true },
+            { text: 'PROGRAM STUDI', value: 'nama_prodi',width:150, sortable: true },     
+            { text: 'KELAS', value: 'nkelas',width:150, sortable: true },     
+            { text: 'TAHUN MASUK', value: 'tahun', sortable: true },         
+            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
         ],
         expanded: [],
         search: "",
@@ -291,7 +291,7 @@ export default {
             dosen_id: ''           
         },
 
-        rule_dw:[
+        rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
     }),
@@ -365,7 +365,7 @@ export default {
                 this.btnLoading = false;
             });
         },
-        closedialogfrm () {            
+        closedialogfrm() {            
             this.dialogfrm = false;            
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                

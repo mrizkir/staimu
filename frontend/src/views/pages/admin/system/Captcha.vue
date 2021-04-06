@@ -73,7 +73,7 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -101,10 +101,10 @@ export default {
             privateKey: ''
         },
         //form rules
-        rule_site_key:[
+        rule_site_key: [
             value => !!value || "Mohon untuk di isi site key !!!",
         ],
-        rule_private_key:[
+        rule_private_key: [
             value => !!value || "Mohon untuk di isi private key !!!",
         ],
     }),

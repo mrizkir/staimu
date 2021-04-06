@@ -106,7 +106,7 @@ export default {
 						{
 							error_messages.push({
 								field:p,
-								error:[{
+								error: [{
 									'message':data[p]
 								}]
 							});							

@@ -206,9 +206,9 @@ export default {
         this.formdata=this.$store.getters['auth/User'];
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SYSTEM',
@@ -275,11 +275,11 @@ export default {
                 updated_at: '',           
             },
             //form rules  
-            rule_foto:[
+            rule_foto: [
                 value => !!value || "Mohon pilih gambar !!!",  
                 value =>  !value || value.size < 2000000 || 'File foto harus kurang dari 2MB.'                
             ], 
-            rule_user_password:[
+            rule_user_password: [
                 value => !!value || "Mohon untuk di isi password User !!!",
                 value => {
                     if (value && typeof value !== 'undefined' && value.length > 0){

@@ -5,14 +5,14 @@
                 v-model="tahun_pendaftaran"
                 :items="daftar_ta"                
                 label="TAHUN PENDAFTARAN"
-                outlined/>   
+                outlined/>  
             <v-select
                 v-model="idkelas"
                 :items="daftar_kelas"                
                 item-text="text"
                 item-value="id"
                 label="KELAS"
-                outlined/>   
+                outlined/>  
         </v-list-item-content>
     </v-list-item>	
 </template>
@@ -21,7 +21,7 @@ export default {
     name: 'FilterMode10',
     created()
     {
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
 
         this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];  

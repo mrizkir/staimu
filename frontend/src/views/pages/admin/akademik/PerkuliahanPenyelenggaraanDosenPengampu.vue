@@ -50,7 +50,7 @@
                                     item-text="nama_dosen"
                                     item-value="user_id"
                                     :rules="rule_dosen"
-                                    outlined/>    
+                                    outlined/>   
                                 <v-switch
                                     v-model="formdata.is_ketua"
                                     label="SEBAGAI KETUA GROUP DOSEN PENGAMPU">
@@ -130,17 +130,17 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
@@ -158,7 +158,7 @@ export default {
         let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];          
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                        
         this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         this.formdata.idpenyelenggaraan=this.$route.params.idpenyelenggaraan;
@@ -184,10 +184,10 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NIDN', value: 'nidn', sortable: false,width:120  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen',sortable: false },       
-            { text: 'KETUA', value: 'is_ketua', sortable: false,width:120 },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },                   
+            { text: 'NIDN', value: 'nidn', sortable: false, width:120  },   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false },       
+            { text: 'KETUA', value: 'is_ketua', sortable: false, width:120 },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width:120 },                   
         ],  
         
         //formdata
@@ -206,7 +206,7 @@ export default {
             dosen_id: null,
             is_ketua: false,
         },
-        rule_dosen:[
+        rule_dosen: [
             value => !!value || "Mohon dipilih Dosen untuk matakuliah ini !!!"
         ],
     }),

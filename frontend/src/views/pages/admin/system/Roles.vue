@@ -235,7 +235,7 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -264,7 +264,7 @@ export default {
         headers: [                        
             { text: 'NAMA ROLE', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },    
-            { text: 'AKSI', value: 'actions', sortable: false,width:130 },
+            { text: 'AKSI', value: 'actions', sortable: false, width:130 },
         ],
         //tables
         headersdetail: [                        
@@ -293,7 +293,7 @@ export default {
             updated_at: '',           
         },
         //form rules        
-        rule_role_name:[
+        rule_role_name: [
             value => !!value || "Mohon untuk di isi nama Role !!!",  
             value => /^[A-Za-z]*$/.test(value) || 'Nama Role hanya boleh string',                
         ], 

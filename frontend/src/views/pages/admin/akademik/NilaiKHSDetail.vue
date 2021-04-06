@@ -72,7 +72,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>               
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -179,14 +179,14 @@ export default {
         this.krs_id=this.$route.params.krs_id;          
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'NILAI',
@@ -225,12 +225,12 @@ export default {
         datatable: [],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
-            { text: 'SKS', value: 'sks', sortable: false,width:50 },                   
-            { text: 'HM', value: 'HM', sortable: false,width:50 },                   
-            { text: 'AM', value: 'AM', sortable: false,width:50 },                   
-            { text: 'M', value: 'M', sortable: false,width:50 },                   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false,width:200 },                                                        
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
+            { text: 'SKS', value: 'sks', sortable: false, width:50 },                   
+            { text: 'HM', value: 'HM', sortable: false, width:50 },                   
+            { text: 'AM', value: 'AM', sortable: false, width:50 },                   
+            { text: 'M', value: 'M', sortable: false, width:50 },                   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width:200 },                                                        
         ],  
 
         jumlah_sks:0,

@@ -5,14 +5,14 @@
                 v-model="tahun_pendaftaran"
                 :items="daftar_ta"                
                 label="TAHUN PENDAFTARAN"
-                outlined/>   
+                outlined/>  
             <v-select
                 v-model="semester_pendaftaran"
                 :items="daftar_semester"                
                 item-text="text"
                 item-value="id"
                 label="SEMESTER PENDAFTARAN"
-                outlined/>   
+                outlined/>  
         </v-list-item-content>
     </v-list-item>	
 </template>
@@ -21,10 +21,10 @@ export default {
     name: 'FilterMode19',
     created()
     {
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
 
-        this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
+        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];  
         this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];                                            
     },
     data: () => ({

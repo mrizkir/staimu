@@ -52,7 +52,7 @@
                                             item-value="id"
                                             label="SEMESTER AKADEMIK"
                                             outlined
-                                            :rules="rule_default_semester"/>            
+                                            :rules="rule_default_semester"/>           
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                                     <v-col xs="12" sm="12" md="4">
@@ -61,7 +61,7 @@
                                             :items="daftar_ta"                                            
                                             label="TAHUN PENDAFTARAN"
                                             outlined
-                                            :rules="rule_tahun_pendaftaran"/>            
+                                            :rules="rule_tahun_pendaftaran"/>           
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                                 </v-row>                                                                                                                            
@@ -92,7 +92,7 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -112,8 +112,8 @@ export default {
                 href: "#"
             }
         ];
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
-        this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];  
         this.initialize();
     },
     data: () => ({
@@ -129,13 +129,13 @@ export default {
             tahun_pendaftaran: 0,
         },
         //form rules        
-        rule_default_ta:[
+        rule_default_ta: [
             value => !!value || "Mohon untuk dipilih Tahun Akademik !!!",             
         ], 
-        rule_default_semester:[
+        rule_default_semester: [
             value => !!value || "Mohon untuk diisi Semester !!!",             
         ],
-        rule_tahun_pendaftaran:[
+        rule_tahun_pendaftaran: [
             value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",                                 
         ]
     }),

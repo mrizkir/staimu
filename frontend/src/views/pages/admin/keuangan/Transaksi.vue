@@ -111,7 +111,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TOTAL :</v-card-title>
@@ -120,7 +120,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                             </v-row>                                            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -131,7 +131,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>STATUS :</v-card-title>
@@ -140,7 +140,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                             </v-row>  
                                             <v-row>
                                                 <v-col cols="12">
@@ -247,7 +247,7 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -286,28 +286,28 @@ export default {
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width: 100,sortable: true },
-            { text: 'TANGGAL', value: 'tanggal',width: 100,sortable: true },
-            { text: 'NIM', value: 'nim',width: 100,sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },
-            { text: 'SMT', value: 'idsmt',width:50,sortable: true },
-            { text: 'TOTAL', value: 'total',width: 100,sortable: true },
-            { text: 'STATUS', value: 'nama_status',width:50,sortable: true },    
-            { text: 'KET.', value: 'desc',width:150,sortable: false },    
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'KODE BILLING', value: 'no_transaksi',width: 100, sortable: true },
+            { text: 'TANGGAL', value: 'tanggal',width: 100, sortable: true },
+            { text: 'NIM', value: 'nim',width: 100, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },
+            { text: 'SMT', value: 'idsmt',width:50, sortable: true },
+            { text: 'TOTAL', value: 'total',width: 100, sortable: true },
+            { text: 'STATUS', value: 'nama_status',width:50, sortable: true },    
+            { text: 'KET.', value: 'desc',width:150, sortable: false },    
+            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
         ],        
         expanded: [],
         search: "", 
 
         //dialog        
         dialogdetailitem: false,
-        headers_detail:[
-            { text: 'KODE', value: 'kombi_id',width:50,sortable: false },
-            { text: 'NAMA KOMPONEN', value: 'nama_kombi',sortable: false },
-            { text: 'BIAYA', value: 'biaya',width:60,sortable: false },
-            { text: 'JUMLAH', value: 'jumlah',width:60,sortable: false },
-            { text: 'BULAN', value: 'bulan',width:60,sortable: false },
-            { text: 'JUMLAH', value: 'sub_total',width:60,sortable: false },
+        headers_detail: [
+            { text: 'KODE', value: 'kombi_id',width:50, sortable: false },
+            { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable: false },
+            { text: 'BIAYA', value: 'biaya',width:60, sortable: false },
+            { text: 'JUMLAH', value: 'jumlah',width:60, sortable: false },
+            { text: 'BULAN', value: 'bulan',width:60, sortable: false },
+            { text: 'JUMLAH', value: 'sub_total',width:60, sortable: false },
         ],
         //form data
         data_transaksi: {}, 

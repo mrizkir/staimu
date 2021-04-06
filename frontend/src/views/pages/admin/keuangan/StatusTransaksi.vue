@@ -101,9 +101,9 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'KEUANGAN',
@@ -127,9 +127,9 @@ export default {
         expanded: [],
         datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_status',width:10,sortable: false },                                   
-            { text: 'NAMA STATUS', value: 'nama_status',sortable: false},
-            { text: 'STYLE', value: 'style',width:200,sortable: false },                
+            { text: 'ID', value: 'id_status',width:10, sortable: false },                                   
+            { text: 'NAMA STATUS', value: 'nama_status', sortable: false},
+            { text: 'STYLE', value: 'style',width:200, sortable: false },                
         ],      
         
     }),

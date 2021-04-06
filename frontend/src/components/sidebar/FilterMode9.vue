@@ -5,7 +5,7 @@
                 v-model="tahun_pendaftaran"
                 :items="daftar_ta"                
                 label="TAHUN PENDAFTARAN"
-                outlined/> 
+                outlined/>
         </v-list-item-content>
     </v-list-item>	
 </template>
@@ -14,7 +14,7 @@ export default {
     name: 'FilterMode9',
     created()
     {
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
     },
     data: () => ({

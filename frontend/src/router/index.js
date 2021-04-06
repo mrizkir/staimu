@@ -696,6 +696,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/PerkuliahanUjianMunaqasah.vue"),
 	},
+	{
+		path: "/akademik/perkuliahan/ujianmunaqasah/tambah",
+		name: "PerkuliahanUjianMunaqasahTambah",
+		meta: {
+			title: "AKADEMIK - UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanUjianMunaqasahTambah.vue"),
+	},
 	//akademik - nilai
 	{
 		path: "/akademik/nilai/matakuliah/isiperkelasmhs",

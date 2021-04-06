@@ -17,19 +17,19 @@
                                     label="NAMA LENGKAP" 
                                     :rules="rule_name"
                                     outlined 
-                                    dense />                               
+                                    dense />                              
                                 <v-text-field 
                                     v-model="formdata.nomor_hp"
                                     label="NOMOR HP (ex: +628123456789)" 
                                     :rules="rule_nomorhp"
                                     outlined 
-                                    dense />                               
+                                    dense />                              
                                 <v-text-field 
                                     v-model="formdata.email"
                                     label="EMAIL" 
                                     :rules="rule_email"
                                     outlined 
-                                    dense /> 
+                                    dense />
                                 <v-select
                                     v-model="kode_fakultas"
                                     label="FAKULTAS"
@@ -55,14 +55,14 @@
                                     label="USERNAME" 
                                     :rules="rule_username"
                                     outlined 
-                                    dense />   
+                                    dense />  
                                 <v-text-field 
                                     v-model="formdata.password"
                                     label="PASSWORD" 
                                     type="password"         
                                     :rules="rule_password"                
                                     outlined 
-                                    dense />  
+                                    dense /> 
                                 <v-alert color="error" class="mb-0" text v-if="formdata.captcha_response.length<=0">
                                     Mohon dicentang Google Captcha    
                                 </v-alert>
@@ -165,31 +165,31 @@ export default {
             email: '',
             code: ''
         },
-        rule_name:[
+        rule_name: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
-        rule_nomorhp:[
+        rule_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
-        rule_email:[
+        rule_email: [
             value => !!value || "Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ],
-        rule_fakultas:[
+        rule_fakultas: [
             value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
-        rule_prodi:[
+        rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
-        rule_username:[
+        rule_username: [
             value => !!value || "Username mohon untuk diisi !!!"
         ], 
-        rule_password:[
+        rule_password: [
             value => !!value || "Password mohon untuk diisi !!!"
         ],        
-        rule_code:[
+        rule_code: [
             value => /^[0-9]+$/.test(value) || 'Code hanya boleh angka',
         ]
     }),
@@ -268,7 +268,7 @@ export default {
             this.$refs.recaptcha.reset();  
             this.formdata.captcha_response='';
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogkonfirmasiemail = false;            
             setTimeout(() => {
                 this.frmpendaftaran = Object.assign({}, this.formdefault);                                

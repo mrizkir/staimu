@@ -128,14 +128,14 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'ISI NILAI',
@@ -166,7 +166,7 @@ export default {
         datatable: [],    
         datatable_peserta: [],                 
         headers_peserta: [
-            { text: 'NIM', value: 'nim', sortable: false,width: 100  },   
+            { text: 'NIM', value: 'nim', sortable: false, width: 100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable: false  },   
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
             { text: 'KELAS', value: 'idkelas', sortable: false  },                   
@@ -178,7 +178,7 @@ export default {
         //formdata
         form_valid: true, 
         daftar_nilai: [],        
-        skala_nilai:[
+        skala_nilai: [
             'A',
             'A-',
             'A/B',

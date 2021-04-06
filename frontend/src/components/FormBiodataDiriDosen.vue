@@ -14,7 +14,7 @@
                                     v-model="formdata.nidn"    
                                     :rules="rule_nidn"
                                     filled
-                                />                                
+                                />                               
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -101,7 +101,7 @@
                             v-model="formdata.email"
                             :rules="rule_email"
                             filled
-                        />                       
+                        />                      
                     </v-card-text>
                 </v-card>
                 <v-card class="mb-4">
@@ -247,34 +247,34 @@ export default {
             desc: '',
             active: '',
         },
-        rule_nidn:[                         
+        rule_nidn: [                         
             value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',                
         ],         
-        rule_nipy:[            
+        rule_nipy: [            
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',                
         ], 
-        rule_nama_dosen:[
+        rule_nama_dosen: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],         
-        rule_tempat_lahir:[
+        rule_tempat_lahir: [
             value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
-        rule_tanggal_lahir:[
+        rule_tanggal_lahir: [
             value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
         ], 
-        rule_nomorhp:[
+        rule_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
-        rule_email:[
+        rule_email: [
             value => !!value || "Email mohon untuk diisi !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
         ],   
-        rule_desa:[
+        rule_desa: [
             value => !!value || "Mohon Desa mohon untuk diisi !!!"
         ], 
-        rule_alamat_rumah:[
+        rule_alamat_rumah: [
             value => !!value || "Alamat Rumah mohon untuk diisi !!!"
         ],         
     }),

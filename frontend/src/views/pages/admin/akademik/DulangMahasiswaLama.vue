@@ -117,14 +117,14 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'DAFTAR ULANG',
@@ -161,10 +161,10 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width: 100  },   
             { text: 'NIM', value: 'nim', sortable: true,width: 100  },   
             { text: 'NIRM', value: 'nirm', sortable: true,width: 100  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },                   
-            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
-            { text: 'STATUS', value: 'n_status',sortable: true,width:120, },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },                   
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
+            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "", 
     }),
@@ -239,7 +239,7 @@ export default {
                 }                
             });
         },
-        closedialogfrm () {            
+        closedialogfrm() {            
             this.dialogfrm = false;            
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                

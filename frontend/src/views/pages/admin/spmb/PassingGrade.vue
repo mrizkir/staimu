@@ -115,9 +115,9 @@ export default {
         this.jadwal_ujian_id = this.$route.params.idjadwalujian;     
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -154,12 +154,12 @@ export default {
         datatable: [],
         headers: [                                        
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
-            { text: 'NILAI', value: 'nilai', sortable: false,width: 100 },                
+            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },                
         ],
         search: "",
 
         //form rules
-        rule_angka:[
+        rule_angka: [
             value => /^(100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?)$/.test(value) || 'Isi dengan nilai antara 0.00 s.d 100.00', 
         ],
     }),

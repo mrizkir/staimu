@@ -164,14 +164,14 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'NILAI',
@@ -205,12 +205,12 @@ export default {
         datatable: [],      
         headers: [            
             { text: 'NIM', value: 'nim', sortable: true,width: 100  },       
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true },                   
-            { text: 'KELAS', value: 'idkelas',sortable: true,width:120, },                   
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width: 100, },                   
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width: 100, },                   
-            { text: 'IPK SEMENTARA', value: 'ipk',sortable: true,width: 100, },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true },                   
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },                   
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },                   
+            { text: 'IPK SEMENTARA', value: 'ipk', sortable: true,width: 100, },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
         ],  
         search: "", 
 

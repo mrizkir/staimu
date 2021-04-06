@@ -135,7 +135,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                    
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                  
                                                 </v-row>
                                                 <v-row no-gutters>
                                                     <v-col xs="12" sm="12" md="12">
@@ -173,7 +173,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                    
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                  
                                                 </v-row>
                                             </v-card-text>
                                             <v-card-actions>
@@ -344,7 +344,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -380,7 +380,7 @@ export default {
                 { text: 'AKHIR GENAP', value: 'akhir_genap',width:50 },
                 { text: 'AWAL PENDEK', value: 'awal_pendek',width:50 },
                 { text: 'AKHIR PENDEK', value: 'akhir_pendek',width:50 },
-                { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+                { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
             ],
             search: "",
 
@@ -419,7 +419,7 @@ export default {
             editedIndex: -1,
 
             //form rules
-            rule_tahun:[
+            rule_tahun: [
                 value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
                 value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',                
                 value => {                    
@@ -432,7 +432,7 @@ export default {
                     }                    
                 }
             ],
-            rule_tahun_akademik:[                
+            rule_tahun_akademik: [                
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
             ],            
         }
@@ -557,7 +557,7 @@ export default {
         closedialogdetailitem () {
             this.$router.go();
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.$router.go();
         },
     },

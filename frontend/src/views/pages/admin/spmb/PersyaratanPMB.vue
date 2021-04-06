@@ -82,7 +82,7 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">                                    
-                                    <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />                                    
+                                    <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />  
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -94,7 +94,7 @@
                                 :value="item.jumlah_persyaratan > 0"
                                 overlap>                
                                 <v-avatar size="30">                                        
-                                    <v-img :src="$api.url+'/'+item.foto" />                                                                     
+                                    <v-img :src="$api.url+'/'+item.foto" />                                   
                                 </v-avatar>                                                                                                  
                             </v-badge>
                         </template>
@@ -139,9 +139,9 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -177,11 +177,11 @@ export default {
         datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp',width: 100},
-            { text: 'KELAS', value: 'nkelas',width: 100,sortable: true },
-            { text: 'STATUS', value: 'status',width:120,sortable: true },
-            { text: 'AKSI', value: 'actions', sortable: false,width:50 },
+            { text: 'KELAS', value: 'nkelas',width: 100, sortable: true },
+            { text: 'STATUS', value: 'status',width:120, sortable: true },
+            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
         ],
         search: "",
 

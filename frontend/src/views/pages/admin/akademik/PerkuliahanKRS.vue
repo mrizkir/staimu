@@ -175,22 +175,22 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
             {
-                text: 'KRS',
+                text: "KRS",
                 disabled: true,
                 href: "#"
             }
@@ -236,9 +236,9 @@ export default {
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },       
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },       
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },       
-            { text: 'TA.SMT', value: 'tasmt',sortable: true, width: 100 },                   
-            { text: 'SAH', value: 'sah',sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 140 },
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },                   
+            { text: 'SAH', value: 'sah', sortable: true, width: 100},                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 140 },
         ],  
         search: "", 
 

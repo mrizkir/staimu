@@ -495,7 +495,7 @@ export default {
 				this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
 				this.breadcrumbs = [
 						{
-								text: 'HOME',
+								text: "HOME",
 								disabled: false,
 								href: '/dashboard/'+this.ACCESS_TOKEN
 						},
@@ -532,18 +532,18 @@ export default {
 				datatableLoading: false,
 				datatable: [],
 				headers: [
-						{ text: 'KODE BILLING', value: 'no_transaksi',width: 100,sortable: true },
-						{ text: 'NO.REF', value: 'no_faktur',width: 100,sortable: true },
-						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal',width: 100,sortable: true },
-						{ text: 'NO. FORMULIR', value: 'no_formulir',sortable: true,width: 100 },
-						{ text: 'NIM', value: 'nim',sortable: true,width: 100 },
-						{ text: 'NAMA MAHASISWA', value: 'nama_mhs',sortable: true,width: 250 },
-						{ text: 'SMT', value: 'idsmt',width: 100,sortable: true },
-						{ text: 'TOTAL', value: 'total',width: 100,sortable: true },
-						{ text: 'STATUS TRANSAKSI', value: 'nama_status',width:50,sortable: true },
-						{ text: 'KONFIRM.', value: 'status_konfirmasi',width:50,sortable: true },
-						{ text: 'KET.', value: 'desc',width:80,sortable: false },
-						{ text: 'AKSI', value: 'actions', sortable: false,width:82 },
+						{ text: 'KODE BILLING', value: 'no_transaksi',width: 100, sortable: true },
+						{ text: 'NO.REF', value: 'no_faktur',width: 100, sortable: true },
+						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal',width: 100, sortable: true },
+						{ text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width: 100 },
+						{ text: 'NIM', value: 'nim', sortable: true,width: 100 },
+						{ text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },
+						{ text: 'SMT', value: 'idsmt',width: 100, sortable: true },
+						{ text: 'TOTAL', value: 'total',width: 100, sortable: true },
+						{ text: 'STATUS TRANSAKSI', value: 'nama_status',width:50, sortable: true },
+						{ text: 'KONFIRM.', value: 'status_konfirmasi',width:50, sortable: true },
+						{ text: 'KET.', value: 'desc',width:80, sortable: false },
+						{ text: 'AKSI', value: 'actions', sortable: false, width:82 },
 				],
 				expanded: [],
 				search: "",
@@ -583,23 +583,23 @@ export default {
 						bukti_bayar: [],
 				},
 				//form rules
-				rule_channel_pembayaran:[
+				rule_channel_pembayaran: [
 						value => !!value || "Mohon dipilih Channel Pembayaran mohon untuk dipilih !!!"
 				],
-				rule_nama_pengirim:[
+				rule_nama_pengirim: [
 						value => !!value || "Mohon diisi nama pengirim !!!"
 				],
-				rule_nomor_rekening:[
+				rule_nomor_rekening: [
 						value => !!value || "Mohon diisi nomor rekening pengirim !!!",
 						value => /^[0-9]+$/.test(value) || 'Nomor Rekening hanya boleh angka',
 				],
-				rule_nama_bank:[
+				rule_nama_bank: [
 						value => !!value || "Mohon diisi nama bank !!!"
 				],
-				rule_tanggal_bayar:[
+				rule_tanggal_bayar: [
 						value => !!value || "Tanggal Bayar mohon untuk diisi !!!"
 				],
-				rule_bukti_bayar:[
+				rule_bukti_bayar: [
 						value => !!value || "Mohon pilih foto !!!",
 						value =>  !value || value.size < 2000000 || 'File Bukti Bayar harus kurang dari 2MB.'
 				],
@@ -766,7 +766,7 @@ export default {
 								}
 						});
 				},
-				closedialogfrm () {
+				closedialogfrm() {
 						this.dialogfrm = false;
 						setTimeout(() => {
 								this.buktiBayar=null;

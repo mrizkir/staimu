@@ -48,12 +48,12 @@
                                     v-model="formdata.nim"
                                     label="NIM"   
                                     :rules="rule_nim"                                                               
-                                    outlined /> 
+                                    outlined />
                                 <v-text-field 
                                     v-model="formdata.nirm"
                                     label="NIRM" 
                                     :rules="rule_nirm"                                                                    
-                                    outlined /> 
+                                    outlined />
                                 <v-text-field
                                     label="NAMA LENGKAP"    
                                     v-model="formdata.nama_mhs"    
@@ -75,7 +75,7 @@
                                     item-value="id"
                                     :rules="rule_kelas"
                                     outlined
-                                />          
+                                />         
                                 <v-select
                                     label="DOSEN WALI"
                                     v-model="formdata.dosen_id"
@@ -83,7 +83,7 @@
                                     item-text="name"
                                     item-value="id"
                                     :rules="rule_dw"
-                                    outlined/>                                                        
+                                    outlined/>                      
                             </v-card-text>                            
                         </v-card>         
                         <v-card class="mb-4">
@@ -140,9 +140,9 @@ export default {
 	{
 		this.breadcrumbs = [
 			{
-				text: 'HOME',
+				text: "HOME",
 				disabled: false,
-				href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+				href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
 			},
 			{
 				text: 'MIGRASI SISTEM',
@@ -180,33 +180,33 @@ export default {
             idkelas: '',
             status_mhs: [],
         },
-        rule_nim:[
+        rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
-        rule_nirm:[
+        rule_nirm: [
             value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
         ], 
-        rule_nama_mhs:[
+        rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],         
-        rule_prodi:[
+        rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
-        rule_kelas:[
+        rule_kelas: [
             value => !!value || "Kelas mohon untuk dipilih !!!"
         ],
-        rule_dw:[
+        rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
         ],         
         
         datatableLoading: false,
         headers: [                                                
-            { text: 'TAHUN AKADEMIK', value: 'ta',sortable: false },
-            { text: 'SEMESTER', value: 'semester',sortable: false },
-            { text: 'STATUS', value: 'k_status',sortable: false, width: 250 },         
+            { text: 'TAHUN AKADEMIK', value: 'ta', sortable: false },
+            { text: 'SEMESTER', value: 'semester', sortable: false },
+            { text: 'STATUS', value: 'k_status', sortable: false, width: 250 },         
         ],
     }),
     methods: {

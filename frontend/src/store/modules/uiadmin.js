@@ -27,7 +27,7 @@ const getDefaultState = () =>
         daftar_status_mhs: [],
         k_status: null,
         
-        skala_nilai:[
+        skala_nilai: [
             'A',
             'A-',
             'A/B',

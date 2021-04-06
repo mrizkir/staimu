@@ -98,17 +98,17 @@
                                                     v-model="formdata.name"
                                                     label="NAMA LENGKAP" 
                                                     :rules="rule_name"
-                                                    outlined/>                               
+                                                    outlined/>                              
                                                 <v-text-field 
                                                     v-model="formdata.nomor_hp"
                                                     label="NOMOR HP (ex: +628123456789)" 
                                                     :rules="rule_nomorhp"
-                                                    outlined/>                               
+                                                    outlined/>                              
                                                 <v-text-field 
                                                     v-model="formdata.email"
                                                     label="EMAIL" 
                                                     :rules="rule_email"
-                                                    outlined/>       
+                                                    outlined/>      
                                                 <v-select
                                                     v-model="kode_fakultas"
                                                     label="FAKULTAS"
@@ -135,19 +135,19 @@
                                                     :items="daftar_ta"                                                    
                                                     label="TAHUN PENDAFTARAN"
                                                     :disabled="registered"
-                                                    outlined/>   
+                                                    outlined/>  
                                                 <v-text-field 
                                                     v-model="formdata.username"
                                                     label="USERNAME" 
                                                     :rules="rule_username"
-                                                    outlined />   
+                                                    outlined />  
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
                                                     type="password"                                                                             
                                                     :disabled="registered"                                                                       
                                                     outlined 
-                                                    v-if="editedIndex>-1" /> 
+                                                    v-if="editedIndex>-1" />
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
@@ -155,7 +155,7 @@
                                                     :disabled="registered"       
                                                     :rules="rule_password"                
                                                     outlined 
-                                                    v-else /> 
+                                                    v-else />
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -296,7 +296,7 @@
                                 :icon="badgeIcon(item)"
                                 overlap>                
                                 <v-avatar size="30">                                        
-                                    <v-img :src="$api.url+'/'+item.foto" />                                                                     
+                                    <v-img :src="$api.url+'/'+item.foto" />                                   
                                 </v-avatar>                                                                                                  
                             </v-badge>
                         </template>
@@ -349,9 +349,9 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];      
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -389,12 +389,12 @@ export default {
         //tables
         headers: [                        
             { text: '', value: 'foto', width:70 },    
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
-            { text: 'USERNAME', value: 'username',sortable: true },
-            { text: 'EMAIL', value: 'email',sortable: true },     
-            { text: 'NOMOR HP', value: 'nomor_hp',sortable: false,width:130 },        
-            { text: 'TGL.DAFTAR', value: 'created_at',sortable: true,width: 100 },     
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
+            { text: 'USERNAME', value: 'username', sortable: true },
+            { text: 'EMAIL', value: 'email', sortable: true },     
+            { text: 'NOMOR HP', value: 'nomor_hp', sortable: false, width:130 },        
+            { text: 'TGL.DAFTAR', value: 'created_at', sortable: true,width: 100 },     
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",
@@ -435,28 +435,28 @@ export default {
         },    
         editedIndex: -1,
 
-        rule_name:[
+        rule_name: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
-        rule_nomorhp:[
+        rule_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
-        rule_email:[
+        rule_email: [
             value => !!value || "Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ],   
-        rule_fakultas:[
+        rule_fakultas: [
             value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
-        rule_prodi:[
+        rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
         ],      
-        rule_username:[
+        rule_username: [
             value => !!value || "Username mohon untuk diisi !!!"
         ], 
-        rule_password:[
+        rule_password: [
             value => !!value || "Password mohon untuk diisi !!!"
         ], 
     }),
@@ -549,7 +549,7 @@ export default {
         },
         async addItem()
         {
-            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             this.formdata.ta=this.tahun_pendaftaran;
             this.formdata.prodi_id=this.prodi_id;
 
@@ -650,7 +650,7 @@ export default {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.formdata.nomor_hp='+'+this.formdata.nomor_hp;
-            this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+            this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
@@ -713,7 +713,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                

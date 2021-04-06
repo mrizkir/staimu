@@ -231,7 +231,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>SKS TATAP MUKA :</v-card-title>
@@ -251,7 +251,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>SKS PRAKTIKUM :</v-card-title>
@@ -271,7 +271,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>SKS PRAKTIK LAPANGAN :</v-card-title>
@@ -291,7 +291,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>SYARAT SKRIPSI :</v-card-title>
@@ -311,7 +311,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>STATUS :</v-card-title>
@@ -349,7 +349,7 @@
                                                     :items="daftar_ta"                                                    
                                                     label="TAHUN AKADEMIK"
                                                     :rules="rule_dari_tahun_akademik"
-                                                    outlined/>                                        
+                                                    outlined/>      
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -430,17 +430,17 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
@@ -467,13 +467,13 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable: true,width:80, align: 'center' },       
-            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
+            { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
+            { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
             { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable: true,width: 100 },       
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -488,13 +488,13 @@ export default {
         dari_tahun_akademik: null,  
         group_matakuliah: [],   
         daftar_konsentrasi: [],   
-        daftar_semester:[
+        daftar_semester: [
             1,2,3,4,5,6,7,8
         ],  
-        daftar_sks:[
+        daftar_sks: [
             1,2,3,4,5,6,7,8,9,10,11,12
         ],
-        daftar_nilai:[
+        daftar_nilai: [
             'A',
             'A-',
             'A/B',
@@ -557,28 +557,28 @@ export default {
         editedIndex: -1,
 
         //form rules    
-        rule_group_matakuliah:[
+        rule_group_matakuliah: [
             value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",              
         ],      
-        rule_kode_matkul:[
+        rule_kode_matkul: [
             value => !!value || "Kode Program Studi mohon untuk diisi !!!",            
         ], 
-        rule_nama_matakuliah:[
+        rule_nama_matakuliah: [
             value => !!value || "Mohon Nama Program Studi untuk diisi !!!",              
         ], 
-        rule_sks:[
+        rule_sks: [
             value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",              
         ],         
-        rule_sks_tatap_muka:[
+        rule_sks_tatap_muka: [
             value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",              
         ],         
-        rule_semester:[
+        rule_semester: [
             value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",              
         ],         
-        rule_minimal_nilai:[
+        rule_minimal_nilai: [
             value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",              
         ], 
-        rule_dari_tahun_akademik:[
+        rule_dari_tahun_akademik: [
             value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",              
         ],             
     }),
@@ -819,7 +819,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {                              
                 this.$refs.frmdata.resetValidation();                                 

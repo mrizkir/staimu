@@ -88,7 +88,7 @@
                                     overlap
                                 >                
                                     <v-avatar size="30">                                        
-                                        <v-img :src="$api.url+'/'+item.foto" />                                                                     
+                                        <v-img :src="$api.url+'/'+item.foto" />                                   
                                     </v-avatar>                                                                                                  
                             </v-badge>
                         </template>
@@ -124,9 +124,9 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -161,9 +161,9 @@ export default {
         datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp',width: 100},
-            { text: 'KELAS', value: 'nkelas',width: 100,sortable: true },    
+            { text: 'KELAS', value: 'nkelas',width: 100, sortable: true },    
         ],
         search: "",  
         

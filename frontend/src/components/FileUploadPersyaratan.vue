@@ -21,7 +21,7 @@
                     :color="badgeColor"
                     :icon="badgeIcon">   
                 </v-badge>
-                <v-spacer/>          
+                <v-spacer/>         
                 <v-btn
                     icon
                     :href="this.$api.url+'/'+this.item.path"
@@ -108,7 +108,7 @@ export default {
         form_valid: true,
         filepersyaratan: [],
         //form rules  
-        rule_foto:[
+        rule_foto: [
             value => !!value || "Mohon pilih foto !!!",  
             value =>  !value || value.size < 2000000 || 'File foto harus kurang dari 2MB.'                
         ],

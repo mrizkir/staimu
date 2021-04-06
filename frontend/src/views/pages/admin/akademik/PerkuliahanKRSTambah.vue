@@ -48,14 +48,14 @@
                                     append-outer-icon="mdi-send"
                                     @click:append-outer="cekNIM"
                                     :disabled="(this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')"
-                                    /> 
+                                    />
                                 <v-select
                                     v-model="formdata.dulang_id"
                                     :items="daftar_dulang"                                    
                                     label="DAFTAR ULANG"                                            
                                     class="mr-2"
                                     :rules="rule_dulang"
-                                    outlined/>                                 
+                                    outlined/>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -84,24 +84,24 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
             {
-                text: 'KRS',
+                text: "KRS",
                 disabled: false,
-                href: '/akademik/perkuliahan/krs/daftar'
+                href: "/akademik/perkuliahan/krs/daftar"
             },
             {
                 text: 'TAMBAH',
@@ -112,14 +112,14 @@ export default {
         let prodi_id = this.$store.getters['uiadmin/getProdiID'];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];          
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];          
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.ta_matkul=this.tahun_akademik;
-        this.daftar_semester=this.$store.getters['uiadmin/getDaftarSemester'];          
+        this.ta_matkul = this.tahun_akademik;
+        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];          
         this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
         {
-            this.formdata.nim=this.$store.getters['auth/AttributeUser']('username');
+            this.formdata.nim = this.$store.getters["auth/AttributeUser"]("username");
             this.fetchDulang();
         }
     },  
@@ -139,12 +139,12 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable: true,width:80, align: 'center' },       
-            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
+            { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
+            { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -155,11 +155,11 @@ export default {
             nim: '',
             dulang_id: ''
         },
-        rule_nim:[
+        rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
         ], 
-        rule_dulang:[
+        rule_dulang: [
             value => !!value || "Mohon dipilih Daftar Ulang yang telah dilakukan !!!"
         ],         
     }),
@@ -175,10 +175,10 @@ export default {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {                               
-                this.daftar_dulang=data.daftar_dulang;                
+                this.daftar_dulang = data.daftar_dulang;                
             })
         }, 
-        cekNIM ()
+        cekNIM()
         {
             if (this.formdata.nim.length > 0)
             {
@@ -206,10 +206,10 @@ export default {
                 });                  
             }
         },
-        closedialogfrm () {                             
+        closedialogfrm() {                             
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                
-                this.$router.push('/akademik/perkuliahan/krs/daftar');
+                this.$router.push("/akademik/perkuliahan/krs/daftar");
                 }, 300
             );
         },

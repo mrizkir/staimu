@@ -64,7 +64,7 @@ export default {
     {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -91,7 +91,7 @@ export default {
             token_ttl_expire:60          
         },
         //form rules
-        rule_ttl_token_expire:[
+        rule_ttl_token_expire: [
             value => !!value || "Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
             value => /^[0-9]+$/.test(value) || 'TTL Expire dari token hanya boleh angka',    
         ],        

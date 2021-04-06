@@ -18,7 +18,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
             <v-col xs="12" sm="4" md="3">
                 <v-card                         
                     class="clickable green darken-1"
@@ -36,7 +36,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
             <v-col xs="12" sm="4" md="3">
                 <v-card                         
                     class="clickable green darken-1"
@@ -54,7 +54,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
             <v-col xs="12" sm="4" md="3">
                 <v-card                         
                     class="clickable green darken-1"
@@ -72,7 +72,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
         </v-row>  
         <v-row>
             <v-col xs="12" sm="12" md="6">
@@ -108,7 +108,7 @@
                     </v-card-text>
                 </v-card>                    
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
             <v-col xs="12" sm="12" md="6">
                 <v-card class="mb-3">
                     <v-card-title>
@@ -142,7 +142,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+            <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
         </v-row>
     </v-container>    
 </template>

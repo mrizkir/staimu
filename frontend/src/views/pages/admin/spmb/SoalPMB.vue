@@ -90,7 +90,7 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    outlined />                                                
+                                                    outlined />              
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-1:</h3>  
                                                 <v-text-field
@@ -98,7 +98,7 @@
                                                     v-model="formdata.jawaban1"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />                                                
+                                                />              
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-2:</h3>  
                                                 <v-text-field
@@ -106,7 +106,7 @@
                                                     v-model="formdata.jawaban2"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />                                                
+                                                />              
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-3:</h3>  
                                                 <v-text-field
@@ -114,7 +114,7 @@
                                                     v-model="formdata.jawaban3"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />                                                
+                                                />              
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-4:</h3>  
                                                 <v-text-field
@@ -122,7 +122,7 @@
                                                     v-model="formdata.jawaban4"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />                                                
+                                                />              
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>  
                                                 <v-select
@@ -131,7 +131,7 @@
                                                     item-value="id"
                                                     item-text="text"                                                
                                                     label="JAWABAN BENAR"
-                                                    outlined/>    
+                                                    outlined/>   
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -164,7 +164,7 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    outlined />                                                
+                                                    outlined />              
                                                 <v-divider class="mt-2"/>
                                                 <v-radio-group v-model="formdata.jawaban_benar">
                                                     <v-data-table                                                        
@@ -321,9 +321,9 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -355,11 +355,11 @@ export default {
         datatable: [],
         headers: [                                    
             { text: 'NAMA SOAL', value: 'soal'},   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
-        headers_detail:[
+        headers_detail: [
             { text: 'JAWABAN', value: 'jawaban', sortable: false,}, 
-            { text: 'KET.', value: 'status', sortable: false,width: 100 },
+            { text: 'KET.', value: 'status', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -372,7 +372,7 @@ export default {
         //form data   
         form_valid: true,    
         image_prev: null,      
-        daftar_jawaban:[
+        daftar_jawaban: [
             {
                 id:1,
                 text: 'JAWABAN KE 1'
@@ -418,16 +418,16 @@ export default {
         editedIndex: -1,
 
         //form rules      
-        rule_soal:[
+        rule_soal: [
             value => !!value || "Mohon untuk di isi soal !!!",              
         ], 
-        rule_gambar:[            
+        rule_gambar: [            
             value =>  !value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
         ],
-        rule_jawaban:[
+        rule_jawaban: [
             value => !!value || "Mohon isi jawaban dari soal ini",              
         ], 
-        rule_jawaban_benar:[
+        rule_jawaban_benar: [
             value => !!value || "Mohon pilih jawaban benar dari soal ini",              
         ], 
     }),
@@ -604,7 +604,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);

@@ -143,7 +143,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>CREATED :</v-card-title>
@@ -163,7 +163,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>UPDATED :</v-card-title>
@@ -198,7 +198,7 @@
                                                     :items="daftar_ta"                                                    
                                                     label="TAHUN PENDAFTARAN"
                                                     :rules="rule_dari_tahun_pendaftaran"
-                                                    outlined/>                                        
+                                                    outlined/>      
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -270,7 +270,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -297,10 +297,10 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'PROSES', value: 'proses', sortable: true,width:120  },   
-            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan',sortable: true },                   
-            { text: 'TA', value: 'ta',sortable: true,width:80, align: 'center' },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'PROSES', value: 'proses', sortable: true, width: 120  },   
+            { text: 'NAMA PERSYARATAN', value: 'nama_persyaratan', sortable: true },                   
+            { text: 'TA', value: 'ta', sortable: true, width: 80, align: 'center' },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -330,10 +330,10 @@ export default {
         editedIndex: -1,
 
         //form rules      
-        rule_nama_persyaratan:[
+        rule_nama_persyaratan: [
             value => !!value || "Mohon Nama Program Studi untuk diisi !!!",              
         ],         
-        rule_dari_tahun_pendaftaran:[
+        rule_dari_tahun_pendaftaran: [
             value => !!value || "Mohon Tahun Pendaftaran sumber persyaratan untuk dipilih !!!",              
         ],             
     }),
@@ -504,7 +504,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {                              
                 this.$refs.frmdata.resetValidation();                                 

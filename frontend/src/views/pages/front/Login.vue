@@ -28,7 +28,7 @@
                                     type="password"
                                     :rules="rule_password"
                                     outlined
-                                    dense />  
+                                    dense /> 
                             </v-card-text>
                             <v-card-actions class="justify-center">
                                  <v-btn
@@ -55,7 +55,7 @@ export default {
 	{
 		if (this.$store.getters['auth/Authenticated'])
 		{
-			this.$router.push('/dashboard/'+this.$store.getters["auth/AccessToken"]);
+			this.$router.push("/dashboard/" + this.$store.getters["auth/AccessToken"]);
 		}
 	},
     data: () => ({
@@ -66,10 +66,10 @@ export default {
             username: '',
             password: ''
         },
-        rule_username:[
+        rule_username: [
             value => !!value || "Kolom Username mohon untuk diisi !!!"
         ],
-        rule_password:[
+        rule_password: [
             value => !!value || "Kolom Password mohon untuk diisi !!!"
         ],
 

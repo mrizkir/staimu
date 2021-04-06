@@ -87,7 +87,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>             
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
                                 
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
@@ -189,9 +189,9 @@ export default {
         this.transaksi_id=this.$route.params.transaksi_id;        
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'KEUANGAN',
@@ -224,11 +224,11 @@ export default {
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'NO. BULAN', value: 'no_bulan',width:120,sortable: false },
-            { text: 'BULAN', value: 'nama_bulan',sortable: false },    
-            { text: 'TAHUN', value: 'tahun',sortable: false },    
-            { text: 'BIAYA KOMBI', value: 'biaya_kombi',sortable: false },    
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'NO. BULAN', value: 'no_bulan',width:120, sortable: false },
+            { text: 'BULAN', value: 'nama_bulan', sortable: false },    
+            { text: 'TAHUN', value: 'tahun', sortable: false },    
+            { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false },    
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],              
         //form
         form_valid: true  

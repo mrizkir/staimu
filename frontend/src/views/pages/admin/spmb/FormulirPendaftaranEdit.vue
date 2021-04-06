@@ -221,9 +221,9 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'SPMB',
@@ -293,41 +293,41 @@ export default {
             kjur1: '',
             idkelas: '',
         },
-        rule_nama_mhs:[
+        rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],                 
-        rule_tempat_lahir:[
+        rule_tempat_lahir: [
             value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
-        rule_tanggal_lahir:[
+        rule_tanggal_lahir: [
             value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
         ], 
-        rule_nomorhp:[
+        rule_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
-        rule_email:[
+        rule_email: [
             value => !!value || "Email mohon untuk diisi !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
         ],
-        rule_nama_ibu_kandung:[
+        rule_nama_ibu_kandung: [
             value => !!value || "Nama Ibu Kandung mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Ibu Kandung hanya boleh string dan spasi',
         ], 
-        rule_desa:[
+        rule_desa: [
             value => !!value || "Mohon Desa mohon untuk diisi !!!"
         ], 
-        rule_alamat_rumah:[
+        rule_alamat_rumah: [
             value => !!value || "Alamat Rumah mohon untuk diisi !!!"
         ], 
-        rule_fakultas:[
+        rule_fakultas: [
             value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
-        rule_prodi:[
+        rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
-        rule_kelas:[
+        rule_kelas: [
             value => !!value || "Kelas mohon untuk dipilih !!!"
         ], 
 

@@ -124,14 +124,14 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'ISI NILAI',
@@ -163,10 +163,10 @@ export default {
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true,width: 250  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true,width: 250  },                   
             { text: 'HARI', value: 'nama_hari', sortable: true, width:70 },       
-            { text: 'JAM', value: 'jam_masuk',sortable: true, width:70 },                   
-            { text: 'RUANG', value: 'namaruang',sortable: true, width: 100},                   
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width:70 },                   
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},                   
+            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
         ],  
         search: "", 
 

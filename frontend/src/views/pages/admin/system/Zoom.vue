@@ -234,7 +234,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>
@@ -304,9 +304,9 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'KONFIGURASI SISTEM',
@@ -332,7 +332,7 @@ export default {
             { text: 'API KEY', value: 'api_key' },
             { text: 'STATUS', value: 'status' },
             { text: 'KETERANGAN', value: 'desc' },
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -372,17 +372,17 @@ export default {
         editedIndex: -1,
 
         //form rules  
-        rule_email:[
+        rule_email: [
             value => !!value || "Mohon untuk mengisi Email !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ], 
-        rule_api_key:[
+        rule_api_key: [
             value => !!value || "Mohon untuk mengisi API Key !!!",  
         ], 
-        rule_api_secret:[
+        rule_api_secret: [
             value => !!value || "Mohon untuk mengisi API Secret !!!",  
         ],
-        rule_im_token:[
+        rule_im_token: [
             value => !!value || "Mohon mengisi IM Token !!!",  
         ],
     }),
@@ -530,7 +530,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                

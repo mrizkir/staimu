@@ -212,24 +212,24 @@ export default {
 				this.krs_id=this.$route.params.krsid;
 				this.breadcrumbs = [
 						{
-								text: 'HOME',
+								text: "HOME",
 								disabled: false,
-								href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+								href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
 						},
 						{
-								text: 'AKADEMIK',
+								text: "AKADEMIK",
 								disabled: false,
-								href: '/akademik'
+								href: "/akademik"
 						},
 						{
-								text: 'PERKULIAHAN',
+								text: "PERKULIAHAN",
 								disabled: false,
 								href: "#"
 						},
 						{
-								text: 'KRS',
+								text: "KRS",
 								disabled: false,
-								href: '/akademik/perkuliahan/krs/daftar'
+								href: "/akademik/perkuliahan/krs/daftar"
 						},
 						{
 								text: 'DETAIL',
@@ -266,12 +266,12 @@ export default {
 				datatable: [],
 				headers: [
 						{ text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },
-						{ text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true, width:300 },
-						{ text: 'SKS', value: 'sks', sortable: false,width:50 },
-						{ text: 'SMT', value: 'semester', sortable: false,width:50 },
-						{ text: 'KELAS', value: 'nama_kelas', sortable: false,width:200 },
-						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false,width:200 },
-						{ text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:300 },
+						{ text: 'SKS', value: 'sks', sortable: false, width:50 },
+						{ text: 'SMT', value: 'semester', sortable: false, width:50 },
+						{ text: 'KELAS', value: 'nama_kelas', sortable: false, width:200 },
+						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width:200 },
+						{ text: 'AKSI', value: 'actions', sortable: false, width: 100 },
 				],
 		}),
 		methods: {
@@ -366,7 +366,7 @@ export default {
 								}
 						});
 				},
-				closedialogfrm () {
+				closedialogfrm() {
 						this.dialogfrm = false;
 						setTimeout(() => {
 								this.datamatkul = Object.assign({}, {});

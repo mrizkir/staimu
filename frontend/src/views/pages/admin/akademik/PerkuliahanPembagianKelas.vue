@@ -92,7 +92,7 @@
                                                             :items="daftar_hari"                                                    
                                                             label="HARI"
                                                             :rules="rule_hari"        
-                                                            outlined/> 
+                                                            outlined/>
                                                     </v-col>
                                                     <v-col cols="4">
                                                         <v-text-field 
@@ -118,7 +118,7 @@
                                                     :rules="rule_ruang_kelas"
                                                     item-text="namaruang"
                                                     item-value="id"
-                                                    outlined/> 
+                                                    outlined/>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -206,17 +206,17 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
@@ -245,10 +245,10 @@ export default {
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },                   
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },       
-            { text: 'JAM', value: 'jam_masuk',sortable: true, width: 100 },                   
-            { text: 'RUANG', value: 'namaruang',sortable: true, width: 100},                   
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs',sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:120 },
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },                   
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},                   
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},                   
+            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
         ],  
         search: "",
         
@@ -258,7 +258,7 @@ export default {
         //formdata
         form_valid: true, 
         daftar_ruang_kelas: [],
-        daftar_hari:[
+        daftar_hari: [
             {
                 text: 'SENIN',
                 value:1,
@@ -303,18 +303,18 @@ export default {
             ruang_kelas_id: '',            
         }, 
 
-        rule_hari:[
+        rule_hari: [
             value => !!value || "Mohon dipilih hari mengajar!!!"
         ],
-        rule_jam_masuk:[
+        rule_jam_masuk: [
             value => !!value || "Mohon diisi jam masuk mengajar!!!",
-            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
         ],
-        rule_jam_keluar:[
+        rule_jam_keluar: [
             value => !!value || "Mohon diisi jam keluar mengajar!!!",
-            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
         ],
-        rule_ruang_kelas:[
+        rule_ruang_kelas: [
             value => !!value || "Mohon dipilih ruang kelas mengajar!!!"
         ],
 
@@ -423,7 +423,7 @@ export default {
                 }                
             });
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                                

@@ -45,7 +45,7 @@
                                     :items="daftar_ta"                                    
                                     label="TAHUN MATAKULIAH"
                                     :rules="rule_tamatkul"
-                                    outlined/>   
+                                    outlined/>  
                                 <v-text-field
                                     v-model="search"
                                     append-icon="mdi-database-search"
@@ -105,7 +105,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS TATAP MUKA :</v-card-title>
@@ -125,7 +125,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS PRAKTIKUM :</v-card-title>
@@ -145,7 +145,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS PRAKTIK LAPANGAN :</v-card-title>
@@ -165,7 +165,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SYARAT SKRIPSI :</v-card-title>
@@ -185,7 +185,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>STATUS :</v-card-title>
@@ -253,17 +253,17 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
@@ -282,7 +282,7 @@ export default {
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);        
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
         this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
         
     },  
@@ -302,12 +302,12 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true },       
-            { text: 'KELOMPOK', value: 'group_alias', sortable: true,width:120 },       
-            { text: 'SKS', value: 'sks',sortable: true,width:80, align: 'center' },       
-            { text: 'SMT', value: 'semester', sortable: true,width:80 },       
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
+            { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
+            { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
+            { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -315,7 +315,7 @@ export default {
         form_valid: true,   
         formdata: [],
         daftar_matkul_selected: [],
-        rule_tamatkul:[
+        rule_tamatkul: [
             value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",              
         ]        
 
@@ -397,7 +397,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {                             
+        closedialogfrm() {                             
             setTimeout(() => {       
                 this.formdata = Object.assign({}, this.formdefault);                                
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');

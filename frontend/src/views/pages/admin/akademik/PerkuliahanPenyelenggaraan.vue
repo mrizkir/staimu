@@ -140,17 +140,17 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
-                text: 'PERKULIAHAN',
+                text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
             },
@@ -179,15 +179,15 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width:120  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true  },   
             { text: 'SKS', value: 'sks', sortable: true, width:50  },       
             { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },       
             { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },       
             { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },       
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen',sortable: true, width:50 },                   
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs',sortable: true, width:50},                   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },                   
+            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "", 
 

@@ -7,12 +7,12 @@
                 item-text="text"
                 item-value="id"
                 label="PROGRAM STUDI"
-                outlined/>            
+                outlined/>           
             <v-select
                 v-model="tahun_akademik"
                 :items="daftar_ta"                
                 label="TAHUN AKADEMIK"
-                outlined/>            
+                outlined/>           
         </v-list-item-content>
     </v-list-item>	
 </template>
@@ -24,7 +24,7 @@ export default {
         this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
         this.prodi_id=this.$store.getters['uiadmin/getProdiID'];                                    
 
-        this.daftar_ta=this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
     },
     data: () => ({

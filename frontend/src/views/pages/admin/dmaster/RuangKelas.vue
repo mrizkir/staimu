@@ -189,7 +189,7 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
                 href: '/dashboard/'+this.ACCESS_TOKEN
             },
@@ -214,7 +214,7 @@ export default {
         headers: [
             { text: 'NAMA RUANG', value: 'namaruang' },
             { text: 'KAPASITAS', value: 'kapasitas' },
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -237,10 +237,10 @@ export default {
         editedIndex: -1,
 
         //form rules
-        rule_nama_ruang:[
+        rule_nama_ruang: [
             value => !!value || "Mohon untuk di isi nama ruang !!!",
         ],
-        rule_kapasitas:[
+        rule_kapasitas: [
             value => !!value || "Kapasitas Ruangan mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Kapasitas Ruangan Kelas hanya boleh angka',            
         ],        
@@ -358,7 +358,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);

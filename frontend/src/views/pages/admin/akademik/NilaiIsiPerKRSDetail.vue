@@ -72,7 +72,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>               
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -183,14 +183,14 @@ export default {
         this.krs_id=this.$route.params.krsid;        
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'ISI NILAI',
@@ -225,12 +225,12 @@ export default {
         datatable: [],      
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul',sortable: true,width:260 },       
-            { text: 'SKS', value: 'sks', sortable: false,width:50 },                   
-            { text: 'SMT', value: 'semester', sortable: false,width:50 },                   
-            { text: 'KELAS', value: 'nama_kelas', sortable: false,width:200 },                   
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false,width:70 },                   
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: false,width: 100 },                   
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true,width:260 },       
+            { text: 'SKS', value: 'sks', sortable: false, width:50 },                   
+            { text: 'SMT', value: 'semester', sortable: false, width:50 },                   
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width:200 },                   
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 },                   
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 },                   
                                    
         ],  
         //formdata

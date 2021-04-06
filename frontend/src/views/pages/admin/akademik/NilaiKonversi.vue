@@ -203,14 +203,14 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'AKADEMIK',
+                text: "AKADEMIK",
                 disabled: false,
-                href: '/akademik'
+                href: "/akademik"
             },
             {
                 text: 'NILAI',
@@ -243,12 +243,12 @@ export default {
         headers: [            
             { text: 'NIM', value: 'nim_asal', sortable: true,width: 100  },       
             { text: 'NAMA', value: 'nama_mhs', sortable: true,width: 250  },       
-            { text: 'ALAMAT', value: 'alamat',sortable: true,width:200 },                   
-            { text: 'NO. TELP', value: 'no_telp',sortable: true,width:120, },                   
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul',sortable: false,width: 100, },                   
-            { text: 'JUMLAH SKS', value: 'jumlah_sks',sortable: false,width: 100, },                   
-            { text: 'NIM SISTEM', value: 'nim',sortable: true,width: 100, },                   
-            { text: 'AKSI', value: 'actions', sortable: false,width:150 },
+            { text: 'ALAMAT', value: 'alamat', sortable: true,width:200 },                   
+            { text: 'NO. TELP', value: 'no_telp', sortable: true, width: 120, },                   
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },                   
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },                   
+            { text: 'NIM SISTEM', value: 'nim', sortable: true,width: 100, },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width:150 },
         ],  
         search: "", 
 

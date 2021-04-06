@@ -215,9 +215,9 @@ export default {
     created() {
         this.breadcrumbs = [
             {
-                text: 'HOME',
+                text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+                href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
                 text: 'PAGE_GROUP',
@@ -239,7 +239,7 @@ export default {
         datatable: [],
         headers: [                        
             { text: 'ID', value: 'id' },   
-            { text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         search: "",
 
@@ -265,11 +265,11 @@ export default {
         editedIndex: -1,
 
         //form rules  
-        rule_user_nomorhp:[
+        rule_user_nomorhp: [
             value => !!value || "Kode mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode hanya boleh angka',
         ], 
-        rule_name:[
+        rule_name: [
             value => !!value || "Mohon untuk di isi name !!!",  
             value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',                
         ], 
@@ -392,7 +392,7 @@ export default {
                 }, 300
             );
         },
-        closedialogfrm () {
+        closedialogfrm() {
             this.dialogfrm = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);                

@@ -72,7 +72,7 @@
 																></v-divider>
 																<v-spacer></v-spacer>
 																<v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">                                    
-																		<ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />                                    
+																		<ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />  
 																</v-dialog>
 																<v-dialog v-model="dialogfrm" persistent v-if="dialogfrm">
 																		<v-card color="grey lighten-4">
@@ -99,7 +99,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
 																								<v-col xs="12" sm="3" md="3">
 																										<v-card flat>
 																												<v-card-title>NAMA MAHASISWA :</v-card-title>
@@ -108,7 +108,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                                                
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
 																								<v-col xs="12" sm="3" md="3">
 																										<v-card flat>
 																												<v-card-title>NOMOR HP :</v-card-title>
@@ -147,7 +147,7 @@
 																																		item-text="nama_prodi"
 																																		item-value="prodi_id"
 																																		:rules="rule_prodi"
-																																		outlined/>  
+																																		outlined/> 
 																																<v-select
 																																		label="STATUS :"
 																																		v-model="formdata.ket_lulus"
@@ -157,7 +157,7 @@
 																																<v-text-field 
 																																		v-model="formdata.desc"
 																																		label="CATATAN:"                                                                     
-																																		outlined /> 
+																																		outlined />
 																														</v-card-text>
 																														<v-card-actions>
 																																<v-spacer></v-spacer>
@@ -188,7 +188,7 @@
 																		overlap
 																>                
 																		<v-avatar size="30">                                        
-																				<v-img :src="$api.url+'/'+item.foto" />                                                                     
+																				<v-img :src="$api.url+'/'+item.foto" />                                   
 																		</v-avatar>                                                                                                  
 														</v-badge>
 												</template>
@@ -254,9 +254,9 @@
 					this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
 					this.breadcrumbs = [
 							{
-									text: 'HOME',
+									text: "HOME",
 									disabled: false,
-									href: '/dashboard/'+this.$store.getters["auth/AccessToken"]
+									href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
 							},
 							{
 									text: 'SPMB',
@@ -295,13 +295,13 @@
 					datatable: [],
 					headers: [                        
 							{ text: '', value: 'foto', width:70 },
-							{ text: 'NO. FORMULIR', value: 'no_formulir',width:135,sortable: true },
-							{ text: 'NAMA MAHASISWA', value: 'name',width:350,sortable: true },
+							{ text: 'NO. FORMULIR', value: 'no_formulir',width:135, sortable: true },
+							{ text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
 							{ text: 'NOMOR HP', value: 'nomor_hp',width: 100},
-							{ text: 'KELAS', value: 'nkelas',width: 100,sortable: true },
-							{ text: 'NILAI', value: 'nilai',width: 100,sortable: true },
-							{ text: 'STATUS', value: 'status',width: 100,sortable: true },
-							{ text: 'AKSI', value: 'actions', sortable: false,width: 100 },
+							{ text: 'KELAS', value: 'nkelas',width: 100, sortable: true },
+							{ text: 'NILAI', value: 'nilai',width: 100, sortable: true },
+							{ text: 'STATUS', value: 'status',width: 100, sortable: true },
+							{ text: 'AKSI', value: 'actions', sortable: false, width: 100 },
 					],
 					search: "",
 					
@@ -314,7 +314,7 @@
 					
 					daftar_prodi: [],
 
-					daftar_status:[
+					daftar_status: [
 							{
 									value: '0',
 									text: 'TIDAK LULUS',
@@ -358,10 +358,10 @@
 					},
 					editedItem:-1,
 
-					rule_prodi:[
+					rule_prodi: [
 							value => !!value || "Mohon dipilih Prodi Mahasiswa ini !!!"
 					], 
-					rule_status:[
+					rule_status: [
 							value => !!value || "Mohon dipilih status kelulusan mahasiswan ini !!!"
 					], 
 			}),
@@ -534,7 +534,7 @@
 									}
 							});
 					},
-					closedialogfrm () {            
+					closedialogfrm() {            
 							this.dialogfrm = false;            
 							setTimeout(() => {
 									this.formdata = Object.assign({}, this.formdefault);                                

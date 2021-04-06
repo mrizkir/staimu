@@ -103,7 +103,7 @@
 																										:rules="rule_semester"
 																										item-text="text"
 																										item-value="id"
-																										outlined/>                                                                                 
+																										outlined/>                                               
 																						</v-card-text>
 																						<v-card-actions>
 																								<v-spacer></v-spacer>
@@ -248,14 +248,14 @@
 					datatableLoading: false,       
 					datatable: [], 
 					headers: [                                                
-							{ text: "KODE BILLING", value: "no_transaksi",width: 100,sortable: true },
-							{ text: "TANGGAL", value: "tanggal",width:90,sortable: true },
-							{ text: "NIM", value: "nim",sortable: true,width: 100 },
-							{ text: "NAMA MAHASISWA", value: "nama_mhs",sortable: true, width: 250 },    
-							{ text: "SMT", value: "idsmt",width: 100,sortable: false },
-							{ text: "JUMLAH", value: "sub_total",width: 100,sortable: false,align: "right" },
-							{ text: "STATUS", value: "nama_status",width: 100,sortable: false },    
-							{ text: "AKSI", value: "actions", sortable: false,width: 100 },
+							{ text: "KODE BILLING", value: "no_transaksi",width: 100, sortable: true },
+							{ text: "TANGGAL", value: "tanggal",width:90, sortable: true },
+							{ text: "NIM", value: "nim", sortable: true,width: 100 },
+							{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },    
+							{ text: "SMT", value: "idsmt",width: 100, sortable: false },
+							{ text: "JUMLAH", value: "sub_total",width: 100, sortable: false,align: "right" },
+							{ text: "STATUS", value: "nama_status",width: 100, sortable: false },    
+							{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 					],        
 					expanded: [],
 					search: "", 
@@ -274,11 +274,11 @@
 							nim: "",
 							semester_akademik: ""
 					},
-					rule_nim:[
+					rule_nim: [
 							value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
 							value => /^[0-9]+$/.test(value) || "Nomor Induk Mahasiswa (NIM) hanya boleh angka",
 					], 
-					rule_semester:[
+					rule_semester: [
 							value => !!value || "Mohon dipilih Semester untuk transaksi ini !!!"
 					],         
 			}),
@@ -328,11 +328,11 @@
 					},
 					async addItem()
 					{
-							this.daftar_semester=this.$store.getters["uiadmin/getDaftarSemester"];  
+							this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];  
 							this.formdata.semester_akademik = this.semester_akademik;
-							if (this.dashboard =="mahasiswa")
+							if (this.dashboard  == "mahasiswa")
 							{
-									this.formdata.nim=this.$store.getters["auth/AttributeUser"]("username");
+									this.formdata.nim = this.$store.getters["auth/AttributeUser"]("username");
 							}
 							this.dialogfrm = true;            
 					},
@@ -396,7 +396,7 @@
                 this.btnLoading = false;
             });     
         },    
-					closedialogfrm () {
+					closedialogfrm() {
 							this.dialogfrm = false;            
 							setTimeout(() => {
 									this.formdata = Object.assign({}, this.formdefault);                                
