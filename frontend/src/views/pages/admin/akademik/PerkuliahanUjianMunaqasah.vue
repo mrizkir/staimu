@@ -11,9 +11,7 @@
 				v-slot:subtitle
 				v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'"
 			>
-				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
-				{{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} -
-				{{ nama_prodi }}
+				TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -32,11 +30,10 @@
 			v-slot:filtersidebar
 			v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'"
 		>
-			<Filter6
+			<Filter18
 				v-on:changeTahunAkademik="changeTahunAkademik"
-				v-on:changeSemesterAkademik="changeSemesterAkademik"
 				v-on:changeProdi="changeProdi"
-				ref="filter6"
+				ref="Filter18"
 			/>
 		</template>
 		<v-container fluid>
@@ -151,7 +148,9 @@
 								icon
 								@click.stop="
 									$router.push(
-										'/akademik/perkuliahan/krs/' + item.id + '/detail'
+										'/akademik/perkuliahan/ujianmunaqasah/' +
+											item.id +
+											'/detail'
 									)
 								"
 							>
@@ -174,7 +173,7 @@
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
-									<strong>krs_id:</strong>{{ item.id }}
+									<strong>ID:</strong>{{ item.id }}
 									<strong>created_at:</strong>
 									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 									<strong>updated_at:</strong>
@@ -194,7 +193,7 @@
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import Filter6 from "@/components/sidebar/FilterMode6";
+	import Filter18 from "@/components/sidebar/FilterMode18";
 	export default {
 		name: "PerkuliahanUjianMunaqasah",
 		created() {
@@ -227,9 +226,6 @@
 				this.prodi_id = prodi_id;
 				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-				this.semester_akademik = this.$store.getters[
-					"uiadmin/getSemesterAkademik"
-				];
 			}
 		},
 		mounted() {
@@ -243,7 +239,6 @@
 			nama_prodi: null,
 			daftar_ta: [],
 			tahun_akademik: null,
-			semester_akademik: null,
 			filter_ignore: false,
 			awaiting_search: false,
 
@@ -257,14 +252,13 @@
 				{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
 				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },
 				{
-					text: "JUMLAH MATKUL",
+					text: "JUMLAH MATKUL/SKS",
 					value: "jumlah_matkul",
 					sortable: true,
 					width: 100,
-				},
-				{ text: "JUMLAH SKS", value: "jumlah_sks", sortable: true, width: 100 },
-				{ text: "TA.SMT", value: "tasmt", sortable: true, width: 100 },
-				{ text: "SAH", value: "sah", sortable: true, width: 100 },
+				},				
+				{ text: "JUDUL SKRIPSI", value: "tasmt", sortable: true, width: 200 },
+				{ text: "DOSEN PEMBIMBING", value: "sah", sortable: true, width: 100 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 140 },
 			],
 			search: "",
@@ -275,9 +269,6 @@
 		methods: {
 			changeTahunAkademik(tahun) {
 				this.tahun_akademik = tahun;
-			},
-			changeSemesterAkademik(semester) {
-				this.semester_akademik = semester;
 			},
 			changeProdi(id) {
 				this.prodi_id = id;
@@ -306,11 +297,10 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/perkuliahan/krs",
+						"/akademik/perkuliahan/ujianmunaqasah",
 						{
 							prodi_id: this.prodi_id,
 							ta: this.tahun_akademik,
-							semester_akademik: this.semester_akademik,
 						},
 						{
 							headers: {
@@ -322,7 +312,7 @@
 						this.datatable = data.daftar_ujian;
 						this.datatableLoading = false;
 						this.firstloading = false;
-						this.$refs.filter6.setFirstTimeLoading(this.firstloading);
+						this.$refs.Filter18.setFirstTimeLoading(this.firstloading);
 					})
 					.catch(() => {
 						this.datatableLoading = false;
@@ -352,7 +342,7 @@
 							this.btnLoadingTable = true;
 							this.$ajax
 								.post(
-									"/akademik/perkuliahan/krs/" + item.id,
+									"/akademik/perkuliahan/ujianmunaqasah/" + item.id,
 									{
 										_method: "DELETE",
 									},
@@ -376,7 +366,7 @@
 			async printpdf(item) {
 				this.btnLoading = true;
 				await this.$ajax
-					.get("/akademik/perkuliahan/krs/printpdf/" + item.id, {
+					.get("/akademik/perkuliahan/ujianmunaqasah/printpdf/" + item.id, {
 						headers: {
 							Authorization: this.$store.getters["auth/Token"],
 						},
@@ -403,11 +393,6 @@
 					this.initialize();
 				}
 			},
-			semester_akademik() {
-				if (!this.firstloading) {
-					this.initialize();
-				}
-			},
 			prodi_id(val) {
 				if (!this.firstloading) {
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
@@ -421,11 +406,10 @@
 							this.datatableLoading = true;
 							await this.$ajax
 								.post(
-									"/akademik/perkuliahan/krs",
+									"/akademik/perkuliahan/ujianmunaqasah",
 									{
 										prodi_id: this.prodi_id,
 										ta: this.tahun_akademik,
-										semester_akademik: this.semester_akademik,
 										search: this.search,
 									},
 									{
@@ -448,7 +432,7 @@
 		components: {
 			AkademikLayout,
 			ModuleHeader,
-			Filter6,
+			Filter18,
 		},
 	};
 </script>

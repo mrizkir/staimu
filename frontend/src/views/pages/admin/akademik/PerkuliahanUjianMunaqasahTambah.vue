@@ -11,9 +11,7 @@
 				v-slot:subtitle
 				v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'"
 			>
-				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
-				{{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} -
-				{{ nama_prodi }}
+				TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -115,10 +113,6 @@
 			this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
 			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 			this.ta_matkul = this.tahun_akademik;
-			this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
-			this.semester_akademik = this.$store.getters[
-				"uiadmin/getSemesterAkademik"
-			];
 			if (this.$store.getters["uiadmin/getDefaultDashboard"] == "mahasiswa") {
 				this.formdata.nim = this.$store.getters["auth/AttributeUser"](
 					"username"
@@ -131,8 +125,6 @@
 			nama_prodi: null,
 			tahun_akademik: null,
 			ta_matkul: null,
-			semester_akademik: null,
-
 			btnLoading: false,
 
 			//table
@@ -150,8 +142,7 @@
 					sortable: true,
 					width: 80,
 					align: "center",
-				},
-				{ text: "SMT", value: "semester", sortable: true, width: 80 },
+				},				
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			search: "",
@@ -184,10 +175,9 @@
 					this.btnLoading = true;
 					await this.$ajax
 						.post(
-							"/akademik/perkuliahan/krs/store",
+							"/akademik/perkuliahan/ujianmunaqasah/store",
 							{
 								nim: this.formdata.nim,
-								dulang_id: this.formdata.dulang_id,
 							},
 							{
 								headers: {
