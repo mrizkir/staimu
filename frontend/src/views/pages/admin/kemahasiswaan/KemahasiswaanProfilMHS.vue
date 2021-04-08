@@ -336,7 +336,7 @@ export default {
                 this.expanded = [item];
             }               
         },   
-        async viewItem (item) {
+        async viewItem(item) {
             this.btnLoading = true;
             await this.$ajax.get('/keuangan/transaksi/'+item.id,  
             {
@@ -350,7 +350,7 @@ export default {
                 this.btnLoading = false;
             });                                        
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.editedIndex = -1;

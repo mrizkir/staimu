@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 
-class PersyaratanTableSeeder extends Seeder
+class PersyaratanPMBTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class PersyaratanTableSeeder extends Seeder
      */
     public function run()
     {   
-        \DB::statement('DELETE FROM pe3_persyaratan');
+        \DB::statement('DELETE FROM pe3_persyaratan WHERE proses="pmb"');
 
         \DB::table('pe3_persyaratan')->insert([
             'id'=>Uuid::uuid4()->toString(),

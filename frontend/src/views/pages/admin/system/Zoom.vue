@@ -412,8 +412,8 @@ export default {
                 this.expanded = [item];
             }               
         },
-        viewItem (item) {
-            this.formdata=item;      
+        viewItem(item) {
+            this.formdata = item;      
             this.dialogdetailitem=true;              
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
@@ -436,7 +436,7 @@ export default {
                 {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             email: this.formdata.email,                            
                             api_key: this.formdata.api_key, 
                             api_secret: this.formdata.api_secret,                            
@@ -522,7 +522,7 @@ export default {
                 }                
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)

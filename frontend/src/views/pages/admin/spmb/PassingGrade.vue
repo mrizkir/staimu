@@ -213,7 +213,7 @@ export default {
                 this.btnLoading = false;
             });        
         },
-        saveItem:async function ({id,nilai})
+        saveItem: async function ({id,nilai})
         {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/'+id,            

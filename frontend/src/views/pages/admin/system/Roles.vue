@@ -328,7 +328,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        viewItem (item) {
+        viewItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.editedItem = Object.assign({}, item);
 
@@ -400,7 +400,7 @@ export default {
                 {
                     this.$ajax.post('/system/setting/roles/'+this.editedItem.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             name: this.editedItem.name.toLowerCase(),
                         },
                         {
@@ -439,7 +439,7 @@ export default {
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH ROLE' : 'EDIT ROLE'
         },
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

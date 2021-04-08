@@ -408,7 +408,7 @@ export default {
             });     
             
         },
-        editItem:async function (item) {
+        editItem: async function (item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password='';            
             this.editedItem = Object.assign({}, item); 
@@ -470,7 +470,7 @@ export default {
                 {
                     this.$ajax.post('/system/users/'+this.editedItem.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             name: this.editedItem.name,
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp,     
@@ -543,7 +543,7 @@ export default {
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH USER SUPER ADMIN' : 'EDIT USER SUPER ADMIN'
         },
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

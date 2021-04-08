@@ -635,8 +635,8 @@ export default {
             });            
             this.dialogfrm = true;
         },
-        async viewItem (item) {
-            this.formdata=item;      
+        async viewItem(item) {
+            this.formdata = item;      
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {
@@ -647,7 +647,7 @@ export default {
             });
             this.dialogdetailitem=true;                        
         },    
-        editItem:async function (item) {            
+        editItem: async function (item) {            
             this.editedIndex = this.datatable.indexOf(item);            
             await this.$ajax.get('/akademik/groupmatakuliah',
             {
@@ -692,7 +692,7 @@ export default {
                 {
                     await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             id_group: this.formdata.id_group,                                                    
                             nama_group: this.formdata.nama_group,                                                    
                             group_alias: this.formdata.group_alias,                                                    
@@ -811,7 +811,7 @@ export default {
                 }                
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
@@ -838,7 +838,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

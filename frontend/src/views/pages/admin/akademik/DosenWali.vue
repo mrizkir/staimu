@@ -189,7 +189,7 @@ export default {
                 this.expanded = [item];
             }               
         },        
-        viewItem:async function (item) {
+        viewItem: async function (item) {
             this.$router.push('/akademik/dosenwali/'+item.id)
         },        
         deleteItem(item) {           
@@ -218,7 +218,7 @@ export default {
         },
     },
     computed: {        
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

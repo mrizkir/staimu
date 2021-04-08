@@ -342,8 +342,8 @@ export default {
                 this.expanded = [item];
             }               
         },
-        viewItem (item) {
-            this.formdata=item;      
+        viewItem(item) {
+            this.formdata = item;      
             this.dialogdetailitem=true;                    
         },    
         editItem (item) {
@@ -359,7 +359,7 @@ export default {
                 {
                     await this.$ajax.post('/keuangan/transferbank/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             nama_bank: this.formdata.nama_bank,                            
                             nama_cabang: this.formdata.nama_cabang,                            
                             nomor_rekening: this.formdata.nomor_rekening,                            
@@ -425,7 +425,7 @@ export default {
                 }                
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
@@ -444,7 +444,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

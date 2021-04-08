@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-        $this->call(PersyaratanTableSeeder::class);
+        $this->call(PersyaratanPMBTableSeeder::class);
+        $this->call(PersyaratanUjianMunaqasahTableSeeder::class);
 
         $this->call(StatusTransaksiTableSeeder::class);
         $this->call(ChannelPembayaranTableSeeder::class);

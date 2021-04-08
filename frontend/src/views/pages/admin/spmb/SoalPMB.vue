@@ -472,18 +472,18 @@ export default {
                 this.expanded = [item];
             }               
         },
-        viewItem:async function (item) {                          
+        viewItem: async function (item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {         
-                this.formdata=item;      
+                this.formdata = item;      
                 this.dialogdetailitem=true;              
                 this.daftar_soal_jawaban=data.soal.jawaban;
             });                      
         },    
-        editItem:async function (item) {                          
+        editItem: async function (item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -526,7 +526,7 @@ export default {
                 {
                     await this.$ajax.post('/spmb/soalpmb/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             soal: this.formdata.soal, 
                             jawaban_benar: this.formdata.jawaban_benar                      
                         },
@@ -595,7 +595,7 @@ export default {
                 }                
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;          
             this.daftar_soal_jawaban=[];
             setTimeout(() => {

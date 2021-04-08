@@ -241,7 +241,7 @@
 <script>
 import SPMBLayout from '@/views/layouts/SPMBLayout';
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter9 from '@/components/sidebar/FilterMode9';
+import Filter9 from "@/components/sidebar/FilterMode9";
 export default {
     name: 'SPMB',
     created()

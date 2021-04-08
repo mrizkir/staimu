@@ -332,7 +332,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        fetchMatkul:async function (val) 
+        fetchMatkul: async function (val) 
         {
             this.datatableLoading = true;
             await this.$ajax.post('/akademik/matakuliah/penyelenggaraan',
@@ -353,8 +353,8 @@ export default {
                 this.datatableLoading = false;
             });  
         },
-        async viewItem (item) {
-            this.formdata=item;      
+        async viewItem(item) {
+            this.formdata = item;      
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {
@@ -389,7 +389,7 @@ export default {
                 });
             }
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)

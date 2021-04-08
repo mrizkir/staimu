@@ -130,7 +130,7 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method': 'PUT',
+                        _method: 'PUT',
                         'pid': 'captcha google',
                         setting:JSON.stringify({
                             901: this.formdata.siteKey,

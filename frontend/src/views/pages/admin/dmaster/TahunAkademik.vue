@@ -337,7 +337,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import DataMasterLayout from '@/views/layouts/DataMasterLayout';
+import DataMasterLayout from "@/views/layouts/DataMasterLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TahunAkademik',
@@ -463,8 +463,8 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem (item) {
-            this.formdata=item;
+        viewItem(item) {
+            this.formdata = item;
             this.dialogdetailitem=true;
         },
         editItem (item) {
@@ -485,7 +485,7 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/tahunakademik/'+this.old_tahun,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             tahun: this.formdata.tahun,
                             tahun_akademik: this.formdata.tahun_akademik,
                             awal_ganjil: this.semester_ganjil[0],
@@ -554,7 +554,7 @@ export default {
                 }
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.$router.go();
         },
         closedialogfrm() {

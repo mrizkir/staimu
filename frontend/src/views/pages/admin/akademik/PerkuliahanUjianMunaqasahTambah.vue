@@ -51,7 +51,8 @@
 										this.$store.getters['uiadmin/getDefaultDashboard'] ==
 											'mahasiswa'
 									"
-								/>
+								/>								
+								
 							</v-card-text>
 							<v-card-actions>
 								<v-spacer></v-spacer>
@@ -152,6 +153,7 @@
 			iscomplete: true,
 			formdata: {
 				nim: "",
+				persyaratan: [],
 			},
 			rule_nim: [
 				value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
@@ -165,9 +167,28 @@
 			],
 		}),
 		methods: {
-			cekPersyaratan() {
+			async cekPersyaratan() {
 				if (this.formdata.nim.length > 0) {
-					console.log(this.formdata.nim);
+					this.btnLoading = true;
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/ujianmunaqasah/cekpersyaratan",
+							{
+								nim: this.formdata.nim,
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(({ data }) => {
+							console.log(data);
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
 				}
 			},
 			save: async function() {

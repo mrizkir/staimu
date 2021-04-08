@@ -230,7 +230,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             CAN_ACCESS: 'can',                     
         }),
     },

@@ -512,7 +512,7 @@ export default {
             this.btnLoading = true;
             this.$ajax.post('/akademik/kemahasiswaan/updatestatus/'+id,
                 {
-                    '_method': 'PUT',
+                    _method: 'PUT',
                     'active':1
                 },
                 {
@@ -575,7 +575,7 @@ export default {
                 {
                     await this.$ajax.post('/spmb/pmb/updatependaftar/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             name: this.formdata.name,
                             email: this.formdata.email,                    
                             nomor_hp: this.formdata.nomor_hp,
@@ -642,8 +642,8 @@ export default {
                 this.btnLoading = false;
             });
         },
-        viewItem (item) {           
-            this.formdata=item;      
+        viewItem(item) {           
+            this.formdata = item;      
             this.dialogdetailitem=true;
         },
         async editItem (item) {
@@ -705,7 +705,7 @@ export default {
                 }
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)

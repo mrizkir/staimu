@@ -14,17 +14,26 @@ class PersyaratanController extends Controller {
     public function index(Request $request)
     {
         $this->validate($request, [           
-            'TA'=>'required',            
+            'TA'=>'required',
+            'proses'=>'required|in:pmb,ujian-munaqasah',
         ]);
+        
+        $proses=$request->input('proses');
         $ta=$request->input('TA');
+        
+        $persyaratan=PersyaratanModel::where('proses',$proses);
 
-        $persyaratan=PersyaratanModel::where('ta',$ta)->get();
+        if ($persyaratan=='pmb') {            
+            $persyaratan=$persyaratan->where('ta',$ta);            
+        }
+        $persyaratan=$persyaratan->get();
+
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'persyaratan'=>$persyaratan,                                                                                                                                   
-                                    'message'=>'Fetch data persyaratan berhasil.'
-                                ],200);     
+                                'status'=>1,
+                                'pid'=>'fetchdata',  
+                                'persyaratan'=>$persyaratan,                                                                                                                                   
+                                'message'=>'Fetch data persyaratan berhasil.'
+                            ], 200);     
     }    
      /**
      * Store a newly created resource in storage.
@@ -38,7 +47,7 @@ class PersyaratanController extends Controller {
 
         $this->validate($request, [
             'proses'=>'required',
-            'nama_persyaratan'=>'required',
+            'nama_persyaratan'=>'required',            
             'ta'=>'required',
         ]);
              
@@ -49,18 +58,19 @@ class PersyaratanController extends Controller {
             'ta'=>$request->input('ta'),                       
         ]);                      
         
+        $proses = $request->input('proses');
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $persyaratan,
                                         'object_id'=>$persyaratan->id, 
                                         'user_id' => $this->getUserid(), 
-                                        'message' => 'Menambah persyaratan baru berhasil'
+                                        'message' => "Menambah persyaratan baru $proses berhasil"
                                     ]);
 
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
                                     'persyaratan'=>$persyaratan,                                    
-                                    'message'=>'Data persyaratan berhasil disimpan.'
+                                    'message'=>"Data persyaratan $proses berhasil disimpan."
                                 ],200); 
 
     }
@@ -112,14 +122,14 @@ class PersyaratanController extends Controller {
                                                         'object' => $persyaratan,
                                                         'object_id'=>'N.A', 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => "Menyalin data persyaratan dari tahun $dari_tahun_pendaftaran ke $id berhasil."
+                                                        'message' => "Menyalin data persyaratan $proses dari tahun $dari_tahun_pendaftaran ke $id berhasil."
                                                     ]);
 
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',  
                                 'persyaratan'=>$persyaratan,                                                                                                                                   
-                                'message' => "Menyalin data persyaratan dari tahun $dari_tahun_pendaftaran ke $id berhasil."
+                                'message' => "Menyalin data persyaratan $proses dari tahun $dari_tahun_pendaftaran ke $id berhasil."
                             ],200);    
     }
     /**
@@ -160,7 +170,7 @@ class PersyaratanController extends Controller {
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'persyaratan'=>$persyaratan,                                                                                                                                   
-                                    'message'=>"Fetch data persyaratan $id berhasil diperoleh."
+                                    'message'=>"Fetch data persyaratan $proses dengan $id berhasil diperoleh."
                                 ],200);     
 
 
@@ -183,7 +193,7 @@ class PersyaratanController extends Controller {
             return Response()->json([
                                         'status'=>0,
                                         'pid'=>'destroy',                
-                                        'message'=>["Kode persyaratan ($id) gagal dihapus"]
+                                        'message'=>["Kode persyaratan $proses dengan ($id) gagal dihapus"]
                                     ],422); 
         }
         else
@@ -192,13 +202,14 @@ class PersyaratanController extends Controller {
                                         'nama_persyaratan'=>'required',                    
                                     ]);
             $persyaratan->nama_persyaratan=$request->input('nama_persyaratan');
+            $proses = $persyaratan->proses;
             $persyaratan->save();
 
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',
                                     'persyaratan'=>$persyaratan,      
-                                    'message'=>'Data persyaratan '.$persyaratan->nama_persyaratan.' berhasil diubah.'
+                                    'message'=>"Data persyaratan $proses ($persyaratan->nama_persyaratan) berhasil diubah."
                                 ],200); 
         }
     }
@@ -224,17 +235,20 @@ class PersyaratanController extends Controller {
         }
         else
         {
+            $proses = $persyaratan->proses;
+
             \App\Models\System\ActivityLog::log($request,[
                                                                 'object' => $persyaratan, 
                                                                 'object_id' => $persyaratan->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Kode Persyaratan ('.$id.') berhasil'
+                                                                'message' => "Menghapus Kode Persyaratan $proses dengan id ($id) berhasil"
                                                             ]);
+            
             $persyaratan->delete();
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                
-                                        'message'=>"Persyaratan dengan kode ($id) berhasil dihapus"
+                                        'message'=>"Persyaratan $proses dengan kode ($id) berhasil dihapus"
                                     ],200);         
         }
                   

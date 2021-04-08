@@ -63,7 +63,7 @@
     </DataMasterLayout>
 </template>
 <script>
-import DataMasterLayout from '@/views/layouts/DataMasterLayout';
+import DataMasterLayout from "@/views/layouts/DataMasterLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'JenjangStudi',

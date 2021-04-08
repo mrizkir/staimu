@@ -301,7 +301,7 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/users/updatepassword/'+this.$store.getters['auth/AttributeUser']('id'),
                     {
-                        '_method': 'PUT',                        
+                        _method: 'PUT',                        
                         password: this.formdata.password,                           
                     },
                     {

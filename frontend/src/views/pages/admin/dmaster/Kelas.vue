@@ -180,7 +180,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import DataMasterLayout from '@/views/layouts/DataMasterLayout';
+import DataMasterLayout from "@/views/layouts/DataMasterLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'Kelas',
@@ -269,8 +269,8 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem (item) {
-            this.formdata=item;
+        viewItem(item) {
+            this.formdata = item;
             this.dialogdetailitem=true;
         },
         editItem (item) {
@@ -287,7 +287,7 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/kelas/'+this.old_idkelas,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             idkelas: this.formdata.idkelas,
                             nkelas: this.formdata.nkelas,
                         },
@@ -349,7 +349,7 @@ export default {
                 }
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)

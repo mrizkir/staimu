@@ -161,7 +161,7 @@ export default {
                 this.btnLoading = true;                
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method': 'PUT', 
+                        _method: 'PUT', 
                         'pid': 'Variable default sistem',
                         setting:JSON.stringify({
                             201: this.formdata.default_ta,
@@ -183,7 +183,7 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

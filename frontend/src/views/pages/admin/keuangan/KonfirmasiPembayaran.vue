@@ -657,7 +657,7 @@ export default {
 						});
 
 				},
-				async viewItem (item)
+				async viewItem(item)
 				{
 						await this.$ajax.get('/keuangan/konfirmasipembayaran/'+item.id,
 						{
@@ -776,7 +776,7 @@ export default {
 								}, 300
 						);
 				},
-				closedialogdetailitem () {
+				closedialogdetailitem() {
 						this.dialogdetailitem = false;
 						setTimeout(() => {
 								this.formdata = Object.assign({}, this.formdefault);

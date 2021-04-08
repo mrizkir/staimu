@@ -152,7 +152,7 @@ export default {
                 this.btnLoading = true;                
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method': 'PUT', 
+                        _method: 'PUT', 
                         'pid': 'Identitas Perguruan Tinggi',
                         setting:JSON.stringify({
                             101: this.formdata.nama_pt,
@@ -175,7 +175,7 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

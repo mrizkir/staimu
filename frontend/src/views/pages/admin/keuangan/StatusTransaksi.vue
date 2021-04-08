@@ -159,7 +159,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        saveItem:async function ({id,style})
+        saveItem: async function ({id,style})
         {
             await this.$ajax.post('/keuangan/statustransaksi/'+id,            
             {

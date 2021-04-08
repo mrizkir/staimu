@@ -461,7 +461,7 @@ export default {
         {
             this.dialog = true;            
         },
-        editItem:async function (item) {
+        editItem: async function (item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password='';            
             this.editedItem = Object.assign({}, item);                              
@@ -490,7 +490,7 @@ export default {
                 {
                     this.$ajax.post('/system/usersdosen/'+this.editedItem.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             name: this.editedItem.onlyname,
                             nidn: this.editedItem.nidn,
                             nipy: this.editedItem.nipy,
@@ -594,7 +594,7 @@ export default {
         formTitle () {
             return this.editedIndex === -1 ? 'TAMBAH USER DOSEN' : 'EDIT USER DOSEN'
         },
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

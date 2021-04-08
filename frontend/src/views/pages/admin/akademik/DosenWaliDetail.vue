@@ -350,7 +350,7 @@ export default {
             this.btnLoading = true;
             this.$ajax.post('/akademik/kemahasiswaan/updatedw/'+this.data_mhs.user_id,
                 {
-                    '_method': 'PUT',
+                    _method: 'PUT',
                     'dosen_id': this.formdata.dosen_id,
                 },
                 {
@@ -375,7 +375,7 @@ export default {
         },
     },
     computed: {        
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

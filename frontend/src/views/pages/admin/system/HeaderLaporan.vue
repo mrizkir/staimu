@@ -145,7 +145,7 @@ export default {
                 this.btnLoading = true;                
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method': 'PUT', 
+                        _method: 'PUT', 
                         'pid': 'Header Laporan',
                         setting:JSON.stringify({
                             701: this.formdata.header_1,
@@ -169,7 +169,7 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

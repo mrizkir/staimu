@@ -133,7 +133,7 @@
 <script>
 import SystemMigrationLayout from '@/views/layouts/SystemMigrationLayout';
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter9 from '@/components/sidebar/FilterMode9';
+import Filter9 from "@/components/sidebar/FilterMode9";
 export default {
     name: 'SystemMigration',
     created()

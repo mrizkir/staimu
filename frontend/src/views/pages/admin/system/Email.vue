@@ -116,7 +116,7 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
-                        '_method': 'PUT', 
+                        _method: 'PUT', 
                         'pid': 'email',
                         setting:JSON.stringify({
                             910: this.formdata.email_mhs_isvalid,                            
@@ -136,7 +136,7 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),

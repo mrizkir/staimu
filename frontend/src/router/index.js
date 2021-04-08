@@ -151,6 +151,15 @@ const routes = [
 		component: () => import("../views/pages/admin/dmaster/TahunAkademik.vue"),
 	},
 	{
+		path: "/dmaster/persyaratanujianmunaqasah",
+		name: "DMasterPersyaratanUjianMunaqasah",
+		meta: {
+			title: "DATA MASTER - PERSYARATAN UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/dmaster/PersyaratanUjianMunaqasah.vue"),
+	},
+	{
 		path: "/dmaster/fakultas",
 		name: "DMasterFakultas",
 		meta: {

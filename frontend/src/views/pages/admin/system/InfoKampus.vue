@@ -126,7 +126,7 @@ export default {
 								this.btnLoading = true;
 								this.$ajax.post('/system/setting/variables',
 										{
-												'_method': 'PUT',
+												_method: 'PUT',
 												'pid': 'blog',
 												setting:JSON.stringify({
 														601: this.formdata.term_id,                            

@@ -131,7 +131,7 @@ export default {
                 this.btnSimpan=false;
             }          
         },
-        upload:async function (index,item)
+        upload: async function (index,item)
         {
             let data = item;   
             if (this.$refs.frmpersyaratan.validate())

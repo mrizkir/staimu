@@ -244,7 +244,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import DataMasterLayout from '@/views/layouts/DataMasterLayout';
+import DataMasterLayout from "@/views/layouts/DataMasterLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'ProgramStudi',
@@ -370,7 +370,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        tambahItem:async function()
+        tambahItem: async function()
         {   
             if (this.$store.getters['uifront/getBentukPT']=='universitas')
             {                
@@ -384,7 +384,7 @@ export default {
 
             this.dialogfrm = true;
         },
-        async viewItem (item) 
+        async viewItem(item) 
         {           
             this.datatableLoading = true;
             await this.$ajax.get('/system/usersdosen',{
@@ -400,12 +400,12 @@ export default {
                     this.dosen_id=config.kaprodi
                 }             
                 this.datatableLoading = false;
-                this.formdata=item;      
+                this.formdata = item;      
                 this.dialogdetailitem=true;                 
             }); 
             this.firstloading=false;
         },    
-        editItem:async function (item) {            
+        editItem: async function (item) {            
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
 
@@ -435,7 +435,7 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/programstudi/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             kode_fakultas: this.formdata.kode_fakultas,                            
                             kode_prodi: this.formdata.kode_prodi,                            
                             nama_prodi: this.formdata.nama_prodi,                                                        
@@ -505,7 +505,7 @@ export default {
                 }                
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;            
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
@@ -525,7 +525,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),
@@ -565,7 +565,7 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/datamaster/programstudi/updateconfig/'+this.formdata.id,
                     {
-                        '_method': 'PUT',                    
+                        _method: 'PUT',                    
                         config:JSON.stringify({
                             kaprodi:val                            
                         }),                                                                 

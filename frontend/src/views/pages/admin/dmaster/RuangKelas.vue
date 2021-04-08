@@ -182,7 +182,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import DataMasterLayout from '@/views/layouts/DataMasterLayout';
+import DataMasterLayout from "@/views/layouts/DataMasterLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'TahunAkademik',
@@ -271,8 +271,8 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem (item) {
-            this.formdata=item;
+        viewItem(item) {
+            this.formdata = item;
             this.dialogdetailitem=true;
         },
         editItem (item) {
@@ -288,7 +288,7 @@ export default {
                 {
                     await this.$ajax.post('/datamaster/ruangankelas/'+this.formdata.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             namaruang: this.formdata.namaruang,
                             kapasitas: this.formdata.kapasitas,
                         },
@@ -350,7 +350,7 @@ export default {
                 }
             });
         },
-        closedialogdetailitem () {
+        closedialogdetailitem() {
             this.dialogdetailitem = false;
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)

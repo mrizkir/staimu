@@ -378,7 +378,7 @@ export default {
                 
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
                     {
-                        '_method': 'PUT',                        
+                        _method: 'PUT',                        
                         hari: this.formdata.hari,                            
                         jam_masuk: this.formdata.jam_masuk,
                         jam_keluar: this.formdata.jam_keluar,                        
@@ -449,7 +449,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             CAN_ACCESS: 'can',                     
         }),
     },

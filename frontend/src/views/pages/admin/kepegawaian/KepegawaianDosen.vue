@@ -318,7 +318,7 @@ export default {
                 this.expanded = [item];
             }               
         },                
-        editItem:async function (item) {
+        editItem: async function (item) {
             this.$ajax.get('/datamaster/jabatanakademik',                
                 {
                     headers: {
@@ -351,7 +351,7 @@ export default {
                 {
                     this.$ajax.post('/kepegawaian/dosen/'+this.editedItem.id,
                         {
-                            '_method': 'PUT',
+                            _method: 'PUT',
                             name: this.editedItem.name,
                             id_jabatan: this.editedItem.id_jabatan,
                             gelar_depan: this.editedItem.gelar_depan,
@@ -378,7 +378,7 @@ export default {
         },        
     },
     computed: {        
-        ...mapGetters('auth',{            
+        ...mapGetters("auth", {            
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),
