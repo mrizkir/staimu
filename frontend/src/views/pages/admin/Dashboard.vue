@@ -190,7 +190,7 @@ export default {
 			{
 				text: "HOME",
 				disabled: false,
-				href: '/dashboard/'+this.TOKEN
+				href: "/dashboard/" + this.TOKEN
 			},
 			{
 				text: 'DASHBOARD',

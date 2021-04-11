@@ -247,9 +247,9 @@ export default {
         form_valid: true, 
         komponen_nilai: {
             'persen_absen':15,
-            'persen_quiz':0,
+            'persen_quiz': 0,
             'persen_tugas_individu':35,
-            'persen_tugas_kelompok':0,
+            'persen_tugas_kelompok': 0,
             'persen_uts':25,
             'persen_uas':25,            
         },
@@ -399,7 +399,7 @@ export default {
             await this.$ajax.post('/akademik/nilai/matakuliah/perdosen/storeperdosen',
                 {
                     kelas_mhs_id: this.kelas_mhs_id,
-                    daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
+                    daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),                    
                 },
                 {
                     headers: {

@@ -145,7 +145,7 @@ export default {
         this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];        
     },
     data: () => ({
-        loginTime:0,
+        loginTime: 0,
         drawer: null,
         drawerRight: null, 
         

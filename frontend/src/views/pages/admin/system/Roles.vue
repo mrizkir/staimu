@@ -101,7 +101,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -237,7 +237,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'USER SISTEM',
@@ -279,14 +279,14 @@ export default {
         dialogRolePermission: false,
         editedIndex: -1,
         editedItem: {
-            id:0,
+            id: 0,
             name: '',           
             guard: '',           
             created_at: '',           
             updated_at: '',           
         },
         defaultItem: {
-            id:0,
+            id: 0,
             name: '',           
             guard: 'api',           
             created_at: '',           
@@ -436,7 +436,7 @@ export default {
         },
     },
     computed: {        
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH ROLE' : 'EDIT ROLE'
         },
         ...mapGetters("auth", {            

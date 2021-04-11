@@ -143,7 +143,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -212,7 +212,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-form>
@@ -316,7 +316,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'USER SISTEM',
@@ -345,7 +345,7 @@ export default {
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },     
             { text: 'DW', value: 'is_dw', sortable: true },     
             { text: 'ROLE ASAL', value: 'default_role', sortable: true },     
-            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },
         ],
         expanded: [],
         search: "",
@@ -358,7 +358,7 @@ export default {
         dialogUserPermission: false,     
         editedIndex: -1,        
         editedItem: {
-            id:0,
+            id: 0,
             username: '',           
             password: '',           
             onlyname: '',      
@@ -372,7 +372,7 @@ export default {
             updated_at: '',   
         },
         defaultItem: {
-            id:0,
+            id: 0,
             username: '',           
             password: '',           
             onlyname: '',    
@@ -461,7 +461,7 @@ export default {
         {
             this.dialog = true;            
         },
-        editItem: async function (item) {
+        editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password='';            
             this.editedItem = Object.assign({}, item);                              
@@ -538,13 +538,13 @@ export default {
                 }
             }
         },
-        setPermission: async function (item) {
+        setPermission: async function(item) {
             this.editedItem=item;            
             this.dialogUserPermission = true;
         },
         syncPermission ()
         {
-            this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role dosen, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning',width:500 }).then(async (confirm) => {
+            this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role dosen, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning', width:500 }).then(async (confirm) => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -566,7 +566,7 @@ export default {
             });
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -591,7 +591,7 @@ export default {
         },
     },
     computed: {
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER DOSEN' : 'EDIT USER DOSEN'
         },
         ...mapGetters("auth", {            

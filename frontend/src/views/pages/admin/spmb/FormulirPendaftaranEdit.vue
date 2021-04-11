@@ -170,7 +170,7 @@
                                     item-text="nama_fakultas"
                                     item-value="kode_fakultas"
                                     :loading="btnLoadingFakultas"
-                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'"
+                                    v-if="$store.getters['uifront/getBentukPT'] == 'universitas'"
                                 />
                                 <v-select
                                     label="PROGRAM STUDI"
@@ -201,7 +201,7 @@
                                     text 
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-form>
@@ -264,16 +264,16 @@ export default {
         menuTanggalLahir: false,
 
         daftar_provinsi: [],
-        provinsi_id:0,
+        provinsi_id: 0,
 
         daftar_kabupaten: [],
-        kabupaten_id:0,
+        kabupaten_id: 0,
 
         daftar_kecamatan: [],
-        kecamatan_id:0,
+        kecamatan_id: 0,
 
         daftar_desa: [],
-        desa_id:0,
+        desa_id: 0,
 
         daftar_fakultas: [],
         kode_fakultas: '',

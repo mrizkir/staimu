@@ -68,7 +68,7 @@ export default {
     data: () => ({
         firstloading: true,
         breadcrumbs: [],        
-        tahun_akademik:0,
+        tahun_akademik: 0,
 
         dashboard: null
     }),

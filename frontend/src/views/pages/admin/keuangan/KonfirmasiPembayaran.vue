@@ -257,7 +257,7 @@
 																																		text
 																																		@click.stop="save"
 																																		
-																																		:disabled="!form_valid||btnLoading">
+																																		:disabled="!form_valid || btnLoading">
 																																				SIMPAN
 																																</v-btn>
 																														</v-card-actions>
@@ -415,7 +415,7 @@
 																small
 																class="mr-2"
 																@click.stop="addItem(item)"
-																v-if="item.status_konfirmasi=='N.A'">
+																v-if="item.status_konfirmasi== 'N.A'">
 																mdi-send
 														</v-icon>
 														<v-icon
@@ -444,8 +444,8 @@
 														<td :colspan="headers.length" class="text-center">
 																<v-col cols="12">
 																		<strong>ID TRANSAKSI:</strong>{{ item.id }}
-																		<strong>created_at:</strong>{{ item.created_at_konfirm=='N.A'?'N.A':$date(item.created_at_konfirm).format('DD/MM/YYYY HH:mm') }}
-																		<strong>updated_at:</strong>{{ item.updated_at_konfirm=='N.A'?'N.A':$date(item.updated_at_konfirm).format('DD/MM/YYYY HH:mm') }}
+																		<strong>created_at:</strong>{{ item.created_at_konfirm== 'N.A'?'N.A':$date(item.created_at_konfirm).format('DD/MM/YYYY HH:mm') }}
+																		<strong>updated_at:</strong>{{ item.updated_at_konfirm== 'N.A'?'N.A':$date(item.updated_at_konfirm).format('DD/MM/YYYY HH:mm') }}
 																</v-col>
 																<v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')&&(dashboard!='mahasiswabaru'&&dashboard!='mahasiswa')">
 																		<v-btn
@@ -497,7 +497,7 @@ export default {
 						{
 								text: "HOME",
 								disabled: false,
-								href: '/dashboard/'+this.ACCESS_TOKEN
+								href: "/dashboard/" + this.ACCESS_TOKEN
 						},
 						{
 								text: 'KEUANGAN',
@@ -532,17 +532,17 @@ export default {
 				datatableLoading: false,
 				datatable: [],
 				headers: [
-						{ text: 'KODE BILLING', value: 'no_transaksi',width: 100, sortable: true },
-						{ text: 'NO.REF', value: 'no_faktur',width: 100, sortable: true },
-						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal',width: 100, sortable: true },
-						{ text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width: 100 },
-						{ text: 'NIM', value: 'nim', sortable: true,width: 100 },
-						{ text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },
-						{ text: 'SMT', value: 'idsmt',width: 100, sortable: true },
-						{ text: 'TOTAL', value: 'total',width: 100, sortable: true },
-						{ text: 'STATUS TRANSAKSI', value: 'nama_status',width:50, sortable: true },
-						{ text: 'KONFIRM.', value: 'status_konfirmasi',width:50, sortable: true },
-						{ text: 'KET.', value: 'desc',width:80, sortable: false },
+						{ text: 'KODE BILLING', value: 'no_transaksi', width: 100, sortable: true },
+						{ text: 'NO.REF', value: 'no_faktur', width: 100, sortable: true },
+						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal', width: 100, sortable: true },
+						{ text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100 },
+						{ text: 'NIM', value: 'nim', sortable: true, width: 100 },
+						{ text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true, width: 250 },
+						{ text: 'SMT', value: 'idsmt', width: 100, sortable: true },
+						{ text: 'TOTAL', value: 'total', width: 100, sortable: true },
+						{ text: 'STATUS TRANSAKSI', value: 'nama_status', width:50, sortable: true },
+						{ text: 'KONFIRM.', value: 'status_konfirmasi', width:50, sortable: true },
+						{ text: 'KET.', value: 'desc', width:80, sortable: false },
 						{ text: 'AKSI', value: 'actions', sortable: false, width:82 },
 				],
 				expanded: [],
@@ -564,7 +564,7 @@ export default {
 				daftar_channel: [],
 				formdata: {
 						id_channel:1,
-						total_bayar:0,
+						total_bayar: 0,
 						nomor_rekening_pengirim: '',
 						nama_rekening_pengirim: '',
 						nama_bank_pengirim: '',
@@ -574,7 +574,7 @@ export default {
 				},
 				formdefault: {
 						id_channel:1,
-						total_bayar:0,
+						total_bayar: 0,
 						nomor_rekening_pengirim: '',
 						nama_rekening_pengirim: '',
 						nama_bank_pengirim: '',
@@ -720,7 +720,7 @@ export default {
 				},
 				async verifikasi(item)
 				{
-						this.$root.$confirm.open('Konfirmasi Pembayaran', 'Apakah sudah benar data bukti bayar kode billing '+item.no_transaksi+' ?', { color: 'primary' }).then((confirm) => {
+						this.$root.$confirm.open('Konfirmasi Pembayaran', 'Apakah sudah benar data bukti bayar kode billing '+item.no_transaksi+' ?', { color: 'primary' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;
@@ -744,7 +744,7 @@ export default {
 				},
 				async cancel(item)
 				{
-						this.$root.$confirm.open('Batalkan Transaksi', 'Apakah Anda ingin membatalkan transaksi dengan kode billing '+item.no_transaksi+' ?', { color: 'red' }).then((confirm) => {
+						this.$root.$confirm.open('Batalkan Transaksi', 'Apakah Anda ingin membatalkan transaksi dengan kode billing '+item.no_transaksi+' ?', { color: 'red' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;

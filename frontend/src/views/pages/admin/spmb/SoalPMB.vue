@@ -141,7 +141,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -189,7 +189,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -391,7 +391,7 @@ export default {
             },
         ],     
         formdata: {
-            id:0,                        
+            id: 0,                        
             soal: '',  
             gambar: '',  
             jawaban1: '',                    
@@ -404,7 +404,7 @@ export default {
 
         },
         formdefault: {
-            id:0,           
+            id: 0,           
             soal: '',    
             gambar: '',                      
             jawaban1: '',                    
@@ -472,7 +472,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        viewItem: async function (item) {                          
+        viewItem: async function(item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -483,7 +483,7 @@ export default {
                 this.daftar_soal_jawaban=data.soal.jawaban;
             });                      
         },    
-        editItem: async function (item) {                          
+        editItem: async function(item) {                          
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -572,7 +572,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -641,7 +641,7 @@ export default {
                 this.image_prev=val;
             }            
         },
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },

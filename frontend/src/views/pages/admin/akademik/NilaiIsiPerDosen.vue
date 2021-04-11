@@ -159,14 +159,14 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
-            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true,width: 250  },   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true,width: 250  },                   
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },   
+            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true, width: 250  },   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true, width: 250  },                   
             { text: 'HARI', value: 'nama_hari', sortable: true, width:70 },       
             { text: 'JAM', value: 'jam_masuk', sortable: true, width:70 },                   
             { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},                   
             { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },
         ],  
         search: "", 
 

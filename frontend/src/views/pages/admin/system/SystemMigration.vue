@@ -121,7 +121,7 @@
                                     text                                     
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-form>
@@ -265,7 +265,7 @@ export default {
                         prodi_id: this.formdata.prodi_id,     
                         idkelas: this.formdata.idkelas,       
                         tahun_pendaftaran: this.tahun_pendaftaran,                 
-                        status_mhs:JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                                                          
+                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                                                          
                     },
                     {
                         headers: {

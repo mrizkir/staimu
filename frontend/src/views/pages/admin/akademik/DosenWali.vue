@@ -129,7 +129,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: "AKADEMIK",
@@ -146,7 +146,7 @@ export default {
     },  
    
     data: () => ({ 
-        role_id:0,
+        role_id: 0,
         datatableLoading: false,
         btnLoading: false,      
         //tables
@@ -189,11 +189,11 @@ export default {
                 this.expanded = [item];
             }               
         },        
-        viewItem: async function (item) {
+        viewItem: async function(item) {
             this.$router.push('/akademik/dosenwali/'+item.id)
         },        
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

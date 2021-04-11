@@ -231,8 +231,8 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NIM', value: 'nim', sortable: true,width: 100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable: true,width: 250  },   
+            { text: 'NIM', value: 'nim', sortable: true, width: 100  },   
+            { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },   
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },       
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },       
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },       
@@ -311,7 +311,7 @@ export default {
         },  
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

@@ -143,7 +143,7 @@
 																												text
 																												@click.stop="save"
 																												
-																												:disabled="!form_valid||btnLoading">
+																												:disabled="!form_valid || btnLoading">
 																														SIMPAN
 																										</v-btn>
 																								</v-card-actions>
@@ -265,12 +265,12 @@ export default {
 				expanded: [],
 				datatable: [],
 				headers: [
-						{ text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },
+						{ text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
 						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:300 },
 						{ text: 'SKS', value: 'sks', sortable: false, width:50 },
 						{ text: 'SMT', value: 'semester', sortable: false, width:50 },
-						{ text: 'KELAS', value: 'nama_kelas', sortable: false, width:200 },
-						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width:200 },
+						{ text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },
+						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
 						{ text: 'AKSI', value: 'actions', sortable: false, width: 100 },
 				],
 		}),
@@ -343,7 +343,7 @@ export default {
 				},
 				deleteItem(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then((confirm) => {
+						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoadingTable=true;

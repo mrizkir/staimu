@@ -129,7 +129,7 @@
 																				text 
 																				@click.stop="savematakuliah" 
 																				
-																				:disabled="!form_valid||btnLoading">
+																				:disabled="!form_valid || btnLoading">
 																						SIMPAN
 																		</v-btn>
 																</v-card-actions>
@@ -179,7 +179,7 @@
 																				text 
 																				@click.stop="save" 
 																				
-																				:disabled="!form_valid||btnLoading">
+																				:disabled="!form_valid || btnLoading">
 																						SIMPAN
 																		</v-btn>
 																</v-card-actions>
@@ -308,7 +308,7 @@ export default {
 						{ text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },   
 						{ text: 'NAMA', value: 'nmatkul', sortable: false  },   
 						{ text: 'SKS', value: 'sks', sortable: false  },                   
-						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width:200 },                   
+						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 },                   
 						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 },                   
 						{ text: 'AKSI', value: 'actions', sortable: false, width:60 },
 				],  
@@ -404,7 +404,7 @@ export default {
 						{
 								pid: 'belumterdaftar',
 								kelas_mhs_id: this.kelas_mhs_id,
-								penyelenggaraan:JSON.stringify(Object.assign({},this.datatable))
+								penyelenggaraan: JSON.stringify(Object.assign({},this.datatable))
 						},
 						{
 								headers: {
@@ -424,7 +424,7 @@ export default {
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
 								{
 									kelas_mhs_id: this.kelas_mhs_id,                        
-									members_selected:JSON.stringify(Object.assign({},this.members_selected)),
+									members_selected: JSON.stringify(Object.assign({},this.members_selected)),
 									pid: "pembagiankelas",
 								},
 								{
@@ -449,7 +449,7 @@ export default {
 								await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
 										{
 												kelas_mhs_id: this.kelas_mhs_id,                        
-												penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
+												penyelenggaraan_dosen_id: JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
 										},
 										{
 												headers: {
@@ -466,7 +466,7 @@ export default {
 				},
 				deleteMatkul(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then((confirm) => {
+						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;
@@ -490,7 +490,7 @@ export default {
 				},       
 				deletePeserta(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;

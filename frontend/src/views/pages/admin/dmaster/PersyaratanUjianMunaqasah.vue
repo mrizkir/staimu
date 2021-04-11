@@ -89,7 +89,7 @@
 																										text 
 																										@click.stop="save" 
 																										
-																										:disabled="!form_valid||btnLoading">
+																										:disabled="!form_valid || btnLoading">
 																												SIMPAN
 																								</v-btn>
 																						</v-card-actions>
@@ -303,7 +303,7 @@
 					this.formdata = item; 
 					this.dialogdetailitem=true;  
 			},
-			editItem: async function (item) {
+			editItem: async function(item) {
 				this.editedIndex = this.datatable.indexOf(item);  
 				this.formdata = item;
 				this.dialogfrm = true;

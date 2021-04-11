@@ -169,7 +169,7 @@
                                                     text 
                                                     @click.stop="changeDosenWali" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         GANTI
                                                 </v-btn>
                                             </v-card-actions>
@@ -238,7 +238,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: "AKADEMIK",
@@ -266,11 +266,11 @@ export default {
         btnLoading: false,      
         //tables
         headers: [                        
-            { text: '', value: 'foto',width:70, },
-            { text: 'NIM', value: 'nim',width: 100, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs',width: 250, sortable: true },
-            { text: 'PROGRAM STUDI', value: 'nama_prodi',width:150, sortable: true },     
-            { text: 'KELAS', value: 'nkelas',width:150, sortable: true },     
+            { text: '', value: 'foto', width:70, },
+            { text: 'NIM', value: 'nim', width: 100, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', width: 250, sortable: true },
+            { text: 'PROGRAM STUDI', value: 'nama_prodi', width:150, sortable: true },     
+            { text: 'KELAS', value: 'nkelas', width:150, sortable: true },     
             { text: 'TAHUN MASUK', value: 'tahun', sortable: true },         
             { text: 'AKSI', value: 'actions', sortable: false, width:50 },
         ],

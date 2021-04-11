@@ -137,8 +137,8 @@ export default {
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
             { text: 'SKS', value: 'sks', sortable: false, width:50 },                   
             { text: 'SMT', value: 'semester', sortable: false, width:50 },                   
-            { text: 'KELAS', value: 'nama_kelas', sortable: false, width:200 },                   
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width:200 },                                                        
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },                   
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },                                                        
         ],  
     }),
     methods: {          

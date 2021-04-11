@@ -97,7 +97,7 @@
                                                     <v-col cols="4">
                                                         <v-text-field 
                                                             v-model="formdata.jam_masuk" 
-                                                            label="JAM MASUK (contoh: 04:00)"
+                                                            label="JAM MASUK (contoh: 04: 00)"
                                                             outlined
                                                             :rules="rule_jam_masuk">
                                                         </v-text-field>
@@ -105,7 +105,7 @@
                                                     <v-col cols="4">
                                                         <v-text-field 
                                                             v-model="formdata.jam_keluar" 
-                                                            label="JAM KELUAR (contoh: 06:00)"
+                                                            label="JAM KELUAR (contoh: 06: 00)"
                                                             outlined
                                                             :rules="rule_jam_keluar">
                                                         </v-text-field>
@@ -128,7 +128,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -241,14 +241,14 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true,width: 100  },   
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },   
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },                   
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },       
             { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },                   
             { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},                   
             { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false, width:120 },
+            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },
         ],  
         search: "",
         
@@ -312,7 +312,7 @@ export default {
         ],
         rule_jam_keluar: [
             value => !!value || "Mohon diisi jam keluar mengajar!!!",
-            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15: 00'
         ],
         rule_ruang_kelas: [
             value => !!value || "Mohon dipilih ruang kelas mengajar!!!"
@@ -400,7 +400,7 @@ export default {
         },    
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini membuat mahasiswa tidak memiliki kelas.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini membuat mahasiswa tidak memiliki kelas.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

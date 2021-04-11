@@ -268,22 +268,22 @@ export default {
         datamhs: {
             nama_mhs: ''
         },
-        totalSKS:0, 
-        totalM:0, 
-        totalAM:0, 
-        ipk:0.00, 
+        totalSKS: 0, 
+        totalM: 0, 
+        totalAM: 0, 
+        ipk: 0.00, 
 
         //tables
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi',width: 100, sortable: true },
-            { text: 'TANGGAL', value: 'tanggal',width: 100, sortable: true },
-            { text: 'NIM', value: 'nim',width: 100, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },
-            { text: 'T.A/SMT', value: 'idsmt',width: 100, sortable: true },
-            { text: 'TOTAL', value: 'total',width: 100, sortable: true },
-            { text: 'STATUS', value: 'nama_status',width:50, sortable: true },    
+            { text: 'KODE BILLING', value: 'no_transaksi', width: 100, sortable: true },
+            { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
+            { text: 'NIM', value: 'nim', width: 100, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true, width: 250 },
+            { text: 'T.A/SMT', value: 'idsmt', width: 100, sortable: true },
+            { text: 'TOTAL', value: 'total', width: 100, sortable: true },
+            { text: 'STATUS', value: 'nama_status', width:50, sortable: true },    
             { text: 'AKSI', value: 'actions', sortable: false, width:50 },
         ],        
         expanded: [],

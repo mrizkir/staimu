@@ -69,7 +69,7 @@
                                     text
                                     @click.stop="save"
                                     
-                                    :disabled="!form_valid||btnLoading">
+                                    :disabled="!form_valid || btnLoading">
                                         SIMPAN
                                 </v-btn>
                             </v-card-actions>
@@ -184,10 +184,10 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NIDN', value: 'nidn', sortable: false, width:120  },   
+            { text: 'NIDN', value: 'nidn', sortable: false, width: 120  },   
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false },       
-            { text: 'KETUA', value: 'is_ketua', sortable: false, width:120 },                   
-            { text: 'AKSI', value: 'actions', sortable: false, width:120 },                   
+            { text: 'KETUA', value: 'is_ketua', sortable: false, width: 120 },                   
+            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },                   
         ],  
         
         //formdata
@@ -281,7 +281,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

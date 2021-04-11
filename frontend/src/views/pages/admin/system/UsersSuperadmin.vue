@@ -128,7 +128,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -190,7 +190,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-form>
@@ -250,7 +250,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'USER SISTEM',
@@ -267,7 +267,7 @@ export default {
     },  
    
     data: () => ({ 
-        role_id:0,
+        role_id: 0,
         datatableLoading: false,
         btnLoading: false,      
         //tables
@@ -290,7 +290,7 @@ export default {
         dialogEdit: false,        
         editedIndex: -1,          
         editedItem: {
-            id:0,
+            id: 0,
             username: '',           
             password: '',           
             name: '',           
@@ -301,7 +301,7 @@ export default {
             updated_at: '',   
         },
         defaultItem: {
-            id:0,
+            id: 0,
             username: '',           
             password: '',           
             name: '',           
@@ -408,7 +408,7 @@ export default {
             });     
             
         },
-        editItem: async function (item) {
+        editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password='';            
             this.editedItem = Object.assign({}, item); 
@@ -476,7 +476,7 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,     
                             username: this.editedItem.username,
                             password: this.editedItem.password,
-                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers: {
@@ -498,7 +498,7 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,     
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
-                            role_id:JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
                             headers: {
@@ -515,7 +515,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -540,7 +540,7 @@ export default {
         },
     },
     computed: {
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER SUPER ADMIN' : 'EDIT USER SUPER ADMIN'
         },
         ...mapGetters("auth", {            

@@ -77,7 +77,7 @@
                                     text 
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading||!daftar_matkul_selected.length > 0">
+                                    :disabled="!form_valid || btnLoading||!daftar_matkul_selected.length > 0">
                                         SIMPAN
                                 </v-btn>
                             </v-card-actions>
@@ -137,8 +137,8 @@ export default {
         form_valid: true,   
         krs_id: null,
         datakrs: {},
-        jumlah_matkul:0,
-        jumlah_sks:0,
+        jumlah_matkul: 0,
+        jumlah_sks: 0,
         daftar_matkul_selected: [],
 
         //table        
@@ -148,9 +148,9 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },       
-            { text: 'SKS', value: 'sks', sortable: false, width:120 },                   
-            { text: 'SMT', value: 'semester', sortable: false, width:120 },                               
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width:120 },                               
+            { text: 'SKS', value: 'sks', sortable: false, width: 120 },                   
+            { text: 'SMT', value: 'semester', sortable: false, width: 120 },                               
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width: 120 },                               
         ],  
     }),
     methods: {          
@@ -203,7 +203,7 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/krs/storematkul',
                     {
                         krs_id: this.krs_id,                        
-                        matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
+                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
                     },
                     {
                         headers: {

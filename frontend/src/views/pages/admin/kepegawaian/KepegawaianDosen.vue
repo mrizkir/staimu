@@ -137,7 +137,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                                             </v-card-actions>
                                         </v-card>
                                     </v-form>
@@ -203,7 +203,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'KEPEGAWAIAN',
@@ -242,7 +242,7 @@ export default {
         editedIndex: -1,      
         daftar_jabatan: [],  
         editedItem: {
-            id:0,
+            id: 0,
             username: '',           
             name: '',                       
             nama_dosen: '',                                   
@@ -258,7 +258,7 @@ export default {
             updated_at: '',   
         },
         defaultItem: {
-            id:0,
+            id: 0,
             username: '',                       
             name: '',                       
             nama_dosen: '',                       
@@ -318,7 +318,7 @@ export default {
                 this.expanded = [item];
             }               
         },                
-        editItem: async function (item) {
+        editItem: async function(item) {
             this.$ajax.get('/datamaster/jabatanakademik',                
                 {
                     headers: {

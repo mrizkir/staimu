@@ -101,7 +101,7 @@
 																										text 
 																										@click.stop="save" 
 																										
-																										:disabled="!form_valid||btnLoading">
+																										:disabled="!form_valid || btnLoading">
 																												SIMPAN
 																								</v-btn>
 																						</v-card-actions>
@@ -209,7 +209,7 @@
 																												text 
 																												@click.stop="salinpersyaratan" 
 																												
-																												:disabled="!form_valid||btnLoading">
+																												:disabled="!form_valid || btnLoading">
 																														SALIN
 																										</v-btn>
 																						</v-card-actions>
@@ -382,7 +382,7 @@
 						this.formdata = item; 
 						this.dialogdetailitem=true;        
 				},
-				editItem: async function (item) {            
+				editItem: async function(item) {            
 						this.editedIndex = this.datatable.indexOf(item);  
 						this.formdata = item;      
 						this.dialogfrm = true
@@ -474,7 +474,7 @@
 						}
 				},
 				deleteItem(item) {           
-						this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus persyaratan "+item.nama_persyaratan+" ?", { color: "red" }).then((confirm) => {
+						this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus persyaratan "+item.nama_persyaratan+" ?", { color: "red" }).then(confirm => {
 								if (confirm) {
 										this.btnLoading = true;
 										this.$ajax.post("/datamaster/persyaratan/"+item.id,
@@ -527,7 +527,7 @@
 				ACCESS_TOKEN: "AccessToken",
 				TOKEN: "Token",
 			}),
-			formTitle () {
+			formTitle() {
 				return this.editedIndex === -1 ? "TAMBAH PERSYARATAN PMB" : "UBAH PERSYARATAN PMB";
 			}, 
 		},

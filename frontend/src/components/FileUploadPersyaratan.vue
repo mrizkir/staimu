@@ -104,7 +104,7 @@ export default {
         image_prev: null,
 
         //form
-        verified:0,
+        verified: 0,
         form_valid: true,
         filepersyaratan: [],
         //form rules  
@@ -163,7 +163,7 @@ export default {
         },
         hapusfilepersysaratan(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.$ajax.post('/spmb/pmbpersyaratan/hapusfilepersyaratan/'+item.persyaratan_pmb_id,
@@ -201,7 +201,7 @@ export default {
             }
             return this.btnVerifikasi;
         },
-        verifikasipersyaratan: async function (item)
+        verifikasipersyaratan: async function(item)
         {
             this.btnLoading = true;                    
             await this.$ajax.post('/spmb/pmbpersyaratan/verifikasipersyaratan/'+item.persyaratan_pmb_id,

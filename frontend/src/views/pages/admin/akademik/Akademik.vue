@@ -66,7 +66,7 @@ export default {
         datatableLoading: false,
         firstloading: true,
         breadcrumbs: [],        
-        tahun_akademik:0,
+        tahun_akademik: 0,
         
     }),
     methods: {

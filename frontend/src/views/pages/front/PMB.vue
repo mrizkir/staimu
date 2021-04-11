@@ -39,7 +39,7 @@
                                     item-text="nama_fakultas"
                                     item-value="kode_fakultas"
                                     :loading="btnLoadingFakultas"
-                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'"
+                                    v-if="$store.getters['uifront/getBentukPT'] == 'universitas'"
                                 />
                                 <v-select
                                     label="PROGRAM STUDI"
@@ -196,7 +196,7 @@ export default {
     methods: {
         initialize: async function()
         {
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
             {                
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;

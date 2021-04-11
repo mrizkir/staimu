@@ -280,11 +280,11 @@
 				expanded: [],
 				datatable: [],
 				headers: [                
-					{ text: "NO", value: "no_peserta", sortable: true,width:70 },
-					{ text: "NAMA", value: "nama_mhs", sortable: true,width: 250 },
-					{ text: "JK", value: "jk", sortable: true,width:65 },
-					{ text: "NOMOR HP", value: "telp_hp", sortable: true,width:50 },
-					{ text: "STATUS", value: "isfinish", sortable: true,width: 100 },					
+					{ text: "NO", value: "no_peserta", sortable: true, width:70 },
+					{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
+					{ text: "JK", value: "jk", sortable: true, width:65 },
+					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width:50 },
+					{ text: "STATUS", value: "isfinish", sortable: true, width: 100 },					
 					{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],		
 				search: "",
@@ -353,7 +353,7 @@
 					});
 			},			
 			selesaiUjian: async function() {
-				this.$root.$confirm.open("Delete", "Apakah Anda ingin menyatakan ujian telah selesai ?", { color: "red" }).then((confirm) => {
+				this.$root.$confirm.open("Delete", "Apakah Anda ingin menyatakan ujian telah selesai ?", { color: "red" }).then(confirm => {
 					if (confirm) {
 						this.btnLoading = true;
 						this.$ajax
@@ -382,7 +382,7 @@
 				this.$router.push("/spmb/jadwalujianpmb");
 			},
 			deleteItem(item) {
-				this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus peserta ujian denga user_id " + item.user_id + " ?", { color: "red" }).then((confirm) => {
+				this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus peserta ujian denga user_id " + item.user_id + " ?", { color: "red" }).then(confirm => {
 					if (confirm) {
 						this.btnLoading = true;
 						this.$ajax.post("/spmb/ujianonline/keluar",

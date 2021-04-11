@@ -103,7 +103,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -250,14 +250,14 @@ export default {
         //form data   
         form_valid: true,         
         formdata: {
-            id:0,                        
+            id: 0,                        
             name: '',                        
             created_at: '',           
             updated_at: '',           
 
         },
         formdefault: {
-            id:0,           
+            id: 0,           
             name: '',                                     
             created_at: '',           
             updated_at: '',       
@@ -361,7 +361,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -403,7 +403,7 @@ export default {
         },
     },
     computed: {        
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },

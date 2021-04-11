@@ -219,7 +219,7 @@
 													text 
 													@click.stop="save" 
 													
-													:disabled="!form_valid||btnLoading">
+													:disabled="!form_valid || btnLoading">
 														SIMPAN
 												</v-btn>
 											</v-card-actions>
@@ -331,12 +331,12 @@
 				expanded: [],
 				datatable: [],
 				headers: [                
-					{ text: "NAMA UJIAN", value: "nama_kegiatan", sortable: true,width:300 },
-					{ text: "TGL. UJIAN", value: "tanggal_ujian", sortable: true,width: 100 },
-					{ text: "TGL. AKHIR PENDAFTARAN", value: "tanggal_akhir_daftar", sortable: true,width: 100 },
-					{ text: "DURASI UJIAN", value: "durasi_ujian", sortable: true,width: 100 },
-					{ text: "JUMLAH PESERTA", value: "jumlah_peserta", sortable: true,width: 100 },
-					{ text: "STATUS", value: "status_ujian", sortable: true,width: 100 },
+					{ text: "NAMA UJIAN", value: "nama_kegiatan", sortable: true, width:300 },
+					{ text: "TGL. UJIAN", value: "tanggal_ujian", sortable: true, width: 100 },
+					{ text: "TGL. AKHIR PENDAFTARAN", value: "tanggal_akhir_daftar", sortable: true, width: 100 },
+					{ text: "DURASI UJIAN", value: "durasi_ujian", sortable: true, width: 100 },
+					{ text: "JUMLAH PESERTA", value: "jumlah_peserta", sortable: true, width: 100 },
+					{ text: "STATUS", value: "status_ujian", sortable: true, width: 100 },
 					{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],				
 				search: "",
@@ -346,7 +346,7 @@
 				
 				//form data   
 				form_valid: true,
-				jumlah_bank_soal:0,
+				jumlah_bank_soal: 0,
 				daftar_ruangan: [],
 				
 				menuTanggalUjian: false,
@@ -449,7 +449,7 @@
 						case 2:
 							return "SELESAI";						
 						default: 
-							return "N.A";
+							return 'N.A';
 					}
 			},
 			dataTableRowClicked(item) {
@@ -561,7 +561,7 @@
 				}
 			},
 			deleteItem(item) {
-				this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus data dengan ID " + item.id + " ?", { color: "red" }).then((confirm) => {
+				this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus data dengan ID " + item.id + " ?", { color: "red" }).then(confirm => {
 					if (confirm)
 					{
 						this.btnLoading = true;

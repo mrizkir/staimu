@@ -271,16 +271,16 @@ export default {
         tahun_pendaftaran: 0,
         
         //statistik
-        total_registrasi:0,
+        total_registrasi: 0,
         daftar_registrasi: [], 
 
-        total_isi_formulir:0,
+        total_isi_formulir: 0,
         daftar_isi_formulir: [],        
 
-        total_lulus:0,
+        total_lulus: 0,
         daftar_lulus: [],        
         
-        total_tidak_lulus:0,
+        total_tidak_lulus: 0,
         daftar_tidak_lulus: [],        
         headers: [                        
             { text: 'NAMA PRODI', value: 'nama_prodi', sortable: false},       

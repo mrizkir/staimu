@@ -397,8 +397,8 @@ export default {
             { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },       
             { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },       
             { text: 'SKS', value: 'sks', sortable: false, width:70 },                   
-            { text: 'SMT', value: 'semester', sortable: true,width:70, },                   
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width:120 },                   
+            { text: 'SMT', value: 'semester', sortable: true, width:70, },                   
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 },                   
             { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width:170 },                   
             { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width:70},                   
             { text: 'NILAI', value: 'n_kual', sortable: false, width:70},                               
@@ -488,7 +488,7 @@ export default {
                         nama_ps_asal: this.data_konversi.nama_ps_asal,                                                                                                             
                         tahun: this.tahun_pendaftaran,                                                                                                             
                         kjur: this.prodi_id,  
-                        daftar_nilai:JSON.stringify(Object.assign({},daftar_nilai)),                    
+                        daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),                    
                     },
                     {
                         headers: {
@@ -570,7 +570,7 @@ export default {
         },
         putuskan ()
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

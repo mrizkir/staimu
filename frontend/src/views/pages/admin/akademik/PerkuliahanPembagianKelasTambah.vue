@@ -111,7 +111,7 @@
                                     <v-col cols="4">
                                         <v-text-field
                                             v-model="formdata.jam_masuk"
-                                            label="JAM MASUK (contoh: 04:00)"
+                                            label="JAM MASUK (contoh: 04: 00)"
                                             outlined
                                             :rules="rule_jam_masuk"
                                             :disabled="dosen_id==null">
@@ -120,7 +120,7 @@
                                     <v-col cols="4">
                                         <v-text-field
                                             v-model="formdata.jam_keluar"
-                                            label="JAM KELUAR (contoh: 06:00)"
+                                            label="JAM KELUAR (contoh: 06: 00)"
                                             outlined
                                             :rules="rule_jam_keluar"
                                             :disabled="dosen_id==null">
@@ -157,7 +157,7 @@
                                     text
                                     @click.stop="save"
                                     
-                                    :disabled="!form_valid||btnLoading||dosen_id==null">
+                                    :disabled="!form_valid || btnLoading||dosen_id==null">
                                         BUAT
                                 </v-btn>
                             </v-card-actions>
@@ -294,7 +294,7 @@ export default {
         ],
         rule_jam_keluar: [
             value => !!value || "Mohon diisi jam keluar mengajar!!!",
-            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15:00'
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam keluar mengajar hh:mm, misalnya 15: 00'
         ],
         rule_ruang_kelas: [
             value => !!value || "Mohon dipilih ruang kelas mengajar!!!"
@@ -350,7 +350,7 @@ export default {
                         hari: this.formdata.hari,
                         jam_masuk: this.formdata.jam_masuk,
                         jam_keluar: this.formdata.jam_keluar,
-                        penyelenggaraan_dosen_id:JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
+                        penyelenggaraan_dosen_id: JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
                         ruang_kelas_id: this.formdata.ruang_kelas_id,
                         tahun: this.tahun_akademik,
                         idsmt: this.semester_akademik,

@@ -190,7 +190,7 @@
 			datatableLoading: false,
 			datatable: [],
 			headers: [
-				{ text: "NAMA UJIAN", value: "nama_kegiatan", sortable: true,width:300 },
+				{ text: "NAMA UJIAN", value: "nama_kegiatan", sortable: true, width:300 },
 				{ text: "TGL. UJIAN", value: "tanggal_ujian", sortable: true, width: 100 },
 				{ text: "TGL. AKHIR PENDAFTARAN", value: "tanggal_akhir_daftar", sortable: true, width: 100 },
 				{ text: "DURASI UJIAN", value: "durasi_ujian", sortable: true, width: 100 },

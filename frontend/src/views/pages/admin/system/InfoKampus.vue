@@ -47,7 +47,7 @@
 																		text
 																		@click.stop="save"
 																		
-																		:disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+																		:disabled="!form_valid || btnLoading">SIMPAN</v-btn>
 														</v-card-actions>
 												</v-card>
 										</v-form>
@@ -68,7 +68,7 @@ export default {
 						{
 								text: "HOME",
 								disabled: false,
-								href: '/dashboard/'+this.ACCESS_TOKEN
+								href: "/dashboard/" + this.ACCESS_TOKEN
 						},
 						{
 								text: 'KONFIGURASI SISTEM',
@@ -128,7 +128,7 @@ export default {
 										{
 												_method: 'PUT',
 												'pid': 'blog',
-												setting:JSON.stringify({
+												setting: JSON.stringify({
 														601: this.formdata.term_id,                            
 												}),
 										},

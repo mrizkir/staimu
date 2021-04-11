@@ -240,7 +240,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus penyelenggaraan matakuliah ('+item.nmatkul+') ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data kontrak matakuliah MHS.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus penyelenggaraan matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data kontrak matakuliah MHS.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

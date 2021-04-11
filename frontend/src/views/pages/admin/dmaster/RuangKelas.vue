@@ -99,7 +99,7 @@
                                                     text
                                                     @click.stop="save"
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -191,7 +191,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'DATA MASTER',
@@ -227,12 +227,12 @@ export default {
         formdata: {
             id: '',
             namaruang: '',
-            kapasitas:0,
+            kapasitas: 0,
         },
         formdefault: {
             id: '',
             namaruang: '',
-            kapasitas:0,
+            kapasitas: 0,
         },
         editedIndex: -1,
 
@@ -327,7 +327,7 @@ export default {
             }
         },
         deleteItem(item) {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -373,7 +373,7 @@ export default {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },

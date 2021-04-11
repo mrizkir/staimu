@@ -119,7 +119,7 @@
                                                     item-value="kode_fakultas"
                                                     :disabled="registered"
                                                     :loading="btnLoadingFakultas"
-                                                    v-if="$store.getters['uifront/getBentukPT']=='universitas'"
+                                                    v-if="$store.getters['uifront/getBentukPT'] == 'universitas'"
                                                 />
                                                 <v-select
                                                     label="PROGRAM STUDI"
@@ -165,7 +165,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -389,11 +389,11 @@ export default {
         //tables
         headers: [                        
             { text: '', value: 'foto', width:70 },    
-            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
             { text: 'USERNAME', value: 'username', sortable: true },
             { text: 'EMAIL', value: 'email', sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: false, width:130 },        
-            { text: 'TGL.DAFTAR', value: 'created_at', sortable: true,width: 100 },     
+            { text: 'TGL.DAFTAR', value: 'created_at', sortable: true, width: 100 },     
             { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         expanded: [],
@@ -553,7 +553,7 @@ export default {
             this.formdata.ta=this.tahun_pendaftaran;
             this.formdata.prodi_id=this.prodi_id;
 
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
             {                
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
@@ -651,7 +651,7 @@ export default {
             this.formdata = Object.assign({}, item);
             this.formdata.nomor_hp='+'+this.formdata.nomor_hp;
             this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-            if (this.$store.getters['uifront/getBentukPT']=='universitas')
+            if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
             {                
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
                     this.daftar_fakultas=data.fakultas;
@@ -682,7 +682,7 @@ export default {
             });            
         },   
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -780,7 +780,7 @@ export default {
         }        
     },
     computed: {        
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },

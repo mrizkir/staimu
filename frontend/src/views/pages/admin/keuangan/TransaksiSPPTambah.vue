@@ -273,13 +273,13 @@ export default {
         item_selected: [],
 
         breadcrumbs: [],     
-        tahun_akademik:0,
+        tahun_akademik: 0,
         btnLoading: false,              
         //tables
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'NO. BULAN', value: 'no_bulan',width:120, sortable: false },
+            { text: 'NO. BULAN', value: 'no_bulan', width: 120, sortable: false },
             { text: 'BULAN', value: 'nama_bulan', sortable: false },    
             { text: 'TAHUN', value: 'tahun', sortable: false },    
             { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false },   
@@ -316,7 +316,7 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
                         id: this.transaksi_id,                        
-                        bulan_selected:JSON.stringify(Object.assign({},this.item_selected)),                                                                    
+                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)),                                                                    
                     },
                     {
                         headers: {
@@ -332,7 +332,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

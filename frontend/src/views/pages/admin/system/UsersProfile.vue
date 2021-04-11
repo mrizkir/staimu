@@ -186,7 +186,7 @@
                                     text 
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-form>
@@ -245,7 +245,7 @@ export default {
             },       
             form_valid: true,         
             formdata: {
-                id:0,                        
+                id: 0,                        
                 username: '',         
                 password: '',                
                 name: '',                        
@@ -260,7 +260,7 @@ export default {
                 updated_at: '',           
             },
             formdefault: {
-                id:0,                        
+                id: 0,                        
                 username: '',         
                 password: '',                
                 name: '',                        

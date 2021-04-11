@@ -65,7 +65,7 @@
                                     text 
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading">SIMPAN</v-btn>
+                                    :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-form>
@@ -86,7 +86,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: 'KONFIGURASI SISTEM',
@@ -115,7 +115,7 @@ export default {
             nama_pt: '',
             nama_alias_pt: '',
             bentuk_pt: '',
-            kode_pt:0,
+            kode_pt: 0,
         },
         //form rules        
         rule_nama_pt: [
@@ -154,7 +154,7 @@ export default {
                     {
                         _method: 'PUT', 
                         'pid': 'Identitas Perguruan Tinggi',
-                        setting:JSON.stringify({
+                        setting: JSON.stringify({
                             101: this.formdata.nama_pt,
                             102: this.formdata.nama_alias_pt,
                             103: this.formdata.bentuk_pt,

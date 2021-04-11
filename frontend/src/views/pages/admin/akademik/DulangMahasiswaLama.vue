@@ -158,10 +158,10 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true,width: 100  },   
-            { text: 'NIM', value: 'nim', sortable: true,width: 100  },   
-            { text: 'NIRM', value: 'nirm', sortable: true,width: 100  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true,width: 250 },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },   
+            { text: 'NIM', value: 'nim', sortable: true, width: 100  },   
+            { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },   
+            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true, width: 250 },                   
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
             { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },                   
             { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
@@ -216,7 +216,7 @@ export default {
         },
         deleteItem(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red',width:600,'desc': 'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

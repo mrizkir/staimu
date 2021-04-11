@@ -189,7 +189,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -360,7 +360,7 @@
                                                         text 
                                                         @click.stop="salinmatkul" 
                                                         
-                                                        :disabled="!form_valid||btnLoading">
+                                                        :disabled="!form_valid || btnLoading">
                                                             SALIN
                                                     </v-btn>
                                             </v-card-actions>
@@ -432,7 +432,7 @@ export default {
             {
                 text: "HOME",
                 disabled: false,
-                href: '/dashboard/'+this.ACCESS_TOKEN
+                href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
                 text: "AKADEMIK",
@@ -472,7 +472,7 @@ export default {
             { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
-            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable: true,width: 100 },       
+            { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable: true, width: 100 },       
             { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],  
         search: "",
@@ -647,7 +647,7 @@ export default {
             });
             this.dialogdetailitem=true;                        
         },    
-        editItem: async function (item) {            
+        editItem: async function(item) {            
             this.editedIndex = this.datatable.indexOf(item);            
             await this.$ajax.get('/akademik/groupmatakuliah',
             {
@@ -788,7 +788,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -842,7 +842,7 @@ export default {
             ACCESS_TOKEN: 'AccessToken',          
             TOKEN: 'Token',                                  
         }),
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },    
         totalSKS()

@@ -123,7 +123,7 @@
                                                     text 
                                                     @click.stop="save" 
                                                     
-                                                    :disabled="!form_valid||btnLoading">
+                                                    :disabled="!form_valid || btnLoading">
                                                         SIMPAN
                                                 </v-btn>
                                             </v-card-actions>
@@ -281,7 +281,7 @@
                                     color="green" 
                                     @click.stop="sink(item)"
                                     class="mb-2 white--text"
-                                    :disabled="!form_valid||btnLoading">SINKRONISASI
+                                    :disabled="!form_valid || btnLoading">SINKRONISASI
                                     </v-btn>
                                 </v-col>
                             </td>
@@ -343,7 +343,7 @@ export default {
         //form data   
         form_valid: true,         
         formdata: {
-            id:0,
+            id: 0,
             zoom_id: '',                        
             email: '',                        
             api_key: '',
@@ -357,7 +357,7 @@ export default {
 
         },
         formdefault: {
-            id:0,
+            id: 0,
             zoom_id: '',                        
             email: '',                        
             api_key: '',
@@ -479,7 +479,7 @@ export default {
             }
         },
         sink (item) {
-            this.$root.$confirm.open('Sinkronisasi', 'Sinkronasi Akun Zoom dengan ID ' + item.id + ' ?', { color: 'yellow' }).then((confirm) => {
+            this.$root.$confirm.open('Sinkronisasi', 'Sinkronasi Akun Zoom dengan ID ' + item.id + ' ?', { color: 'yellow' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -499,7 +499,7 @@ export default {
             });
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -541,7 +541,7 @@ export default {
         },
     },
     computed: {        
-        formTitle () {
+        formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
     },

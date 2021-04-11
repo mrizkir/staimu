@@ -234,7 +234,7 @@
                                     text 
                                     @click.stop="save" 
                                     
-                                    :disabled="!form_valid||btnLoading||!daftar_matkul_selected.length > 0">
+                                    :disabled="!form_valid || btnLoading||!daftar_matkul_selected.length > 0">
                                         SIMPAN
                                 </v-btn>
                             </v-card-actions>
@@ -374,7 +374,7 @@ export default {
                         prodi_id: this.prodi_id,
                         ta: this.tahun_akademik,
                         semester_akademik: this.semester_akademik,                          
-                        matkul_selected:JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
+                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                                    
                     },
                     {
                         headers: {

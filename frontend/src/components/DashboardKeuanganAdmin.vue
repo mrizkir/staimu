@@ -168,13 +168,13 @@ export default {
 
         headers: [                        
             { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable: false},       
-            { text: 'JUMLAH', align: 'end',value: 'jumlah',width: 250, sortable: false},        
+            { text: 'JUMLAH', align: 'end',value: 'jumlah', width: 250, sortable: false},        
         ], 
         //statistik
-        total_transaction:0,
-        total_transaction_paid:0,
-        total_transaction_unpaid:0,
-        total_transaction_cancelled:0
+        total_transaction: 0,
+        total_transaction_paid: 0,
+        total_transaction_unpaid: 0,
+        total_transaction_cancelled: 0
     }),
     props: {
         ta: {

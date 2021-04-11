@@ -89,12 +89,12 @@ export default {
         datatable: [],
         headers: [                        
             { text: '', value: 'foto', width:70 },       
-            { text: 'NO.FORMULIR', value: 'no_formulir',width:120, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'name',width:350, sortable: true },
-            { text: 'NOMOR HP', value: 'nomor_hp',width: 100},
-            { text: 'KELAS', value: 'nkelas',width: 100, sortable: true },
-            { text: 'NILAI', value: 'nilai',width: 100, sortable: true },
-            { text: 'STATUS', value: 'status',width: 100, sortable: true },
+            { text: 'NO.FORMULIR', value: 'no_formulir', width: 120, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
+            { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
+            { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
+            { text: 'NILAI', value: 'nilai', width: 100, sortable: true },
+            { text: 'STATUS', value: 'status', width: 100, sortable: true },
             { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
         ],
         datamhsbaru: {},
@@ -125,7 +125,7 @@ export default {
             soal_tidak_terjawab: null,            
             passing_grade_1: null,            
             passing_grade_2: null,            
-            nilai:0,            
+            nilai: 0,            
             ket_lulus: '',            
             kjur: null,            
             desc: '',            
@@ -210,7 +210,7 @@ export default {
                 }       
                 else
                 {
-                    this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning',width:400,action: 'ok' });
+                    this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning', width:400,action: 'ok' });
                 }         
             });              
         },
@@ -271,7 +271,7 @@ export default {
         },
         ulangujian (item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then((confirm) => {
+            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+item.id,
