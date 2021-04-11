@@ -10,6 +10,7 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
+use App\Models\DMaster\PersyaratanModel;
 use Illuminate\Validation\Rule;
 
 use App\Models\System\ConfigurationModel;
@@ -46,42 +47,17 @@ class UjianMunaqasahController extends Controller
         $this->validate($request, [            
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',
         ]);
-        $nim = $request->input('nim');
-        $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-                                                    A.user_id,
-                                                    A.nama_mhs,
-                                                    A.jk,
-                                                    C.email,
-                                                    C.nomor_hp,
-                                                    COALESCE(A.alamat_rumah,\'N.A\') AS alamat_rumah,
-                                                    A.no_formulir,
-                                                    pe3_register_mahasiswa.nim,
-                                                    pe3_register_mahasiswa.nirm,
-                                                    pe3_register_mahasiswa.kjur,
-                                                    B.nama_prodi,
-                                                    D.nkelas,
-                                                    pe3_register_mahasiswa.tahun,
-                                                    E.n_status,
-                                                    pe3_register_mahasiswa.created_at,
-                                                    pe3_register_mahasiswa.updated_at,
-                                                    C.foto
-                                                '))
-                                                ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
-                                                ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                                                ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-                                                ->where('nim',$nim)
-                                                ->first();
+        $nim = $request->input('nim');        
 
-        $daftar_persyaratan = [];
+        $daftar_persyaratan = PersyaratanModel::where('proses','ujian-munaqasah')
+                                                ->get();
+        
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$mahasiswa,
-                                    'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
-                                    'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
-                                ],200);
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
+                                'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+                            ], 200);
     }
     public function show (Request $request,$id)
     {

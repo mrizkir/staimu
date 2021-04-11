@@ -45,14 +45,24 @@
 									label="NIM"
 									:rules="rule_nim"
 									outlined
-									append-outer-icon="mdi-send"
-									@click:append-outer="cekPersyaratan"
-									:disabled="
-										this.$store.getters['uiadmin/getDefaultDashboard'] ==
-											'mahasiswa'
-									"
-								/>								
-								
+								/>
+								<v-btn
+									@click.stop="cekPersyaratan"
+									:disabled="!form_valid || btnLoading"
+									color="primary"
+									icon
+									class="ma-2"
+								>
+									<v-icon>mdi-send</v-icon>
+								</v-btn>
+								<v-data-table
+									:headers="headers"
+									:items="datatable"
+									item-key="id"
+									:disable-pagination="true"
+									:hide-default-footer="true"
+								>
+								</v-data-table>
 							</v-card-text>
 							<v-card-actions>
 								<v-spacer></v-spacer>
@@ -130,20 +140,20 @@
 
 			//table
 			dialogdetailitem: false,
-			datatableLoading: false,
-			expanded: [],
 			datatable: [],
 			headers: [
-				{ text: "KODE", value: "kmatkul", sortable: true, width: 120 },
-				{ text: "NAMA MATAKULIAH", value: "nmatkul", sortable: true },
-				{ text: "KELOMPOK", value: "group_alias", sortable: true, width: 120 },
 				{
-					text: "SKS",
-					value: "sks",
+					text: "NAMA PERSYARATAN",
+					value: "nama_persyaratan",
 					sortable: true,
-					width: 80,
-					align: "center",
-				},				
+					width: 400,
+				},
+				{
+					text: "KETERANGAN",
+					value: "group_alias",
+					sortable: true,
+					width: 120,
+				},
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			search: "",
@@ -159,16 +169,12 @@
 				value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
 				value =>
 					/^[0-9]+$/.test(value) ||
-					"Nomor Induk Mahasiswa (NIM) hanya bolehangka",
-			],
-			rule_dulang: [
-				value =>
-					!!value || "Mohon dipilih Daftar Ulang yang telah dilakukan !!!",
+					"Nomor Induk Mahasiswa (NIM) hanya boleh angka",
 			],
 		}),
 		methods: {
 			async cekPersyaratan() {
-				if (this.formdata.nim.length > 0) {
+				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
 					await this.$ajax
 						.post(
@@ -183,7 +189,7 @@
 							}
 						)
 						.then(({ data }) => {
-							console.log(data);
+							this.datatable = data.daftar_persyaratan;
 							this.btnLoading = false;
 						})
 						.catch(() => {
