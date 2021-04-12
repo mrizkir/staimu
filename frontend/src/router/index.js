@@ -184,6 +184,15 @@ const routes = [
 		},
 		component: () => import("../views/pages/admin/dmaster/ProgramStudi.vue"),
 	},
+	{
+		path: "/dmaster/programstudi/:prodi_id/detail",
+		name: "DMasterProgramStudiDetail",
+		meta: {
+			title: "DATA MASTER - PROGRAM STUDI",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/dmaster/ProgramStudiDetail.vue"),
+	},
 	//spmb
 	{
 		path: "/spmb",

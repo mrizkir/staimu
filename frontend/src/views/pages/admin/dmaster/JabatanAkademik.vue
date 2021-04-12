@@ -1,5 +1,5 @@
 <template>
-    <DataMasterLayout>
+    <DataMasterLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
                 mdi-chair-rolling

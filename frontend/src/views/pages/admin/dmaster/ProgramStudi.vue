@@ -1,5 +1,5 @@
 <template>
-	<DataMasterLayout>
+	<DataMasterLayout :showrightsidebar="false">
 		<ModuleHeader>
 			<template v-slot:icon>
 				mdi-home-assistant
@@ -143,107 +143,13 @@
 										</v-card>
 									</v-form>
 								</v-dialog>
-								<v-dialog
-									v-if="dialogdetailitem"
-									v-model="dialogdetailitem"
-									max-width="800px"
-									persistent
-								>
-									<v-card>
-										<v-card-title>
-											<span class="headline">DETAIL DATA</span>
-										</v-card-title>
-										<v-card-text>
-											<v-row no-gutters>
-												<v-col xs="12" sm="6" md="6">
-													<v-card flat>
-														<v-card-title>KODE PRODI :</v-card-title>
-														<v-card-subtitle>
-															{{ formdata.kode_prodi }}
-														</v-card-subtitle>
-													</v-card>
-												</v-col>
-												<v-responsive
-													width="100%"
-													v-if="$vuetify.breakpoint.xsOnly"
-												/>
-												<v-col xs="12" sm="6" md="6">
-													<v-card flat>
-														<v-card-title>NAMA PRODI :</v-card-title>
-														<v-card-subtitle>
-															{{ formdata.nama_prodi }}
-														</v-card-subtitle>
-													</v-card>
-												</v-col>
-												<v-responsive
-													width="100%"
-													v-if="$vuetify.breakpoint.xsOnly"
-												/>
-											</v-row>
-											<v-row no-gutters>
-												<v-col xs="12" sm="6" md="6">
-													<v-card flat>
-														<v-card-title>NAMA SINGKAT PRODI :</v-card-title>
-														<v-card-subtitle>
-															{{ formdata.nama_prodi_alias }}
-														</v-card-subtitle>
-													</v-card>
-												</v-col>
-												<v-responsive
-													width="100%"
-													v-if="$vuetify.breakpoint.xsOnly"
-												/>
-												<v-col xs="12" sm="6" md="6">
-													<v-card flat>
-														<v-card-title>KETUA PRODI :</v-card-title>
-														<v-card-subtitle>
-															{{ kaprodi(formdata) }}
-														</v-card-subtitle>
-													</v-card>
-												</v-col>
-												<v-responsive
-													width="100%"
-													v-if="$vuetify.breakpoint.xsOnly"
-												/>
-											</v-row>
-											<v-row>
-												<v-col cols="12">
-													<v-card flat>
-														<v-card-text>
-															<v-autocomplete
-																label="KETUA PROGRAM STUDI"
-																v-model="dosen_id"
-																:items="daftar_dosen"
-																item-text="nama_dosen"
-																item-value="id"
-																return-object
-																:disabled="btnLoading"
-																outlined
-															/>
-														</v-card-text>
-													</v-card>
-												</v-col>
-											</v-row>
-										</v-card-text>
-										<v-card-actions>
-											<v-spacer></v-spacer>
-											<v-btn
-												color="blue darken-1"
-												text
-												@click.stop="closedialogdetailitem"
-											>
-												KELUAR
-											</v-btn>
-										</v-card-actions>
-									</v-card>
-								</v-dialog>
 							</v-toolbar>
 						</template>
-						<template v-slot: item.config="{ item }">
+						<template v-slot:item.config="{ item }">
 							{{ kaprodi(item) }}
 						</template>
-						<template v-slot: item.actions="{ item }">
-							<v-icon small class="mr-2" @click.stop="viewItem(item)">
+						<template v-slot:item.actions="{ item }">
+							<v-icon small class="mr-2" @click.stop="$router.push('/dmaster/programstudi/' + item.id + '/detail')">>
 								mdi-eye
 							</v-icon>
 							<v-icon small class="mr-2" @click.stop="editItem(item)">
@@ -298,6 +204,7 @@
 			this.initialize();
 		},
 		data: () => ({
+			breadcrumbs: [],
 			btnLoading: false,
 			datatableLoading: false,
 			expanded: [],
@@ -306,8 +213,7 @@
 			firstloading: true,
 
 			//dialog
-			dialogfrm: false,
-			dialogdetailitem: false,
+			dialogfrm: false,			
 			//form data
 			form_valid: true,
 			daftar_fakultas: [],
@@ -335,8 +241,6 @@
 				nama_jenjang: "",
 				config: {},
 			},
-			dosen_id: null,
-			daftar_dosen: [],
 			editedIndex: -1,
 
 			//form rules
@@ -428,8 +332,7 @@
 							this.dosen_id = config.kaprodi;
 						}
 						this.datatableLoading = false;
-						this.formdata = item;
-						this.dialogdetailitem = true;
+						this.formdata = item;						
 					});
 				this.firstloading = false;
 			},
@@ -548,14 +451,6 @@
 						}
 					});
 			},
-			closedialogdetailitem() {
-				this.dialogdetailitem = false;
-				setTimeout(() => {
-					this.formdata = Object.assign({}, this.formdefault);
-					this.editedIndex = -1;
-					this.firstloading = true;
-				}, 300);
-			},
 			closedialogfrm() {
 				this.dialogfrm = false;
 				setTimeout(() => {
@@ -591,35 +486,6 @@
 						{ text: "KETUA PRODI", value: "config", width: 200 },
 						{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 					];
-				}
-			},
-		},
-		watch: {
-			async dosen_id(val) {
-				if (!this.firstloading) {
-					this.btnLoading = true;
-					await this.$ajax
-						.post(
-							"/datamaster/programstudi/updateconfig/" + this.formdata.id,
-							{
-								_method: "PUT",
-								config: JSON.stringify({
-									kaprodi: val,
-								}),
-							},
-							{
-								headers: {
-									Authorization: this.TOKEN,
-								},
-							}
-						)
-						.then(() => {
-							this.initialize();
-							this.btnLoading = false;
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						});
 				}
 			},
 		},

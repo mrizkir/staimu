@@ -129,6 +129,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 
     //data master - program studi
     $router->post('/datamaster/programstudi/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@store','as'=>'programstudi.store']);
+    $router->get('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@show','as'=>'programstudi.show']);
     $router->put('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@update','as'=>'programstudi.update']);
     $router->put('/datamaster/programstudi/updateconfig/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updateconfig','as'=>'programstudi.updateconfig']);
     $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'programstudi.destroy']);

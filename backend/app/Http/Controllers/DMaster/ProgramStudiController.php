@@ -27,6 +27,34 @@ class ProgramStudiController extends Controller {
                                 ],200);     
     }
     /**
+     * detail program studi
+     */
+    public function show(Request $request,$id)
+    {
+        $prodi=ProgramStudiModel::select(\DB::raw('id,kode_prodi,nama_prodi,CONCAT(nama_prodi,\' (\',nama_jenjang,\')\') AS nama_prodi2,nama_prodi_alias,kode_jenjang,nama_jenjang,pe3_fakultas.kode_fakultas,nama_fakultas,pe3_prodi.config'))
+                                ->leftJoin('pe3_fakultas','pe3_fakultas.kode_fakultas','pe3_prodi.kode_fakultas')
+                                ->where('pe3_prodi.id',$id)
+                                ->first();
+
+        if (is_null($prodi))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Kode Program Studi ($id) gagal diperoleh"]
+                                ], 422); 
+        }
+        else
+        {
+            return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',  
+                                    'prodi'=>$prodi,                                                                                                                                   
+                                    'message'=>'Fetch data program studi berhasil.'
+                                ],200);     
+        }        
+    }
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
