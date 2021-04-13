@@ -157,7 +157,8 @@ const routes = [
 			title: "DATA MASTER - PERSYARATAN UJIAN MUNAQASAH",
 			requiresAuth: true,
 		},
-		component: () => import("../views/pages/admin/dmaster/PersyaratanUjianMunaqasah.vue"),
+		component: () =>
+			import("../views/pages/admin/dmaster/PersyaratanUjianMunaqasah.vue"),
 	},
 	{
 		path: "/dmaster/fakultas",
@@ -191,7 +192,18 @@ const routes = [
 			title: "DATA MASTER - PROGRAM STUDI",
 			requiresAuth: true,
 		},
-		component: () => import("../views/pages/admin/dmaster/ProgramStudiDetail.vue"),
+		component: () =>
+			import("../views/pages/admin/dmaster/ProgramStudiDetail.vue"),
+	},
+	{
+		path: "/dmaster/programstudi/:prodi_id/skslulus",
+		name: "DMasterProgramStudiSKSLulus",
+		meta: {
+			title: "DATA MASTER - PROGRAM STUDI",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/dmaster/ProgramStudiSKSLulus.vue"),
 	},
 	//spmb
 	{
@@ -722,7 +734,9 @@ const routes = [
 			requiresAuth: true,
 		},
 		component: () =>
-			import("../views/pages/admin/akademik/PerkuliahanUjianMunaqasahTambah.vue"),
+			import(
+				"../views/pages/admin/akademik/PerkuliahanUjianMunaqasahTambah.vue"
+			),
 	},
 	//akademik - nilai
 	{

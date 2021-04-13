@@ -132,6 +132,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@show','as'=>'programstudi.show']);
     $router->put('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@update','as'=>'programstudi.update']);
     $router->put('/datamaster/programstudi/updateconfig/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updateconfig','as'=>'programstudi.updateconfig']);
+    $router->get('/datamaster/programstudi/skslulus/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@skslulus','as'=>'programstudi.skslulus']);
+    $router->post('/datamaster/programstudi/loadskslulus',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@loadskslulus','as'=>'programstudi.loadskslulus']);
+    $router->post('/datamaster/programstudi/updateskslulus',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updateskslulus','as'=>'programstudi.updateskslulus']);
     $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'programstudi.destroy']);
 
     //spmb - soal pmb

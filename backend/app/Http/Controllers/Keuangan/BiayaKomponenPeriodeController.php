@@ -117,7 +117,7 @@ class BiayaKomponenPeriodeController extends Controller {
                                     'pid'=>'store',  
                                     'kombi'=>$kombi,                                                                                                                                   
                                     'message'=>'Menyalin data kombi ke data kombi periode berhasil.'
-                                ],200);     
+                                ],200);
     } 
     /**
      * digunakan untuk merubah biaya komponen
