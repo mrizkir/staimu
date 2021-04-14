@@ -76,11 +76,22 @@
 							<span>SKS LULUS</span>
 							<v-icon>mdi-google-street-view</v-icon>
 						</v-btn>
-						<v-btn @click.stop="showdialogtargetfisik">
+						<v-btn
+							:to="{
+								path:
+									'/dmaster/programstudi/' + data_prodi.id + '/matkulskripsi',
+							}"
+						>
 							<span>MATAKULIAH SKRIPSI</span>
 							<v-icon>mdi-concourse-ci</v-icon>
 						</v-btn>
-						<v-btn @click.stop="$router.push('/dmaster/programstudi/' + data_prodi.id + '/detail')">
+						<v-btn
+							@click.stop="
+								$router.push(
+									'/dmaster/programstudi/' + data_prodi.id + '/detail'
+								)
+							"
+						>
 							<span>KELUAR</span>
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
@@ -89,33 +100,30 @@
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
-          <v-data-table
+					<v-data-table
 						:headers="headers"
 						:items="datatable"
-						item-key="id"						
-						show-expand						
+						item-key="id"
+						show-expand
 						:expanded.sync="expanded"
 						:single-expand="true"
 						@click:row="dataTableRowClicked"
 						class="elevation-1"
 						:loading="datatableLoading"
-						loading-text="Loading... Please wait"> 
+						loading-text="Loading... Please wait"
+					>
 						<template v-slot:top>
 							<v-toolbar flat color="white">
 								<v-toolbar-title>DAFTAR JUMLAH SKS LULUS</v-toolbar-title>
-								<v-divider
-									class="mx-4"
-									inset
-									vertical
-								></v-divider>
+								<v-divider class="mx-4" inset vertical></v-divider>
 								<v-spacer></v-spacer>
 								<v-btn
 									color="primary"
 									class="mb-2"
 									:disabled="btnLoading"
 									@click.stop="loadskslulus"
-                >
-                  GENERATE T.A
+								>
+									GENERATE T.A
 								</v-btn>
 							</v-toolbar>
 						</template>
@@ -123,29 +131,37 @@
 							<v-edit-dialog
 								:return-value.sync="props.item.jumlah_sks"
 								large
-								@save="saveItem({id:props.item.id,jumlah_sks:props.item.jumlah_sks})"
+								@save="
+									saveItem({
+										id: props.item.id,
+										jumlah_sks: props.item.jumlah_sks,
+									})
+								"
 								@cancel="cancelItem"
 								@open="openItem"
-								@close="closeItem"> 
-									{{ props.item.jumlah_sks }}
-									<template v-slot:input>
-										<div class="mt-4 title">Update Jumlah SKS</div>
-                    <v-text-field
-                      label="JUMLAH SKS"
-                      outlined
-											autofocus
-											v-model="props.item.jumlah_sks"
-                    >                      
-                    </v-text-field>
-									</template>
+								@close="closeItem"
+							>
+								{{ props.item.jumlah_sks }}
+								<template v-slot:input>
+									<div class="mt-4 title">Update Jumlah SKS</div>
+									<v-text-field
+										label="JUMLAH SKS"
+										outlined
+										autofocus
+										v-model="props.item.jumlah_sks"
+									>
+									</v-text-field>
+								</template>
 							</v-edit-dialog>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
 									<strong>ID:</strong>{{ item.id }}
-									<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
+									<strong>created_at:</strong>
+									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+									<strong>updated_at:</strong>
+									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 								</v-col>
 							</td>
 						</template>
@@ -196,28 +212,32 @@
 			this.fetchDataProdi();
 		},
 		data: () => ({
-      breadcrumbs: [],
+			breadcrumbs: [],
 			prodi_id: null,
 			data_prodi: null,
 			btnLoading: false,
 			firstloading: true,
-
-      datatableLoading : false,
+			datatableLoading: false,
 			expanded: [],
 			datatable: [],
-      headers: [
+			headers: [
 				{ text: "TAHUN AKADEMIK", value: "ta", sortable: true },
-				{ text: "JUMLAH SKS", value: "jumlah_sks",width: 150, sortable: false},				
+				{
+					text: "JUMLAH SKS",
+					value: "jumlah_sks",
+					width: 150,
+					sortable: false,
+				},
 			],
 			//form data
 			daftar_dosen: [],
 			dosen_id: null,
 		}),
-    mounted() {
-      this.fetchSKSLulus();
-    },
+		mounted() {
+			this.fetchSKSLulus();
+		},
 		methods: {
-			async fetchDataProdi() {        
+			async fetchDataProdi() {
 				await this.$ajax
 					.get("/datamaster/programstudi/" + this.prodi_id, {
 						headers: {
@@ -229,7 +249,7 @@
 					});
 			},
 			async fetchSKSLulus() {
-        this.datatableLoading = true;
+				this.datatableLoading = true;
 				await this.$ajax
 					.get("/datamaster/programstudi/skslulus/" + this.prodi_id, {
 						headers: {
@@ -238,7 +258,7 @@
 					})
 					.then(({ data }) => {
 						this.datatable = data.skslulus;
-            this.datatableLoading = false;
+						this.datatableLoading = false;
 					})
 					.catch(() => {
 						this.datatableLoading = false;
@@ -251,7 +271,7 @@
 					this.expanded = [item];
 				}
 			},
-      loadskslulus: async function() {
+			loadskslulus: async function() {
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
@@ -269,11 +289,11 @@
 						this.datatable = data.skslulus;
 						this.btnLoading = false;
 					})
-          .catch(() => {
-            this.btnLoading = false;
-          });
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
-      saveItem: async function({ id, jumlah_sks }) {
+			saveItem: async function({ id, jumlah_sks }) {
 				await this.$ajax
 					.post(
 						"/datamaster/programstudi/updateskslulus",

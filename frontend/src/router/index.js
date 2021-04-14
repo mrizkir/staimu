@@ -205,6 +205,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/dmaster/ProgramStudiSKSLulus.vue"),
 	},
+	{
+		path: "/dmaster/programstudi/:prodi_id/matkulskripsi",
+		name: "DMasterProgramStudiMatkulSkripsi",
+		meta: {
+			title: "DATA MASTER - PROGRAM STUDI",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/dmaster/ProgramStudiMatkulSkripsi.vue"),
+	},
 	//spmb
 	{
 		path: "/spmb",

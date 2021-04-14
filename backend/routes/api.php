@@ -135,6 +135,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->get('/datamaster/programstudi/skslulus/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@skslulus','as'=>'programstudi.skslulus']);
     $router->post('/datamaster/programstudi/loadskslulus',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@loadskslulus','as'=>'programstudi.loadskslulus']);
     $router->post('/datamaster/programstudi/updateskslulus',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updateskslulus','as'=>'programstudi.updateskslulus']);
+    
+    $router->get('/datamaster/programstudi/matkulskripsi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@matkulskripsi','as'=>'programstudi.matkulskripsi']);    
+    $router->post('/datamaster/programstudi/loadmatkulskripsi',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@loadmatkulskripsi','as'=>'programstudi.loadmatkulskripsi']);
+    $router->post('/datamaster/programstudi/updatematkulskripsi',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updatematkulskripsi','as'=>'programstudi.updatematkulskripsi']);
     $router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'programstudi.destroy']);
 
     //spmb - soal pmb

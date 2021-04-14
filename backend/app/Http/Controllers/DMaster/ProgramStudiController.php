@@ -179,6 +179,35 @@ class ProgramStudiController extends Controller {
                             ],200);     
         
     }
+    /**
+     * detail jumlah matakuliah skripsi dari program studi
+     */
+    public function matkulskripsi(Request $request,$id)
+    {
+        $matkulskripsi = ProgramStudiDetail1Model::select(\DB::raw('
+                                                pe3_prodi_detail1.id,
+                                                pe3_prodi_detail1.ta,
+                                                CASE 
+                                                    WHEN pe3_matakuliah.nmatkul IS NULL THEN
+                                                        "N.A"
+                                                    ELSE
+                                                        CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
+                                                END AS matkul_skripsi,                                                
+                                                pe3_prodi_detail1.created_at,
+                                                pe3_prodi_detail1.updated_at
+                                            '))
+                                            ->leftJoin('pe3_matakuliah','pe3_matakuliah.id','pe3_prodi_detail1.matkul_skripsi')
+                                            ->where('pe3_prodi_detail1.prodi_id',$id)
+                                            ->orderBy('pe3_prodi_detail1.ta','desc')
+                                            ->get();
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'fetchdata',
+                                'matkulskripsi'=>$matkulskripsi,
+                                'message'=>'Fetch data matkul skripsi program studi berhasil.'
+                            ],200);     
+        
+    }
     public function loadskslulus(Request $request) 
     {
         $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
@@ -188,7 +217,44 @@ class ProgramStudiController extends Controller {
         ]);
         $prodi_id = $request->input('prodi_id');
         $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
-        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1)";                
+        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";                
+        
+        \DB::statement($sql);
+        
+        $matkulskripsi = ProgramStudiDetail1Model::select(\DB::raw('
+                                                pe3_prodi_detail1.id,
+                                                pe3_prodi_detail1.ta,
+                                                CASE 
+                                                    WHEN pe3_matakuliah.nmatkul IS NULL THEN
+                                                        "N.A"
+                                                    ELSE
+                                                        CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
+                                                END AS matkul_skripsi,                                                
+                                                pe3_prodi_detail1.created_at,
+                                                pe3_prodi_detail1.updated_at
+                                            '))
+                                            ->leftJoin('pe3_matakuliah','pe3_matakuliah.id','pe3_prodi_detail1.matkul_skripsi')
+                                            ->where('pe3_prodi_detail1.prodi_id',$id)
+                                            ->orderBy('pe3_prodi_detail1.ta','desc')
+                                            ->get();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store',
+                                    'matkulskripsi'=>$matkulskripsi,
+                                    'message'=>'Menyalin data tahun akademik ke program studi detail berhasil.'
+                                ],200);
+    }
+    public function loadmatkulskripsi(Request $request) 
+    {
+        $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
+
+        $this->validate($request, [
+            'prodi_id'=>'required|exists:pe3_prodi,id'
+        ]);
+        $prodi_id = $request->input('prodi_id');
+        $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
+        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";                
         
         \DB::statement($sql);
         
