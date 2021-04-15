@@ -345,7 +345,7 @@ export default {
             
             this.dialogdetail = true;
         },
-        editItem (item) {
+        editItem(item) {
             this.editedIndex = this.datatable.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true

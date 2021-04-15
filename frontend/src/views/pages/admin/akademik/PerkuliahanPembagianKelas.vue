@@ -360,7 +360,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        async editItem (item) {
+        async editItem(item) {
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]

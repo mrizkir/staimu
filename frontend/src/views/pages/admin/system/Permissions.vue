@@ -222,7 +222,7 @@ export default {
                 this.expanded = [item];
             }               
         },
-        editItem (item) {
+        editItem(item) {
             this.editedIndex = this.daftar_permissions.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true

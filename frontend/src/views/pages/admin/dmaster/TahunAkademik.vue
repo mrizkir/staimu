@@ -467,7 +467,7 @@ export default {
             this.formdata = item;
             this.dialogdetailitem=true;
         },
-        editItem (item) {
+        editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);            
             this.semester_ganjil[0]=this.formdata.awal_ganjil == null ? item.tahun+'-09-01':item.awal_ganjil;

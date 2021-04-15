@@ -275,7 +275,7 @@ export default {
             this.formdata = item;
             this.dialogdetailitem=true;
         },
-        editItem (item) {
+        editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);            
             this.dialogfrm = true

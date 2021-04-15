@@ -395,13 +395,41 @@ class ProgramStudiController extends Controller {
                                                         'object' => $detail1,
                                                         'object_id'=>$detail1->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Mengubah jumlah sks Rp. '.$old_sks.' menjadi '.$jumlah_sks.' komponen ('.$detail1->jumlah_sks.') berhasil dilakukan'
+                                                        'message' => 'Mengubah jumlah sks '.$old_sks.' menjadi '.$jumlah_sks.' berhasil dilakukan'
                                                     ]);
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
                                     'jumlah_sks'=>$jumlah_sks,                                                                                                                                                               
-                                    'message'=>'Mengubah biaya komponen '.$detail1->jumlah_sks.' berhasil.'
+                                    'message'=>'Mengubah jumlah sks '.$detail1->jumlah_sks.' berhasil.'
+                                ],200);  
+    }
+    public function updatematkulskripsi(Request $request)
+    {
+        $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
+        
+        $this->validate($request, [           
+            'id'=>'required|exists:pe3_prodi_detail1,id',
+            'matkul_id'=>'required|exists:pe3_matakuliah,id'
+        ]);
+        $id=$request->input('id');
+        $matkul_id=$request->input('matkul_id');
+        
+        $detail1=ProgramStudiDetail1Model::find($id);        
+        $detail1->matkul_skripsi=$matkul_id;
+        $detail1->save();
+        
+        \App\Models\System\ActivityLog::log($request,[
+                                                        'object' => $detail1,
+                                                        'object_id'=>$detail1->id, 
+                                                        'user_id' => $this->getUserid(), 
+                                                        'message' => 'Mengubah matakuliah skripsi berhasil dilakukan'
+                                                    ]);
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'update',     
+                                    'matkul_id'=>$matkul_id,                                                                                                                                                               
+                                    'message'=>'Mengubah matakuliah skripsi berhasil dilakukan.'
                                 ],200);  
     }
     /**

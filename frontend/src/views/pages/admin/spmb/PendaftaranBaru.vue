@@ -646,7 +646,7 @@ export default {
             this.formdata = item;      
             this.dialogdetailitem=true;
         },
-        async editItem (item) {
+        async editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.formdata.nomor_hp='+'+this.formdata.nomor_hp;

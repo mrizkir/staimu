@@ -74,7 +74,7 @@
 					<v-bottom-navigation color="purple lighten-1">
 						<v-btn
 							:to="{
-								path:'/dmaster/programstudi/' + data_prodi.id + '/skslulus',
+								path: '/dmaster/programstudi/' + data_prodi.id + '/skslulus',
 							}"
 						>
 							<span>SKS LULUS</span>
@@ -84,7 +84,13 @@
 							<span>MATAKULIAH SKRIPSI</span>
 							<v-icon>mdi-concourse-ci</v-icon>
 						</v-btn>
-						<v-btn @click.stop="$router.push('/dmaster/programstudi/' + data_prodi.id + '/detail')">
+						<v-btn
+							@click.stop="
+								$router.push(
+									'/dmaster/programstudi/' + data_prodi.id + '/detail'
+								)
+							"
+						>
 							<span>KELUAR</span>
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
@@ -93,42 +99,88 @@
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
-          <v-data-table
+					<v-data-table
 						:headers="headers"
 						:items="datatable"
-						item-key="id"						
-						show-expand						
+						item-key="id"
+						show-expand
 						:expanded.sync="expanded"
 						:single-expand="true"
 						@click:row="dataTableRowClicked"
 						class="elevation-1"
 						:loading="datatableLoading"
-						loading-text="Loading... Please wait"> 
+						loading-text="Loading... Please wait"
+					>
 						<template v-slot:top>
 							<v-toolbar flat color="white">
 								<v-toolbar-title>DAFTAR MATAKULIAH SKRIPSI</v-toolbar-title>
-								<v-divider
-									class="mx-4"
-									inset
-									vertical
-								></v-divider>
+								<v-divider class="mx-4" inset vertical></v-divider>
 								<v-spacer></v-spacer>
 								<v-btn
 									color="primary"
 									class="mb-2"
 									:disabled="btnLoading"
 									@click.stop="loadmatkulskripsi"
-                >
-                  GENERATE T.A
+								>
+									GENERATE T.A
 								</v-btn>
+								<v-dialog v-model="dialogfrm" max-width="500px" persistent>
+									<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+										<v-card>
+											<v-card-title>
+												<span class="headline">UPDATE MATAKULIAH SKRIPSI</span>
+											</v-card-title>
+											<v-card-text>
+												<v-autocomplete
+													label="MATAKULIAH SKRIPSI"
+													v-model="formdata.matkul_id"
+													:items="daftar_matkul"
+													item-text="nmatkul"
+													item-value="id"
+													outlined
+												/>
+											</v-card-text>
+											<v-card-actions>
+												<v-spacer></v-spacer>
+												<v-btn
+													color="blue darken-1"
+													text
+													@click.stop="closedialogfrm"
+												>
+													BATAL
+												</v-btn>
+												<v-btn
+													color="blue darken-1"
+													text
+													@click.stop="save"
+													:disabled="!form_valid || btnLoading"
+												>
+													SIMPAN
+												</v-btn>
+											</v-card-actions>
+										</v-card>
+									</v-form>
+								</v-dialog>
 							</v-toolbar>
-						</template>						
+						</template>
+						<template v-slot:item.actions="{ item }">
+							<v-icon
+								small
+								class="mr-2"
+								@click.stop="editItem(item)"
+								:disabled="btnLoading"
+							>
+								mdi-pencil
+							</v-icon>
+						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
 									<strong>ID:</strong>{{ item.id }}
-									<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
+									<strong>created_at:</strong>
+									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+									<strong>updated_at:</strong>
+									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 								</v-col>
 							</td>
 						</template>
@@ -179,28 +231,37 @@
 			this.fetchDataProdi();
 		},
 		data: () => ({
-      breadcrumbs: [],
+			breadcrumbs: [],
 			prodi_id: null,
 			data_prodi: null,
 			btnLoading: false,
 			firstloading: true,
-
-      datatableLoading : false,
+			datatableLoading: false,
 			expanded: [],
 			datatable: [],
-      headers: [
+			headers: [
 				{ text: "TAHUN AKADEMIK", value: "ta", sortable: true },
-				{ text: "MATKUL SKRIPSI", value: "matkul_skripsi",width: 200, sortable: false},				
+				{
+					text: "MATKUL SKRIPSI",
+					value: "matkul_skripsi",
+					width: 200,
+					sortable: false,
+				},
+				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			//form data
-			daftar_dosen: [],
-			dosen_id: null,
+			dialogfrm: false,
+			daftar_matkul: [],
+			formdata: {
+				id: null,
+				matkul_id: null,
+			},
 		}),
-    mounted() {
-      this.fetchMatkulSkripsi();
-    },
+		mounted() {
+			this.fetchMatkulSkripsi();
+		},
 		methods: {
-			async fetchDataProdi() {        
+			async fetchDataProdi() {
 				await this.$ajax
 					.get("/datamaster/programstudi/" + this.prodi_id, {
 						headers: {
@@ -212,7 +273,7 @@
 					});
 			},
 			async fetchMatkulSkripsi() {
-        this.datatableLoading = true;
+				this.datatableLoading = true;
 				await this.$ajax
 					.get("/datamaster/programstudi/matkulskripsi/" + this.prodi_id, {
 						headers: {
@@ -221,7 +282,7 @@
 					})
 					.then(({ data }) => {
 						this.datatable = data.matkulskripsi;
-            this.datatableLoading = false;
+						this.datatableLoading = false;
 					})
 					.catch(() => {
 						this.datatableLoading = false;
@@ -234,7 +295,7 @@
 					this.expanded = [item];
 				}
 			},
-      loadmatkulskripsi: async function() {
+			loadmatkulskripsi: async function() {
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
@@ -252,10 +313,62 @@
 						this.datatable = data.matkulskripsi;
 						this.btnLoading = false;
 					})
-          .catch(() => {
-            this.btnLoading = false;
-          });
-			},      
+					.catch(() => {
+						this.btnLoading = false;
+					});
+			},
+			async editItem(item) {
+				await this.$ajax
+					.post(
+						"/akademik/matakuliah",
+						{
+							prodi_id: this.data_prodi.id,
+							ta: item.ta,
+						},
+						{
+							headers: {
+								Authorization: this.TOKEN,
+							},
+						}
+					)
+					.then(({ data }) => {
+						this.daftar_matkul = data.matakuliah;
+						this.formdata = item;
+						this.btnLoading = false;
+						this.dialogfrm = true;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
+			},
+			async save() {
+				if (this.$refs.frmdata.validate()) {
+					await this.$ajax
+						.post(
+							"/datamaster/programstudi/updatematkulskripsi",
+							{
+								id: this.formdata.id,
+								matkul_id: this.formdata.matkul_id,
+							},
+							{
+								headers: {
+									Authorization: this.TOKEN,
+								},
+							}
+						)
+						.then(() => {
+							this.closedialogfrm();
+							this.fetchMatkulSkripsi();
+						});
+				}
+			},
+			closedialogfrm() {
+				this.dialogfrm = false;
+				setTimeout(() => {
+					this.$refs.frmdata.reset();
+					this.matkul_id = null;
+				}, 300);
+			},
 			kaprodi(item) {
 				var message = "N.A";
 				if (item.config) {
@@ -272,35 +385,6 @@
 				ACCESS_TOKEN: "AccessToken",
 				TOKEN: "Token",
 			}),
-		},
-		watch: {
-			async dosen_id(val) {
-				if (!this.firstloading) {
-					this.btnLoading = true;
-					await this.$ajax
-						.post(
-							"/datamaster/programstudi/updateconfig/" + this.data_prodi.id,
-							{
-								_method: "PUT",
-								config: JSON.stringify({
-									kaprodi: val,
-								}),
-							},
-							{
-								headers: {
-									Authorization: this.TOKEN,
-								},
-							}
-						)
-						.then(() => {
-							this.btnLoading = false;
-							this.$router.go();
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						});
-				}
-			},
 		},
 		components: {
 			DataMasterLayout,

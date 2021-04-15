@@ -273,7 +273,7 @@ export default {
             this.formdata = item;      
             this.dialogdetailitem=true;                        
         },    
-        editItem (item) {
+        editItem(item) {
             this.kode_fakultas=item.kode_fakultas;
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
