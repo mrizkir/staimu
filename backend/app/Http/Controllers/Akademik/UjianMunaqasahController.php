@@ -99,6 +99,7 @@ class UjianMunaqasahController extends Controller
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'fetchdata',                                
+                                'mahasiswa'=>$mahasiswa,
                                 'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
@@ -107,96 +108,31 @@ class UjianMunaqasahController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
 
-        $krs=KRSModel::select(\DB::raw('
-                        pe3_krs.id,
-                        pe3_krs.nim,
-                        pe3_register_mahasiswa.nirm,
-                        pe3_formulir_pendaftaran.nama_mhs,
-                        pe3_formulir_pendaftaran.jk,
-                        pe3_formulir_pendaftaran.no_formulir,
-                        pe3_register_mahasiswa.tahun AS tahun_pendaftaran,
-                        pe3_kelas.nkelas,
-                        pe3_krs.jumlah_matkul_1,
-                        pe3_krs.jumlah_sks_1,
-                        CONCAT(COALESCE(pe3_dosen.gelar_depan,"")," ",pe3_dosen.nama_dosen," ",COALESCE(pe3_dosen.gelar_belakang,"")) AS nama_dosen,
-                        pe3_dosen.nidn,
-                        pe3_krs.kjur,
-                        pe3_krs.tahun,
-                        pe3_krs.idsmt,
-                        pe3_krs.tasmt,
-                        pe3_krs.sah,
-                        pe3_krs.created_at,
-                        pe3_krs.updated_at
-                    '))
-                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
-                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_register_mahasiswa.idkelas')
-                    ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
-                    ->find($id);
+        $mahasiswa = RegisterMahasiswaModel::where('nim',$id)
+                                            ->first();
 
-        $daftar_matkul=[];
-
-        if (is_null($krs))
+        if (is_null($mahasiswa))
         {
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
-                                    'message'=>["KRS dengan ($id) gagal diperoleh"]
+                                    'message'=>["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
                                 ],422); 
         }
         else
         {
-            $daftar_matkul=KRSMatkulModel::select(\DB::raw('
-                                            pe3_krsmatkul.id,
-                                            A.kmatkul,
-                                            A.nmatkul,
-                                            A.sks,
-                                            A.semester,
-                                            CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
-                                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(E.gelar_belakang,\'\')) AS nama_dosen_kelas,
-                                            \'\' AS nama_dosen,
-                                            COALESCE(D.nmatkul,\'N.A\') AS nama_kelas,
-                                            C.kelas_mhs_id,
-                                            pe3_krsmatkul.penyelenggaraan_id,
-                                            pe3_krsmatkul.created_at,
-                                            pe3_krsmatkul.updated_at
-                                        '))
-                                        ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
-                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-                                        ->leftJoin('pe3_kelas_mhs AS D','D.id','C.kelas_mhs_id')                                       
-                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                        ->leftJoin('pe3_dosen AS E','E.user_id','D.user_id')                                        
-                                        ->where('krs_id',$krs->id)
-                                        ->orderBy('semester','asc')
-                                        ->orderBy('kmatkul','asc')
-                                        ->get();
+            $user_id = $mahasiswa->user_id;
             
-            $daftar_matkul->transform(function ($item,$key) {            
-                if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
-                {
-                    $item->nama_dosen='N.A';
-                }     
-                else
-                {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
-                }
-                return $item;
-            });
-            $krs->jumlah_matkul_1=$daftar_matkul->count();
-            $krs->jumlah_sks_1=$daftar_matkul->sum('sks');
-            $krs->save();
-            
+            $daftar_persyaratan = PersyaratanUjianMunaqasahModel::where('user_id',$user_id)
+                            ->get();
+        
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'krs'=>$krs,                                                                                                                                   
-                                    'krsmatkul'=>$daftar_matkul,                                                                                                                                   
-                                    'jumlah_matkul'=>$krs->jumlah_matkul_1,                                                                                                                                   
-                                    'jumlah_sks'=>$krs->jumlah_sks_1,                                                                                                                                   
-                                    'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+                                'status'=>1,
+                                'pid'=>'fetchdata',                                
+                                'mahasiswa'=>$mahasiswa,
+                                'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
+                                'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+                            ], 200);
         }        
     }
     public function penyelenggaraan (Request $request)

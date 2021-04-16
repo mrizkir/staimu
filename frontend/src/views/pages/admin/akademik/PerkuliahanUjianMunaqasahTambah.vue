@@ -129,6 +129,19 @@
 					"username"
 				);
 			}
+			var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+			if (typeof page === "undefined") {
+				this.$store.dispatch("uiadmin/addToPages", {
+					name: "perkuliahanujianmunaqasah",
+					data_mhs: {
+						nim: this.formdata.nim,
+					},
+				});
+			} else if (Object.keys(page.data_mhs).length > 1) {
+				this.data_mhs = page.data_mhs;
+				this.formdata.nim = page.data_mhs.nim;
+				this.fetchPersyaratanMhs();
+			}			
 		},
 		data: () => ({
 			firstloading: true,
@@ -139,6 +152,7 @@
 			btnLoading: false,
 
 			//table
+			datatableLoading: false,
 			dialogdetailitem: false,
 			datatable: [],
 			headers: [
@@ -159,6 +173,7 @@
 			search: "",
 
 			//formdata
+			data_mhs: [],
 			form_valid: true,
 			iscomplete: true,
 			formdata: {
@@ -173,9 +188,26 @@
 			],
 		}),
 		methods: {
+			async fetchPersyaratanMhs() {
+				this.datatableLoading = true;
+				await this.$ajax
+					.get(
+						"/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim,						
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
+					.then(({ data }) => {
+						this.datatable = data.daftar_persyaratan;
+						this.datatableLoading = false;
+					});
+			},
 			async cekPersyaratan() {
 				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
+					this.datatableLoading = true;
 					await this.$ajax
 						.post(
 							"/akademik/perkuliahan/ujianmunaqasah/cekpersyaratan",
@@ -189,11 +221,17 @@
 							}
 						)
 						.then(({ data }) => {
+							var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+							this.data_mhs = data.mahasiswa;
+							page.data_mhs = this.data_mhs;
+							this.$store.dispatch('uiadmin/updatePage', page);
 							this.datatable = data.daftar_persyaratan;
 							this.btnLoading = false;
+							this.datatableLoading = false;
 						})
 						.catch(() => {
 							this.btnLoading = false;
+							this.datatableLoading = false;
 						});
 				}
 			},
@@ -226,8 +264,12 @@
 				}
 			},
 			closedialogfrm() {
-				setTimeout(() => {
-					this.formdata = Object.assign({}, {});
+				setTimeout(() => {				
+					var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+					page.data_mhs = {
+						nim: "",
+					};
+					this.$store.dispatch("uiadmin/updatePage", page);
 					this.$router.push("/akademik/perkuliahan/ujianmunaqasah");
 				}, 300);
 			},

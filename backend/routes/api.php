@@ -381,6 +381,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 
     //akademik - perkuliahan - ujian munaqasah
     $router->post('/akademik/perkuliahan/ujianmunaqasah',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@index','as'=>'ujianmunaqasah.index']);
+    $router->get('/akademik/perkuliahan/ujianmunaqasah/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@show','as'=>'ujianmunaqasah.show']);
     $router->post('/akademik/perkuliahan/ujianmunaqasah/cekpersyaratan',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@cekpersyaratan','as'=>'ujianmunaqasah.cekpersyaratan']);
     
     //akademik - perkuliahan - nilai konversi
