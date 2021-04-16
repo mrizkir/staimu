@@ -18,7 +18,7 @@ class CreatePersyaratanTable extends Migration
         Schema::create('pe3_persyaratan', function (Blueprint $table) {                                                                  
             $table->uuid('id')->primary();                        
             $table->string('proses');                                  
-            $table->string('nama_persyaratan');                 
+            $table->string('nama_persyaratan');                  
             $table->unsignedInteger('prodi_id')->nullable();                                         
             $table->year('ta');
             $table->timestamps();   

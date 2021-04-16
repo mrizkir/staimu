@@ -10,6 +10,8 @@ use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
+use App\Models\Akademik\UjianMunaqasahModel;
+use App\Models\Akademik\PersyaratanUjianMunaqasahModel;
 use App\Models\DMaster\PersyaratanModel;
 use Illuminate\Validation\Rule;
 
@@ -48,9 +50,51 @@ class UjianMunaqasahController extends Controller
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',
         ]);
         $nim = $request->input('nim');        
+        $mahasiswa = RegisterMahasiswaModel::where('nim',$nim)
+                                            ->first();
+        $user_id = $mahasiswa->user_id;
 
-        $daftar_persyaratan = PersyaratanModel::where('proses','ujian-munaqasah')
-                                                ->get();
+        $sql = " INSERT INTO 
+        pe3_persyaratan_ujian_munaqasah 
+        (
+            id,
+            user_id,
+            persyaratan_id,
+            ujian_munaqasah_id,
+            nama_persyaratan,
+            file,
+            status,
+            keterangan,
+            created_at,
+            updated_at
+        ) 
+        SELECT 
+            UUID(),
+            '$user_id',
+            id AS persyaratan_id,
+            NULL,
+            nama_persyaratan,
+            NULL,
+            0,
+            NULL,
+            NOW() AS created_at,
+            NOW() AS updated_at 
+        FROM pe3_persyaratan 
+        WHERE proses='ujian-munaqasah' 
+        AND 
+        id
+        NOT IN (
+            SELECT 
+                persyaratan_id 
+            FROM 
+                pe3_persyaratan_ujian_munaqasah 
+            WHERE user_id='$user_id')
+        ";
+        
+        \DB::statement($sql);
+
+        $daftar_persyaratan = PersyaratanUjianMunaqasahModel::where('user_id',$user_id)
+                            ->get();
         
         return Response()->json([
                                 'status'=>1,
