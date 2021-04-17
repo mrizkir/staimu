@@ -164,8 +164,14 @@
 				},
 				{
 					text: "KETERANGAN",
-					value: "group_alias",
-					sortable: true,
+					value: "keterangan",
+					sortable: false,
+					width: 120,
+				},
+				{
+					text: "STATUS",
+					value: "status",
+					sortable: false,
 					width: 120,
 				},
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },

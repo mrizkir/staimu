@@ -17,7 +17,7 @@ class PersyaratanUjianMunaqasahTableSeeder extends Seeder
   {   
     \DB::statement('DELETE FROM pe3_persyaratan WHERE proses="ujian-munaqasah"');
 
-    $tahun = date('Y');
+    $tahun = 2021;
 
     \DB::table('pe3_persyaratan')->insert([
       'id'=>"$tahun-ujian-munaqasah-1",
