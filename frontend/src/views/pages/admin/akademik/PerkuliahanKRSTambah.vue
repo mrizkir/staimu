@@ -8,7 +8,7 @@
                 KARTU RENCANA STUDI
             </template>
             <template v-slot:subtitle  v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -47,7 +47,7 @@
                                     outlined
                                     append-outer-icon="mdi-send"
                                     @click:append-outer="cekNIM"
-                                    :disabled="(this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')"
+                                    :disabled="(this.$store.getters['uiadmin/getDefaultDashboard']== 'mahasiswa')"
                                     />
                                 <v-select
                                     v-model="formdata.dulang_id"
@@ -109,15 +109,15 @@ export default {
                 href: "#"
             },
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];          
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
         this.ta_matkul = this.tahun_akademik;
-        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];          
-        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
-        if (this.$store.getters['uiadmin/getDefaultDashboard']=='mahasiswa')
+        this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];          
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
+        if (this.$store.getters['uiadmin/getDefaultDashboard']== 'mahasiswa')
         {
             this.formdata.nim = this.$store.getters["auth/AttributeUser"]("username");
             this.fetchDulang();
@@ -144,7 +144,7 @@ export default {
             { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -152,7 +152,7 @@ export default {
         form_valid: true,   
         daftar_dulang: [],
         formdata: {
-            nim: '',
+            nim: "",
             dulang_id: ''
         },
         rule_nim: [

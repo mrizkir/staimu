@@ -271,8 +271,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
                             </td>
                         </template>
@@ -324,7 +324,7 @@ export default {
             { text: 'NAME', value: 'name', sortable: true },
             { text: 'EMAIL', value: 'email', sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",
@@ -614,7 +614,7 @@ export default {
             }
         },
         deleteItem(item) {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

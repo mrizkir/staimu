@@ -120,8 +120,8 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <strong>ID:</strong>{{ item.id }}
-                                <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -170,7 +170,7 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },    
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",    
         //form
@@ -262,7 +262,7 @@ export default {
             }
         },
         deleteItem(item) {   
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus permission '+item.name+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus permission '+item.name+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

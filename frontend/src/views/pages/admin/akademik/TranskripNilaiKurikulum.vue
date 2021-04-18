@@ -184,9 +184,9 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
@@ -204,13 +204,13 @@ export default {
         expanded: [],
         datatable: [],      
         headers: [            
-            { text: 'NIM', value: 'nim', sortable: true, width: 100  },       
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true },                   
+            { text: "NIM", value: "nim", sortable: true, width: 100  },       
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },                   
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },                   
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },                   
             { text: 'IPK SEMENTARA', value: 'ipk', sortable: true, width: 100, },                   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },
+            { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],  
         search: "", 
 
@@ -244,7 +244,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });  
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
@@ -300,7 +300,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         },

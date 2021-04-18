@@ -113,7 +113,7 @@ export default {
             }
         ];
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];  
+        this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];  
         this.initialize();
     },
     data: () => ({

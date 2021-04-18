@@ -271,6 +271,11 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/transaksi-kkn',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiKKNController@index','as'=>'transaksi-kkn.index']);
     $router->post('/keuangan/transaksi-kkn/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiKKNController@store','as'=>'transaksi-kkn.store']);
     $router->delete('/keuangan/transaksi-kkn/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiKKNController@destroy','as'=>'transaksi-kkn.destroy']);
+    
+    //keuangan - transaksi ujian munaqasah
+    $router->post('/keuangan/transaksi-ujianmunaqasah',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@index','as'=>'transaksi-ujianmunaqasah.index']);
+    $router->post('/keuangan/transaksi-ujianmunaqasah/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@store','as'=>'transaksi-ujianmunaqasah.store']);
+    $router->delete('/keuangan/transaksi-ujianmunaqasah/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@destroy','as'=>'transaksi-ujianmunaqasah.destroy']);
 
     //keuangan - konfirmasi pembayaran
     $router->post('/keuangan/konfirmasipembayaran',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@index','as'=>'konfirmasipembayaran.index']);

@@ -103,8 +103,8 @@
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>Email:</strong>{{ item.email }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -157,7 +157,7 @@ export default {
             { text: 'NIDN', value: 'nidn', sortable: true },     
             { text: 'NIPY', value: 'nipy', sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },         
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",
@@ -193,7 +193,7 @@ export default {
             this.$router.push('/akademik/dosenwali/'+item.id)
         },        
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

@@ -8,7 +8,7 @@
                 MATAKULIAH
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
+                TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -342,7 +342,7 @@
                                                 <v-alert
                                                     class="info"
                                                     dark>
-                                                    Salin matakuliah dari tahun akademik berikut ke tahun akademik {{tahun_akademik}}
+                                                    Salin matakuliah dari tahun akademik berikut ke tahun akademik {{ tahun_akademik }}
                                                 </v-alert>
                                                 <v-select
                                                     v-model="dari_tahun_akademik"
@@ -394,8 +394,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
                                     <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -450,10 +450,10 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
         this.initialize()
     },  
     data: () => ({ 
@@ -473,7 +473,7 @@ export default {
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
             { text: 'JUMLAH PENYELENGGARAAN', value: 'jummlah_penyelenggaraan', sortable: true, width: 100 },       
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],  
         search: "",
 
@@ -609,7 +609,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });  
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
@@ -788,7 +788,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -868,7 +868,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         }

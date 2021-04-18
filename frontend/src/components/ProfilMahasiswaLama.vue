@@ -108,7 +108,7 @@
                             <v-card flat class="mb-2">
                                 <v-card-title>CREATED/UPDATED:</v-card-title>  
                                 <v-card-subtitle>
-                                    {{$date(datamhs.created_at).format('DD/MM/YYYY HH:mm')}} ~ {{$date(datamhs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                    {{$date(datamhs.created_at).format("DD/MM/YYYY HH:mm")}} ~ {{$date(datamhs.updated_at).format("DD/MM/YYYY HH:mm")}}
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>

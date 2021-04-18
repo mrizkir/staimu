@@ -8,7 +8,7 @@
 								KONFIRMASI PEMBAYARAN
 						</template>
 						<template v-slot:subtitle>
-								TAHUN AKADEMIK {{tahun_akademik}} - {{ nama_prodi }}
+								TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -378,8 +378,8 @@
 																										<v-card flat>
 																												<v-card-title>CREATED/UPDATED :</v-card-title>
 																												<v-card-subtitle>
-																														{{ $date(data_transaksi.created_at).format('DD/MM/YYYY HH:mm') }} -
-																														{{ $date(data_transaksi.updated_at).format('DD/MM/YYYY HH:mm') }}
+																														{{ $date(data_transaksi.created_at).format("DD/MM/YYYY HH:mm") }} -
+																														{{ $date(data_transaksi.updated_at).format("DD/MM/YYYY HH:mm") }}
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
@@ -399,16 +399,16 @@
 														</v-toolbar>
 												</template>
 												<template v-slot:item.tanggal="{ item }">
-														{{$date(item.tanggal).format('DD/MM/YYYY')}}
+														{{ $date(item.tanggal).format("DD/MM/YYYY") }}
 												</template>
 												<template v-slot:item.idsmt="{ item }">
-														{{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+														{{ $store.getters["uiadmin/getNamaSemester"](item.idsmt) }}
 												</template>
 												<template v-slot:item.total="{ item }">
 														{{item.total|formatUang}}
 												</template>
 												<template v-slot:item.nama_status="{ item }">
-														<v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
+														<v-chip :color="item.style" dark>{{ item.nama_status }}</v-chip>
 												</template>
 												<template v-slot:item.actions="{ item }">
 														<v-icon
@@ -444,8 +444,8 @@
 														<td :colspan="headers.length" class="text-center">
 																<v-col cols="12">
 																		<strong>ID TRANSAKSI:</strong>{{ item.id }}
-																		<strong>created_at:</strong>{{ item.created_at_konfirm== 'N.A'?'N.A':$date(item.created_at_konfirm).format('DD/MM/YYYY HH:mm') }}
-																		<strong>updated_at:</strong>{{ item.updated_at_konfirm== 'N.A'?'N.A':$date(item.updated_at_konfirm).format('DD/MM/YYYY HH:mm') }}
+																		<strong>created_at:</strong>{{ item.created_at_konfirm== 'N.A'?'N.A':$date(item.created_at_konfirm).format("DD/MM/YYYY HH:mm") }}
+																		<strong>updated_at:</strong>{{ item.updated_at_konfirm== 'N.A'?'N.A':$date(item.updated_at_konfirm).format("DD/MM/YYYY HH:mm") }}
 																</v-col>
 																<v-col cols="12" v-if="$store.getters['auth/can']('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE')&&(dashboard!='mahasiswabaru'&&dashboard!='mahasiswa')">
 																		<v-btn
@@ -488,11 +488,11 @@
 import KeuanganLayout from "@/views/layouts/KeuanganLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter18 from '@/components/sidebar/FilterMode18';
-import DialogPrintoutKeuangan from '@/components/DialogPrintoutKeuangan';
+import DialogPrintoutKeuangan from "@/components/DialogPrintoutKeuangan";
 export default {
 		name: 'KonfirmasiPembayFilter18aran',
 		created() {
-				this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 				this.breadcrumbs = [
 						{
 								text: "HOME",
@@ -500,9 +500,9 @@ export default {
 								href: "/dashboard/" + this.ACCESS_TOKEN
 						},
 						{
-								text: 'KEUANGAN',
+								text: "KEUANGAN",
 								disabled: false,
-								href: '/keuangan'
+								href: "/keuangan"
 						},
 						{
 								text: 'KONFIRMASI PEMBAYARAN',
@@ -510,11 +510,11 @@ export default {
 								href: "#"
 						}
 				];
-				this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
-				let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+				this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard== 'mahasiswa');
+				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 				this.prodi_id = prodi_id;
-				this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
-				this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];
+				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 				this.initialize()
 		},
 		data: () => ({
@@ -532,18 +532,18 @@ export default {
 				datatableLoading: false,
 				datatable: [],
 				headers: [
-						{ text: 'KODE BILLING', value: 'no_transaksi', width: 100, sortable: true },
+						{ text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
 						{ text: 'NO.REF', value: 'no_faktur', width: 100, sortable: true },
 						{ text: 'TANGGAL TRANSAKSI', value: 'tanggal', width: 100, sortable: true },
 						{ text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100 },
-						{ text: 'NIM', value: 'nim', sortable: true, width: 100 },
-						{ text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true, width: 250 },
-						{ text: 'SMT', value: 'idsmt', width: 100, sortable: true },
+						{ text: "NIM", value: "nim", sortable: true, width: 100 },
+						{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
+						{ text: "SMT", value: "idsmt", width: 100, sortable: true },
 						{ text: 'TOTAL', value: 'total', width: 100, sortable: true },
 						{ text: 'STATUS TRANSAKSI', value: 'nama_status', width:50, sortable: true },
 						{ text: 'KONFIRM.', value: 'status_konfirmasi', width:50, sortable: true },
 						{ text: 'KET.', value: 'desc', width:80, sortable: false },
-						{ text: 'AKSI', value: 'actions', sortable: false, width:82 },
+						{ text: "AKSI", value: "actions", sortable: false, width:82 },
 				],
 				expanded: [],
 				search: "",
@@ -629,7 +629,7 @@ export default {
 								this.datatable = data.transaksi;
 								this.datatableLoading = false;
 						});
-						this.firstloading=false;
+						this.firstloading = false;
 						this.$refs.filter18.setFirstTimeLoading(this.firstloading);
 				},
 				dataTableRowClicked(item)
@@ -822,7 +822,7 @@ export default {
 				{
 						if (!this.firstloading)
 						{
-								this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+								this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
 								this.initialize();
 						}
 				},

@@ -15,7 +15,7 @@
                     dense
                     text
                     :type="options.type"
-                    v-show="!!options.desc" >
+                    v-show="!!options.desc">
                     {{options.desc}}
                 </v-alert>
             </v-card-text>
@@ -40,9 +40,9 @@
  * <confirm ref="confirm"></confirm>
  *
  * Call it:
- * this.$refs.confirm.open('Delete', 'Are you sure?', { color: 'red' }).then(confirm => {})
+ * this.$refs.confirm.open("Delete", 'Are you sure?', { color: 'red' }).then(confirm => {})
  * Or use await:
- * if (await this.$refs.confirm.open('Delete', 'Are you sure?', { color: 'red' })) {
+ * if (await this.$refs.confirm.open("Delete", 'Are you sure?', { color: 'red' })) {
  *   // yes
  * }
  * else {

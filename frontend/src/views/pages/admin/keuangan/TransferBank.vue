@@ -169,7 +169,7 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED:</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -178,7 +178,7 @@
                                                     <v-card flat>
                                                         <v-card-title>UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -218,8 +218,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}     
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}                               
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}                               
                                 </v-col>                                
                             </td>
                         </template>
@@ -246,7 +246,7 @@ export default {
                 href: "/dashboard/" + this.ACCESS_TOKEN
             },
             {
-                text: 'KEUANGAN',
+                text: "KEUANGAN",
                 disabled: false,
                 href: "#"
             },
@@ -268,7 +268,7 @@ export default {
             { text: 'CABANG', value: 'nama_cabang' },   
             { text: 'NOMOR REKENING', value: 'nomor_rekening' },   
             { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",
 
@@ -402,7 +402,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

@@ -189,7 +189,7 @@ class TransaksiKKNController extends Controller {
             
             if (!($biaya_kombi > 0))
             {
-                throw new Exception ("Komponen Biaya Registrasi KRS (401) belum disetting pada TA $tahun");  
+                throw new Exception ("Komponen Biaya KKN (401) belum disetting pada TA $tahun");  
             }
 
             $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
@@ -217,14 +217,14 @@ class TransaksiKKNController extends Controller {
                     'transaksi_id'=>$transaksi->id,
                     'no_transaksi'=>$transaksi->no_transaksi,
                     'kombi_id'=>401,
-                    'nama_kombi'=>'REGISTRASI KRS',
+                    'nama_kombi'=>'KULIAH KERJA NYATA',
                     'biaya'=>$biaya_kombi,
                     'jumlah'=>1,
                     'sub_total'=>$biaya_kombi    
                 ]);
 
                 $transaksi->total=$biaya_kombi;
-                $transaksi->desc='REGISTRASI KRS '.$request->input('TA').$request->input('semester_akademik');
+                $transaksi->desc='KULIAH KERJA NYATA '.$request->input('TA').$request->input('semester_akademik');
                 $transaksi->save();
 
                 return $transaksi;
@@ -235,7 +235,7 @@ class TransaksiKKNController extends Controller {
                                         'status'=>1,
                                         'pid'=>'store',                   
                                         'transaksi'=>$transaksi,                                                                                                                                   
-                                        'message'=>'Transaksi Registrasi KRS berhasil di input.'
+                                        'message'=>'Transaksi KKN berhasil di input.'
                                     ],200); 
         }
         catch (Exception $e)

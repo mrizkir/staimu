@@ -177,8 +177,8 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>DW:</strong>{{item.is_dw == false ? 'BUKAN': 'YA'}}
                                     <strong>Email:</strong>{{ item.email }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -230,7 +230,7 @@ export default {
             { text: 'NIPY', value: 'nipy', sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },     
             { text: 'JABATAN AKADEMIK', value: 'nama_jabatan', sortable: true },  
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",

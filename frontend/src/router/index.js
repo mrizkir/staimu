@@ -501,6 +501,15 @@ const routes = [
 		component: () => import("../views/pages/admin/keuangan/TransaksiKKN.vue"),
 	},
 	{
+		path: "/keuangan/transaksi-ujianmunaqasah",
+		name: "KeuanganTransaksiUjianMunaqasah",
+		meta: {
+			title: "KEUANGAN - TRANSAKSI UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/keuangan/TransaksiUjianMunaqasah.vue"),
+	},
+	{
 		path: "/keuangan/transaksi-kkn/:transaksi_id",
 		name: "KeuanganTransaksiKKNDetail",
 		meta: {

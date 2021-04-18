@@ -233,7 +233,7 @@
 		name: "JadwalUjianPMBDetail",
 		created() {
 			this.jadwal_ujian_id = this.$route.params.jadwal_ujian_id;
-			this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
 				{
 					text: "HOME",

@@ -96,8 +96,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -121,7 +121,7 @@ export default {
     name: 'ReportProdi', 
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -139,9 +139,9 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()   
     },  
@@ -201,7 +201,7 @@ export default {
                         this.datatableLoading = false;
                     });         
             }
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
@@ -265,7 +265,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         }

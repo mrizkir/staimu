@@ -8,7 +8,7 @@
                 PEMBAGIAN KELAS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -202,8 +202,8 @@ export default {
                 href: "#"
             }
         ];
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];
-        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
     },
     data: () => ({
@@ -306,7 +306,7 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
                 ta: this.$store.getters['uiadmin/getTahunAkademik'],
-                semester_akademik: this.$store.getters['uiadmin/getSemesterAkademik'],
+                semester_akademik: this.$store.getters["uiadmin/getSemesterAkademik"],
                 pid: 'daftarpengampu'
             },
             {
@@ -377,7 +377,7 @@ export default {
             {
                 user_id:val,
                 ta: this.$store.getters['uiadmin/getTahunAkademik'],
-                semester_akademik: this.$store.getters['uiadmin/getSemesterAkademik'],
+                semester_akademik: this.$store.getters["uiadmin/getSemesterAkademik"],
             },
             {
                 headers: {

@@ -40,25 +40,25 @@
                                             <v-img :src="$api.url+'/'+formdata.foto" />
                                         </v-card-text>
                                     </v-card>
-                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                    <v-card flat v-if="dashboard== 'mahasiswa'">
                                         <v-card-title>NIM / NIRM</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_mhs.nim}} / {{data_mhs.nirm}}
                                         </v-card-subtitle>
                                     </v-card>
-                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                    <v-card flat v-if="dashboard== 'mahasiswa'">
                                         <v-card-title>PROGRAM STUDI</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_mhs.nama_prodi}}
                                         </v-card-subtitle>
                                     </v-card>
-                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                    <v-card flat v-if="dashboard== 'mahasiswa'">
                                         <v-card-title>KELAS</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_mhs.nama_kelas}}
                                         </v-card-subtitle>
                                     </v-card>
-                                    <v-card flat v-if="dashboard=='mahasiswa'">
+                                    <v-card flat v-if="dashboard== 'mahasiswa'">
                                         <v-card-title>DOSEN WALI</v-card-title>  
                                         <v-card-subtitle>
                                             {{data_mhs.dosen_wali}}
@@ -137,7 +137,7 @@
                                             <v-card flat>
                                                 <v-card-title>CREATED_AT:</v-card-title>  
                                                 <v-card-subtitle>
-                                                    {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                    {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}}
                                                 </v-card-subtitle>
                                             </v-card>
                                         </v-col>
@@ -146,7 +146,7 @@
                                             <v-card flat>
                                                 <v-card-title>UPDATED_AT:</v-card-title>  
                                                 <v-card-subtitle>
-                                                    {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                    {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
                                                 </v-card-subtitle>
                                             </v-card>
                                         </v-col>
@@ -160,7 +160,7 @@
                 </v-col>
             </v-row>
             <v-row> 
-                <v-col xs="12" sm="6" md="6" v-if="dashboard=='mahasiswa'">
+                <v-col xs="12" sm="6" md="6" v-if="dashboard== 'mahasiswa'">
                     
                 </v-col>
                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
@@ -221,7 +221,7 @@ export default {
                 href: "#"
             }
         ];
-        if (this.dashboard=='mahasiswa')
+        if (this.dashboard== 'mahasiswa')
         {
             this.fetchMahasiswa();
         }

@@ -173,8 +173,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
                                     <strong>userid:</strong>{{ item.user_id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -220,9 +220,9 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
@@ -238,10 +238,10 @@ export default {
         datatable: [],      
         headers: [
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },   
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true },       
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
             { text: 'TELP. HP', value: 'telp_hp', sortable: true, width:150 },       
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],  
         search: "", 
         
@@ -253,12 +253,12 @@ export default {
         daftar_dw: [],     
         
         formdata: {                        
-            nim: '',
+            nim: "",
             nirm: '',
             dosen_id: ''           
         },
         formdefault: {                        
-            nim: '',
+            nim: "",
             nirm: '',
             dosen_id: ''           
         },
@@ -301,7 +301,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });  
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
@@ -373,7 +373,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         }

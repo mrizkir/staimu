@@ -83,7 +83,7 @@
                                     <v-card flat>
                                         <v-card-title>PROGRAM STUDI:</v-card-title>
                                         <v-card-subtitle>
-                                            {{this.$store.getters['uiadmin/getProdiName'](data_transaksi.kjur)}}
+                                            {{this.$store.getters["uiadmin/getProdiName"](data_transaksi.kjur)}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -111,7 +111,7 @@
                                     <v-card flat>
                                         <v-card-title>CREATED / UPDATED :</v-card-title>
                                         <v-card-subtitle>
-                                            {{$date(data_transaksi.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(data_transaksi.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                            {{$date(data_transaksi.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(data_transaksi.updated_at).format("DD/MM/YYYY HH:mm")}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -142,7 +142,7 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status == 1 || data_transaksi.status==2)" >SIMPAN</v-btn>                                                            
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>                                                            
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  
@@ -240,7 +240,7 @@ export default {
     name: 'TransaksiSPPTambah',
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
         this.transaksi_id=this.$route.params.transaksi_id;        
         this.breadcrumbs = [
             {
@@ -249,9 +249,9 @@ export default {
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'KEUANGAN',
+                text: "KEUANGAN",
                 disabled: false,
-                href: '/keuangan'
+                href: "/keuangan"
             },
             {
                 text: 'TRANSAKSI SPP',
@@ -265,7 +265,7 @@ export default {
             }
         ];                          
         this.initialize();
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
     },    
     data: () => ({
         transaksi_id: null,
@@ -283,7 +283,7 @@ export default {
             { text: 'BULAN', value: 'nama_bulan', sortable: false },    
             { text: 'TAHUN', value: 'tahun', sortable: false },    
             { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false },   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },   
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },   
         ],              
         //form
         form_valid: true  
@@ -332,7 +332,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

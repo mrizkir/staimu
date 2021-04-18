@@ -73,7 +73,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path: '/system-setting'}" v-if="CAN_ACCESS('SYSTEM-SETTING-GROUP')" link class="yellow" color="green" >
+                <v-list-item :to="{path: '/system-setting'}" v-if="CAN_ACCESS('SYSTEM-SETTING-GROUP')" link class="yellow" color="green">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>

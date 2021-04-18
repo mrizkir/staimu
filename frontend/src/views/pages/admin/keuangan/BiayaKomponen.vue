@@ -48,8 +48,8 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                                    
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -76,9 +76,9 @@ export default {
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
             },
             {
-                text: 'KEUANGAN',
+                text: "KEUANGAN",
                 disabled: false,
-                href: '/keuangan'
+                href: "/keuangan"
             },
             {
                 text: 'KOMPONEN BIAYA',

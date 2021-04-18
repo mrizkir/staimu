@@ -223,7 +223,7 @@
                                                     <v-card flat>
                                                         <v-card-title>PROGRAM STUDI :</v-card-title>
                                                         <v-card-subtitle>                                                            
-                                                            {{$store.getters['uiadmin/getProdiName'](formdata.prodi_id)}}
+                                                            {{$store.getters["uiadmin/getProdiName"](formdata.prodi_id)}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -232,8 +232,8 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED/UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}} /  
-                                                            {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}} /  
+                                                            {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -247,7 +247,7 @@
                                                             Klik tombol berikut ini untuk mengirim ulang email konfirmasi pendaftaran
                                                         </v-card-subtitle>
                                                         <v-card-text>
-                                                            <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2" >KIRIM ULANG</v-btn>
+                                                            <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2">KIRIM ULANG</v-btn>
                                                         </v-card-text>
                                                     </v-card>
                                                 </v-col>                                                
@@ -304,14 +304,14 @@
                             {{ item.nomor_hp == null || item.nomor_hp == ''? 'N.A' : '+'+item.nomor_hp}}
                         </template>
                         <template v-slot:item.created_at="{ item }">                            
-                            {{$date(item.created_at).format('DD/MM/YYYY HH:mm')}}
+                            {{$date(item.created_at).format("DD/MM/YYYY HH:mm")}}
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}                                    
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
                                 <v-col cols="12" v-if="item.active==0">
                                     <v-btn 
@@ -346,7 +346,7 @@ export default {
     name: 'PendaftaranBaru',  
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];      
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];      
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -364,11 +364,11 @@ export default {
                 href: "#"
             }
         ];   
-        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard== 'mahasiswa');
 
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
         this.initialize();
     },
@@ -394,7 +394,7 @@ export default {
             { text: 'EMAIL', value: 'email', sortable: true },     
             { text: 'NOMOR HP', value: 'nomor_hp', sortable: false, width:130 },        
             { text: 'TGL.DAFTAR', value: 'created_at', sortable: true, width: 100 },     
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",
@@ -485,7 +485,7 @@ export default {
                 this.datatable = data.pmb;                
                 this.datatableLoading = false;
             });          
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         badgeColor(item)
@@ -682,7 +682,7 @@ export default {
             });            
         },   
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -746,7 +746,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         },

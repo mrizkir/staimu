@@ -89,7 +89,7 @@
                         <v-card flat class="mb-2">
                             <v-card-title>CREATED/UPDATED:</v-card-title>  
                             <v-card-subtitle>
-                                {{$date(user.created_at).format('DD/MM/YYYY HH:mm')}} ~ {{$date(user.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                {{$date(user.created_at).format("DD/MM/YYYY HH:mm")}} ~ {{$date(user.updated_at).format("DD/MM/YYYY HH:mm")}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
@@ -176,7 +176,7 @@ export default {
         headers: [                        
             { text: 'NAMA PERMISSION', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 }, 
+            { text: "AKSI", value: "actions", sortable: false, width: 100 }, 
         ],
         search: "",
 

@@ -143,8 +143,8 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <strong>ID:</strong>{{ item.id }}
-                                <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -175,7 +175,7 @@
                                                 TANGGAL BUAT :
                                             </v-card-title>
                                             <v-card-subtitle>
-                                                {{$date(editedItem.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                {{$date(editedItem.created_at).format("DD/MM/YYYY HH:mm")}}
                                             </v-card-subtitle>
                                         </v-card>
                                     </v-col>
@@ -195,7 +195,7 @@
                                         <v-card flat>
                                             <v-card-title>TANGGAL UBAH :</v-card-title>
                                             <v-card-subtitle>
-                                                {{$date(editedItem.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                {{$date(editedItem.updated_at).format("DD/MM/YYYY HH:mm")}}
                                             </v-card-subtitle>
                                         </v-card>
                                     </v-col>
@@ -264,7 +264,7 @@ export default {
         headers: [                        
             { text: 'NAMA ROLE', value: 'name' },
             { text: 'GUARD', value: 'guard_name' },    
-            { text: 'AKSI', value: 'actions', sortable: false, width:130 },
+            { text: "AKSI", value: "actions", sortable: false, width:130 },
         ],
         //tables
         headersdetail: [                        

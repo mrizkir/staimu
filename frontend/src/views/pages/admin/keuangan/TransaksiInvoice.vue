@@ -23,7 +23,7 @@
                                     <tr>
                                         <td width="120">Tanggal Faktur</td>
                                         <td width="15">:</td>
-                                        <td>{{$date(data_transaksi.created_at).format('DD/MM/YYYY HH:mm')}}</td>
+                                        <td>{{$date(data_transaksi.created_at).format("DD/MM/YYYY HH:mm")}}</td>
                                     </tr>
                                     <tr>
                                         <td>Kode Billing</td>
@@ -107,7 +107,7 @@ export default {
             { text: 'BIAYA', value: 'biaya', width:60, sortable: false },
             { text: 'JUMLAH', value: 'jumlah', width:60, sortable: false },
             { text: 'BULAN', value: 'bulan', width:60, sortable: false },
-            { text: 'JUMLAH', value: 'sub_total', width:60, sortable: false },
+            { text: "JUMLAH", value: "sub_total", width:60, sortable: false },
         ],
     }),    
     methods: {

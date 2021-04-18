@@ -8,7 +8,7 @@
 								TRANSAKSI REGISTRASI KRS
 						</template>
 						<template v-slot:subtitle>
-								TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters["uiadmin/getNamaSemester"](semester_akademik)}} - {{ nama_prodi }}
+								TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{$store.getters["uiadmin/getNamaSemester"](semester_akademik)}} - {{ nama_prodi }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -86,7 +86,7 @@
 																		<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 																				<v-card>
 																						<v-card-title>
-																								<span class="headline">TAMBAH TRANSAKSI T.A {{tahun_akademik}}</span>
+																								<span class="headline">TAMBAH TRANSAKSI T.A {{ tahun_akademik }}</span>
 																						</v-card-title>
 																						<v-card-text>
 																								<v-text-field 
@@ -94,7 +94,7 @@
 																										label="NIM"
 																										outlined
 																										:rules="rule_nim"
-																										:disabled="dashboard =='mahasiswa'">
+																										:disabled="dashboard == 'mahasiswa'">
 																								</v-text-field>                                             
 																								<v-select
 																										v-model="formdata.semester_akademik"
@@ -132,30 +132,30 @@
 														{{$store.getters["uiadmin/getNamaSemester"](item.idsmt)}}
 												</template>
 												<template v-slot:item.nama_status="{ item }">    
-														<v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
+														<v-chip :color="item.style" dark>{{ item.nama_status }}</v-chip>
 												</template>
 												<template v-slot:body.append v-if="datatable.length > 0">
 														<tr class="grey lighten-4 font-weight-black">
 																<td class="text-right" colspan="6">TOTAL TRANSAKSI PAID</td>
-																<td class="text-right" >{{totaltransaksi_paid|formatUang}}</td> 
+																<td class="text-right">{{ totaltransaksi_paid | formatUang }}</td> 
 																<td></td>
 																<td></td>                                
 														</tr>                            
 														<tr class="grey lighten-4 font-weight-black">
 																<td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
-																<td class="text-right" >{{totaltransaksi_unpaid|formatUang}}</td> 
+																<td class="text-right">{{ totaltransaksi_unpaid | formatUang }}</td> 
 																<td></td>
 																<td></td>                                
 														</tr>                            
 														<tr class="grey lighten-4 font-weight-black">
 																<td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
-																<td class="text-right" >{{totaltransaksi_canceled|formatUang}}</td> 
+																<td class="text-right">{{ totaltransaksi_canceled | formatUang }}</td> 
 																<td></td>
 																<td></td>                                
 														</tr>                            
 														<tr class="grey lighten-4 font-weight-black">
 																<td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
-																<td class="text-right" >{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
+																<td class="text-right">{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
 																<td></td>
 																<td></td>                                
 														</tr>                            
@@ -181,7 +181,7 @@
 																
 																:disabled="btnLoading"
 																@click.stop="deleteItem(item)"
-																v-if="item.status==0">
+																v-if="item.status == 0">
 																mdi-delete
 														</v-icon>              
 												</template>
@@ -204,7 +204,7 @@
 			name: "TransaksiRegistrasiKRS",
 			created()
 			{
-				this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
+				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
 				this.breadcrumbs = [
 						{
 							text: "HOME",
@@ -312,7 +312,7 @@
 									this.datatable = data.transaksi;                
 									this.datatableLoading = false;
 							});                     
-							this.firstloading=false;
+							this.firstloading = false;
 							this.$refs.filter6.setFirstTimeLoading(this.firstloading);       
 					},
 					dataTableRowClicked(item)
@@ -436,7 +436,7 @@
 							this.datatable.forEach(item => {
 									if (item.status == 1)
 									{
-											total+=item.total;
+											total += item.total;
 									}
 							}); 
 							return total;
@@ -445,9 +445,9 @@
 					{
 							var total = 0;
 							this.datatable.forEach(item => {
-									if (item.status==0)
+									if (item.status == 0)
 									{
-											total+=item.total;
+											total += item.total;
 									}
 							}); 
 							return total;
@@ -456,9 +456,9 @@
 					{
 							var total = 0;
 							this.datatable.forEach(item => {
-									if (item.status==2)
+									if (item.status == 2)
 									{
-											total+=item.total;
+											total += item.total;
 									}
 							}); 
 							return total;

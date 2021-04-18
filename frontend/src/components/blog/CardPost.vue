@@ -10,7 +10,7 @@
 				</v-card-text>
 				<v-card-actions>
 					<v-icon class="mr-1" color="cyan lighten-3" small>mdi-calendar</v-icon>
-					<span class="body-2 mr-2">{{$date(data.created_at).format('DD/MM/YYYY HH:mm')}}</span>
+					<span class="body-2 mr-2">{{$date(data.created_at).format("DD/MM/YYYY HH:mm")}}</span>
 					<span class="mr-1"></span>
 					<v-icon class="mr-1" color="blue-grey lighten-2" small>mdi-account</v-icon>
 					<span class="body-2 mr-2">{{data.username}}</span>

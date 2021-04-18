@@ -96,8 +96,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -121,7 +121,7 @@ export default {
     name: 'ReportFakultas', 
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -201,7 +201,7 @@ export default {
                         this.datatableLoading = false;
                     });         
             }
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter20.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)

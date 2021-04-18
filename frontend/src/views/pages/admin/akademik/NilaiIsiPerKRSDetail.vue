@@ -8,7 +8,7 @@
                 ISI NILAI PER KRS
             </template>
             <template v-slot:subtitle v-if="Object.keys(datakrs).length">
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -86,7 +86,7 @@
                                     <v-card flat>
                                         <v-card-title>CREATED / UPDATED :</v-card-title>
                                         <v-card-subtitle>
-                                            {{$date(datakrs.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(datakrs.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                            {{$date(datakrs.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(datakrs.updated_at).format("DD/MM/YYYY HH:mm")}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -250,7 +250,7 @@ export default {
                 if (Object.keys(this.datakrs).length)
                 {
                     let prodi_id = this.datakrs.kjur;                    
-                    this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);                
+                    this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);                
                     this.tahun_akademik = this.datakrs.tahun;                                                      
                     this.semester_akademik = this.datakrs.idsmt;                        
                 }

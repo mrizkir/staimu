@@ -8,7 +8,7 @@
 								PEMBAGIAN KELAS
 						</template>
 						<template v-slot:subtitle>
-								TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
+								TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -79,7 +79,7 @@
 														{{item.jam_masuk}}-{{item.jam_keluar}}
 												</template>
 												<template v-slot:item.kjur="{item}">
-														{{$store.getters['uiadmin/getProdiName'](item.kjur)}}
+														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
 												<template v-slot:item.actions="{ item }">                              
 														<v-btn
@@ -161,8 +161,8 @@
 																						<td :colspan="headers.length" class="text-center">
 																								<v-col cols="12">
 																										<strong>ID:</strong>{{ item.id }}
-																										<strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-																										<strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+																										<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+																										<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 																								</v-col>                                
 																						</td>
 																				</template>
@@ -227,7 +227,7 @@
 														{{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
 												</template>
 												<template v-slot:item.kjur="{item}">
-														{{$store.getters['uiadmin/getProdiName'](item.kjur)}}
+														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
 												<template v-slot:item.actions="{ item }">                              
 														<v-btn
@@ -286,8 +286,8 @@ export default {
 						}
 				];        
 				this.kelas_mhs_id=this.$route.params.kelas_mhs_id;        
-				this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
-				this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
+				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
+				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
 				this.initialize()
 		},  
 		data: () => ({ 
@@ -310,18 +310,18 @@ export default {
 						{ text: 'SKS', value: 'sks', sortable: false  },                   
 						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 },                   
 						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 },                   
-						{ text: 'AKSI', value: 'actions', sortable: false, width:60 },
+						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],  
 				headers_peserta: [
-						{ text: 'NIM', value: 'nim', sortable: false, width: 100  },   
+						{ text: "NIM", value: "nim", sortable: false, width: 100  },   
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },   
 						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
 						{ text: 'KELAS', value: 'idkelas', sortable: false  },                   
 						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                               
-						{ text: 'AKSI', value: 'actions', sortable: false, width:60 },
+						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],  
 				headers_members: [
-						{ text: 'NIM', value: 'nim', sortable: false, width: 100  },   
+						{ text: "NIM", value: "nim", sortable: false, width: 100  },   
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },   
 						{ text: 'KELAS', value: 'idkelas', sortable: false  },                   
 						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                           
@@ -466,7 +466,7 @@ export default {
 				},
 				deleteMatkul(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then(confirm => {
+						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;
@@ -490,7 +490,7 @@ export default {
 				},       
 				deletePeserta(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data mahasiswa di kelas ini dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;

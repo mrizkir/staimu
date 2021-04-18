@@ -140,6 +140,16 @@ class UjianMunaqasahController extends Controller
     {
         $daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
             switch($item->persyaratan_id) {
+                case '2021-ujian-munaqasah-2' : //Pembayaran Uang SKRIPSI
+                    $item->keterangan = \DB::table('pe3_transaksi') 
+                                            ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')                                            
+                                            ->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
+                                            ->where('status',1)
+                                            ->where('kombi_id',601)
+                                            ->exists() 
+                                            ? "SUDAH BAYAR" 
+                                            : "BELUM BAYAR";
+                break;
                 case '2021-ujian-munaqasah-4' : //Matakuliah Skripsi terdapat di KRS
                     $detail1 = \DB::table('pe3_prodi_detail1')
                                     ->where('ta',$mahasiswa->tahun)

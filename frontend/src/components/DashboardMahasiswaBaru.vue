@@ -78,7 +78,7 @@
 																		</tr>
 																		<tr>
 																				<td width="25%">Tanggal Daftar</td>
-																				<td>: {{$date(peserta.created_at).format('DD/MM/YYYY HH:mm')}}</td>
+																				<td>: {{$date(peserta.created_at).format("DD/MM/YYYY HH:mm")}}</td>
 																		</tr>
 																		<tr>
 																				<td width="25%">Tanggal Ujian</td>

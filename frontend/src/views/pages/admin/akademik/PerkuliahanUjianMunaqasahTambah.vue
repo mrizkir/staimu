@@ -129,7 +129,9 @@
 					"username"
 				);
 			}
-			var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+			var page = this.$store.getters["uiadmin/Page"](
+				"perkuliahanujianmunaqasah"
+			);
 			if (typeof page === "undefined") {
 				this.$store.dispatch("uiadmin/addToPages", {
 					name: "perkuliahanujianmunaqasah",
@@ -141,7 +143,7 @@
 				this.data_mhs = page.data_mhs;
 				this.formdata.nim = page.data_mhs.nim;
 				this.fetchPersyaratanMhs();
-			}			
+			}
 		},
 		data: () => ({
 			firstloading: true,
@@ -197,14 +199,11 @@
 			async fetchPersyaratanMhs() {
 				this.datatableLoading = true;
 				await this.$ajax
-					.get(
-						"/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim,						
-						{
-							headers: {
-								Authorization: this.$store.getters["auth/Token"],
-							},
-						}
-					)
+					.get("/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim, {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
 					.then(({ data }) => {
 						this.datatable = data.daftar_persyaratan;
 						this.datatableLoading = false;
@@ -227,10 +226,12 @@
 							}
 						)
 						.then(({ data }) => {
-							var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+							var page = this.$store.getters["uiadmin/Page"](
+								"perkuliahanujianmunaqasah"
+							);
 							this.data_mhs = data.mahasiswa;
 							page.data_mhs = this.data_mhs;
-							this.$store.dispatch('uiadmin/updatePage', page);
+							this.$store.dispatch("uiadmin/updatePage", page);
 							this.datatable = data.daftar_persyaratan;
 							this.btnLoading = false;
 							this.datatableLoading = false;
@@ -270,8 +271,10 @@
 				}
 			},
 			closedialogfrm() {
-				setTimeout(() => {				
-					var page = this.$store.getters['uiadmin/Page']('perkuliahanujianmunaqasah');
+				setTimeout(() => {
+					var page = this.$store.getters["uiadmin/Page"](
+						"perkuliahanujianmunaqasah"
+					);
 					page.data_mhs = {
 						nim: "",
 					};

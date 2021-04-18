@@ -172,7 +172,7 @@ export default {
         daftar_tasmt: [],
         daftar_status_mhs: [],        
         formdata: {
-            nim: '',
+            nim: "",
             nirm: '',
             nama_mhs: '',            
             dosen_id: '',           
@@ -248,7 +248,7 @@ export default {
             });
             this.daftar_status_mhs=this.$store.getters['uiadmin/getDaftarStatusMahasiswa'];  
 
-            this.firstloading=false;            
+            this.firstloading = false;            
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
         },
         save () {

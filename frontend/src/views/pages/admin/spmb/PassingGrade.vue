@@ -65,7 +65,7 @@
                             </v-toolbar>
                         </template>
                         <template v-slot:item.kjur="{item}">
-                            {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
+                            {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
                         </template>
                         <template v-slot:item.nilai="props">
                             <v-edit-dialog
@@ -92,8 +92,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
                                     <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>

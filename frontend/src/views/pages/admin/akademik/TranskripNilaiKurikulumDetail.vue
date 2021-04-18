@@ -198,8 +198,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.krsmatkul_id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -249,9 +249,9 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
@@ -276,7 +276,7 @@ export default {
             { text: 'AM', value: 'AM', sortable: false, width: 100, },                   
             { text: 'K', value: 'sks', sortable: true, width: 100, },                   
             { text: 'M', value: 'M', sortable: false, width: 100 },
-            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],  
         search: "", 
 
@@ -334,7 +334,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });  
-            this.firstloading=false;                        
+            this.firstloading = false;                        
         },
         async viewItem(item)
         {

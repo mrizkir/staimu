@@ -24,7 +24,7 @@ export default {
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
 
-        this.daftar_semester = this.$store.getters['uiadmin/getDaftarSemester'];  
+        this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];  
         this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];                                            
     },
     data: () => ({

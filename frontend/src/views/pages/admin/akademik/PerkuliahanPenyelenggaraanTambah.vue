@@ -8,7 +8,7 @@
                 PENYELENGGARAAN PERKULIAHAN
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -38,7 +38,7 @@
                             </v-card-title>
                             <v-card-text>
                                 <v-alert type="info">
-                                    Silahkan pilih matakuliah dari masing-masing Tahun Matakuliah yang akan diselenggarakan pada T.A {{tahun_akademik}}{{semester_akademik}}
+                                    Silahkan pilih matakuliah dari masing-masing Tahun Matakuliah yang akan diselenggarakan pada T.A {{ tahun_akademik }}{{semester_akademik}}
                                 </v-alert>
                                 <v-select
                                     v-model="ta_matkul"
@@ -216,8 +216,8 @@
                                         <td :colspan="headers.length" class="text-center">
                                             <v-col cols="12">                          
                                                 <strong>ID:</strong>{{ item.id }}          
-                                                <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                                <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                                <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                                <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                             </v-col>                                
                                         </td>
                                     </template>                                    
@@ -278,12 +278,12 @@ export default {
                 href: "#"
             },
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);        
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];  
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);        
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);                                
-        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
         
     },  
     data: () => ({ 
@@ -307,7 +307,7 @@ export default {
             { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },       
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },       
             { text: 'SMT', value: 'semester', sortable: true, width: 80 },       
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],  
         search: "",
 

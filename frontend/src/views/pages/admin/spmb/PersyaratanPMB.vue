@@ -110,8 +110,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -136,7 +136,7 @@ import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
     name: 'PersyaratanPMB', 
     created() {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -153,11 +153,11 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        ];this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard== 'mahasiswa');
         
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
         this.initialize()
     },   
@@ -181,7 +181,7 @@ export default {
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
             { text: 'STATUS', value: 'status', width: 120, sortable: true },
-            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],
         search: "",
 
@@ -201,7 +201,7 @@ export default {
         },
 		initialize: async function()
 		{	
-            if (this.dashboard == 'mahasiswabaru' || this.dashboard =='mahasiswa')
+            if (this.dashboard == 'mahasiswabaru' || this.dashboard == 'mahasiswa')
             {
                 await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),             
                     {
@@ -230,7 +230,7 @@ export default {
                     this.datatable = data.persyaratan;   
                     this.datatableLoading = false;
                 });  
-                this.firstloading=false; 
+                this.firstloading = false; 
                 this.$refs.filter7.setFirstTimeLoading(this.firstloading);               
             }               
         },
@@ -275,7 +275,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         }

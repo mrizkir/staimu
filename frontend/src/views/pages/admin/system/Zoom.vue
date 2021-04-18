@@ -230,7 +230,7 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED / UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -273,8 +273,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>    
                                 <v-col cols="12">
                                     <v-btn block elevation="2"
@@ -332,7 +332,7 @@ export default {
             { text: 'API KEY', value: 'api_key' },
             { text: 'STATUS', value: 'status' },
             { text: 'KETERANGAN', value: 'desc' },
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",
 
@@ -499,7 +499,7 @@ export default {
             });
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

@@ -140,7 +140,7 @@
                                     <v-card flat>
                                         <v-card-title>CREATED/UPDATED:</v-card-title>  
                                         <v-card-subtitle>
-                                            {{$date(data_konversi.created_at).format('DD/MM/YYYY HH:mm')}} / {{$date(data_konversi.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                            {{$date(data_konversi.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(data_konversi.updated_at).format("DD/MM/YYYY HH:mm")}}
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
@@ -377,9 +377,9 @@ export default {
                 href: "#"
             }
         ];
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()
     },  
@@ -570,7 +570,7 @@ export default {
         },
         putuskan ()
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;

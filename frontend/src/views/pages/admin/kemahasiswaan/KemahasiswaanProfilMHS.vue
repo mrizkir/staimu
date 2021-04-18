@@ -24,7 +24,7 @@
                     <ProfilMahasiswa :datamhs="datamhs" url="/kemahasiswaan" />
                 </v-col>
             </v-row>
-            <v-row dense class="mb-4" >
+            <v-row dense class="mb-4">
                 <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="green darken-1"
@@ -191,16 +191,16 @@
                             </v-toolbar>
                         </template>
                         <template v-slot:item.tanggal="{ item }">    
-                            {{$date(item.tanggal).format('DD/MM/YYYY')}}
+                            {{ $date(item.tanggal).format("DD/MM/YYYY") }}
                         </template>
                         <template v-slot:item.idsmt="{ item }">    
-                            {{item.ta}} {{$store.getters['uiadmin/getNamaSemester'](item.idsmt)}}
+                            {{item.ta}} {{ $store.getters["uiadmin/getNamaSemester"](item.idsmt) }}
                         </template>
                         <template v-slot:item.total="{ item }">    
                             {{item.total|formatUang}}
                         </template>
                         <template v-slot:item.nama_status="{ item }">    
-                            <v-chip :color="item.style" dark>{{item.nama_status}}</v-chip>
+                            <v-chip :color="item.style" dark>{{ item.nama_status }}</v-chip>
                         </template>
                         <template v-slot:item.actions="{ item }">
                             <v-icon
@@ -214,8 +214,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
                                     <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -277,14 +277,14 @@ export default {
         datatableLoading: false,       
         datatable: [], 
         headers: [                                                
-            { text: 'KODE BILLING', value: 'no_transaksi', width: 100, sortable: true },
+            { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
-            { text: 'NIM', value: 'nim', width: 100, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', sortable: true, width: 250 },
+            { text: "NIM", value: "nim", width: 100, sortable: true },
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
             { text: 'T.A/SMT', value: 'idsmt', width: 100, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
-            { text: 'STATUS', value: 'nama_status', width:50, sortable: true },    
-            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
+            { text: "STATUS", value: "nama_status", width:50, sortable: true },    
+            { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],        
         expanded: [],
         search: "", 

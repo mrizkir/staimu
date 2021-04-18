@@ -8,7 +8,7 @@
 								KARTU RENCANA STUDI
 						</template>
 						<template v-slot:subtitle v-if="Object.keys(datakrs).length">
-								TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}} - {{ nama_prodi }}
+								TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
 						</template>
 						<template v-slot:breadcrumbs>
 								<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -271,7 +271,7 @@ export default {
 						{ text: 'SMT', value: 'semester', sortable: false, width:50 },
 						{ text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },
 						{ text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
-						{ text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+						{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],
 		}),
 		methods: {
@@ -288,7 +288,7 @@ export default {
 								if (Object.keys(this.datakrs).length)
 								{
 										let prodi_id = this.datakrs.kjur;
-										this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+										this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 										this.tahun_akademik = this.datakrs.tahun;
 										this.semester_akademik = this.datakrs.idsmt;
 								}
@@ -343,7 +343,7 @@ export default {
 				},
 				deleteItem(item)
 				{
-						this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then(confirm => {
+						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoadingTable=true;

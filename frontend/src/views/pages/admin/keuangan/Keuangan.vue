@@ -8,7 +8,7 @@
                 KEUANGAN 
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}}
+                TAHUN AKADEMIK {{ tahun_akademik }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
-        <DashboardKeuanganMHS :ta="tahun_akademik" v-if="dashboard=='mahasiswa'"></DashboardKeuanganMHS>        
+        <DashboardKeuanganMHS :ta="tahun_akademik" v-if="dashboard== 'mahasiswa'"></DashboardKeuanganMHS>        
         <DashboardKeuanganAdmin :ta="tahun_akademik" v-else></DashboardKeuanganAdmin>        
     </KeuanganLayout>
 </template>
@@ -45,7 +45,7 @@ export default {
     name: 'Keuangan',
     created()
 	{
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard']; 
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
 		this.breadcrumbs = [
 			{
 				text: "HOME",
@@ -53,16 +53,16 @@ export default {
 				href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text: 'KEUANGAN',
+				text: "KEUANGAN",
 				disabled: true,
 				href: "#"
 			}
         ];				
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];         
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];         
     },
     mounted()
     {
-        this.firstloading=false;            
+        this.firstloading = false;            
         this.$refs.filter1.setFirstTimeLoading(this.firstloading);
     },
     data: () => ({

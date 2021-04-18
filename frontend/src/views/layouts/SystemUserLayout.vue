@@ -73,7 +73,7 @@
 			</v-list-item>
 			<v-divider></v-divider>
             <v-list expand>
-                <v-list-item :to="{path: '/system-users'}" v-if="CAN_ACCESS('SYSTEM-USERS-GROUP')" link class="yellow" color="green" >
+                <v-list-item :to="{path: '/system-users'}" v-if="CAN_ACCESS('SYSTEM-USERS-GROUP')" link class="yellow" color="green">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -193,7 +193,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>    
-                <v-list-item link v-if="dashboard=='mahasiswa'" to="/system-users/biodatadirimahasiswa">
+                <v-list-item link v-if="dashboard== 'mahasiswa'" to="/system-users/biodatadirimahasiswa">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -227,7 +227,7 @@ export default {
     name: 'SystemUserLayout',
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];          
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];          
     },
     props: {
         showrightsidebar: {

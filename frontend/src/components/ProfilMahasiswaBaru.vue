@@ -97,7 +97,7 @@
 											<v-card flat>
 												<v-card-title>TAHUN PENDAFTARAN :</v-card-title>
 												<v-card-subtitle>
-													{{datamhs.ta}}, ({{$date(item.created_at).format('DD/MM/YYYY HH:mm')}})
+													{{datamhs.ta}}, ({{$date(item.created_at).format("DD/MM/YYYY HH:mm")}})
 												</v-card-subtitle>
 											</v-card>
 										</v-col>
@@ -118,7 +118,7 @@
 											<v-card flat>
 												<v-card-title>TGL. UBAH :</v-card-title>
 												<v-card-subtitle>
-													{{$date(item.created_at).format('DD/MM/YYYY HH:mm')}}
+													{{$date(item.created_at).format("DD/MM/YYYY HH:mm")}}
 												</v-card-subtitle>
 											</v-card>
 										</v-col>
@@ -204,7 +204,7 @@ export default {
 				},        
 			).then(({ data }) => {   
 				this.datamhs=Object.assign(data.formulir,{
-															nama_prodi: this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1),
+															nama_prodi: this.$store.getters["uiadmin/getProdiName"](data.formulir.kjur1),
 															nama_kelas: this.$store.getters['uiadmin/getNamaKelas'](data.formulir.idkelas)
 														}); 
 			});

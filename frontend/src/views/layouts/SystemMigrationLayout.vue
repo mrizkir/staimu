@@ -142,7 +142,7 @@ export default {
     }, 
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];        
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];        
     },
     data: () => ({
         loginTime: 0,

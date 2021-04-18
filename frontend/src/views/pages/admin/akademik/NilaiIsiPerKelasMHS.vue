@@ -8,7 +8,7 @@
                 ISI NILAI PER KELAS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -98,8 +98,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">                          
                                     <strong>ID:</strong>{{ item.id }}          
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -144,8 +144,8 @@ export default {
                 href: "#"
             }
         ];
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
         this.initialize()
     },  
     data: () => ({ 
@@ -166,7 +166,7 @@ export default {
             { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },                   
             { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},                   
             { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},                   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 120 },
+            { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],  
         search: "", 
 
@@ -198,7 +198,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });  
-            this.firstloading=false;
+            this.firstloading = false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)

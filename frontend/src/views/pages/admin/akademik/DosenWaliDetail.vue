@@ -211,8 +211,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}                                    
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -267,12 +267,12 @@ export default {
         //tables
         headers: [                        
             { text: '', value: 'foto', width:70, },
-            { text: 'NIM', value: 'nim', width: 100, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'nama_mhs', width: 250, sortable: true },
+            { text: "NIM", value: "nim", width: 100, sortable: true },
+            { text: "NAMA MAHASISWA", value: "nama_mhs", width: 250, sortable: true },
             { text: 'PROGRAM STUDI', value: 'nama_prodi', width:150, sortable: true },     
             { text: 'KELAS', value: 'nkelas', width:150, sortable: true },     
             { text: 'TAHUN MASUK', value: 'tahun', sortable: true },         
-            { text: 'AKSI', value: 'actions', sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],
         expanded: [],
         search: "",

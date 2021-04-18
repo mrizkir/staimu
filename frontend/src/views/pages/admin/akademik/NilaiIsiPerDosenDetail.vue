@@ -8,7 +8,7 @@
                 ISI NILAI PER KELAS
             </template>
             <template v-slot:subtitle>
-                TAHUN AKADEMIK {{tahun_akademik}} SEMESTER {{$store.getters['uiadmin/getNamaSemester'](semester_akademik)}}
+                TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -92,7 +92,7 @@
                                 {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                             </template>
                             <template v-slot:item.kjur="{item}">
-                                {{$store.getters['uiadmin/getProdiName'](item.kjur)}}
+                                {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
                             </template>             
                             <template v-slot:item.nilai_absen="props"> 
                                 <VAngkaNilai 
@@ -214,8 +214,8 @@ export default {
             }
         ];
         this.kelas_mhs_id=this.$route.params.kelas_mhs_id;        
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                
-        this.semester_akademik = this.$store.getters['uiadmin/getSemesterAkademik'];                
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
         this.initialize()
     },  
     data: () => ({ 
@@ -231,7 +231,7 @@ export default {
         datatable: [],    
         datatable_peserta: [],                 
         headers_peserta: [             
-            { text: 'NIM', value: 'nim', sortable: false, width: 100  },   
+            { text: "NIM", value: "nim", sortable: false, width: 100  },   
             { text: 'NAMA', value: 'nama_mhs', sortable: false, width: 250   },   
             { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable: false, width: 100   },   
             { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false, width: 100   },   

@@ -42,7 +42,7 @@ export default {
     name: 'NilaiUjianHasil', 
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.user_id=this.$route.params.user_id;     
         this.breadcrumbs = [
             {
@@ -66,11 +66,11 @@ export default {
                 href: "#"
             }
         ];
-        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard=='mahasiswa');
+        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard== 'mahasiswa');
         
-        let prodi_id = this.$store.getters['uiadmin/getProdiID'];
+        let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](prodi_id);
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
         this.initialize()   
     },  
@@ -95,7 +95,7 @@ export default {
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
             { text: 'NILAI', value: 'nilai', width: 100, sortable: true },
             { text: 'STATUS', value: 'status', width: 100, sortable: true },
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         datamhsbaru: {},
 
@@ -271,7 +271,7 @@ export default {
         },
         ulangujian (item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+item.id,

@@ -8,7 +8,7 @@
                 KEMAHASISWAAN 
             </template>
             <template v-slot:subtitle>
-                TAHUN KEMAHASISWAAN {{tahun_akademik}}
+                TAHUN KEMAHASISWAAN {{ tahun_akademik }}
             </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -130,7 +130,7 @@ export default {
 				href: "#"
 			}
         ];				
-        this.tahun_akademik = this.$store.getters['uiadmin/getTahunAkademik'];                 
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                 
     },
     mounted()
     {
@@ -155,7 +155,7 @@ export default {
         },
 		initialize: async function()
 		{	            
-            this.firstloading=false;            
+            this.firstloading = false;            
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
         },
         field_alias(atr)

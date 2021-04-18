@@ -218,7 +218,7 @@ export default {
     created()
     {
         this.user_id=this.$route.params.user_id;
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -397,7 +397,7 @@ export default {
                 
                 this.kode_billing=data.no_transaksi;
 
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](data.formulir.kjur1);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](data.formulir.kjur1);
                 this.tahun_pendaftaran=data.ta;
 
                 this.$refs.frmdata.resetValidation();       

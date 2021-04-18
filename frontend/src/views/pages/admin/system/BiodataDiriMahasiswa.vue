@@ -178,7 +178,7 @@ export default {
     created()
     {
         this.user_id=this.$store.getters['auth/AttributeUser']('id');
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.breadcrumbs = [
             {
                 text: "HOME",

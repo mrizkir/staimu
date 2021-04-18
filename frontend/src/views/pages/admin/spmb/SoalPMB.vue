@@ -216,7 +216,7 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -236,7 +236,7 @@
                                                     <v-card flat>
                                                         <v-card-title>UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.updated_at).format('DD/MM/YYYY HH:mm')}}
+                                                            {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -295,8 +295,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }}
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format('DD/MM/YYYY HH:mm') }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format('DD/MM/YYYY HH:mm') }}
+                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>                                
                             </td>
                         </template>
@@ -355,7 +355,7 @@ export default {
         datatable: [],
         headers: [                                    
             { text: 'NAMA SOAL', value: 'soal'},   
-            { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         headers_detail: [
             { text: 'JAWABAN', value: 'jawaban', sortable: false,}, 
@@ -458,7 +458,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             }); 
-            this.firstloading=false;   
+            this.firstloading = false;   
             this.$refs.filter19.setFirstTimeLoading(this.firstloading);          
         },
         dataTableRowClicked(item)
@@ -572,7 +572,7 @@ export default {
             }
         },
         deleteItem(item) {           
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
@@ -665,7 +665,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.nama_prodi = this.$store.getters['uiadmin/getProdiName'](val);
+                this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             }            
         }

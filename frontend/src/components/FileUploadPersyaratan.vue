@@ -67,7 +67,7 @@ export default {
     name: 'FileUploadPersyaratan',
     created()
     {
-        this.dashboard = this.$store.getters['uiadmin/getDefaultDashboard'];   
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
         if (this.item.path == null || this.item.persyaratan_pmb_id==null)
         {            
             this.image_prev=this.item.path;            
@@ -163,7 +163,7 @@ export default {
         },
         hapusfilepersysaratan(item)
         {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.$ajax.post('/spmb/pmbpersyaratan/hapusfilepersyaratan/'+item.persyaratan_pmb_id,

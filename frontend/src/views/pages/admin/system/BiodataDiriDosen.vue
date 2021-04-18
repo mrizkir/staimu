@@ -56,7 +56,7 @@ export default {
                 href: "#"
             }
         ];
-        if (this.dashboard=='mahasiswa')
+        if (this.dashboard== 'mahasiswa')
         {
             this.fetchMahasiswa();
         }

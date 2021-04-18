@@ -380,7 +380,7 @@ export default {
                 { text: 'AKHIR GENAP', value: 'akhir_genap', width:50 },
                 { text: 'AWAL PENDEK', value: 'awal_pendek', width:50 },
                 { text: 'AKHIR PENDEK', value: 'akhir_pendek', width:50 },
-                { text: 'AKSI', value: 'actions', sortable: false, width: 100 },
+                { text: "AKSI", value: "actions", sortable: false, width: 100 },
             ],
             search: "",
 
@@ -531,7 +531,7 @@ export default {
             }
         },
         deleteItem(item) {
-            this.$root.$confirm.open('Delete', 'Apakah Anda ingin menghapus data dengan ID '+item.tahun+' ?', { color: 'red' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID '+item.tahun+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoading = true;
