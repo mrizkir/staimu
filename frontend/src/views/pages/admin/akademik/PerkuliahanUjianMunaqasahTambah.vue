@@ -34,7 +34,7 @@
 							<v-card-title>
 								CEK PERSYARATAN
 							</v-card-title>
-							<v-card-text>
+							<v-card-text v-if="dashboard != 'mahasiswa'">
 								<v-alert type="info">
 									sebelum menambah ujian munaqasah sistem akan melakukan
 									pengecekan persyaratan. Silahkan masukan NIM, kemudian tekan
@@ -54,15 +54,47 @@
 									class="ma-2"
 								>
 									<v-icon>mdi-send</v-icon>
-								</v-btn>
-								<v-data-table
-									:headers="headers"
-									:items="datatable"
-									item-key="id"
-									:disable-pagination="true"
-									:hide-default-footer="true"
-								>
-								</v-data-table>
+								</v-btn>								
+							</v-card-text>
+							<v-card-text>
+								<div class="v-data-table theme--light">
+									<div class="v-data-table__wrapper">
+										<table>
+											<thead class="v-data-table-header">
+												<tr>
+													<th class="text-start" style="width: 400px; min-width: 400px;">
+														NAMA PERSYARATAN
+													</th>
+													<th class="text-start" style="width: 120px; min-width: 120px;">
+														KETERANGAN
+													</th>
+													<th class="text-start" style="width: 120px; min-width: 120px;">
+														STATUS
+													</th>
+													<th class="text-start" style="width: 100px; min-width: 100px;">
+														AKSI
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="(item,index) in datatable" v-bind:key="item.key">
+													<td class="text-start">
+														{{ item.nama_persyaratan }}
+													</td>
+													<td class="text-start">
+														{{ item.keterangan }}
+													</td>
+													<td class="text-start">
+														{{ item.status }}
+													</td>
+													<td class="text-start">
+														<FileUpload :user_id="data_mhs.user_id" :item="item" :index="index" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</v-card-text>
 							<v-card-actions>
 								<v-spacer></v-spacer>
@@ -88,9 +120,11 @@
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
+	import FileUpload from '@/components/FileUploadPersyaratanUjianMunaqasah';
 	export default {
 		name: "PerkuliahanUjianMunaqasahTambah",
 		created() {
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
 				{
 					text: "HOME",
@@ -124,7 +158,11 @@
 			this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
 			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 			this.ta_matkul = this.tahun_akademik;
-			if (this.$store.getters["uiadmin/getDefaultDashboard"] == "mahasiswa") {
+			if (this.dashboard == "mahasiswa") {
+				this.data_mhs = this.$store.getters["auth/User"];
+				this.data_mhs['user_id'] = this.data_mhs.id;
+				this.data_mhs['nim'] = this.data_mhs.username;
+				console.log(this.data_mhs);
 				this.formdata.nim = this.$store.getters["auth/AttributeUser"](
 					"username"
 				);
@@ -142,10 +180,13 @@
 			} else if (Object.keys(page.data_mhs).length > 1) {
 				this.data_mhs = page.data_mhs;
 				this.formdata.nim = page.data_mhs.nim;
-				this.fetchPersyaratanMhs();
 			}
 		},
+		mounted() {
+			this.fetchPersyaratanMhs();
+		},
 		data: () => ({
+			dashboard: null,
 			firstloading: true,
 			prodi_id: null,
 			nama_prodi: null,
@@ -286,6 +327,7 @@
 		components: {
 			AkademikLayout,
 			ModuleHeader,
+			FileUpload,
 		},
 	};
 </script>

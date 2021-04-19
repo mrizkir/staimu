@@ -21,13 +21,20 @@ class UjianMunaqasahController extends Controller
     public function index(Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
-        $daftar_ujian=[];
 
-        $this->validate($request, [
-            'ta'=>'required',                
-            'prodi_id'=>'required'
-        ]);
+        if ($this->hasRole('mahasiswa'))
+        {
+            $daftar_ujian=[];
+        }
+        else
+        {
+            $daftar_ujian=[];
 
+            $this->validate($request, [
+                'ta'=>'required',                
+                'prodi_id'=>'required'
+            ]);
+        }        
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
@@ -39,7 +46,7 @@ class UjianMunaqasahController extends Controller
     public function cekpersyaratan(Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
-
+        
         $this->validate($request, [            
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',
         ]);

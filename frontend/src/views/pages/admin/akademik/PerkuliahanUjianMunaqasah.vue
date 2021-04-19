@@ -129,9 +129,6 @@
 								{{ item.sah == 1 ? "YA" : "TIDAK" }}
 							</v-chip>
 						</template>
-						<template v-slot:item.idkelas="{ item }">
-							{{ $store.getters["uiadmin/getNamaKelas"](item.idkelas) }}
-						</template>
 						<template v-slot:item.actions="{ item }">
 							<v-btn
 								small
@@ -221,6 +218,11 @@
 			];
 			if (this.$store.getters["uiadmin/getDefaultDashboard"] == "mahasiswa") {
 				this.initializeMhs();
+				
+				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
+				this.prodi_id = prodi_id;
+				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 			} else {
 				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 				this.prodi_id = prodi_id;
@@ -278,7 +280,10 @@
 				await this.$ajax
 					.post(
 						"/akademik/perkuliahan/ujianmunaqasah",
-						{},
+						{
+							prodi_id: this.prodi_id,
+							ta: this.tahun_akademik,
+						},
 						{
 							headers: {
 								Authorization: this.$store.getters["auth/Token"],
@@ -288,6 +293,8 @@
 					.then(({ data }) => {
 						this.datatable = data.daftar_ujian;
 						this.datatableLoading = false;
+						this.firstloading = false;
+						this.$refs.Filter18.setFirstTimeLoading(this.firstloading);
 					})
 					.catch(() => {
 						this.datatableLoading = false;
