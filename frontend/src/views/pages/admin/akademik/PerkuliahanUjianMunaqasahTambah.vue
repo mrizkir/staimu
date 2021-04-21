@@ -282,17 +282,19 @@
 		}),
 		methods: {
 			async fetchPersyaratanMhs() {
-				this.datatableLoading = true;
-				await this.$ajax
-					.get("/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim, {
-						headers: {
-							Authorization: this.$store.getters["auth/Token"],
-						},
-					})
-					.then(({ data }) => {
-						this.datatable = data.daftar_persyaratan;
-						this.datatableLoading = false;
-					});
+				if (typeof this.data_mhs.nim !== "undefined") {
+					this.datatableLoading = true;
+					await this.$ajax
+						.get("/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim, {
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						})
+						.then(({ data }) => {
+							this.datatable = data.daftar_persyaratan;
+							this.datatableLoading = false;
+						});
+				}
 			},
 			async cekPersyaratan() {
 				if (this.$refs.frmdata.validate()) {
