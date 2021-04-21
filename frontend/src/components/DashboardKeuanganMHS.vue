@@ -108,7 +108,7 @@ export default {
     }),
     props: {
         ta: {
-            type:Number,
+            type: Number,
             required: true
         }
     },

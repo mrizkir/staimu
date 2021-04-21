@@ -675,14 +675,14 @@ export default {
 				{
 						if (typeof e === 'undefined')
 						{
-								this.image_prev=null;
+								this.image_prev = null;
 						}
 						else
 						{
 								let reader = new FileReader();
 								reader.readAsDataURL(e);
 								reader.onload = img => {
-										this.image_prev=img.target.result;
+										this.image_prev = img.target.result;
 								}
 						}
 				},

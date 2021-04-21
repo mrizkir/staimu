@@ -82,15 +82,15 @@ export default {
     },
     props: {
         user_id: {
-            type:String,
+            type: String,
             required: true
         },
         index: {
-            type:Number,
+            type: Number,
             required: true
         },
         item: {
-            type:Object,
+            type: Object,
             required: true
         }
     },
@@ -118,17 +118,17 @@ export default {
         {
             if (typeof e === 'undefined')
             {
-                this.image_prev=null;
-                this.btnSimpan=true;
+                this.image_prev = null;
+                this.btnSimpan = true;
             }
             else
             {
                 let reader = new FileReader();
                 reader.readAsDataURL(e);
                 reader.onload = img => {                    
-                    this.image_prev=img.target.result;
+                    this.image_prev = img.target.result;
                 }
-                this.btnSimpan=false;
+                this.btnSimpan = false;
             }          
         },
         upload: async function (index,item)
@@ -153,7 +153,7 @@ export default {
                         }
                     ).then(() => {                                                   
                         this.btnHapus=false;
-                        this.btnSimpan=true;
+                        this.btnSimpan = true;
                         this.btnLoading = false;                        
                     }).catch(() => {
                         this.btnLoading = false;
@@ -176,7 +176,7 @@ export default {
                             }
                         }
                     ).then(() => {                   
-                        this.btnHapus=true;
+                        this.btnHapus = true;
                         this.photoPersyaratan=require('@/assets/no-image.png');        
                         this.btnLoading = false;                        
                     }).catch(() => {
@@ -214,9 +214,9 @@ export default {
                 }
             }
             ).then(({ data }) => {   
-                this.badgeColor=data.persyaratan.verified;              
-                this.badgeIcon=data.persyaratan.verified;              
-                this.btnHapus=true;          
+                this.badgeColor = data.persyaratan.verified;              
+                this.badgeIcon = data.persyaratan.verified;              
+                this.btnHapus = true;          
                 this.btnVerifikasi=true;     
                 this.btnLoading = false;                        
             }).catch(() => {                                                   

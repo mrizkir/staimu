@@ -15,7 +15,7 @@ export default {
     },
     props: {
         user_id: {
-            type:String,
+            type: String,
             required: true
         }
     },

@@ -103,10 +103,10 @@ export default {
     props: {
         datakelas: {
             default: null,
-            type:Object,            
+            type: Object,            
         },
         url: {
-            type:String,
+            type: String,
             default: null            
         }
     },  

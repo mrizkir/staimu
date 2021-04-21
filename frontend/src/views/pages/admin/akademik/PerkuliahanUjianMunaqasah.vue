@@ -218,7 +218,6 @@
 			];
 			if (this.$store.getters["uiadmin/getDefaultDashboard"] == "mahasiswa") {
 				this.initializeMhs();
-				
 				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 				this.prodi_id = prodi_id;
 				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
@@ -258,7 +257,7 @@
 					value: "jumlah_matkul",
 					sortable: true,
 					width: 100,
-				},				
+				},
 				{ text: "JUDUL SKRIPSI", value: "tasmt", sortable: true, width: 200 },
 				{ text: "DOSEN PEMBIMBING", value: "sah", sortable: true, width: 100 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 140 },

@@ -189,7 +189,7 @@ export default {
     }),
     props: {                        
         user: {
-            type:Object,
+            type: Object,
             required: true
         },
         role_default: {

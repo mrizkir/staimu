@@ -112,19 +112,19 @@ export default {
     },
     props: {
         datakrs: {
-            type:Object,            
+            type: Object,            
             required: true
         },
         totalmatkul: {
-            type:Number,
+            type: Number,
             requreid: true
         },
         totalsks: {
-            type:Number,
+            type: Number,
             requreid: true
         },
         url: {
-            type:String,
+            type: String,
             default: null            
         }
     },

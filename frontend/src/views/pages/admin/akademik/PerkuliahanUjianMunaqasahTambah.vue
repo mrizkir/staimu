@@ -54,7 +54,7 @@
 									class="ma-2"
 								>
 									<v-icon>mdi-send</v-icon>
-								</v-btn>								
+								</v-btn>
 							</v-card-text>
 							<v-card-text>
 								<div class="v-data-table theme--light">
@@ -62,24 +62,48 @@
 										<table>
 											<thead class="v-data-table-header">
 												<tr>
-													<th class="text-start" style="width: 400px; min-width: 400px;">
+													<th
+														class="text-start"
+														style="width: 400px; min-width: 400px;"
+													>
 														NAMA PERSYARATAN
 													</th>
-													<th class="text-start" style="width: 120px; min-width: 120px;">
+													<th
+														class="text-start"
+														style="width: 120px; min-width: 120px;"
+													>
 														KETERANGAN
 													</th>
-													<th class="text-start" style="width: 120px; min-width: 120px;">
+													<th
+														class="text-start"
+														style="width: 120px; min-width: 120px;"
+													>
 														STATUS
 													</th>
-													<th class="text-start" style="width: 100px; min-width: 100px;">
+													<th
+														class="text-start"
+														style="width: 100px; min-width: 100px;"
+													>
 														AKSI
 													</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr v-for="(item,index) in datatable" v-bind:key="item.key">
+												<tr
+													v-for="(item, index) in datatable"
+													v-bind:key="item.id"
+												>
 													<td class="text-start">
 														{{ item.nama_persyaratan }}
+														<div
+															v-if="item.persyaratan_id == '2021-ujian-munaqasah-5' || item.persyaratan_id == '2021-ujian-munaqasah-6'|| item.persyaratan_id == '2021-ujian-munaqasah-7'|| item.persyaratan_id == '2021-ujian-munaqasah-8'|| item.persyaratan_id == '2021-ujian-munaqasah-9'"
+														>
+															<FileUpload
+																:persyaratan_ujian_munaqasah_id="item.id"
+																:item="item"
+																:index="index"
+															/>
+														</div>
 													</td>
 													<td class="text-start">
 														{{ item.keterangan }}
@@ -87,9 +111,7 @@
 													<td class="text-start">
 														{{ item.status }}
 													</td>
-													<td class="text-start">
-														<FileUpload :user_id="data_mhs.user_id" :item="item" :index="index" />
-													</td>
+																										
 												</tr>
 											</tbody>
 										</table>
@@ -120,7 +142,7 @@
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import FileUpload from '@/components/FileUploadPersyaratanUjianMunaqasah';
+	import FileUpload from "@/components/FileUploadPersyaratanUjianMunaqasah";
 	export default {
 		name: "PerkuliahanUjianMunaqasahTambah",
 		created() {
@@ -160,9 +182,8 @@
 			this.ta_matkul = this.tahun_akademik;
 			if (this.dashboard == "mahasiswa") {
 				this.data_mhs = this.$store.getters["auth/User"];
-				this.data_mhs['user_id'] = this.data_mhs.id;
-				this.data_mhs['nim'] = this.data_mhs.username;
-				console.log(this.data_mhs);
+				this.data_mhs["user_id"] = this.data_mhs.id;
+				this.data_mhs["nim"] = this.data_mhs.username;
 				this.formdata.nim = this.$store.getters["auth/AttributeUser"](
 					"username"
 				);

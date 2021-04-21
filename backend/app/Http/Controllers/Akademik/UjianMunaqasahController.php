@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Akademik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Helpers\Helper;
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\UjianMunaqasahModel;
 use App\Models\Akademik\PersyaratanUjianMunaqasahModel;
@@ -142,7 +143,53 @@ class UjianMunaqasahController extends Controller
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
         }        
-    }    
+    }  
+    public function upload (Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+
+        $ujian_munaqasah = PersyaratanUjianMunaqasahModel::find($id); 
+        
+        if (is_null($ujian_munaqasah))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'store',                
+                                    'message'=>["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
+                                ], 422);         
+        }
+        else
+        {
+            $this->validate($request, [    
+                'filepersyaratan'=>'required'                        
+            ]);            
+            $foto = $request->file('filepersyaratan');
+            $mime_type=$foto->getMimeType();
+            if ($mime_type=='appliaction/pdf' || $mime_type=='image/png' || $mime_type=='image/jpeg')
+            {
+                $folder=Helper::public_path('images/ujianmunaqasah/');
+                $file_name="$id.".$foto->getClientOriginalExtension();                                
+                $ujian_munaqasah->file="storage/images/pmb/$file_name";
+                $ujian_munaqasah->save();                            
+                $foto->move($folder,$file_name);                
+                return Response()->json([
+                                            'status'=>0,
+                                            'pid'=>'store',
+                                            'persyaratan'=>$ujian_munaqasah->file,                
+                                            'message'=>"Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
+                                        ],200);    
+            }
+            else
+            {
+                return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'store',
+                                        'message'=>["Extensi file yang diupload bukan pdf, jpg atau png."]
+                                    ], 422);                 
+
+            }
+        }
+    }  
     private function persyaratan($daftar_persyaratan,$mahasiswa) 
     {
         $daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
@@ -183,5 +230,5 @@ class UjianMunaqasahController extends Controller
             return $item;
         });
         return $daftar_persyaratan;
-    }
+    }    
 }

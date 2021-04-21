@@ -16,11 +16,11 @@ export default {
     },
     props: {
         index: {
-            type:Number,
+            type: Number,
             required: true
         },
         item: {
-            type:Object,
+            type: Object,
             required: true
         }
     },

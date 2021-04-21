@@ -231,7 +231,12 @@
 				</v-col>
 			</v-row>
 		</v-container>
-		<dialog-printout pid="ujianmunaqasah" title="Ujian Munaqasah" ref="dialogprint"></dialog-printout>
+		<dialog-printout
+			pid="ujianmunaqasah"
+			title="Ujian Munaqasah"
+			ref="dialogprint"
+		>
+		</dialog-printout>
 	</KeuanganLayout>
 </template>
 <script>

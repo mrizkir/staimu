@@ -129,11 +129,11 @@ export default {
     },
     props: {
         datadosen: {
-            type:Object,            
+            type: Object,            
             required: true
         },
         url: {
-            type:String,
+            type: String,
             default: null            
         }
     },
