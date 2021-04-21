@@ -170,6 +170,7 @@ class UjianMunaqasahController extends Controller
                 $folder=Helper::public_path('images/ujianmunaqasah/');
                 $file_name="$id.".$foto->getClientOriginalExtension();                                
                 $ujian_munaqasah->file="storage/images/pmb/$file_name";
+                $ujian_munaqasah->keterangan = 'ADA';                            
                 $ujian_munaqasah->save();                            
                 $foto->move($folder,$file_name);                
                 return Response()->json([
