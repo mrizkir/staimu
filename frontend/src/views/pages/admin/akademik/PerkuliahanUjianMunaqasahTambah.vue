@@ -109,12 +109,37 @@
 														{{ item.keterangan }}
 													</td>
 													<td class="text-start">
-														{{ item.status }}
+														{{ item.nama_status }}
 													</td>
-																										
+													<td
+														v-if="item.persyaratan_id == '2021-ujian-munaqasah-5' || item.persyaratan_id == '2021-ujian-munaqasah-6'|| item.persyaratan_id == '2021-ujian-munaqasah-7'|| item.persyaratan_id == '2021-ujian-munaqasah-8'|| item.persyaratan_id == '2021-ujian-munaqasah-9'"
+													>
+														<v-btn
+															small
+															icon
+															@click.stop="previewImagePersyaratan(item)"
+															:disabled="!item.file"
+														>
+															<v-icon>
+																mdi-eye
+															</v-icon>
+														</v-btn>
+													</td>
+													<td v-else>
+														N.A
+													</td>
 												</tr>
 											</tbody>
 										</table>
+										<v-dialog v-model="dialogpreviewpersyaratan">
+											<v-carousel height="auto">
+												<v-carousel-item v-for="(slide, i) in slides" :key="i" :src="slide.path">
+													<v-row class="fill-height" align="center" justify="center">
+														<div class="display-3">{{slide.nama_persyaratan}}</div>
+													</v-row>
+												</v-carousel-item>
+											</v-carousel>
+										</v-dialog>
 									</div>
 								</div>
 							</v-card-text>
@@ -177,9 +202,7 @@
 			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 			this.prodi_id = prodi_id;
 			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-			this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
-			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-			this.ta_matkul = this.tahun_akademik;
+			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];			
 			if (this.dashboard == "mahasiswa") {
 				this.data_mhs = this.$store.getters["auth/User"];
 				this.data_mhs["user_id"] = this.data_mhs.id;
@@ -212,7 +235,6 @@
 			prodi_id: null,
 			nama_prodi: null,
 			tahun_akademik: null,
-			ta_matkul: null,
 			btnLoading: false,
 
 			//table
@@ -240,7 +262,8 @@
 				},
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
-			search: "",
+			slides: [],
+			dialogpreviewpersyaratan: false,         
 
 			//formdata
 			data_mhs: [],
@@ -330,6 +353,17 @@
 						.catch(() => {
 							this.btnLoading = false;
 						});
+				}
+			},
+			previewImagePersyaratan(item) {
+				if (item.file == null) {
+					this.dialogpreviewpersyaratan = false;
+				} else {
+					this.slides.push({
+						path: this.$api.url + "/" + item.file,
+						nama_persyaratan: item.nama_persyaratan,
+					});
+					this.dialogpreviewpersyaratan = true;
 				}
 			},
 			closedialogfrm() {

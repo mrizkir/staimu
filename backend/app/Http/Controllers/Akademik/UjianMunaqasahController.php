@@ -96,7 +96,11 @@ class UjianMunaqasahController extends Controller
         \DB::statement($sql);
 
         $daftar_persyaratan = $this->persyaratan(
-            PersyaratanUjianMunaqasahModel::where('user_id',$user_id)
+            PersyaratanUjianMunaqasahModel::select(\DB::raw('
+                                                *,
+                                                "" AS nama_status
+                                            '))
+                                            ->where('user_id',$user_id)
                                             ->get(),
             $mahasiswa
         );
@@ -129,7 +133,11 @@ class UjianMunaqasahController extends Controller
             $user_id = $mahasiswa->user_id;
             
             $daftar_persyaratan = $this->persyaratan(
-                                    PersyaratanUjianMunaqasahModel::where('user_id',$user_id)
+                                    PersyaratanUjianMunaqasahModel::select(\DB::raw('
+                                                                        *,
+                                                                        "" AS nama_status
+                                                                    '))
+                                                                    ->where('user_id',$user_id)
                                                                     ->get(),
                                     $mahasiswa
                                 );
@@ -165,11 +173,11 @@ class UjianMunaqasahController extends Controller
             ]);            
             $foto = $request->file('filepersyaratan');
             $mime_type=$foto->getMimeType();
-            if ($mime_type=='appliaction/pdf' || $mime_type=='image/png' || $mime_type=='image/jpeg')
+            if ($mime_type=='image/png' || $mime_type=='image/jpeg')
             {
                 $folder=Helper::public_path('images/ujianmunaqasah/');
                 $file_name="$id.".$foto->getClientOriginalExtension();                                
-                $ujian_munaqasah->file="storage/images/pmb/$file_name";
+                $ujian_munaqasah->file="storage/images/ujianmunaqasah/$file_name";
                 $ujian_munaqasah->keterangan = 'ADA';                            
                 $ujian_munaqasah->save();                            
                 $foto->move($folder,$file_name);                
@@ -185,7 +193,7 @@ class UjianMunaqasahController extends Controller
                 return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',
-                                        'message'=>["Extensi file yang diupload bukan pdf, jpg atau png."]
+                                        'message'=>["Extensi file yang diupload bukan jpg atau png."]
                                     ], 422);                 
 
             }
@@ -210,6 +218,7 @@ class UjianMunaqasahController extends Controller
                                     ->where('ta',$mahasiswa->tahun)
                                     ->where('prodi_id',$mahasiswa->kjur)
                                     ->first();
+                                    
                     if (is_null($detail1->matkul_skripsi)) 
                     {
                         $item->keterangan = "MATAKULIAH SKRIPSI BELUM DISET";
@@ -227,6 +236,11 @@ class UjianMunaqasahController extends Controller
                     }
                 break;
 
+            }
+            switch($item->status) {
+                case 0:
+                    $item->nama_status = 'BELUM DIPERIKSA';
+                break;
             }
             return $item;
         });

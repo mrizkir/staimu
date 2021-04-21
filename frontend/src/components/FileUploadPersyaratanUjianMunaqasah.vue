@@ -2,8 +2,8 @@
 <template>
 	<v-form v-model="form_valid" ref="frmpersyaratan" lazy-validation>
 		<v-file-input
-			accept="application/pdf,image/jpeg,image/png"
-			label="(.pdf, .png,  atau .jpg)"
+			accept="image/jpeg,image/png"
+			label="(.png atau .jpg)"
 			:rules="rule_foto"
 			show-size
 			v-model="filepersyaratan[index]"

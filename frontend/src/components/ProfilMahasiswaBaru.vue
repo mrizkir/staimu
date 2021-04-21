@@ -225,7 +225,7 @@ export default {
 							nama_persyaratan:element.nama_persyaratan
 						});
 					}
-				});                
+				});
 			})
 		},
 		downloadImage ()
