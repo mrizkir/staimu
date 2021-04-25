@@ -19,7 +19,6 @@ class UsersDosenController extends Controller {
      */
     public function index(Request $request)
     {           
-        $this->hasPermissionTo('SYSTEM-USERS-DOSEN_BROWSE');
         $data = User::role('dosen')
                     ->select(\DB::raw('
                         users.id,

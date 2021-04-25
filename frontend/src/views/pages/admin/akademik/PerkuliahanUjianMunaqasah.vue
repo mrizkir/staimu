@@ -7,10 +7,7 @@
 			<template v-slot:name>
 				UJIAN MUNAQASAH
 			</template>
-			<template
-				v-slot:subtitle
-				v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'"
-			>
+			<template v-slot:subtitle>
 				TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
@@ -26,10 +23,7 @@
 				</v-alert>
 			</template>
 		</ModuleHeader>
-		<template
-			v-slot:filtersidebar
-			v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'"
-		>
+		<template v-slot:filtersidebar>
 			<Filter18
 				v-on:changeTahunAkademik="changeTahunAkademik"
 				v-on:changeProdi="changeProdi"
@@ -128,6 +122,10 @@
 							>
 								{{ item.sah == 1 ? "YA" : "TIDAK" }}
 							</v-chip>
+						</template>
+						<template v-slot:item.pembimbing_1="{ item }">
+							{{ item.pembimbing_1 }} (1)<br>
+							{{ item.pembimbing_2 }}  (2)
 						</template>
 						<template v-slot:item.actions="{ item }">
 							<v-btn
@@ -251,15 +249,9 @@
 			headers: [
 				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
-				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },
-				{
-					text: "JUMLAH MATKUL/SKS",
-					value: "jumlah_matkul",
-					sortable: true,
-					width: 100,
-				},
-				{ text: "JUDUL SKRIPSI", value: "tasmt", sortable: true, width: 200 },
-				{ text: "DOSEN PEMBIMBING", value: "sah", sortable: true, width: 100 },
+				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },				
+				{ text: "JUDUL SKRIPSI", value: "judul_skripsi", sortable: true, width: 200 },
+				{ text: "DOSEN PEMBIMBING", value: "pembimbing_1", sortable: true, width: 100 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 140 },
 			],
 			search: "",

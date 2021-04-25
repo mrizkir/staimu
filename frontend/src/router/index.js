@@ -757,6 +757,18 @@ const routes = [
 				"../views/pages/admin/akademik/PerkuliahanUjianMunaqasahTambah.vue"
 			),
 	},
+	{
+		path: "/akademik/perkuliahan/ujianmunaqasah/:ujian_munaqasah_id/detail",
+		name: "PerkuliahanUjianMunaqasahDetail",
+		meta: {
+			title: "AKADEMIK - UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () =>
+			import(
+				"../views/pages/admin/akademik/PerkuliahanUjianMunaqasahDetail.vue"
+			),
+	},
 	//akademik - nilai
 	{
 		path: "/akademik/nilai/matakuliah/isiperkelasmhs",

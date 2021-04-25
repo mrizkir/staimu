@@ -4,7 +4,7 @@ namespace App\Models\Akademik;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UjianMunaqasah extends Model {    
+class UjianMunaqasahModel extends Model {    
      /**
      * nama tabel model ini.
      *
@@ -32,6 +32,9 @@ class UjianMunaqasah extends Model {
         'pembimbing_2',               
         'status',               
         'keterangan',        
+        
+        'prodi_id',
+        'ta',
     ];
     /**
      * enable auto_increment.

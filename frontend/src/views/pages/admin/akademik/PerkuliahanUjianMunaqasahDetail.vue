@@ -19,7 +19,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk melakukan tambah ujian munaqasah
+					Halaman untuk melakukan detail ujian munaqasah
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -29,31 +29,8 @@
 					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 						<v-card>
 							<v-card-title>
-								CEK PERSYARATAN
-							</v-card-title>
-							<v-card-text>
-								<v-alert type="info">
-									sebelum menambah ujian munaqasah sistem akan melakukan
-									pengecekan persyaratan. Silahkan masukan NIM, kemudian tekan
-									tombol <v-icon>mdi-send</v-icon> untuk memproses.
-								</v-alert>
-								<v-text-field
-									v-model="nim"
-									label="NIM"
-									:rules="rule_nim"
-									outlined
-									:disabled="dashboard == 'mahasiswa'"
-								/>
-								<v-btn
-									@click.stop="cekPersyaratan"
-									:disabled="!form_valid || btnLoading"
-									color="primary"
-									icon
-									class="ma-2"
-								>
-									<v-icon>mdi-send</v-icon>
-								</v-btn>
-							</v-card-text>
+								PERSYARATAN
+							</v-card-title>							
 							<v-card-text>
 								<div class="v-data-table theme--light">
 									<div class="v-data-table__wrapper">
@@ -227,7 +204,7 @@
 									@click.stop="showdialogfrm"
 									:disabled="!form_valid || btnLoading || !iscomplete"
 								>
-									BUAT
+									UBAH
 								</v-btn>
 							</v-card-actions>
 						</v-card>
@@ -242,7 +219,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import FileUpload from "@/components/FileUploadPersyaratanUjianMunaqasah";
 	export default {
-		name: "PerkuliahanUjianMunaqasahTambah",
+		name: "PerkuliahanUjianMunaqasahDetail",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -267,7 +244,7 @@
 					href: "/akademik/perkuliahan/ujianmunaqasah",
 				},
 				{
-					text: "TAMBAH",
+					text: "DETAIL",
 					disabled: true,
 					href: "#",
 				},
@@ -431,37 +408,37 @@
 				}
 			},
 			save: async function() {
-				if (this.$refs.frmdata.validate()) {
-					this.btnLoading = true;
-					await this.$ajax
-						.post(
-							"/akademik/perkuliahan/ujianmunaqasah/store",
-							{
-								user_id: this.data_mhs.user_id,
-								judul_skripsi: this.formdata.judul_skripsi,
-								abstrak: this.formdata.abstrak,
-								pembimbing_1: this.formdata.pembimbing_1,
-								pembimbing_2: this.formdata.pembimbing_2,
-								ta: this.tahun_akademik
-							},
-							{
-								headers: {
-									Authorization: this.$store.getters["auth/Token"],
-								},
-							}
-						)
-						.then(({ data }) => {
-							this.$router.push(
-								"/akademik/perkuliahan/ujianmunaqasah/" +
-									data.ujian.id +
-									"/detail"
-							);
-							this.btnLoading = false;
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						});
-				}
+				// if (this.$refs.frmdata.validate()) {
+				// 	this.btnLoading = true;
+				// 	await this.$ajax
+				// 		.post(
+				// 			"/akademik/perkuliahan/ujianmunaqasah/store",
+				// 			{
+				// 				user_id: this.data_mhs.user_id,
+				// 				judul_skripsi: this.formdata.judul_skripsi,
+				// 				abstrak: this.formdata.abstrak,
+				// 				pembimbing_1: this.formdata.pembimbing_1,
+				// 				pembimbing_2: this.formdata.pembimbing_2,
+				// 				ta: this.tahun_akademik
+				// 			},
+				// 			{
+				// 				headers: {
+				// 					Authorization: this.$store.getters["auth/Token"],
+				// 				},
+				// 			}
+				// 		)
+				// 		.then(({ data }) => {
+				// 			this.$router.push(
+				// 				"/akademik/perkuliahan/ujianmunaqasah/" +
+				// 					data.ujian.id +
+				// 					"/detail"
+				// 			);
+				// 			this.btnLoading = false;
+				// 		})
+				// 		.catch(() => {
+				// 			this.btnLoading = false;
+				// 		});
+				// }
 			},
 			previewImagePersyaratan(item) {
 				if (item.file == null) {

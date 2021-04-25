@@ -16,6 +16,7 @@ use Ramsey\Uuid\Uuid;
 
 class UjianMunaqasahController extends Controller
 {
+    private $persyaratan_complete = [];
     /**
      * daftar peserta ujian munaqasah
      */
@@ -23,18 +24,38 @@ class UjianMunaqasahController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
 
+        $daftar_ujian=\DB::table('pe3_ujian_munaqasah AS A')
+                        ->select(\DB::raw('
+                            A.id,
+                            B.nim,                                            
+                            C.nama_mhs,
+                            A.judul_skripsi,
+                            B.tahun AS tahun_masuk,
+                            CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS pembimbing_1,
+                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS pembimbing_2,                            
+                            A.created_at,
+                            A.updated_at
+                        '))
+                        ->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
+                        ->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
+                        ->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
+                        ->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
+
         if ($this->hasRole('mahasiswa'))
         {
-            $daftar_ujian=[];
+            $daftar_ujian=$daftar_ujian->where('A.user_id', $this->getUserid())
+                                        ->get();
         }
         else
         {
-            $daftar_ujian=[];
-
             $this->validate($request, [
                 'ta'=>'required',                
                 'prodi_id'=>'required'
             ]);
+
+            $daftar_ujian=$daftar_ujian->where('A.ta', $request->input('ta'))
+                                        ->where('A.prodi_id', $request->input('prodid_id'))
+                                        ->get();
         }        
         return Response()->json([
                                     'status'=>1,
@@ -109,7 +130,8 @@ class UjianMunaqasahController extends Controller
                                 'status'=>1,
                                 'pid'=>'fetchdata',                                
                                 'mahasiswa'=>$mahasiswa,
-                                'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
+                                'daftar_persyaratan'=>$daftar_persyaratan,   
+                                'iscomplete'=>$this->iscomplete(),                                                                                                                                
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
     }
@@ -147,7 +169,8 @@ class UjianMunaqasahController extends Controller
                                 'status'=>1,
                                 'pid'=>'fetchdata',                                
                                 'mahasiswa'=>$mahasiswa,
-                                'daftar_persyaratan'=>$daftar_persyaratan,                                                                                                                                   
+                                'daftar_persyaratan'=>$daftar_persyaratan, 
+                                'iscomplete'=>$this->iscomplete(),                                                                                                                                  
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
         }        
@@ -199,19 +222,69 @@ class UjianMunaqasahController extends Controller
             }
         }
     }  
+    /**
+     * digunakan untul menyimpan ujian munaqasah mahasiswa
+     */
+    public function store (Request $request)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+        
+        $this->validate($request, [            
+            'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
+            'judul_skripsi'=>'required',     
+            'abstrak'=>'required',     
+            'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
+            'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
+            'ta'=>'required',     
+        ]);
+        
+        $mahasiswa = RegisterMahasiswaModel::find($request->input('user_id'));
+
+        $ujian = UjianMunaqasahModel::create([
+            'id'=>Uuid::uuid4()->toString(),
+            'user_id'=>$request->input('user_id'),
+            'judul_skripsi'=>$request->input('judul_skripsi'),
+            'abstrak'=>$request->input('abstrak'),
+            'pembimbing_1'=>$request->input('pembimbing_1'),
+            'pembimbing_2'=>$request->input('pembimbing_2'),
+            'prodi_id'=>$mahasiswa->kjur,
+            'ta'=>$request->input('ta')
+        ]);
+
+        \DB::table('pe3_persyaratan_ujian_munaqasah')
+            ->where('user_id', $request->input('user_id'))
+            ->update([
+                'ujian_munaqasah_id'=>$ujian->id
+            ]);
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'store', 
+                                    'ujian'=>$ujian,                                                                                                                                                                        
+                                    'message'=>'Data ujian munaqasah berhasil ditambahkan'
+                                ], 200);  
+    }
     private function persyaratan($daftar_persyaratan,$mahasiswa) 
     {
         $daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
             switch($item->persyaratan_id) {
                 case '2021-ujian-munaqasah-2' : //Pembayaran Uang SKRIPSI
-                    $item->keterangan = \DB::table('pe3_transaksi') 
-                                            ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')                                            
-                                            ->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
-                                            ->where('status',1)
-                                            ->where('kombi_id',601)
-                                            ->exists() 
-                                            ? "SUDAH BAYAR" 
-                                            : "BELUM BAYAR";
+                    $detail1 = \DB::table('pe3_transaksi') 
+                                ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')                                            
+                                ->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
+                                ->where('status',1)
+                                ->where('kombi_id',601)
+                                ->exists();
+                    
+                    if ($detail1)
+                    {
+                        $item->keterangan = "SUDAH BAYAR";
+                        $this->persyaratan_complete[]=true;
+                    }
+                    else 
+                    {                        
+                        $item->keterangan =  "BELUM BAYAR"; 
+                    }                    
                 break;
                 case '2021-ujian-munaqasah-4' : //Matakuliah Skripsi terdapat di KRS
                     $detail1 = \DB::table('pe3_prodi_detail1')
@@ -225,6 +298,7 @@ class UjianMunaqasahController extends Controller
                     }
                     else 
                     {
+                        $this->persyaratan_complete[]=true;
                         $item->keterangan = \DB::table('pe3_krsmatkul') 
                                             ->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')                                            
                                             ->where('nim', $mahasiswa->nim)   
@@ -234,6 +308,7 @@ class UjianMunaqasahController extends Controller
                                             : "TIDAK ADA"; 
                                             
                     }
+                    $this->persyaratan_complete[]=true;
                 break;
 
             }
@@ -245,5 +320,15 @@ class UjianMunaqasahController extends Controller
             return $item;
         });
         return $daftar_persyaratan;
-    }    
+    }   
+    
+    private function iscomplete()
+    {
+        $bool = false;
+        foreach ($this->persyaratan_complete as $v)
+        {
+            $bool = $v;
+        }
+        return $bool;
+    }
 }

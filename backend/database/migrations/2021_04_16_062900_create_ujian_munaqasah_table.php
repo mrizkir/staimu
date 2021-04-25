@@ -24,6 +24,9 @@ class CreateUjianMunaqasahTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->string('keterangan')->nullable();
 
+            $table->unsignedInteger('prodi_id');   
+            $table->year('ta');
+
             $table->timestamps();  
             
             $table->index('user_id');   
