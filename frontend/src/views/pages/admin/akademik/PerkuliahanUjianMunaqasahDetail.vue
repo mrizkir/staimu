@@ -23,7 +23,60 @@
 				</v-alert>
 			</template>
 		</ModuleHeader>
-		<v-container fluid>
+		<v-container fluid v-if="data_ujian_munaqasah">
+			<v-row class="mb-4" no-gutters>
+				<v-col cols="12">
+					<v-card>
+							<v-card-title>
+								DETAIL UJIAN MUNAQASAH
+							</v-card-title>							
+							<v-card-text>
+								<v-row no-gutters>
+									<v-col xs="12" sm="12" md="12">
+											<v-card flat>
+											<v-card-title>NIM / NAMA:</v-card-title>
+											<v-card-text>
+												{{ data_mhs.nim }} /
+												{{ data_mhs.name }}
+											</v-card-text>
+										</v-card>
+									</v-col>
+								</v-row>
+								<v-row no-gutters>
+									<v-col xs="12" sm="12" md="12">
+											<v-card flat>
+											<v-card-title>JUDUL SKRIPSI :</v-card-title>
+											<v-card-text>
+												{{ data_ujian_munaqasah.judul_skripsi }}
+											</v-card-text>
+										</v-card>
+									</v-col>
+								</v-row>
+								<v-row no-gutters>
+									<v-col xs="12" sm="12" md="12">
+											<v-card flat>
+											<v-card-title>ABSTRAK :</v-card-title>
+											<v-card-text>
+												{{ data_ujian_munaqasah.abstrak }}
+											</v-card-text>
+										</v-card>
+									</v-col>
+								</v-row>
+								<v-row no-gutters>
+									<v-col xs="12" sm="12" md="12">
+											<v-card flat>
+											<v-card-title>PEMBIMBING :</v-card-title>
+											<v-card-text>
+													1. {{ data_ujian_munaqasah.dosen_pembimbing_1 }}<br>
+													2. {{ data_ujian_munaqasah.dosen_pembimbing_2 }}
+											</v-card-text>
+										</v-card>
+									</v-col>
+								</v-row>
+							</v-card-text>
+					</v-card>					
+				</v-col>
+			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -122,7 +175,7 @@
 											<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 												<v-card>
 													<v-card-title>
-														<span class="headline">TAMBAH DATA SKRIPSI</span>
+														<span class="headline">UBAH DATA SKRIPSI</span>
 													</v-card-title>
 													<v-card-text>
 														<v-text-field 
@@ -201,7 +254,7 @@
 								<v-btn
 									color="blue darken-1"
 									text
-									@click.stop="showdialogfrm"
+									@click.stop="editItem"
 									:disabled="!form_valid || btnLoading || !iscomplete"
 								>
 									UBAH
@@ -221,7 +274,8 @@
 	export default {
 		name: "PerkuliahanUjianMunaqasahDetail",
 		created() {
-			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];			
+			this.ujian_munaqasah_id = this.$route.params.ujian_munaqasah_id;
 			this.breadcrumbs = [
 				{
 					text: "HOME",
@@ -277,9 +331,11 @@
 			}
 		},
 		mounted() {
-			this.fetchPersyaratanMhs();
+			this.fetchDetailUjianMunaqasah();
 		},
 		data: () => ({
+			ujian_munaqasah_id: null,
+			data_ujian_munaqasah: null,
 			dashboard: null,
 			firstloading: true,
 			prodi_id: null,
@@ -357,16 +413,18 @@
 			],
 		}),
 		methods: {
-			async fetchPersyaratanMhs() {
+			async fetchDetailUjianMunaqasah() {
 				if (typeof this.data_mhs.nim !== "undefined") {
 					this.datatableLoading = true;
 					await this.$ajax
-						.get("/akademik/perkuliahan/ujianmunaqasah/" + this.data_mhs.nim, {
+						.get("/akademik/perkuliahan/ujianmunaqasah/detail/" + this.ujian_munaqasah_id, {
 							headers: {
 								Authorization: this.$store.getters["auth/Token"],
 							},
 						})
 						.then(({ data }) => {
+							this.data_ujian_munaqasah = data.ujian;
+							this.formdata = this.data_ujian_munaqasah;
 							this.datatable = data.daftar_persyaratan;
 							this.datatableLoading = false;
 							this.iscomplete = data.iscomplete;
@@ -408,37 +466,32 @@
 				}
 			},
 			save: async function() {
-				// if (this.$refs.frmdata.validate()) {
-				// 	this.btnLoading = true;
-				// 	await this.$ajax
-				// 		.post(
-				// 			"/akademik/perkuliahan/ujianmunaqasah/store",
-				// 			{
-				// 				user_id: this.data_mhs.user_id,
-				// 				judul_skripsi: this.formdata.judul_skripsi,
-				// 				abstrak: this.formdata.abstrak,
-				// 				pembimbing_1: this.formdata.pembimbing_1,
-				// 				pembimbing_2: this.formdata.pembimbing_2,
-				// 				ta: this.tahun_akademik
-				// 			},
-				// 			{
-				// 				headers: {
-				// 					Authorization: this.$store.getters["auth/Token"],
-				// 				},
-				// 			}
-				// 		)
-				// 		.then(({ data }) => {
-				// 			this.$router.push(
-				// 				"/akademik/perkuliahan/ujianmunaqasah/" +
-				// 					data.ujian.id +
-				// 					"/detail"
-				// 			);
-				// 			this.btnLoading = false;
-				// 		})
-				// 		.catch(() => {
-				// 			this.btnLoading = false;
-				// 		});
-				// }
+				if (this.$refs.frmdata.validate()) {
+					this.btnLoading = true;
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/ujianmunaqasah/" + this.ujian_munaqasah_id,
+							{
+								_method: "PUT",
+								judul_skripsi: this.formdata.judul_skripsi,
+								abstrak: this.formdata.abstrak,
+								pembimbing_1: this.formdata.pembimbing_1,
+								pembimbing_2: this.formdata.pembimbing_2,								
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.$router.go();
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
+				}
 			},
 			previewImagePersyaratan(item) {
 				if (item.file == null) {
@@ -451,7 +504,7 @@
 					this.dialogpreviewpersyaratan = true;
 				}
 			},
-			async showdialogfrm() {
+			async editItem() {
 				await this.$ajax
 					.get('/system/usersdosen',{
 						headers: {
@@ -459,7 +512,7 @@
 						},
 					})
 					.then(({ data }) => {               
-						this.daftar_dosen = data.users;                                
+						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
 					});				
 			},

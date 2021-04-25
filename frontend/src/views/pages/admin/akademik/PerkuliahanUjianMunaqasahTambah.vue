@@ -224,7 +224,7 @@
 								<v-btn
 									color="blue darken-1"
 									text
-									@click.stop="showdialogfrm"
+									@click.stop="addItem"
 									:disabled="!form_valid || btnLoading || !iscomplete"
 								>
 									BUAT
@@ -474,7 +474,7 @@
 					this.dialogpreviewpersyaratan = true;
 				}
 			},
-			async showdialogfrm() {
+			async addItem() {
 				await this.$ajax
 					.get('/system/usersdosen',{
 						headers: {

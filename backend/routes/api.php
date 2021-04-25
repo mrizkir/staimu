@@ -386,10 +386,14 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 
     //akademik - perkuliahan - ujian munaqasah
     $router->post('/akademik/perkuliahan/ujianmunaqasah',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@index','as'=>'ujianmunaqasah.index']);
+    //id disini nim
     $router->get('/akademik/perkuliahan/ujianmunaqasah/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@show','as'=>'ujianmunaqasah.show']);
+    //id disini ujian_munaqasah_id
+    $router->get('/akademik/perkuliahan/ujianmunaqasah/detail/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@detail','as'=>'ujianmunaqasah.detail']);
     $router->post('/akademik/perkuliahan/ujianmunaqasah/cekpersyaratan',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@cekpersyaratan','as'=>'ujianmunaqasah.cekpersyaratan']);
     $router->post('/akademik/perkuliahan/ujianmunaqasah/upload/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@upload','as'=>'ujianmunaqasah.upload']);
     $router->post('/akademik/perkuliahan/ujianmunaqasah/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@store','as'=>'ujianmunaqasah.store']);
+    $router->put('/akademik/perkuliahan/ujianmunaqasah/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@update','as'=>'ujianmunaqasah.update']);
     $router->delete('/akademik/perkuliahan/ujianmunaqasah/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@destroy','as'=>'ujianmunaqasah.destroy']);
     
     //akademik - perkuliahan - nilai konversi

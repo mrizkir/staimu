@@ -135,13 +135,93 @@ class UjianMunaqasahController extends Controller
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
     }
+    public function detail (Request $request,$id)
+    {   
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+
+        $ujian = \DB::table('pe3_ujian_munaqasah AS A')
+                        ->select(\DB::raw('
+                            A.id,
+                            A.user_id,
+                            B.nim,                                            
+                            C.nama_mhs,
+                            A.judul_skripsi,
+                            A.abstrak,
+                            B.tahun AS tahun_masuk,
+                            CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
+                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                            
+                            A.pembimbing_1,
+                            A.pembimbing_2,
+                            A.created_at,
+                            A.updated_at
+                        '))
+                        ->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
+                        ->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
+                        ->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
+                        ->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
+
+        if ($this->hasRole('mahasiswa'))
+        {
+            $ujian = $ujian->where('A.user_id',$this->getUserid())
+                        ->where('A.id',$id)
+                        ->first();                                       
+            
+        }
+        else
+        {
+            $ujian = $ujian->where('A.id',$id)
+                            ->first(); 
+        }
+
+        if (is_null($ujian))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+                                ], 422); 
+        }
+        else
+        {
+            $user_id = $ujian->user_id;
+            $mahasiswa = RegisterMahasiswaModel::find($ujian->user_id);
+
+            $daftar_persyaratan = $this->persyaratan(
+                PersyaratanUjianMunaqasahModel::select(\DB::raw('
+                                                    *,
+                                                    "" AS nama_status
+                                                '))
+                                                ->where('user_id',$user_id)
+                                                ->get(),
+                $mahasiswa
+            );
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'fetchdata',                                
+                                        'ujian'=>$ujian,                                
+                                        'mahasiswa'=>$mahasiswa,
+                                        'daftar_persyaratan'=>$daftar_persyaratan, 
+                                        'iscomplete'=>$this->iscomplete(),                                                                                                                                  
+                                        'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+                                    ], 200);
+        }
+        
+
+    }
     public function show (Request $request,$id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
 
-        $mahasiswa = RegisterMahasiswaModel::where('nim',$id)
-                                            ->first();
-
+        if ($this->hasRole('mahasiswa'))
+        {
+            $mahasiswa = RegisterMahasiswaModel::find($this->getUserid());
+        }
+        else
+        {
+            $mahasiswa = RegisterMahasiswaModel::where('nim',$id)
+                                                ->first();
+        }
         if (is_null($mahasiswa))
         {
             return Response()->json([
@@ -263,6 +343,61 @@ class UjianMunaqasahController extends Controller
                                     'ujian'=>$ujian,                                                                                                                                                                        
                                     'message'=>'Data ujian munaqasah berhasil ditambahkan'
                                 ], 200);  
+    }
+    /**
+     * digunakan untul menyimpan ujian munaqasah mahasiswa
+     */
+    public function update (Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+        
+        if ($this->hasRole('mahasiswa'))
+        {
+            $ujian = UjianMunaqasahModel::where('id',$id)
+                                        ->find($id);                                       
+            
+        }
+        else
+        {
+            $ujian = UjianMunaqasahModel::where('id',$id)
+                                        ->find($id);                                       
+        }
+        if (is_null($ujian))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+                                ], 422); 
+        }
+        else
+        {
+            $this->validate($request, [            
+                'judul_skripsi'=>'required',     
+                'abstrak'=>'required',     
+                'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
+                'pembimbing_2'=>'required|exists:pe3_dosen,user_id',                 
+            ]);            
+            
+            $ujian->judul_skripsi = $request->input('judul_skripsi');
+            $ujian->abstrak = $request->input('abstrak');
+            $ujian->pembimbing_1 = $request->input('pembimbing_1');
+            $ujian->pembimbing_2 = $request->input('pembimbing_2');
+            $ujian->save();
+
+            \DB::table('pe3_persyaratan_ujian_munaqasah')
+                ->where('user_id', $ujian->user_id)
+                ->update([
+                    'ujian_munaqasah_id'=>$ujian->id
+                ]);
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update', 
+                                        'ujian'=>$ujian,                                                                                                                                                                        
+                                        'message'=>'Data ujian munaqasah berhasil diubah'
+                                    ], 200);  
+        }
     }
     /**
      * Remove the specified resource from storage.
