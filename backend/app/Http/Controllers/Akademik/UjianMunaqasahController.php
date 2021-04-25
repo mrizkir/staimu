@@ -264,6 +264,43 @@ class UjianMunaqasahController extends Controller
                                     'message'=>'Data ujian munaqasah berhasil ditambahkan'
                                 ], 200);  
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request,$id)
+    { 
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+
+        $ujian = UjianMunaqasahModel::find($id); 
+        
+        if (is_null($ujian))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'destroy',                
+                                    'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus"]
+                                ],422); 
+        }
+        else
+        {
+            \App\Models\System\ActivityLog::log($request,[
+                                                            'object' => $ujian, 
+                                                            'object_id' => $ujian->id, 
+                                                            'user_id' => $this->getUserid(), 
+                                                            'message' => 'Menghapus Ujian Munaqasah dengan id ('.$id.') berhasil'
+                                                        ]);
+            $ujian->delete();
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'destroy',                
+                                        'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
+                                    ],200);         
+        }
+                  
+    }
     private function persyaratan($daftar_persyaratan,$mahasiswa) 
     {
         $daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
@@ -310,7 +347,36 @@ class UjianMunaqasahController extends Controller
                     }
                     $this->persyaratan_complete[]=true;
                 break;
-
+                case '2021-ujian-munaqasah-5' : //Jadwal konsultasi pembimbing
+                    if (is_null($item->file))
+                    {
+                        $item->keterangan = 'TIDAK ADA';
+                    }                    
+                break;
+                case '2021-ujian-munaqasah-6' : //Scanan STTB / Ijazah Terakhir
+                    if (is_null($item->file))
+                    {
+                        $item->keterangan = 'TIDAK ADA';
+                    }                    
+                break;                
+                case '2021-ujian-munaqasah-7' : //Scanan KTP
+                    if (is_null($item->file))
+                    {
+                        $item->keterangan = 'TIDAK ADA';
+                    }                    
+                break;                
+                case '2021-ujian-munaqasah-8' : //Pas Photo 3x4
+                    if (is_null($item->file))
+                    {
+                        $item->keterangan = 'TIDAK ADA';
+                    }                    
+                break;                
+                case '2021-ujian-munaqasah-9' : //Sertifikat OSPEK / PBAK
+                    if (is_null($item->file))
+                    {
+                        $item->keterangan = 'TIDAK ADA';
+                    }                    
+                break;                
             }
             switch($item->status) {
                 case 0:
@@ -320,8 +386,7 @@ class UjianMunaqasahController extends Controller
             return $item;
         });
         return $daftar_persyaratan;
-    }   
-    
+    }       
     private function iscomplete()
     {
         $bool = false;

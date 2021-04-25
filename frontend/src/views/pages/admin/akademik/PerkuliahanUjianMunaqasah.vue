@@ -327,12 +327,12 @@
 				this.$root.$confirm
 					.open(
 						"Delete",
-						"Apakah Anda ingin menghapus ujian dengan NIM (" + item.nim + ") ?",
+						"Apakah Anda ingin menghapus ujian munaqasah dengan NIM (" + item.nim + ") ?",
 						{
 							color: "red",
 							width: 600,
 							desc:
-								"proses ini juga menghapus seluruh data yang berkaitan dengan ujian ini.",
+								"proses ini tidak menghapus persyaratan yang sudah di upload atau di input.",
 						}
 					)
 					.then(confirm => {
