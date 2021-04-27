@@ -91,6 +91,66 @@
 									<v-icon>mdi-plus</v-icon>
 								</v-btn>
 							</v-toolbar>
+							<v-dialog v-model="dialogfrm" max-width="700px" persistent>
+								<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+									<v-card>
+										<v-card-title>
+											<span class="headline">UBAH DATA SKRIPSI</span>
+										</v-card-title>
+										<v-card-text>
+											<v-text-field
+												v-model="formdata.judul_skripsi"
+												label="JUDUL SKRIPSI:"
+												outlined
+												:rules="rule_judul_skripsi"
+											>
+											</v-text-field>
+											<v-textarea
+												v-model="formdata.abstrak"
+												label="ABSTRAK:"
+												outlined
+												:rules="rule_abstrak"
+											/>
+											<v-autocomplete
+												label="DOSEN PEMBIMBING I:"
+												v-model="formdata.pembimbing_1"
+												:items="daftar_dosen"
+												item-text="nama_dosen"
+												item-value="id"
+												:rules="rule_dosen_pembimbing"
+												outlined
+											/>
+											<v-autocomplete
+												label="DOSEN PEMBIMBING II:"
+												v-model="formdata.pembimbing_2"
+												:items="daftar_dosen"
+												item-text="nama_dosen"
+												item-value="id"
+												:rules="rule_dosen_pembimbing"
+												outlined
+											/>
+										</v-card-text>
+										<v-card-actions>
+											<v-spacer></v-spacer>
+											<v-btn
+												color="blue darken-1"
+												text
+												@click.stop="closedialogfrm"
+											>
+												BATAL
+											</v-btn>
+											<v-btn
+												color="blue darken-1"
+												text
+												@click.stop="save"
+												:disabled="!form_valid || btnLoading"
+											>
+												SIMPAN
+											</v-btn>
+										</v-card-actions>
+									</v-card>
+								</v-form>
+							</v-dialog>
 							<v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
 								<v-card>
 									<v-card-title>
@@ -124,8 +184,8 @@
 							</v-chip>
 						</template>
 						<template v-slot:item.pembimbing_1="{ item }">
-							{{ item.pembimbing_1 }} (1)<br>
-							{{ item.pembimbing_2 }}  (2)
+							(1) {{ item.dosen_pembimbing_1 }}<br />
+							(2) {{ item.dosen_pembimbing_2 }}
 						</template>
 						<template v-slot:item.actions="{ item }">
 							<v-btn
@@ -151,6 +211,16 @@
 							>
 								<v-icon>
 									mdi-eye
+								</v-icon>
+							</v-btn>
+							<v-btn
+								small
+								icon
+								:disabled="btnLoading"
+								@click.stop="editItem(item)"
+							>
+								<v-icon>
+									mdi-pencil
 								</v-icon>
 							</v-btn>
 							<v-btn
@@ -249,14 +319,63 @@
 			headers: [
 				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
-				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },				
-				{ text: "JUDUL SKRIPSI", value: "judul_skripsi", sortable: true, width: 200 },
-				{ text: "DOSEN PEMBIMBING", value: "pembimbing_1", sortable: true, width: 100 },
+				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },
+				{
+					text: "JUDUL SKRIPSI",
+					value: "judul_skripsi",
+					sortable: true,
+					width: 200,
+				},
+				{
+					text: "DOSEN PEMBIMBING",
+					value: "pembimbing_1",
+					sortable: true,
+					width: 100,
+				},
 				{ text: "AKSI", value: "actions", sortable: false, width: 140 },
 			],
 			search: "",
 
+			dialogfrm: false,
 			dialogprintpdf: false,
+
+			form_valid: true,
+			daftar_dosen: [],
+			formdata: {
+				id: null,
+				user_id: null,
+				judul_skripsi: "",
+				abstrak: "",
+				pembimbing_1: null,
+				pembimbing_2: null,
+				keterangan: "",
+			},
+			formdefault: {
+				id: null,
+				user_id: null,
+				judul_skripsi: "",
+				abstrak: "",
+				pembimbing_1: null,
+				pembimbing_2: null,
+				keterangan: "",
+			},
+			rule_nim: [
+				value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+				value =>
+					/^[0-9]+$/.test(value) ||
+					"Nomor Induk Mahasiswa (NIM) hanya boleh angka",
+			],
+			rule_judul_skripsi: [
+				value => !!value || "Mohon untuk di isi judul skrispi !!!",
+			],
+			rule_abstrak: [
+				value => !!value || "Mohon untuk di isi abstrak skrispi !!!",
+			],
+			rule_dosen_pembimbing: [
+				value =>
+					!!value || "Mohon untuk di pilih dosen pembimbing ke 1 dan 2 !!!",
+			],
+
 			file_pdf: null,
 		}),
 		methods: {
@@ -323,11 +442,54 @@
 					this.expanded = [item];
 				}
 			},
+			async editItem(item) {
+				await this.$ajax
+					.get("/system/usersdosen", {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.daftar_dosen = data.users;
+						this.formdata = item;
+						this.dialogfrm = true;
+					});
+			},
+			save: async function() {
+				if (this.$refs.frmdata.validate()) {
+					this.btnLoading = true;
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/ujianmunaqasah/" + this.formdata.id,
+							{
+								_method: "PUT",
+								judul_skripsi: this.formdata.judul_skripsi,
+								abstrak: this.formdata.abstrak,
+								pembimbing_1: this.formdata.pembimbing_1,
+								pembimbing_2: this.formdata.pembimbing_2,
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.$router.go();
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
+				}
+			},
 			deleteItem(item) {
 				this.$root.$confirm
 					.open(
 						"Delete",
-						"Apakah Anda ingin menghapus ujian munaqasah dengan NIM (" + item.nim + ") ?",
+						"Apakah Anda ingin menghapus ujian munaqasah dengan NIM (" +
+							item.nim +
+							") ?",
 						{
 							color: "red",
 							width: 600,
@@ -377,6 +539,13 @@
 					.catch(() => {
 						this.btnLoading = false;
 					});
+			},
+			closedialogfrm() {
+				this.dialogfrm = false;
+				setTimeout(() => {
+					this.formdata = Object.assign({}, this.formdefault);
+					this.$refs.frmdata.reset();
+				}, 300);
 			},
 			closedialogprintpdf() {
 				setTimeout(() => {

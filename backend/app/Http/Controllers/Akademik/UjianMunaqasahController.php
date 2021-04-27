@@ -30,9 +30,12 @@ class UjianMunaqasahController extends Controller
                             B.nim,                                            
                             C.nama_mhs,
                             A.judul_skripsi,
+                            A.abstrak,
                             B.tahun AS tahun_masuk,
-                            CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS pembimbing_1,
-                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS pembimbing_2,                            
+                            CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
+                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                            
+                            A.pembimbing_1,
+                            A.pembimbing_2,
                             A.created_at,
                             A.updated_at
                         '))

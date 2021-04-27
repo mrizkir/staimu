@@ -27,54 +27,54 @@
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-card>
-							<v-card-title>
-								DETAIL UJIAN MUNAQASAH
-							</v-card-title>							
-							<v-card-text>
-								<v-row no-gutters>
-									<v-col xs="12" sm="12" md="12">
-											<v-card flat>
-											<v-card-title>NIM / NAMA:</v-card-title>
-											<v-card-text>
-												{{ data_mhs.nim }} /
-												{{ data_mhs.nama_mhs }}
-											</v-card-text>
-										</v-card>
-									</v-col>
-								</v-row>
-								<v-row no-gutters>
-									<v-col xs="12" sm="12" md="12">
-											<v-card flat>
-											<v-card-title>JUDUL SKRIPSI :</v-card-title>
-											<v-card-text>
-												{{ data_ujian_munaqasah.judul_skripsi }}
-											</v-card-text>
-										</v-card>
-									</v-col>
-								</v-row>
-								<v-row no-gutters>
-									<v-col xs="12" sm="12" md="12">
-											<v-card flat>
-											<v-card-title>ABSTRAK :</v-card-title>
-											<v-card-text>
-												{{ data_ujian_munaqasah.abstrak }}
-											</v-card-text>
-										</v-card>
-									</v-col>
-								</v-row>
-								<v-row no-gutters>
-									<v-col xs="12" sm="12" md="12">
-											<v-card flat>
-											<v-card-title>PEMBIMBING :</v-card-title>
-											<v-card-text>
-													1. {{ data_ujian_munaqasah.dosen_pembimbing_1 }}<br>
-													2. {{ data_ujian_munaqasah.dosen_pembimbing_2 }}
-											</v-card-text>
-										</v-card>
-									</v-col>
-								</v-row>
-							</v-card-text>
-					</v-card>					
+						<v-card-title>
+							DETAIL UJIAN MUNAQASAH
+						</v-card-title>
+						<v-card-text>
+							<v-row no-gutters>
+								<v-col xs="12" sm="12" md="12">
+									<v-card flat>
+										<v-card-title>NIM / NAMA:</v-card-title>
+										<v-card-text>
+											{{ data_mhs.nim }} /
+											{{ data_mhs.nama_mhs }}
+										</v-card-text>
+									</v-card>
+								</v-col>
+							</v-row>
+							<v-row no-gutters>
+								<v-col xs="12" sm="12" md="12">
+									<v-card flat>
+										<v-card-title>JUDUL SKRIPSI :</v-card-title>
+										<v-card-text>
+											{{ data_ujian_munaqasah.judul_skripsi }}
+										</v-card-text>
+									</v-card>
+								</v-col>
+							</v-row>
+							<v-row no-gutters>
+								<v-col xs="12" sm="12" md="12">
+									<v-card flat>
+										<v-card-title>ABSTRAK :</v-card-title>
+										<v-card-text>
+											{{ data_ujian_munaqasah.abstrak }}
+										</v-card-text>
+									</v-card>
+								</v-col>
+							</v-row>
+							<v-row no-gutters>
+								<v-col xs="12" sm="12" md="12">
+									<v-card flat>
+										<v-card-title>PEMBIMBING :</v-card-title>
+										<v-card-text>
+											1. {{ data_ujian_munaqasah.dosen_pembimbing_1 }}<br />
+											2. {{ data_ujian_munaqasah.dosen_pembimbing_2 }}
+										</v-card-text>
+									</v-card>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
 				</v-col>
 			</v-row>
 			<v-row class="mb-4" no-gutters>
@@ -83,7 +83,7 @@
 						<v-card>
 							<v-card-title>
 								PERSYARATAN
-							</v-card-title>							
+							</v-card-title>
 							<v-card-text>
 								<div class="v-data-table theme--light">
 									<div class="v-data-table__wrapper">
@@ -125,11 +125,16 @@
 														{{ item.nama_persyaratan }}
 														<div
 															v-if="
-																item.persyaratan_id == '2021-ujian-munaqasah-5' ||
-																item.persyaratan_id == '2021-ujian-munaqasah-6'||
-																item.persyaratan_id == '2021-ujian-munaqasah-7'||
-																item.persyaratan_id == '2021-ujian-munaqasah-8'||
-																item.persyaratan_id == '2021-ujian-munaqasah-9'
+																item.persyaratan_id ==
+																	'2021-ujian-munaqasah-5' ||
+																	item.persyaratan_id ==
+																		'2021-ujian-munaqasah-6' ||
+																	item.persyaratan_id ==
+																		'2021-ujian-munaqasah-7' ||
+																	item.persyaratan_id ==
+																		'2021-ujian-munaqasah-8' ||
+																	item.persyaratan_id ==
+																		'2021-ujian-munaqasah-9'
 															"
 														>
 															<FileUpload
@@ -148,9 +153,12 @@
 													<td
 														v-if="
 															item.persyaratan_id == '2021-ujian-munaqasah-5' ||
-																item.persyaratan_id == '2021-ujian-munaqasah-6' ||
-																item.persyaratan_id == '2021-ujian-munaqasah-7' ||
-																item.persyaratan_id == '2021-ujian-munaqasah-8' ||
+																item.persyaratan_id ==
+																	'2021-ujian-munaqasah-6' ||
+																item.persyaratan_id ==
+																	'2021-ujian-munaqasah-7' ||
+																item.persyaratan_id ==
+																	'2021-ujian-munaqasah-8' ||
 																item.persyaratan_id == '2021-ujian-munaqasah-9'
 														"
 													>
@@ -171,15 +179,19 @@
 												</tr>
 											</tbody>
 										</table>
-										<v-dialog v-model="dialogfrm" max-width="700px" persistent>											
-											<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+										<v-dialog v-model="dialogfrm" max-width="700px" persistent>
+											<v-form
+												ref="frmdata"
+												v-model="form_valid"
+												lazy-validation
+											>
 												<v-card>
 													<v-card-title>
 														<span class="headline">UBAH DATA SKRIPSI</span>
 													</v-card-title>
 													<v-card-text>
-														<v-text-field 
-															v-model="formdata.judul_skripsi" 
+														<v-text-field
+															v-model="formdata.judul_skripsi"
 															label="JUDUL SKRIPSI:"
 															outlined
 															:rules="rule_judul_skripsi"
@@ -199,7 +211,7 @@
 															item-value="id"
 															:rules="rule_dosen_pembimbing"
 															outlined
-														/> 
+														/>
 														<v-autocomplete
 															label="DOSEN PEMBIMBING II:"
 															v-model="formdata.pembimbing_2"
@@ -208,17 +220,24 @@
 															item-value="id"
 															:rules="rule_dosen_pembimbing"
 															outlined
-														/> 
+														/>
 													</v-card-text>
 													<v-card-actions>
 														<v-spacer></v-spacer>
-														<v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
 														<v-btn
 															color="blue darken-1"
 															text
-															@click.stop="save"															
-															:disabled="!form_valid || btnLoading">
-																SIMPAN
+															@click.stop="closedialogfrm"
+														>
+															BATAL
+														</v-btn>
+														<v-btn
+															color="blue darken-1"
+															text
+															@click.stop="save"
+															:disabled="!form_valid || btnLoading"
+														>
+															SIMPAN
 														</v-btn>
 													</v-card-actions>
 												</v-card>
@@ -274,7 +293,7 @@
 	export default {
 		name: "PerkuliahanUjianMunaqasahDetail",
 		created() {
-			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];			
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.ujian_munaqasah_id = this.$route.params.ujian_munaqasah_id;
 			this.breadcrumbs = [
 				{
@@ -311,9 +330,7 @@
 				this.data_mhs = this.$store.getters["auth/User"];
 				this.data_mhs["user_id"] = this.data_mhs.id;
 				this.data_mhs["nim"] = this.data_mhs.username;
-				this.nim = this.$store.getters["auth/AttributeUser"](
-					"username"
-				);
+				this.nim = this.$store.getters["auth/AttributeUser"]("username");
 			}
 			var page = this.$store.getters["uiadmin/Page"](
 				"perkuliahanujianmunaqasah"
@@ -403,24 +420,29 @@
 					"Nomor Induk Mahasiswa (NIM) hanya boleh angka",
 			],
 			rule_judul_skripsi: [
-				value => !!value || "Mohon untuk di isi judul skrispi !!!",				
+				value => !!value || "Mohon untuk di isi judul skrispi !!!",
 			],
 			rule_abstrak: [
-				value => !!value || "Mohon untuk di isi abstrak skrispi !!!",				
+				value => !!value || "Mohon untuk di isi abstrak skrispi !!!",
 			],
 			rule_dosen_pembimbing: [
-				value => !!value || "Mohon untuk di pilih dosen pembimbing ke 1 dan 2 !!!",				
+				value =>
+					!!value || "Mohon untuk di pilih dosen pembimbing ke 1 dan 2 !!!",
 			],
 		}),
 		methods: {
-			async fetchDetailUjianMunaqasah() {				
+			async fetchDetailUjianMunaqasah() {
 				this.datatableLoading = true;
 				await this.$ajax
-					.get("/akademik/perkuliahan/ujianmunaqasah/detail/" + this.ujian_munaqasah_id, {
-						headers: {
-							Authorization: this.$store.getters["auth/Token"],
-						},
-					})
+					.get(
+						"/akademik/perkuliahan/ujianmunaqasah/detail/" +
+							this.ujian_munaqasah_id,
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
 					.then(({ data }) => {
 						this.data_mhs = data.mahasiswa;
 						this.data_ujian_munaqasah = data.ujian;
@@ -428,7 +450,7 @@
 						this.datatable = data.daftar_persyaratan;
 						this.datatableLoading = false;
 						this.iscomplete = data.iscomplete;
-					});				
+					});
 			},
 			async cekPersyaratan() {
 				if (this.$refs.frmdata.validate()) {
@@ -475,7 +497,7 @@
 								judul_skripsi: this.formdata.judul_skripsi,
 								abstrak: this.formdata.abstrak,
 								pembimbing_1: this.formdata.pembimbing_1,
-								pembimbing_2: this.formdata.pembimbing_2,								
+								pembimbing_2: this.formdata.pembimbing_2,
 							},
 							{
 								headers: {
@@ -505,21 +527,20 @@
 			},
 			async editItem() {
 				await this.$ajax
-					.get('/system/usersdosen',{
+					.get("/system/usersdosen", {
 						headers: {
 							Authorization: this.$store.getters["auth/Token"],
 						},
 					})
-					.then(({ data }) => {               
+					.then(({ data }) => {
 						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
-					});				
+					});
 			},
 			closedialogfrm() {
-				this.dialogfrm = false;            
+				this.dialogfrm = false;
 				setTimeout(() => {
-					this.formdata = Object.assign({}, this.formdefault);                
-					this.editedIndex = -1;
+					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
 				}, 300);
 			},
