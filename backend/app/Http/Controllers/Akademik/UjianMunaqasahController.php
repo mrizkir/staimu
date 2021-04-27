@@ -54,7 +54,7 @@ class UjianMunaqasahController extends Controller
             ]);
 
             $daftar_ujian=$daftar_ujian->where('A.ta', $request->input('ta'))
-                                        ->where('A.prodi_id', $request->input('prodid_id'))
+                                        ->where('A.prodi_id', $request->input('prodi_id'))
                                         ->get();
         }        
         return Response()->json([
@@ -184,7 +184,8 @@ class UjianMunaqasahController extends Controller
         else
         {
             $user_id = $ujian->user_id;
-            $mahasiswa = RegisterMahasiswaModel::find($ujian->user_id);
+            $mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+                                                ->find($ujian->user_id);
 
             $daftar_persyaratan = $this->persyaratan(
                 PersyaratanUjianMunaqasahModel::select(\DB::raw('

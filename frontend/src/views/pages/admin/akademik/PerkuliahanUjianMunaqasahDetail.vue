@@ -37,7 +37,7 @@
 											<v-card-title>NIM / NAMA:</v-card-title>
 											<v-card-text>
 												{{ data_mhs.nim }} /
-												{{ data_mhs.name }}
+												{{ data_mhs.nama_mhs }}
 											</v-card-text>
 										</v-card>
 									</v-col>
@@ -413,23 +413,22 @@
 			],
 		}),
 		methods: {
-			async fetchDetailUjianMunaqasah() {
-				if (typeof this.data_mhs.nim !== "undefined") {
-					this.datatableLoading = true;
-					await this.$ajax
-						.get("/akademik/perkuliahan/ujianmunaqasah/detail/" + this.ujian_munaqasah_id, {
-							headers: {
-								Authorization: this.$store.getters["auth/Token"],
-							},
-						})
-						.then(({ data }) => {
-							this.data_ujian_munaqasah = data.ujian;
-							this.formdata = this.data_ujian_munaqasah;
-							this.datatable = data.daftar_persyaratan;
-							this.datatableLoading = false;
-							this.iscomplete = data.iscomplete;
-						});
-				}
+			async fetchDetailUjianMunaqasah() {				
+				this.datatableLoading = true;
+				await this.$ajax
+					.get("/akademik/perkuliahan/ujianmunaqasah/detail/" + this.ujian_munaqasah_id, {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.data_mhs = data.mahasiswa;
+						this.data_ujian_munaqasah = data.ujian;
+						this.formdata = this.data_ujian_munaqasah;
+						this.datatable = data.daftar_persyaratan;
+						this.datatableLoading = false;
+						this.iscomplete = data.iscomplete;
+					});				
 			},
 			async cekPersyaratan() {
 				if (this.$refs.frmdata.validate()) {
