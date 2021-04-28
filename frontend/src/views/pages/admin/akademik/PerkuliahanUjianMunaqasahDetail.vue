@@ -173,7 +173,7 @@
 															</v-icon>
 														</v-btn>
 													</td>
-													<td v-else>
+													<td v-else-if="item.persyaratan_id == '2021-ujian-munaqasah-1'">
 														<v-btn
 															small
 															icon
@@ -183,6 +183,9 @@
 																mdi-eye
 															</v-icon>
 														</v-btn>
+													</td>
+													<td v-else>
+														N.A
 													</td>
 												</tr>
 											</tbody>
