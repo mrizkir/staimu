@@ -174,7 +174,15 @@
 														</v-btn>
 													</td>
 													<td v-else>
-														N.A
+														<v-btn
+															small
+															icon
+															@click.stop="previewSPP()"
+														>
+															<v-icon>
+																mdi-eye
+															</v-icon>
+														</v-btn>
 													</td>
 												</tr>
 											</tbody>
@@ -242,6 +250,84 @@
 													</v-card-actions>
 												</v-card>
 											</v-form>
+										</v-dialog>
+										<v-dialog v-model="dialogpreviewspp" max-width="700px" persistent>
+											<v-card>
+												<v-card-title>
+													<span class="headline">DAFTAR TRANSAKSI SPP</span>
+												</v-card-title>
+												<v-card-text>
+													<v-data-table
+														:headers="headers_spp"
+														:items="datatable_spp"														
+														item-key="id"														
+														:single-expand="true"														
+														class="elevation-1"
+														:loading="datatableLoading"
+														loading-text="Loading... Please wait"
+													>
+														<template v-slot:item.tanggal="{ item }">
+															{{ $date(item.tanggal).format("DD/MM/YYYY") }}
+														</template>
+														<template v-slot:item.sub_total="{ item }">
+															{{ item.sub_total | formatUang }}
+														</template>
+														<template v-slot:item.idsmt="{ item }">
+															{{ item.ta }}
+															{{ $store.getters["uiadmin/getNamaSemester"](item.idsmt) }}
+														</template>
+														<template v-slot:item.nama_status="{ item }">
+															<v-chip :color="item.style" dark>
+																{{ item.nama_status }}
+															</v-chip>
+														</template>														
+														<template v-slot:body.append v-if="datatable.length > 0">
+															<tr class="grey lighten-4 font-weight-black">
+																<td class="text-right" colspan="5">TOTAL TRANSAKSI PAID</td>
+																<td class="text-right">
+																	{{ totaltransaksi_paid | formatUang }}
+																</td>
+															</tr>
+															<tr class="grey lighten-4 font-weight-black">
+																<td class="text-right" colspan="5">TOTAL TRANSAKSI UNPAID</td>
+																<td class="text-right">
+																	{{ totaltransaksi_unpaid | formatUang }}
+																</td>
+															</tr>
+															<tr class="grey lighten-4 font-weight-black">
+																<td class="text-right" colspan="5">TOTAL TRANSAKSI CANCELED</td>
+																<td class="text-right">
+																	{{ totaltransaksi_canceled | formatUang }}
+																</td>
+															</tr>
+															<tr class="grey lighten-4 font-weight-black">
+																<td class="text-right" colspan="5">TOTAL TRANSAKSI</td>
+																<td class="text-right">
+																	{{
+																		(totaltransaksi_canceled +
+																			totaltransaksi_paid +
+																			totaltransaksi_unpaid)
+																			| formatUang
+																	}}
+																</td>
+															</tr>
+														</template>
+														<template v-slot:no-data>
+															Data transaksi SPP belum tersedia
+														</template>
+													</v-data-table>
+												</v-card-text>
+												<v-card-actions>
+													<v-spacer></v-spacer>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="closedialogspp"
+													>
+														TUTUP
+													</v-btn>														
+												</v-card-actions>
+											</v-card>
 										</v-dialog>
 										<v-dialog v-model="dialogpreviewpersyaratan">
 											<v-carousel height="auto">
@@ -364,28 +450,48 @@
 			datatableLoading: false,
 			dialogdetailitem: false,
 			datatable: [],
-			headers: [
+			datatable_spp: [],
+			headers_spp: [
 				{
-					text: "NAMA PERSYARATAN",
-					value: "nama_persyaratan",
+					text: "KODE BILLING",
+					value: "no_transaksi",
+					width: 100,
 					sortable: true,
-					width: 400,
 				},
 				{
-					text: "KETERANGAN",
-					value: "keterangan",
+					text: "TANGGAL",
+					value: "tanggal",
+					width: 90,
+					sortable: true,
+				},
+				{
+					text: "BULAN",
+					value: "nama_bulan",
+					width: 100,
+					sortable: true,
+				},
+				{
+					text: "TA/SMT",
+					value: "idsmt",
+					width: 50,
 					sortable: false,
-					width: 120,
+				},
+				{
+					text: "JUMLAH",
+					value: "sub_total",
+					width: 100,
+					sortable: false,
+					align: "right",
 				},
 				{
 					text: "STATUS",
-					value: "status",
+					value: "nama_status",
+					width: 100,
 					sortable: false,
-					width: 120,
 				},
-				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			slides: [],
+			dialogpreviewspp: false,
 			dialogpreviewpersyaratan: false,
 
 			//formdata
@@ -514,6 +620,18 @@
 						});
 				}
 			},
+			async previewSPP() {
+				await this.$ajax
+					.get("/keuangan/transaksi-spp/" + this.data_mhs.user_id + "/mhs", {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.datatable_spp = data.transaksi;
+						this.dialogpreviewspp = true;
+					});				
+			},
 			previewImagePersyaratan(item) {
 				if (item.file == null) {
 					this.dialogpreviewpersyaratan = false;
@@ -537,6 +655,12 @@
 						this.dialogfrm = true;
 					});
 			},
+			closedialogspp() {
+				this.dialogpreviewspp = false;
+				setTimeout(() => {
+					this.datatable_spp = [];
+				}, 300);
+			},
 			closedialogfrm() {
 				this.dialogfrm = false;
 				setTimeout(() => {
@@ -555,6 +679,35 @@
 					this.$store.dispatch("uiadmin/updatePage", page);
 					this.$router.push("/akademik/perkuliahan/ujianmunaqasah");
 				}, 300);
+			},
+		},
+		computed: {
+			totaltransaksi_paid() {
+				var total = 0;
+				this.datatable_spp.forEach(item => {
+					if (item.status == 1) {
+						total += item.sub_total;
+					}
+				});
+				return total;
+			},
+			totaltransaksi_unpaid() {
+				var total = 0;
+				this.datatable_spp.forEach(item => {
+					if (item.status == 0) {
+						total += item.sub_total;
+					}
+				});
+				return total;
+			},
+			totaltransaksi_canceled() {
+				var total = 0;
+				this.datatable_spp.forEach(item => {
+					if (item.status == 2) {
+						total += item.sub_total;
+					}
+				});
+				return total;
 			},
 		},
 		components: {
