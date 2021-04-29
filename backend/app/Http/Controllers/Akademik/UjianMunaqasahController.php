@@ -404,6 +404,36 @@ class UjianMunaqasahController extends Controller
         }
     }
     /**
+     * digunakan untul menyimpan ujian munaqasah mahasiswa
+     */
+    public function updatepersyaratan (Request $request,$id)
+    {
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+        
+        $persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                       
+        
+        if (is_null($persyaratan))
+        {
+            return Response()->json([
+                                    'status'=>0,
+                                    'pid'=>'fetchdata',                
+                                    'message'=>["Data Persyaratan Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+                                ], 422); 
+        }
+        else
+        {
+            $persyaratan->status=1;
+            $persyaratan->save();
+
+            return Response()->json([
+                                        'status'=>1,
+                                        'pid'=>'update', 
+                                        'persyaratan'=>$persyaratan,                                                                                                                                                                        
+                                        'message'=>'Data persyaratan ujian munaqasah berhasil diubah'
+                                    ], 200);  
+        }
+    }
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -520,6 +550,9 @@ class UjianMunaqasahController extends Controller
             switch($item->status) {
                 case 0:
                     $item->nama_status = 'BELUM DIPERIKSA';
+                break;
+                case 1:
+                    $item->nama_status = 'SUDAH DIPERIKSA';
                 break;
             }
             return $item;

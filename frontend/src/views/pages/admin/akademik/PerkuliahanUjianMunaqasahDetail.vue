@@ -141,6 +141,7 @@
 																:persyaratan_ujian_munaqasah_id="item.id"
 																:item="item"
 																:index="index"
+																v-if="item.status == 0"
 															/>
 														</div>
 													</td>
@@ -172,6 +173,33 @@
 																mdi-eye
 															</v-icon>
 														</v-btn>
+														<v-btn
+															small
+															icon															
+															v-if="dashboard == 'mahasiswa'"
+															:disabled="true"
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
+														<v-btn
+															small
+															icon
+															@click.stop="updateStatusPersyaratan(item)"
+															:disabled="!item.file || item.status == 1 || btnLoading"
+															v-else
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
 													</td>
 													<td v-else-if="item.persyaratan_id == '2021-ujian-munaqasah-1'">
 														<v-btn
@@ -183,9 +211,62 @@
 																mdi-eye
 															</v-icon>
 														</v-btn>
+														<v-btn
+															small
+															icon															
+															v-if="dashboard == 'mahasiswa'"
+															:disabled="true"
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
+														<v-btn
+															small
+															icon
+															@click.stop="updateStatusPersyaratan(item)"
+															:disabled="item.status == 1 || btnLoading"
+															v-else
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
 													</td>
 													<td v-else>
-														N.A
+														<v-btn
+															small
+															icon															
+															v-if="dashboard == 'mahasiswa'"
+															:disabled="true"
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
+														<v-btn
+															small
+															icon
+															@click.stop="updateStatusPersyaratan(item)"
+															:disabled="!['SUDAH BAYAR','ADA'].includes(item.keterangan) || item.status == 1"
+															v-else
+														>
+															<v-icon v-if="item.status == 0">
+																mdi-briefcase-remove
+															</v-icon>
+															<v-icon v-else-if="item.status == 1">
+																mdi-briefcase-check
+															</v-icon>
+														</v-btn>
 													</td>
 												</tr>
 											</tbody>
@@ -645,6 +726,28 @@
 					});
 					this.dialogpreviewpersyaratan = true;
 				}
+			},
+			async updateStatusPersyaratan(item) {
+				this.btnLoading = true;
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/ujianmunaqasah/" + item.id + "/updatepersyaratan",
+							{
+								_method: "PUT",
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.$router.go();
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
 			},
 			async editItem() {
 				await this.$ajax
