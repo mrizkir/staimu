@@ -216,7 +216,7 @@
 							<v-btn
 								small
 								icon
-								:disabled="btnLoading"
+								:disabled="btnLoading ||  item.status == 1"
 								@click.stop="editItem(item)"
 							>
 								<v-icon>
@@ -227,7 +227,7 @@
 								small
 								icon
 								:loading="btnLoadingTable"
-								:disabled="btnLoadingTable"
+								:disabled="btnLoadingTable ||  item.status == 1"
 								@click.stop="deleteItem(item)"
 							>
 								<v-icon>

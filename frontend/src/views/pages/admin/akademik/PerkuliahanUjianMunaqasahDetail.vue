@@ -443,8 +443,16 @@
 								<v-btn
 									color="blue darken-1"
 									text
+									@click.stop="verifikasi"
+									:disabled="!form_valid || btnLoading || !isverified || this.data_ujian_munaqasah.status == 1"
+								>
+									VERIFIKASI
+								</v-btn>
+								<v-btn
+									color="blue darken-1"
+									text
 									@click.stop="editItem"
-									:disabled="!form_valid || btnLoading || !iscomplete"
+									:disabled="!form_valid || btnLoading || !iscomplete || this.data_ujian_munaqasah.status == 1"
 								>
 									UBAH
 								</v-btn>
@@ -584,6 +592,7 @@
 			data_mhs: [],
 			form_valid: true,
 			iscomplete: true,
+			isverified: true,
 			daftar_dosen: [],
 			formdata: {
 				id: null,
@@ -640,6 +649,7 @@
 						this.datatable = data.daftar_persyaratan;
 						this.datatableLoading = false;
 						this.iscomplete = data.iscomplete;
+						this.isverified = data.isverified;
 					});
 			},
 			async cekPersyaratan() {
@@ -660,6 +670,7 @@
 						)
 						.then(({ data }) => {
 							this.iscomplete = data.iscomplete;
+							this.isverified = data.isverified;
 							var page = this.$store.getters["uiadmin/Page"](
 								"perkuliahanujianmunaqasah"
 							);
@@ -760,6 +771,28 @@
 						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
 					});
+			},
+			async verifikasi() {
+				this.btnLoading = true;
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/ujianmunaqasah/" + this.ujian_munaqasah_id + "/verifikasi",
+							{
+								_method: "PUT",
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.$router.go();
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
 			},
 			closedialogspp() {
 				this.dialogpreviewspp = false;
