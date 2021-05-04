@@ -507,7 +507,8 @@ const routes = [
 			title: "KEUANGAN - TRANSAKSI UJIAN MUNAQASAH",
 			requiresAuth: true,
 		},
-		component: () => import("../views/pages/admin/keuangan/TransaksiUjianMunaqasah.vue"),
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiUjianMunaqasah.vue"),
 	},
 	{
 		path: "/keuangan/transaksi-kkn/:transaksi_id",
@@ -528,6 +529,16 @@ const routes = [
 		},
 		component: () =>
 			import("../views/pages/admin/keuangan/KonfirmasiPembayaran.vue"),
+	},
+	{
+		path: "/keuangan/transaksi-laporanspp",
+		name: "KeuanganTransaksiLaporanSPP",
+		meta: {
+			title: "KEUANGAN - LAPORAN PENERIMAAN SPP",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiLaporanSPP.vue"),
 	},
 
 	//akademik

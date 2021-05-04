@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-system-bar app dark :class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')">
-            <strong>Hak Akses Sebagai :</strong> {{ROLE}}
+            <strong>Hak Akses Sebagai :</strong> {{ ROLE }}
 		</v-system-bar>	
         <v-app-bar app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="grey--text"></v-app-bar-nav-icon>
@@ -33,10 +33,10 @@
                         </v-list-item-avatar>
                         <v-list-item-content>					
                             <v-list-item-title class="title">
-                                {{ATTRIBUTE_USER('username')}}
+                                {{ ATTRIBUTE_USER('username') }}
                             </v-list-item-title>
                             <v-list-item-subtitle>                                
-                                [{{DEFAULT_ROLE}}]
+                                [{{ DEFAULT_ROLE }}]
                             </v-list-item-subtitle>
                         </v-list-item-content>
                     </v-list-item>                    
@@ -64,10 +64,10 @@
 				</v-list-item-avatar>
 				<v-list-item-content>					
 					<v-list-item-title class="title">
-						{{ATTRIBUTE_USER('username')}}
+						{{ ATTRIBUTE_USER('username') }}
 					</v-list-item-title>
 					<v-list-item-subtitle>
-						[{{DEFAULT_ROLE}}]
+						[{{ DEFAULT_ROLE }}]
 					</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>

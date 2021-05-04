@@ -21,6 +21,23 @@ class Helper {
         11=>'November',
         12=>'Desember'
     ];
+    /**
+     * daftar bulan
+     */
+    private static $daftar_bulan_spp=[        
+        9=>'September',
+        10=>'Oktober',
+        11=>'November',
+        12=>'Desember',
+        1=>'Januari',
+        2=>'Februari',
+        3=>'Maret',
+        4=>'April',
+        5=>'Mei',
+        6=>'Juni',
+        7=>'Juli',
+        8=>'Agustus',
+    ];
     /*
      * nama hari dalam bahasa indonesia
      */
@@ -47,7 +64,21 @@ class Helper {
         {
             return null;
         }
-
+    }
+    public static function getNamaBulanSPP($no_bulan=null)
+    {
+        if ($no_bulan===null)
+        {
+            return Helper::$daftar_bulan_spp;
+        }
+        else if ($no_bulan >=1 && $no_bulan <=12)
+        {
+            return Helper::$daftar_bulan_spp[$no_bulan];
+        }
+        else
+        {
+            return null;
+        }
     }
     /**
 	* digunakan untuk mendapatkan nama hari
