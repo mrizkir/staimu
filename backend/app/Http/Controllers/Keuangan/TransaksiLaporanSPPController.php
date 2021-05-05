@@ -99,4 +99,20 @@ class TransaksiLaporanSPPController extends Controller {
 																	'message'=>'Fetch data daftar transaksi berhasil.'
 															],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
 		}		
+	/**
+	 * cetak seluruh transaksi spp per prodi dan ta
+	 */
+	public function printtoexcel1 (Request $request)
+	{
+		$this->validate($request, [           
+			'TA'=>'required',			
+		]);
+
+		$data_report = [
+			'TA'=>$request->input('TA'),			
+		];
+
+		$report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
+		return $report->printtoexcel2();
+	}
 }

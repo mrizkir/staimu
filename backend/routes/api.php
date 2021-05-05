@@ -255,11 +255,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/transaksi-spp/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@store','as'=>'transaksi-spp.store']);
     // id delete detail id
     $router->delete('/keuangan/transaksi-spp/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@destroy','as'=>'transaksi-spp.destroy']);
-    $router->post('/keuangan/transaksi-spp/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiSPPController@printtoexcel1','as'=>'transaksi-spp.printtoexcel1']);
+    
 
     //keuangan - laporan spp
     $router->post('/keuangan/transaksi-laporanspp',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@index','as'=>'transaksi-laporanspp.index']);
-    
+    $router->post('/keuangan/transaksi-laporanspp/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@printtoexcel1','as'=>'transaksi-laporanspp.printtoexcel1']);
+
     //keuangan - transaksi daftar ulang mahasiswa baru
     $router->post('/keuangan/transaksi-dulangmhsbaru',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@index','as'=>'transaksi-dulangmhsbaru.index']);
     $router->post('/keuangan/transaksi-dulangmhsbaru/store',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@store','as'=>'transaksi-dulangmhsbaru.store']);

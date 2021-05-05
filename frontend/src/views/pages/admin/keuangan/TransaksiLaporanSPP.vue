@@ -28,7 +28,34 @@
 		<v-container fluid>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
-					<div class="v-data-table theme--light">
+					<div class="v-data-table theme--light v-data-table--has-top">
+						<header
+							class="v-sheet theme--light v-toolbar v-toolbar--flat white"
+							style="height: 64px"
+						>
+							<div class="v-toolbar__content" style="height: 64px;">
+								<div class="v-toolbar__title">
+									REKAPITULASI PENERIMAAN SPP
+								</div>
+								<hr
+									role="separator"
+									aria-orientation="vertical"
+									class="mx-4 v-divider v-divider--inset v-divider--vertical theme--light"
+								/>
+								<div class="spacer"></div>
+								<v-btn
+									color="primary"
+									icon
+									outlined
+									small
+									class="ma-2"
+									@click.stop="printtoexcel"
+									:disabled="btnLoading"
+								>
+									<v-icon>mdi-printer</v-icon>
+								</v-btn>
+							</div>
+						</header>
 						<div class="v-data-table__wrapper">
 							<table>
 								<thead class="v-data-table-header">
@@ -45,18 +72,13 @@
 										>
 											BULAN
 										</th>
-										<th
-											class="text-end"
-										>
+										<th class="text-end">
 											JUMLAH
-										</th>								
+										</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr
-										v-for="item in datatable"
-										v-bind:key="item.no_bulan"
-									>
+									<tr v-for="item in datatable" v-bind:key="item.no_bulan">
 										<td class="text-start">{{ item.no_bulan }}</td>
 										<td class="text-start">{{ item.nama_bulan }}</td>
 										<td>
@@ -65,8 +87,10 @@
 													v-for="item2 in item.data_prodi"
 													v-bind:key="item2.prodi_id"
 												>
-													<td>{{ item2.nama_prodi}}</td>
-													<td class="text-end">{{ item2.jumlah | formatUang }}</td>
+													<td>{{ item2.nama_prodi }}</td>
+													<td class="text-end">
+														{{ item2.jumlah | formatUang }}
+													</td>
 												</tr>
 												<tr class="font-weight-medium">
 													<td>SUB TOTAL</td>
@@ -74,7 +98,7 @@
 														{{ item.sub_total | formatUang }}
 													</td>
 												</tr>
-											</table>											
+											</table>
 										</td>
 									</tr>
 									<tr colspan="2" class="text-end font-weight-medium">
@@ -82,7 +106,7 @@
 											TOTAL KESELURUHAN
 										</td>
 										<td>
-											{{ total_keseluruhan | formatUang}}
+											{{ total_keseluruhan | formatUang }}
 										</td>
 									</tr>
 								</tbody>
@@ -192,80 +216,35 @@
 				}
 				this.dialogfrm = true;
 			},
-			viewItem(item) {
-				this.$router.push("/keuangan/transaksi-spp/" + item.transaksi_id);
-			},
-			buatTransaksi: async function() {
-				if (this.$refs.frmdata.validate()) {
-					await this.$ajax
-						.post(
-							"/keuangan/transaksi-spp/new",
-							{
-								nim: this.formdata.nim,
-								semester_akademik: this.formdata.semester_akademik,
-								TA: this.tahun_akademik,
-							},
-							{
-								headers: {
-									Authorization: this.$store.getters["auth/Token"],
-								},
-							}
-						)
-						.then(({ data }) => {
-							this.btnLoading = false;
-							this.$router.push(
-								"/keuangan/transaksi-spp/tambah/" + data.transaksi.id
-							);
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						});
-				}
-			},
-			deleteItem(item) {
-				this.$root.$confirm
-					.open(
-						"Delete",
-						"Apakah Anda ingin menghapus transaksi SPP dengan ID " +
-							item.id +
-							" ?",
-						{ color: "red" }
-					)
-					.then(confirm => {
-						if (confirm) {
-							this.btnLoading = true;
-							this.$ajax
-								.post(
-									"/keuangan/transaksi-spp/" + item.id,
-									{
-										_method: "DELETE",
-									},
-									{
-										headers: {
-											Authorization: this.$store.getters["auth/Token"],
-										},
-									}
-								)
-								.then(() => {
-									const index = this.datatable.indexOf(item);
-									this.datatable.splice(index, 1);
-									this.btnLoading = false;
-								})
-								.catch(() => {
-									this.btnLoading = false;
-								});
-						}
-					});
-			},
 			printtoexcel: async function() {
-				this.btnLoading = false;
-			},
-			closedialogfrm() {
-				this.dialogfrm = false;
-				setTimeout(() => {
-					this.formdata = Object.assign({}, this.formdefault);
-					this.$refs.frmdata.reset();
-				}, 300);
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/keuangan/transaksi-laporanspp/printtoexcel1",
+						{
+							TA: this.tahun_akademik,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data }) => {
+						const url = window.URL.createObjectURL(new Blob([data]));
+						const link = document.createElement("a");
+						link.href = url;
+						link.setAttribute("download", "spp_" + Date.now() + ".xlsx");
+						link.setAttribute("id", "download_laporan");
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
 		},
 		computed: {
