@@ -7,9 +7,7 @@
 			<template v-slot:name>
 				LAPORAN PENERIMAAN SPP
 			</template>
-			<template v-slot:subtitle>
-				TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
-			</template>
+			<template v-slot:subtitle>TAHUN AKADEMIK {{ tahun_akademik }}</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
 					<template v-slot:divider>
@@ -25,58 +23,72 @@
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-			<Filter18
-				v-on:changeTahunAkademik="changeTahunAkademik"
-				v-on:changeProdi="changeProdi"
-				ref="filter18"
-			/>
+			<Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
 		</template>
 		<v-container fluid>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
-					<v-data-table
-						:headers="headers"
-						:items="datatable"
-						item-key="no_bulan"						
-						class="elevation-1"
-						:loading="datatableLoading"
-						:disable-pagination="true"
-						:hide-default-footer="true"
-						loading-text="Loading... Please wait"
-					>
-						<template v-slot:top>
-							<v-toolbar flat color="white">
-								<v-toolbar-title>DAFTAR TRANSAKSI</v-toolbar-title>
-								<v-divider class="mx-4" inset vertical></v-divider>
-								<v-spacer></v-spacer>								
-								<v-btn
-									color="primary"
-									icon
-									outlined
-									small
-									class="ma-2"
-									@click.stop="printtoexcel"
-									:disabled="btnLoading"
-								>
-									<v-icon>mdi-printer</v-icon>
-								</v-btn>								
-							</v-toolbar>
-						</template>
-						<template v-slot:item.jumlah="{ item }">
-							{{ item.jumlah | formatUang }}
-						</template>
-						<template v-slot:body.append v-if="datatable.length > 0">
-							<tr class="grey lighten-4 font-weight-black">
-								<td class="text-right" colspan="2">TOTAL TRANSAKSI</td>
-								<td class="text-right">
-									{{ totaltransaksi | formatUang }}
-								</td>
-							</tr>
-						</template>
-						<template v-slot:no-data>
-							Data transaksi SPP belum tersedia
-						</template>
-					</v-data-table>
+					<div class="v-data-table theme--light">
+						<div class="v-data-table__wrapper">
+							<table>
+								<thead class="v-data-table-header">
+									<tr>
+										<th
+											class="text-start"
+											style="width: 70px; min-width: 70px;"
+										>
+											NO
+										</th>
+										<th
+											class="text-start"
+											style="width: 150px; min-width: 150px;"
+										>
+											BULAN
+										</th>
+										<th
+											class="text-end"
+										>
+											JUMLAH
+										</th>								
+									</tr>
+								</thead>
+								<tbody>
+									<tr
+										v-for="item in datatable"
+										v-bind:key="item.no_bulan"
+									>
+										<td class="text-start">{{ item.no_bulan }}</td>
+										<td class="text-start">{{ item.nama_bulan }}</td>
+										<td>
+											<table width="100%">
+												<tr
+													v-for="item2 in item.data_prodi"
+													v-bind:key="item2.prodi_id"
+												>
+													<td>{{ item2.nama_prodi}}</td>
+													<td class="text-end">{{ item2.jumlah | formatUang }}</td>
+												</tr>
+												<tr class="font-weight-medium">
+													<td>SUB TOTAL</td>
+													<td colspan="2" class="text-end">
+														{{ item.sub_total | formatUang }}
+													</td>
+												</tr>
+											</table>											
+										</td>
+									</tr>
+									<tr colspan="2" class="text-end font-weight-medium">
+										<td colspan="2">
+											TOTAL KESELURUHAN
+										</td>
+										<td>
+											{{ total_keseluruhan | formatUang}}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -85,7 +97,7 @@
 <script>
 	import KeuanganLayout from "@/views/layouts/KeuanganLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import Filter18 from "@/components/sidebar/FilterMode18";
+	import Filter1 from "@/components/sidebar/FilterMode1";
 	export default {
 		name: "TransaksiSPP",
 		created() {
@@ -107,9 +119,6 @@
 					href: "#",
 				},
 			];
-			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
-			this.prodi_id = prodi_id;
-			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 		},
 		mounted() {
@@ -118,8 +127,6 @@
 		data: () => ({
 			firstloading: true,
 			breadcrumbs: [],
-			prodi_id: null,
-			nama_prodi: null,
 			tahun_akademik: 0,
 			btnLoading: false,
 
@@ -141,29 +148,15 @@
 				},
 				{
 					text: "JUMLAH",
-					value: "jumlah",					
+					value: "jumlah",
 					align: "end",
 					sortable: true,
 				},
-			],			
+			],
 			dialogfrm: false,
-
-			//form data
-			form_valid: true,
-			daftar_semester: [],
-			formdata: {
-				nim: "",
-				semester_akademik: "",
-			},
-			formdefault: {
-				nim: "",
-				semester_akademik: "",
-			},
+			total_keseluruhan: 0,
 		}),
 		methods: {
-			changeProdi(id) {
-				this.prodi_id = id;
-			},
 			changeTahunAkademik(tahun) {
 				this.tahun_akademik = tahun;
 			},
@@ -173,7 +166,6 @@
 					.post(
 						"/keuangan/transaksi-laporanspp",
 						{
-							prodi_id: this.prodi_id,
 							TA: this.tahun_akademik,
 						},
 						{
@@ -185,9 +177,10 @@
 					.then(({ data }) => {
 						this.datatable = data.transaksi;
 						this.datatableLoading = false;
+						this.total_keseluruhan = data.total_keseluruhan;
 					});
 				this.firstloading = false;
-				this.$refs.filter18.setFirstTimeLoading(this.firstloading);
+				this.$refs.filter1.setFirstTimeLoading(this.firstloading);
 			},
 			async addItem() {
 				this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
@@ -278,8 +271,8 @@
 		computed: {
 			totaltransaksi() {
 				var total = 0;
-				this.datatable.forEach(item => {					
-					total += item.jumlah;					
+				this.datatable.forEach(item => {
+					total += item.jumlah;
 				});
 				return total;
 			},
@@ -300,7 +293,7 @@
 		components: {
 			KeuanganLayout,
 			ModuleHeader,
-			Filter18,
+			Filter1,
 		},
 	};
 </script>
