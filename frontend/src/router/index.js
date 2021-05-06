@@ -540,6 +540,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/keuangan/TransaksiLaporanSPP.vue"),
 	},
+	{
+		path: "/keuangan/transaksi-laporanregistrasikrs",
+		name: "KeuanganTransaksiLaporanRegistrasiKRS",
+		meta: {
+			title: "KEUANGAN - LAPORAN PENERIMAAN REGISTRASI KRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiLaporanRegistrasiKRS.vue"),
+	},
 
 	//akademik
 	{

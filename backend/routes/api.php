@@ -257,9 +257,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->delete('/keuangan/transaksi-spp/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@destroy','as'=>'transaksi-spp.destroy']);
     
 
-    //keuangan - laporan spp
+    //keuangan - laporan penerimaan spp
     $router->post('/keuangan/transaksi-laporanspp',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@index','as'=>'transaksi-laporanspp.index']);
     $router->post('/keuangan/transaksi-laporanspp/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@printtoexcel1','as'=>'transaksi-laporanspp.printtoexcel1']);
+    
+    //keuangan - laporan penerimaan registrasi krs
+    $router->post('/keuangan/transaksi-laporanregistrasikrs',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanRegistrasiKRSController@index','as'=>'transaksi-laporanregistrasikrs.index']);
+    $router->post('/keuangan/transaksi-laporanregistrasikrs/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanRegistrasiKRSController@printtoexcel1','as'=>'transaksi-laporanregistrasikrs.printtoexcel1']);
 
     //keuangan - transaksi daftar ulang mahasiswa baru
     $router->post('/keuangan/transaksi-dulangmhsbaru',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@index','as'=>'transaksi-dulangmhsbaru.index']);

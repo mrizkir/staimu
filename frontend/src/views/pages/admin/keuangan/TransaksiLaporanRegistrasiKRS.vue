@@ -5,7 +5,7 @@
 				mdi-video-input-component
 			</template>
 			<template v-slot:name>
-				LAPORAN PENERIMAAN SPP
+				LAPORAN PENERIMAAN REGISTRASI KRS
 			</template>
 			<template v-slot:subtitle>TAHUN AKADEMIK {{ tahun_akademik }}</template>
 			<template v-slot:breadcrumbs>
@@ -17,7 +17,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman ini digunakan untuk memperoleh laporan penerimaan SPP
+					Halaman ini digunakan untuk memperoleh laporan PENERIMAAN REGISTRASI KRS
 					mahasiswa baru dan lama.
 				</v-alert>
 			</template>
@@ -35,7 +35,7 @@
 						>
 							<div class="v-toolbar__content" style="height: 64px;">
 								<div class="v-toolbar__title">
-									REKAPITULASI PENERIMAAN SPP
+									REKAPITULASI PENERIMAAN REGISTRASI KRS
 								</div>
 								<hr
 									role="separator"
@@ -123,7 +123,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import Filter1 from "@/components/sidebar/FilterMode1";
 	export default {
-		name: "TransaksiLaporanSPP",
+		name: "TransaksiLaporanRegistrasiKRS",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -138,7 +138,7 @@
 					href: "/keuangan",
 				},
 				{
-					text: "LAPORAN PENERIMAAN SPP",
+					text: "LAPORAN PENERIMAAN REGISTRASI KRS",
 					disabled: true,
 					href: "#",
 				},
@@ -188,7 +188,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/keuangan/transaksi-laporanspp",
+						"/keuangan/transaksi-laporanregistrasikrs",
 						{
 							TA: this.tahun_akademik,
 						},
@@ -220,7 +220,7 @@
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
-						"/keuangan/transaksi-laporanspp/printtoexcel1",
+						"/keuangan/transaksi-laporanregistrasikrs/printtoexcel1",
 						{
 							TA: this.tahun_akademik,
 						},
@@ -235,7 +235,7 @@
 						const url = window.URL.createObjectURL(new Blob([data]));
 						const link = document.createElement("a");
 						link.href = url;
-						link.setAttribute("download", "spp_" + Date.now() + ".xlsx");
+						link.setAttribute("download", "registrasi_krs_" + Date.now() + ".xlsx");
 						link.setAttribute("id", "download_laporan");
 						document.body.appendChild(link);
 						link.click();

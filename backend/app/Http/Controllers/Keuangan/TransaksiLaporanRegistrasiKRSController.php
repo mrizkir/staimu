@@ -8,13 +8,13 @@ use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
 use App\Helpers\Helper;
 
-class TransaksiLaporanSPPController extends Controller {  
+class TransaksiLaporanRegistrasiKRSController extends Controller {  
 		/**
 		 * daftar transaksi 
 		 */
 		public function index(Request $request)
 		{
-			$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-SPP_BROWSE');        				
+			$this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');        				
 					
 			$this->validate($request, [           
 				'TA'=>'required',				
@@ -46,7 +46,7 @@ class TransaksiLaporanSPPController extends Controller {
 										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
 										->where('ta', $ta)
 										->where('bulan',$k)
-										->where('kombi_id', 201)
+										->where('kombi_id', 202)
 										->where('status', 1)
 										->where('kjur',$prodi_id)
 										->sum('sub_total');
@@ -68,7 +68,7 @@ class TransaksiLaporanSPPController extends Controller {
 										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
 										->where('ta', $ta)
 										->where('bulan',$k)
-										->where('kombi_id', 201)
+										->where('kombi_id', 202)
 										->where('status', 1)
 										->where('kjur',$prodi_id)
 										->sum('sub_total');
@@ -104,8 +104,8 @@ class TransaksiLaporanSPPController extends Controller {
 	 */
 	public function printtoexcel1 (Request $request)
 	{
-		$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-SPP_BROWSE');        				
-		
+    $this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');
+
 		$this->validate($request, [           
 			'TA'=>'required',			
 		]);
@@ -114,7 +114,7 @@ class TransaksiLaporanSPPController extends Controller {
 			'TA'=>$request->input('TA'),			
 		];
 
-		$report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
+		$report= new \App\Models\Report\ReportKeuanganRegistrasiKRSModel ($data_report);
 		return $report->printtoexcel2();
 	}
 }

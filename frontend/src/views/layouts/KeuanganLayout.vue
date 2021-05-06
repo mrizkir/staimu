@@ -283,6 +283,20 @@
 				<v-subheader>LAPORAN</v-subheader>
 				<v-list-item
 					link
+					v-if="CAN_ACCESS('KEUANGAN-LAPORAN-PENERIMAAN-REGISTRASI-KRS_BROWSE')"
+					to="/keuangan/transaksi-laporanregistrasikrs"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							PENERIMAAN REG. KRS
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
 					v-if="CAN_ACCESS('KEUANGAN-LAPORAN-PENERIMAAN-SPP_BROWSE')"
 					to="/keuangan/transaksi-laporanspp"
 				>
