@@ -5,25 +5,25 @@
                 <v-col xs="12" sm="6" md="4">
                     <h1 class="text-center display-1 font-weight-black primary--text">
                         PENDAFTARAN MAHASISWA BARU
-                    </h1>    
+                    </h1>
                     <h4 class="text-center title font-weight-black primary--text">
                         TAHUN AKADEMIK {{tahunPendaftaran|formatTA}}
                     </h4>
                     <v-form ref="frmpendaftaran" v-model="form_valid" lazy-validation>
                         <v-card outlined>
-                            <v-card-text>                                
+                            <v-card-text>
                                 <v-text-field 
                                     v-model="formdata.name"
                                     label="NAMA LENGKAP" 
                                     :rules="rule_name"
                                     outlined 
-                                    dense />                              
+                                    dense />          
                                 <v-text-field 
                                     v-model="formdata.nomor_hp"
                                     label="NOMOR HP (ex: +628123456789)" 
                                     :rules="rule_nomorhp"
                                     outlined 
-                                    dense />                              
+                                    dense />          
                                 <v-text-field 
                                     v-model="formdata.email"
                                     label="EMAIL" 
@@ -66,7 +66,7 @@
                                 <v-alert color="error" class="mb-0" text v-if="formdata.captcha_response.length<=0">
                                     Mohon dicentang Google Captcha    
                                 </v-alert>
-                            </v-card-text>                            
+                            </v-card-text>        
                             <v-card-actions class="justify-center">
                                 <vue-recaptcha 
                                     ref="recaptcha"
@@ -74,9 +74,9 @@
                                     @verify="onVerify"
                                     @expired="onExpired"
                                     :loadRecaptchaScript="true">
-                                </vue-recaptcha>                                                                   
-                            </v-card-actions>                            
-                            <v-card-actions class="justify-center">                                
+                                </vue-recaptcha>                                   
+                            </v-card-actions>        
+                            <v-card-actions class="justify-center">
                                  <v-btn 
                                     color="primary" 
                                     @click="save" 
@@ -88,26 +88,26 @@
                             </v-card-actions>
                         </v-card>
                     </v-form>
-                    <v-dialog v-model="dialogkonfirmasiemail" max-width="500px" persistent>                                    
+                    <v-dialog v-model="dialogkonfirmasiemail" max-width="500px" persistent>    
                         <v-form ref="frmkonfirmasi" v-model="form_valid" lazy-validation>
                             <v-card>
                                 <v-card-title>
                                     <span class="headline">Konfirmasi Email</span>
                                 </v-card-title>
-                                <v-card-text>    
+                                <v-card-text>
                                     <v-alert type="success">
                                         Proses pendaftaran berhasil, silahkan cek email Anda ({{formkonfirmasi.email}}) untuk mendapatkan kode aktivasi atau hubungi panitia PMB jika kode tidak masuk ke email.
-                                    </v-alert>                                    
+                                    </v-alert>    
                                     <v-text-field 
                                         v-model="formkonfirmasi.code" 
                                         label="CODE"
                                         outlined
                                         :rules="rule_code">
-                                    </v-text-field>                                            
+                                    </v-text-field>            
                                 </v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>  
-                                    <v-btn color="blue darken-1" text @click.stop="closedialogfrm">KELUAR</v-btn>                                              
+                                    <v-btn color="blue darken-1" text @click.stop="closedialogfrm">KELUAR</v-btn>              
                                     <v-btn 
                                         color="blue darken-1" 
                                         text 

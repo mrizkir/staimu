@@ -162,10 +162,10 @@
                         />
                     </v-card-text>
                 </v-card>
-                <v-card class="mb-4">                    
+                <v-card class="mb-4">
                     <v-card-actions>
                         Kode Billing: <strong>{{kode_billing}}</strong>
-                        <v-spacer></v-spacer>                        
+                        <v-spacer></v-spacer>    
                         <v-btn 
                             color="blue darken-1" 
                             text 

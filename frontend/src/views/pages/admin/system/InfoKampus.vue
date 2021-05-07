@@ -29,7 +29,7 @@
 						<v-row class="mb-4" no-gutters>
 								<v-col cols="12">
 										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-												<v-card>                            
+												<v-card>        
 														<v-card-text>
 																<v-select
 																		v-model="formdata.term_id" 

@@ -1,8 +1,8 @@
 <template>
-	<AdminLayout v-if="dashboard">		
+	<AdminLayout v-if="dashboard">
 		<v-container v-if="dashboard=='mahasiswabaru'">
 			<DashboardMB />
-		</v-container>        
+		</v-container>
 		<v-container fluid v-else>
 			<v-row>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('BLOG-GROUP')">
@@ -14,13 +14,13 @@
 						dark>
 						<v-card-title class="headline">
 							BLOG
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul digunakan untuk info kampus, pengumuman, berita, informasi kepada mahasiswa atau pihak lainnya.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
 					<v-card 
 						min-height="140"
@@ -30,13 +30,13 @@
 						dark>
 						<v-card-title class="headline">
 							DATA MASTER
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Pengaturan berbagai parameter sebagai referensi dari modul-modul lain dalam sistem.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
 					<v-card 
 						min-height="140"
@@ -46,13 +46,13 @@
 						dark>
 						<v-card-title class="headline">
 							SPMB
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{ tahun_pendaftaran }}.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEUANGAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -62,13 +62,13 @@
 						dark>
 						<v-card-title class="headline">
 							KEUANGAN
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Keuangan Perguruan Tinggi.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('AKADEMIK-GROUP')">
 					<v-card 
 						min-height="140"
@@ -78,13 +78,13 @@
 						dark>
 						<v-card-title class="headline">
 							AKADEMIK
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Akademik Perguruan Tinggi.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEMAHASISWAAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -94,13 +94,13 @@
 						dark>
 						<v-card-title class="headline">
 							KEMAHASISWAAN
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Kemahasiswaan Perguruan Tinggi.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEPEGAWAIAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -110,13 +110,13 @@
 						dark>
 						<v-card-title class="headline">
 							KEPEGAWAIAN
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola kepegawaian seperti dosen atau tenaga pendidik.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
 					<v-card 
 						min-height="140"
@@ -126,13 +126,13 @@
 						dark>
 						<v-card-title class="headline">
 							USER SISTEM
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengelola user sistem.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-SETTING-GROUP')">
 					<v-card 
 						min-height="140"
@@ -142,13 +142,13 @@
 						dark>
 						<v-card-title class="headline">
 							KONFIGURASI SISTEM
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk mengatur berbagai macam konfigurasi sistem.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
 					<v-card 
 						min-height="140"
@@ -158,13 +158,13 @@
 						dark>
 						<v-card-title class="headline">
 							MIGRASI SISTEM
-						</v-card-title>                        
+						</v-card-title>    
 						<v-card-text>
 							Modul ini digunakan untuk melakukan migrasi data atau sistem lama.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>           
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
 			</v-row>
 		</v-container>
 	</AdminLayout>

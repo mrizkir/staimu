@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
-        <v-container fluid>            
+        <v-container fluid>
             
         </v-container>
     </AkademikLayout>

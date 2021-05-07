@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
-        <v-container fluid>                         
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -83,8 +83,8 @@
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                            <v-tooltip bottom> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -97,12 +97,12 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-eye</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Detail Transkrip</span>                                   
+                                <span>Detail Transkrip</span>   
                             </v-tooltip> 
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                            <v-tooltip bottom> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -115,16 +115,16 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-printer</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Cetak Transkrip Dua Kolom</span>                                   
-                            </v-tooltip>                 
-                        </template>           
+                                <span>Cetak Transkrip Dua Kolom</span>   
+                            </v-tooltip> 
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>user_id:</strong>{{ item.user_id }}                                              
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -132,9 +132,9 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
-        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
             <v-card>
                 <v-card-title>
                     <span class="headline">Print to PDF</span>
@@ -143,15 +143,15 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">                            
+                        :href="$api.url+'/'+file_pdf">        
                         Download
-                    </v-btn>                           
+                    </v-btn>       
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>        
                 </v-card-actions>
-            </v-card>            
+            </v-card>
         </v-dialog>
     </AkademikLayout>
 </template>

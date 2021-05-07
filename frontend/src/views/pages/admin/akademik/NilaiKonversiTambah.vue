@@ -27,9 +27,9 @@
                     Halaman ini digunakan untuk mengelola konversi nilai mahasiswa pindahan/ampulan 
                 </v-alert>
             </template>
-        </ModuleHeader>        
+        </ModuleHeader>
         <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-            <v-container fluid>                         
+            <v-container fluid>     
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">
                         <v-card>
@@ -136,46 +136,46 @@
                                         inset
                                         vertical
                                     ></v-divider>
-                                    <v-spacer></v-spacer>                                  
+                                    <v-spacer></v-spacer>  
                                 </v-toolbar>
-                            </template>     
-                            <template v-slot:item.kmatkul_asal="props">                                
+                            </template> 
+                            <template v-slot:item.kmatkul_asal="props">
                                 <v-text-field
                                     v-model="props.item.kmatkul_asal"                            
                                     dense                                                                 
                                 >
                                 </v-text-field>
-                            </template>                                                                                
-                            <template v-slot:item.matkul_asal="props">                                
+                            </template>                                                
+                            <template v-slot:item.matkul_asal="props">
                                 <v-text-field
                                     v-model="props.item.matkul_asal"                            
                                     dense                                 
                                 >
                                 </v-text-field>
-                            </template>                                                                                
-                            <template v-slot:item.sks_asal="props">                                
+                            </template>                                                
+                            <template v-slot:item.sks_asal="props">
                                 <v-text-field
                                     v-model="props.item.sks_asal"                            
                                     dense                                                             
                                 >
                                 </v-text-field>
-                            </template>                                                                                
-                            <template v-slot:item.n_kual="props">                                
+                            </template>                                                
+                            <template v-slot:item.n_kual="props">
                                 <v-select 
                                     :items="$store.getters['uiadmin/getSkalaNilai']"  
                                     v-model="props.item.n_kual"
                                     style="width:65px"                                
                                     dense>
                                 </v-select>
-                            </template>                                                                                
+                            </template>                                                
                             <template v-slot:no-data>
                                 Data belum tersedia
                             </template>   
                         </v-data-table>
                     </v-col>
-                </v-row>            
+                </v-row>
             </v-container>
-        </v-form>        
+        </v-form>
     </AkademikLayout>
 </template>
 <script>

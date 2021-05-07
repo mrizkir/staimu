@@ -24,7 +24,7 @@
                         Halaman ini berisi daftar DOSEN WALI / PENDAMPING AKADEMIK yang bertanggungjawab untuk membantu pembelajaran mahasiswa.
                 </v-alert>
             </template>
-        </ModuleHeader>        
+        </ModuleHeader>
         <v-container fluid>   
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -70,8 +70,8 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                 
-                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>                                    
+                                <v-spacer></v-spacer> 
+                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-toolbar elevation="2"> 
@@ -149,7 +149,7 @@
                                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 </v-row> 
                                                 <v-row no-gutters>   
-                                                    <v-col xs="12">                                      
+                                                    <v-col xs="12">      
                                                         <v-select
                                                             label="DOSEN WALI :"
                                                             v-model="formdata.dosen_id"
@@ -157,7 +157,7 @@
                                                             item-text="name"
                                                             item-value="id"
                                                             :rules="rule_dw"
-                                                            outlined/>                 
+                                                            outlined/> 
                                                     </v-col>
                                                 </v-row>
                                             </v-card-text>
@@ -184,9 +184,9 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">                            
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                        <template v-slot:item.actions="{ item }">        
+                            <v-tooltip bottom> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -197,15 +197,15 @@
                                         :disabled="btnLoading"
                                         @click.stop="showDialogChangeDW(item)">
                                         <v-icon>mdi-file-replace-outline</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Ganti Dosen Wali</span>                                   
+                                <span>Ganti Dosen Wali</span>   
                             </v-tooltip>
                         </template>
-                        <template v-slot:item.foto="{ item }">                            
+                        <template v-slot:item.foto="{ item }">        
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                               
-                            </v-avatar>                                                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />           
+                            </v-avatar>                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -213,13 +213,13 @@
                                     <strong>ID:</strong>{{ item.id }}                                    
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>
-                    </v-data-table>                    
+                    </v-data-table>
                 </v-col>
             </v-row>
         </v-container>

@@ -28,7 +28,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>  
-        <v-container fluid>    
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -65,7 +65,7 @@
                         :loading="datatableLoading"
                         loading-text="Loading... Please wait">
                         <template v-slot:top>
-                            <v-toolbar flat color="white">                                
+                            <v-toolbar flat color="white">
                                 <v-spacer></v-spacer>
                                 <v-btn 
                                     
@@ -81,7 +81,7 @@
                                     @click.stop="addItem">
                                         TAMBAH
                                 </v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>                                    
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -98,17 +98,17 @@
                                                     v-model="formdata.name"
                                                     label="NAMA LENGKAP" 
                                                     :rules="rule_name"
-                                                    outlined/>                              
+                                                    outlined/>          
                                                 <v-text-field 
                                                     v-model="formdata.nomor_hp"
                                                     label="NOMOR HP (ex: +628123456789)" 
                                                     :rules="rule_nomorhp"
-                                                    outlined/>                              
+                                                    outlined/>          
                                                 <v-text-field 
                                                     v-model="formdata.email"
                                                     label="EMAIL" 
                                                     :rules="rule_email"
-                                                    outlined/>      
+                                                    outlined/>  
                                                 <v-select
                                                     v-model="kode_fakultas"
                                                     label="FAKULTAS"
@@ -211,7 +211,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TAHUN PENDAFTARAN:</v-card-title>
-                                                        <v-card-subtitle>                                                            
+                                                        <v-card-subtitle>                            
                                                             {{formdata.ta}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -222,7 +222,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>PROGRAM STUDI :</v-card-title>
-                                                        <v-card-subtitle>                                                            
+                                                        <v-card-subtitle>                            
                                                             {{$store.getters["uiadmin/getProdiName"](formdata.prodi_id)}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -250,14 +250,14 @@
                                                             <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2">KIRIM ULANG</v-btn>
                                                         </v-card-text>
                                                     </v-card>
-                                                </v-col>                                                
+                                                </v-col>                
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -289,21 +289,21 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }">
                             <v-badge
                                 bordered
                                 :color="badgeColor(item)"
                                 :icon="badgeIcon(item)"
-                                overlap>                
-                                <v-avatar size="30">                                        
-                                    <v-img :src="$api.url+'/'+item.foto" />                                   
-                                </v-avatar>                                                                                                  
+                                overlap>
+                                <v-avatar size="30">        
+                                    <v-img :src="$api.url+'/'+item.foto" />   
+                                </v-avatar>                                                                  
                             </v-badge>
                         </template>
-                        <template v-slot:item.nomor_hp="{ item }">    
+                        <template v-slot:item.nomor_hp="{ item }">
                             {{ item.nomor_hp == null || item.nomor_hp == ''? 'N.A' : '+'+item.nomor_hp}}
                         </template>
-                        <template v-slot:item.created_at="{ item }">                            
+                        <template v-slot:item.created_at="{ item }">        
                             {{$date(item.created_at).format("DD/MM/YYYY HH:mm")}}
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">

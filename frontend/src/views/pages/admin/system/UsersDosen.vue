@@ -24,8 +24,8 @@
                      User dengan role DOSEN bertanggungjawab terhadap proses pembelajaran mahasiswa.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>    
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -73,7 +73,7 @@
                                     @click.stop="syncPermission" 
                                     v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
                                     SYNC PERMISSION
-                                </v-btn>                               
+                                </v-btn>           
                                 <v-btn color="primary"                                    
                                     class="mb-2" 
                                     
@@ -81,36 +81,36 @@
                                     @click.stop="showDialogTambahUserDosen">
                                     TAMBAH
                                 </v-btn>
-                                <v-dialog v-model="dialog" max-width="500px" persistent>                                    
+                                <v-dialog v-model="dialog" max-width="500px" persistent>    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
-                                            </v-card-title>                                            
-                                            <v-card-text>     
+                                            </v-card-title>            
+                                            <v-card-text> 
                                                 <v-text-field 
                                                     v-model="editedItem.onlyname" 
                                                     label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.nidn" 
                                                     label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
                                                     outlined>
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.nipy" 
                                                     label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
                                                     outlined
                                                     :rules="rule_nipy">
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>                                                        
+                                                </v-text-field>                        
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -133,7 +133,7 @@
                                                 <v-switch
                                                     v-model="editedItem.is_dw"
                                                     label="SEBAGAI DOSEN WALI">
-                                                </v-switch>                                                                 
+                                                </v-switch>                                 
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -155,8 +155,8 @@
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
-                                            </v-card-title>                                            
-                                            <v-card-text>                                                                                                
+                                            </v-card-title>            
+                                            <v-card-text>                                                                
                                                 <v-text-field 
                                                     v-model="editedItem.onlyname" 
                                                     label="NAMA DOSEN"
@@ -167,13 +167,13 @@
                                                     v-model="editedItem.nidn" 
                                                     label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
                                                     outlined>
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.nipy" 
                                                     label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
                                                     outlined
                                                     :rules="rule_nipy">
-                                                </v-text-field>     
+                                                </v-text-field> 
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
@@ -202,7 +202,7 @@
                                                 <v-switch
                                                     v-model="editedItem.is_dw"
                                                     label="SEBAGAI DOSEN WALI">
-                                                </v-switch>                                                  
+                                                </v-switch>                  
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -219,7 +219,7 @@
                                 </v-dialog>   
                                 <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="dosen" />
-                                </v-dialog>                             
+                                </v-dialog>         
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
@@ -228,9 +228,9 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">               
-                            <v-tooltip bottom v-if="item.default_role=='dosen'">             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                        <template v-slot:item.actions="{ item }">   
+                            <v-tooltip bottom v-if="item.default_role=='dosen'"> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -241,12 +241,12 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-axis-arrow-lock</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Setting Hak Akses</span>                                   
+                                <span>Setting Hak Akses</span>   
                             </v-tooltip>   
-                            <v-tooltip bottom v-if="item.default_role=='dosen'">             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                            <v-tooltip bottom v-if="item.default_role=='dosen'"> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -258,12 +258,12 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-pencil</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Ubah data user dosen</span>                                   
+                                <span>Ubah data user dosen</span>   
                             </v-tooltip>   
-                            <v-tooltip bottom v-if="item.default_role=='dosen'">             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                            <v-tooltip bottom v-if="item.default_role=='dosen'"> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -274,15 +274,15 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-delete</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Hapus data user dosen</span>                                   
-                            </v-tooltip>                             
+                                <span>Hapus data user dosen</span>   
+                            </v-tooltip>         
                         </template>
-                        <template v-slot:item.foto="{ item }">                            
+                        <template v-slot:item.foto="{ item }">        
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                               
-                            </v-avatar>                                                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />           
+                            </v-avatar>                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -291,7 +291,7 @@
                                     <strong>Email:</strong>{{ item.email }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

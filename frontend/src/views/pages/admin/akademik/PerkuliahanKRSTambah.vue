@@ -27,16 +27,16 @@
                     Halaman untuk melakukan tambah krs 
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>                         
+        </ModuleHeader>
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
-                <v-col cols="12">                    
+                <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-card>
                             <v-card-title>
                                 PILIH TAHUN & SEMESTER DAFTAR ULANG
                             </v-card-title>
-                            <v-card-text>        
+                            <v-card-text>
                                 <v-alert type="info">
                                     Silahkan pilih tahun dan semester daftar ulang. Bila tidak ada disebabkan belum melakukan pembayaran atau status daftar ulang dinyatakan tidak aktif
                                 </v-alert>

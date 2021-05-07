@@ -16,11 +16,11 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>            
-        </ModuleHeader>      
-        <v-container fluid v-if="datamhs.hasOwnProperty('user_id')">            
+            </template>
+        </ModuleHeader>  
+        <v-container fluid v-if="datamhs.hasOwnProperty('user_id')">
             <v-row> 
-                <v-col cols="12">                  
+                <v-col cols="12">  
                     <ProfilMahasiswa :datamhs="datamhs" url="/kemahasiswaan" />
                 </v-col>
             </v-row>
@@ -58,7 +58,7 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
-                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                 
+                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
             </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -124,7 +124,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -134,7 +134,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TOTAL :</v-card-title>
@@ -143,8 +143,8 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
-                                            </v-row>                                            
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                            </v-row>            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -154,7 +154,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>STATUS :</v-card-title>
@@ -163,7 +163,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                             </v-row>  
                                             <v-row>
                                                 <v-col cols="12">
@@ -172,10 +172,10 @@
                                                         :hide-default-footer="true"
                                                         :items="data_transaksi_detail"
                                                         :headers="headers_detail">
-                                                        <template v-slot:item.biaya="{ item }">    
+                                                        <template v-slot:item.biaya="{ item }">
                                                             {{item.biaya|formatUang}}
                                                         </template>
-                                                        <template v-slot:item.sub_total="{ item }">    
+                                                        <template v-slot:item.sub_total="{ item }">
                                                             {{item.sub_total|formatUang}}
                                                         </template>
                                                     </v-data-table>
@@ -186,20 +186,20 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.tanggal="{ item }">    
+                        <template v-slot:item.tanggal="{ item }">
                             {{ $date(item.tanggal).format("DD/MM/YYYY") }}
                         </template>
-                        <template v-slot:item.idsmt="{ item }">    
+                        <template v-slot:item.idsmt="{ item }">
                             {{item.ta}} {{ $store.getters["uiadmin/getNamaSemester"](item.idsmt) }}
                         </template>
-                        <template v-slot:item.total="{ item }">    
+                        <template v-slot:item.total="{ item }">
                             {{item.total|formatUang}}
                         </template>
-                        <template v-slot:item.nama_status="{ item }">    
+                        <template v-slot:item.nama_status="{ item }">
                             <v-chip :color="item.style" dark>{{ item.nama_status }}</v-chip>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -208,20 +208,20 @@
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
                                 mdi-eye
-                            </v-icon>                           
-                        </template>           
+                            </v-icon>       
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>ID:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>             
+                        </template> 
                     </v-data-table>
                 </v-col>
             </v-row>

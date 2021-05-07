@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
-        <v-container fluid>             
+        <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -87,15 +87,15 @@
                                 :disabled="btnLoading"
                                 @click.stop="deleteItem(item)">
                                 mdi-delete
-                            </v-icon>    
-                        </template>           
+                            </v-icon>
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>id:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -103,7 +103,7 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>

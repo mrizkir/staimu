@@ -7,12 +7,12 @@
                 item-text="text"
                 item-value="id"
                 label="PROGRAM STUDI"
-                outlined/>           
+                outlined/>   
             <v-select
                 v-model="tahun_akademik"
                 :items="daftar_ta"                
                 label="TAHUN AKADEMIK"
-                outlined/>           
+                outlined/>   
         </v-list-item-content>
     </v-list-item>	
 </template>

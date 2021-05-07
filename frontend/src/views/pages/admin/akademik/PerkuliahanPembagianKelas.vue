@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter2 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" ref="filter2" />	
         </template>
-        <v-container fluid>                         
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -71,14 +71,14 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                                 <v-btn color="primary" icon outlined small class="ma-2" to="/akademik/perkuliahan/pembagiankelas/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMGBAGIAN-KELAS_STORE')">
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
                                 <v-btn color="primary" icon outlined small class="ma-2">
                                     <v-icon>mdi-printer</v-icon>
                                 </v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>                                    
+                                <v-dialog v-model="dialogfrm" max-width="750px" persistent>    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -172,17 +172,17 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>   
-                        </template>           
+                        </template>   
                         <template v-slot:item.actions v-else>
                             N.A
-                        </template>           
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>ID:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -190,7 +190,7 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>

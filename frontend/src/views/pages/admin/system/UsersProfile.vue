@@ -25,12 +25,12 @@
                 </v-alert>
             </template>
         </ModuleHeader>   
-        <v-container fluid>    
+        <v-container fluid>
             <v-row class="mb-4">
                 <v-col cols="12">
                     <v-card color="grey lighten-4">
                         <v-toolbar elevation="2"> 
-                            <v-toolbar-title>DATA USER</v-toolbar-title>                                                        
+                            <v-toolbar-title>DATA USER</v-toolbar-title>                        
                         </v-toolbar>
                         <v-card-text>
                             <v-row>
@@ -156,7 +156,7 @@
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                             </v-row>
                         </v-card-text>
-                    </v-card>                    
+                    </v-card>
                 </v-col>
             </v-row>
             <v-row> 
@@ -170,7 +170,7 @@
                             <v-card-title>
                                 <span class="headline">GANTI PASSWORD</span>
                             </v-card-title>
-                            <v-card-text>    
+                            <v-card-text>
                                  <v-text-field 
                                     v-model="formdata.password" 
                                     label="PASSWORD BARU"
@@ -180,7 +180,7 @@
                                 </v-text-field> 
                             </v-card-text>
                             <v-card-actions>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 

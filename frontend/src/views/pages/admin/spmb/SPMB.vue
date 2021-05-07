@@ -123,16 +123,16 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
-                                :items="daftar_registrasi">                                    
+                                :items="daftar_registrasi">    
                                 <template v-slot:body.append v-if="daftar_registrasi.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_registrasi}}</td>                                                                                
+                                        <td class="text-right">{{total_registrasi}}</td>                                                
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>                            
+                                <template v-slot:no-data>        
                                     belum ada data calon mahasiswa baru yang mengisi formulir pendaftaran.
-                                </template>                           
+                                </template>       
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -154,16 +154,16 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
-                                :items="daftar_isi_formulir">                                    
+                                :items="daftar_isi_formulir">    
                                 <template v-slot:body.append v-if="daftar_isi_formulir.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_isi_formulir}}</td>                                                                                
+                                        <td class="text-right">{{total_isi_formulir}}</td>                                                
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>                            
+                                <template v-slot:no-data>        
                                     belum ada data calon mahasiswa baru yang mengisi formulir.
-                                </template>                           
+                                </template>       
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -187,16 +187,16 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
-                                :items="daftar_lulus">                                    
+                                :items="daftar_lulus">    
                                 <template v-slot:body.append v-if="daftar_lulus.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_lulus}}</td>                                                                                
+                                        <td class="text-right">{{total_lulus}}</td>                                                
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>                            
+                                <template v-slot:no-data>        
                                     belum ada data calon mahasiswa baru yang lulus.
-                                </template>                           
+                                </template>       
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -218,16 +218,16 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
-                                :items="daftar_tidak_lulus">                                    
+                                :items="daftar_tidak_lulus">    
                                 <template v-slot:body.append v-if="daftar_lulus.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_tidak_lulus}}</td>                                                                                
+                                        <td class="text-right">{{total_tidak_lulus}}</td>                                                
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>                            
+                                <template v-slot:no-data>        
                                     belum ada data calon mahasiswa baru yang tidak lulus.
-                                </template>                           
+                                </template>       
                             </v-data-table>
                         </v-card-text>
                     </v-card>

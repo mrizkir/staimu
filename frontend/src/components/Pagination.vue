@@ -6,7 +6,7 @@
 		prev-icon="mdi-menu-left"
 		next-icon="mdi-menu-right"
 	>
-	</v-pagination>		
+	</v-pagination>
 </template>
 <script>	
 	export default {

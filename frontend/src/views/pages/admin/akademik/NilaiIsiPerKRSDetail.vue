@@ -72,7 +72,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>               
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -91,18 +91,18 @@
                                     </v-card>
                                 </v-col>
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                            </v-row>            
+                            </v-row>
                         </v-card-text>
                     </v-card>
-                </v-col>                
+                </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">     
-                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                <v-col cols="12"> 
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-card>
                             <v-card-title>
                                 DAFTAR MATAKULIAH
-                                <v-spacer></v-spacer>                            
+                                <v-spacer></v-spacer>        
                             </v-card-title>
                             <v-card-text>
                                 <v-data-table        
@@ -113,8 +113,8 @@
                                     :disable-pagination="true"
                                     :hide-default-footer="true"                                                                
                                     :loading="datatableLoading"
-                                    loading-text="Loading... Please wait">                                
-                                    <template v-slot:item.n_kuan="props">                                    
+                                    loading-text="Loading... Please wait">
+                                    <template v-slot:item.n_kuan="props">    
                                         <VAngkaNilai                                                            
                                             v-model="props.item.n_kuan"                                    
                                             dense                                    
@@ -122,7 +122,7 @@
                                             :disabled="props.item.bydosen">
                                         </VAngkaNilai> 
                                     </template> 
-                                    <template v-slot:item.n_kual="props">                                    
+                                    <template v-slot:item.n_kual="props">    
                                         <v-select 
                                             :items="$store.getters['uiadmin/getSkalaNilai']" 
                                             v-model="props.item.n_kual"
@@ -138,7 +138,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>                                            
+                                            <td></td>            
                                         </tr>
                                         <tr class="grey lighten-4 font-weight-black">
                                             <td class="text-right" colspan="2">TOTAL SKS</td>
@@ -146,7 +146,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>                                            
+                                            <td></td>            
                                         </tr>
                                     </template>   
                                     <template v-slot:no-data>

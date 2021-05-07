@@ -106,7 +106,7 @@
                                     label="ROLES"
                                     :items="daftar_role"
                                     v-model="role_name"
-                                >                                    
+                                >    
                                 </v-select>
                                 <v-text-field
                                     v-model="search"
@@ -132,7 +132,7 @@
                             show-select
                             class="elevation-1"
                         >
-                        <template v-slot:item.actions="{ item }">                            
+                        <template v-slot:item.actions="{ item }">        
                             <v-icon
                                 small
                                 

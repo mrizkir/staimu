@@ -14,7 +14,7 @@
                                     v-model="formdata.nidn"    
                                     :rules="rule_nidn"
                                     filled
-                                />                               
+                                />           
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -23,8 +23,8 @@
                                     :rules="rule_nipy"
                                     filled
                                 />
-                            </v-col>                            
-                        </v-row>                              
+                            </v-col>        
+                        </v-row>          
                         <v-row>
                             <v-col cols="3">
                                 <v-text-field
@@ -48,7 +48,7 @@
                                     filled
                                 />
                             </v-col>
-                        </v-row>                        
+                        </v-row>    
                         <v-text-field
                             label="TEMPAT LAHIR"
                             v-model="formdata.tempat_lahir"     
@@ -101,7 +101,7 @@
                             v-model="formdata.email"
                             :rules="rule_email"
                             filled
-                        />                      
+                        />  
                     </v-card-text>
                 </v-card>
                 <v-card class="mb-4">
@@ -155,10 +155,10 @@
                             filled
                         />
                     </v-card-text>
-                </v-card>               
-                <v-card class="mb-4">                    
-                    <v-card-actions>                        
-                        <v-spacer></v-spacer>                        
+                </v-card>   
+                <v-card class="mb-4">
+                    <v-card-actions>    
+                        <v-spacer></v-spacer>    
                         <v-btn 
                             color="blue darken-1" 
                             text 

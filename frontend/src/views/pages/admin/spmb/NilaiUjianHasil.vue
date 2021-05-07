@@ -16,7 +16,7 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>            
+            </template>
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
@@ -28,11 +28,11 @@
                 </v-alert>
             </template>
         </ModuleHeader> 
-        <v-container fluid>            
-            <v-row class="mb-4" no-gutters>                
+        <v-container fluid>
+            <v-row class="mb-4" no-gutters>
                     
             </v-row>
-        </v-container>                
+        </v-container>
     </SPMBLayout>
 </template>
 <script>

@@ -6,14 +6,14 @@
             </template>
             <template v-slot:name>
                 BIODATA DIRI
-            </template>            
+            </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
                     <template v-slot:divider>
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>           
+            </template>   
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
@@ -152,10 +152,10 @@
                                     filled
                                 />
                             </v-card-text>
-                        </v-card>                        
-                        <v-card class="mb-4">                    
-                            <v-card-actions>                                
-                                <v-spacer></v-spacer>                        
+                        </v-card>    
+                        <v-card class="mb-4">
+                            <v-card-actions>
+                                <v-spacer></v-spacer>    
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 
@@ -167,7 +167,7 @@
                     </v-form>
                 </v-col>
             </v-row>
-        </v-container>                
+        </v-container>
     </SystemUserLayout>
 </template>
 <script>

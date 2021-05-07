@@ -131,7 +131,7 @@
 																																item-value="id"
 																																item-text="nmatkul"                                                      
 																																outlined>
-																														</v-select>     
+																														</v-select> 
 																												</v-col>
 																										</v-row>
 																								</v-card-text>

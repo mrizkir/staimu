@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
-        <v-container fluid>                         
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -74,9 +74,9 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                             </v-toolbar>
-                            <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+                            <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
                                 <v-card>
                                     <v-card-title>
                                         <span class="headline">Print to PDF</span>
@@ -85,15 +85,15 @@
                                         <v-btn
                                             color="green"
                                             text
-                                            :href="$api.url+'/'+file_pdf">                            
+                                            :href="$api.url+'/'+file_pdf">        
                                             Download
-                                        </v-btn>                           
+                                        </v-btn>       
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>        
                                     </v-card-actions>
-                                </v-card>            
+                                </v-card>
                             </v-dialog>
                         </template>
                         <template v-slot:item.idkelas="{item}">
@@ -117,15 +117,15 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>                               
-                        </template>           
+                            </v-btn>           
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>krs_id:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -133,7 +133,7 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>

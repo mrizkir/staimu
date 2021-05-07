@@ -24,8 +24,8 @@
                     Daftar aksi-aksi terhadap sebuah modul. Format penulisan permission, NAMAMODULE atau NAMA MODULE. Nama Permission tighly coupling dengan kode sumber.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>    
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col xs="12" sm="12" md="12">
                     <v-card>
@@ -65,9 +65,9 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                                             
+                                <v-spacer></v-spacer>                             
                             </v-toolbar>
-                        </template>                       
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <strong>ID:</strong>{{ item.id }}

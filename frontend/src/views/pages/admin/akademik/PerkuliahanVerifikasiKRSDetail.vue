@@ -30,16 +30,16 @@
         </ModuleHeader>   
         <v-container fluid v-if="Object.keys(datakrs).length">   
             <v-row> 
-                <v-col cols="12">                  
+                <v-col cols="12">  
                     <DataKRS :datakrs="datakrs" url="/akademik/perkuliahan/krs/verifikasi" :totalmatkul="totalMatkul" :totalsks="totalSKS" />
                 </v-col>
-            </v-row>            
+            </v-row>
             <v-row>
-                <v-col cols="12">           
+                <v-col cols="12">   
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
-                            <v-spacer></v-spacer>                                                        
+                            <v-spacer></v-spacer>                        
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
@@ -50,20 +50,20 @@
                                 :disable-pagination="true"
                                 :hide-default-footer="true"                                                                
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                                                                
+                                loading-text="Loading... Please wait">                                
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
                                         <td>{{totalMatkul}}</td> 
                                         <td></td>
                                         <td></td>
-                                        <td></td>                                        
+                                        <td></td>        
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
                                         <td></td>
-                                        <td></td>                                        
+                                        <td></td>        
                                         <td></td>
                                     </tr>
                                 </template>   

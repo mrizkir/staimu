@@ -27,7 +27,7 @@
                         Berisi laporan kelulusan calon mahasiswa baru.
                 </v-alert>
             </template>
-        </ModuleHeader>         
+        </ModuleHeader> 
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -77,22 +77,22 @@
                                     <v-icon>
                                         mdi-printer
                                     </v-icon>
-                                </v-btn>                              
-                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">                                    
+                                </v-btn>          
+                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">    
                                     <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />  
-                                </v-dialog>                                
+                                </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }">
                             <v-badge
                                     bordered
                                     :color="badgeColor(item)"
                                     :icon="badgeIcon(item)"
                                     overlap
-                                >                
-                                    <v-avatar size="30">                                        
-                                        <v-img :src="$api.url+'/'+item.foto" />                                   
-                                    </v-avatar>                                                                                                  
+                                >
+                                    <v-avatar size="30">        
+                                        <v-img :src="$api.url+'/'+item.foto" />   
+                                    </v-avatar>                                                                  
                             </v-badge>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -109,7 +109,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                      
+                                </v-col>      
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -118,7 +118,7 @@
                     </v-data-table>
                 </v-col>
             </v-row>
-        </v-container>        
+        </v-container>
         <template v-slot:filtersidebar v-if="dashboard!='mahasiswabaru'">
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>

@@ -14,20 +14,20 @@
 														>
 																Kirim Ulang
 														</v-btn>
-												</v-card-text>                    
+												</v-card-text>
 										</v-card>
 								</v-timeline-item> -->
 								<v-timeline-item color="purple darken-1" icon="mdi-book-variant" fill-dot>
 										<v-card color="purple darken-1" dark>
 												<v-card-title class="title">Formulir Pendaftaran</v-card-title>
-												<v-card-text class="white text--primary">                            
+												<v-card-text class="white text--primary">        
 														<p>Isi formulir pendaftaran dan lengkapi persyaratannya yaitu:</p>
 														<ul>
 																<li>Scan Pas Foto</li>
 																<li>Scan Ijazah Terakhir</li>
 																<li>Scan KTP</li>
 																<li>Scan Kartu Keluarga</li>
-														</ul>                            
+														</ul>        
 														<v-btn
 																color="purple darken-1"
 																class="mx-0 mr-2"
@@ -44,7 +44,7 @@
 														>
 																Upload Persyaratan
 														</v-btn>
-												</v-card-text>                    
+												</v-card-text>
 										</v-card>
 								</v-timeline-item>
 								<v-timeline-item color="red lighten-2" icon="mdi-account-cash" fill-dot>
@@ -59,9 +59,9 @@
 																to="/keuangan/konfirmasipembayaran">
 																Konfirmasi
 														</v-btn>
-												</v-card-text>                    
+												</v-card-text>
 										</v-card>
-								</v-timeline-item>                
+								</v-timeline-item>
 								<v-timeline-item color="indigo" icon="mdi-head-question-outline" fill-dot v-if="status_ujian">
 										<v-card color="indigo">
 												<v-card-title class="title white--text">Ujian Online</v-card-title>
@@ -102,7 +102,7 @@
 																outlined>
 																Mulai
 														</v-btn>
-												</v-card-text>                    
+												</v-card-text>
 										</v-card>
 								</v-timeline-item>
 								<v-timeline-item color="indigo" icon="mdi-head-question-outline" fill-dot v-else>
@@ -117,8 +117,8 @@
 																outlined>
 																Pilih Jadwal Ujian
 														</v-btn>
-												</v-card-text>                    
-										</v-card>                    
+												</v-card-text>
+										</v-card>
 								</v-timeline-item>
 								<!-- <v-timeline-item color="green lighten-1" icon="mdi-airballoon" fill-dot>
 										<v-card color="green lighten-1" dark>
@@ -132,12 +132,12 @@
 														>
 																Button
 														</v-btn>
-												</v-card-text>                    
+												</v-card-text>
 										</v-card>
 								</v-timeline-item> -->
 						</v-timeline>
 				</v-col>
-				<v-dialog v-model="dialogpilihjadwal" persistent>                       
+				<v-dialog v-model="dialogpilihjadwal" persistent>   
 						<v-card>
 								<v-card-title>
 										<span class="headline">Pilih Jadwal Ujian PMB</span>
@@ -172,9 +172,9 @@
 								</v-card-text>
 								<v-card-actions>
 										<v-spacer></v-spacer>
-										<v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>                    
+										<v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
 								</v-card-actions>
-						</v-card>            
+						</v-card>
 				</v-dialog>
 		</v-row>
 </template>

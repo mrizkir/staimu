@@ -6,7 +6,7 @@
         <v-app-bar app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="grey--text"></v-app-bar-nav-icon>
             <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/' + $store.getters['auth/AccessToken']).catch(err => {})">
-				<span class="hidden-sm-and-down">{{APP_NAME}}</span>
+				<span class="hidden-sm-and-down">{{ APP_NAME }}</span>
 			</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu 
@@ -19,22 +19,22 @@
                 <template v-slot:activator="{on}">
                     <v-avatar size="30">
                         <v-img :src="photoUser" v-on="on" />
-                    </v-avatar>                    
+                    </v-avatar>
                 </template>
                 <v-list>
                     <v-list-item>
                         <v-list-item-avatar>
                             <v-img :src="photoUser"></v-img>
                         </v-list-item-avatar>
-                        <v-list-item-content>					
+                        <v-list-item-content>
                             <v-list-item-title class="title">
                                 {{ ATTRIBUTE_USER('username') }}
                             </v-list-item-title>
-                            <v-list-item-subtitle>                                
+                            <v-list-item-subtitle>
                                 [{{ DEFAULT_ROLE }}]
                             </v-list-item-subtitle>
                         </v-list-item-content>
-                    </v-list-item>                    
+                    </v-list-item>
                     <v-divider/>
                     <v-list-item to="/system-users/profil">
                         <v-list-item-icon class="mr-2">
@@ -58,14 +58,14 @@
             ></v-divider>
 			<v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight">
                 <v-icon>mdi-menu-open</v-icon>
-			</v-app-bar-nav-icon>            
-        </v-app-bar>    
+			</v-app-bar-nav-icon>
+        </v-app-bar>
         <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="temporaryleftsidebar" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
 				</v-list-item-avatar>
-				<v-list-item-content>					
+				<v-list-item-content>
 					<v-list-item-title class="title">
 						{{ ATTRIBUTE_USER('username') }}
 					</v-list-item-title>
@@ -93,8 +93,8 @@
                             SOAL PMB
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>        
-                <v-subheader>DATA MHS. BARU</v-subheader>                
+                </v-list-item>
+                <v-subheader>DATA MHS. BARU</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB_BROWSE')" to="/spmb/pendaftaranbaru">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account-plus</v-icon>
@@ -104,7 +104,7 @@
                             PENDAFTAR
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                    
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-FORMULIR-PENDAFTARAN_BROWSE')" to="/spmb/formulirpendaftaran">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -114,7 +114,7 @@
                             BIODATA
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                    
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-PERSYARATAN_BROWSE')" to="/spmb/persyaratan">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -124,8 +124,8 @@
                             PERSYARATAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>            
-                <v-subheader>UJIAN PMB</v-subheader>       
+                </v-list-item>
+                <v-subheader>UJIAN PMB</v-subheader>   
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-JADWAL-UJIAN_BROWSE') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'" to="/spmb/jadwalujianpmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-calendar-account</v-icon>
@@ -135,7 +135,7 @@
                             JADWAL UJIAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>      
+                </v-list-item>  
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-NILAI-UJIAN_BROWSE') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'" to="/spmb/nilaiujian">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-calendar-account</v-icon>
@@ -145,8 +145,8 @@
                             NILAI UJIAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>      
-                <v-subheader v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">LAPORAN</v-subheader>                      
+                </v-list-item>  
+                <v-subheader v-if="CAN_ACCESS('SPMB-GROUP') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'">LAPORAN</v-subheader>  
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-LAPORAN-FAKULTAS_BROWSE') && isBentukPT('universitas')" to="/spmb/laporanfakultas">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -166,7 +166,7 @@
                             LAPORAN PRODI
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-LAPORAN-KELULUSAN_BROWSE')" to="/spmb/laporankelulusan">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-file-document-edit-outline</v-icon>
@@ -176,16 +176,16 @@
                             LAPORAN KELULUSAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>                
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
             <v-list dense>
-                <v-list-item>		
+                <v-list-item>
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-menu-open</v-icon>
-                    </v-list-item-icon>			
-                    <v-list-item-content>									
+                    </v-list-item-icon>
+                    <v-list-item-content>				
                         <v-list-item-title class="title">
                             OPTIONS
                         </v-list-item-title>
@@ -196,28 +196,28 @@
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-filter</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>								
+                    <v-list-item-content>			
                         <v-list-item-title>FILTER</v-list-item-title>
-                    </v-list-item-content>		
+                    </v-list-item-content>
                 </v-list-item>
-                <slot name="filtersidebar"/>		                	
+                <slot name="filtersidebar"/>	
             </v-list>
 		</v-navigation-drawer>
-        <v-main class="mx-4 mb-4">			
+        <v-main class="mx-4 mb-4">
 			<slot />
 		</v-main>
         <v-footer app padless fixed>
 			<v-card class="flex" color="yellow darken-2" flat tile>
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
-					<strong>{{APP_NAME}} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
+					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
 					<v-btn icon href="https://github.com/mrizkir/stiemu">
 						<v-icon>mdi-github</v-icon>
-					</v-btn>					
+					</v-btn>
 				</v-card-text>
-			</v-card>			
+			</v-card>
 		</v-footer>  
-    </div>    
+    </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -245,9 +245,9 @@ export default {
         dashboard: null,
     }),       
     methods: {        
-        logout ()
+        logout()
         {
-            this.loginTime=0;
+            this.loginTime = 0;
             this.$ajax.post('/auth/logout',
                 {},
                 {
@@ -255,22 +255,22 @@ export default {
                         'Authorization': this.TOKEN,
                     }
                 }
-            ).then(()=> {     
-                this.$store.dispatch('auth/logout');	
-                this.$store.dispatch('uifront/reinit');	
-                this.$store.dispatch('uiadmin/reinit');	
+            ).then(() => {
+                this.$store.dispatch('auth/logout');
+                this.$store.dispatch('uifront/reinit');
+                this.$store.dispatch('uiadmin/reinit');
                 this.$router.push('/');
             })
             .catch(() => {
-                this.$store.dispatch('auth/logout');	
-                this.$store.dispatch('uifront/reinit');	
-                this.$store.dispatch('uiadmin/reinit');	
+                this.$store.dispatch('auth/logout');
+                this.$store.dispatch('uifront/reinit');
+                this.$store.dispatch('uiadmin/reinit');
                 this.$router.push('/');
             });
         },
-        isBentukPT (bentuk_pt)
+        isBentukPT(bentuk_pt)
         {
-            return this.$store.getters['uifront/getBentukPT']==bentuk_pt?true: false;
+            return this.$store.getters['uifront/getBentukPT'] == bentuk_pt ? true : false;
         }
 	},
     computed: {
@@ -289,15 +289,15 @@ export default {
         },
         photoUser()
 		{
-			let img=this.ATTRIBUTE_USER('foto');
+			let img = this.ATTRIBUTE_USER('foto');
 			var photo;
 			if (img == '')
 			{
-				photo = this.$api.url+'/storage/images/users/no_photo.png';	
+				photo = this.$api.url + '/storage/images/users/no_photo.png';	
 			}
 			else
 			{
-				photo = this.$api.url+'/'+img;	
+				photo = this.$api.url + "/" + img;	
 			}
 			return photo;
         },     

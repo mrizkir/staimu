@@ -6,7 +6,7 @@
             </template>
             <template v-slot:name>
                 CHANNEL PEMBAYARAN
-            </template>            
+            </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
                     <template v-slot:divider>
@@ -24,7 +24,7 @@
                         Halaman ini berisi informasi macam-macam channel pembayaran.
                     </v-alert>
             </template>
-        </ModuleHeader>        
+        </ModuleHeader>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -41,7 +41,7 @@
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
-                        loading-text="Loading... Please wait">     
+                        loading-text="Loading... Please wait"> 
                         <template v-slot:top>
                             <v-toolbar flat color="white">
                                 <v-toolbar-title>DAFTAR CHANNEL</v-toolbar-title>
@@ -50,16 +50,16 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                             </v-toolbar>
-                        </template>                          
+                        </template>      
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>ID:</strong>{{ item.id_channel }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

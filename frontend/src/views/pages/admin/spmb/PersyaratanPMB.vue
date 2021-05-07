@@ -81,21 +81,21 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">                                    
+                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">    
                                     <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />  
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }">
                             <v-badge
                                 bordered
                                 :color="badgeColor(item)"
                                 :icon="badgeIcon(item)"
                                 :value="item.jumlah_persyaratan > 0"
-                                overlap>                
-                                <v-avatar size="30">                                        
-                                    <v-img :src="$api.url+'/'+item.foto" />                                   
-                                </v-avatar>                                                                                                  
+                                overlap>
+                                <v-avatar size="30">        
+                                    <v-img :src="$api.url+'/'+item.foto" />   
+                                </v-avatar>                                                                  
                             </v-badge>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -112,7 +112,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -120,7 +120,7 @@
                         </template>
                     </v-data-table>
                 </v-col>
-            </v-row>           
+            </v-row>   
         </v-container>
         <template v-slot:filtersidebar v-if="dashboard!='mahasiswabaru'">
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	

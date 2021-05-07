@@ -97,13 +97,13 @@
                         </template>
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
-                        </template>                        
+                        </template>    
                         <template v-slot:item.k_status="{item}">
                             {{$store.getters['uiadmin/getStatusMahasiswa'](item.k_status)}}
-                        </template>                        
+                        </template>    
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>id:</strong>{{ item.user_id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
@@ -127,7 +127,7 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
     </KemahasiswaanLayout>
 </template>

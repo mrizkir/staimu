@@ -31,8 +31,8 @@
         <template v-slot:filtersidebar>
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
-        <DashboardKeuanganMHS :ta="tahun_akademik" v-if="dashboard== 'mahasiswa'"></DashboardKeuanganMHS>        
-        <DashboardKeuanganAdmin :ta="tahun_akademik" v-else></DashboardKeuanganAdmin>        
+        <DashboardKeuanganMHS :ta="tahun_akademik" v-if="dashboard== 'mahasiswa'"></DashboardKeuanganMHS>
+        <DashboardKeuanganAdmin :ta="tahun_akademik" v-else></DashboardKeuanganAdmin>
     </KeuanganLayout>
 </template>
 <script>

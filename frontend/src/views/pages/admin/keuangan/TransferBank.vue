@@ -70,7 +70,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>                                        
+                                        </v-btn>        
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -83,25 +83,25 @@
                                                     label="NAMA BANK"
                                                     outlined
                                                     :rules="rule_nama_bank">
-                                                </v-text-field>                                        
+                                                </v-text-field>        
                                                 <v-text-field 
                                                     v-model="formdata.nama_cabang" 
                                                     label="CABANG"
                                                     outlined
                                                     :rules="rule_nama_cabang">
-                                                </v-text-field>                                        
+                                                </v-text-field>        
                                                 <v-text-field 
                                                     v-model="formdata.nomor_rekening" 
                                                     label="NOMOR REKENING"
                                                     outlined
                                                     :rules="rule_no_rekening">
-                                                </v-text-field>                                        
+                                                </v-text-field>        
                                                 <v-text-field 
                                                     v-model="formdata.pemilik_rekening" 
                                                     label="PEMILIK REKENING"
                                                     outlined
                                                     :rules="rule_pemilik">
-                                                </v-text-field>                                        
+                                                </v-text-field>        
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -143,7 +143,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -163,7 +163,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>            
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -183,13 +183,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>            
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -220,7 +220,7 @@
                                     <strong>ID:</strong>{{ item.id }}     
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}                               
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

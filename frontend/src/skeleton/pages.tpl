@@ -37,7 +37,7 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
-            </v-row>    
+            </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -93,7 +93,7 @@
                                                     label="NAME"
                                                     outlined
                                                     :rules="rule_name">
-                                                </v-text-field>                                             
+                                                </v-text-field>             
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -161,11 +161,11 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.id="{ item }">    
+                        <template v-slot:item.id="{ item }">
                            {{item.id}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -195,7 +195,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

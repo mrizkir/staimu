@@ -15,7 +15,7 @@
 					<v-icon class="mr-1" color="blue-grey lighten-2" small>mdi-account</v-icon>
 					<span class="body-2 mr-2">{{data.username}}</span>
 				</v-card-actions>
-			</div>				
+			</div>	
 		</div>
 	</v-card>
 </template>

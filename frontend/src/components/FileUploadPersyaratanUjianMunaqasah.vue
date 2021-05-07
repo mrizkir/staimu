@@ -51,7 +51,7 @@
 				if (this.$refs.frmpersyaratan.validate()) {
 					if (typeof this.filepersyaratan[index] !== 'undefined') {
 						this.btnLoading = true;
-						var formdata = new FormData();						
+						var formdata = new FormData();					
 						formdata.append("filepersyaratan", this.filepersyaratan[index]);
 						await this.$ajax
 							.post(

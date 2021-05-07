@@ -44,7 +44,7 @@
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
-                        loading-text="Loading... Please wait">     
+                        loading-text="Loading... Please wait"> 
                         <template v-slot:top>
                             <v-toolbar flat color="white">
                                 <v-toolbar-title>DAFTAR NILAI PASSING GRADE</v-toolbar-title>
@@ -77,24 +77,24 @@
                                 @close="closeItem"> 
                                     {{ props.item.nilai }}                                    
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Nilai</div>                                        
+                                        <div class="mt-4 title">Update Nilai</div>        
                                         <v-text-field 
                                             label="NILAI PASSING GRADE" 
                                             :rules="rule_angka"
                                             outlined
                                             autofocus
-                                            v-model="props.item.nilai">                                        
+                                            v-model="props.item.nilai">        
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>ID:</strong>{{ item.id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

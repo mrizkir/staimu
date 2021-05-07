@@ -70,7 +70,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>                                        
+                                        </v-btn>        
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -135,7 +135,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                  
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                 </v-row>
                                                 <v-row no-gutters>
                                                     <v-col xs="12" sm="12" md="12">
@@ -173,7 +173,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>                  
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                 </v-row>
                                             </v-card-text>
                                             <v-card-actions>

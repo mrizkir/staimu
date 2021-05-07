@@ -141,7 +141,7 @@
 												</tr>
 											</tbody>
 										</table>
-										<v-dialog v-model="dialogfrm" max-width="700px" persistent>											
+										<v-dialog v-model="dialogfrm" max-width="700px" persistent>						
 											<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 												<v-card>
 													<v-card-title>
@@ -484,7 +484,7 @@
 					.then(({ data }) => {               
 						this.daftar_dosen = data.users;                                
 						this.dialogfrm = true;
-					});				
+					});			
 			},
 			closedialogfrm() {
 				this.dialogfrm = false;            

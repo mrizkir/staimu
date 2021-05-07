@@ -44,13 +44,13 @@
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
-                        loading-text="Loading... Please wait">     
+                        loading-text="Loading... Please wait"> 
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                                    
+                                <v-col cols="12">    
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

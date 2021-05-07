@@ -25,7 +25,7 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <v-container>     
+        <v-container> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -67,7 +67,7 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="600px" persistent>
-                                    <template v-slot:activator="{ on }">                                        
+                                    <template v-slot:activator="{ on }">        
                                         <v-btn color="primary" icon outlined small class="ma-2"  v-on="on">
                                             <v-icon>mdi-plus</v-icon>
                                         </v-btn>
@@ -107,13 +107,13 @@
                                                     label="IM TOKEN"
                                                     outlined
                                                     :rules="rule_im_token">
-                                                </v-text-field>       
+                                                </v-text-field>   
                                                 <v-text-field 
                                                     v-model="formdata.jwt_token" 
                                                     label="JWT TOKEN"
                                                     outlined
                                                     :disabled="true">
-                                                </v-text-field>                                    
+                                                </v-text-field>    
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -156,7 +156,7 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
-                                            <v-row no-gutters>                                            
+                                            <v-row no-gutters>            
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>EMAIL :</v-card-title>
@@ -176,7 +176,7 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
-                                            <v-row no-gutters>    
+                                            <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>API SECRET :</v-card-title>
@@ -196,7 +196,7 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
-                                            <v-row no-gutters>    
+                                            <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>JWT TOKEN :</v-card-title>
@@ -216,7 +216,7 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
-                                            <v-row no-gutters>    
+                                            <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>DESC :</v-card-title>
@@ -234,18 +234,18 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.id="{ item }">    
+                        <template v-slot:item.id="{ item }">
                            {{item.id}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -275,7 +275,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>    
+                                </v-col>
                                 <v-col cols="12">
                                     <v-btn block elevation="2"
                                     color="green" 

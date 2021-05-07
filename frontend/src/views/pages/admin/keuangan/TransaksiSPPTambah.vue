@@ -28,7 +28,7 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid v-if="data_transaksi">           
+        <v-container fluid v-if="data_transaksi">   
             <v-row>   
                 <v-col cols="12">
                     <v-card>
@@ -87,7 +87,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>            
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
@@ -116,14 +116,14 @@
                                     </v-card>
                                 </v-col>
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                            </v-row>            
+                            </v-row>
                         </v-card-text>
                     </v-card>
-                </v-col>                
+                </v-col>
             </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
-                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-data-table
                             :headers="headers"
                             :items="item_selected"                                                                       
@@ -141,14 +141,14 @@
                                         inset
                                         vertical
                                     ></v-divider>
-                                    <v-spacer></v-spacer>    
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>                                                            
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length >0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>                            
                                 </v-toolbar>
                             </template>   
                             <template v-slot:item.biaya_kombi="{ item }">  
                                 {{item.biaya_kombi|formatUang}}
                             </template>
-                            <template v-slot:item.actions="{ item }">                             
+                            <template v-slot:item.actions="{ item }">         
                                 <v-icon
                                     small
                                     
@@ -163,12 +163,12 @@
                                     <td>{{totalBulan}} Bulan</td> 
                                     <td></td>
                                     <td>{{totalBiayaKombi|formatUang}}</td>
-                                    <td></td>                                
-                                </tr>                            
+                                    <td></td>
+                                </tr>        
                             </template>   
                             <template v-slot:no-data>
                                 daftar bulan yang akan dibayar belum tersedia; silahkan pilih bulan di bawah ini.
-                            </template>                     
+                            </template> 
                         </v-data-table>
                     </v-form>
                 </v-col>
@@ -194,10 +194,10 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                    
+                                <v-spacer></v-spacer>    
                             </v-toolbar>
-                        </template>                        
-                        <template v-slot:item="{ item }">    
+                        </template>    
+                        <template v-slot:item="{ item }">
                             <tr>
                                 <td>
                                     <v-checkbox                                                       
@@ -223,7 +223,7 @@
                                 </td>
                                 <td>N.A</td>
                             </tr>
-                        </template>                        
+                        </template>    
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
                         </template>  

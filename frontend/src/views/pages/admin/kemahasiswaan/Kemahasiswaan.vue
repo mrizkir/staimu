@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter1 v-on:changeTahunAkademik="changeTahunAkademik" ref="filter1" />
         </template>
-        <v-container fluid>            
+        <v-container fluid>
             <v-row>
                 <v-col cols="12">
                     <v-card outlined>
@@ -39,8 +39,8 @@
                             <v-list-item-content>
                                 <div class="overline mb-1">
                                     PROFIL MAHASISWA (MASUKAN NIM)
-                                </div>                                
-                                <v-list-item-subtitle>                                    
+                                </div>
+                                <v-list-item-subtitle>    
                                     <v-autocomplete
                                         v-model="data_mhs"
                                         :items="entries"
@@ -69,10 +69,10 @@
                         <v-divider></v-divider>
                         <v-expand-transition>
                             <v-list v-if="data_mhs">
-                                <template v-for="(field, i) in fields">                                    
+                                <template v-for="(field, i) in fields">    
                                 <v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias'">
                                     <v-list-item-content>
-                                        <v-list-item-title>                                            
+                                        <v-list-item-title>            
                                             {{field.value}}
                                         </v-list-item-title>
                                         <v-list-item-subtitle>
@@ -104,7 +104,7 @@
                                 </v-icon>
                             </v-btn>
                         </v-card-actions>
-                    </v-card>                    
+                    </v-card>
                 </v-col>
             </v-row>
         </v-container>

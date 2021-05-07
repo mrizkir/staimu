@@ -25,7 +25,7 @@
                 </v-alert>
             </template>
         </ModuleHeader>   
-        <v-container fluid>             
+        <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -67,10 +67,10 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="500px" persistent>
-                                    <template v-slot:activator="{ on }">                                        
+                                    <template v-slot:activator="{ on }">        
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>                                        
+                                        </v-btn>        
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -131,13 +131,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>                                            
+                                            </v-row>            
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -166,7 +166,7 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
                                     <strong>ID:</strong>{{ item.kode_fakultas }}                                   
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

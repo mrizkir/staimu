@@ -5,7 +5,7 @@
 			<v-progress-circular indeterminate size="64" color="amber" />
 		</v-overlay>
 		<v-snackbar v-model="snackbar_success" :color="snackbar_color" :top="true">
-			{{ page_message }}<br>			
+			{{ page_message }}<br>
 		</v-snackbar>
 		<v-snackbar v-model="snackbar_error" :color="snackbar_color" :top="true">
 			{{ page_message }}<br>
@@ -59,8 +59,8 @@ export default {
 					if (data.page != 'login')
 					{
 						this.$store.dispatch('auth/logout');
-						this.$store.dispatch('uifront/reinit');	
-						this.$store.dispatch('uiadmin/reinit');	
+						this.$store.dispatch('uifront/reinit');
+						this.$store.dispatch('uiadmin/reinit');
 						this.snackbar_color='error';
 						this.snackbar_error=true;	
 						this.page_message='('+status+': '+data.error+') Token telah expire mohon login kembali';	
@@ -109,7 +109,7 @@ export default {
 								error: [{
 									'message':data[p]
 								}]
-							});							
+							});						
 						}						
 					}					
 					this.page_form_error_message=error_messages;

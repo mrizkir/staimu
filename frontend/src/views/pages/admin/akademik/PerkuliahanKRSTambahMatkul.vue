@@ -31,16 +31,16 @@
         <v-container fluid v-if="Object.keys(datakrs).length">   
             <v-row>
                 <v-col cols="12">
-                    <DataKRS :datakrs="datakrs" :url="'/akademik/perkuliahan/krs/'+datakrs.id+'/detail'" :totalmatkul="totalMatkul" :totalsks="totalSKS" />                   
+                    <DataKRS :datakrs="datakrs" :url="'/akademik/perkuliahan/krs/'+datakrs.id+'/detail'" :totalmatkul="totalMatkul" :totalsks="totalSKS" />   
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">     
-                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>      
+                <v-col cols="12"> 
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-card>
                             <v-card-title>
                                 DAFTAR PENYELENGGARAAN MATAKULIAH
-                                <v-spacer></v-spacer>                            
+                                <v-spacer></v-spacer>        
                             </v-card-title>
                             <v-card-text>
                                 <v-data-table   
@@ -52,7 +52,7 @@
                                     :disable-pagination="true"
                                     :hide-default-footer="true"                                                                
                                     :loading="datatableLoading"
-                                    loading-text="Loading... Please wait">                                
+                                    loading-text="Loading... Please wait">
                                     <template v-slot:no-data>
                                         Data matakuliah belum tersedia silahkan hubungi bagian akademik
                                     </template>

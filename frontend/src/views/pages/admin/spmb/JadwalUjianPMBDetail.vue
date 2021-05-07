@@ -23,7 +23,7 @@
 				</v-alert>
 			</template>
 		</ModuleHeader>  
-		<v-container fluid v-if="jadwal_ujian_id && data_jadwal">			
+		<v-container fluid v-if="jadwal_ujian_id && data_jadwal">
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-card>
@@ -40,7 +40,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>          
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
 								
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
@@ -131,9 +131,9 @@
 									</v-card>
 								</v-col>
 								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-							</v-row>							
-						</v-card-text>							
-					</v-card>                 
+							</v-row>		
+						</v-card-text>		
+					</v-card> 
 				</v-col>
 			</v-row>
 			<v-row>
@@ -142,17 +142,17 @@
 						<v-btn @click.stop="mulaiUjian" :disabled="btnLoading" v-if="data_jadwal.status_ujian == 0">
 							<span>MULAI UJIAN</span>
 							<v-icon>mdi-play</v-icon>
-						</v-btn>			
+						</v-btn>
 						<v-btn @click.stop="selesaiUjian" :disabled="btnLoading" v-else-if="data_jadwal.status_ujian == 1">
 							<span>SELESAI UJIAN</span>
 							<v-icon>mdi-exit-run</v-icon>
-						</v-btn>			
+						</v-btn>
 						<v-btn @click.stop="closedetail"> 
 							<span>Keluar</span>
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
 					</v-bottom-navigation>
-				</v-col>				
+				</v-col>	
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
@@ -193,20 +193,20 @@
 									inset
 									vertical
 								></v-divider>
-								<v-spacer></v-spacer>																
+								<v-spacer></v-spacer>											
 							</v-toolbar>
 						</template>
 						<template v-slot:item.isfinish="{ item }">
 							{{ getStatusUjianPeserta(item)}}
-						</template>						
-						<template v-slot:item.actions="{ item }">														
+						</template>	
+						<template v-slot:item.actions="{ item }">									
 							<v-icon
 								small								
 								:disabled="btnLoading || item.isfinish!=0 || item.mulai_ujian != null"
 								@click.stop="deleteItem(item)">
 								mdi-delete
 							</v-icon>
-						</template>						
+						</template>	
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
@@ -214,13 +214,13 @@
 									<strong>Username:</strong>{{ item.username }} 									
 									<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }} 
 									<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }} 
-								</v-col>     								
+								</v-col> 								
 							</td>
 						</template>
 						<template v-slot:no-data>
 							Data belum tersedia
 						</template>
-					</v-data-table>					
+					</v-data-table>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -258,10 +258,10 @@
 			];      
 			this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];      
 			this.semester_pendaftaran = this.$store.getters['uiadmin/getSemesterPendaftaran'];
-			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);			
+			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);		
 		},
 		mounted() {
-			this.initialize();			
+			this.initialize();		
 		},
 		data() { 			
 			return {
@@ -374,7 +374,7 @@
 								this.btnLoading = false;
 							});
 					}                
-				});				
+				});			
 			},			
 			closedetail() {
 				this.jadwal_ujian_id = null;

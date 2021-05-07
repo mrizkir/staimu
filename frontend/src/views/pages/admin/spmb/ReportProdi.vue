@@ -16,7 +16,7 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>            
+            </template>
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
@@ -77,19 +77,19 @@
                                     <v-icon>
                                         mdi-printer
                                     </v-icon>
-                                </v-btn>                              
+                                </v-btn>          
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }">
                             <v-badge
                                     bordered
                                     :color="badgeColor(item)"
                                     :icon="badgeIcon(item)"
                                     overlap
-                                >                
-                                    <v-avatar size="30">                                        
-                                        <v-img :src="$api.url+'/'+item.foto" />                                   
-                                    </v-avatar>                                                                                                  
+                                >
+                                    <v-avatar size="30">        
+                                        <v-img :src="$api.url+'/'+item.foto" />   
+                                    </v-avatar>                                                                  
                             </v-badge>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -98,7 +98,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -107,7 +107,7 @@
                     </v-data-table>
                 </v-col>
             </v-row>
-        </v-container>        
+        </v-container>
         <template v-slot:filtersidebar>
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>

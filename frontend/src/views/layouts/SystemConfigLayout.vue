@@ -6,9 +6,9 @@
         <v-app-bar app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="grey--text"></v-app-bar-nav-icon>
             <v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/' + $store.getters['auth/AccessToken']).catch(err => {})">
-				<span class="hidden-sm-and-down">{{APP_NAME}}</span>
+				<span class="hidden-sm-and-down">{{ APP_NAME }}</span>
 			</v-toolbar-title>
-            <v-spacer></v-spacer>            
+            <v-spacer></v-spacer>
             <v-divider
                 class="mx-4"
                 inset
@@ -24,22 +24,22 @@
                 <template v-slot:activator="{on}">
                     <v-avatar size="30">
                         <v-img :src="photoUser" v-on="on" />
-                    </v-avatar>                    
+                    </v-avatar>
                 </template>
                 <v-list>
                     <v-list-item>
                         <v-list-item-avatar>
                             <v-img :src="photoUser"></v-img>
                         </v-list-item-avatar>
-                        <v-list-item-content>					
+                        <v-list-item-content>
                             <v-list-item-title class="title">
                                 {{ ATTRIBUTE_USER('username') }}
                             </v-list-item-title>
-                            <v-list-item-subtitle>                                
+                            <v-list-item-subtitle>
                                 [{{ DEFAULT_ROLE }}]
                             </v-list-item-subtitle>
                         </v-list-item-content>
-                    </v-list-item>                    
+                    </v-list-item>
                     <v-divider/>
                     <v-list-item to="/system-users/profil">
                         <v-list-item-icon class="mr-2">
@@ -55,14 +55,14 @@
                         <v-list-item-title>Logout</v-list-item-title>
                     </v-list-item>
                 </v-list>
-            </v-menu>			
-        </v-app-bar>    
+            </v-menu>
+        </v-app-bar>
         <v-navigation-drawer v-model="drawer" width="300" dark class="green darken-1" :temporary="temporaryleftsidebar" app>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
 				</v-list-item-avatar>
-				<v-list-item-content>					
+				<v-list-item-content>
 					<v-list-item-title class="title">
 						{{ ATTRIBUTE_USER('username') }}
 					</v-list-item-title>
@@ -91,7 +91,7 @@
                             IDENTITAS DIRI
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/variables">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-variable</v-icon>
@@ -101,7 +101,7 @@
                             VARIABLES
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
+                </v-list-item>
                 <v-subheader>HEADER</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-IDENTITAS-DIRI')" to="/system-setting/headerlaporan">
                     <v-list-item-icon class="mr-2">
@@ -112,7 +112,7 @@
                             HEADER LAPORAN
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
+                </v-list-item>
                 <v-subheader>SERVER</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/captcha">
                     <v-list-item-icon class="mr-2">
@@ -123,7 +123,7 @@
                             CAPTCHA
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>    
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/email">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-account</v-icon>
@@ -143,8 +143,8 @@
                             CACHE
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>           
-                <v-subheader>BLOG</v-subheader>                    
+                </v-list-item>   
+                <v-subheader>BLOG</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/blog-infokampus">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-blogger</v-icon>
@@ -154,8 +154,8 @@
                             INFO KAMPUS
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>           
-                <v-subheader>PLUGIN</v-subheader>                    
+                </v-list-item>   
+                <v-subheader>PLUGIN</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('PLUGINS-H2H-ZOOMAPI_BROWSE')" to="/system-setting/zoom">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-desktop-mac-dashboard</v-icon>
@@ -165,24 +165,24 @@
                             ZOOM
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>            
+                </v-list-item>
             </v-list>
-        </v-navigation-drawer>        
-        <v-main class="mx-4 mb-4">			
+        </v-navigation-drawer>
+        <v-main class="mx-4 mb-4">
 			<slot />
 		</v-main>
         <v-footer app padless fixed>
 			<v-card class="flex" color="yellow darken-2" flat tile>
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
-					<strong>{{APP_NAME}} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
+					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
 					<v-btn icon href="https://github.com/mrizkir/stiemu">
 						<v-icon>mdi-github</v-icon>
-					</v-btn>					
+					</v-btn>
 				</v-card-text>
-			</v-card>			
+			</v-card>
 		</v-footer>  
-    </div>    
+    </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -203,9 +203,9 @@ export default {
         drawer: null,        
     }),       
     methods: {        
-        logout ()
+        logout()
         {
-            this.loginTime=0;
+            this.loginTime = 0;
             this.$ajax.post('/auth/logout',
                 {},
                 {
@@ -213,22 +213,22 @@ export default {
                         'Authorization': this.TOKEN,
                     }
                 }
-            ).then(()=> {     
-                this.$store.dispatch('auth/logout');	
-                this.$store.dispatch('uifront/reinit');	
-                this.$store.dispatch('uiadmin/reinit');	
+            ).then(() => {
+                this.$store.dispatch('auth/logout');
+                this.$store.dispatch('uifront/reinit');
+                this.$store.dispatch('uiadmin/reinit');
                 this.$router.push('/');
             })
             .catch(() => {
-                this.$store.dispatch('auth/logout');	
-                this.$store.dispatch('uifront/reinit');	
-                this.$store.dispatch('uiadmin/reinit');	
+                this.$store.dispatch('auth/logout');
+                this.$store.dispatch('uifront/reinit');
+                this.$store.dispatch('uiadmin/reinit');
                 this.$router.push('/');
             });
         },
-        isBentukPT (bentuk_pt)
+        isBentukPT(bentuk_pt)
         {
-            return this.$store.getters['uifront/getBentukPT']==bentuk_pt?true: false;
+            return this.$store.getters['uifront/getBentukPT'] == bentuk_pt ? true : false;
         }
 	},
     computed: {
@@ -247,15 +247,15 @@ export default {
         },
         photoUser()
 		{
-			let img=this.ATTRIBUTE_USER('foto');
+			let img = this.ATTRIBUTE_USER('foto');
 			var photo;
 			if (img == '')
 			{
-				photo = this.$api.url+'/storage/images/users/no_photo.png';	
+				photo = this.$api.url + '/storage/images/users/no_photo.png';	
 			}
 			else
 			{
-				photo = this.$api.url+'/'+img;	
+				photo = this.$api.url + "/" + img;	
 			}
 			return photo;
         },    

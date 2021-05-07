@@ -35,14 +35,14 @@
                             </v-card-title>
                             <v-card-text>
                                <v-row>
-                                   <v-col xs="12" sm="4" md="3">                                       
+                                   <v-col xs="12" sm="4" md="3">       
                                        <v-switch v-model="formdata.email_mhs_isvalid" label="Check Email Mahasiswa Valid"></v-switch>
                                    </v-col>
                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                </v-row>
                             </v-card-text>
                             <v-card-actions>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 

@@ -9,11 +9,11 @@
 				<v-icon>mdi-printer</v-icon> 
 			</v-toolbar>
 			<v-card-text>
-				{{ message }}<br>				
+				{{ message }}<br>	
 				<v-btn
 					color="green"
 					text
-					:href="$api.storageURL + '/' + file">         
+					:href="$api.storageURL + '/' + file"> 
 					Download
 			</v-btn> 
 			</v-card-text>

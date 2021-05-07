@@ -6,7 +6,7 @@
             </template>
             <template v-slot:name>
                 STATUS TRANSAKSI
-            </template>            
+            </template>
             <template v-slot:breadcrumbs>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
                     <template v-slot:divider>
@@ -24,7 +24,7 @@
                         Halaman ini berisi informasi status transaksi.
                     </v-alert>
             </template>
-        </ModuleHeader>        
+        </ModuleHeader>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -41,7 +41,7 @@
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
-                        loading-text="Loading... Please wait">     
+                        loading-text="Loading... Please wait"> 
                         <template v-slot:top>
                             <v-toolbar flat color="white">
                                 <v-toolbar-title>DAFTAR STATUS TRANSAKSI</v-toolbar-title>
@@ -50,7 +50,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>  
                         <template v-slot:item.style="props">
@@ -60,26 +60,26 @@
                                 @save="saveItem({id:props.item.id_status,style:props.item.style})"
                                 @cancel="cancelItem"
                                 @open="openItem"
-                                @close="closeItem">                                     
-                                    <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>                                  
+                                @close="closeItem">     
+                                    <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>  
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Style</div>                                        
+                                        <div class="mt-4 title">Update Style</div>        
                                         <v-text-field 
                                             label="STYLE STATUS TRANSAKSI"                                             
                                             outlined
                                             autofocus
-                                            v-model="props.item.style">                                        
+                                            v-model="props.item.style">        
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
-                        </template>                      
+                        </template>  
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>ID:</strong>{{ item.id_status }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

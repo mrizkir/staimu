@@ -28,7 +28,7 @@
                 </v-alert>
             </template>
         </ModuleHeader>   
-        <v-container fluid>            
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -73,7 +73,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>                                        
+                                        </v-btn>        
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -90,7 +90,7 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    outlined />              
+                                                    outlined />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-1:</h3>  
                                                 <v-text-field
@@ -98,7 +98,7 @@
                                                     v-model="formdata.jawaban1"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />              
+                                                />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-2:</h3>  
                                                 <v-text-field
@@ -106,7 +106,7 @@
                                                     v-model="formdata.jawaban2"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />              
+                                                />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-3:</h3>  
                                                 <v-text-field
@@ -114,7 +114,7 @@
                                                     v-model="formdata.jawaban3"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />              
+                                                />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-4:</h3>  
                                                 <v-text-field
@@ -122,7 +122,7 @@
                                                     v-model="formdata.jawaban4"    
                                                     :rules="rule_jawaban"
                                                     outlined
-                                                />              
+                                                />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>  
                                                 <v-select
@@ -154,7 +154,7 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
-                                            <v-card-text>    
+                                            <v-card-text>
                                                 <v-alert 
                                                     class="warning">
                                                     SOAL mohon jangan diberi nomor soal.
@@ -164,7 +164,7 @@
                                                     label="SOAL" 
                                                     :rules="rule_soal"
                                                     type="text"
-                                                    outlined />              
+                                                    outlined />  
                                                 <v-divider class="mt-2"/>
                                                 <v-radio-group v-model="formdata.jawaban_benar">
                                                     <v-data-table                                                        
@@ -254,7 +254,7 @@
                                                         class="elevation-1"
                                                     >
                                                         <template v-slot:item.status="{ item }">
-                                                            <v-icon>    
+                                                            <v-icon>
                                                                 {{item.status == 1 ?'mdi-check-bold': 'mdi-close-thick'}}
                                                             </v-icon>
                                                         </template>
@@ -266,7 +266,7 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>                                    
+                                    </v-card>    
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -297,7 +297,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

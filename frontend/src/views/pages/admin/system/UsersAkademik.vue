@@ -24,8 +24,8 @@
                      User dengan role AKADEMIK bertanggungjawab terhadap proses akademik mahasiswa.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>    
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -81,7 +81,7 @@
                                     @click.stop="showDialogTambahUserAkademik">
                                     TAMBAH
                                 </v-btn>
-                                <v-dialog v-model="dialog" max-width="500px" persistent>                                    
+                                <v-dialog v-model="dialog" max-width="500px" persistent>    
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -90,19 +90,19 @@
                                             <v-card-subtitle>
                                                 Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data akademik.
                                             </v-card-subtitle>
-                                            <v-card-text>     
+                                            <v-card-text> 
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>                                                        
+                                                </v-text-field>                        
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -130,7 +130,7 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                                                
+                                                    outlined>                                                
                                                 </v-autocomplete>
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
@@ -138,7 +138,7 @@
                                                     label="ROLES"                                                     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                                                
+                                                    outlined>                                                
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -165,7 +165,7 @@
                                             <v-card-subtitle>
                                                 Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data akademik
                                             </v-card-subtitle>
-                                            <v-card-text>                                                                                                
+                                            <v-card-text>                                                                
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
@@ -205,7 +205,7 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                                                
+                                                    outlined>                                                
                                                 </v-autocomplete>
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
@@ -213,7 +213,7 @@
                                                     label="ROLES"                                                     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                                                
+                                                    outlined>                                                
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -229,7 +229,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                                                                    =                                    
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                                    =                                    
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="akademik" />
                                 </v-dialog>
                             </v-toolbar>
@@ -262,10 +262,10 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">                            
+                        <template v-slot:item.foto="{ item }">        
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                               
-                            </v-avatar>                                                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />           
+                            </v-avatar>                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -273,7 +273,7 @@
                                     <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

@@ -27,13 +27,13 @@
                     Halaman untuk melakukan penyelenggaraan matakuliah per prodi, tahun akademik, dan semester.
                 </v-alert>
             </template>
-        </ModuleHeader>        
+        </ModuleHeader>
         <v-container fluid>   
             <v-row class="mb-4">   
                 <v-col cols="12">
                     <DataMatakuliahPenyelenggaraan :datamatkul="data_matkul"></DataMatakuliahPenyelenggaraan>
                 </v-col>
-                <v-col cols="12">                    
+                <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-card>
                             <v-card-title>
@@ -42,7 +42,7 @@
                             <v-card-text>
                                 <v-alert type="info">
                                     Silahkan pilih dosen untuk mengampu matakuliah ini 
-                                </v-alert>     
+                                </v-alert> 
                                 <v-autocomplete
                                     label="DOSEN"
                                     v-model="formdata.dosen_id"
@@ -54,7 +54,7 @@
                                 <v-switch
                                     v-model="formdata.is_ketua"
                                     label="SEBAGAI KETUA GROUP DOSEN PENGAMPU">
-                                </v-switch>                                                                              
+                                </v-switch>                                              
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -76,7 +76,7 @@
                         </v-card>
                     </v-form>
                 </v-col>
-                <v-col cols="12">           
+                <v-col cols="12">   
                     <v-card>
                         <v-card-title>
                             DAFTAR DOSEN PENGAMPU
@@ -91,14 +91,14 @@
                                 class="elevation-1"
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait">
-                                <template v-slot:item.is_ketua="{ item }">                                    
+                                <template v-slot:item.is_ketua="{ item }">    
                                     <v-switch
                                         v-model="item.is_ketua"
                                         :label="item.is_ketua == 1?'YA': 'TIDAK'"
                                         @change="updateketua(item)">
                                     </v-switch>  
                                 </template>
-                                <template v-slot:item.actions="{ item }">                                    
+                                <template v-slot:item.actions="{ item }">    
                                     <v-btn
                                         small
                                         icon
@@ -109,7 +109,7 @@
                                             mdi-delete
                                         </v-icon>
                                     </v-btn>   
-                                </template>    
+                                </template>
                                 <template v-slot:no-data>
                                     Data dosen pengampu penyelenggaraan matakuliah ini belum tersedia
                                 </template>

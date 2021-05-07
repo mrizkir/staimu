@@ -75,7 +75,7 @@
 										vertical
 									>
 									</v-divider>
-									<v-spacer></v-spacer>                                
+									<v-spacer></v-spacer>
 									<v-btn color="primary" icon outlined small class="ma-2" @click.stop="$router.push('/blog/pages/infokampus/tambah')">
 										<v-icon>mdi-plus</v-icon>
 									</v-btn>
@@ -84,7 +84,7 @@
 							<template v-slot:item.created_at="{ item }">
 								{{ $date(item.created_at).format('DD/MM/YYYY') }}
 							</template>
-							<template v-slot:item.actions="{ item }">											
+							<template v-slot:item.actions="{ item }">						
 								<v-icon
 										small
 										class="mr-2"
@@ -103,7 +103,7 @@
 								<td :colspan="headers.length" class="text-center">
 									<v-col cols="12">
 										<strong>ID:</strong>{{ item.id }}                                                                                       
-									</v-col>                                
+									</v-col>
 								</td>
 							</template>
 							<template v-slot:no-data>

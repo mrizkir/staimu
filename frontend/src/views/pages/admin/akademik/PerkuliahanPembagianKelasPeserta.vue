@@ -27,15 +27,15 @@
 										Halaman untuk melakukan menambah peserta pada kelas terpilih.
 								</v-alert>
 						</template>
-				</ModuleHeader>        
-				<v-container fluid v-if="data_kelas_mhs">        
+				</ModuleHeader>
+				<v-container fluid v-if="data_kelas_mhs">
 						<v-row>
-								<v-col cols="12">                            
+								<v-col cols="12">        
 										<DataKelasMHS :datakelas="data_kelas_mhs" url="/akademik/perkuliahan/pembagiankelas/daftar" />
 								</v-col>
 						</v-row>
 						<v-row>
-								<v-col cols="12">                            
+								<v-col cols="12">        
 										<v-data-table
 												:headers="headers"
 												:items="datatable"                        
@@ -54,8 +54,8 @@
 																		vertical
 																></v-divider>
 																<v-spacer></v-spacer> 
-																<v-tooltip bottom>             
-																		<template v-slot:activator="{ on, attrs }">                                             
+																<v-tooltip bottom> 
+																		<template v-slot:activator="{ on, attrs }">             
 																				<v-btn 
 																						v-bind="attrs"
 																						v-on="on"
@@ -66,9 +66,9 @@
 																						class="ma-2" 
 																						@click.stop="tambahMatakuliah">
 																						<v-icon>mdi-plus</v-icon>
-																				</v-btn>     
+																				</v-btn> 
 																		</template>
-																		<span>Tambah Matakuliah</span>                                   
+																		<span>Tambah Matakuliah</span>   
 																</v-tooltip>
 														</v-toolbar>
 												</template>
@@ -81,7 +81,7 @@
 												<template v-slot:item.kjur="{item}">
 														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">                              
+												<template v-slot:item.actions="{ item }">          
 														<v-btn
 																small
 																icon
@@ -92,7 +92,7 @@
 																		mdi-delete
 																</v-icon>
 														</v-btn>   
-												</template>                                                           
+												</template>                           
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>   
@@ -100,8 +100,8 @@
 								</v-col>
 						</v-row>
 						<v-row>
-								<v-col cols="12">          
-										<v-dialog v-model="showdialogmatakuliah" max-width="800px" persistent>                                    
+								<v-col cols="12">  
+										<v-dialog v-model="showdialogmatakuliah" max-width="800px" persistent>    
 												<v-form ref="frmdatamatkul" v-model="form_valid" lazy-validation>
 														<v-card>
 																<v-card-title>
@@ -119,7 +119,7 @@
 																				outlined
 																				item-text="nmatkul"
 																				item-value="id">
-																		</v-select>                                
+																		</v-select>
 																</v-card-text>
 																<v-card-actions>
 																		<v-spacer></v-spacer>
@@ -135,8 +135,8 @@
 																</v-card-actions>
 														</v-card>
 												</v-form>
-										</v-dialog>                  
-										<v-dialog v-model="showdialogpeserta" max-width="800px" persistent>                                    
+										</v-dialog>  
+										<v-dialog v-model="showdialogpeserta" max-width="800px" persistent>    
 												<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 														<v-card>
 																<v-card-title>
@@ -154,16 +154,16 @@
 																				:loading="datatableLoading"
 																				loading-text="Loading... Please wait">
 
-																				<template v-slot:item.id="{ item }">    
+																				<template v-slot:item.id="{ item }">
 																						{{item.id}}
-																				</template>                                        
+																				</template>        
 																				<template v-slot:expanded-item="{ headers, item }">
 																						<td :colspan="headers.length" class="text-center">
 																								<v-col cols="12">
 																										<strong>ID:</strong>{{ item.id }}
 																										<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 																										<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-																								</v-col>                                
+																								</v-col>
 																						</td>
 																				</template>
 																				<template v-slot:no-data>
@@ -185,7 +185,7 @@
 																</v-card-actions>
 														</v-card>
 												</v-form>
-										</v-dialog>                  
+										</v-dialog>  
 										<v-data-table
 												:headers="headers_peserta"
 												:items="datatable_peserta"                        
@@ -203,9 +203,9 @@
 																		inset
 																		vertical
 																></v-divider>
-																<v-spacer></v-spacer>                                
-																<v-tooltip bottom>             
-																		<template v-slot:activator="{ on, attrs }">                                             
+																<v-spacer></v-spacer>
+																<v-tooltip bottom> 
+																		<template v-slot:activator="{ on, attrs }">             
 																				<v-btn 
 																						v-bind="attrs"
 																						v-on="on"
@@ -217,19 +217,19 @@
 																						@click.stop="tambahPeserta"
 																						 :disabled="!datatable > 0">
 																						<v-icon>mdi-plus</v-icon>
-																				</v-btn>     
+																				</v-btn> 
 																		</template>
-																		<span>Tambah Peserta Kelas</span>                                   
+																		<span>Tambah Peserta Kelas</span>   
 																</v-tooltip>
 														</v-toolbar>
-												</template>                        
+												</template>    
 												<template v-slot:item.idkelas="{item}">
 														{{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
 												</template>
 												<template v-slot:item.kjur="{item}">
 														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">                              
+												<template v-slot:item.actions="{ item }">          
 														<v-btn
 																small
 																icon
@@ -240,14 +240,14 @@
 																		mdi-delete
 																</v-icon>
 														</v-btn>   
-												</template>                                                           
+												</template>                           
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>   
 										</v-data-table>
 								</v-col>
 						</v-row>
-				</v-container>        
+				</v-container>
 		</AkademikLayout>
 </template>
 <script>

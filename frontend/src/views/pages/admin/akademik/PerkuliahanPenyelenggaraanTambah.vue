@@ -27,10 +27,10 @@
                     Halaman untuk melakukan penyelenggaraan matakuliah per prodi, tahun akademik, dan semester.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>                         
+        </ModuleHeader>
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
-                <v-col cols="12">                    
+                <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-card>
                             <v-card-title>
@@ -95,7 +95,7 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                     <v-row no-gutters>
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
@@ -105,7 +105,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS TATAP MUKA :</v-card-title>
@@ -115,7 +115,7 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                     <v-row no-gutters>
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
@@ -125,7 +125,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS PRAKTIKUM :</v-card-title>
@@ -135,7 +135,7 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                     <v-row no-gutters>
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
@@ -145,7 +145,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SKS PRAKTIK LAPANGAN :</v-card-title>
@@ -155,7 +155,7 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                     <v-row no-gutters>
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
@@ -165,7 +165,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>SYARAT SKRIPSI :</v-card-title>
@@ -175,7 +175,7 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                     <v-row no-gutters>
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
@@ -185,7 +185,7 @@
                                                                 </v-card-subtitle>
                                                             </v-card>
                                                         </v-col>
-                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>              
+                                                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
                                                         <v-col xs="12" sm="6" md="6">
                                                             <v-card flat>
                                                                 <v-card-title>STATUS :</v-card-title>
@@ -195,14 +195,14 @@
                                                             </v-card>
                                                         </v-col>
                                                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                                    </v-row>                                            
+                                                    </v-row>            
                                                 </v-card-text>
                                                 <v-card-actions>
                                                     <v-spacer></v-spacer>
                                                     <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                                 </v-card-actions>
-                                            </v-card>                                    
-                                        </v-dialog>                                            
+                                            </v-card>    
+                                        </v-dialog>            
                                     </template>
                                     <template v-slot:item.actions="{ item }">
                                         <v-icon
@@ -210,17 +210,17 @@
                                             class="mr-2"
                                             @click.stop="viewItem(item)">
                                             mdi-eye
-                                        </v-icon>                                    
+                                        </v-icon>    
                                     </template>
                                     <template v-slot:expanded-item="{ headers, item }">
                                         <td :colspan="headers.length" class="text-center">
-                                            <v-col cols="12">                          
+                                            <v-col cols="12">      
                                                 <strong>ID:</strong>{{ item.id }}          
                                                 <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                                 <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                            </v-col>                                
+                                            </v-col>
                                         </td>
-                                    </template>                                    
+                                    </template>    
                                     <template v-slot:no-data>
                                         Data matakuliah belum tersedia
                                     </template>

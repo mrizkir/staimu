@@ -63,7 +63,7 @@
 										</v-col>
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
-									<v-row no-gutters>                
+									<v-row no-gutters>
 										<v-col xs="12" sm="6" md="7">
 											<v-card flat>
 												<v-card-title>NAMA MAHASISWA :</v-card-title>
@@ -83,7 +83,7 @@
 										</v-col>
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
-									<v-row no-gutters>                
+									<v-row no-gutters>
 										<v-col xs="12" sm="6" md="7">
 											<v-card flat>
 												<v-card-title>TEMPAT DAN TGL. LAHIR :</v-card-title>
@@ -103,7 +103,7 @@
 										</v-col>
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
-									<v-row no-gutters>               
+									<v-row no-gutters>   
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 										<v-col xs="12" sm="6" md="7">
 											<v-card flat>
@@ -125,9 +125,9 @@
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
 								</v-col>
-							</v-row>                            
+							</v-row>        
 						</v-card-text>
-					</v-card>     
+					</v-card> 
 				</v-col>
 			</v-row>
 			<v-row>
@@ -161,13 +161,13 @@
 								</v-carousel>
 							</v-dialog>
 						</v-card-text>
-					</v-card>     
+					</v-card> 
 				</v-col>
 			</v-row>
 		</v-card-text>
 	</v-card>
 </template>
-<script>    
+<script>
 import FormPersyaratan from '@/components/FormPersyaratanPMB';
 export default {
 	name: 'ProfilMahasiswaBaru',

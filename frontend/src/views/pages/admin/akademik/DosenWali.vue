@@ -24,8 +24,8 @@
                         Halaman ini berisi daftar DOSEN WALI / PENDAMPING AKADEMIK yang bertanggungjawab untuk membantu pembelajaran mahasiswa.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>    
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -65,7 +65,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                 
+                                <v-spacer></v-spacer> 
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
@@ -74,7 +74,7 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">                            
+                        <template v-slot:item.actions="{ item }">        
                             <v-icon
                                 small
                                 class="mr-2"
@@ -93,10 +93,10 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">                            
+                        <template v-slot:item.foto="{ item }">        
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                               
-                            </v-avatar>                                                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />           
+                            </v-avatar>                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -105,7 +105,7 @@
                                     <strong>Email:</strong>{{ item.email }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

@@ -54,17 +54,17 @@
                                     :hide-default-footer="true"
                                     :items="transaksi_detail"
                                     :headers="headers_detail">
-                                    <template v-slot:item.biaya="{ item }">    
+                                    <template v-slot:item.biaya="{ item }">
                                         {{item.biaya|formatUang}}
                                     </template>
-                                    <template v-slot:item.sub_total="{ item }">    
+                                    <template v-slot:item.sub_total="{ item }">
                                         {{item.sub_total|formatUang}}
                                     </template>
                                 </v-data-table>
                             </v-col>
                         </v-row>
-                    </v-col>                    
-                </v-row>                
+                    </v-col>
+                </v-row>
             </v-container>
             <v-container class="fill-height" v-else>
                 <v-row align="center" justify="center" no-gutters>

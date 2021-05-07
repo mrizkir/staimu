@@ -52,7 +52,7 @@
                                             item-value="id"
                                             label="SEMESTER AKADEMIK"
                                             outlined
-                                            :rules="rule_default_semester"/>           
+                                            :rules="rule_default_semester"/>   
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                                     <v-col xs="12" sm="12" md="4">
@@ -61,13 +61,13 @@
                                             :items="daftar_ta"                                            
                                             label="TAHUN PENDAFTARAN"
                                             outlined
-                                            :rules="rule_tahun_pendaftaran"/>           
+                                            :rules="rule_tahun_pendaftaran"/>   
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
-                                </v-row>                                                                                                                            
+                                </v-row>                                                                                            
                             </v-card-text>
                             <v-card-actions>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                                 <v-btn 
                                     color="blue darken-1" 
                                     text 

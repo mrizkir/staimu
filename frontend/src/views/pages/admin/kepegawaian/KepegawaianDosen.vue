@@ -24,8 +24,8 @@
                     Halaman ini untuk melakukan pengelolaan data dosen. Namun untuk menghapus dan menambah di halaman user dosen.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid>    
+        </ModuleHeader>
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -65,14 +65,14 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                                                
+                                <v-spacer></v-spacer>                                
                                 <v-dialog v-model="dialogEdit" max-width="700px" persistent>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">UBAH DATA DOSEN</span>
-                                            </v-card-title>                                            
-                                            <v-card-text>                                                                                                
+                                            </v-card-title>            
+                                            <v-card-text>                                                                
                                                 <v-row>
                                                     <v-col cols="3">
                                                         <v-text-field 
@@ -101,13 +101,13 @@
                                                     v-model="editedItem.nidn" 
                                                     label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
                                                     outlined>
-                                                </v-text-field>                                                                                               
+                                                </v-text-field>                                                               
                                                 <v-text-field 
                                                     v-model="editedItem.nipy" 
                                                     label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
                                                     outlined
                                                     :rules="rule_nipy">
-                                                </v-text-field>     
+                                                </v-text-field> 
                                                 <v-select 
                                                     v-model="editedItem.id_jabatan" 
                                                     label="JABATAN AKADEMIK"
@@ -115,7 +115,7 @@
                                                     item-text="nama_jabatan"
                                                     item-value="id_jabatan"                                                    
                                                     outlined>
-                                                </v-select>                                         
+                                                </v-select>         
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
@@ -127,7 +127,7 @@
                                                     label="NOMOR HP"
                                                     outlined
                                                     :rules="rule_user_nomorhp">
-                                                </v-text-field>                                                
+                                                </v-text-field>                
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -141,15 +141,15 @@
                                             </v-card-actions>
                                         </v-card>
                                     </v-form>
-                                </v-dialog>                                   
+                                </v-dialog>   
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
                             {{(item.nidn && item.nidn.length > 0) > 0 ? item.nidn: 'N.A'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">                                           
-                            <v-tooltip bottom>             
-                                <template v-slot:activator="{ on, attrs }">                                             
+                        <template v-slot:item.actions="{ item }">           
+                            <v-tooltip bottom> 
+                                <template v-slot:activator="{ on, attrs }">             
                                     <v-btn 
                                         v-bind="attrs"
                                         v-on="on"
@@ -161,15 +161,15 @@
                                         
                                         :disabled="btnLoading">
                                         <v-icon>mdi-pencil</v-icon>
-                                    </v-btn>     
+                                    </v-btn> 
                                 </template>
-                                <span>Ubah data user dosen</span>                                   
-                            </v-tooltip>                              
+                                <span>Ubah data user dosen</span>   
+                            </v-tooltip>          
                         </template>
-                        <template v-slot:item.foto="{ item }">                            
+                        <template v-slot:item.foto="{ item }">        
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />                               
-                            </v-avatar>                                                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />           
+                            </v-avatar>                                                                  
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -179,7 +179,7 @@
                                     <strong>Email:</strong>{{ item.email }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>

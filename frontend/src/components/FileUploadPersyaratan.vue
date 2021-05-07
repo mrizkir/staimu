@@ -1,7 +1,7 @@
 <template>
     <v-form v-model="form_valid" ref="frmpersyaratan" lazy-validation>
-        <v-card class="mx-auto" max-width="400">               
-            <v-img class="white--text align-end" height="200px" :src="photoPersyaratan"></v-img>                            
+        <v-card class="mx-auto" max-width="400">   
+            <v-img class="white--text align-end" height="200px" :src="photoPersyaratan"></v-img>        
             <v-card-text class="text--primary">
                 <div>
                     <v-file-input 
@@ -21,7 +21,7 @@
                     :color="badgeColor"
                     :icon="badgeIcon">   
                 </v-badge>
-                <v-spacer/>         
+                <v-spacer/> 
                 <v-btn
                     icon
                     :href="this.$api.url+'/'+this.item.path"
@@ -37,7 +37,7 @@
                     @click="upload(index,item)"
                                                     
                     :disabled="btnLoading||btnSimpan"
-                    v-if="verified == 0">                                   
+                    v-if="verified == 0">   
                     Simpan
                 </v-btn>
                 <v-btn
@@ -46,7 +46,7 @@
                     @click="hapusfilepersysaratan(item)"
                                                     
                     :disabled="btnLoading||btnHapus"
-                    v-if="verified == 0">                   
+                    v-if="verified == 0">   
                     Hapus
                 </v-btn>
                 <v-btn
@@ -55,12 +55,12 @@
                     @click="verifikasipersyaratan(item)"
                                                     
                     :disabled="btnLoading||btnVerifikasi" 
-                    v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa' && verified == 0">                
+                    v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa' && verified == 0">
                     Verifikasi
                 </v-btn>
             </v-card-actions>
-        </v-card>            
-    </v-form>        
+        </v-card>
+    </v-form>
 </template>
 <script>
 export default {

@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
-        <v-container fluid>                         
+        <v-container fluid>     
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -71,7 +71,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                
+                                <v-spacer></v-spacer>
                                 <v-btn color="primary" icon outlined small class="ma-2" to="/akademik/perkuliahan/penyelenggaraan/tambah" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
                                     <v-icon>mdi-plus</v-icon>
                                 </v-btn>
@@ -105,18 +105,18 @@
                                     mdi-delete
                                 </v-icon>
                             </v-btn>   
-                        </template>           
+                        </template>   
                         <template v-slot:item.actions v-else>
                             N.A
-                        </template>           
+                        </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">                          
+                                <v-col cols="12">      
                                     <strong>id:</strong>{{ item.id }}          
                                     <strong>matkul_id:</strong>{{ item.matkul_id }}          
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                                </v-col>                                
+                                </v-col>
                             </td>
                         </template>
                         <template v-slot:no-data>
@@ -124,7 +124,7 @@
                         </template>   
                     </v-data-table>
                 </v-col>
-            </v-row>            
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>

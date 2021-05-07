@@ -1,6 +1,6 @@
 <template>
     <v-list-item>
-        <v-list-item-content>                     
+        <v-list-item-content> 
             <v-select
                 v-model="tahun_pendaftaran"
                 :items="daftar_ta"                

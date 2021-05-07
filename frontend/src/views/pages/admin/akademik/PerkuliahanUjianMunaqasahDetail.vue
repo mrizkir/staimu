@@ -364,7 +364,7 @@
 															<v-chip :color="item.style" dark>
 																{{ item.nama_status }}
 															</v-chip>
-														</template>														
+														</template>									
 														<template v-slot:body.append v-if="datatable.length > 0">
 															<tr class="grey lighten-4 font-weight-black">
 																<td class="text-right" colspan="5">TOTAL TRANSAKSI PAID</td>
@@ -409,7 +409,7 @@
 														@click.stop="closedialogspp"
 													>
 														TUTUP
-													</v-btn>														
+													</v-btn>									
 												</v-card-actions>
 											</v-card>
 										</v-dialog>
@@ -725,7 +725,7 @@
 					.then(({ data }) => {
 						this.datatable_spp = data.transaksi;
 						this.dialogpreviewspp = true;
-					});				
+					});			
 			},
 			previewImagePersyaratan(item) {
 				if (item.file == null) {

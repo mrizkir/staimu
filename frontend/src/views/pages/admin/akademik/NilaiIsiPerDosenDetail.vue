@@ -27,15 +27,15 @@
                     Halaman untuk melakukan pengisian nilai berdasarkan kelas mahasiswa yang telah dibentuk pada pembagian kelas.
                 </v-alert>
             </template>
-        </ModuleHeader>        
-        <v-container fluid v-if="data_kelas_mhs">        
+        </ModuleHeader>
+        <v-container fluid v-if="data_kelas_mhs">
             <v-row>
-                <v-col cols="12">                            
+                <v-col cols="12">        
                     <DataKelasMHS :datakelas="data_kelas_mhs" />
                 </v-col>
-            </v-row>            
-            <v-row>                 
-                <v-col cols="12">                     
+            </v-row>
+            <v-row> 
+                <v-col cols="12"> 
                     <v-alert type="warning">
                         Catatan: Pilihlah (CENTANG) mahasiswa yang akan diisi nilainya. Untuk meningkatkan performance bila jumlah peserta lebih dari 10; maka disarankan mengisi nilai per 10 mahasiswa.
                     </v-alert>
@@ -58,12 +58,12 @@
                                 C/D = 45.00-49.99<br>
                                 (D+) = 40.00-44.99<br>
                                 D = 35.00-39.99<br>
-                                E = 34.99-0<br>                                
+                                E = 34.99-0<br>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
                     </v-expansion-panels>
                 </v-col>
-                <v-col cols="12">                     
+                <v-col cols="12"> 
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-data-table
                             v-model="daftar_nilai"
@@ -85,7 +85,7 @@
                                         inset
                                         vertical
                                     ></v-divider>
-                                    <v-spacer></v-spacer>                                
+                                    <v-spacer></v-spacer>
                                 </v-toolbar>
                             </template>
                             <template v-slot:item.idkelas="{item}">
@@ -93,7 +93,7 @@
                             </template>
                             <template v-slot:item.kjur="{item}">
                                 {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
-                            </template>             
+                            </template> 
                             <template v-slot:item.nilai_absen="props"> 
                                 <VAngkaNilai 
                                     @input="updateNKuan(props)" 
@@ -101,8 +101,8 @@
                                     dense 
                                     :disabled="isbydosen(props.item.bydosen)"
                                     style="width:65px">
-                                </VAngkaNilai>                                
-                            </template>          
+                                </VAngkaNilai>
+                            </template>  
                             <template v-slot:item.nilai_quiz="props"> 
                                 <VAngkaNilai               
                                     @input="updateNKuan(props)" 
@@ -110,8 +110,8 @@
                                     dense    
                                     :disabled="isbydosen(props.item.bydosen)"                                
                                     style="width:65px">
-                                </VAngkaNilai>                                                        
-                            </template>                        
+                                </VAngkaNilai>                        
+                            </template>    
                             <template v-slot:item.nilai_tugas_individu="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
@@ -119,8 +119,8 @@
                                     dense      
                                     :disabled="isbydosen(props.item.bydosen)"                              
                                     style="width:65px">
-                                </VAngkaNilai>                                                        
-                            </template>                        
+                                </VAngkaNilai>                        
+                            </template>    
                             <template v-slot:item.nilai_tugas_kelompok="props"> 
                                 <VAngkaNilai            
                                     @input="updateNKuan(props)"    
@@ -128,8 +128,8 @@
                                     dense      
                                     :disabled="isbydosen(props.item.bydosen)"                              
                                     style="width:65px">
-                                </VAngkaNilai>                                                        
-                            </template>                        
+                                </VAngkaNilai>                        
+                            </template>    
                             <template v-slot:item.nilai_uts="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
@@ -137,8 +137,8 @@
                                     dense                   
                                     :disabled="isbydosen(props.item.bydosen)"                 
                                     style="width:65px">
-                                </VAngkaNilai>                                                        
-                            </template>                        
+                                </VAngkaNilai>                        
+                            </template>    
                             <template v-slot:item.nilai_uas="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
@@ -146,12 +146,12 @@
                                     dense             
                                     :disabled="isbydosen(props.item.bydosen)"                       
                                     style="width:65px">
-                                </VAngkaNilai>                                                        
-                            </template>                        
-                            <template v-slot:item.n_kuan="props">                                                     
-                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>        
-                            </template>                        
-                            <template v-slot:item.n_kual="props">                                
+                                </VAngkaNilai>                        
+                            </template>    
+                            <template v-slot:item.n_kuan="props">                     
+                                <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>
+                            </template>    
+                            <template v-slot:item.n_kual="props">
                                 <v-select 
                                     :items="$store.getters['uiadmin/getSkalaNilai']"  
                                     v-model="props.item.n_kual"
@@ -170,17 +170,17 @@
                                             :disabled="btnLoading">
                                                 SIMPAN
                                         </v-btn>
-                                    </td>                                     
-                                </tr>                                
-                            </template>                     
+                                    </td>     
+                                </tr>
+                            </template> 
                             <template v-slot:no-data>
                                 Data belum tersedia
                             </template>   
-                        </v-data-table>                                            
+                        </v-data-table>            
                     </v-form>
-                </v-col>     
-            </v-row>            
-        </v-container>        
+                </v-col> 
+            </v-row>
+        </v-container>
     </AkademikLayout>
 </template>
 <script>

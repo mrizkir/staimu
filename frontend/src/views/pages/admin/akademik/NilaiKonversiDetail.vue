@@ -27,8 +27,8 @@
                     Halaman ini digunakan untuk mengelola konversi nilai mahasiswa pindahan/ampulan 
                 </v-alert>
             </template>
-        </ModuleHeader>                
-        <v-container fluid v-if="data_konversi.id">                         
+        </ModuleHeader>
+        <v-container fluid v-if="data_konversi.id">     
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card color="grey lighten-4">
@@ -145,7 +145,7 @@
                                     </v-card>
                                 </v-col>
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
-                            </v-row>                            
+                            </v-row>        
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -192,7 +192,7 @@
                                     mdi-close-network-outline
                                 </v-icon>
                             </v-btn>
-                        </v-card-actions>                    
+                        </v-card-actions>
                     </v-card>
                 </v-col>
             </v-row>
@@ -203,8 +203,8 @@
                             <v-list-item-content>
                                 <div class="overline mb-1">
                                     PASANGKAN NIM KE DATA KONVERSI INI
-                                </div>                                
-                                <v-list-item-subtitle>                                    
+                                </div>
+                                <v-list-item-subtitle>    
                                     <v-autocomplete
                                         v-model="data_mhs"
                                         :items="entries"
@@ -233,10 +233,10 @@
                         <v-divider></v-divider>
                         <v-expand-transition>
                             <v-list v-if="data_mhs">
-                                <template v-for="(field, i) in fields">                                    
+                                <template v-for="(field, i) in fields">    
                                 <v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias'">
                                     <v-list-item-content>
-                                        <v-list-item-title>                                            
+                                        <v-list-item-title>            
                                             {{field.value}}
                                         </v-list-item-title>
                                         <v-list-item-subtitle>
@@ -268,7 +268,7 @@
                                 </v-icon>
                             </v-btn>
                         </v-card-actions>
-                    </v-card>                    
+                    </v-card>
                 </v-col>
             </v-row>
             <v-row class="mb-4" no-gutters>
@@ -290,39 +290,39 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                                  
+                                <v-spacer></v-spacer>  
                             </v-toolbar>
-                        </template>     
-                        <template v-slot:item.kmatkul_asal="{item}">                                
+                        </template> 
+                        <template v-slot:item.kmatkul_asal="{item}">
                             {{item.kmatkul_asal==null ? 'N.A':item.kmatkul_asal}}
-                        </template>                                                                                
-                        <template v-slot:item.matkul_asal="{item}">                                
+                        </template>                                                
+                        <template v-slot:item.matkul_asal="{item}">
                             {{item.matkul_asal==null ? 'N.A':item.matkul_asal}}
-                        </template>                                                                                
-                        <template v-slot:item.sks_asal="{item}">                                
+                        </template>                                                
+                        <template v-slot:item.sks_asal="{item}">
                             {{item.sks_asal==null ? 'N.A':item.sks_asal}}
-                        </template>                                                                  
-                        <template v-slot:item.n_kual="{item}">                                
+                        </template>                                  
+                        <template v-slot:item.n_kual="{item}">
                             {{item.n_kual==null ? 'N.A':item.n_kual}}
-                        </template>                                                                                                                                                                      
+                        </template>                                                                                                                                      
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>   
                         <template v-slot:body.append v-if="datatable.length > 0">
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="2">TOTAL SKS</td>
-                                <td colspan="6">{{totalSKS}}</td>                                 
+                                <td colspan="6">{{totalSKS}}</td> 
                             </tr>
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-                                <td colspan="6">{{totalMatkul}}</td>                                 
+                                <td colspan="6">{{totalMatkul}}</td> 
                             </tr>
                         </template>
                     </v-data-table>
                 </v-col>
-            </v-row>            
-        </v-container>        
-        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>                
+            </v-row>
+        </v-container>
+        <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
             <v-card>
                 <v-card-title>
                     <span class="headline">Print to PDF</span>
@@ -331,15 +331,15 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">                            
+                        :href="$api.url+'/'+file_pdf">        
                         Download
-                    </v-btn>                           
+                    </v-btn>       
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>                            
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>        
                 </v-card-actions>
-            </v-card>            
+            </v-card>
         </v-dialog>
     </AkademikLayout>
 </template>
