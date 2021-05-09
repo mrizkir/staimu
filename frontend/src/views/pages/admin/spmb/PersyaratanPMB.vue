@@ -81,7 +81,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">    
+                                <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">
                                     <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />  
                                 </v-dialog>
                             </v-toolbar>
@@ -93,9 +93,9 @@
                                 :icon="badgeIcon(item)"
                                 :value="item.jumlah_persyaratan > 0"
                                 overlap>
-                                <v-avatar size="30">        
+                                <v-avatar size="30">    
                                     <v-img :src="$api.url+'/'+item.foto" />   
-                                </v-avatar>                                                                  
+                                </v-avatar>                                                      
                             </v-badge>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -128,7 +128,7 @@
     </SPMBLayout>
 </template>
 <script>
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import SPMBLayout from "@/views/layouts/SPMBLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import FormPersyaratan from '@/components/FormPersyaratanPMB';
 import ProfilMahasiswaBaru from '@/components/ProfilMahasiswaBaru';
@@ -160,7 +160,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
         this.initialize()
-    },   
+    },
     data: () => ({
         firstloading: true,
         prodi_id: null,
@@ -168,15 +168,15 @@ export default {
         nama_prodi: null,
 
         dialogprofilmhsbaru: false,
-        breadcrumbs: [],        
+        breadcrumbs: [], 
         dashboard: null,
 
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
-        headers: [                        
-            { text: '', value: 'foto', width:70 },       
+        headers: [
+            { text: '', value: 'foto', width:70 },
             { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
@@ -203,15 +203,15 @@ export default {
 		{	
             if (this.dashboard == 'mahasiswabaru' || this.dashboard == 'mahasiswa')
             {
-                await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),             
+                await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),      
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     },
                     
-                ).then(({ data }) => {                       
-                    this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false: true;                    
+                ).then(({ data }) => {     
+                    this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false: true;    
                 });  
             }
             else
@@ -226,42 +226,42 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                }).then(({ data }) => {                                   
+                }).then(({ data }) => {   
                     this.datatable = data.persyaratan;   
                     this.datatableLoading = false;
                 });  
                 this.firstloading = false; 
-                this.$refs.filter7.setFirstTimeLoading(this.firstloading);               
-            }               
+                this.$refs.filter7.setFirstTimeLoading(this.firstloading);      
+            }
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         badgeColor(item)
         {
-            return item.persyaratan<item.jumlah_persyaratan ? 'error': 'success' ;           
+            return item.persyaratan<item.jumlah_persyaratan ? 'error': 'success' ;  
         },
         badgeIcon(item)
         {
-            return item.persyaratan<item.jumlah_persyaratan == 1 ? 'mdi-close-thick': 'mdi-check-bold';            
-        },     
+            return item.persyaratan<item.jumlah_persyaratan == 1 ? 'mdi-close-thick': 'mdi-check-bold';   
+        },
         viewItem(item)
         {
-            this.datamhsbaru = Object.assign({},item);            
+            this.datamhsbaru = Object.assign({}, item);   
             this.dialogprofilmhsbaru = true;
         },
         closeProfilMahasiswaBaru ()
         {
-            this.dialogprofilmhsbaru = false;            
-        }   
+            this.dialogprofilmhsbaru = false;   
+        } 
     },
     watch: {
         tahun_pendaftaran()
@@ -269,7 +269,7 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -277,7 +277,7 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         }
     },
     components: {

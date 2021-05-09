@@ -48,15 +48,15 @@ export default {
             if (!this.firstloading)
             {
                 this.$store.dispatch('uiadmin/updateTahunAkademik',val);  
-                this.$emit('changeTahunAkademik',val);          
-            }            
+                this.$emit('changeTahunAkademik',val); 
+            } 
         },
         semester_akademik(val)
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateSemesterAkademik',val);                  
-                this.$emit('changeSemesterAkademik',val);          
+                this.$store.dispatch('uiadmin/updateSemesterAkademik',val);  
+                this.$emit('changeSemesterAkademik',val); 
             }
         },
     }

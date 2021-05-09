@@ -70,7 +70,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>        
+                                        </v-btn>    
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -364,8 +364,8 @@ export default {
     data()
     {
         let d = new Date();
-        let semester_ganjil = [d.getFullYear()+'-09-01',(d.getFullYear()+1)+'-02-28'];                
-        let semester_genap = [(d.getFullYear()+1)+'-03-01',(d.getFullYear()+1)+'-08-31'];                
+        let semester_ganjil = [d.getFullYear()+'-09-01',(d.getFullYear()+1)+'-02-28'];
+        let semester_genap = [(d.getFullYear()+1)+'-03-01',(d.getFullYear()+1)+'-08-31'];
         return {
             btnLoading: false,
             datatableLoading: false,
@@ -391,9 +391,9 @@ export default {
             //form data
             old_tahun: '',
             form_valid: true,
-            menuSemesterGanjil: false,        
+            menuSemesterGanjil: false, 
             semester_ganjil:semester_ganjil,
-            menuSemesterGenap: false,        
+            menuSemesterGenap: false, 
             semester_genap:semester_genap,
 
             formdata: {
@@ -404,7 +404,7 @@ export default {
                 awal_genap: '',
                 akhir_genap: '',
                 awal_pendek: '',
-                akhir_pendek: '',  
+                akhir_pendek: '',
             },
             formdefault: {
                 tahun: '',
@@ -414,27 +414,27 @@ export default {
                 awal_genap: '',
                 akhir_genap: '',
                 awal_pendek: '',
-                akhir_pendek: '',  
+                akhir_pendek: '',
             },
             editedIndex: -1,
 
             //form rules
             rule_tahun: [
                 value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
-                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',                
-                value => {                    
+                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',         
+                value => {  
                     if (value && typeof value !== 'undefined' && value.length > 0){
                         return value.length == 4 || 'Tahun Akademik hanya boleh 4 karakter';
                     }
                     else
                     {
                         return true;
-                    }                    
+                    }     
                 }
             ],
             rule_tahun_akademik: [                
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
-            ],            
+            ],     
         }
     },
     methods: {
@@ -454,7 +454,7 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
                 this.expanded = [];
             }
@@ -465,13 +465,13 @@ export default {
         },
         viewItem(item) {
             this.formdata = item;
-            this.dialogdetailitem=true;
+            this.dialogdetailitem = true;
         },
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);            
+            this.formdata = Object.assign({}, item);   
             this.semester_ganjil[0]=this.formdata.awal_ganjil == null ? item.tahun+'-09-01':item.awal_ganjil;
-            this.semester_ganjil[1]=this.formdata.akhir_ganjil == null ? (item.tahun+1)+'-02-31':item.akhir_ganjil;            
+            this.semester_ganjil[1]=this.formdata.akhir_ganjil == null ? (item.tahun+1)+'-02-31':item.akhir_ganjil;   
             this.semester_genap[0]=this.formdata.awal_genap == null ? (item.tahun+1)+'-03-01':item.awal_genap;
             this.semester_genap[1]=this.formdata.akhir_genap == null ? (item.tahun+1)+'-08-31':item.akhir_genap;
             this.old_tahun=item.tahun;
@@ -562,7 +562,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters('auth',{
+        ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),
@@ -574,7 +574,7 @@ export default {
             {
                 
             },
-            get ()
+            get()
             {
                 return this.semester_ganjil.join(' ~ ');
             }
@@ -584,11 +584,11 @@ export default {
             {
 
             },
-            get ()
+            get()
             {
                   return this.semester_genap.join(' ~ ');
             }
-        },   
+        },
     },
     components: {
         DataMasterLayout,

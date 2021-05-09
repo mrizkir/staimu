@@ -20,14 +20,14 @@
 								<v-timeline-item color="purple darken-1" icon="mdi-book-variant" fill-dot>
 										<v-card color="purple darken-1" dark>
 												<v-card-title class="title">Formulir Pendaftaran</v-card-title>
-												<v-card-text class="white text--primary">        
+												<v-card-text class="white text--primary">    
 														<p>Isi formulir pendaftaran dan lengkapi persyaratannya yaitu:</p>
 														<ul>
 																<li>Scan Pas Foto</li>
 																<li>Scan Ijazah Terakhir</li>
 																<li>Scan KTP</li>
 																<li>Scan Kartu Keluarga</li>
-														</ul>        
+														</ul>    
 														<v-btn
 																color="purple darken-1"
 																class="mx-0 mr-2"
@@ -78,11 +78,11 @@
 																		</tr>
 																		<tr>
 																				<td width="25%">Tanggal Daftar</td>
-																				<td>: {{$date(peserta.created_at).format("DD/MM/YYYY HH:mm")}}</td>
+																				<td>: {{ $date(peserta.created_at).format("DD/MM/YYYY HH:mm") }}</td>
 																		</tr>
 																		<tr>
 																				<td width="25%">Tanggal Ujian</td>
-																				<td>: {{$date(jadwal_ujian.tanggal_ujian).format('DD/MM/YYYY')}}</td>
+																				<td>: {{ $date(jadwal_ujian.tanggal_ujian).format('DD/MM/YYYY')}}</td>
 																		</tr>
 																		<tr>
 																				<td width="25%">Waktu Ujian</td>
@@ -152,10 +152,10 @@
 												:loading="datatableLoading"
 												loading-text="Loading... Please wait">
 												<template v-slot:item.tanggal_ujian="{ item }">
-														{{$date(item.tanggal_ujian).format('DD/MM/YYYY')}}
+														{{ $date(item.tanggal_ujian).format('DD/MM/YYYY')}}
 												</template>
 												<template v-slot:item.tanggal_akhir_daftar="{ item }">
-														{{$date(item.tanggal_akhir_daftar).format('DD/MM/YYYY')}}
+														{{ $date(item.tanggal_akhir_daftar).format('DD/MM/YYYY')}}
 												</template>
 												<template v-slot:item.durasi_ujian="{ item }">
 														{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br>({{durasiUjian(item)}})
@@ -276,7 +276,7 @@
 						"/spmb/ujianonline/daftar",
 						{
 							user_id: this.$store.getters["auth/AttributeUser"]("id"),
-							jadwal_ujian_id: item.id,
+							jadwal_ujian_id:item.id,
 						},
 						{
 							headers: {

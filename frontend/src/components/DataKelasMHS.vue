@@ -88,7 +88,7 @@
                     <v-card flat>
                         <v-card-title>CREATED / UPDATED :</v-card-title>
                         <v-card-subtitle>
-                            {{$date(datakelas.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(datakelas.updated_at).format("DD/MM/YYYY HH:mm")}}
+                            {{ $date(datakelas.created_at).format("DD/MM/YYYY HH:mm") }} / {{ $date(datakelas.updated_at).format("DD/MM/YYYY HH:mm") }}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -103,21 +103,21 @@ export default {
     props: {
         datakelas: {
             default: null,
-            type: Object,            
+            type: Object,     
         },
         url: {
             type: String,
             default: null            
         }
-    },  
-    methods: {       
+    },
+    methods: {    
         exit()
         {
             if (this.url != null)
             {
                 this.$router.push(this.url);
-            }            
+            } 
         }
-    },      
+    },
 }
 </script>

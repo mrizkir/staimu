@@ -58,7 +58,7 @@ const getters = {
 	},
 };
 const actions = {
-	init: async function({ commit, state }, ajax) {
+	init: async function({ commit, state },ajax) {
 		//dipindahkan kesini karena ada beberapa kasus yang melaporkan ini membuat bermasalah.
 		commit("setLoaded", false);
 		if (!state.loaded) {

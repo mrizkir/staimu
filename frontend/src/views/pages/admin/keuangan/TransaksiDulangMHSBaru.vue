@@ -455,7 +455,7 @@
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
-				}, 300);
+				},300);
 			},
 			deleteItem(item) {
 				this.$root.$confirm
@@ -559,7 +559,7 @@
 								});
 						}
 						this.awaiting_search = false;
-					}, 1000); // 1 sec delay
+					},1000); // 1 sec delay
 				}
 				this.awaiting_search = true;
 			},

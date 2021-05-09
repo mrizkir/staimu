@@ -53,7 +53,7 @@
                                 text-color="white"
                                 small
                                 >
-                                {{datakrs.sah==1?'YA': 'TIDAK'}}                            
+                                {{datakrs.sah==1?'YA': 'TIDAK'}}             
                             </v-chip>
                         </v-card-subtitle>
                     </v-card>
@@ -94,7 +94,7 @@
                     <v-card flat>
                         <v-card-title>CREATED/UPDATED:</v-card-title>  
                         <v-card-subtitle>
-                            {{$date(datakrs.created_at).format("DD/MM/YYYY HH:mm")}} ~ {{$date(datakrs.updated_at).format("DD/MM/YYYY HH:mm")}}
+                            {{ $date(datakrs.created_at).format("DD/MM/YYYY HH:mm") }} ~ {{ $date(datakrs.updated_at).format("DD/MM/YYYY HH:mm") }}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -108,11 +108,11 @@ export default {
     name: 'DataKRS',
     created()
     {
-        this.initialize();                     
+        this.initialize();     
     },
     props: {
         datakrs: {
-            type: Object,            
+            type: Object,     
             required: true
         },
         totalmatkul: {
@@ -139,8 +139,8 @@ export default {
             if (this.url != null)
             {
                 this.$router.push(this.url);
-            }            
+            } 
         }
-    },    
+    }, 
 }
 </script>

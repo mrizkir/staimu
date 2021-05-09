@@ -30,7 +30,7 @@
         </ModuleHeader>
         <v-container fluid v-if="data_kelas_mhs">
             <v-row>
-                <v-col cols="12">        
+                <v-col cols="12">    
                     <DataKelasMHS :datakelas="data_kelas_mhs" />
                 </v-col>
             </v-row>
@@ -64,13 +64,13 @@
                                     ></v-divider>
                                     <v-spacer></v-spacer>
                                 </v-toolbar>
-                            </template>    
+                            </template>
                             <template v-slot:item.idkelas="{item}">
                                 {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                             </template>
                             <template v-slot:item.kjur="{item}">
                                 {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
-                            </template>    
+                            </template>
                             <template v-slot:item.n_kuan="props"> 
                                 <v-numeric                
                                     v-model="props.item.n_kuan"
@@ -84,9 +84,9 @@
                                     :useCalculator="false"
                                     :calcIcon="null"
                                     style="width:65px">
-                                </v-numeric>    
+                                </v-numeric>
                                 <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>
-                            </template>    
+                            </template>
                             <template v-slot:item.n_kual="props">
                                 <v-select 
                                     :items="skala_nilai" 
@@ -105,13 +105,13 @@
                                             :disabled="btnLoading">
                                                 SIMPAN
                                         </v-btn>
-                                    </td>     
+                                    </td> 
                                 </tr>
                             </template> 
                             <template v-slot:no-data>
                                 Data belum tersedia
                             </template>   
-                        </v-data-table>            
+                        </v-data-table>
                     </v-form>
                 </v-col> 
             </v-row>
@@ -148,11 +148,11 @@ export default {
                 href: "#"
             }
         ];
-        this.kelas_mhs_id=this.$route.params.kelas_mhs_id;        
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
-        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
+        this.kelas_mhs_id = this.$route.params.kelas_mhs_id;        
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         kelas_mhs_id: null,
         data_kelas_mhs: null,
@@ -161,23 +161,23 @@ export default {
 
         btnLoadingTable: false,
         datatableLoading: false,
-        btnLoading: false,  
+        btnLoading: false,
         
-        datatable: [],    
-        datatable_peserta: [],                 
+        datatable: [],  
+        datatable_peserta: [],          
         headers_peserta: [
-            { text: "NIM", value: "nim", sortable: false, width: 100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable: false  },   
-            { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },   
-            { text: 'KELAS', value: 'idkelas', sortable: false  },                   
-            { text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                           
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },                                           
-            { text: 'NILAI HURUP', value: 'n_kual', sortable: false },                                           
-        ],                
+            { text: "NIM", value: "nim", sortable: false, width: 100  },
+            { text: 'NAMA', value: 'nama_mhs', sortable: false  },
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
+            { text: 'KELAS', value: 'idkelas', sortable: false  },         
+            { text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                 
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },                                 
+            { text: 'NILAI HURUP', value: 'n_kual', sortable: false },                                 
+        ],         
 
         //formdata
         form_valid: true, 
-        daftar_nilai: [],        
+        daftar_nilai: [], 
         skala_nilai: [
             'A',
             'A-',
@@ -194,24 +194,24 @@ export default {
         ]       
         
     }),
-    methods: {        
+    methods: {
         initialize: async function() 
         {
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,            
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,     
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
-                this.data_kelas_mhs=data.pembagiankelas;                                         
+            }).then(({ data }) => {
+                this.data_kelas_mhs=data.pembagiankelas; 
             });
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,            
+            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,     
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                                                 
+            }).then(({ data }) => {                                                 
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta;   
             })              
@@ -219,27 +219,27 @@ export default {
         async fetchPeserta()
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,            
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,     
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                      
-                this.datatable_peserta=data.peserta;                                
+            }).then(({ data }) => {                      
+                this.datatable_peserta=data.peserta;        
                 this.datatableLoading = false;
             })   
-        },  
+        },
         save()
         {
             
-        }      
+        }
     },
     watch: {
         
-    },    
+    }, 
     components: {
         AkademikLayout,
-        ModuleHeader,     
+        ModuleHeader,
         DataKelasMHS       
     },
 }

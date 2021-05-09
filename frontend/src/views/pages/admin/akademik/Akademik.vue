@@ -55,17 +55,17 @@ export default {
 				disabled: true,
 				href: "#"
 			}
-        ];				
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                 
+        ];
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"]; 
     },
     mounted()
     {
         this.initialize();
     },
-    data: () => ({        
+    data: () => ({
         datatableLoading: false,
         firstloading: true,
-        breadcrumbs: [],        
+        breadcrumbs: [], 
         tahun_akademik: 0,
         
     }),
@@ -76,9 +76,9 @@ export default {
         },
 		initialize: async function()
 		{	
-            this.datatableLoading = true;            
+            this.datatableLoading = true;   
             
-            this.firstloading = false;            
+            this.firstloading = false;   
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
 
         }
@@ -89,13 +89,13 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
     },
     components: {
         AkademikLayout,
-        ModuleHeader,   
-        Filter1,      
+        ModuleHeader, 
+        Filter1, 
     },
 }
 </script>

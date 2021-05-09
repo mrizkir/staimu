@@ -54,7 +54,7 @@
                     <v-card flat>
                         <v-card-title>CREATED / UPDATED :</v-card-title>
                         <v-card-subtitle>
-                            {{$date(datamatkul.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(datamatkul.updated_at).format("DD/MM/YYYY HH:mm")}}
+                            {{ $date(datamatkul.created_at).format("DD/MM/YYYY HH:mm") }} / {{ $date(datamatkul.updated_at).format("DD/MM/YYYY HH:mm") }}
                         </v-card-subtitle>
                     </v-card>
                 </v-col>
@@ -69,8 +69,8 @@ export default {
     props: {
         datamatkul: {
             default: null,
-            type: Object,            
+            type: Object,     
         }
-    },    
+    }, 
 }
 </script>

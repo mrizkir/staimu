@@ -38,14 +38,14 @@ export default {
     name: 'FrontLayout',
     created()
     {
-        this.$store.dispatch('uifront/init',this.$ajax);           
+        this.$store.dispatch('uifront/init',this.$ajax);  
     },
     computed : {
-        APP_NAME ()
+        APP_NAME()
         {
             return process.env.VUE_APP_NAME;
         },
-        ...mapGetters('uifront',{
+        ...mapGetters("uifront", {
             namaPTAlias: 'getNamaPTAlias'
         })
     }

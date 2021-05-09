@@ -67,13 +67,13 @@
 																		vertical
 																></v-divider>
 																<v-spacer></v-spacer>
-																<v-dialog v-model="dialogfrm" max-width="500px" persistent>    
+																<v-dialog v-model="dialogfrm" max-width="500px" persistent>
 																		<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 																				<v-card>
 																						<v-card-title>
 																								<span class="headline">UBAH PERSYARATAN UJIAN MUNAQASAH</span>
 																						</v-card-title>
-																						<v-card-text>                                                                      
+																						<v-card-text>                                                          
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -121,7 +121,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>            
+																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
@@ -141,7 +141,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>            
+																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
@@ -161,13 +161,13 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                                                                                                 
+																						</v-row>                                                                                                     
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>
 																						<v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
 																				</v-card-actions>
-																		</v-card>    
+																		</v-card>
 																</v-dialog>											
 														</v-toolbar>
 												</template>
@@ -187,13 +187,13 @@
 												</template>
 												<template v-slot:expanded-item="{ headers, item }">
 														<td :colspan="headers.length" class="text-center">
-																<v-col cols="12">      
-																		<strong>ID:</strong>{{ item.id }}          
+																<v-col cols="12">  
+																		<strong>ID:</strong>{{ item.id }} 
 																		<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 																		<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 																</v-col>
 														</td>
-												</template>    
+												</template>
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>
@@ -290,7 +290,7 @@
 					});  										
 			},
 			dataTableRowClicked(item) {
-				if ( item === this.expanded[0]) {
+				if (item === this.expanded[0]) {
 					this.expanded = [];
 				} else {
 					this.expanded = [item];
@@ -301,7 +301,7 @@
 			},
 			viewItem(item) {
 					this.formdata = item; 
-					this.dialogdetailitem=true;  
+					this.dialogdetailitem = true;  
 			},
 			editItem: async function(item) {
 				this.editedIndex = this.datatable.indexOf(item);  
@@ -341,7 +341,7 @@
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
-				}, 300);
+				},300);
 			},
 			closedialogfrm() {
 				this.dialogfrm = false;
@@ -349,7 +349,7 @@
 					this.$refs.frmdata.resetValidation();
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
-				}, 300);
+				},300);
 			},
 		},
 		computed: {

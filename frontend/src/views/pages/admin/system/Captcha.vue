@@ -81,7 +81,7 @@ export default {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },  
+            },
             {
                 text: 'SERVER - CAPTCHA',
                 disabled: true,
@@ -124,7 +124,7 @@ export default {
             });
 
         },
-        save () {
+        save() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
@@ -151,7 +151,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('auth',{
+        ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),

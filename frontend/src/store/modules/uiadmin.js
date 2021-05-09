@@ -245,7 +245,7 @@ const getters = {
 	},
 };
 const actions = {
-	init: async function({ commit, state, rootGetters }, ajax) {
+	init: async function({ commit, state, rootGetters },ajax) {
 		//dipindahkan kesini karena ada beberapa kasus yang melaporkan ini membuat bermasalah.
 		commit("setLoaded", false);
 		if (!state.loaded && rootGetters["auth/Authenticated"]) {
@@ -306,13 +306,13 @@ const actions = {
 		}
 	},
 
-	addToPages({ commit, state }, page) {
+	addToPages({ commit, state },page) {
 		let found = state.pages.find(halaman => halaman.name == page.name);
 		if (!found) {
 			commit("setNewPage", page);
 		}
 	},
-	updatePage({ commit, state }, page) {
+	updatePage({ commit, state },page) {
 		var i;
 		for (i = 0; i < state.pages.length; i++) {
 			if (state.pages[i].name == page.name) {
@@ -321,36 +321,36 @@ const actions = {
 		}
 		commit("replacePage", page, i);
 	},
-	deletePage({ commit }, name) {
+	deletePage({ commit },name) {
 		commit("removePage", name);
 	},
 
-	changeDashboard({ commit }, name) {
+	changeDashboard({ commit },name) {
 		commit("setDashboard", name);
 	},
 
-	updateFakultas({ commit }, id) {
+	updateFakultas({ commit },id) {
 		commit("setFakultasID", id);
 	},
-	updateProdi({ commit }, id) {
+	updateProdi({ commit },id) {
 		commit("setProdiID", id);
 	},
 
-	updateTahunPendaftaran({ commit }, tahun) {
+	updateTahunPendaftaran({ commit },tahun) {
 		commit("setTahunPendaftaran", tahun);
 	},
-	updateTahunAkademik({ commit }, tahun) {
+	updateTahunAkademik({ commit },tahun) {
 		commit("setTahunAkademik", tahun);
 	},
 
-	updateSemesterPendaftaran({ commit }, semester) {
+	updateSemesterPendaftaran({ commit },semester) {
 		commit("setSemesterPendaftaran", semester);
 	},
-	updateSemesterAkademik({ commit }, semester) {
+	updateSemesterAkademik({ commit },semester) {
 		commit("setSemesterAkademik", semester);
 	},
 
-	updateIDKelas({ commit }, idkelas) {
+	updateIDKelas({ commit },idkelas) {
 		commit("setIDKelas", idkelas);
 	},
 	reinit({ commit }) {

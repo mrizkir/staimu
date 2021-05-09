@@ -42,7 +42,7 @@
 			filepersyaratan: [],
 			//form rules  
 			rule_foto: [
-				value => !!value || "Mohon pilih foto !!!",  
+				value => !!value || "Mohon pilih foto !!!",
 				value =>  !value || value.size < 2000000 || 'File foto harus kurang dari 2MB.'                
 			],
 		}),
@@ -51,11 +51,11 @@
 				if (this.$refs.frmpersyaratan.validate()) {
 					if (typeof this.filepersyaratan[index] !== 'undefined') {
 						this.btnLoading = true;
-						var formdata = new FormData();					
+						var formdata = new FormData();	
 						formdata.append("filepersyaratan", this.filepersyaratan[index]);
 						await this.$ajax
 							.post(
-								"/akademik/perkuliahan/ujianmunaqasah/upload/" + item.id, formdata,                    
+								"/akademik/perkuliahan/ujianmunaqasah/upload/" + item.id, formdata,             
 								{
 									headers: {
 										Authorization: this.$store.getters["auth/Token"],
@@ -63,7 +63,7 @@
 									}
 								}
 							)
-							.then(() => {                                                   
+							.then(() => {                   
 								this.$router.go();
 							})
 							.catch(() => {

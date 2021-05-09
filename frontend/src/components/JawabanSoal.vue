@@ -24,10 +24,10 @@ export default {
             required: true
         }
     },
-    data: () => ({     
+    data: () => ({  
         
     }),
-    methods: {        
+    methods: {
         jawabSoal: async function()
         {
             await this.$ajax.post('/spmb/ujianonline/store',
@@ -38,10 +38,10 @@ export default {
             },
             {
                 headers: {
-                    Authorization: this.$store.getters["auth/Token"],                                          
+                    Authorization: this.$store.getters["auth/Token"],                                   
                 }
             }
-            ).then(() => {                                                   
+            ).then(() => {                   
                 this.$emit('selesaiJawab');
             }).catch(() => {
                 

@@ -134,7 +134,7 @@
 																										<v-card flat>
 																												<v-card-title>TANGGAL TRANSAKSI :</v-card-title>
 																												<v-card-subtitle>
-																														{{$date(data_transaksi.tanggal).format('DD/MM/YYYY')}} {{$date(data_transaksi.created_at).format('HH:mm:ss')}}
+																														{{ $date(data_transaksi.tanggal).format('DD/MM/YYYY')}} {{ $date(data_transaksi.created_at).format('HH:mm:ss')}}
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
@@ -318,7 +318,7 @@
 																										<v-card flat>
 																												<v-card-title>TANGGAL KONFIRMASI :</v-card-title>
 																												<v-card-subtitle>
-																														{{$date(data_konfirmasi.tanggal_bayar).format('DD/MM/YYYY')}}
+																														{{ $date(data_konfirmasi.tanggal_bayar).format('DD/MM/YYYY')}}
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
@@ -634,7 +634,7 @@ export default {
 				},
 				dataTableRowClicked(item)
 				{
-						if ( item === this.expanded[0])
+						if (item === this.expanded[0])
 						{
 								this.expanded = [];
 						}
@@ -667,7 +667,7 @@ export default {
 						}).then(({ data }) => {
 								this.data_konfirmasi=data.konfirmasi;
 								this.image_prev=this.$api.url+'/'+data.konfirmasi.bukti_bayar;
-								this.dialogdetailitem=true;
+								this.dialogdetailitem = true;
 						});
 
 				},
@@ -686,7 +686,7 @@ export default {
 								}
 						}
 				},
-				save () {
+				save() {
 						if (this.$refs.frmdata.validate())
 						{
 								this.btnLoading = true;
@@ -771,18 +771,18 @@ export default {
 						setTimeout(() => {
 								this.buktiBayar=null;
 								this.formdata = Object.assign({}, this.formdefault);
-								this.data_transaksi = Object.assign({}, {});
-								this.data_konfirmasi = Object.assign({}, {});
-								}, 300
+								this.data_transaksi = Object.assign({},{});
+								this.data_konfirmasi = Object.assign({},{});
+								},300
 						);
 				},
 				closedialogdetailitem() {
 						this.dialogdetailitem = false;
 						setTimeout(() => {
 								this.formdata = Object.assign({}, this.formdefault);
-								this.data_transaksi = Object.assign({}, {});
-								this.data_konfirmasi = Object.assign({}, {});
-								}, 300
+								this.data_transaksi = Object.assign({},{});
+								this.data_konfirmasi = Object.assign({},{});
+								},300
 						);
 				},
 		},
@@ -792,7 +792,7 @@ export default {
 						return this.$store.getters['uiadmin/getTahunPendaftaran'];
 				},
 				buktiBayar: {
-						get ()
+						get()
 						{
 								if (this.image_prev==null)
 								{
@@ -803,7 +803,7 @@ export default {
 										return this.image_prev;
 								}
 						},
-						set (val)
+						set(val)
 						{
 								this.image_prev=val;
 						}
@@ -850,7 +850,7 @@ export default {
 												});
 										}
 										this.awaiting_search = false;
-								}, 1000); // 1 sec delay
+								},1000); // 1 sec delay
 						}
 						this.awaiting_search = true;
 				}

@@ -332,7 +332,7 @@
 							this.dosen_id = config.kaprodi;
 						}
 						this.datatableLoading = false;
-						this.formdata = item;						
+						this.formdata = item;		
 					});
 				this.firstloading = false;
 			},
@@ -352,8 +352,8 @@
 					});
 
 				this.jenjang_studi = {
-					kode_jenjang: item.kode_jenjang,
-					nama_jenjang: item.nama_jenjang,
+					kode_jenjang:item.kode_jenjang,
+					nama_jenjang:item.nama_jenjang,
 				};
 				this.dialogfrm = true;
 			},
@@ -457,7 +457,7 @@
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
 					this.editedIndex = -1;
-				}, 300);
+				},300);
 			},
 		},
 		computed: {

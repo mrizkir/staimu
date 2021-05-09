@@ -79,13 +79,13 @@
 																		v-if="$store.getters['auth/can']('DMASTER-PERSYARATAN-PMB_STORE')">
 																		TAMBAH
 																</v-btn>
-																<v-dialog v-model="dialogfrm" max-width="500px" persistent>    
+																<v-dialog v-model="dialogfrm" max-width="500px" persistent>
 																		<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 																				<v-card>
 																						<v-card-title>
 																								<span class="headline">{{ formTitle }}</span>
 																						</v-card-title>
-																						<v-card-text>                                                                      
+																						<v-card-text>                                                          
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -133,7 +133,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>            
+																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
@@ -153,7 +153,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>            
+																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
@@ -173,20 +173,20 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                                                                                                 
+																						</v-row>                                                                                                     
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>
 																						<v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
 																				</v-card-actions>
-																		</v-card>    
+																		</v-card>
 																</v-dialog>
 																<v-dialog v-model="dialogcopypersyaratan" max-width="500px" persistent> 
 																		<v-form ref="frmdialogcopypersyaratan" v-model="form_valid" lazy-validation>
 																				<v-card>
 																						<v-card-title>
 																								<span class="headline">SALIN PERSYARATAN PMB</span>
-																						</v-card-title>            
+																						</v-card-title>
 																						<v-card-text>   
 																								<v-alert
 																										class="info"
@@ -241,13 +241,13 @@
 												</template>
 												<template v-slot:expanded-item="{ headers, item }">
 														<td :colspan="headers.length" class="text-center">
-																<v-col cols="12">      
-																		<strong>ID:</strong>{{ item.id }}          
+																<v-col cols="12">  
+																		<strong>ID:</strong>{{ item.id }} 
 																		<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 																		<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 																</v-col>
 														</td>
-												</template>    
+												</template>
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>
@@ -354,7 +354,7 @@
 								headers: {
 										Authorization: this.TOKEN
 								}
-						}).then(({ data }) => {               
+						}).then(({ data }) => {    
 								this.datatable = data.persyaratan;
 								this.datatableLoading = false;
 						}).catch(() => {
@@ -365,24 +365,24 @@
 				},
 				dataTableRowClicked(item)
 				{
-						if ( item === this.expanded[0])
+						if (item === this.expanded[0])
 						{
 								this.expanded = [];
 						}
 						else
 						{
 								this.expanded = [item];
-						}               
+						}
 				},
 				tambahItem: async function()
-				{   
+				{
 						this.dialogfrm = true;
 				},
 				viewItem(item) {
 						this.formdata = item; 
-						this.dialogdetailitem=true;        
+						this.dialogdetailitem = true;        
 				},
-				editItem: async function(item) {            
+				editItem: async function(item) { 
 						this.editedIndex = this.datatable.indexOf(item);  
 						this.formdata = item;      
 						this.dialogfrm = true
@@ -396,8 +396,8 @@
 								value:item.value,
 								text:item.text,
 							});
-						}                              
-					}            
+						}               
+					} 
 					this.dialogcopypersyaratan=true;
 				},
 				save: async function() {
@@ -416,7 +416,7 @@
 													},
 												}
 										)
-										.then(() => {   
+										.then(() => {
 											this.initialize();
 											this.btnLoading = false;
 											this.closedialogfrm();        
@@ -425,7 +425,7 @@
 											this.btnLoading = false;
 										}); 
 										
-								} else {                    
+								} else {  
 									await this.$ajax.post("/datamaster/persyaratan/store",
 										{
 											proses: this.formdata.proses,
@@ -438,7 +438,7 @@
 											},
 										}
 									)
-									.then(() => {   
+									.then(() => {
 										this.initialize();  
 										this.btnLoading = false;
 										this.closedialogfrm();
@@ -464,16 +464,16 @@
 														Authorization: this.TOKEN
 												}
 										}
-								).then(({ data }) => {   
+								).then(({ data }) => {
 										this.datatable=data.persyaratan;
 										this.btnLoading = false;
 										this.closedialogsalinpersyaratan();
 								}).catch(() => {
 										this.btnLoading = false;
-								});            
+								});   
 						}
 				},
-				deleteItem(item) {           
+				deleteItem(item) {
 						this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus persyaratan "+item.nama_persyaratan+" ?", { color: "red" }).then(confirm => {
 								if (confirm) {
 										this.btnLoading = true;
@@ -486,56 +486,56 @@
 																Authorization: this.TOKEN
 														}
 												}
-										).then(() => {   
+										).then(() => {
 												const index = this.datatable.indexOf(item);
 												this.datatable.splice(index, 1);
 												this.btnLoading = false;
 										}).catch(() => {
 												this.btnLoading = false;
 										});
-								}                
+								} 
 						});
 				},
 				closedialogdetailitem() {
-						this.dialogdetailitem = false;            
+						this.dialogdetailitem = false;   
 						setTimeout(() => {
 								this.formdata = Object.assign({}, this.formdefault)
 								this.editedIndex = -1
-								}, 300
+								},300
 						);
 				},
 				closedialogfrm() {
-						this.dialogfrm = false;            
-						setTimeout(() => {                              
+						this.dialogfrm = false;   
+						setTimeout(() => {            
 								this.$refs.frmdata.resetValidation(); 
 								this.formdata = Object.assign({}, this.formdefault);  
 								this.editedIndex = -1
-								}, 300
+								},300
 						);
 				},
-				closedialogsalinpersyaratan () {                       
+				closedialogsalinpersyaratan() {     
 						this.dialogcopypersyaratan = false; 
-						setTimeout(() => {                
+						setTimeout(() => { 
 								this.$refs.frmdialogcopypersyaratan.reset(); 
 								this.editedIndex = -1
-								}, 300
-						);           
+								},300
+						);  
 				},
 		},
 		computed: {
-			...mapGetters("auth", {            
+			...mapGetters("auth", { 
 				ACCESS_TOKEN: "AccessToken",
 				TOKEN: "Token",
 			}),
 			formTitle() {
 				return this.editedIndex === -1 ? "TAMBAH PERSYARATAN PMB" : "UBAH PERSYARATAN PMB";
-			}, 
+			},
 		},
 		watch: {
 			tahun_pendaftaran() {
 				if (!this.firstloading) {
 					this.initialize();
-				}            
+				} 
 			},
 		},
 		components: {

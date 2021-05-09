@@ -60,23 +60,23 @@
                                 @save="saveItem({id:props.item.id_status,style:props.item.style})"
                                 @cancel="cancelItem"
                                 @open="openItem"
-                                @close="closeItem">     
+                                @close="closeItem"> 
                                     <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>  
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Style</div>        
+                                        <div class="mt-4 title">Update Style</div>    
                                         <v-text-field 
                                             label="STYLE STATUS TRANSAKSI"                                             
                                             outlined
                                             autofocus
-                                            v-model="props.item.style">        
+                                            v-model="props.item.style">    
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
                         </template>  
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>ID:</strong>{{ item.id_status }}          
+                                <v-col cols="12">  
+                                    <strong>ID:</strong>{{ item.id_status }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -117,53 +117,53 @@ export default {
             }
         ];        
         this.initialize();
-    },  
+    },
     data: () => ({
         firstloading: true,
-        breadcrumbs: [],         
+        breadcrumbs: [],  
         
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_status', width:10, sortable: false },                                   
+            { text: 'ID', value: 'id_status', width:10, sortable: false },                         
             { text: 'NAMA STATUS', value: 'nama_status', sortable: false},
-            { text: 'STYLE', value: 'style', width: 200, sortable: false },                
-        ],      
+            { text: 'STYLE', value: 'style', width: 200, sortable: false },      
+        ], 
         
     }),
-    methods: {        
+    methods: {
         initialize: async function()
 		{
-            this.datatableLoading = true;            
+            this.datatableLoading = true;   
             await this.$ajax.get('/keuangan/statustransaksi',
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
-                this.datatable = data.status;                
+            }).then(({ data }) => {    
+                this.datatable = data.status;
                 this.datatableLoading = false;
-            });                     
-            this.firstloading = false;                        
+            });     
+            this.firstloading = false;
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         saveItem: async function ({id,style})
         {
-            await this.$ajax.post('/keuangan/statustransaksi/'+id,            
+            await this.$ajax.post('/keuangan/statustransaksi/'+id,     
             {
-                _method: "put",                
+                _method: "put",         
                 id_status:id,
                 style:style
             },
@@ -171,8 +171,8 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {               
-                this.initialize();                        
+            }).then(() => {    
+                this.initialize();
             });  
         },
         cancelItem()
@@ -187,10 +187,10 @@ export default {
         {
 
         },
-    },   
+    },
     components: {
         KeuanganLayout,
-        ModuleHeader,    
+        ModuleHeader,  
     },
 }
 </script>

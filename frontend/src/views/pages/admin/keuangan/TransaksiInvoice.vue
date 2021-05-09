@@ -23,7 +23,7 @@
                                     <tr>
                                         <td width="120">Tanggal Faktur</td>
                                         <td width="15">:</td>
-                                        <td>{{$date(data_transaksi.created_at).format("DD/MM/YYYY HH:mm")}}</td>
+                                        <td>{{ $date(data_transaksi.created_at).format("DD/MM/YYYY HH:mm") }}</td>
                                     </tr>
                                     <tr>
                                         <td>Kode Billing</td>
@@ -82,7 +82,7 @@ export default {
     name: 'TransaksiInvoice',
     created()
     {
-        this.transaksi_id=this.$route.params.transaksi_id;   
+        this.transaksi_id = this.$route.params.transaksi_id;   
         this.initialize();
     },
     data: () => ({
@@ -90,7 +90,7 @@ export default {
         data_transaksi: null,
         transaksi_detail: [],
 
-        datatableLoading: false,       
+        datatableLoading: false,
         
         errormessage: '',
 
@@ -109,7 +109,7 @@ export default {
             { text: 'BULAN', value: 'bulan', width:60, sortable: false },
             { text: "JUMLAH", value: "sub_total", width:60, sortable: false },
         ],
-    }),    
+    }),  
     methods: {
         initialize: async function() 
         {
@@ -121,22 +121,22 @@ export default {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {  
-                let setting = data.setting;                           
+                let setting = data.setting;   
                 this.headers.header_1=setting.HEADER_1;
                 this.headers.header_2=setting.HEADER_2;
                 this.headers.header_3=setting.HEADER_3;
                 this.headers.header_4=setting.HEADER_4;
                 this.headers.header_address=setting.HEADER_ADDRESS;
-            });          
+            }); 
             
-            await this.$ajax.get('/keuangan/transaksi/'+this.transaksi_id,                        
+            await this.$ajax.get('/keuangan/transaksi/'+this.transaksi_id,                 
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {       
-                this.data_transaksi=data.transaksi;                                       
-                this.transaksi_detail = data.transaksi_detail;                
+            }).then(({ data }) => {    
+                this.data_transaksi=data.transaksi;      
+                this.transaksi_detail = data.transaksi_detail;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
@@ -144,9 +144,9 @@ export default {
             });
 
         },
-    },    
+    }, 
     computed : {
-        ...mapGetters('uifront',{
+        ...mapGetters("uifront", {
             namaPTAlias: 'getNamaPTAlias'
         })
     }

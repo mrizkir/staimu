@@ -67,7 +67,7 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="600px" persistent>
-                                    <template v-slot:activator="{ on }">        
+                                    <template v-slot:activator="{ on }">    
                                         <v-btn color="primary" icon outlined small class="ma-2"  v-on="on">
                                             <v-icon>mdi-plus</v-icon>
                                         </v-btn>
@@ -113,7 +113,7 @@
                                                     label="JWT TOKEN"
                                                     outlined
                                                     :disabled="true">
-                                                </v-text-field>    
+                                                </v-text-field>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -156,7 +156,7 @@
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                             </v-row>
-                                            <v-row no-gutters>            
+                                            <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>EMAIL :</v-card-title>
@@ -230,7 +230,7 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED / UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}} / {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
+                                                            {{ $date(formdata.created_at).format("DD/MM/YYYY HH:mm") }} / {{ $date(formdata.updated_at).format("DD/MM/YYYY HH:mm") }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -241,7 +241,7 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -320,7 +320,7 @@ export default {
             }
         ];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
@@ -341,33 +341,33 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,         
+        form_valid: true,  
         formdata: {
             id: 0,
-            zoom_id: '',                        
-            email: '',                        
+            zoom_id: '',                 
+            email: '',                 
             api_key: '',
             api_secret: '',
             im_token: '',
             jwt_token: '',
             status: '',
-            desc: '',                        
-            created_at: '',           
-            updated_at: '',           
+            desc: '',                 
+            created_at: '',    
+            updated_at: '',    
 
         },
         formdefault: {
             id: 0,
-            zoom_id: '',                        
-            email: '',                        
+            zoom_id: '',                 
+            email: '',                 
             api_key: '',
             api_secret: '',
             im_token: '',
             jwt_token: '',
             status: '',
-            desc: '',                        
-            created_at: '',           
-            updated_at: '',         
+            desc: '',                 
+            created_at: '',    
+            updated_at: '',  
         },
         editedIndex: -1,
 
@@ -377,13 +377,13 @@ export default {
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
         ], 
         rule_api_key: [
-            value => !!value || "Mohon untuk mengisi API Key !!!",  
+            value => !!value || "Mohon untuk mengisi API Key !!!",
         ], 
         rule_api_secret: [
-            value => !!value || "Mohon untuk mengisi API Secret !!!",  
+            value => !!value || "Mohon untuk mengisi API Secret !!!",
         ],
         rule_im_token: [
-            value => !!value || "Mohon mengisi IM Token !!!",  
+            value => !!value || "Mohon mengisi IM Token !!!",
         ],
     }),
     methods: {
@@ -394,7 +394,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.zoom;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -403,31 +403,31 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         viewItem(item) {
             this.formdata = item;      
-            this.dialogdetailitem=true;              
+            this.dialogdetailitem = true;     
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {               
+            // }).then(({ data }) => {    
                                            
-            // });                      
-        },    
+            // });      
+        }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true;
-        },    
+        }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -437,9 +437,9 @@ export default {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            email: this.formdata.email,                            
+                            email: this.formdata.email,                     
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,                            
+                            api_secret: this.formdata.api_secret,                     
                             im_token: this.formdata.im_token, 
                         },
                         {
@@ -447,28 +447,28 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         Object.assign(this.datatable[this.editedIndex], data.zoom);
                         this.closedialogfrm();
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });                 
+                    }); 
                      
                 } else {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/store',
                         {
-                            email: this.formdata.email,                            
+                            email: this.formdata.email,                     
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,                            
-                            im_token: this.formdata.im_token,                                                       
+                            api_secret: this.formdata.api_secret,                     
+                            im_token: this.formdata.im_token,                                                
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         this.datatable.push(data.zoom);
                         this.closedialogfrm();
                         this.btnLoading = false;
@@ -489,16 +489,16 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         this.$router.go();
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
                     });
-                }                
+                } 
             });
         },
-        deleteItem(item) {           
+        deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
@@ -512,35 +512,35 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
                     });
-                }                
+                } 
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;            
+            this.dialogfrm = false;   
             setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);                
+                this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
                 this.$refs.frmdata.reset(); 
-                }, 300
+                },300
             );
         },
     },
-    computed: {        
+    computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },

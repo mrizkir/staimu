@@ -75,23 +75,23 @@
                                 @cancel="cancelItem"
                                 @open="openItem"
                                 @close="closeItem"> 
-                                    {{ props.item.nilai }}                                    
+                                    {{ props.item.nilai }}                     
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Nilai</div>        
+                                        <div class="mt-4 title">Update Nilai</div>    
                                         <v-text-field 
                                             label="NILAI PASSING GRADE" 
                                             :rules="rule_angka"
                                             outlined
                                             autofocus
-                                            v-model="props.item.nilai">        
+                                            v-model="props.item.nilai">    
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>ID:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>ID:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -107,7 +107,7 @@
     </SPMBLayout>
 </template>
 <script>
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import SPMBLayout from "@/views/layouts/SPMBLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PassingGrade',
@@ -140,21 +140,21 @@ export default {
     data: () => ({
         jadwal_ujian_id: null,
         jadwal_ujian: {
-            id: 0,                        
-            nama_kegiatan: '',            
-            ta: '',                        
-            idsmt: '',                                    
+            id: 0,                 
+            nama_kegiatan: '',     
+            ta: '',                 
+            idsmt: '',                             
         },
-        breadcrumbs: [],        
+        breadcrumbs: [], 
         dashboard: null,
 
         btnLoading: false,
-        datatableLoading: false,        
+        datatableLoading: false, 
         expanded: [],
         datatable: [],
-        headers: [                                        
+        headers: [                
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
-            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },                
+            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },      
         ],
         search: "",
 
@@ -169,44 +169,44 @@ export default {
             this.datatableLoading = true;
             await this.$ajax.post('/spmb/passinggrade',
             {
-                jadwal_ujian_id: this.jadwal_ujian_id,                
+                jadwal_ujian_id: this.jadwal_ujian_id,         
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                 
+            }).then(({ data }) => {  
                 this.datatableLoading = false;
                 this.jadwal_ujian=data.jadwal_ujian;      
-                this.datatable=data.passing_grade;                               
+                this.datatable=data.passing_grade;       
             }).catch(() => {
-                this.datatableLoading = false;                
+                this.datatableLoading = false;
             });  
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         loadprodi: async function()
         {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/loadprodi',
                 {
-                    jadwal_ujian_id: this.jadwal_ujian_id,               
+                    jadwal_ujian_id: this.jadwal_ujian_id,        
                 },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {         
+            ).then(() => { 
                 this.btnLoading = false;
                 this.initialize();
             }).catch(() => {
@@ -216,7 +216,7 @@ export default {
         saveItem: async function ({id,nilai})
         {
             this.btnLoading = true;
-            await this.$ajax.post('/spmb/passinggrade/'+id,            
+            await this.$ajax.post('/spmb/passinggrade/'+id,     
             {
                 _method: "put",
                 id:id,
@@ -226,9 +226,9 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {        
+            }).then(() => {
                 this.btnLoading = false;       
-                this.initialize();                        
+                this.initialize();
             });  
         },
         cancelItem()
@@ -244,7 +244,7 @@ export default {
 
         },
     },
-    computed: {        
+    computed: {
         
     },
     components: {

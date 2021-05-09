@@ -101,7 +101,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>            
+                                            </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -121,13 +121,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-                                            </v-row>            
+                                            </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TANGGAL TRANSAKSI :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(data_transaksi.tanggal).format('DD/MM/YYYY')}}
+                                                            {{ $date(data_transaksi.tanggal).format('DD/MM/YYYY')}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -163,7 +163,7 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -185,12 +185,12 @@
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
                                 mdi-eye
-                            </v-icon>       
+                            </v-icon>   
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>ID:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>ID:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -206,28 +206,28 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>        
+                            </tr>    
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
                                 <td class="text-right">{{ totaltransaksi_unpaid | formatUang }}</td> 
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>        
+                            </tr>    
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
                                 <td class="text-right">{{ totaltransaksi_canceled | formatUang }}</td> 
                                 <td></td>
-                                <td></td>     
-                                <td></td>     
-                            </tr>        
+                                <td></td> 
+                                <td></td> 
+                            </tr>    
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
                                 <td class="text-right">{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>        
+                            </tr>    
                         </template>  
                     </v-data-table>
                 </v-col>
@@ -266,36 +266,36 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                  
-    },   
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+    },
     mounted()
     {
         this.initialize()
     },
     data: () => ({ 
         firstloading: true,
-        breadcrumbs: [],     
+        breadcrumbs: [],
         prodi_id: null,
         nama_prodi: null, 
         tahun_akademik: 0,
-        btnLoading: false,       
+        btnLoading: false,
         filter_ignore: false, 
         awaiting_search: false,
 
         //tables
-        datatableLoading: false,       
+        datatableLoading: false,
         datatable: [], 
-        headers: [                                                
+        headers: [                        
             { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
             { text: "NIM", value: "nim", width: 100, sortable: true },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
             { text: "SMT", value: "idsmt", width:50, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
-            { text: "STATUS", value: "nama_status", width:50, sortable: true },    
-            { text: 'KET.', value: 'desc', width:150, sortable: false },    
+            { text: "STATUS", value: "nama_status", width:50, sortable: true }, 
+            { text: 'KET.', value: 'desc', width:150, sortable: false }, 
             { text: "AKSI", value: "actions", sortable: false, width:50 },
-        ],        
+        ], 
         expanded: [],
         search: "", 
 
@@ -310,8 +310,8 @@ export default {
             { text: "JUMLAH", value: "sub_total", width:60, sortable: false },
         ],
         //form data
-        data_transaksi: {}, 
-        data_transaksi_detail: {},      
+        data_transaksi: {},
+        data_transaksi_detail: {},
     }),
     methods: {
         changeTahunAkademik(tahun)
@@ -324,8 +324,8 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading = true;            
-            await this.$ajax.post('/keuangan/transaksi',            
+            this.datatableLoading = true;   
+            await this.$ajax.post('/keuangan/transaksi',     
             {
                 TA: this.tahun_akademik,
                 PRODI_ID: this.prodi_id,
@@ -334,48 +334,48 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
-                this.datatable = data.transaksi;                
+            }).then(({ data }) => {    
+                this.datatable = data.transaksi;
                 this.datatableLoading = false;
-            });                     
+            });     
             this.firstloading = false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading);       
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         async viewItem(item) {
             this.btnLoading = true;
-            await this.$ajax.get('/keuangan/transaksi/'+item.id,  
+            await this.$ajax.get('/keuangan/transaksi/'+item.id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                             
+            }).then(({ data }) => {                             
                 this.data_transaksi=item;   
                 this.data_transaksi_detail=data.transaksi_detail;   
-                this.dialogdetailitem=true;
+                this.dialogdetailitem = true;
                 this.btnLoading = false;
-            });                                        
+            });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi={}; 
                 this.data_transaksi_detail={};      
-                }, 300
+                },300
             );
         },
-    },    
+    }, 
     watch: {
         tahun_akademik()
         {
@@ -383,7 +383,7 @@ export default {
             {
                 console.log('test');
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -391,7 +391,7 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         },
         search()
         {
@@ -400,8 +400,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;            
-                        await this.$ajax.post('/keuangan/transaksi',                 
+                        this.datatableLoading = true;   
+                        await this.$ajax.post('/keuangan/transaksi',          
                         {
                             PRODI_ID: this.prodi_id,
                             TA: this.tahun_akademik,
@@ -411,13 +411,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {               
-                            this.datatable = data.transaksi;                
+                        }).then(({ data }) => {    
+                            this.datatable = data.transaksi;
                             this.datatableLoading = false;
-                        });                     
+                        });     
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+                },1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
@@ -459,7 +459,7 @@ export default {
     },
     components: {
         KeuanganLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter18,
         'dialog-printout':DialogPrintoutKeuangan       
     },

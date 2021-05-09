@@ -14,7 +14,7 @@
 						dark>
 						<v-card-title class="headline">
 							BLOG
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul digunakan untuk info kampus, pengumuman, berita, informasi kepada mahasiswa atau pihak lainnya.
 						</v-card-text>
@@ -30,7 +30,7 @@
 						dark>
 						<v-card-title class="headline">
 							DATA MASTER
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Pengaturan berbagai parameter sebagai referensi dari modul-modul lain dalam sistem.
 						</v-card-text>
@@ -46,7 +46,7 @@
 						dark>
 						<v-card-title class="headline">
 							SPMB
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{ tahun_pendaftaran }}.
 						</v-card-text>
@@ -62,7 +62,7 @@
 						dark>
 						<v-card-title class="headline">
 							KEUANGAN
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Keuangan Perguruan Tinggi.
 						</v-card-text>
@@ -78,7 +78,7 @@
 						dark>
 						<v-card-title class="headline">
 							AKADEMIK
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Akademik Perguruan Tinggi.
 						</v-card-text>
@@ -94,7 +94,7 @@
 						dark>
 						<v-card-title class="headline">
 							KEMAHASISWAAN
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola Kemahasiswaan Perguruan Tinggi.
 						</v-card-text>
@@ -110,7 +110,7 @@
 						dark>
 						<v-card-title class="headline">
 							KEPEGAWAIAN
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola kepegawaian seperti dosen atau tenaga pendidik.
 						</v-card-text>
@@ -126,7 +126,7 @@
 						dark>
 						<v-card-title class="headline">
 							USER SISTEM
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengelola user sistem.
 						</v-card-text>
@@ -142,7 +142,7 @@
 						dark>
 						<v-card-title class="headline">
 							KONFIGURASI SISTEM
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk mengatur berbagai macam konfigurasi sistem.
 						</v-card-text>
@@ -158,7 +158,7 @@
 						dark>
 						<v-card-title class="headline">
 							MIGRASI SISTEM
-						</v-card-title>    
+						</v-card-title>
 						<v-card-text>
 							Modul ini digunakan untuk melakukan migrasi data atau sistem lama.
 						</v-card-text>
@@ -185,7 +185,7 @@ export default {
 	created()
 	{
 		this.TOKEN = this.$route.params.token;      
-		this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];              
+		this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];     
 		this.breadcrumbs = [
 			{
 				text: "HOME",
@@ -199,37 +199,37 @@ export default {
 			}
 		];		
 		this.initialize();
-	},    
+	}, 
 	data: () => ({
 		breadcrumbs: [],
 		TOKEN: null,
-		dashboard: null,        
+		dashboard: null, 
 		tahun_pendaftaran: '',
 	}),
 	methods: {
 		initialize: async function()
 		{	            
-			await this.$ajax.get('/auth/me',                
+			await this.$ajax.get('/auth/me',         
 			{
 				headers: {
 					Authorization: 'Bearer '+this.TOKEN
 				}
 			})
-			.then(({ data }) => {          
-				this.dashboard = data.role[0];                                                       
-				this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);                                       
+			.then(({ data }) => {  
+				this.dashboard = data.role[0];      
+				this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);      
 			})
 			.catch(error => {
-				if (error.response.status == 401){						
+				if (error.response.status == 401){
 					this.$router.push('/login');
 				}
-			});                 
-			this.$store.dispatch('uiadmin/init',this.$ajax);                          
+			}); 
+			this.$store.dispatch('uiadmin/init',this.$ajax);  
 		}
 	},
 	components: {
-		AdminLayout,        
-		DashboardMB,        
+		AdminLayout, 
+		DashboardMB, 
 	}
 }
 </script>

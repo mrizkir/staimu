@@ -81,7 +81,7 @@
                                     @click.stop="addItem">
                                         TAMBAH
                                 </v-btn>
-                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>    
+                                <v-dialog v-model="dialogfrm" max-width="500px" persistent>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
@@ -98,12 +98,12 @@
                                                     v-model="formdata.name"
                                                     label="NAMA LENGKAP" 
                                                     :rules="rule_name"
-                                                    outlined/>          
+                                                    outlined/>      
                                                 <v-text-field 
                                                     v-model="formdata.nomor_hp"
                                                     label="NOMOR HP (ex: +628123456789)" 
                                                     :rules="rule_nomorhp"
-                                                    outlined/>          
+                                                    outlined/>      
                                                 <v-text-field 
                                                     v-model="formdata.email"
                                                     label="EMAIL" 
@@ -211,7 +211,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TAHUN PENDAFTARAN:</v-card-title>
-                                                        <v-card-subtitle>                            
+                                                        <v-card-subtitle>                
                                                             {{formdata.ta}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -222,7 +222,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>PROGRAM STUDI :</v-card-title>
-                                                        <v-card-subtitle>                            
+                                                        <v-card-subtitle>                
                                                             {{$store.getters["uiadmin/getProdiName"](formdata.prodi_id)}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -232,8 +232,8 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED/UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}} /  
-                                                            {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
+                                                            {{ $date(formdata.created_at).format("DD/MM/YYYY HH:mm") }} /  
+                                                            {{ $date(formdata.updated_at).format("DD/MM/YYYY HH:mm") }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -250,14 +250,14 @@
                                                             <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2">KIRIM ULANG</v-btn>
                                                         </v-card-text>
                                                     </v-card>
-                                                </v-col>                
+                                                </v-col>    
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -295,21 +295,21 @@
                                 :color="badgeColor(item)"
                                 :icon="badgeIcon(item)"
                                 overlap>
-                                <v-avatar size="30">        
+                                <v-avatar size="30">    
                                     <v-img :src="$api.url+'/'+item.foto" />   
-                                </v-avatar>                                                                  
+                                </v-avatar>                                                      
                             </v-badge>
                         </template>
                         <template v-slot:item.nomor_hp="{ item }">
                             {{ item.nomor_hp == null || item.nomor_hp == ''? 'N.A' : '+'+item.nomor_hp}}
                         </template>
-                        <template v-slot:item.created_at="{ item }">        
-                            {{$date(item.created_at).format("DD/MM/YYYY HH:mm")}}
+                        <template v-slot:item.created_at="{ item }">    
+                            {{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}                                    
+                                    <strong>ID:</strong>{{ item.id }}                     
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -339,11 +339,11 @@
     </SPMBLayout>
 </template>
 <script>
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import SPMBLayout from "@/views/layouts/SPMBLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
-    name: 'PendaftaranBaru',  
+    name: 'PendaftaranBaru',
     created()
     {
         this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];      
@@ -383,17 +383,17 @@ export default {
         breadcrumbs: [],
         dashboard: null,
         datatableLoading: false,
-        btnLoading: false,    
+        btnLoading: false,  
         btnLoadingFakultas: false,
                   
         //tables
-        headers: [                        
-            { text: '', value: 'foto', width:70 },    
+        headers: [
+            { text: '', value: 'foto', width:70 }, 
             { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
             { text: 'USERNAME', value: 'username', sortable: true },
-            { text: 'EMAIL', value: 'email', sortable: true },     
-            { text: 'NOMOR HP', value: 'nomor_hp', sortable: false, width:130 },        
-            { text: 'TGL.DAFTAR', value: 'created_at', sortable: true, width: 100 },     
+            { text: 'EMAIL', value: 'email', sortable: true },
+            { text: 'NOMOR HP', value: 'nomor_hp', sortable: false, width:130 },
+            { text: 'TGL.DAFTAR', value: 'created_at', sortable: true, width: 100 },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
@@ -405,34 +405,34 @@ export default {
         dialogdetailitem: false,
         
         //form data   
-        form_valid: true,  
-        registered: false,   
+        form_valid: true,
+        registered: false, 
         daftar_fakultas: [],
         kode_fakultas: '',
-        daftar_prodi: [],   
-        daftar_ta: [],         
+        daftar_prodi: [], 
+        daftar_ta: [],  
         formdata: {
             name: '',
-            email: '',            
+            email: '',     
             nomor_hp: '',
             username: '',
-            password: '',   
+            password: '', 
             prodi_id: '', 
-            ta: '',   
-            created_at: '',           
-            updated_at: '',     
-        },     
+            ta: '', 
+            created_at: '',    
+            updated_at: '',
+        },
         formdefault: {
             name: '',
-            email: '',            
+            email: '',     
             nomor_hp: '',
             username: '',
             password: '',
             prodi_id: '',
             ta: '',
-            created_at: '',           
-            updated_at: '',              
-        },    
+            created_at: '',    
+            updated_at: '',       
+        }, 
         editedIndex: -1,
 
         rule_name: [
@@ -446,13 +446,13 @@ export default {
         rule_email: [
             value => !!value || "Email mohon untuk diisi !!!",
             v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
-        ],   
+        ], 
         rule_fakultas: [
             value => !!value || "Fakultas mohon untuk dipilih !!!"
         ], 
         rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
-        ],      
+        ], 
         rule_username: [
             value => !!value || "Username mohon untuk diisi !!!"
         ], 
@@ -471,7 +471,7 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading = true;            
+            this.datatableLoading = true;   
             await this.$ajax.post('/spmb/pmb',
             {
                 TA: this.tahun_pendaftaran,
@@ -481,10 +481,10 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
-                this.datatable = data.pmb;                
+            }).then(({ data }) => {    
+                this.datatable = data.pmb;
                 this.datatableLoading = false;
-            });          
+            }); 
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -495,17 +495,17 @@ export default {
         badgeIcon(item)
         {
             return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
-        },      
+        },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         aktifkan(id)
         {
@@ -520,7 +520,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {   
+            ).then(() => {
                 this.initialize();
                 this.btnLoading = false;
             }).catch(() => {
@@ -533,7 +533,7 @@ export default {
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
                     role_name: 'mahasiswabaru',
-                    TA: this.tahun_pendaftaran,                    
+                    TA: this.tahun_pendaftaran,             
                     prodi_id: this.prodi_id                     
                 },
                 {
@@ -541,7 +541,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {                   
+            ).then(() => { 
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -551,11 +551,11 @@ export default {
         {
             this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             this.formdata.ta=this.tahun_pendaftaran;
-            this.formdata.prodi_id=this.prodi_id;
+            this.formdata.prodi_id = this.prodi_id;
 
             if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
-            {                
-                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
+            { 
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {  
                     this.daftar_fakultas=data.fakultas;
                 });
             }
@@ -564,8 +564,8 @@ export default {
                 await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
-            }   
-            this.dialogfrm = true;                       
+            } 
+            this.dialogfrm = true;       
         },
         save: async function() {
             if (this.$refs.frmdata.validate())
@@ -577,11 +577,35 @@ export default {
                         {
                             _method: 'PUT',
                             name: this.formdata.name,
-                            email: this.formdata.email,                    
+                            email: this.formdata.email,             
                             nomor_hp: this.formdata.nomor_hp,
                             prodi_id: this.formdata.prodi_id,
                             tahun_pendaftaran: this.formdata.ta,
-                            username: this.formdata.username,                                                                  
+                            username: this.formdata.username,                                                           
+                            password: this.formdata.password,              
+                        },
+                        {
+                            headers: {
+                                Authorization: this.$store.getters["auth/Token"]
+                            }
+                        }
+                    ).then(() => {
+                        this.initialize();
+                        this.closedialogfrm();
+                        this.btnLoading = false;
+                    }).catch(() => {
+                        this.btnLoading = false;
+                    }); 
+                    
+                } else {
+                    await this.$ajax.post('/spmb/pmb/storependaftar',
+                        {
+                            name: this.formdata.name,
+                            email: this.formdata.email,             
+                            nomor_hp: this.formdata.nomor_hp,
+                            username: this.formdata.username,                               
+                            prodi_id: this.formdata.prodi_id,                     
+                            tahun_pendaftaran: this.formdata.ta,
                             password: this.formdata.password,                     
                         },
                         {
@@ -589,34 +613,10 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
-                        this.initialize();
-                        this.closedialogfrm();
-                        this.btnLoading = false;
-                    }).catch(() => {
-                        this.btnLoading = false;
-                    });                 
-                    
-                } else {
-                    await this.$ajax.post('/spmb/pmb/storependaftar',
-                        {
-                            name: this.formdata.name,
-                            email: this.formdata.email,                    
-                            nomor_hp: this.formdata.nomor_hp,
-                            username: this.formdata.username,                                      
-                            prodi_id: this.formdata.prodi_id,                            
-                            tahun_pendaftaran: this.formdata.ta,
-                            password: this.formdata.password,                            
-                        },
-                        {
-                            headers: {
-                                Authorization: this.$store.getters["auth/Token"]
-                            }
-                        }
-                    ).then(({ data }) => {                           
+                    ).then(({ data }) => {         
                         this.datatable.push(data.pendaftar);
                         this.closedialogfrm();
-                        this.btnLoading = false;                        
+                        this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
                     });
@@ -628,23 +628,23 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/pmb/resend',
                 {
-                    id:id,                    
+                    id:id,             
                 },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {                                           
+            ).then(() => {           
                 this.closedialogdetailitem();
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
             });
         },
-        viewItem(item) {           
+        viewItem(item) {
             this.formdata = item;      
-            this.dialogdetailitem=true;
+            this.dialogdetailitem = true;
         },
         async editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
@@ -652,8 +652,8 @@ export default {
             this.formdata.nomor_hp='+'+this.formdata.nomor_hp;
             this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
             if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
-            {                
-                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {                    
+            { 
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {  
                     this.daftar_fakultas=data.fakultas;
                 });
                 await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
@@ -665,23 +665,23 @@ export default {
                 await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.prodi;
                 });
-            }   
-            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,                
+            } 
+            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,         
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(({ data }) => {           
-                this.registered = data.status == 1;                                        
+            ).then(({ data }) => {
+                this.registered = data.status == 1;
                 this.dialogfrm = true; 
             this.dialogfrm = true;
                 this.dialogfrm = true; 
             this.dialogfrm = true;
                 this.dialogfrm = true; 
-            });            
-        },   
-        deleteItem(item) {           
+            });   
+        },
+        deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus MAHASISWA BARU '+item.name+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
@@ -695,7 +695,7 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoading = false;
@@ -706,20 +706,20 @@ export default {
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1;
-                }, 300
+                },300
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;            
+            this.dialogfrm = false;   
             setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);                
+                this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1;
                 this.$refs.frmdata.reset(); 
-                }, 300
+                },300
             );
         },
     },
@@ -729,18 +729,18 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         kode_fakultas (val)
         {
             if (val != null && val != '')
             {
                 this.btnLoadingFakultas=true;
-                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {                                
+                this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {
                     this.daftar_prodi=data.programstudi;
                     this.btnLoadingFakultas=false;
                 });
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -748,7 +748,7 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         },
         search()
         {
@@ -757,7 +757,7 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;            
+                        this.datatableLoading = true;   
                         await this.$ajax.post('/spmb/pmb',
                         {
                             prodi_id: this.prodi_id,
@@ -768,18 +768,18 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {               
-                            this.datatable = data.pmb;                
+                        }).then(({ data }) => {    
+                            this.datatable = data.pmb;
                             this.datatableLoading = false;
-                        });                     
+                        });     
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+                },1000); // 1 sec delay
             }
             this.awaiting_search = true;
-        }        
+        }  
     },
-    computed: {        
+    computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },
@@ -787,7 +787,7 @@ export default {
     
     components: {
         SPMBLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter7    
     },
 }

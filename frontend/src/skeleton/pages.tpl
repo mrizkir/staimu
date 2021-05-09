@@ -93,7 +93,7 @@
                                                     label="NAME"
                                                     outlined
                                                     :rules="rule_name">
-                                                </v-text-field>             
+                                                </v-text-field> 
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -130,7 +130,7 @@
                                                     <v-card flat>
                                                         <v-card-title>CREATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.created_at).format("DD/MM/YYYY HH:mm")}}
+                                                            {{ $date(formdata.created_at).format("DD/MM/YYYY HH:mm") }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -150,7 +150,7 @@
                                                     <v-card flat>
                                                         <v-card-title>UPDATED :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(formdata.updated_at).format("DD/MM/YYYY HH:mm")}}
+                                                            {{ $date(formdata.updated_at).format("DD/MM/YYYY HH:mm") }}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -161,7 +161,7 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -231,14 +231,14 @@ export default {
             }
         ];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
-        headers: [                        
-            { text: 'ID', value: 'id' },   
+        headers: [
+            { text: 'ID', value: 'id' },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",
@@ -248,19 +248,19 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,         
+        form_valid: true,  
         formdata: {
-            id: 0,                        
-            name: '',                        
-            created_at: '',           
-            updated_at: '',           
+            id: 0,                 
+            name: '',                 
+            created_at: '',    
+            updated_at: '',    
 
         },
         formdefault: {
-            id: 0,           
-            name: '',                                     
-            created_at: '',           
-            updated_at: '',       
+            id: 0,    
+            name: '',                              
+            created_at: '',    
+            updated_at: '',
         },
         editedIndex: -1,
 
@@ -270,8 +270,8 @@ export default {
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode hanya boleh angka',
         ], 
         rule_name: [
-            value => !!value || "Mohon untuk di isi name !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',                
+            value => !!value || "Mohon untuk di isi name !!!",
+            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',         
         ], 
     }),
     methods: {
@@ -282,7 +282,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.object;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -291,31 +291,31 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         viewItem(item) {
             this.formdata = item;      
-            this.dialogdetailitem=true;              
+            this.dialogdetailitem = true;     
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {               
+            // }).then(({ data }) => {    
                                            
-            // });                      
-        },    
+            // });      
+        }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true;
-        },    
+        }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -325,32 +325,32 @@ export default {
                     await this.$ajax.post('/path/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            name: this.formdata.name,                       
+                            name: this.formdata.name,                
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         Object.assign(this.datatable[this.editedIndex], data.object);
                         this.closedialogfrm();
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });                 
+                    }); 
                     
                 } else {
                     await this.$ajax.post('/path/store',
                         {
-                            name: this.formdata.name,                            
+                            name: this.formdata.name,                     
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         this.datatable.push(data.object);
                         this.closedialogfrm();
                         this.btnLoading = false;
@@ -360,7 +360,7 @@ export default {
                 }
             }
         },
-        deleteItem(item) {           
+        deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
@@ -374,35 +374,35 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
                     });
-                }                
+                } 
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;            
+            this.dialogfrm = false;   
             setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);                
+                this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
                 this.$refs.frmdata.reset(); 
-                }, 300
+                },300
             );
         },
     },
-    computed: {        
+    computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
         },

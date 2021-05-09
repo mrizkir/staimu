@@ -35,7 +35,7 @@
                             </v-card-title>
                             <v-card-text>
                                <v-row>
-                                   <v-col xs="12" sm="4" md="3">       
+                                   <v-col xs="12" sm="4" md="3">   
                                        <v-switch v-model="formdata.email_mhs_isvalid" label="Check Email Mahasiswa Valid"></v-switch>
                                    </v-col>
                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
@@ -75,7 +75,7 @@ export default {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },  
+            },
             {
                 text: 'SERVER - EMAIL',
                 disabled: true,
@@ -85,12 +85,12 @@ export default {
         this.initialize();
     },
     data: () => ({
-        breadcrumbs: [],        
-        btnLoading: false,   
+        breadcrumbs: [], 
+        btnLoading: false, 
         //form
-        form_valid: true,   
+        form_valid: true, 
         formdata: {
-            email_mhs_isvalid: null,            
+            email_mhs_isvalid: null,     
         },
         //form rules        
         
@@ -104,13 +104,13 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {                  
-                let setting = data.setting;             
-                this.formdata.email_mhs_isvalid=parseInt(setting.EMAIL_MHS_ISVALID);                
-            });          
+            }).then(({ data }) => {
+                let setting = data.setting;    
+                this.formdata.email_mhs_isvalid=parseInt(setting.EMAIL_MHS_ISVALID);
+            }); 
             
         },
-        save () {
+        save() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
@@ -119,15 +119,15 @@ export default {
                         _method: 'PUT', 
                         'pid': 'email',
                         setting: JSON.stringify({
-                            910: this.formdata.email_mhs_isvalid,                            
-                        }),                                                                                                                            
+                            910: this.formdata.email_mhs_isvalid,                     
+                        }),                                                                                                              
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {                       
+                ).then(() => {     
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
@@ -136,9 +136,9 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters("auth", {            
-            ACCESS_TOKEN: 'AccessToken',          
-            TOKEN: 'Token',                                  
+        ...mapGetters("auth", { 
+            ACCESS_TOKEN: "AccessToken",
+            TOKEN: "Token",                 
         }),
     },
     components: {

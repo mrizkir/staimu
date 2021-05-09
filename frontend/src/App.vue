@@ -27,7 +27,7 @@ export default {
 		this.$ajax.interceptors.request.use((config) => {
 			this.setLoading(true);
 			return config;
-		}, (error) => {
+		},(error) => {
 			this.setLoading(false);
 			return Promise.reject(error);
 		});
@@ -58,39 +58,39 @@ export default {
 				case 401:					
 					if (data.page != 'login')
 					{
-						this.$store.dispatch('auth/logout');
-						this.$store.dispatch('uifront/reinit');
-						this.$store.dispatch('uiadmin/reinit');
+						this.$store.dispatch("auth/logout");
+						this.$store.dispatch("uifront/reinit");
+						this.$store.dispatch("uiadmin/reinit");
 						this.snackbar_color='error';
 						this.snackbar_error=true;	
 						this.page_message='('+status+': '+data.error+') Token telah expire mohon login kembali';	
 					}
 				break;
 				case 403:
-					this.snackbar_error=true;						
+					this.snackbar_error=true;		
 					this.snackbar_color='error';
-					this.page_message='('+status+': Forbidden) '+data.message+' to access resource ['+config.baseURL+config.url+']';										
+					this.page_message='('+status+': Forbidden) '+data.message+' to access resource ['+config.baseURL+config.url+']';
 				break;
 				case 404:
-					this.snackbar_error=true;						
+					this.snackbar_error=true;		
 					this.snackbar_color='error';
-					this.page_message='('+status+': '+data.error+') Mohon untuk dicek url route ('+config.baseURL+config.url+') apakah tersedia';										
+					this.page_message='('+status+': '+data.error+') Mohon untuk dicek url route ('+config.baseURL+config.url+') apakah tersedia';
 				break;
 				case 405:
-					this.snackbar_error=true;						
+					this.snackbar_error=true;		
 					this.snackbar_color='error';
-					this.page_message='('+status+': '+data.exception+') Mohon untuk dicek HTTP METHOD ';										
+					this.page_message='('+status+': '+data.exception+') Mohon untuk dicek HTTP METHOD ';
 				break;
 				case 422:
 					this.snackbar_color='error';
 					this.snackbar_error=true;	
-					var error_messages=[];					
+					var error_messages=[];	
 					for (var p in data)
 					{
 						var messages=[];
 						var error_list=data[p];
 						if (Array.isArray(error_list))
-						{						
+						{
 							for (var i = 0; i < error_list.length;i++ )
 							{
 								messages.push({
@@ -109,16 +109,16 @@ export default {
 								error: [{
 									'message':data[p]
 								}]
-							});						
+							});		
 						}						
 					}					
 					this.page_form_error_message=error_messages;
 					this.page_message='('+status+': Unprocessible Entity) ';	
-				break;				
+				break;
 				case 500:			
 					this.snackbar_error=true;			
 					this.snackbar_color='error';
-					this.page_message='('+status+' (internal server eror): '+data.message;										
+					this.page_message='('+status+' (internal server eror): '+data.message;
 				break;
 			}
 			this.setLoading(false);

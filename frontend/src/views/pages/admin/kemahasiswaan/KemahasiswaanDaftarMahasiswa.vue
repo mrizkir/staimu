@@ -97,14 +97,14 @@
                         </template>
                         <template v-slot:item.idkelas="{item}">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
-                        </template>    
+                        </template>
                         <template v-slot:item.k_status="{item}">
                             {{$store.getters['uiadmin/getStatusMahasiswa'](item.k_status)}}
-                        </template>    
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>id:</strong>{{ item.user_id }}          
+                                <v-col cols="12">  
+                                    <strong>id:</strong>{{ item.user_id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col> 
@@ -144,7 +144,7 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },    
+            }, 
             {
                 text: 'KEMAHASISWAAN',
                 disabled: false,
@@ -159,9 +159,9 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -174,15 +174,15 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [],      
+        datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },   
-            { text: "NIM", value: "nim", sortable: true, width:150  },   
-            { text: 'NIRM', value: 'nirm', sortable: true, width:150  },   
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },                   
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                               
-            { text: 'STATUS', value: 'k_status', sortable: true, width: 120, },                               
-        ],  
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
+            { text: "NIM", value: "nim", sortable: true, width:150  },
+            { text: 'NIRM', value: 'nirm', sortable: true, width:150  },
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },         
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                     
+            { text: 'STATUS', value: 'k_status', sortable: true, width: 120, },                     
+        ],
         search: "", 
     }),
     methods: {
@@ -206,7 +206,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -217,23 +217,23 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         printtoexcel: async function()
         {
             this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                                                                
-                    prodi_id: this.prodi_id,    
-                    nama_prodi: this.nama_prodi,                 
+                    TA: this.tahun_pendaftaran,                                                         
+                    prodi_id: this.prodi_id,  
+                    nama_prodi: this.nama_prodi,          
                 },
                 {
                     headers: {
@@ -241,27 +241,27 @@ export default {
                     },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => {              
+            ).then(({ data }) => {   
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'daftar_mahasiswa_'+Date.now()+'.xlsx');                
-                link.setAttribute('id', 'download_laporan');                
+                link.setAttribute('download', 'daftar_mahasiswa_'+Date.now()+'.xlsx');
+                link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();                     
+                link.click();     
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
             });     
-        },    
+        }, 
         syncPermission: async function()
         {
             this.btnLoading = true;
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
                     role_name: 'mahasiswa',
-                    TA: this.tahun_pendaftaran,                    
+                    TA: this.tahun_pendaftaran,             
                     prodi_id: this.prodi_id                     
                 },
                 {
@@ -269,7 +269,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {                   
+            ).then(() => { 
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -280,14 +280,14 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/profil/resetpassword',
                 {
-                    user_id:item.user_id,         
+                    user_id:item.user_id,  
                 },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {                   
+            ).then(() => { 
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
@@ -300,7 +300,7 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -308,7 +308,7 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         },
         search()
         {
@@ -317,8 +317,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;            
-                        await this.$ajax.post('/kemahasiswaan/daftarmhs',            
+                        this.datatableLoading = true;   
+                        await this.$ajax.post('/kemahasiswaan/daftarmhs',     
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_pendaftaran,
@@ -328,20 +328,20 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {               
-                            this.datatable = data.mahasiswa;                
+                        }).then(({ data }) => {    
+                            this.datatable = data.mahasiswa;
                             this.datatableLoading = false;
-                        });                     
+                        });     
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+                },1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
     },
     components: {
         KemahasiswaanLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter7               
     },
 }

@@ -40,14 +40,14 @@
 														</v-list-item-subtitle>
 												</v-list-item-content>
 										</v-list-item>  
-										<v-divider/>
+										<v-divider />
 										<v-list-item to="/system-users/profil">
 												<v-list-item-icon class="mr-2">
 							<v-icon>mdi-account</v-icon>
 						</v-list-item-icon>
 												<v-list-item-title>Profil</v-list-item-title>
 										</v-list-item>
-										<v-divider/>
+										<v-divider />
 										<v-list-item @click.prevent="logout">
 												<v-list-item-icon class="mr-2">
 							<v-icon>mdi-power</v-icon>
@@ -182,7 +182,7 @@
 														DOSEN
 												</v-list-item-title>
 										</v-list-item-content>
-								</v-list-item>    
+								</v-list-item>
 								<v-list-item link v-if="dashboard=='dosen'" to="/system-users/biodatadiridosen">
 										<v-list-item-icon class="mr-2">
 												<v-icon>mdi-account</v-icon>
@@ -227,7 +227,7 @@ export default {
 		name: 'SystemUserLayout',
 		created()
 		{
-				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];          
+				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
 		},
 		props: {
 				showrightsidebar: {
@@ -238,14 +238,14 @@ export default {
 						type: Boolean,
 						default: false
 				},
-		},    
+		}, 
 		data: () => ({
 				loginTime: 0,
-				drawer: null,   
+				drawer: null, 
 				
 				dashboard: null,
-		}),       
-		methods: {        
+		}),
+		methods: {
 				logout()
 				{
 						this.loginTime = 0;
@@ -253,20 +253,20 @@ export default {
 								{},
 								{
 										headers: {
-												'Authorization': this.TOKEN,
+												Authorization: this.TOKEN,
 										}
 								}
 						).then(() => {
-								this.$store.dispatch('auth/logout');
-								this.$store.dispatch('uifront/reinit');
-								this.$store.dispatch('uiadmin/reinit');
-								this.$router.push('/');
+								this.$store.dispatch("auth/logout");
+								this.$store.dispatch("uifront/reinit");
+								this.$store.dispatch("uiadmin/reinit");
+								this.$router.push("/");
 						})
 						.catch(() => {
-								this.$store.dispatch('auth/logout');
-								this.$store.dispatch('uifront/reinit');
-								this.$store.dispatch('uiadmin/reinit');
-								this.$router.push('/');
+								this.$store.dispatch("auth/logout");
+								this.$store.dispatch("uifront/reinit");
+								this.$store.dispatch("uiadmin/reinit");
+								this.$router.push("/");
 						});
 				},
 				isBentukPT(bentuk_pt)
@@ -275,33 +275,33 @@ export default {
 				}
 	},
 		computed: {
-				...mapGetters('auth',{
-						AUTHENTICATED: 'Authenticated',  
-						ACCESS_TOKEN: 'AccessToken',          
-						TOKEN: 'Token',       
-						DEFAULT_ROLE: 'DefaultRole',   
-						ROLE: 'Role',
-						CAN_ACCESS: 'can',         
-						ATTRIBUTE_USER: 'AttributeUser',               
+				...mapGetters("auth", {
+						AUTHENTICATED: "Authenticated",
+						ACCESS_TOKEN: "AccessToken",
+						TOKEN: 'Token',
+						DEFAULT_ROLE: "DefaultRole", 
+						ROLE: "Role",
+						CAN_ACCESS: "can",
+						ATTRIBUTE_USER: "AttributeUser",
 				}),
-				APP_NAME ()
+				APP_NAME()
 				{
 						return process.env.VUE_APP_NAME;
 				},
 				photoUser()
 		{
-			let img = this.ATTRIBUTE_USER('foto');
+			let img = this.ATTRIBUTE_USER("foto");
 			var photo;
-			if (img == '')
+			if (img == "")
 			{
-				photo = this.$api.url + '/storage/images/users/no_photo.png';	
+				photo = this.$api.url + "/storage/images/users/no_photo.png";
 			}
 			else
 			{
 				photo = this.$api.url + "/" + img;	
 			}
 			return photo;
-				},       
+				},
 		},
 		watch: {
 				loginTime: {
@@ -311,13 +311,13 @@ export default {
 								if (value >= 0)
 								{
 										setTimeout(() => { 
-												this.loginTime=this.AUTHENTICATED==true?this.loginTime+1:-1;                                                                     
-					}, 1000);
+												this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1;                    
+					},1000);
 								}
 								else
 								{
-										this.$store.dispatch('auth/logout');
-										this.$router.replace('/login');
+										this.$store.dispatch("auth/logout");
+										this.$router.replace("/login");
 								}
 						},
 						immediate: true

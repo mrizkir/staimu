@@ -733,7 +733,7 @@
 				} else {
 					this.slides.push({
 						path: this.$api.url + "/" + item.file,
-						nama_persyaratan: item.nama_persyaratan,
+						nama_persyaratan:item.nama_persyaratan,
 					});
 					this.dialogpreviewpersyaratan = true;
 				}
@@ -798,14 +798,14 @@
 				this.dialogpreviewspp = false;
 				setTimeout(() => {
 					this.datatable_spp = [];
-				}, 300);
+				},300);
 			},
 			closedialogfrm() {
 				this.dialogfrm = false;
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
-				}, 300);
+				},300);
 			},
 			exit() {
 				setTimeout(() => {
@@ -817,7 +817,7 @@
 					};
 					this.$store.dispatch("uiadmin/updatePage", page);
 					this.$router.push("/akademik/perkuliahan/ujianmunaqasah");
-				}, 300);
+				},300);
 			},
 		},
 		computed: {

@@ -29,7 +29,7 @@
 						<v-row class="mb-4" no-gutters>
 								<v-col cols="12">
 										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-												<v-card>        
+												<v-card>    
 														<v-card-text>
 																<v-select
 																		v-model="formdata.term_id" 
@@ -74,7 +74,7 @@ export default {
 								text: 'KONFIGURASI SISTEM',
 								disabled: false,
 								href: '/system-setting'
-						},  
+						},
 						{
 								text: 'BLOG - HALAMAN INFO KAMPUS',
 								disabled: true,
@@ -84,17 +84,17 @@ export default {
 				this.initialize();
 		},
 		data: () => ({
-				breadcrumbs: [],        
+				breadcrumbs: [], 
 				btnLoading: false,
 				//form
 				form_valid: true,
 				daftar_category: [],
 				formdata: {
 						term_id: null            
-				},        
+				},
 				//form rules        
 				rule_term_id: [
-						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!",             
+						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!",      
 				], 
 		}),
 		methods: {
@@ -116,11 +116,11 @@ export default {
 								}
 						}).then(({ data }) => {
 								let setting = data.setting;
-								this.formdata.term_id=setting.INFO_KAMPUS_TERM_ID;                
+								this.formdata.term_id=setting.INFO_KAMPUS_TERM_ID;
 						});
 
 				},
-				save () {
+				save() {
 						if (this.$refs.frmdata.validate())
 						{
 								this.btnLoading = true;
@@ -129,7 +129,7 @@ export default {
 												_method: 'PUT',
 												'pid': 'blog',
 												setting: JSON.stringify({
-														601: this.formdata.term_id,                            
+														601: this.formdata.term_id,                     
 												}),
 										},
 										{
@@ -146,7 +146,7 @@ export default {
 				}
 		},
 		computed: {
-				...mapGetters('auth',{
+				...mapGetters("auth", {
 						ACCESS_TOKEN: 'AccessToken',
 						TOKEN: 'Token',
 				}),

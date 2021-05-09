@@ -60,7 +60,7 @@ export default {
         {
             this.fetchMahasiswa();
         }
-    }, 
+    },
     data ()
     {
         return {

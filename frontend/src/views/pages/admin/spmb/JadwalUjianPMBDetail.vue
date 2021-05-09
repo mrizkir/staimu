@@ -66,7 +66,7 @@
 									<v-card flat>
 										<v-card-title>TANGGAL AKHIR DAFTAR :</v-card-title>
 										<v-card-subtitle>
-											{{$date(data_jadwal.tanggal_akhir_daftar).format("DD/MM/YYYY")}}
+											{{ $date(data_jadwal.tanggal_akhir_daftar).format("DD/MM/YYYY")}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -77,7 +77,7 @@
 									<v-card flat>
 										<v-card-title>TANGGAL UJIAN :</v-card-title>
 										<v-card-subtitle>
-											{{$date(data_jadwal.tanggal_ujian).format("DD/MM/YYYY")}}
+											{{ $date(data_jadwal.tanggal_ujian).format("DD/MM/YYYY")}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -86,7 +86,7 @@
 									<v-card flat>
 										<v-card-title>WAKTU UJIAN PMB :</v-card-title>
 										<v-card-subtitle>
-											{{$date(data_jadwal.tanggal_ujian).format("DD/MM/YYYY")}} {{data_jadwal.jam_mulai_ujian}} - {{data_jadwal.jam_selesai_ujian}} ({{durasiUjian(data_jadwal)}} Menit)
+											{{ $date(data_jadwal.tanggal_ujian).format("DD/MM/YYYY")}} {{data_jadwal.jam_mulai_ujian}} - {{data_jadwal.jam_selesai_ujian}} ({{durasiUjian(data_jadwal)}} Menit)
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -106,7 +106,7 @@
 									<v-card flat>
 										<v-card-title>CREATED :</v-card-title>
 										<v-card-subtitle>
-											{{$date(data_jadwal.created_at).format("DD/MM/YYYY HH:mm")}}
+											{{ $date(data_jadwal.created_at).format("DD/MM/YYYY HH:mm") }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -126,7 +126,7 @@
 									<v-card flat>
 										<v-card-title>UPDATED :</v-card-title>
 										<v-card-subtitle>
-											{{$date(data_jadwal.updated_at).format("DD/MM/YYYY HH:mm")}}
+											{{ $date(data_jadwal.updated_at).format("DD/MM/YYYY HH:mm") }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -303,8 +303,8 @@
 						})
 						.then(({ data }) => {
 							this.datatable = data.peserta;
-							this.data_jadwal = data.jadwal_ujian;										
-							this.StatusJadwanUjian = this.data_jadwal.status_ujian;				
+							this.data_jadwal = data.jadwal_ujian;
+							this.StatusJadwanUjian = this.data_jadwal.status_ujian;
 							this.datatableLoading = false;
 						})
 						.catch(() => {
@@ -321,11 +321,11 @@
 				}				
 			},
 			dataTableRowClicked(item) {
-				if ( item === this.expanded[0]) {
+				if (item === this.expanded[0]) {
 					this.expanded = [];
 				} else {
 					this.expanded = [item];
-				}               
+				}
 			},			
 			durasiUjian (item) {
 				let waktu_mulai = this.$date(item.tanggal_ujian + " " +item.jam_mulai_ujian);
@@ -373,7 +373,7 @@
 							}).catch(() => {
 								this.btnLoading = false;
 							});
-					}                
+					} 
 				});			
 			},			
 			closedetail() {
@@ -388,7 +388,7 @@
 						this.$ajax.post("/spmb/ujianonline/keluar",
 							{
 								_method: "DELETE",
-								user_id: item.user_id,
+								user_id:item.user_id,
 							},
 							{
 								headers: {
@@ -402,7 +402,7 @@
 						}).catch(() => {
 							this.btnLoading = false;
 						});
-					}                
+					} 
 				});
 			},
 		},
@@ -414,11 +414,11 @@
 				get() {
 					switch(this.status_jadwan_ujian){
 						case 0:
-							return "BELUM MULAI";						
+							return "BELUM MULAI";		
 						case 1:
-							return "BERJALAN";						
+							return "BERJALAN";		
 						case 2:
-							return "SELESAI";						
+							return "SELESAI";		
 						default: 
 							return "";
 					}

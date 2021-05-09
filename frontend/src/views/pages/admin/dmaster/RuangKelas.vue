@@ -67,10 +67,10 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="600px" persistent>
-                                    <template v-slot:activator="{ on }">        
+                                    <template v-slot:activator="{ on }">    
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>        
+                                        </v-btn>    
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -242,8 +242,8 @@ export default {
         ],
         rule_kapasitas: [
             value => !!value || "Kapasitas Ruangan mohon untuk diisi !!!",
-            value => /^[0-9]+$/.test(value) || 'Kapasitas Ruangan Kelas hanya boleh angka',            
-        ],        
+            value => /^[0-9]+$/.test(value) || 'Kapasitas Ruangan Kelas hanya boleh angka',     
+        ], 
     }),
     methods: {
         initialize: async function()
@@ -262,7 +262,7 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
                 this.expanded = [];
             }
@@ -273,11 +273,11 @@ export default {
         },
         viewItem(item) {
             this.formdata = item;
-            this.dialogdetailitem=true;
+            this.dialogdetailitem = true;
         },
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);            
+            this.formdata = Object.assign({}, item);   
             this.dialogfrm = true
         },
         save: async function() {
@@ -355,7 +355,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
         closedialogfrm() {
@@ -364,12 +364,12 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset();
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
     },
     computed: {
-        ...mapGetters('auth',{
+        ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),

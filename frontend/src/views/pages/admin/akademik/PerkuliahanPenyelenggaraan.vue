@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar>
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
-        <v-container fluid>     
+        <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -111,9 +111,9 @@
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>id:</strong>{{ item.id }}          
-                                    <strong>matkul_id:</strong>{{ item.matkul_id }}          
+                                <v-col cols="12">  
+                                    <strong>id:</strong>{{ item.id }} 
+                                    <strong>matkul_id:</strong>{{ item.matkul_id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -163,32 +163,32 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
-        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
-        nama_prodi: null,        
+        nama_prodi: null, 
         tahun_akademik: null,
         semester_akademik: null,
 
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [],      
+        datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },   
-            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true  },   
-            { text: 'SKS', value: 'sks', sortable: true, width:50  },       
-            { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },       
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },       
-            { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },       
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },                   
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},                   
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
+            { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true  },
+            { text: 'SKS', value: 'sks', sortable: true, width:50  },
+            { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },
+            { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },
+            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },         
+            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},         
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],  
+        ],
         search: "", 
 
     }),
@@ -218,7 +218,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.penyelenggaraan;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -229,14 +229,14 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         deleteItem(item)
         {
@@ -253,14 +253,14 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
                     }).catch(() => {
                         this.btnLoadingTable=false;
                     });
-                }                
+                } 
             });
         },
     },
@@ -270,14 +270,14 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -285,17 +285,17 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         }
     },
     computed: {
-        ...mapGetters("auth", {            
-            CAN_ACCESS: 'can',                     
+        ...mapGetters("auth", { 
+            CAN_ACCESS: "can",     
         }),
     },
     components: {
         AkademikLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter6               
     },
 }

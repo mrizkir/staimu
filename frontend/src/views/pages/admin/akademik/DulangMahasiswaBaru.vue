@@ -32,7 +32,7 @@
             <Filter7 v-on:changeTahunPendaftaran="changeTahunPendaftaran" v-on:changeProdi="changeProdi" ref="filter7" />	
         </template>
         <v-container fluid> 
-            <v-row class="mb-4" no-gutters>    
+            <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
                         <v-card-text>
@@ -51,7 +51,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"
+                        :item="datatable"
                         :search="search"
                         item-key="id"                        
                         show-expand
@@ -85,8 +85,8 @@
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>id:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>id:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -133,9 +133,9 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -146,30 +146,30 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [],      
+        datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },   
-            { text: "NIM", value: "nim", sortable: true, width:150  },   
-            { text: 'NIRM', value: 'nirm', sortable: true, width:150  },   
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },                   
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
+            { text: "NIM", value: "nim", sortable: true, width:150  },
+            { text: 'NIRM', value: 'nirm', sortable: true, width:150  },
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },         
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],  
+        ],
         search: "", 
 
-        data_mhs: {},  
+        data_mhs: {},
 
         //formdata
-        form_valid: true,   
+        form_valid: true, 
         dialogfrm: false, 
-        daftar_dw: [],     
+        daftar_dw: [],
 
-        formdata: {                        
+        formdata: {      
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {                        
+        formdefault: {      
             nim: "",
             nirm: '',
             dosen_id: ''           
@@ -208,7 +208,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -219,17 +219,17 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         async tambahItem ()
-        {               
+        {    
             await this.$ajax.post('/keuangan/transaksi/'+this.formdata.nim+'/sppmhsbaru',
             {
                 jenis_id: 'nim'
@@ -238,7 +238,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {                                  
+            }).then(() => {  
                 
             });   
 
@@ -246,7 +246,7 @@ export default {
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {                                  
+            // }).then(({ data }) => {  
             //     this.dialogfrm = true;
             //     this.daftar_dw = data.users; 
             // });   
@@ -267,22 +267,22 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
                     }).catch(() => {
                         this.btnLoadingTable=false;
                     });
-                }                
+                } 
             });
         },
-        closedialogfrm() {            
-            this.dialogfrm = false;            
-            setTimeout(() => {       
-                this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_mhs = Object.assign({}, {});   
-                }, 300
+        closedialogfrm() { 
+            this.dialogfrm = false;   
+            setTimeout(() => {    
+                this.formdata = Object.assign({}, this.formdefault);        
+                this.data_mhs = Object.assign({},{});   
+                },300
             );
         },
     },
@@ -292,7 +292,7 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -300,12 +300,12 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         }
     },
     components: {
         AkademikLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter7               
     },
 }

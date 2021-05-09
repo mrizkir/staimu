@@ -323,7 +323,7 @@
 						"/akademik/matakuliah",
 						{
 							prodi_id: this.data_prodi.id,
-							ta: item.ta,
+							ta:item.ta,
 						},
 						{
 							headers: {
@@ -367,7 +367,7 @@
 				setTimeout(() => {
 					this.$refs.frmdata.reset();
 					this.matkul_id = null;
-				}, 300);
+				},300);
 			},
 			kaprodi(item) {
 				var message = "N.A";

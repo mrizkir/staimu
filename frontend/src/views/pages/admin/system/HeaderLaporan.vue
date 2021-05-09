@@ -36,7 +36,7 @@
                                     v-model="formdata.header_1" 
                                     label="HEADER 1"
                                     outlined>
-                                </v-text-field>                                                                                                                                                                                          
+                                </v-text-field>                                                                                                                                                                              
                                 <v-text-field 
                                     v-model="formdata.header_2" 
                                     label="HEADER 2"
@@ -92,7 +92,7 @@ export default {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },  
+            },
             {
                 text: 'PERGURUAN TINGGI',
                 disabled: false,
@@ -109,9 +109,9 @@ export default {
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
-        btnLoading: false,   
+        btnLoading: false, 
         //form
-        form_valid: true,   
+        form_valid: true, 
         formdata: {
             header_1: null,
             header_2: null,
@@ -130,19 +130,19 @@ export default {
                     Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
-                let setting = data.setting;                           
+                let setting = data.setting;   
                 this.formdata.header_1=setting.HEADER_1;
                 this.formdata.header_2=setting.HEADER_2;
                 this.formdata.header_3=setting.HEADER_3;
                 this.formdata.header_4=setting.HEADER_4;
                 this.formdata.header_address=setting.HEADER_ADDRESS;
-            });          
+            }); 
             
         },
-        save () {
+        save() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading = true;                
+                this.btnLoading = true;
                 this.$ajax.post('/system/setting/variables',
                     {
                         _method: 'PUT', 
@@ -153,14 +153,14 @@ export default {
                             703: this.formdata.header_3,
                             704: this.formdata.header_4,
                             705: this.formdata.header_address,
-                        }),                                                                                                                            
+                        }),                                                                                                              
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {                       
+                ).then(() => {     
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
@@ -169,9 +169,9 @@ export default {
         }
     },
     computed: { 
-        ...mapGetters("auth", {            
-            ACCESS_TOKEN: 'AccessToken',          
-            TOKEN: 'Token',                                  
+        ...mapGetters("auth", { 
+            ACCESS_TOKEN: "AccessToken",
+            TOKEN: "Token",                 
         }),
     },
     components: {

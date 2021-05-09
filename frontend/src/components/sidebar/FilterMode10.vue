@@ -3,12 +3,12 @@
         <v-list-item-content> 
             <v-select
                 v-model="tahun_pendaftaran"
-                :items="daftar_ta"                
+                :item="daftar_ta"                
                 label="TAHUN PENDAFTARAN"
                 outlined/>  
             <v-select
                 v-model="idkelas"
-                :items="daftar_kelas"                
+                :item"daftar_kelas"                
                 item-text="text"
                 item-value="id"
                 label="KELAS"
@@ -25,7 +25,7 @@ export default {
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
 
         this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];  
-        this.idkelas=this.$store.getters['uiadmin/getIDKelas'];                                            
+        this.idkelas=this.$store.getters['uiadmin/getIDKelas'];    
     },
     data: () => ({
         firstloading: true,
@@ -48,15 +48,15 @@ export default {
             if (!this.firstloading)
             {
                 this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
-                this.$emit('changeTahunPendaftaran',val);          
-            }            
+                this.$emit('changeTahunPendaftaran',val); 
+            } 
         },
         idkelas(val)
         {
             if (!this.firstloading)
             {
                 this.$store.dispatch('uiadmin/updateIDKelas',val);  
-                this.$emit('changeIDKelas',val);          
+                this.$emit('changeIDKelas',val); 
             }
         },
     }

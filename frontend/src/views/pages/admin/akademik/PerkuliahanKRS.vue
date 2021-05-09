@@ -31,7 +31,7 @@
         <template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
             <Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
         </template>
-        <v-container fluid>     
+        <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-card>
@@ -74,7 +74,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>           
+                                <v-spacer></v-spacer>       
                                 <v-btn 
                                     color="primary" 
                                     icon 
@@ -84,7 +84,7 @@
                                     to="/akademik/perkuliahan/krs/tambah"
                                     v-if="$store.getters['auth/can']('AKADEMIK-PERKULIAHAN-KRS_STORE')">
                                         <v-icon>mdi-plus</v-icon>
-                                </v-btn>        
+                                </v-btn>    
                             </v-toolbar>
                             <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
                                 <v-card>
@@ -95,24 +95,24 @@
                                         <v-btn
                                             color="green"
                                             text
-                                            :href="$api.url+'/'+file_pdf">        
+                                            :href="$api.url+'/'+file_pdf">    
                                             Download
-                                        </v-btn>       
+                                        </v-btn>   
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>        
+                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </template>
-                        <template v-slot:item.sah="{item}">        
+                        <template v-slot:item.sah="{item}">    
                             <v-chip                                
                                 :color="item.sah==1?'green': 'warning'"
                                 text-color="white"
                                 small
                                 >
-                                {{item.sah==1?'YA': 'TIDAK'}}                            
+                                {{item.sah==1?'YA': 'TIDAK'}}             
                             </v-chip>
                         </template>
                         <template v-slot:item.idkelas="{item}">
@@ -150,8 +150,8 @@
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>krs_id:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>krs_id:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -198,21 +198,21 @@ export default {
         if (this.$store.getters['uiadmin/getDefaultDashboard']== 'mahasiswa')
         {
             this.initializeMhs();
-        }   
+        } 
         else
         {
             let prodi_id = this.$store.getters["uiadmin/getProdiID"];
             this.prodi_id = prodi_id;
             this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-            this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];                
-            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];                            
-        }     
-    },  
+            this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];    
+        }   
+    },
     mounted()
     {
         if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
-        {            
-            this.initialize();                   
+        { 
+            this.initialize();   
         }
     },
     data: () => ({ 
@@ -229,17 +229,17 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [],      
+        datatable: [], 
         headers: [
-            { text: "NIM", value: "nim", sortable: true, width: 100  },   
-            { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },   
-            { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },       
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },       
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },       
-            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },                   
-            { text: 'SAH', value: 'sah', sortable: true, width: 100},                   
+            { text: "NIM", value: "nim", sortable: true, width: 100  },
+            { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },
+            { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },         
+            { text: 'SAH', value: 'sah', sortable: true, width: 100},         
             { text: "AKSI", value: "actions", sortable: false, width: 140 },
-        ],  
+        ],
         search: "", 
 
         dialogprintpdf: false,
@@ -269,12 +269,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                           
+            }).then(({ data }) => {           
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });              
+            });     
         },
         initialize: async function() 
         {
@@ -289,26 +289,26 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                        
+            }).then(({ data }) => {        
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
                 this.firstloading = false;     
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(() => {
                 this.datatableLoading = false;
-            });              
+            });     
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
-        },  
+            }
+        },
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then(confirm => {
@@ -324,41 +324,41 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
                     }).catch(() => {
                         this.btnLoadingTable=false;
                     });
-                }                
+                } 
             });
         },
         async printpdf(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,                
+            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,         
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {                              
+            ).then(({ data }) => {            
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });                 
+            }); 
         },
-        closedialogprintpdf () {                  
+        closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;      
-                }, 300
+                },300
             );
-        },    
+        }, 
     },
     watch: {
         tahun_akademik()
@@ -366,14 +366,14 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -381,7 +381,7 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         },
         search()
         {
@@ -390,8 +390,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;            
-                        await this.$ajax.post("/akademik/perkuliahan/krs",            
+                        this.datatableLoading = true;   
+                        await this.$ajax.post("/akademik/perkuliahan/krs",     
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_akademik,
@@ -402,20 +402,20 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {               
+                        }).then(({ data }) => {    
                             this.datatable = data.daftar_krs;
                             this.datatableLoading = false;
-                        });                     
+                        });     
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+                },1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
     },
     components: {
         AkademikLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter6               
     },
 }

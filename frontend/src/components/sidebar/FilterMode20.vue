@@ -22,7 +22,7 @@ export default {
     created()
     {
         this.daftar_fakultas=this.$store.getters['uiadmin/getDaftarFakultas'];  
-        this.fakultas_id=this.$store.getters['uiadmin/getFakultasID'];                                    
+        this.fakultas_id = this.$store.getters['uiadmin/getFakultasID'];   
         
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
@@ -47,15 +47,15 @@ export default {
             if (!this.firstloading)
             {
                 this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
-                this.$emit('changeTahunPendaftaran',val);          
-            }            
+                this.$emit('changeTahunPendaftaran',val); 
+            } 
         },
         fakultas_id(val)
         {
             if (!this.firstloading)
             {
                 this.$store.dispatch('uiadmin/updateFakultas',val);  
-                this.$emit('changeFakultas',val);          
+                this.$emit('changeFakultas',val); 
             }
         },
     }

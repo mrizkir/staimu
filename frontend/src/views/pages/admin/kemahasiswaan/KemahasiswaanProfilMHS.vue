@@ -124,7 +124,7 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>            
+                                            </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
@@ -144,13 +144,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-                                            </v-row>            
+                                            </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TANGGAL TRANSAKSI :</v-card-title>
                                                         <v-card-subtitle>
-                                                            {{$date(data_transaksi.tanggal).format('DD/MM/YYYY')}}
+                                                            {{ $date(data_transaksi.tanggal).format('DD/MM/YYYY')}}
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
@@ -186,7 +186,7 @@
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -208,12 +208,12 @@
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
                                 mdi-eye
-                            </v-icon>       
+                            </v-icon>   
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>ID:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>ID:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -236,7 +236,7 @@ export default {
     name: 'Kemahasiswaan',
     created()
 	{
-        this.user_id=this.$route.params.user_id;
+        this.user_id = this.$route.params.user_id;
 		this.breadcrumbs = [
 			{
 				text: "HOME",
@@ -253,18 +253,18 @@ export default {
 				disabled: true,
 				href: "#"
 			}
-        ];				                        
+        ];               
     },
     mounted()
     {
         this.initialize();
     },
-    data: () => ({    
-        firstloading: true,                    
-        breadcrumbs: [],              
+    data: () => ({ 
+        firstloading: true,             
+        breadcrumbs: [],       
         
         //profil mahasiswa      
-        user_id: null,  
+        user_id: null,
         datamhs: {
             nama_mhs: ''
         },
@@ -274,44 +274,44 @@ export default {
         ipk: 0.00, 
 
         //tables
-        datatableLoading: false,       
+        datatableLoading: false,
         datatable: [], 
-        headers: [                                                
+        headers: [                        
             { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
             { text: "NIM", value: "nim", width: 100, sortable: true },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
             { text: 'T.A/SMT', value: 'idsmt', width: 100, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
-            { text: "STATUS", value: "nama_status", width:50, sortable: true },    
+            { text: "STATUS", value: "nama_status", width:50, sortable: true }, 
             { text: "AKSI", value: "actions", sortable: false, width:50 },
-        ],        
+        ], 
         expanded: [],
         search: "", 
         //form data
         dialogdetailitem: false,
-        data_transaksi: {}, 
-        data_transaksi_detail: {},  
+        data_transaksi: {},
+        data_transaksi_detail: {},
     }),
-    methods: {        
+    methods: {
 		initialize: async function()
 		{	
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,           
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,    
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                              
+            }).then(({ data }) => {            
                 this.datamhs=data.mahasiswa;
                 
                 this.totalSKS=data.jumlah_sks;
                 this.totalM=data.jumlah_m;
                 this.totalAM=data.jumlah_am;
-                this.ipk=data.ipk;                
+                this.ipk=data.ipk;
             });
 
             this.datatableLoading = true;     
-            await this.$ajax.post('/keuangan/transaksi',            
+            await this.$ajax.post('/keuangan/transaksi',     
             {
                 TA: this.$store.getters['uiadmin/getTahunAkademik'],
                 user_id: this.user_id
@@ -320,49 +320,49 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
-                this.datatable = data.transaksi;                
+            }).then(({ data }) => {    
+                this.datatable = data.transaksi;
                 this.datatableLoading = false;
-            });                     
-        },     
+            });     
+        },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
-        },   
+            }
+        },
         async viewItem(item) {
             this.btnLoading = true;
-            await this.$ajax.get('/keuangan/transaksi/'+item.id,  
+            await this.$ajax.get('/keuangan/transaksi/'+item.id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                             
+            }).then(({ data }) => {                             
                 this.data_transaksi=item;   
                 this.data_transaksi_detail=data.transaksi_detail;   
-                this.dialogdetailitem=true;
+                this.dialogdetailitem = true;
                 this.btnLoading = false;
-            });                                        
+            });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi={}; 
                 this.data_transaksi_detail={};      
-                }, 300
+                },300
             );
         },
     },
     components: {
         KemahasiswaanLayout,
-        ModuleHeader,   
+        ModuleHeader, 
         ProfilMahasiswa            
     },
 }

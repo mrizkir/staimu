@@ -229,10 +229,10 @@
 							</v-toolbar>
 						</template>
 						<template v-slot:item.tanggal_ujian="{ item }">
-							{{$date(item.tanggal_ujian).format("DD/MM/YYYY")}}
+							{{ $date(item.tanggal_ujian).format("DD/MM/YYYY")}}
 						</template>
 						<template v-slot:item.tanggal_akhir_daftar="{ item }">
-							{{$date(item.tanggal_akhir_daftar).format("DD/MM/YYYY")}}
+							{{ $date(item.tanggal_akhir_daftar).format("DD/MM/YYYY")}}
 						</template>
 						<template v-slot:item.durasi_ujian="{ item }">
 							{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br>({{durasiUjian(item)}} Menit)
@@ -406,7 +406,7 @@
 						{
 							return true;
 						}
-					}            
+					} 
 				],
 			}
 		},
@@ -431,7 +431,7 @@
 								Authorization: this.$store.getters["auth/Token"],
 							},
 						})
-						.then(({ data }) => {   
+						.then(({ data }) => {
 							this.jumlah_bank_soal=data.jumlah_bank_soal;
 							this.datatable = data.jadwal_ujian;
 							this.datatableLoading = false;
@@ -443,21 +443,21 @@
 			getStatusJadwanUjian(item) {
 				switch(item.status_ujian){
 						case 0:
-							return "BELUM MULAI";						
+							return "BELUM MULAI";		
 						case 1:
-							return "BERJALAN";						
+							return "BERJALAN";		
 						case 2:
-							return "SELESAI";						
+							return "SELESAI";		
 						default: 
 							return 'N.A';
 					}
 			},
 			dataTableRowClicked(item) {
-				if ( item === this.expanded[0]) {
+				if (item === this.expanded[0]) {
 					this.expanded = [];
 				} else {
 					this.expanded = [item];
-				}               
+				}
 			},
 			addItem: async function() {
 				this.btnLoading = true;
@@ -466,7 +466,7 @@
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
 					}
-				}).then(({ data }) => {    
+				}).then(({ data }) => { 
 					this.daftar_ruangan = data.ruangan;
 					this.btnLoading = false;
 					this.dialogfrm = true;
@@ -490,7 +490,7 @@
 								Authorization: this.$store.getters["auth/Token"]
 							}
 						})
-						.then(({ data }) => {    
+						.then(({ data }) => { 
 							this.daftar_ruangan = data.ruangan;
 							this.btnLoading = false;
 							this.editedIndex = this.datatable.indexOf(item);
@@ -523,7 +523,7 @@
 									Authorization: this.$store.getters["auth/Token"]
 								}
 							}
-						).then(() => {     
+						).then(() => {  
 							this.closedialogfrm();
 							this.btnLoading = false;
 							this.initialize();
@@ -533,7 +533,7 @@
 						
 					} else {
 						await this.$ajax.post("/spmb/jadwalujianpmb/store",
-							{    
+							{ 
 								nama_kegiatan: this.formdata.nama_kegiatan,
 								jumlah_soal: this.formdata.jumlah_soal,
 								tanggal_ujian: this.formdata.tanggal_ujian,
@@ -550,7 +550,7 @@
 									Authorization: this.$store.getters["auth/Token"]
 								}
 							}
-						).then(() => {     
+						).then(() => {  
 							this.closedialogfrm();
 							this.btnLoading = false;
 							this.initialize();
@@ -581,7 +581,7 @@
 						}).catch(() => {
 							this.btnLoading = false;
 						});
-					}                
+					} 
 				});
 			},			
 			closedialogfrm() {
@@ -590,7 +590,7 @@
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
 					this.$refs.frmdata.reset();
-				}, 300);
+				},300);
 			},
 		},
 		computed: {

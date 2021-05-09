@@ -102,7 +102,7 @@
 							<template v-slot:expanded-item="{ headers, item }">
 								<td :colspan="headers.length" class="text-center">
 									<v-col cols="12">
-										<strong>ID:</strong>{{ item.id }}                                                                                       
+										<strong>ID:</strong>{{ item.id }}                                                                        
 									</v-col>
 								</td>
 							</template>
@@ -176,7 +176,7 @@
 						}
 					)
 					.then(({ data }) => {
-						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;						
+						this.INFO_KAMPUS_TERM_ID = data.config.INFO_KAMPUS_TERM_ID;		
 					});
 					this.firstloading = false;
 			},

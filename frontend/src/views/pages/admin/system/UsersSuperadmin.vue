@@ -73,25 +73,25 @@
                                     @click.stop="showDialogTambahUserSuperAdmin">
                                     TAMBAH
                                 </v-btn>
-                                <v-dialog v-model="dialog" max-width="500px" persistent>    
+                                <v-dialog v-model="dialog" max-width="500px" persistent>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
-                                            </v-card-title>            
+                                            </v-card-title>
                                             <v-card-text> 
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                               
+                                                </v-text-field>                                                   
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>                        
+                                                </v-text-field>            
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -117,8 +117,8 @@
                                                     label="ROLES"                                                     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                
-                                                </v-autocomplete>       
+                                                    outlined>                                    
+                                                </v-autocomplete>   
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -140,8 +140,8 @@
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
-                                            </v-card-title>            
-                                            <v-card-text>                                                                
+                                            </v-card-title>
+                                            <v-card-text>                                                    
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
@@ -179,8 +179,8 @@
                                                     label="ROLES"                                                     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                                
-                                                </v-autocomplete>       
+                                                    outlined>                                    
+                                                </v-autocomplete>   
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -197,7 +197,7 @@
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.actions="{ item }">        
+                        <template v-slot:item.actions="{ item }">    
                             <v-icon
                                 small
                                 class="mr-2"
@@ -216,10 +216,10 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">        
+                        <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />           
-                            </v-avatar>                                                                  
+                                <v-img :src="$api.url+'/'+item.foto" />       
+                            </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -244,7 +244,7 @@ import { mapGetters } from "vuex";
 import SystemUserLayout from '@/views/layouts/SystemUserLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
-    name: 'UsersSuperAdmin',  
+    name: 'UsersSuperAdmin',
     created() {
         this.breadcrumbs = [
             {
@@ -264,69 +264,69 @@ export default {
             }
         ];
         this.initialize()
-    },  
+    },
    
     data: () => ({ 
         role_id: 0,
         datatableLoading: false,
-        btnLoading: false,      
+        btnLoading: false, 
         //tables
-        headers: [                        
+        headers: [
             { text: '', value: 'foto' },
             { text: 'USERNAME', value: 'username', sortable: true },
             { text: 'NAME', value: 'name', sortable: true },
-            { text: 'EMAIL', value: 'email', sortable: true },     
-            { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },     
+            { text: 'EMAIL', value: 'email', sortable: true },
+            { text: 'NOMOR HP', value: 'nomor_hp', sortable: true },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         expanded: [],
         search: "",
-        daftar_users: [],        
+        daftar_users: [], 
 
         //form
         form_valid: true,
         daftar_roles: [],
         dialog: false,
-        dialogEdit: false,        
-        editedIndex: -1,          
+        dialogEdit: false, 
+        editedIndex: -1,   
         editedItem: {
             id: 0,
-            username: '',           
-            password: '',           
-            name: '',           
-            email: '',           
-            nomor_hp: '',       
+            username: '',    
+            password: '',    
+            name: '',    
+            email: '',    
+            nomor_hp: '',
             role_id: ['superadmin'],
-            created_at: '',           
-            updated_at: '',   
+            created_at: '',    
+            updated_at: '', 
         },
         defaultItem: {
             id: 0,
-            username: '',           
-            password: '',           
-            name: '',           
-            email: '',           
-            nomor_hp: '',   
-            role_id: ['superadmin'],    
-            created_at: '',           
-            updated_at: '',        
+            username: '',    
+            password: '',    
+            name: '',    
+            email: '',    
+            nomor_hp: '', 
+            role_id: ['superadmin'],  
+            created_at: '',    
+            updated_at: '', 
         },
         //form rules        
         rule_user_name: [
-            value => !!value || "Mohon untuk di isi nama User !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',                
+            value => !!value || "Mohon untuk di isi nama User !!!",
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',         
         ], 
         rule_user_email: [
-            value => !!value || "Mohon untuk di isi email User !!!",  
-            value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',       
+            value => !!value || "Mohon untuk di isi email User !!!",
+            value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',
         ], 
         rule_user_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
         ], 
         rule_user_username: [
-            value => !!value || "Mohon untuk di isi username User !!!",  
-            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',                    
+            value => !!value || "Mohon untuk di isi username User !!!",
+            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',             
         ], 
         rule_user_password: [
             value => !!value || "Mohon untuk di isi password User !!!",
@@ -360,23 +360,23 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;
-            });          
+            }); 
             
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         showDialogTambahUserSuperAdmin: async function()
         {
@@ -384,59 +384,59 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {      
+            }).then(({ data }) => {   
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {                        
+                    {      
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
-                        });                        
+                        });
                     }
                     else
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                            
-                        });                        
-                    }                    
+                            disabled: false,                     
+                        });
+                    }     
                 });        
                 this.daftar_roles=daftar_roles;     
-                this.dialog = true;                                    
+                this.dialog = true;   
             });     
             
         },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password='';            
+            item.password='';   
             this.editedItem = Object.assign({}, item); 
 
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {      
+            }).then(({ data }) => {   
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {                        
+                    {      
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
-                        });                        
+                        });
                     }
                     else
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                            
-                        });                        
-                    }                    
+                            disabled: false,                     
+                        });
+                    }     
                 });        
-                this.daftar_roles=daftar_roles;                                                
+                this.daftar_roles=daftar_roles;        
             });    
 
             this.btnLoading = true;
@@ -446,23 +446,23 @@ export default {
                     Authorization: this.TOKEN
                 }
             }).then(({ data }) => {  
-                this.editedItem.role_id=data.roles;                   
+                this.editedItem.role_id=data.roles;   
                 this.btnLoading = false;
                 this.dialogEdit = true;
             });   
         },
-        close () {            
+        close() { 
             this.btnLoading = false;
             this.dialog = false;
-            this.dialogEdit = false;            
+            this.dialogEdit = false;   
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
-                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                }, 300
+                },300
             );
         },
-        save () {
+        save() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
@@ -473,7 +473,7 @@ export default {
                             _method: 'PUT',
                             name: this.editedItem.name,
                             email: this.editedItem.email,
-                            nomor_hp: this.editedItem.nomor_hp,     
+                            nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password,
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
@@ -483,19 +483,19 @@ export default {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         Object.assign(this.daftar_users[this.editedIndex], data.user);
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });                    
+                    });    
                     
                 } else {
                     this.$ajax.post('/system/users/store',
                         {
                             name: this.editedItem.name,
                             email: this.editedItem.email,
-                            nomor_hp: this.editedItem.nomor_hp,     
+                            nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
@@ -505,7 +505,7 @@ export default {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         this.daftar_users.push(data.user);
                         this.close();
                     }).catch(() => {
@@ -514,7 +514,7 @@ export default {
                 }
             }
         },
-        deleteItem(item) {           
+        deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
@@ -528,7 +528,7 @@ export default {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.daftar_users.indexOf(item);
                         this.daftar_users.splice(index, 1);
                         this.btnLoading = false;
@@ -543,9 +543,9 @@ export default {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER SUPER ADMIN' : 'EDIT USER SUPER ADMIN'
         },
-        ...mapGetters("auth", {            
-            ACCESS_TOKEN: 'AccessToken',          
-            TOKEN: 'Token',                                  
+        ...mapGetters("auth", { 
+            ACCESS_TOKEN: "AccessToken",
+            TOKEN: "Token",                 
         }),
     },
 
@@ -556,7 +556,7 @@ export default {
         dialogEdit (val) {
             val || this.close()
         },
-    },    
+    }, 
     components: {
         SystemUserLayout,
         ModuleHeader,

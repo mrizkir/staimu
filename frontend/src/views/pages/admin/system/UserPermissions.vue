@@ -89,7 +89,7 @@
                         <v-card flat class="mb-2">
                             <v-card-title>CREATED/UPDATED:</v-card-title>  
                             <v-card-subtitle>
-                                {{$date(user.created_at).format("DD/MM/YYYY HH:mm")}} ~ {{$date(user.updated_at).format("DD/MM/YYYY HH:mm")}}
+                                {{ $date(user.created_at).format("DD/MM/YYYY HH:mm") }} ~ {{ $date(user.updated_at).format("DD/MM/YYYY HH:mm") }}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
@@ -106,7 +106,7 @@
                                     label="ROLES"
                                     :items="daftar_role"
                                     v-model="role_name"
-                                >    
+                                >
                                 </v-select>
                                 <v-text-field
                                     v-model="search"
@@ -132,7 +132,7 @@
                             show-select
                             class="elevation-1"
                         >
-                        <template v-slot:item.actions="{ item }">        
+                        <template v-slot:item.actions="{ item }">    
                             <v-icon
                                 small
                                 
@@ -173,10 +173,10 @@ export default {
         btnLoading: false,
         datatableLoading: false,
         //tables
-        headers: [                        
+        headers: [
             { text: 'NAMA PERMISSION', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },   
-            { text: "AKSI", value: "actions", sortable: false, width: 100 }, 
+            { text: 'GUARD', value: 'guard_name' },
+            { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",
 
@@ -187,7 +187,7 @@ export default {
         permissions_selected: [],
 
     }),
-    props: {                        
+    props: {      
         user: {
             type: Object,
             required: true
@@ -199,16 +199,16 @@ export default {
     methods: {
         initialize()
         {
-            this.$ajax.get('/system/users/'+this.user.id+'/roles',                
+            this.$ajax.get('/system/users/'+this.user.id+'/roles',         
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => {
                 this.daftar_role=data.roles;
-            });            
-        }, 
+            });   
+        },
         save()
         {
             this.btnLoading = true;
@@ -222,15 +222,15 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {   
-                this.exit();                
+            ).then(() => {
+                this.exit();
             }).catch(() => {
                 this.btnLoading = false;
             });
         },
         revoke(item)
-        {   
-            this.btnLoading = true;         
+        {
+            this.btnLoading = true;
             this.$ajax.post('/system/users/revokeuserpermissions',
                 {
                     user_id: this.user.id,
@@ -241,15 +241,15 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {   
-                this.exit();                
+            ).then(() => {
+                this.exit();
             }).catch(() => {
                 this.btnLoading = false;
             });
         },
         exit()
         {
-            this.$emit('closeUserPermissions');           
+            this.$emit('closeUserPermissions');  
         }
     },
     computed: {
@@ -276,7 +276,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {
-                    this.permissions_selected = data.permissions;                    
+                    this.permissions_selected = data.permissions;    
                 });
                 this.datatableLoading = false;
             }

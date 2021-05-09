@@ -91,8 +91,8 @@
                         </template>   
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">      
-                                    <strong>id:</strong>{{ item.id }}          
+                                <v-col cols="12">  
+                                    <strong>id:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -143,7 +143,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];   
         this.initialize()
-    },  
+    },
     data: () => ({ 
         dashboard: null,
         firstloading: true,
@@ -156,16 +156,16 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [],      
+        datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },   
-            { text: "NIM", value: "nim", sortable: true, width: 100  },   
-            { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },   
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },                   
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                   
-            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },                   
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },
+            { text: "NIM", value: "nim", sortable: true, width: 100  },
+            { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },         
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
+            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },         
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],  
+        ],
         search: "", 
     }),
     methods: {
@@ -194,7 +194,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -205,14 +205,14 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         deleteItem(item)
         {
@@ -229,22 +229,22 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoadingTable=false;
                     }).catch(() => {
                         this.btnLoadingTable=false;
                     });
-                }                
+                } 
             });
         },
-        closedialogfrm() {            
-            this.dialogfrm = false;            
-            setTimeout(() => {       
-                this.formdata = Object.assign({}, this.formdefault);                                
-                this.data_mhs = Object.assign({}, {});   
-                }, 300
+        closedialogfrm() { 
+            this.dialogfrm = false;   
+            setTimeout(() => {    
+                this.formdata = Object.assign({}, this.formdefault);        
+                this.data_mhs = Object.assign({},{});   
+                },300
             );
         },
     },
@@ -254,14 +254,14 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -269,12 +269,12 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         }
     },
     components: {
         AkademikLayout,
-        ModuleHeader,    
+        ModuleHeader,  
         Filter6               
     },
 }

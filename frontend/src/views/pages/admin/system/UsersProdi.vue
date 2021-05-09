@@ -229,7 +229,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-if="dialogUserPermission"  v-model="dialogUserPermission" max-width="800px" persistent>    
+                                <v-dialog v-if="dialogUserPermission"  v-model="dialogUserPermission" max-width="800px" persistent>
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="programstudi" />
                                 </v-dialog>
                             </v-toolbar>
@@ -420,7 +420,7 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
                 this.expanded = [];
             }
@@ -540,26 +540,26 @@ export default {
                 this.dialogEdit = true;
             });
         },
-        setPermission: async function(item) {            
+        setPermission: async function(item) { 
             this.dialogUserPermission = true;
-            this.editedItem=item;
+            this.editedItem = item;
         },
-        close () {
+        close() {
             this.btnLoading = false;
             this.dialog = false;
             this.dialogEdit = false;
             setTimeout(() => {
                 this.$refs.frmdata.reset();
-                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                }, 300
+                },300
             );
         },
-        closeUserPermissions () {
-            this.btnLoading = false;            
+        closeUserPermissions() {
+            this.btnLoading = false;   
             this.dialogUserPermission = false;
         },
-        save () {
+        save() {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
@@ -642,7 +642,7 @@ export default {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER PROGRAM STUDI' : 'EDIT USER PROGRAM STUDI'
         },
-        ...mapGetters('auth',{
+        ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),

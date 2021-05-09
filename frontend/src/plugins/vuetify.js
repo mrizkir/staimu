@@ -13,7 +13,7 @@ Vue.use(Vuetify);
 
 // tiptap
 const vuetify = new Vuetify();
-Vue.use(TiptapVuetifyPlugin,  {
+Vue.use(TiptapVuetifyPlugin,{
 	vuetify,
 	iconsGroup: "mdi",
 });

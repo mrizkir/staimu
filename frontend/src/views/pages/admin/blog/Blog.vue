@@ -8,7 +8,7 @@ import BlogLayout from '@/views/layouts/BlogLayout';
 export default {
     name: 'Blog',
     components: {
-        BlogLayout,      
+        BlogLayout, 
     },
 }
 </script>

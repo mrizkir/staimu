@@ -77,7 +77,7 @@
                                     <v-icon>
                                         mdi-printer
                                     </v-icon>
-                                </v-btn>          
+                                </v-btn>      
                             </v-toolbar>
                         </template>
                         <template v-slot:item.foto="{ item }">
@@ -87,9 +87,9 @@
                                     :icon="badgeIcon(item)"
                                     overlap
                                 >
-                                    <v-avatar size="30">        
+                                    <v-avatar size="30">    
                                         <v-img :src="$api.url+'/'+item.foto" />   
-                                    </v-avatar>                                                                  
+                                    </v-avatar>                                                      
                             </v-badge>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -114,7 +114,7 @@
     </SPMBLayout>
 </template>
 <script>
-import SPMBLayout from '@/views/layouts/SPMBLayout';
+import SPMBLayout from "@/views/layouts/SPMBLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter7 from "@/components/sidebar/FilterMode7";
 export default {
@@ -142,9 +142,9 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];                
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
         this.initialize()   
-    },  
+    },
     data: () => ({
         firstloading: true,
         prodi_id: null,
@@ -152,20 +152,20 @@ export default {
         nama_prodi: null,
 
         dialogprofilmhsbaru: false,
-        breadcrumbs: [],        
+        breadcrumbs: [], 
         dashboard: null,
 
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
-        headers: [                        
-            { text: '', value: 'foto', width:70 },       
+        headers: [
+            { text: '', value: 'foto', width:70 },
             { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
-            { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },    
+            { text: 'KELAS', value: 'nkelas', width: 100, sortable: true }, 
         ],
-        search: "",  
+        search: "",
         
         datamhsbaru: {}
     }),
@@ -186,7 +186,7 @@ export default {
 
                 break;
                 default :
-                    this.datatableLoading = true;            
+                    this.datatableLoading = true;   
                     await this.$ajax.post('/spmb/formulirpendaftaran',
                     {
                         TA: this.tahun_pendaftaran,
@@ -196,24 +196,24 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {               
-                        this.datatable = data.pmb;                
+                    }).then(({ data }) => {    
+                        this.datatable = data.pmb;
                         this.datatableLoading = false;
-                    });         
+                    });
             }
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         badgeColor(item)
         {
@@ -228,9 +228,9 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbprodi/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                                                                
-                    prodi_id: this.prodi_id,    
-                    nama_prodi: this.nama_prodi,                 
+                    TA: this.tahun_pendaftaran,                                                         
+                    prodi_id: this.prodi_id,  
+                    nama_prodi: this.nama_prodi,          
                 },
                 {
                     headers: {
@@ -238,20 +238,20 @@ export default {
                     },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => {              
+            ).then(({ data }) => {   
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'laporan_prodi_'+Date.now()+'.xlsx');                
-                link.setAttribute('id', 'download_laporan');                
+                link.setAttribute('download', 'laporan_prodi_'+Date.now()+'.xlsx');
+                link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();                     
+                link.click();     
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
             });     
-        }     
+        }   
     },
     watch: {
         tahun_pendaftaran()
@@ -259,7 +259,7 @@ export default {
             if (!this.firstloading)
             {
                 this.initialize();
-            }            
+            } 
         },
         prodi_id(val)
         {
@@ -267,12 +267,12 @@ export default {
             {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
-            }            
+            } 
         }
     },
     components: {
         SPMBLayout,
-        ModuleHeader,        
+        ModuleHeader, 
         Filter7    
     },
 }

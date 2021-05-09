@@ -209,7 +209,7 @@ import DataKRS from '@/components/DataKRS';
 export default {
 		name: 'PerkuliahanKRSDetail',
 		created() {
-				this.krs_id=this.$route.params.krsid;
+				this.krs_id = this.$route.params.krsid;
 				this.breadcrumbs = [
 						{
 								text: "HOME",
@@ -249,7 +249,7 @@ export default {
 				btnLoadingTable: false,
 
 				//formdata
-				form_valid: true,         
+				form_valid: true,  
 				krs_id: null,
 				datakrs: {},
 				datamatkul: {},
@@ -310,7 +310,7 @@ export default {
 				},
 				save: async function() {
 					if (this.$refs.frmdata.validate()) {
-						this.btnLoading = true;           
+						this.btnLoading = true;  
 						var members_selected = [
 							{
 								id: this.datamatkul.id,
@@ -322,7 +322,7 @@ export default {
 								{
 									kelas_mhs_id: this.formdata.kelas_mhs_id,
 									krsmatkul_id: this.datamatkul.id,
-									members_selected: JSON.stringify(Object.assign({}, members_selected)),
+									members_selected: JSON.stringify(Object.assign({},members_selected)),
 									pid: "krs",
 								},
 								{
@@ -331,7 +331,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {                           
+							.then(() => {         
 								this.closedialogfrm();
 								this.fetchKRS();
 								this.btnLoading = false;
@@ -369,9 +369,9 @@ export default {
 				closedialogfrm() {
 						this.dialogfrm = false;
 						setTimeout(() => {
-								this.datamatkul = Object.assign({}, {});
+								this.datamatkul = Object.assign({},{});
 								this.$refs.frmdata.reset();
-								}, 300
+								},300
 						);
 				},
 		},

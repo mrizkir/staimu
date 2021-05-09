@@ -67,10 +67,10 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="500px" persistent>
-                                    <template v-slot:activator="{ on }">        
+                                    <template v-slot:activator="{ on }">    
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>        
+                                        </v-btn>    
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -131,13 +131,13 @@
                                                     </v-card>
                                                 </v-col>
                                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                                            </v-row>            
+                                            </v-row>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn color="blue darken-1" text @click.stop="closedialogdetailitem">KELUAR</v-btn>
                                         </v-card-actions>
-                                    </v-card>    
+                                    </v-card>
                                 </v-dialog>
                             </v-toolbar>
                         </template>
@@ -165,7 +165,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.kode_fakultas }}                                   
+                                    <strong>ID:</strong>{{ item.kode_fakultas }}                    
                                 </v-col>
                             </td>
                         </template>
@@ -203,15 +203,15 @@ export default {
             }
         ];
         this.initialize()
-    },  
+    },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
-        headers: [                        
-            { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },   
-            { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },   
+        headers: [
+            { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },
+            { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "",
@@ -221,15 +221,15 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,         
+        form_valid: true,  
         kode_fakultas: '',
         formdata: {
-            kode_fakultas: '',                        
+            kode_fakultas: '',                 
             nama_fakultas: '', 
         },
         formdefault: {
-            kode_fakultas: '',                        
-            nama_fakultas: '',         
+            kode_fakultas: '',                 
+            nama_fakultas: '',  
         },
         editedIndex: -1,
 
@@ -239,8 +239,8 @@ export default {
             value => /^[1-9]{1}[0-9]{1,14}$/.test(value) || 'Kode Fakultas hanya boleh angka',
         ], 
         rule_nama_fakultas: [
-            value => !!value || "Mohon Nama Fakultas untuk di isi !!!",  
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',                
+            value => !!value || "Mohon Nama Fakultas untuk di isi !!!",
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',         
         ], 
     }),
     methods: {
@@ -251,7 +251,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {    
                 this.datatable = data.fakultas;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -260,25 +260,25 @@ export default {
         },
         dataTableRowClicked(item)
         {
-            if ( item === this.expanded[0])
+            if (item === this.expanded[0])
             {
-                this.expanded = [];                
+                this.expanded = [];
             }
             else
             {
                 this.expanded = [item];
-            }               
+            }
         },
         viewItem(item) {
             this.formdata = item;      
-            this.dialogdetailitem=true;                        
-        },    
+            this.dialogdetailitem = true;
+        }, 
         editItem(item) {
             this.kode_fakultas=item.kode_fakultas;
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true
-        },    
+        }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -288,35 +288,35 @@ export default {
                     await this.$ajax.post('/datamaster/fakultas/'+this.kode_fakultas,
                         {
                             _method: 'PUT',
-                            kode_fakultas: this.formdata.kode_fakultas,                            
-                            nama_fakultas: this.formdata.nama_fakultas,                                                        
+                            kode_fakultas: this.formdata.kode_fakultas,                     
+                            nama_fakultas: this.formdata.nama_fakultas,                                                 
                         },
                         {
                             headers: {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         Object.assign(this.datatable[this.editedIndex], data.fakultas);
                         this.closedialogfrm();
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });                 
+                    }); 
                     
-                } else {                    
+                } else {  
                     await this.$ajax.post('/datamaster/fakultas/store',
                         {
-                            kode_fakultas: this.formdata.kode_fakultas,                            
-                            nama_fakultas: this.formdata.nama_fakultas,                                                        
+                            kode_fakultas: this.formdata.kode_fakultas,                     
+                            nama_fakultas: this.formdata.nama_fakultas,                                                 
                         },
                         {
                             headers: {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(({ data }) => {   
-                        this.datatable.push(data.fakultas);                        
+                    ).then(({ data }) => {
+                        this.datatable.push(data.fakultas);
                         this.btnLoading = false;
                         this.closedialogfrm();
                     }).catch(() => {
@@ -325,7 +325,7 @@ export default {
                 }
             }
         },
-        deleteItem(item) {           
+        deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data fakultas dengan kode '+item.kode_fakultas+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
                 {
@@ -339,22 +339,22 @@ export default {
                                 Authorization: this.TOKEN
                             }
                         }
-                    ).then(() => {   
+                    ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
                     });
-                }                
+                } 
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;            
+            this.dialogdetailitem = false;   
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
         closedialogfrm() {
@@ -363,14 +363,14 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+                },300
             );
         },
     },
     computed: {
-        ...mapGetters("auth", {            
-            ACCESS_TOKEN: 'AccessToken',          
-            TOKEN: 'Token',                                  
+        ...mapGetters("auth", { 
+            ACCESS_TOKEN: "AccessToken",
+            TOKEN: "Token",                 
         }),
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

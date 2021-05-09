@@ -3,14 +3,14 @@
 				<v-list-item-content>
 						<v-select
 								v-model="prodi_id"
-								:items="daftar_prodi"                
+								:item="daftar_prodi"                
 								item-text="text"
 								item-value="id"
 								label="PROGRAM STUDI"
 								outlined/>   
 						<v-select
 								v-model="tahun_pendaftaran"
-								:items="daftar_ta"                
+								:item="daftar_ta"                
 								label="TAHUN PENDAFTARAN"
 								outlined/>   
 				</v-list-item-content>
@@ -22,7 +22,7 @@ export default {
 		created()
 		{
 				this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-				this.prodi_id=this.$store.getters["uiadmin/getProdiID"];                                    
+				this.prodi_id = this.$store.getters["uiadmin/getProdiID"];   
 
 				this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
 				this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
@@ -47,8 +47,8 @@ export default {
 						if (!this.firstloading)
 						{
 								this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
-								this.$emit('changeTahunPendaftaran',val);          
-						}            
+								this.$emit('changeTahunPendaftaran',val); 
+						} 
 				},
 				prodi_id(val) {
 						if (!this.firstloading) {

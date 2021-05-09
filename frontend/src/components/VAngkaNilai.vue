@@ -16,7 +16,7 @@ import mixin from '@/plugins/ComponentWrappers'
 export default {
     name: 'VAngkaNilai',
     mixins: [mixin],
-    data: () => ({        
+    data: () => ({
         fractDigitsEdited: false,
         fractPart: null,
         isFocused: false
@@ -44,30 +44,30 @@ export default {
         },
         onBlur() 
         {
-            this.setFocus(false);            
+            this.setFocus(false);   
         },
         onFocus() 
         {
-            this.setFocus(true);            
+            this.setFocus(true);   
         },
         keyProcess(keyEvent)
         {
-            if (!this.isFocused) return;            
+            if (!this.isFocused) return;   
 
-            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {                           
+            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {         
                 keyEvent.preventDefault();
             }
 
             keyEvent.stopPropagation();
             if (keyEvent.key === 'Enter') 
-            {               
+            {    
                 return;
             } 
             else if (keyEvent.key === 'Delete') 
             {
                 this.clearValue()
                 return;
-            }            
+            } 
             const numericButtons = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             let strVal = Math.trunc(this.dataValue).toString();
 
@@ -78,16 +78,16 @@ export default {
                     if (this.fractPart == null)
                     {
                         this.fractPart = keyEvent.key;
-                    }                    
+                    }     
                     else if (this.fractPart.length <= 1)
                     {
                         this.fractPart += keyEvent.key.toString();
-                    }                    
+                    }     
                 }
                 else
                 {
-                    strVal += keyEvent.key;                    
-                }                
+                    strVal += keyEvent.key;    
+                } 
             } 
             else if (keyEvent.key === 'Backspace') 
             {
@@ -104,19 +104,19 @@ export default {
                 } 
                 else 
                 {
-                    strVal = strVal.length <= 1 ? '0' : strVal.substring(0, strVal.length - 1);                   
+                    strVal = strVal.length <= 1 ? '0' : strVal.substring(0, strVal.length - 1);   
                 }
             }
             else if (['.'].includes(keyEvent.key)) 
             {
                 this.fractDigitsEdited = !this.fractDigitsEdited;
-            }            
+            } 
             let result = this.fractPart==null?parseFloat(strVal).toFixed(2):parseFloat(strVal + '.' + this.fractPart).toFixed(2);
             if (result >=0.00 && result <= 100.00)
             {
                 this.dataValue=result;
                 this.$emit('input',this.dataValue);
-            }            
+            } 
         }
     },
 }
