@@ -560,6 +560,18 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/keuangan/TransaksiLaporanRegistrasiKRS.vue"),
 	},
+	{
+		path: "/keuangan/transaksi-laporanujianmunaqasah",
+		name: "KeuanganTransaksiLaporanRegistrasiKRS",
+		meta: {
+			title: "KEUANGAN - LAPORAN PENERIMAAN UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () =>
+			import(
+				"../views/pages/admin/keuangan/TransaksiLaporanUjianMunaqasah.vue"
+			),
+	},
 
 	//akademik
 	{

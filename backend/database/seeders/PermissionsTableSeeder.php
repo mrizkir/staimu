@@ -77,6 +77,12 @@ class PermissionsTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+        \DB::table('permissions')->insert([
+            'name'=>"KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE",
+            'guard_name'=>'api',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
 
         //spmb
         \DB::table('permissions')->insert([

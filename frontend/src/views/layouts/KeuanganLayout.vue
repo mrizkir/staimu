@@ -325,6 +325,20 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item
+					link
+					v-if="CAN_ACCESS('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE')"
+					to="/keuangan/transaksi-laporanujianmunaqasah"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							UJIAN MUNAQASAH
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
 		<v-navigation-drawer
@@ -462,7 +476,7 @@
 						setTimeout(() => {
 							this.loginTime =
 								this.AUTHENTICATED == true ? this.loginTime + 1 : -1;
-						},1000);
+						}, 1000);
 					} else {
 						this.$store.dispatch("auth/logout");
 						this.$router.replace("/login");

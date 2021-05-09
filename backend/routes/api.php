@@ -268,6 +268,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //keuangan - laporan penerimaan registrasi krs
     $router->post('/keuangan/transaksi-laporanregistrasikrs',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanRegistrasiKRSController@index','as'=>'transaksi-laporanregistrasikrs.index']);
     $router->post('/keuangan/transaksi-laporanregistrasikrs/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanRegistrasiKRSController@printtoexcel1','as'=>'transaksi-laporanregistrasikrs.printtoexcel1']);
+    
+    //keuangan - laporan penerimaan ujian munaqasah
+    $router->post('/keuangan/transaksi-laporanujianmunaqasah',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanUjianMunaqasahController@index','as'=>'transaksi-laporanujianmunaqasah.index']);
+    $router->post('/keuangan/transaksi-laporanujianmunaqasah/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanUjianMunaqasahController@printtoexcel1','as'=>'transaksi-laporanujianmunaqasah.printtoexcel1']);
 
     //keuangan - transaksi daftar ulang mahasiswa baru
     $router->post('/keuangan/transaksi-dulangmhsbaru',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiDulangMHSBaruController@index','as'=>'transaksi-dulangmhsbaru.index']);
