@@ -3,7 +3,7 @@ import Vuetify from "vuetify/lib";
 
 // import currency
 import VCurrencyField from "v-currency-field";
-import { VTextField } from "vuetify/lib";  //Globally import VTextField
+import { VTextField } from "vuetify/lib";//Globally import VTextField
 
 // import currency
 import { TiptapVuetifyPlugin } from "tiptap-vuetify";

@@ -179,9 +179,9 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
             { text: "NIM", value: "nim", sortable: true, width:150  },
             { text: 'NIRM', value: 'nirm', sortable: true, width:150  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },         
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },                     
-            { text: 'STATUS', value: 'k_status', sortable: true, width: 120, },                     
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },      
+            { text: 'STATUS', value: 'k_status', sortable: true, width: 120, },      
         ],
         search: "", 
     }),
@@ -206,12 +206,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -231,9 +231,9 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/daftarmhs/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                                                         
-                    prodi_id: this.prodi_id,  
-                    nama_prodi: this.nama_prodi,          
+                    TA: this.tahun_pendaftaran,                          
+                    prodi_id: this.prodi_id,
+                    nama_prodi: this.nama_prodi,        
                 },
                 {
                     headers: {
@@ -241,19 +241,19 @@ export default {
                     },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => { 
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', 'daftar_mahasiswa_'+Date.now()+'.xlsx');
                 link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();     
+                link.click();   
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         }, 
         syncPermission: async function()
         {
@@ -261,7 +261,7 @@ export default {
             await this.$ajax.post('/system/users/syncallpermissions',
                 {
                     role_name: 'mahasiswa',
-                    TA: this.tahun_pendaftaran,             
+                    TA: this.tahun_pendaftaran,
                     prodi_id: this.prodi_id                     
                 },
                 {
@@ -273,14 +273,14 @@ export default {
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         },
         async resetPassword(item)
         {
             this.btnLoading = true;
             await this.$ajax.post('/kemahasiswaan/profil/resetpassword',
                 {
-                    user_id:item.user_id,  
+                    user_id:item.user_id,
                 },
                 {
                     headers: {
@@ -291,7 +291,7 @@ export default {
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         }
     },
     watch: {
@@ -317,8 +317,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;   
-                        await this.$ajax.post('/kemahasiswaan/daftarmhs',     
+                        this.datatableLoading = true; 
+                        await this.$ajax.post('/kemahasiswaan/daftarmhs',   
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_pendaftaran,
@@ -328,10 +328,10 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {    
+                        }).then(({ data }) => {  
                             this.datatable = data.mahasiswa;
                             this.datatableLoading = false;
-                        });     
+                        });
                     }
                     this.awaiting_search = false;
                 },1000); // 1 sec delay
@@ -341,7 +341,7 @@ export default {
     },
     components: {
         KemahasiswaanLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter7               
     },
 }

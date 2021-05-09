@@ -168,7 +168,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -234,55 +234,55 @@ export default {
         ],
         expanded: [],
         search: "",
-        daftar_dosen: [],                
+        daftar_dosen: [], 
         
         //form
         form_valid: true, 
-        dialogEdit: false,    
+        dialogEdit: false,  
         editedIndex: -1, 
         daftar_jabatan: [],
         editedItem: {
             id: 0,
-            username: '',    
-            name: '',                
-            nama_dosen: '',                            
-            id_jabatan:1,    
-            gelar_depan: '',    
-            gelar_belakang: '1',                
+            username: '',  
+            name: '', 
+            nama_dosen: '',             
+            id_jabatan:1,  
+            gelar_depan: '',  
+            gelar_belakang: '1', 
             nidn: '', 
-            nipy: '',  
-            email: '',    
-            nomor_hp: '',          
+            nipy: '',
+            email: '',  
+            nomor_hp: '',        
             is_dw: false, 
-            created_at: '',    
+            created_at: '',  
             updated_at: '', 
         },
         defaultItem: {
             id: 0,
-            username: '',                
-            name: '',                
-            nama_dosen: '',                
+            username: '', 
+            name: '', 
+            nama_dosen: '', 
             id_jabatan:1, 
-            gelar_depan: '',    
-            gelar_belakang: '1',                      
+            gelar_depan: '',  
+            gelar_belakang: '1',       
             nidn: '',
             nipy: '',
-            email: '',    
-            nomor_hp: '',   
-            is_dw: false,  
-            created_at: '',    
+            email: '',  
+            nomor_hp: '', 
+            is_dw: false,
+            created_at: '',  
             updated_at: '', 
         },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama Dosen !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',         
-        ],  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',       
+        ],
         rule_nidn: [ 
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',         
-        ],  
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+        ],
         rule_nipy: [            
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',         
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',       
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -291,7 +291,7 @@ export default {
         rule_user_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
-        ],  
+        ],
     }),
     methods: {
         initialize: async function() 
@@ -301,7 +301,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_dosen = data.dosen;
                 this.datatableLoading = false;
             }); 
@@ -317,9 +317,9 @@ export default {
             {
                 this.expanded = [item];
             }
-        },      
+        },    
         editItem: async function(item) {
-            this.$ajax.get('/datamaster/jabatanakademik',         
+            this.$ajax.get('/datamaster/jabatanakademik',       
                 {
                     headers: {
                         Authorization: this.TOKEN
@@ -327,15 +327,15 @@ export default {
                 }
             ).then(({ data }) => {
                 this.daftar_jabatan=data.jabatan_akademik;
-            });    
+            });  
             
-            this.editedIndex = this.daftar_dosen.indexOf(item);  
-            this.editedItem = Object.assign({}, item);      
+            this.editedIndex = this.daftar_dosen.indexOf(item);
+            this.editedItem = Object.assign({}, item);    
             this.dialogEdit = true;
         },
         close() { 
-            this.btnLoading = false;   
-            this.dialogEdit = false;   
+            this.btnLoading = false; 
+            this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
@@ -359,7 +359,7 @@ export default {
                             nidn: this.editedItem.nidn,
                             nipy: this.editedItem.nipy,
                             email: this.editedItem.email,
-                            nomor_hp: this.editedItem.nomor_hp,                                                                                  
+                            nomor_hp: this.editedItem.nomor_hp,                                                   
                         },
                         {
                             headers: {
@@ -371,7 +371,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });    
+                    });  
                     
                 } 
             }
@@ -380,7 +380,7 @@ export default {
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
 

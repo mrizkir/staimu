@@ -93,7 +93,7 @@
                             :headers="headers"
                             :items="kombi_ganjil_paid"> 
                             <template v-slot:item.jumlah="{ item }">    
-                                {{  item.jumlah|formatUang }}
+                                {{item.jumlah|formatUang }}
                             </template>
                             <template v-slot:body.append v-if="kombi_ganjil_paid.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
@@ -127,7 +127,7 @@
                             :headers="headers"
                             :items="kombi_genap_paid"> 
                             <template v-slot:item.jumlah="{ item }">    
-                                {{  item.jumlah|formatUang }}
+                                {{item.jumlah|formatUang }}
                             </template>
                             <template v-slot:body.append v-if="kombi_genap_paid.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
@@ -185,16 +185,16 @@ export default {
     methods: {
         initialize: async function()
 		{	
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/keuangan',
             {
-                TA: this.ta,         
+                TA: this.ta,       
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.total_transaction=data.total_transaction;
                 this.total_transaction_paid=data.total_transaction_paid; 
                 this.total_transaction_unpaid=data.total_transaction_unpaid; 
@@ -212,17 +212,17 @@ export default {
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });    
+            });  
 
         }
     },
     computed: {
         totalKombiGanjilPaid()
         {
-            var total = 0;   
+            var total = 0; 
             for (var i =0; i < this.kombi_ganjil_paid.length; i++)
             {
-                var item = this.kombi_ganjil_paid[i];        
+                var item = this.kombi_ganjil_paid[i];
                 total=total+parseFloat(item.jumlah);
             }
             return total;

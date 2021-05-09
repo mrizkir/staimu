@@ -76,9 +76,9 @@ export default {
         },
 		initialize: async function()
 		{	
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             
-            this.firstloading = false;   
+            this.firstloading = false; 
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
 
         }

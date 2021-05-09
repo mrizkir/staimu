@@ -481,13 +481,13 @@
 							Authorization: this.$store.getters["auth/Token"],
 						},
 					})
-					.then(({ data }) => {    
-						this.daftar_dosen = data.users;        
+					.then(({ data }) => {  
+						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
 					});			
 			},
 			closedialogfrm() {
-				this.dialogfrm = false;   
+				this.dialogfrm = false; 
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;

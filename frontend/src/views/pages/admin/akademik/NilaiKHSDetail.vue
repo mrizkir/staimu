@@ -204,7 +204,7 @@ export default {
                 href: "#"
             },
         ];
-        this.fetchKHS();      
+        this.fetchKHS();    
     },
     data: () => ({ 
         firstloading: true, 
@@ -226,11 +226,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },         
-            { text: 'HM', value: 'HM', sortable: false, width:50 },         
-            { text: 'AM', value: 'AM', sortable: false, width:50 },         
-            { text: 'M', value: 'M', sortable: false, width:50 },         
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },                                              
+            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
+            { text: 'HM', value: 'HM', sortable: false, width:50 },       
+            { text: 'AM', value: 'AM', sortable: false, width:50 },       
+            { text: 'M', value: 'M', sortable: false, width:50 },       
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },               
         ],
 
         jumlah_sks: 0,
@@ -243,22 +243,22 @@ export default {
         dialogprintpdf: false,
         file_pdf: null
     }),
-    methods: {  
+    methods: {
         async fetchKHS()
         {
-            await this.$ajax.get('/akademik/nilai/khs/'+this.krs_id,                 
+            await this.$ajax.get('/akademik/nilai/khs/'+this.krs_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {             
                 this.datakrs=data.krs;
                 this.datatable=data.daftar_nilai;
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id = this.datakrs.kjur;    
+                    let prodi_id = this.datakrs.kjur;  
                     this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-                    this.tahun_akademik = this.datakrs.tahun;     
+                    this.tahun_akademik = this.datakrs.tahun;   
                     this.semester_akademik = this.datakrs.idsmt;
                     
                     this.jumlah_sks=data.jumlah_sks;
@@ -273,14 +273,14 @@ export default {
         async printpdf()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,         
+            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -291,14 +291,14 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         },
     }, 
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
     },
 }
 </script>

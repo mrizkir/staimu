@@ -221,7 +221,7 @@ import ProfilMahasiswa from '@/components/ProfilMahasiswaLama';
 export default {
     name: 'TranskripNilaiKurikulumDetail',
     created() {
-        this.user_id = this.$route.params.user_id;        
+        this.user_id = this.$route.params.user_id;
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -268,13 +268,13 @@ export default {
         datatable: [], 
         headers: [            
             { text: 'NO', value: 'no', sortable: true, width:50  },
-            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width:350 },         
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, },         
-            { text: 'SMT', value: 'semester', sortable: true, width: 80, },         
-            { text: 'KLP', value: 'group_alias', sortable: true, width: 100, },         
-            { text: 'HM', value: 'HM', sortable: false, width: 100, },         
-            { text: 'AM', value: 'AM', sortable: false, width: 100, },         
-            { text: 'K', value: 'sks', sortable: true, width: 100, },         
+            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width:350 },       
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, },       
+            { text: 'SMT', value: 'semester', sortable: true, width: 80, },       
+            { text: 'KLP', value: 'group_alias', sortable: true, width: 100, },       
+            { text: 'HM', value: 'HM', sortable: false, width: 100, },       
+            { text: 'AM', value: 'AM', sortable: false, width: 100, },       
+            { text: 'K', value: 'sks', sortable: true, width: 100, },       
             { text: 'M', value: 'M', sortable: false, width: 100 },
             { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],
@@ -292,12 +292,12 @@ export default {
         data_history: [],
         expanded: [],
         history_headers: [            
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: true, width: 80, },                     
-            { text: 'NILAI AKHIR', value: 'n_kuan', sortable: false, width: 100, },         
-            { text: 'NILAI MUTU', value: 'n_mutu', sortable: true, width: 100, },         
-            { text: 'TA.SMT', value: 'tasmt', sortable: false, width: 100, },         
-            { text: 'TA.MATKUL', value: 'ta_matkul', sortable: false, width: 100, },                     
-            { text: 'DI INPUT OLEH', value: 'username', sortable: false, width: 100, },                     
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: true, width: 80, },      
+            { text: 'NILAI AKHIR', value: 'n_kuan', sortable: false, width: 100, },       
+            { text: 'NILAI MUTU', value: 'n_mutu', sortable: true, width: 100, },       
+            { text: 'TA.SMT', value: 'tasmt', sortable: false, width: 100, },       
+            { text: 'TA.MATKUL', value: 'ta_matkul', sortable: false, width: 100, },      
+            { text: 'DI INPUT OLEH', value: 'username', sortable: false, width: 100, },      
         ],
 
         dialoghistory: false,
@@ -316,12 +316,12 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,    
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {            
+            }).then(({ data }) => {          
                 this.data_mhs=data.mahasiswa;
                 this.jumlahMatkul=data.jumlah_matkul;
                 this.totalSKS=data.jumlah_sks;
@@ -333,13 +333,13 @@ export default {
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
         },
         async viewItem(item)
         {
             this.btnLoading = true;
-            await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history',         
+            await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history',       
                 {
                     user_id: this.data_mhs.user_id,
                 },
@@ -349,14 +349,14 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.data_matkul=data.matakuliah;
                 this.data_history=data.history;
                 this.dialoghistory=true;
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });   
+            }); 
         },
         dataTableRowClicked(item)
         {
@@ -372,14 +372,14 @@ export default {
         async printpdf1()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,         
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -390,14 +390,14 @@ export default {
         async printpdf2()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,         
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -408,7 +408,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         },
@@ -416,7 +416,7 @@ export default {
             setTimeout(() => {
                 this.data_matkul={};
                 this.data_history=[];
-                this.dialoghistory = false;      
+                this.dialoghistory = false;    
                 },300
             );
         },

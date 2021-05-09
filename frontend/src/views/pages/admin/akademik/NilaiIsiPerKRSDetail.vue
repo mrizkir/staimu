@@ -180,7 +180,7 @@ import VAngkaNilai from '@/components/VAngkaNilai';
 export default {
     name: 'NilaiIsiPerKRSDetail',
     created() {
-        this.krs_id = this.$route.params.krsid;        
+        this.krs_id = this.$route.params.krsid;
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -202,8 +202,8 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];  
-        this.fetchKRS();      
+        ];
+        this.fetchKRS();    
     },
     data: () => ({ 
         test:100,
@@ -226,32 +226,32 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:260 },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },         
-            { text: 'SMT', value: 'semester', sortable: false, width:50 },         
-            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },         
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 },         
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 },         
+            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
+            { text: 'SMT', value: 'semester', sortable: false, width:50 },       
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },       
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 },       
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 },       
                                    
         ],
         //formdata
-        form_valid: true,          
+        form_valid: true,        
     }),
-    methods: {  
+    methods: {
         async fetchKRS()
         {
-            await this.$ajax.get('/akademik/nilai/matakuliah/perkrs/'+this.krs_id,                 
+            await this.$ajax.get('/akademik/nilai/matakuliah/perkrs/'+this.krs_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {             
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id = this.datakrs.kjur;    
+                    let prodi_id = this.datakrs.kjur;  
                     this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-                    this.tahun_akademik = this.datakrs.tahun;     
+                    this.tahun_akademik = this.datakrs.tahun;   
                     this.semester_akademik = this.datakrs.idsmt;
                 }
             })  
@@ -267,11 +267,11 @@ export default {
                     n_kuan:item.n_kuan,
                     n_kual:item.n_kual
                 });
-            });   
+            }); 
             await this.$ajax.post('/akademik/nilai/matakuliah/perkrs/storeperkrs',
                 {
                     krs_id: this.krs_id,
-                    daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),             
+                    daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
                 },
                 {
                     headers: {
@@ -288,7 +288,7 @@ export default {
     computed: {
         totalMatkul()
         {
-            return this.datatable.length;   
+            return this.datatable.length; 
         },
         totalSKS()
         {

@@ -14,7 +14,7 @@
                                     v-model="formdata.nidn"    
                                     :rules="rule_nidn"
                                     filled
-                                />       
+                                /> 
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
@@ -248,15 +248,15 @@ export default {
             active: '',
         },
         rule_nidn: [ 
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',         
-        ],  
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+        ],
         rule_nipy: [            
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',         
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',       
         ], 
         rule_nama_dosen: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-        ],  
+        ],
         rule_tempat_lahir: [
             value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
@@ -276,15 +276,15 @@ export default {
         ], 
         rule_alamat_rumah: [
             value => !!value || "Alamat Rumah mohon untuk diisi !!!"
-        ],  
+        ],
     }),
     methods: {
         initialize: async function()
         {
             this.$ajax.get('/datamaster/provinsi').then(({ data }) => { 
                 this.daftar_provinsi=data.provinsi;
-            });       
-            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),      
+            });  
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),    
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -292,7 +292,7 @@ export default {
                 },
                 
             ).then(({ data }) => {
-                this.formdata=data.biodatadiri;  
+                this.formdata=data.biodatadiri;
 
                 this.provinsi_id={
                     id:data.biodatadiri.address1_provinsi_id,
@@ -310,28 +310,28 @@ export default {
                     id:data.biodatadiri.address1_desa_id,
                     nama:data.biodatadiri.address1_kelurahan
                 };
-                this.formdata.alamat_rumah=data.biodatadiri.alamat_rumah;    
-                this.$refs.frmdata.resetValidation();       
+                this.formdata.alamat_rumah=data.biodatadiri.alamat_rumah;  
+                this.$refs.frmdata.resetValidation();
             });
         },
-        save: async function ()
+        save: async function()
         {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
-                await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{  
+                await this.$ajax.post('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),{
                     _method: "put",
-                    nidn: this.formdata.nidn,    
-                    nipy: this.formdata.nipy,    
-                    gelar_depan: this.formdata.gelar_depan,                        
-                    nama_dosen: this.formdata.nama_dosen,    
-                    gelar_belakang: this.formdata.gelar_belakang,    
+                    nidn: this.formdata.nidn,  
+                    nipy: this.formdata.nipy,  
+                    gelar_depan: this.formdata.gelar_depan,         
+                    nama_dosen: this.formdata.nama_dosen,  
+                    gelar_belakang: this.formdata.gelar_belakang,  
 
-                    tempat_lahir: this.formdata.tempat_lahir,    
-                    tanggal_lahir: this.formdata.tanggal_lahir,    
-                    jk: this.formdata.jk,    
-                    nomor_hp: this.formdata.nomor_hp,    
-                    email: this.formdata.email,  
+                    tempat_lahir: this.formdata.tempat_lahir,  
+                    tanggal_lahir: this.formdata.tanggal_lahir,  
+                    jk: this.formdata.jk,  
+                    nomor_hp: this.formdata.nomor_hp,  
+                    email: this.formdata.email,
                        
                     address1_provinsi_id: this.provinsi_id.id,
                     address1_provinsi: this.provinsi_id.nama,
@@ -341,7 +341,7 @@ export default {
                     address1_kecamatan: this.kecamatan_id.nama,
                     address1_desa_id: this.desa_id.id,
                     address1_kelurahan: this.desa_id.nama,
-                    alamat_rumah: this.formdata.alamat_rumah,  
+                    alamat_rumah: this.formdata.alamat_rumah,
 
                     
                 },
@@ -350,13 +350,13 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                     this.$router.go();
-                }).catch(() => {   
+                }).catch(() => { 
                     this.btnLoading = false;
-                });    
-            }              
+                });  
+            }  
         },
     },
     watch: {

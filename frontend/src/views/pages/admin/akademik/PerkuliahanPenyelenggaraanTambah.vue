@@ -280,9 +280,9 @@ export default {
         ];
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
-        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);        
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);        
+        this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         
     },
@@ -316,7 +316,7 @@ export default {
         formdata: [],
         daftar_matkul_selected: [],
         rule_tamatkul: [
-            value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",       
+            value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",     
         ]        
 
     }),
@@ -346,15 +346,15 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.matakuliah;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
         },
         async viewItem(item) {
-            this.formdata = item;      
+            this.formdata = item;    
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {
@@ -373,15 +373,15 @@ export default {
                     {
                         prodi_id: this.prodi_id,
                         ta: this.tahun_akademik,
-                        semester_akademik: this.semester_akademik,                   
-                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                                                             
+                        semester_akademik: this.semester_akademik,    
+                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                              
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                     this.closedialogfrm();
                 }).catch(() => {
@@ -390,16 +390,16 @@ export default {
             }
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
                 },300
             );
         },
-        closedialogfrm() {           
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
+        closedialogfrm() {         
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');
                 },300
             );
@@ -413,7 +413,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
     },
 }
 </script>

@@ -30,7 +30,7 @@
 <script>
 export default {
     name: 'ModuleHeader',
-    computed : {
+    computed: {
         isReportPage ()
 		{
 			return true;

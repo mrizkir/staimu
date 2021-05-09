@@ -281,7 +281,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -349,7 +349,7 @@ export default {
         ],
         expanded: [],
         search: "",
-        daftar_users: [],                
+        daftar_users: [], 
         
         //form
         form_valid: true,
@@ -359,42 +359,42 @@ export default {
         editedIndex: -1, 
         editedItem: {
             id: 0,
-            username: '',    
-            password: '',    
+            username: '',  
+            password: '',  
             onlyname: '', 
             name: '', 
             nidn: '', 
-            nipy: '',  
-            email: '',    
-            nomor_hp: '',          
+            nipy: '',
+            email: '',  
+            nomor_hp: '',        
             is_dw: false, 
-            created_at: '',    
+            created_at: '',  
             updated_at: '', 
         },
         defaultItem: {
             id: 0,
-            username: '',    
-            password: '',    
-            onlyname: '',  
-            name: '',  
+            username: '',  
+            password: '',  
+            onlyname: '',
+            name: '',
             nidn: '',
             nipy: '',
-            email: '',    
-            nomor_hp: '',   
-            is_dw: false,  
-            created_at: '',    
+            email: '',  
+            nomor_hp: '', 
+            is_dw: false,
+            created_at: '',  
             updated_at: '', 
         },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama Dosen !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',         
-        ],  
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',       
+        ],
         rule_nidn: [ 
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',         
-        ],  
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+        ],
         rule_nipy: [            
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',         
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',       
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -406,7 +406,7 @@ export default {
         ], 
         rule_user_username: [
             value => !!value || "Mohon untuk di isi username User !!!",
-            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',             
+            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',
         ], 
         rule_user_password: [
             value => !!value || "Mohon untuk di isi password User !!!",
@@ -440,7 +440,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_users = data.users;
                 this.datatableLoading = false;
             }); 
@@ -459,18 +459,18 @@ export default {
         },
         showDialogTambahUserDosen: async function()
         {
-            this.dialog = true;   
+            this.dialog = true; 
         },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password='';   
-            this.editedItem = Object.assign({}, item);      
+            item.password=''; 
+            this.editedItem = Object.assign({}, item);    
             this.dialogEdit = true;
         },
         close() { 
             this.btnLoading = false;
             this.dialog = false;
-            this.dialogEdit = false;   
+            this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
@@ -479,7 +479,7 @@ export default {
             );
         },
         closeUserPermissions() {
-            this.btnLoading = false;   
+            this.btnLoading = false; 
             this.dialogUserPermission = false;
         },
         save() {
@@ -497,8 +497,8 @@ export default {
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
-                            password: this.editedItem.password,  
-                            is_dw: this.editedItem.is_dw,                         
+                            password: this.editedItem.password,
+                            is_dw: this.editedItem.is_dw,          
                         },
                         {
                             headers: {
@@ -510,7 +510,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });    
+                    });  
                     
                 } else {
                     this.$ajax.post('/system/usersdosen/store',
@@ -521,8 +521,8 @@ export default {
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
-                            password: this.editedItem.password,                                 
-                            is_dw: this.editedItem.is_dw,                                 
+                            password: this.editedItem.password,  
+                            is_dw: this.editedItem.is_dw,  
                         },
                         {
                             headers: {
@@ -539,7 +539,7 @@ export default {
             }
         },
         setPermission: async function(item) {
-            this.editedItem = item;   
+            this.editedItem = item; 
             this.dialogUserPermission = true;
         },
         syncPermission ()
@@ -550,7 +550,7 @@ export default {
                     this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
-                            role_name: 'dosen',             
+                            role_name: 'dosen',
                         },
                         {
                             headers: {
@@ -561,7 +561,7 @@ export default {
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });     
+                    });
                 }
             });
         },
@@ -596,7 +596,7 @@ export default {
         },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
 

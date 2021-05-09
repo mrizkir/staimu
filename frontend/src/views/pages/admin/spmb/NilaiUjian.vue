@@ -382,7 +382,7 @@
 
 									break;
 									default :
-											this.datatableLoading = true;   
+											this.datatableLoading = true; 
 											await this.$ajax.post('/spmb/nilaiujian',
 											{
 													TA: this.tahun_pendaftaran,
@@ -392,7 +392,7 @@
 													headers: {
 															Authorization: this.$store.getters["auth/Token"]
 													}
-											}).then(({ data }) => {    
+											}).then(({ data }) => {  
 													this.datatable = data.pmb;
 													this.datatableLoading = false;
 											});
@@ -434,13 +434,13 @@
 							}).then(({ data }) => {
 									if (data.transaksi_status == 1)
 									{
-											this.dialogfrm = true;        
+											this.dialogfrm = true;
 											this.data_mhs=item;
 											this.data_mhs['no_transaksi']=data.no_transaksi;
 											this.daftar_prodi=data.daftar_prodi;
 											if (JSON.stringify(data.data_nilai_ujian)=='{}')
 											{
-													this.formdata.kjur=data.kjur;  
+													this.formdata.kjur=data.kjur;
 											}
 											else
 											{
@@ -454,12 +454,12 @@
 									{
 											this.$root.$confirm.open('Warning', 'Mahasiswa ini belum melakukan pembayaran PMB', { color: 'warning', width:400,action: 'ok' });
 									}
-							});     
+							});
 					},
 					save() {
 							if (this.$refs.frmdata.validate())
 							{
-									this.btnLoading = true;      
+									this.btnLoading = true;    
 									if (this.editedItem > 0)
 									{
 											this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,
@@ -476,13 +476,13 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {    
+											).then(() => {  
 													this.btnLoading = false; 
 													this.closedialogfrm();
 													this.initialize();
 											}).catch(() => {
 													this.btnLoading = false;
-											});   
+											}); 
 									}
 									else
 									{
@@ -500,13 +500,13 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {    
+											).then(() => {  
 													this.btnLoading = false; 
 													this.closedialogfrm();
 													this.initialize();
 											}).catch(() => {
 													this.btnLoading = false;
-											});   
+											}); 
 									} 
 							
 							}
@@ -525,28 +525,28 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {    
-													this.btnLoading = false;  
+											).then(() => {  
+													this.btnLoading = false;
 													this.initialize();
 											}).catch(() => {
 													this.btnLoading = false;
-											});   
+											}); 
 									}
 							});
 					},
 					closedialogfrm() { 
-							this.dialogfrm = false;   
+							this.dialogfrm = false; 
 							setTimeout(() => {
-									this.formdata = Object.assign({}, this.formdefault);        
-									this.data_mhs = Object.assign({},{});   
-									this.editedItem=-1;       
+									this.formdata = Object.assign({}, this.formdefault);
+									this.data_mhs = Object.assign({},{}); 
+									this.editedItem=-1;
 									},300
 							);
 					},
 					closeProfilMahasiswaBaru ()
 					{
 							this.dialogprofilmhsbaru = false;
-							this.editedItem=-1;  
+							this.editedItem=-1;
 					}  
 			},
 			watch: {

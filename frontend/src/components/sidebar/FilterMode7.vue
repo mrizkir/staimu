@@ -21,11 +21,11 @@ export default {
 		name: 'FilterMode7',
 		created()
 		{
-				this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-				this.prodi_id = this.$store.getters["uiadmin/getProdiID"];   
+				this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
+				this.prodi_id = this.$store.getters["uiadmin/getProdiID"]; 
 
-				this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-				this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
+				this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+				this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
 		},
 		data: () => ({
 				firstloading: true,
@@ -46,13 +46,13 @@ export default {
 				{
 						if (!this.firstloading)
 						{
-								this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
+								this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);
 								this.$emit('changeTahunPendaftaran',val); 
 						} 
 				},
 				prodi_id(val) {
 						if (!this.firstloading) {
-								this.$store.dispatch('uiadmin/updateProdi',val);  
+								this.$store.dispatch('uiadmin/updateProdi',val);
 								this.$emit('changeProdi',val);
 						}
 				},

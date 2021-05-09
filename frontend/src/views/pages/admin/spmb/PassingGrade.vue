@@ -75,7 +75,7 @@
                                 @cancel="cancelItem"
                                 @open="openItem"
                                 @close="closeItem"> 
-                                    {{ props.item.nilai }}                     
+                                    {{ props.item.nilai }} 
                                     <template v-slot:input>
                                         <div class="mt-4 title">Update Nilai</div>    
                                         <v-text-field 
@@ -112,7 +112,7 @@ import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PassingGrade',
     created() {
-        this.jadwal_ujian_id = this.$route.params.idjadwalujian;     
+        this.jadwal_ujian_id = this.$route.params.idjadwalujian;   
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -135,15 +135,15 @@ export default {
                 href: "#"
             }
         ]; 
-        this.initialize();    
+        this.initialize();  
     },
     data: () => ({
         jadwal_ujian_id: null,
         jadwal_ujian: {
-            id: 0,                 
-            nama_kegiatan: '',     
-            ta: '',                 
-            idsmt: '',                             
+            id: 0,  
+            nama_kegiatan: '',   
+            ta: '',  
+            idsmt: '',
         },
         breadcrumbs: [], 
         dashboard: null,
@@ -154,7 +154,7 @@ export default {
         datatable: [],
         headers: [                
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
-            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },      
+            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },    
         ],
         search: "",
 
@@ -169,19 +169,19 @@ export default {
             this.datatableLoading = true;
             await this.$ajax.post('/spmb/passinggrade',
             {
-                jadwal_ujian_id: this.jadwal_ujian_id,         
+                jadwal_ujian_id: this.jadwal_ujian_id,       
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatableLoading = false;
-                this.jadwal_ujian=data.jadwal_ujian;      
-                this.datatable=data.passing_grade;       
+                this.jadwal_ujian=data.jadwal_ujian;    
+                this.datatable=data.passing_grade;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
         },
         dataTableRowClicked(item)
         {
@@ -199,7 +199,7 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/loadprodi',
                 {
-                    jadwal_ujian_id: this.jadwal_ujian_id,        
+                    jadwal_ujian_id: this.jadwal_ujian_id,      
                 },
                 {
                     headers: {
@@ -211,12 +211,12 @@ export default {
                 this.initialize();
             }).catch(() => {
                 this.btnLoading = false;
-            });        
+            });
         },
         saveItem: async function ({id,nilai})
         {
             this.btnLoading = true;
-            await this.$ajax.post('/spmb/passinggrade/'+id,     
+            await this.$ajax.post('/spmb/passinggrade/'+id,   
             {
                 _method: "put",
                 id:id,
@@ -227,9 +227,9 @@ export default {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(() => {
-                this.btnLoading = false;       
+                this.btnLoading = false;
                 this.initialize();
-            });  
+            });
         },
         cancelItem()
         {

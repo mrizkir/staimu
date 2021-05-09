@@ -93,7 +93,7 @@ export default {
         //form rules
         rule_ttl_token_expire: [
             value => !!value || "Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
-            value => /^[0-9]+$/.test(value) || 'TTL Expire dari token hanya boleh angka',  
+            value => /^[0-9]+$/.test(value) || 'TTL Expire dari token hanya boleh angka',
         ], 
     }),
     methods: {
@@ -120,7 +120,7 @@ export default {
                         _method: 'PUT',
                         'pid': 'token_ttl_expire',
                         setting: JSON.stringify({
-                            903: this.formdata.token_ttl_expire,                     
+                            903: this.formdata.token_ttl_expire,      
                         }),
                     },
                     {

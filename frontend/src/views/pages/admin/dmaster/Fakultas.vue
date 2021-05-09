@@ -165,7 +165,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.kode_fakultas }}                    
+                                    <strong>ID:</strong>{{ item.kode_fakultas }}
                                 </v-col>
                             </td>
                         </template>
@@ -221,15 +221,15 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,  
+        form_valid: true,
         kode_fakultas: '',
         formdata: {
-            kode_fakultas: '',                 
+            kode_fakultas: '',  
             nama_fakultas: '', 
         },
         formdefault: {
-            kode_fakultas: '',                 
-            nama_fakultas: '',  
+            kode_fakultas: '',  
+            nama_fakultas: '',
         },
         editedIndex: -1,
 
@@ -240,7 +240,7 @@ export default {
         ], 
         rule_nama_fakultas: [
             value => !!value || "Mohon Nama Fakultas untuk di isi !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',         
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',       
         ], 
     }),
     methods: {
@@ -251,12 +251,12 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.fakultas;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
         },
         dataTableRowClicked(item)
         {
@@ -270,7 +270,7 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;      
+            this.formdata = item;    
             this.dialogdetailitem = true;
         }, 
         editItem(item) {
@@ -288,8 +288,8 @@ export default {
                     await this.$ajax.post('/datamaster/fakultas/'+this.kode_fakultas,
                         {
                             _method: 'PUT',
-                            kode_fakultas: this.formdata.kode_fakultas,                     
-                            nama_fakultas: this.formdata.nama_fakultas,                                                 
+                            kode_fakultas: this.formdata.kode_fakultas,      
+                            nama_fakultas: this.formdata.nama_fakultas,                  
                         },
                         {
                             headers: {
@@ -304,11 +304,11 @@ export default {
                         this.btnLoading = false;
                     }); 
                     
-                } else {  
+                } else {
                     await this.$ajax.post('/datamaster/fakultas/store',
                         {
-                            kode_fakultas: this.formdata.kode_fakultas,                     
-                            nama_fakultas: this.formdata.nama_fakultas,                                                 
+                            kode_fakultas: this.formdata.kode_fakultas,      
+                            nama_fakultas: this.formdata.nama_fakultas,                  
                         },
                         {
                             headers: {
@@ -350,7 +350,7 @@ export default {
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
@@ -370,7 +370,7 @@ export default {
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

@@ -264,7 +264,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -340,32 +340,32 @@ export default {
         daftar_prodi: [],
         editedItem: {
             id: 0,
-            username: '',    
-            password: '',    
-            name: '',    
-            email: '',    
-            nomor_hp: '',    
+            username: '',  
+            password: '',  
+            name: '',  
+            email: '',  
+            nomor_hp: '',  
             prodi_id: [],
             role_id: ['akademik'], 
-            created_at: '',    
+            created_at: '',  
             updated_at: '', 
         },
         defaultItem: {
             id: 0,
-            username: '',    
-            password: '',    
-            name: '',    
-            email: '',    
+            username: '',  
+            password: '',  
+            name: '',  
+            email: '',  
             nomor_hp: '',
             prodi_id: [],
             role_id: ['akademik'], 
-            created_at: '',    
+            created_at: '',  
             updated_at: '', 
         },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',         
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',       
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -377,7 +377,7 @@ export default {
         ], 
         rule_user_username: [
             value => !!value || "Mohon untuk di isi username User !!!",
-            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',             
+            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',
         ], 
         rule_user_password: [
             value => !!value || "Mohon untuk di isi password User !!!",
@@ -411,7 +411,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;
@@ -437,7 +437,7 @@ export default {
                     this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
-                            role_name: 'akademik',             
+                            role_name: 'akademik',
                         },
                         {
                             headers: {
@@ -448,7 +448,7 @@ export default {
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });     
+                    });
                 }
             });
         },
@@ -458,12 +458,12 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {   
+            }).then(({ data }) => { 
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='akademik')
-                    {      
+                    {    
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -473,32 +473,32 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                     
+                            disabled: false,      
                         });
                     }     
-                });        
-                this.daftar_roles=daftar_roles;     
-                this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-                this.dialog = true;   
-            });      
+                });
+                this.daftar_roles=daftar_roles;   
+                this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
+                this.dialog = true; 
+            }); 
         },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password='';   
-            this.editedItem = Object.assign({}, item);      
-            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-            await this.$ajax.get('/system/users/' + item.id + '/prodi',        
+            item.password=''; 
+            this.editedItem = Object.assign({}, item);    
+            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
+            await this.$ajax.get('/system/users/' + item.id + '/prodi',      
                 {
                     headers: {
                         Authorization: this.TOKEN
                     }
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => { 
                 let daftar_prodi = data.daftar_prodi;
                 var prodi=[];
                 daftar_prodi.forEach(element => {
                     prodi.push(element.id);
-                });   
+                }); 
                 this.editedItem.prodi_id=prodi; 
             }); 
             
@@ -506,12 +506,12 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {   
+            }).then(({ data }) => { 
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='akademik')
-                    {      
+                    {    
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -521,12 +521,12 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                     
+                            disabled: false,      
                         });
                     }     
-                });        
-                this.daftar_roles=daftar_roles;        
-            });    
+                });
+                this.daftar_roles=daftar_roles;
+            });  
 
             this.btnLoading = true;
             await this.$ajax.get('/system/users/' + item.id + '/roles',
@@ -534,20 +534,20 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
-                this.editedItem.role_id=data.roles;   
+            }).then(({ data }) => {
+                this.editedItem.role_id=data.roles; 
                 this.btnLoading = false;
                 this.dialogEdit = true;
             });
         },
         setPermission: async function(item) {
-            this.editedItem = item;   
+            this.editedItem = item; 
             this.dialogUserPermission = true;
         },
         close() { 
             this.btnLoading = false;
             this.dialog = false;
-            this.dialogEdit = false;   
+            this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
@@ -557,7 +557,7 @@ export default {
         },
         closeUserPermissions() {
             this.btnLoading = false;
-            this.dialogUserPermission = false;  
+            this.dialogUserPermission = false;
         },
         save() {
             if (this.$refs.frmdata.validate())
@@ -573,7 +573,7 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                                                   
+                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                    
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
@@ -586,7 +586,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });    
+                    });  
                     
                 } else {
                     this.$ajax.post('/system/usersakademik/store',
@@ -595,8 +595,8 @@ export default {
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
-                            password: this.editedItem.password,     
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                      
+                            password: this.editedItem.password,   
+                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),       
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
@@ -644,7 +644,7 @@ export default {
         },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
 

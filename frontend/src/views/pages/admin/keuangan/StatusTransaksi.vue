@@ -115,37 +115,37 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];        
+        ];
         this.initialize();
     },
     data: () => ({
         firstloading: true,
-        breadcrumbs: [],  
+        breadcrumbs: [],
         
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_status', width:10, sortable: false },                         
+            { text: 'ID', value: 'id_status', width:10, sortable: false },          
             { text: 'NAMA STATUS', value: 'nama_status', sortable: false},
-            { text: 'STYLE', value: 'style', width: 200, sortable: false },      
+            { text: 'STYLE', value: 'style', width: 200, sortable: false },    
         ], 
         
     }),
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             await this.$ajax.get('/keuangan/statustransaksi',
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.status;
                 this.datatableLoading = false;
-            });     
+            });
             this.firstloading = false;
         },
         dataTableRowClicked(item)
@@ -161,9 +161,9 @@ export default {
         },
         saveItem: async function ({id,style})
         {
-            await this.$ajax.post('/keuangan/statustransaksi/'+id,     
+            await this.$ajax.post('/keuangan/statustransaksi/'+id,   
             {
-                _method: "put",         
+                _method: "put",       
                 id_status:id,
                 style:style
             },
@@ -171,9 +171,9 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {    
+            }).then(() => {  
                 this.initialize();
-            });  
+            });
         },
         cancelItem()
         {
@@ -190,7 +190,7 @@ export default {
     },
     components: {
         KeuanganLayout,
-        ModuleHeader,  
+        ModuleHeader,
     },
 }
 </script>

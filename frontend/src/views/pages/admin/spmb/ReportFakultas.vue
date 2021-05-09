@@ -186,7 +186,7 @@ export default {
 
                 break;
                 default :
-                    this.datatableLoading = true;   
+                    this.datatableLoading = true; 
                     await this.$ajax.post('/spmb/reportspmbfakultas',
                     {
                         TA: this.tahun_pendaftaran,
@@ -196,7 +196,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {    
+                    }).then(({ data }) => {  
                         this.datatable = data.pmb;
                         this.datatableLoading = false;
                     });
@@ -228,9 +228,9 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbfakultas/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                                                         
-                    fakultas_id: this.fakultas_id,  
-                    nama_fakultas: this.nama_fakultas,          
+                    TA: this.tahun_pendaftaran,                          
+                    fakultas_id: this.fakultas_id,
+                    nama_fakultas: this.nama_fakultas,        
                 },
                 {
                     headers: {
@@ -238,19 +238,19 @@ export default {
                     },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => { 
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', 'laporan_fakultas_'+Date.now()+'.xlsx');
                 link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();   
-                document.body.removeChild(link);  
+                link.click(); 
+                document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         }   
     },
     watch: {

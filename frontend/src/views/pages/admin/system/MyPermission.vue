@@ -120,7 +120,7 @@ export default {
         //tables
         headers: [
             { text: 'NAMA PERMISSION', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },      
+            { text: 'GUARD', value: 'guard_name' },    
         ],
         search: "", 
    
@@ -157,7 +157,7 @@ export default {
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",
             CAN_ACCESS: "can",
-            ATTRIBUTE_USER: 'AttributeUser',   
+            ATTRIBUTE_USER: 'AttributeUser', 
         }),
     }, 
     components: {

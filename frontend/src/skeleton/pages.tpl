@@ -248,18 +248,18 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,  
+        form_valid: true,
         formdata: {
-            id: 0,                 
-            name: '',                 
-            created_at: '',    
-            updated_at: '',    
+            id: 0,  
+            name: '',  
+            created_at: '',  
+            updated_at: '',  
 
         },
         formdefault: {
-            id: 0,    
-            name: '',                              
-            created_at: '',    
+            id: 0,  
+            name: '', 
+            created_at: '',  
             updated_at: '',
         },
         editedIndex: -1,
@@ -271,7 +271,7 @@ export default {
         ], 
         rule_name: [
             value => !!value || "Mohon untuk di isi name !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',         
+            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',       
         ], 
     }),
     methods: {
@@ -282,12 +282,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.object;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
         },
         dataTableRowClicked(item)
         {
@@ -301,15 +301,15 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;      
-            this.dialogdetailitem = true;     
+            this.formdata = item;    
+            this.dialogdetailitem = true;   
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {    
+            // }).then(({ data }) => {  
                                            
-            // });      
+            // }); 
         }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
@@ -325,7 +325,7 @@ export default {
                     await this.$ajax.post('/path/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            name: this.formdata.name,                
+                            name: this.formdata.name, 
                         },
                         {
                             headers: {
@@ -343,7 +343,7 @@ export default {
                 } else {
                     await this.$ajax.post('/path/store',
                         {
-                            name: this.formdata.name,                     
+                            name: this.formdata.name,      
                         },
                         {
                             headers: {
@@ -385,7 +385,7 @@ export default {
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
@@ -393,7 +393,7 @@ export default {
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;   
+            this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1

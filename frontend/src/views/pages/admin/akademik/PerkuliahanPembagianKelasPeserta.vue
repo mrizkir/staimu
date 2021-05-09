@@ -284,8 +284,8 @@ export default {
 								disabled: true,
 								href: "#"
 						}
-				];        
-				this.kelas_mhs_id = this.$route.params.kelas_mhs_id;        
+				];
+				this.kelas_mhs_id = this.$route.params.kelas_mhs_id;
 				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
 				this.initialize()
@@ -300,33 +300,33 @@ export default {
 				datatableLoading: false,
 				btnLoading: false,
 				
-				datatable: [],  
+				datatable: [],
 				daftar_matakuliah: [],
 				datatable_peserta: [], 
-				datatable_members: [],   
+				datatable_members: [], 
 				headers: [
 						{ text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nmatkul', sortable: false  },
-						{ text: 'SKS', value: 'sks', sortable: false  },         
-						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 },         
-						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 },         
+						{ text: 'SKS', value: 'sks', sortable: false  },       
+						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 },       
+						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 },       
 						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],
 				headers_peserta: [
 						{ text: "NIM", value: "nim", sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },
 						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
-						{ text: 'KELAS', value: 'idkelas', sortable: false  },         
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                     
+						{ text: 'KELAS', value: 'idkelas', sortable: false  },       
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },      
 						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],
 				headers_members: [
 						{ text: "NIM", value: "nim", sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },
-						{ text: 'KELAS', value: 'idkelas', sortable: false  },         
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                 
+						{ text: 'KELAS', value: 'idkelas', sortable: false  },       
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
 				],
-				search_members: '',  
+				search_members: '',
 
 				showdialogmatakuliah: false, 
 				showdialogpeserta: false, 
@@ -334,8 +334,8 @@ export default {
 				//formdata
 				form_valid: true,
 				members_selected: [],
-				formdata: {      
-						penyelenggaraan_dosen_id: '',                 
+				formdata: {    
+						penyelenggaraan_dosen_id: '',  
 				},
 				
 		}),
@@ -343,64 +343,64 @@ export default {
 				initialize: async function() 
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,     
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
 						}).then(({ data }) => {
-								this.data_kelas_mhs=data.pembagiankelas;    
-								this.datatable=data.penyelenggaraan;        
-								this.datatable_peserta=data.peserta;        
+								this.data_kelas_mhs=data.pembagiankelas;  
+								this.datatable=data.penyelenggaraan;
+								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
 						})       
 				},
 				async fetchMatkul()
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/matakuliah/'+this.kelas_mhs_id,     
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/matakuliah/'+this.kelas_mhs_id,   
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                      
-								this.datatable=data.penyelenggaraan;        
+						}).then(({ data }) => {                    
+								this.datatable=data.penyelenggaraan;
 								this.datatableLoading = false;
 						})   
 				},
 				async fetchPeserta()
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,     
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,   
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                      
-								this.datatable_peserta=data.peserta;        
+						}).then(({ data }) => {                    
+								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
 						})   
 				},
 				async tambahMatakuliah()
 				{
-						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',     
+						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',   
 						{
 								user_id: this.data_kelas_mhs.user_id,
-								ta: this.data_kelas_mhs.tahun,         
-								semester_akademik: this.data_kelas_mhs.idsmt,         
+								ta: this.data_kelas_mhs.tahun,       
+								semester_akademik: this.data_kelas_mhs.idsmt,       
 						},
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                               
+						}).then(({ data }) => {                             
 								this.daftar_matakuliah = data.matakuliah; 
-								this.showdialogmatakuliah=true;      
+								this.showdialogmatakuliah=true;    
 						})  
 				},
 				async tambahPeserta()
 				{
-						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',     
+						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',   
 						{
 								pid: 'belumterdaftar',
 								kelas_mhs_id: this.kelas_mhs_id,
@@ -423,7 +423,7 @@ export default {
 								.post(
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
 								{
-									kelas_mhs_id: this.kelas_mhs_id,                 
+									kelas_mhs_id: this.kelas_mhs_id,  
 									members_selected: JSON.stringify(Object.assign({},this.members_selected)),
 									pid: "pembagiankelas",
 								},
@@ -433,7 +433,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {     
+							.then(() => {   
 								this.btnLoading = false;
 								this.closedialogpeserta();
 							})
@@ -448,7 +448,7 @@ export default {
 								this.btnLoading = true;
 								await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
 										{
-												kelas_mhs_id: this.kelas_mhs_id,                 
+												kelas_mhs_id: this.kelas_mhs_id,  
 												penyelenggaraan_dosen_id: JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
 										},
 										{
@@ -456,7 +456,7 @@ export default {
 														Authorization: this.$store.getters["auth/Token"]
 												}
 										}
-								).then(() => {     
+								).then(() => {   
 										this.btnLoading = false;
 										this.closedialogmatakuliah();
 								}).catch(() => {
@@ -479,7 +479,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {         
+										).then(() => {       
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -503,7 +503,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {         
+										).then(() => {       
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -513,7 +513,7 @@ export default {
 						});
 				},
 				closedialogpeserta() {
-						this.showdialogpeserta = false;   
+						this.showdialogpeserta = false; 
 						setTimeout(() => { 
 								this.members_selected=[];
 								this.fetchPeserta();
@@ -522,7 +522,7 @@ export default {
 						);
 				},
 				closedialogmatakuliah() {
-						this.showdialogmatakuliah = false;   
+						this.showdialogmatakuliah = false; 
 						setTimeout(() => {
 								this.fetchMatkul();
 								this.$refs.frmdatamatkul.reset(); 

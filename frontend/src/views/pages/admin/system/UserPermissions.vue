@@ -187,7 +187,7 @@ export default {
         permissions_selected: [],
 
     }),
-    props: {      
+    props: {    
         user: {
             type: Object,
             required: true
@@ -199,7 +199,7 @@ export default {
     methods: {
         initialize()
         {
-            this.$ajax.get('/system/users/'+this.user.id+'/roles',         
+            this.$ajax.get('/system/users/'+this.user.id+'/roles',       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -207,7 +207,7 @@ export default {
                 }
             ).then(({ data }) => {
                 this.daftar_role=data.roles;
-            });   
+            }); 
         },
         save()
         {
@@ -249,7 +249,7 @@ export default {
         },
         exit()
         {
-            this.$emit('closeUserPermissions');  
+            this.$emit('closeUserPermissions');
         }
     },
     computed: {
@@ -276,7 +276,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {
-                    this.permissions_selected = data.permissions;    
+                    this.permissions_selected = data.permissions;  
                 });
                 this.datatableLoading = false;
             }

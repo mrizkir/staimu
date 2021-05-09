@@ -14,8 +14,8 @@ export default {
     name: 'FilterMode9',
     created()
     {
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
     },
     data: () => ({
         firstloading: true,
@@ -34,7 +34,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
+                this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);
                 this.$emit('changeTahunPendaftaran',val); 
             } 
         },

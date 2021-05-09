@@ -336,9 +336,9 @@ export default {
                 href: "#"
             }
         ];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];        
-        this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];  
-        this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);  
+        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];
+        this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
         this.initialize()
     },
     data: () => ({ 
@@ -370,7 +370,7 @@ export default {
         daftar_soal_jawaban: [],
 
         //form data   
-        form_valid: true,  
+        form_valid: true,
         image_prev: null, 
         daftar_jawaban: [
             {
@@ -391,44 +391,44 @@ export default {
             },
         ],
         formdata: {
-            id: 0,                 
+            id: 0,  
             soal: '',
             gambar: '',
-            jawaban1: '',             
-            jawaban2: '',             
-            jawaban3: '',             
-            jawaban4: '',             
-            jawaban_benar: '',             
-            created_at: '',    
-            updated_at: '',    
+            jawaban1: '',
+            jawaban2: '',
+            jawaban3: '',
+            jawaban4: '',
+            jawaban_benar: '',
+            created_at: '',  
+            updated_at: '',  
 
         },
         formdefault: {
-            id: 0,    
-            soal: '',  
-            gambar: '',               
-            jawaban1: '',             
-            jawaban2: '',             
-            jawaban3: '',             
+            id: 0,  
+            soal: '',
+            gambar: '',
+            jawaban1: '',
+            jawaban2: '',
+            jawaban3: '',
             jawaban4: '', 
-            jawaban_benar: '',                         
-            created_at: '',    
+            jawaban_benar: '',          
+            created_at: '',  
             updated_at: '',
         },
         editedIndex: -1,
 
         //form rules      
         rule_soal: [
-            value => !!value || "Mohon untuk di isi soal !!!",       
+            value => !!value || "Mohon untuk di isi soal !!!",     
         ], 
         rule_gambar: [            
             value =>  !value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
         ],
         rule_jawaban: [
-            value => !!value || "Mohon isi jawaban dari soal ini",       
+            value => !!value || "Mohon isi jawaban dari soal ini",     
         ], 
         rule_jawaban_benar: [
-            value => !!value || "Mohon pilih jawaban benar dari soal ini",       
+            value => !!value || "Mohon pilih jawaban benar dari soal ini",     
         ], 
     }),
     methods: {
@@ -452,13 +452,13 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {      
+            }).then(({ data }) => {    
                 this.datatable = data.soal;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
             }); 
-            this.firstloading = false;   
+            this.firstloading = false; 
             this.$refs.filter19.setFirstTimeLoading(this.firstloading); 
         },
         dataTableRowClicked(item)
@@ -472,23 +472,23 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem: async function(item) {        
+        viewItem: async function(item) {      
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => { 
-                this.formdata = item;      
-                this.dialogdetailitem = true;     
+                this.formdata = item;    
+                this.dialogdetailitem = true;   
                 this.daftar_soal_jawaban=data.soal.jawaban;
-            });      
+            }); 
         }, 
-        editItem: async function(item) {        
+        editItem: async function(item) {      
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.editedIndex = this.datatable.indexOf(item);
                 this.formdata = Object.assign({}, item);
                 this.dialogeditfrm = true;
@@ -498,10 +498,10 @@ export default {
                     {
                         jawaban_benar=element.id;
                     }      
-                });    
+                });  
                 this.formdata.jawaban_benar=jawaban_benar;
                 this.daftar_soal_jawaban=data.soal.jawaban;
-            });      
+            }); 
         },
         previewImage (e)
         {
@@ -513,7 +513,7 @@ export default {
             {
                 let reader = new FileReader();
                 reader.readAsDataURL(e);
-                reader.onload = img => {  
+                reader.onload = img => {
                     this.image_prev = img.target.result;
                 } 
             } 
@@ -545,17 +545,17 @@ export default {
                     
                 } else {
                     await this.$ajax.post('/spmb/soalpmb/store',
-                        {  
-                            soal: this.formdata.soal,                     
-                            gambar: 'gambar',                     
-                            jawaban1: this.formdata.jawaban1,                     
-                            jawaban2: this.formdata.jawaban2,                     
-                            jawaban3: this.formdata.jawaban3,                     
-                            jawaban4: this.formdata.jawaban4,                     
-                            jawaban_benar: this.formdata.jawaban_benar,                     
+                        {
+                            soal: this.formdata.soal,      
+                            gambar: 'gambar',      
+                            jawaban1: this.formdata.jawaban1,      
+                            jawaban2: this.formdata.jawaban2,      
+                            jawaban3: this.formdata.jawaban3,      
+                            jawaban4: this.formdata.jawaban4,      
+                            jawaban_benar: this.formdata.jawaban_benar,      
                             tahun_pendaftaran: this.tahun_pendaftaran,
                             semester_pendaftaran: this.semester_pendaftaran
-                        },      
+                        },    
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -605,7 +605,7 @@ export default {
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;   
+            this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
@@ -614,7 +614,7 @@ export default {
             );
         },
         closedialogeditfrm() {
-            this.dialogeditfrm = false;   
+            this.dialogeditfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 

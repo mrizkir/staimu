@@ -82,7 +82,7 @@ export default {
     name: 'TransaksiInvoice',
     created()
     {
-        this.transaksi_id = this.$route.params.transaksi_id;   
+        this.transaksi_id = this.$route.params.transaksi_id; 
         this.initialize();
     },
     data: () => ({
@@ -109,7 +109,7 @@ export default {
             { text: 'BULAN', value: 'bulan', width:60, sortable: false },
             { text: "JUMLAH", value: "sub_total", width:60, sortable: false },
         ],
-    }),  
+    }),
     methods: {
         initialize: async function() 
         {
@@ -120,8 +120,8 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
-                let setting = data.setting;   
+            }).then(({ data }) => {
+                let setting = data.setting; 
                 this.headers.header_1=setting.HEADER_1;
                 this.headers.header_2=setting.HEADER_2;
                 this.headers.header_3=setting.HEADER_3;
@@ -129,13 +129,13 @@ export default {
                 this.headers.header_address=setting.HEADER_ADDRESS;
             }); 
             
-            await this.$ajax.get('/keuangan/transaksi/'+this.transaksi_id,                 
+            await this.$ajax.get('/keuangan/transaksi/'+this.transaksi_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
-                this.data_transaksi=data.transaksi;      
+            }).then(({ data }) => {  
+                this.data_transaksi=data.transaksi;    
                 this.transaksi_detail = data.transaksi_detail;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -145,7 +145,7 @@ export default {
 
         },
     }, 
-    computed : {
+    computed: {
         ...mapGetters("uifront", {
             namaPTAlias: 'getNamaPTAlias'
         })

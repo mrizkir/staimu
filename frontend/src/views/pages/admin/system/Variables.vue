@@ -112,8 +112,8 @@ export default {
                 href: "#"
             }
         ];
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-        this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+        this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
         this.initialize();
     },
     data: () => ({
@@ -125,18 +125,18 @@ export default {
         daftar_semester: [],
         formdata: {
             default_ta: '',
-            default_semester: '',     
+            default_semester: '',   
             tahun_pendaftaran: 0,
         },
         //form rules        
         rule_default_ta: [
-            value => !!value || "Mohon untuk dipilih Tahun Akademik !!!",      
+            value => !!value || "Mohon untuk dipilih Tahun Akademik !!!",    
         ], 
         rule_default_semester: [
-            value => !!value || "Mohon untuk diisi Semester !!!",      
+            value => !!value || "Mohon untuk diisi Semester !!!",    
         ],
         rule_tahun_pendaftaran: [
-            value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",                          
+            value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",           
         ]
     }),
     methods: {
@@ -147,8 +147,8 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
-                let setting = data.setting;   
+            }).then(({ data }) => {
+                let setting = data.setting; 
                 this.formdata.default_ta=setting.DEFAULT_TA;
                 this.formdata.default_semester=setting.DEFAULT_SEMESTER;
                 this.formdata.tahun_pendaftaran=setting.DEFAULT_TAHUN_PENDAFTARAN;
@@ -165,27 +165,27 @@ export default {
                         'pid': 'Variable default sistem',
                         setting: JSON.stringify({
                             201: this.formdata.default_ta,
-                            202: this.formdata.default_semester,                     
+                            202: this.formdata.default_semester,      
                             203: this.formdata.tahun_pendaftaran,
-                        }),                                                                                                              
+                        }),                                                                               
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });        
+                });
             }
         }
     },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
     components: {

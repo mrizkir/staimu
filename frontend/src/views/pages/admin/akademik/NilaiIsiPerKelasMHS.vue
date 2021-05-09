@@ -161,11 +161,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },         
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },       
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
-            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },         
-            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},         
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},         
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },       
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},       
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},       
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "", 
@@ -192,12 +192,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
         },
@@ -231,12 +231,12 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",     
+            CAN_ACCESS: "can",   
         }),
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter2               
     },
 }

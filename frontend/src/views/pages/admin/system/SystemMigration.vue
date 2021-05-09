@@ -166,7 +166,7 @@ export default {
         btnLoading: false,
 
         daftar_prodi: [],
-        daftar_kelas: [],         
+        daftar_kelas: [],       
         daftar_dw: [],
 
         daftar_tasmt: [],
@@ -174,8 +174,8 @@ export default {
         formdata: {
             nim: "",
             nirm: '',
-            nama_mhs: '',     
-            dosen_id: '',    
+            nama_mhs: '',   
+            dosen_id: '',  
             prodi_id: '',
             idkelas: '',
             status_mhs: [],
@@ -191,7 +191,7 @@ export default {
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-        ],  
+        ],
         rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
         ], 
@@ -200,7 +200,7 @@ export default {
         ],
         rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
-        ],  
+        ],
         
         datatableLoading: false,
         headers: [                        
@@ -216,14 +216,14 @@ export default {
         },
 		initialize: async function()
 		{	
-            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-            this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];      
+            this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
+            this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];    
 
             await this.$ajax.get('/akademik/dosenwali',{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {            
+            }).then(({ data }) => {          
                 this.daftar_dw = data.users; 
             });
 
@@ -236,7 +236,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {            
+            }).then(({ data }) => {          
                 this.daftar_tasmt = data.daftar_tasmt; 
                 var dt = this.daftar_tasmt;
                 var i=0;
@@ -246,9 +246,9 @@ export default {
                 });
                 this.datatableLoading = false;
             });
-            this.daftar_status_mhs=this.$store.getters['uiadmin/getDaftarStatusMahasiswa'];  
+            this.daftar_status_mhs=this.$store.getters['uiadmin/getDaftarStatusMahasiswa'];
 
-            this.firstloading = false;   
+            this.firstloading = false; 
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
         },
         save() {
@@ -264,23 +264,23 @@ export default {
                         dosen_id: this.formdata.dosen_id,
                         prodi_id: this.formdata.prodi_id,
                         idkelas: this.formdata.idkelas,
-                        tahun_pendaftaran: this.tahun_pendaftaran,          
-                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                                                   
+                        tahun_pendaftaran: this.tahun_pendaftaran,        
+                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                    
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {       
+                ).then(() => {     
                     setTimeout(() => {
-                        this.$router.go();    
+                        this.$router.go();  
                         this.btnLoading = false;
                         },300
                     ); 
                 }).catch(() => {
                     this.btnLoading = false;
-                });  
+                });
                  
             }
         },

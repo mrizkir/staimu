@@ -249,7 +249,7 @@ export default {
 				btnLoadingTable: false,
 
 				//formdata
-				form_valid: true,  
+				form_valid: true,
 				krs_id: null,
 				datakrs: {},
 				datamatkul: {},
@@ -310,12 +310,12 @@ export default {
 				},
 				save: async function() {
 					if (this.$refs.frmdata.validate()) {
-						this.btnLoading = true;  
+						this.btnLoading = true;
 						var members_selected = [
 							{
 								id: this.datamatkul.id,
 							},
-						];   
+						]; 
 						await this.$ajax
 							.post(
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
@@ -331,7 +331,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {         
+							.then(() => {       
 								this.closedialogfrm();
 								this.fetchKRS();
 								this.btnLoading = false;

@@ -213,7 +213,7 @@ export default {
                 href: "#"
             }
         ];
-        this.kelas_mhs_id = this.$route.params.kelas_mhs_id;        
+        this.kelas_mhs_id = this.$route.params.kelas_mhs_id;
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
@@ -228,8 +228,8 @@ export default {
         datatableLoading: false,
         btnLoading: false,
         
-        datatable: [],  
-        datatable_peserta: [],          
+        datatable: [],
+        datatable_peserta: [],        
         headers_peserta: [             
             { text: "NIM", value: "nim", sortable: false, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: false, width: 250   },
@@ -237,11 +237,11 @@ export default {
             { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false, width: 100   },
             { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable: false, width: 100   },
             { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable: false, width: 100   },
-            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100   },         
-            { text: 'NILAI UAS', value: 'nilai_uas', sortable: false, width: 100  },                                 
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width: 100 },                                 
-            { text: 'NILAI HURUP', value: 'n_kual', sortable: false, width: 100 },                                 
-        ],         
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100   },       
+            { text: 'NILAI UAS', value: 'nilai_uas', sortable: false, width: 100  },  
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width: 100 },  
+            { text: 'NILAI HURUP', value: 'n_kual', sortable: false, width: 100 },  
+        ],       
 
         //formdata
         form_valid: true, 
@@ -251,7 +251,7 @@ export default {
             'persen_tugas_individu':35,
             'persen_tugas_kelompok': 0,
             'persen_uts':25,
-            'persen_uas':25,     
+            'persen_uas':25,   
         },
         daftar_nilai: [],
     }),
@@ -259,7 +259,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,     
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -267,14 +267,14 @@ export default {
             }).then(({ data }) => {
                 this.data_kelas_mhs=data.pembagiankelas; 
             });
-            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,     
+            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                 
+            }).then(({ data }) => {                                               
                 this.datatableLoading = false;
-                this.datatable_peserta=data.peserta;   
+                this.datatable_peserta=data.peserta; 
             })              
         },
         updateNKuan(props)
@@ -314,7 +314,7 @@ export default {
                 nilai_uas=(this.komponen_nilai.persen_uas/100)*props.item.nilai_uas;
             }
             
-            var n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2);   
+            var n_kuan=(nilai_absen+nilai_quiz+nilai_tugas_individu+nilai_tugas_kelompok+nilai_uts+nilai_uas).toFixed(2); 
             props.item.n_kuan=n_kuan;
 
             var n_kual=null;
@@ -391,7 +391,7 @@ export default {
                     nilai_tugas_kelompok:item.nilai_tugas_kelompok,
                     nilai_quiz:item.nilai_quiz,
                     nilai_uts:item.nilai_uts,
-                    nilai_uas:item.nilai_uas,             
+                    nilai_uas:item.nilai_uas,
                     n_kuan:item.n_kuan,
                     n_kual:item.n_kual
                 });
@@ -399,7 +399,7 @@ export default {
             await this.$ajax.post('/akademik/nilai/matakuliah/perdosen/storeperdosen',
                 {
                     kelas_mhs_id: this.kelas_mhs_id,
-                    daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),             
+                    daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
                 },
                 {
                     headers: {
@@ -410,7 +410,7 @@ export default {
                 this.$router.go();
             }).catch(() => {
                 this.btnLoadingTable=false;
-            });   
+            }); 
         },
         isbydosen(bool)
         {

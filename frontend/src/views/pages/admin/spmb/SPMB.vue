@@ -295,16 +295,16 @@ export default {
         },
 		initialize: async function()
 		{	
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/pmb',
             {
-                TA: this.tahun_pendaftaran,         
+                TA: this.tahun_pendaftaran,       
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {          
+            }).then(({ data }) => {        
                 this.daftar_registrasi = data.daftar_registrasi;
                 this.total_registrasi = data.total_registrasi;
                 
@@ -321,7 +321,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-            this.firstloading = false;   
+            this.firstloading = false; 
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
         }
     },

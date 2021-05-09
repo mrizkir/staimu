@@ -123,7 +123,7 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
-                                    <strong>user_id:</strong>{{ item.user_id }}                               
+                                    <strong>user_id:</strong>{{ item.user_id }}           
                                 </v-col>
                             </td>
                         </template>
@@ -205,11 +205,11 @@ export default {
         datatable: [], 
         headers: [            
             { text: "NIM", value: "nim", sortable: true, width: 100  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },         
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },         
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },         
-            { text: 'IPK SEMENTARA', value: 'ipk', sortable: true, width: 100, },         
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },       
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },       
+            { text: 'IPK SEMENTARA', value: 'ipk', sortable: true, width: 100, },       
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "", 
@@ -238,12 +238,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -265,14 +265,14 @@ export default {
         async printpdf2(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,         
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -283,7 +283,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         },
@@ -311,21 +311,21 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;   
+                        this.datatableLoading = true; 
                         await this.$ajax.post('/akademik/nilai/transkripkurikulum',
                         {
                             prodi_id: this.prodi_id,
-                            ta: this.tahun_pendaftaran,     
+                            ta: this.tahun_pendaftaran,   
                             search: this.search
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {    
+                        }).then(({ data }) => {  
                             this.datatable = data.mahasiswa;
                             this.datatableLoading = false;
-                        });     
+                        });
                     }
                     this.awaiting_search = false;
                 },1000); // 1 sec delay
@@ -336,7 +336,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter7               
     },
 }

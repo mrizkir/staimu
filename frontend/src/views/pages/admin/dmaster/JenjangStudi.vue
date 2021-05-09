@@ -97,22 +97,22 @@ export default {
         datatable: [],
         headers: [                    
             { text: 'ID', value: 'kode_jenjang', width:10, sortable: false },
-            { text: 'NAMA JENJANG', value: 'nama_jenjang', sortable: false},      
+            { text: 'NAMA JENJANG', value: 'nama_jenjang', sortable: false},    
         ], 
     }),
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading = true;   
-            await this.$ajax.get('/datamaster/jenjangstudi',     
+            this.datatableLoading = true; 
+            await this.$ajax.get('/datamaster/jenjangstudi',   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.jenjang_studi;
                 this.datatableLoading = false;
-            });     
+            });
         },
         dataTableRowClicked(item)
         {

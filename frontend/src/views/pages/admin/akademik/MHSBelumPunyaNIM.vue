@@ -240,7 +240,7 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },
             { text: 'TELP. HP', value: 'telp_hp', sortable: true, width:150 },
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -252,12 +252,12 @@ export default {
         dialogfrm: false, 
         daftar_dw: [],
         
-        formdata: {      
+        formdata: {    
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {      
+        formdefault: {    
             nim: "",
             nirm: '',
             dosen_id: ''           
@@ -272,7 +272,7 @@ export default {
         ], 
         rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
-        ],  
+        ],
     }),
     methods: {
         changeTahunPendaftaran(tahun)
@@ -295,12 +295,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -325,38 +325,38 @@ export default {
                 this.data_mhs = item;
                 this.dialogfrm = true;
                 this.daftar_dw = data.users; 
-            });     
+            });
         },
         save() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading = true;  
+                this.btnLoading = true;
                 this.$ajax.post('/akademik/dulang/mhsbelumpunyanim/store',
                 {
                     user_id: this.data_mhs.user_id,
                     nim: this.formdata.nim,
                     nirm: this.formdata.nirm,
-                    dosen_id: this.formdata.dosen_id,                
-                },  
+                    dosen_id: this.formdata.dosen_id, 
+                },
                 {
                     headers: {
-                        Authorization: this.$store.getters["auth/Token"],                 
+                        Authorization: this.$store.getters["auth/Token"],  
                     }
                 }
-                ).then(() => {    
+                ).then(() => {  
                     this.btnLoading = false;
                     this.initialize(); 
                     this.closedialogfrm();
                 }).catch(() => {
                     this.btnLoading = false;
-                });   
+                }); 
             }
         },
         closedialogfrm() { 
-            this.dialogfrm = false;   
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
-                this.data_mhs = Object.assign({},{});   
+            this.dialogfrm = false; 
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
+                this.data_mhs = Object.assign({},{}); 
                 },300
             );
         },

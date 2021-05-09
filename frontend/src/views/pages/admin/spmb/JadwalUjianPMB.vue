@@ -309,8 +309,8 @@
 					disabled: true,
 					href: "#",
 				},
-			];      
-			this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];      
+			];    
+			this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];    
 			this.semester_pendaftaran = this.$store.getters['uiadmin/getSemesterPendaftaran'];
 			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
 			this.initialize();
@@ -472,7 +472,7 @@
 					this.dialogfrm = true;
 				}).catch(() => {
 					this.btnLoading = false;
-				});  
+				});
 			},
 			durasiUjian (item) {
 				let waktu_mulai = this.$date(item.tanggal_ujian + " " +item.jam_mulai_ujian);
@@ -498,7 +498,7 @@
 							this.dialogfrm = true;
 						}).catch(() => {
 							this.btnLoading = false;
-						});  
+						});
 			},
 			save: async function() {
 				if (this.$refs.frmdata.validate())
@@ -523,7 +523,7 @@
 									Authorization: this.$store.getters["auth/Token"]
 								}
 							}
-						).then(() => {  
+						).then(() => {
 							this.closedialogfrm();
 							this.btnLoading = false;
 							this.initialize();
@@ -550,7 +550,7 @@
 									Authorization: this.$store.getters["auth/Token"]
 								}
 							}
-						).then(() => {  
+						).then(() => {
 							this.closedialogfrm();
 							this.btnLoading = false;
 							this.initialize();

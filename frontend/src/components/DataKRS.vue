@@ -53,7 +53,7 @@
                                 text-color="white"
                                 small
                                 >
-                                {{datakrs.sah==1?'YA': 'TIDAK'}}             
+                                {{datakrs.sah==1?'YA': 'TIDAK'}} 
                             </v-chip>
                         </v-card-subtitle>
                     </v-card>
@@ -108,11 +108,11 @@ export default {
     name: 'DataKRS',
     created()
     {
-        this.initialize();     
+        this.initialize();   
     },
     props: {
         datakrs: {
-            type: Object,     
+            type: Object,   
             required: true
         },
         totalmatkul: {

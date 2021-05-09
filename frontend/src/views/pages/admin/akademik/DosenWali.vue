@@ -95,7 +95,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -161,7 +161,7 @@ export default {
         ],
         expanded: [],
         search: "",
-        daftar_users: [],        
+        daftar_users: [],      
     }),
     methods: {
         initialize: async function() 
@@ -171,7 +171,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;
@@ -220,7 +220,7 @@ export default {
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
     watch: {

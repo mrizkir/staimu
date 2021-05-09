@@ -90,7 +90,7 @@ export default {
         //form
         form_valid: true, 
         formdata: {
-            email_mhs_isvalid: null,     
+            email_mhs_isvalid: null,   
         },
         //form rules        
         
@@ -105,7 +105,7 @@ export default {
                     Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
-                let setting = data.setting;    
+                let setting = data.setting;  
                 this.formdata.email_mhs_isvalid=parseInt(setting.EMAIL_MHS_ISVALID);
             }); 
             
@@ -119,26 +119,26 @@ export default {
                         _method: 'PUT', 
                         'pid': 'email',
                         setting: JSON.stringify({
-                            910: this.formdata.email_mhs_isvalid,                     
-                        }),                                                                                                              
+                            910: this.formdata.email_mhs_isvalid,      
+                        }),                                                                               
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });        
+                });
             }
         }
     },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
     components: {

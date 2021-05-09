@@ -226,7 +226,7 @@
 					disabled: true,
 					href: "#",
 				}
-			];  
+			];
 			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 			this.initialize();
 		},
@@ -287,7 +287,7 @@
 					})
 					.catch(() => {
 						this.datatableLoading = false;
-					});  										
+					});										
 			},
 			dataTableRowClicked(item) {
 				if (item === this.expanded[0]) {
@@ -301,10 +301,10 @@
 			},
 			viewItem(item) {
 					this.formdata = item; 
-					this.dialogdetailitem = true;  
+					this.dialogdetailitem = true;
 			},
 			editItem: async function(item) {
-				this.editedIndex = this.datatable.indexOf(item);  
+				this.editedIndex = this.datatable.indexOf(item);
 				this.formdata = item;
 				this.dialogfrm = true;
 			},

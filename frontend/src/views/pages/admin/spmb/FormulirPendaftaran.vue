@@ -209,7 +209,7 @@
 
 						break;
 						default :
-							this.datatableLoading = true;   
+							this.datatableLoading = true; 
 							await this.$ajax.post("/spmb/formulirpendaftaran",
 							{
 									TA: this.tahun_pendaftaran,
@@ -219,7 +219,7 @@
 									headers: {
 											Authorization: this.$store.getters["auth/Token"]
 									}
-							}).then(({ data }) => {    
+							}).then(({ data }) => {  
 									this.datatable = data.pmb;
 									this.datatableLoading = false;
 							});
@@ -248,7 +248,7 @@
 				this.$router.push("/spmb/formulirpendaftaran/" + item.id + "/edit")
 			},
 			closeProfilMahasiswaBaru() {
-				this.dialogprofilmhsbaru = false;      
+				this.dialogprofilmhsbaru = false;    
 			}  
 		},
 		watch: {

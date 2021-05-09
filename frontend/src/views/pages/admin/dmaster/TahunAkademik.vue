@@ -421,8 +421,8 @@ export default {
             //form rules
             rule_tahun: [
                 value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
-                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',         
-                value => {  
+                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',       
+                value => {
                     if (value && typeof value !== 'undefined' && value.length > 0){
                         return value.length == 4 || 'Tahun Akademik hanya boleh 4 karakter';
                     }
@@ -434,7 +434,7 @@ export default {
             ],
             rule_tahun_akademik: [                
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
-            ],     
+            ],   
         }
     },
     methods: {
@@ -469,9 +469,9 @@ export default {
         },
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item);   
+            this.formdata = Object.assign({}, item); 
             this.semester_ganjil[0]=this.formdata.awal_ganjil == null ? item.tahun+'-09-01':item.awal_ganjil;
-            this.semester_ganjil[1]=this.formdata.akhir_ganjil == null ? (item.tahun+1)+'-02-31':item.akhir_ganjil;   
+            this.semester_ganjil[1]=this.formdata.akhir_ganjil == null ? (item.tahun+1)+'-02-31':item.akhir_ganjil; 
             this.semester_genap[0]=this.formdata.awal_genap == null ? (item.tahun+1)+'-03-01':item.awal_genap;
             this.semester_genap[1]=this.formdata.akhir_genap == null ? (item.tahun+1)+'-08-31':item.akhir_genap;
             this.old_tahun=item.tahun;

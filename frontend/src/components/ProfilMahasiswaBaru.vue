@@ -173,7 +173,7 @@ export default {
 	name: 'ProfilMahasiswaBaru',
 	created()
 	{
-		this.initialize();     
+		this.initialize();   
 	},
 	props: {
 		item:Object,
@@ -184,9 +184,9 @@ export default {
 		let tanggal_sekarang=this.$date().format('YYYY-MM-DD HH:mm:ss');
 		return {
 			slides: [],
-			dialogpreviewpersyaratan: false,  
+			dialogpreviewpersyaratan: false,
 
-			datamhs: {  
+			datamhs: {
 				tanggal_lahir:tanggal_lahir,
 				created_at:tanggal_sekarang,
 				updated_at:tanggal_sekarang
@@ -196,7 +196,7 @@ export default {
 	methods: {
 		initialize: async function()
 		{
-			await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,      
+			await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,    
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
@@ -209,7 +209,7 @@ export default {
 														}); 
 			});
 
-			await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id,      
+			await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id,    
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
@@ -241,7 +241,7 @@ export default {
 			setTimeout(() => {
 				this.$emit('closeProfilMahasiswaBaru');
 				},300
-			);   
+			); 
 		}
 	},
 	components: {

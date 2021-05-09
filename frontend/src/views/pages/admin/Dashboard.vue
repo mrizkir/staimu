@@ -184,8 +184,8 @@ export default {
 	name: 'Dashboard',
 	created()
 	{
-		this.TOKEN = this.$route.params.token;      
-		this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];     
+		this.TOKEN = this.$route.params.token;    
+		this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran'];   
 		this.breadcrumbs = [
 			{
 				text: "HOME",
@@ -209,22 +209,22 @@ export default {
 	methods: {
 		initialize: async function()
 		{	            
-			await this.$ajax.get('/auth/me',         
+			await this.$ajax.get('/auth/me',       
 			{
 				headers: {
 					Authorization: 'Bearer '+this.TOKEN
 				}
 			})
-			.then(({ data }) => {  
-				this.dashboard = data.role[0];      
-				this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);      
+			.then(({ data }) => {
+				this.dashboard = data.role[0];    
+				this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);    
 			})
 			.catch(error => {
 				if (error.response.status == 401){
 					this.$router.push('/login');
 				}
 			}); 
-			this.$store.dispatch('uiadmin/init',this.$ajax);  
+			this.$store.dispatch('uiadmin/init',this.$ajax);
 		}
 	},
 	components: {

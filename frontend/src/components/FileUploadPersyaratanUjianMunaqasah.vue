@@ -1,4 +1,3 @@
-
 <template>
 	<v-form v-model="form_valid" ref="frmpersyaratan" lazy-validation>
 		<v-file-input
@@ -12,8 +11,8 @@
 		<v-btn
 			color="orange"
 			text
-			@click="upload(index,item)"																			
-			:disabled="btnLoading"			
+			@click="upload(index, item)"
+			:disabled="btnLoading"
 		>
 			UPLOAD
 		</v-btn>
@@ -34,44 +33,46 @@
 				type: Object,
 				required: true,
 			},
-    },
+		},
 		data: () => ({
 			//form
 			btnLoading: false,
 			form_valid: true,
 			filepersyaratan: [],
-			//form rules  
+			//form rules
 			rule_foto: [
 				value => !!value || "Mohon pilih foto !!!",
-				value =>  !value || value.size < 2000000 || 'File foto harus kurang dari 2MB.'                
+				value =>
+					!value || value.size < 2000000 || "File foto harus kurang dari 2MB.",
 			],
 		}),
 		methods: {
-			async upload (index,item) {
+			async upload(index, item) {
 				if (this.$refs.frmpersyaratan.validate()) {
-					if (typeof this.filepersyaratan[index] !== 'undefined') {
+					if (typeof this.filepersyaratan[index] !== "undefined") {
 						this.btnLoading = true;
-						var formdata = new FormData();	
+						var formdata = new FormData();
 						formdata.append("filepersyaratan", this.filepersyaratan[index]);
 						await this.$ajax
 							.post(
-								"/akademik/perkuliahan/ujianmunaqasah/upload/" + item.id, formdata,             
+								"/akademik/perkuliahan/ujianmunaqasah/upload/" + item.id,
+								formdata,
 								{
 									headers: {
 										Authorization: this.$store.getters["auth/Token"],
 										"Content-Type": "multipart/form-data",
-									}
+									},
 								}
 							)
-							.then(() => {                   
+							.then(() => {
 								this.$router.go();
 							})
 							.catch(() => {
 								this.btnLoading = false;
-						});
+							});
 					}
 				}
 			},
-		}
+		},
 	};
 </script>

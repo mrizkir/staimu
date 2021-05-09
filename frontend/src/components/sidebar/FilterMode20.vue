@@ -21,10 +21,10 @@ export default {
     name: 'FilterMode20',
     created()
     {
-        this.daftar_fakultas=this.$store.getters['uiadmin/getDaftarFakultas'];  
-        this.fakultas_id = this.$store.getters['uiadmin/getFakultasID'];   
+        this.daftar_fakultas=this.$store.getters['uiadmin/getDaftarFakultas'];
+        this.fakultas_id = this.$store.getters['uiadmin/getFakultasID']; 
         
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
         this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
     },
     data: () => ({
@@ -46,7 +46,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);  
+                this.$store.dispatch('uiadmin/updateTahunPendaftaran',val);
                 this.$emit('changeTahunPendaftaran',val); 
             } 
         },
@@ -54,7 +54,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateFakultas',val);  
+                this.$store.dispatch('uiadmin/updateFakultas',val);
                 this.$emit('changeFakultas',val); 
             }
         },

@@ -240,8 +240,8 @@ export default {
     name: 'TransaksiSPPTambah',
     created()
     {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
-        this.transaksi_id = this.$route.params.transaksi_id;        
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
+        this.transaksi_id = this.$route.params.transaksi_id;
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -263,9 +263,9 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];  
+        ];
         this.initialize();
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
     }, 
     data: () => ({
         transaksi_id: null,
@@ -274,7 +274,7 @@ export default {
 
         breadcrumbs: [],
         tahun_akademik: 0,
-        btnLoading: false,       
+        btnLoading: false,     
         //tables
         datatableLoading: false,
         datatable: [], 
@@ -284,7 +284,7 @@ export default {
             { text: 'TAHUN', value: 'tahun', sortable: false }, 
             { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],       
+        ],     
         //form
         form_valid: true  
     }),
@@ -295,18 +295,18 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading = true;   
-            await this.$ajax.get('/keuangan/transaksi-spp/'+this.transaksi_id,                 
+            this.datatableLoading = true; 
+            await this.$ajax.get('/keuangan/transaksi-spp/'+this.transaksi_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
-                this.data_transaksi=data.transaksi;        
+            }).then(({ data }) => {  
+                this.data_transaksi=data.transaksi;
                 this.datatable = data.transaksi_detail;
                 this.item_selected = data.item_selected;
                 this.datatableLoading = false;
-            });     
+            });
         },
         save: async function() {
             if (this.$refs.frmdata.validate())
@@ -315,15 +315,15 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
-                        id: this.transaksi_id,                 
-                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)),                                                             
+                        id: this.transaksi_id,  
+                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)),                              
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                     this.$router.go();
                 }).catch(() => {
@@ -356,7 +356,7 @@ export default {
                             }
                         ).then(() => {
                             this.btnLoading = false;
-                            this.$router.go();    
+                            this.$router.go();  
                         }).catch(() => {
                             this.btnLoading = false;
                         });
@@ -376,7 +376,7 @@ export default {
         },
         totalBulan()
         {
-            return this.item_selected.length;   
+            return this.item_selected.length; 
         },
         totalBiayaKombi()
         {

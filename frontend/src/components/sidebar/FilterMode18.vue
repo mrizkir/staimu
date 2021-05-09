@@ -21,11 +21,11 @@ export default {
     name: 'FilterMode18',
     created()
     {
-        this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];  
-        this.prodi_id = this.$store.getters["uiadmin/getProdiID"];   
+        this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
+        this.prodi_id = this.$store.getters["uiadmin/getProdiID"]; 
 
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];  
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
     },
     data: () => ({
         firstloading: true,
@@ -46,7 +46,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateTahunAkademik',val);  
+                this.$store.dispatch('uiadmin/updateTahunAkademik',val);
                 this.$emit('changeTahunAkademik',val); 
             } 
         },
@@ -54,7 +54,7 @@ export default {
         {
             if (!this.firstloading)
             {
-                this.$store.dispatch('uiadmin/updateProdi',val);  
+                this.$store.dispatch('uiadmin/updateProdi',val);
                 this.$emit('changeProdi',val); 
             }
         },

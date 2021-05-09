@@ -62,7 +62,7 @@ export default {
     },
     mounted()
     {
-        this.firstloading = false;   
+        this.firstloading = false; 
         this.$refs.filter1.setFirstTimeLoading(this.firstloading);
     },
     data: () => ({

@@ -95,7 +95,7 @@ import DataKRS from '@/components/DataKRS';
 export default {
     name: 'PerkuliahanKRSDetail',
     created() {
-        this.krs_id = this.$route.params.krsid;        
+        this.krs_id = this.$route.params.krsid;
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -123,7 +123,7 @@ export default {
                 href: "#"
             },
         ];
-        this.fetchKRS();      
+        this.fetchKRS();    
     },
     data: () => ({ 
         firstloading: true, 
@@ -148,26 +148,26 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width: 120 },         
-            { text: 'SMT', value: 'semester', sortable: false, width: 120 },                     
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width: 120 },                     
+            { text: 'SKS', value: 'sks', sortable: false, width: 120 },       
+            { text: 'SMT', value: 'semester', sortable: false, width: 120 },      
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width: 120 },      
         ],
     }),
-    methods: {  
+    methods: {
         async fetchKRS()
         {
-            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,                 
+            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {             
                 this.datakrs=data.krs;
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id = this.datakrs.kjur;    
+                    let prodi_id = this.datakrs.kjur;  
                     this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-                    this.tahun_akademik = this.datakrs.tahun;     
+                    this.tahun_akademik = this.datakrs.tahun;   
                     this.semester_akademik = this.datakrs.idsmt;
                 }
             })  
@@ -187,12 +187,12 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                }).then(({ data }) => {    
+                }).then(({ data }) => {  
                     this.datatable = data.penyelenggaraan;
                     this.datatableLoading = false;
                 }).catch(() => {
                     this.datatableLoading = false;
-                });  
+                });
             }
         }, 
         save: async function() {
@@ -202,7 +202,7 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/akademik/perkuliahan/krs/storematkul',
                     {
-                        krs_id: this.krs_id,                 
+                        krs_id: this.krs_id,  
                         matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
                     },
                     {
@@ -210,7 +210,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                     this.closedialogfrm();
                 }).catch(() => {
@@ -218,8 +218,8 @@ export default {
                 });
             }
         },
-        closedialogfrm() {           
-            setTimeout(() => {     
+        closedialogfrm() {         
+            setTimeout(() => {   
                 this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
                 },300
             );

@@ -38,9 +38,9 @@ export default {
     name: 'FrontLayout',
     created()
     {
-        this.$store.dispatch('uifront/init',this.$ajax);  
+        this.$store.dispatch('uifront/init',this.$ajax);
     },
-    computed : {
+    computed: {
         APP_NAME()
         {
             return process.env.VUE_APP_NAME;

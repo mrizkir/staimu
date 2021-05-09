@@ -244,7 +244,7 @@ import DialogPrintoutKeuangan from "@/components/DialogPrintoutKeuangan";
 export default {
     name: 'Transaksi',
     created() {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -266,7 +266,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+        this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
     },
     mounted()
     {
@@ -324,8 +324,8 @@ export default {
         },
         initialize: async function() 
         {
-            this.datatableLoading = true;   
-            await this.$ajax.post('/keuangan/transaksi',     
+            this.datatableLoading = true; 
+            await this.$ajax.post('/keuangan/transaksi',   
             {
                 TA: this.tahun_akademik,
                 PRODI_ID: this.prodi_id,
@@ -334,12 +334,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
-            });     
+            });
             this.firstloading = false;
-            this.$refs.filter18.setFirstTimeLoading(this.firstloading);       
+            this.$refs.filter18.setFirstTimeLoading(this.firstloading);
         },
         dataTableRowClicked(item)
         {
@@ -359,19 +359,19 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                             
-                this.data_transaksi=item;   
-                this.data_transaksi_detail=data.transaksi_detail;   
+            }).then(({ data }) => {                           
+                this.data_transaksi=item; 
+                this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;
                 this.btnLoading = false;
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi={}; 
-                this.data_transaksi_detail={};      
+                this.data_transaksi_detail={};    
                 },300
             );
         },
@@ -400,8 +400,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;   
-                        await this.$ajax.post('/keuangan/transaksi',          
+                        this.datatableLoading = true; 
+                        await this.$ajax.post('/keuangan/transaksi',        
                         {
                             PRODI_ID: this.prodi_id,
                             TA: this.tahun_akademik,
@@ -411,10 +411,10 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {    
+                        }).then(({ data }) => {  
                             this.datatable = data.transaksi;
                             this.datatableLoading = false;
-                        });     
+                        });
                     }
                     this.awaiting_search = false;
                 },1000); // 1 sec delay
@@ -459,7 +459,7 @@ export default {
     },
     components: {
         KeuanganLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter18,
         'dialog-printout':DialogPrintoutKeuangan       
     },

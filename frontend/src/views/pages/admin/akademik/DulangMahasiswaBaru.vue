@@ -151,8 +151,8 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
             { text: "NIM", value: "nim", sortable: true, width:150  },
             { text: 'NIRM', value: 'nirm', sortable: true, width:150  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },         
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -164,12 +164,12 @@ export default {
         dialogfrm: false, 
         daftar_dw: [],
 
-        formdata: {      
+        formdata: {    
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {      
+        formdefault: {    
             nim: "",
             nirm: '',
             dosen_id: ''           
@@ -208,12 +208,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -229,7 +229,7 @@ export default {
             }
         },
         async tambahItem ()
-        {    
+        {  
             await this.$ajax.post('/keuangan/transaksi/'+this.formdata.nim+'/sppmhsbaru',
             {
                 jenis_id: 'nim'
@@ -238,18 +238,18 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {  
+            }).then(() => {
                 
-            });   
+            }); 
 
             // await this.$ajax.get('/akademik/dosenwali',{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {  
+            // }).then(({ data }) => {
             //     this.dialogfrm = true;
             //     this.daftar_dw = data.users; 
-            // });   
+            // }); 
 
         },
         deleteItem(item)
@@ -278,10 +278,10 @@ export default {
             });
         },
         closedialogfrm() { 
-            this.dialogfrm = false;   
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
-                this.data_mhs = Object.assign({},{});   
+            this.dialogfrm = false; 
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
+                this.data_mhs = Object.assign({},{}); 
                 },300
             );
         },
@@ -305,7 +305,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter7               
     },
 }

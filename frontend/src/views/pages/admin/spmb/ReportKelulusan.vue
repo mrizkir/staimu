@@ -213,7 +213,7 @@ export default {
 
                 break;
                 default :
-                    this.datatableLoading = true;   
+                    this.datatableLoading = true; 
                     await this.$ajax.post('/spmb/reportspmbkelulusan',
                     {
                         TA: this.tahun_pendaftaran,
@@ -224,7 +224,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {    
+                    }).then(({ data }) => {  
                         this.datatable = data.pmb;
                         this.datatableLoading = false;
                     });
@@ -262,10 +262,10 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbkelulusan/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                                                         
-                    prodi_id: this.prodi_id,  
-                    nama_prodi: this.nama_prodi,          
-                    filter_status: this.filter_status,          
+                    TA: this.tahun_pendaftaran,                          
+                    prodi_id: this.prodi_id,
+                    nama_prodi: this.nama_prodi,        
+                    filter_status: this.filter_status,        
                 },
                 {
                     headers: {
@@ -273,23 +273,23 @@ export default {
                     },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => { 
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;
                 link.setAttribute('download', 'laporan_prodi_'+Date.now()+'.xlsx');
                 link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();     
+                link.click();   
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         },
         closeProfilMahasiswaBaru ()
         {
-            this.dialogprofilmhsbaru = false;     
+            this.dialogprofilmhsbaru = false;   
         }  
     },
     watch: {

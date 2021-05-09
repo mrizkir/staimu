@@ -162,7 +162,7 @@
                                 <v-col cols="12">  
                                     <strong>ID:</strong>{{ item.id}}   
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}                          
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}      
                                 </v-col>
                             </td>
                         </template>
@@ -243,11 +243,11 @@ export default {
         headers: [            
             { text: 'NIM', value: 'nim_asal', sortable: true, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },
-            { text: 'ALAMAT', value: 'alamat', sortable: true, width: 200 },         
-            { text: 'NO. TELP', value: 'no_telp', sortable: true, width: 120, },         
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },         
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },         
-            { text: 'NIM SISTEM', value: 'nim', sortable: true, width: 100, },         
+            { text: 'ALAMAT', value: 'alamat', sortable: true, width: 200 },       
+            { text: 'NO. TELP', value: 'no_telp', sortable: true, width: 120, },       
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },       
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },       
+            { text: 'NIM SISTEM', value: 'nim', sortable: true, width: 100, },       
             { text: "AKSI", value: "actions", sortable: false, width:150 },
         ],
         search: "", 
@@ -276,12 +276,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
         },
@@ -331,14 +331,14 @@ export default {
         async printpdf1(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,         
+            await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -349,7 +349,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         },
@@ -373,7 +373,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter7               
     },
 }

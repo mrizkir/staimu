@@ -95,36 +95,36 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];        
+        ];
         this.initialize();
     },
     data: () => ({
         firstloading: true,
-        breadcrumbs: [],  
+        breadcrumbs: [],
         
         btnLoading: false,
         datatableLoading: false,
         expanded: [],
         datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_channel', width:10, sortable: false },                         
-            { text: 'NAMA CHANNEL', value: 'nama_channel', sortable: false},                 
+            { text: 'ID', value: 'id_channel', width:10, sortable: false },          
+            { text: 'NAMA CHANNEL', value: 'nama_channel', sortable: false},  
         ], 
         
     }),
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             await this.$ajax.get('/keuangan/channelpembayaran',
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.channel;
                 this.datatableLoading = false;
-            });     
+            });
             this.firstloading = false;
         },
         dataTableRowClicked(item)
@@ -141,7 +141,7 @@ export default {
     },
     components: {
         KeuanganLayout,
-        ModuleHeader,  
+        ModuleHeader,
     },
 }
 </script>

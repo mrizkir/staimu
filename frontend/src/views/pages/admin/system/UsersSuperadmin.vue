@@ -218,7 +218,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -288,33 +288,33 @@ export default {
         daftar_roles: [],
         dialog: false,
         dialogEdit: false, 
-        editedIndex: -1,   
+        editedIndex: -1, 
         editedItem: {
             id: 0,
-            username: '',    
-            password: '',    
-            name: '',    
-            email: '',    
+            username: '',  
+            password: '',  
+            name: '',  
+            email: '',  
             nomor_hp: '',
             role_id: ['superadmin'],
-            created_at: '',    
+            created_at: '',  
             updated_at: '', 
         },
         defaultItem: {
             id: 0,
-            username: '',    
-            password: '',    
-            name: '',    
-            email: '',    
+            username: '',  
+            password: '',  
+            name: '',  
+            email: '',  
             nomor_hp: '', 
-            role_id: ['superadmin'],  
-            created_at: '',    
+            role_id: ['superadmin'],
+            created_at: '',  
             updated_at: '', 
         },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',         
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',       
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -326,7 +326,7 @@ export default {
         ], 
         rule_user_username: [
             value => !!value || "Mohon untuk di isi username User !!!",
-            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',             
+            value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',
         ], 
         rule_user_password: [
             value => !!value || "Mohon untuk di isi password User !!!",
@@ -360,7 +360,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;
@@ -384,12 +384,12 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {   
+            }).then(({ data }) => { 
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {      
+                    {    
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -399,30 +399,30 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                     
+                            disabled: false,      
                         });
                     }     
-                });        
-                this.daftar_roles=daftar_roles;     
-                this.dialog = true;   
-            });     
+                });
+                this.daftar_roles=daftar_roles;   
+                this.dialog = true; 
+            });
             
         },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password='';   
+            item.password=''; 
             this.editedItem = Object.assign({}, item); 
 
             await this.$ajax.get('/system/setting/roles',{
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {   
+            }).then(({ data }) => { 
                 let roles = data.roles;
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {      
+                    {    
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -432,12 +432,12 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,                     
+                            disabled: false,      
                         });
                     }     
-                });        
-                this.daftar_roles=daftar_roles;        
-            });    
+                });
+                this.daftar_roles=daftar_roles;
+            });  
 
             this.btnLoading = true;
             await this.$ajax.get('/system/users/' + item.id + '/roles',
@@ -445,16 +445,16 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
-                this.editedItem.role_id=data.roles;   
+            }).then(({ data }) => {
+                this.editedItem.role_id=data.roles; 
                 this.btnLoading = false;
                 this.dialogEdit = true;
-            });   
+            }); 
         },
         close() { 
             this.btnLoading = false;
             this.dialog = false;
-            this.dialogEdit = false;   
+            this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
@@ -488,7 +488,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });    
+                    });  
                     
                 } else {
                     this.$ajax.post('/system/users/store',
@@ -545,7 +545,7 @@ export default {
         },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
 

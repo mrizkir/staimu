@@ -328,7 +328,7 @@ export default {
         ],
         expanded: [],
         search: "",
-        daftar_users: [],  
+        daftar_users: [],
 
         //form
         form_valid: true,
@@ -556,7 +556,7 @@ export default {
             );
         },
         closeUserPermissions() {
-            this.btnLoading = false;   
+            this.btnLoading = false; 
             this.dialogUserPermission = false;
         },
         save() {

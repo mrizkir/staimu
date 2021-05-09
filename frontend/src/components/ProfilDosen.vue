@@ -125,11 +125,11 @@ export default {
     name: 'ProfiDosen',
     created()
     {
-        this.initialize();     
+        this.initialize();   
     },
     props: {
         datadosen: {
-            type: Object,     
+            type: Object,   
             required: true
         },
         url: {

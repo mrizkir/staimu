@@ -484,7 +484,7 @@ export default {
 
         //form data   
         form_valid: true, 
-        daftar_ta: [],  
+        daftar_ta: [],
         dari_tahun_akademik: null,
         group_matakuliah: [], 
         daftar_konsentrasi: [], 
@@ -511,11 +511,11 @@ export default {
             'E'
         ],
         formdata: {
-            id: '',                 
-            id_group: null,                 
-            nama_group: null,                 
+            id: '',  
+            id_group: null,  
+            nama_group: null,  
             group_alias: null, 
-            kmatkul: '',  
+            kmatkul: '',
             nmatkul: '', 
             sks: '', 
             idkonsentrasi: null, 
@@ -533,11 +533,11 @@ export default {
             update_penyelenggaraan: false,
         },
         formdefault: {
-            id: '',                 
-            id_group: null,                 
-            nama_group: null,                 
+            id: '',  
+            id_group: null,  
+            nama_group: null,  
             group_alias: null, 
-            kmatkul: '',  
+            kmatkul: '',
             nmatkul: '', 
             sks: '', 
             idkonsentrasi: null, 
@@ -558,29 +558,29 @@ export default {
 
         //form rules    
         rule_group_matakuliah: [
-            value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",       
+            value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",     
         ], 
         rule_kode_matkul: [
-            value => !!value || "Kode Program Studi mohon untuk diisi !!!",     
+            value => !!value || "Kode Program Studi mohon untuk diisi !!!",   
         ], 
         rule_nama_matakuliah: [
-            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",       
+            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",     
         ], 
         rule_sks: [
-            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",       
-        ],  
+            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",     
+        ],
         rule_sks_tatap_muka: [
-            value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",       
-        ],  
+            value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",     
+        ],
         rule_semester: [
-            value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",       
-        ],  
+            value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",     
+        ],
         rule_minimal_nilai: [
-            value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",       
+            value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",     
         ], 
         rule_dari_tahun_akademik: [
-            value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",       
-        ],      
+            value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",     
+        ],    
     }),
     methods: {
         changeTahunAkademik(tahun)
@@ -603,12 +603,12 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.matakuliah;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
         },
@@ -632,11 +632,11 @@ export default {
                 }
             }).then(({ data }) => {
                 this.group_matakuliah=data.group_matakuliah;
-            });   
+            }); 
             this.dialogfrm = true;
         },
         async viewItem(item) {
-            this.formdata = item;      
+            this.formdata = item;    
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {
@@ -648,7 +648,7 @@ export default {
             this.dialogdetailitem = true;
         }, 
         editItem: async function(item) { 
-            this.editedIndex = this.datatable.indexOf(item);   
+            this.editedIndex = this.datatable.indexOf(item); 
             await this.$ajax.get('/akademik/groupmatakuliah',
             {
                 headers: {
@@ -656,7 +656,7 @@ export default {
                 }
             }).then(({ data }) => {
                 this.group_matakuliah=data.group_matakuliah;
-            });  
+            });
 
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
@@ -670,17 +670,17 @@ export default {
         }, 
         showDialogCopyMatkul()
         {
-            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];  
+            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];
             for (var i =0; i < list_ta.length; i++)
             {
-                var item = list_ta[i];  
+                var item = list_ta[i];
                 if (this.tahun_akademik!=item.value)
                 {
                     this.daftar_ta.push({
                         value:item.value,
                         text:item.text
                     })
-                }               
+                }   
             } 
             this.dialogcopymatkul=true;
         },
@@ -693,10 +693,10 @@ export default {
                     await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            id_group: this.formdata.id_group,                                             
-                            nama_group: this.formdata.nama_group,                                             
-                            group_alias: this.formdata.group_alias,                                             
-                            kmatkul: this.formdata.kmatkul,  
+                            id_group: this.formdata.id_group,              
+                            nama_group: this.formdata.nama_group,              
+                            group_alias: this.formdata.group_alias,              
+                            kmatkul: this.formdata.kmatkul,
                             nmatkul: this.formdata.nmatkul, 
                             sks: this.formdata.sks, 
                             idkonsentrasi: this.formdata.idkonsentrasi, 
@@ -708,10 +708,10 @@ export default {
                             sks_praktik_lapangan: this.formdata.sks_praktik_lapangan, 
                             minimal_nilai: this.formdata.minimal_nilai,
                             syarat_skripsi: this.formdata.syarat_skripsi, 
-                            status: this.formdata.status,                      
-                            ta: this.formdata.ta,                      
+                            status: this.formdata.status,       
+                            ta: this.formdata.ta,       
                             kjur: this.formdata.kjur,
-                            update_penyelenggaraan: this.formdata.update_penyelenggaraan,                                                
+                            update_penyelenggaraan: this.formdata.update_penyelenggaraan,                 
                         },
                         {
                             headers: {
@@ -726,13 +726,13 @@ export default {
                         this.btnLoading = false;
                     }); 
                     
-                } else {  
+                } else {
                     await this.$ajax.post('/akademik/matakuliah/store',
                         {
                             id_group: this.formdata.id_group, 
-                            nama_group: this.formdata.nama_group,                                             
-                            group_alias: this.formdata.group_alias,                                                                                                
-                            kmatkul: this.formdata.kmatkul,  
+                            nama_group: this.formdata.nama_group,              
+                            group_alias: this.formdata.group_alias,                                                                 
+                            kmatkul: this.formdata.kmatkul,
                             nmatkul: this.formdata.nmatkul, 
                             sks: this.formdata.sks, 
                             idkonsentrasi: this.formdata.idkonsentrasi, 
@@ -745,8 +745,8 @@ export default {
                             minimal_nilai: this.formdata.minimal_nilai,
                             syarat_skripsi: this.formdata.syarat_skripsi, 
                             status: this.formdata.status, 
-                            ta: this.tahun_akademik,                      
-                            kjur: this.prodi_id,                                                                            
+                            ta: this.tahun_akademik,       
+                            kjur: this.prodi_id,                                             
                         },
                         {
                             headers: {
@@ -754,7 +754,7 @@ export default {
                             }
                         }
                     ).then(() => {
-                        this.initialize();  
+                        this.initialize();
                         this.btnLoading = false;
                         this.closedialogfrm();
                     }).catch(() => {
@@ -784,7 +784,7 @@ export default {
                     this.closedialogsalinmatkul();
                 }).catch(() => {
                     this.btnLoading = false;
-                });   
+                }); 
             }
         },
         deleteItem(item) {
@@ -812,7 +812,7 @@ export default {
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
@@ -820,27 +820,27 @@ export default {
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;   
-            setTimeout(() => {            
+            this.dialogfrm = false; 
+            setTimeout(() => {          
                 this.$refs.frmdata.resetValidation();
-                this.formdata = Object.assign({}, this.formdefault);  
+                this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
                 },300
             );
         },
-        closedialogsalinmatkul() {     
+        closedialogsalinmatkul() {   
             this.dialogcopymatkul = false; 
             setTimeout(() => { 
                 this.$refs.frmdialogcopymatkul.reset();
                 this.editedIndex = -1
                 },300
-            );  
+            );
         },
     },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'

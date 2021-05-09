@@ -119,13 +119,13 @@ export default {
         },
         //form rules        
         rule_nama_pt: [
-            value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!",      
+            value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!",    
         ], 
         rule_nama_singkatan_pt: [
-            value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",      
+            value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",    
         ],
         rule_kode_pt: [
-            value => !!value || "Mohon untuk di isi Kode Perguruan Tinggi !!!",              
+            value => !!value || "Mohon untuk di isi Kode Perguruan Tinggi !!!", 
             value => /^[0-9]+$/.test(value) || 'Kode Perguruan Tinggi hanya boleh angka',
         ]
     }),
@@ -137,8 +137,8 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
-                let setting = data.setting;   
+            }).then(({ data }) => {
+                let setting = data.setting; 
                 this.formdata.nama_pt=setting.NAMA_PT;
                 this.formdata.nama_alias_pt=setting.NAMA_PT_ALIAS;
                 this.formdata.bentuk_pt=setting.BENTUK_PT;
@@ -159,25 +159,25 @@ export default {
                             102: this.formdata.nama_alias_pt,
                             103: this.formdata.bentuk_pt,
                             104: this.formdata.kode_pt,
-                        }),                                                                                                              
+                        }),                                                                               
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });        
+                });
             }
         }
     },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
     components: {

@@ -161,20 +161,20 @@ export default {
         ], 
         rule_dulang: [
             value => !!value || "Mohon dipilih Daftar Ulang yang telah dilakukan !!!"
-        ],  
+        ],
     }),
-    methods: {  
+    methods: {
         async fetchDulang()
         {
             await this.$ajax.post('/akademik/dulang/dulangnotinkrs',
             {
-                nim: this.formdata.nim,         
+                nim: this.formdata.nim,       
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.daftar_dulang = data.daftar_dulang;
             })
         },
@@ -192,23 +192,23 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/krs/store',
                 {
                     nim: this.formdata.nim,
-                    dulang_id: this.formdata.dulang_id,             
+                    dulang_id: this.formdata.dulang_id,
                 },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                }).then(({ data }) => {    
+                }).then(({ data }) => {  
                     this.$router.push('/akademik/perkuliahan/krs/'+data.krs.id+'/detail');
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });  
+                });
             }
         },
-        closedialogfrm() {           
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
+        closedialogfrm() {         
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push("/akademik/perkuliahan/krs/daftar");
                 },300
             );
@@ -217,7 +217,7 @@ export default {
     
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
     },
 }
 </script>

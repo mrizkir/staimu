@@ -556,7 +556,7 @@ export default {
             );
         },
         closeUserPermissions() {
-            this.btnLoading = false;   
+            this.btnLoading = false; 
             this.dialogUserPermission = false;
         },
         save() {

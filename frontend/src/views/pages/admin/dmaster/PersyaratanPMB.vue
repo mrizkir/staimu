@@ -284,7 +284,7 @@
 						disabled: true,
 						href: "#",
 				}
-			];        
+			];
 			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 			this.initialize();
 		},
@@ -354,12 +354,12 @@
 								headers: {
 										Authorization: this.TOKEN
 								}
-						}).then(({ data }) => {    
+						}).then(({ data }) => {  
 								this.datatable = data.persyaratan;
 								this.datatableLoading = false;
 						}).catch(() => {
 								this.datatableLoading = false;
-						});  
+						});
 						this.firstloading = false;
 						this.$refs.filter19.setFirstTimeLoading(this.firstloading); 
 				},
@@ -380,23 +380,23 @@
 				},
 				viewItem(item) {
 						this.formdata = item; 
-						this.dialogdetailitem = true;        
+						this.dialogdetailitem = true;
 				},
 				editItem: async function(item) { 
-						this.editedIndex = this.datatable.indexOf(item);  
-						this.formdata = item;      
+						this.editedIndex = this.datatable.indexOf(item);
+						this.formdata = item;    
 						this.dialogfrm = true
 				},
 				showDialogCopyPersyaratan() {
-					let list_ta = this.$store.getters["uiadmin/getDaftarTA"];  
+					let list_ta = this.$store.getters["uiadmin/getDaftarTA"];
 					for (var i =0; i < list_ta.length; i++) {
-						var item = list_ta[i];  
+						var item = list_ta[i];
 						if (this.tahun_pendaftaran!=item.value) {
 							this.daftar_ta.push({
 								value:item.value,
 								text:item.text,
 							});
-						}               
+						}   
 					} 
 					this.dialogcopypersyaratan=true;
 				},
@@ -419,13 +419,13 @@
 										.then(() => {
 											this.initialize();
 											this.btnLoading = false;
-											this.closedialogfrm();        
+											this.closedialogfrm();
 										})
 										.catch(() => {
 											this.btnLoading = false;
 										}); 
 										
-								} else {  
+								} else {
 									await this.$ajax.post("/datamaster/persyaratan/store",
 										{
 											proses: this.formdata.proses,
@@ -439,7 +439,7 @@
 										}
 									)
 									.then(() => {
-										this.initialize();  
+										this.initialize();
 										this.btnLoading = false;
 										this.closedialogfrm();
 									})
@@ -470,7 +470,7 @@
 										this.closedialogsalinpersyaratan();
 								}).catch(() => {
 										this.btnLoading = false;
-								});   
+								}); 
 						}
 				},
 				deleteItem(item) {
@@ -497,7 +497,7 @@
 						});
 				},
 				closedialogdetailitem() {
-						this.dialogdetailitem = false;   
+						this.dialogdetailitem = false; 
 						setTimeout(() => {
 								this.formdata = Object.assign({}, this.formdefault)
 								this.editedIndex = -1
@@ -505,21 +505,21 @@
 						);
 				},
 				closedialogfrm() {
-						this.dialogfrm = false;   
-						setTimeout(() => {            
+						this.dialogfrm = false; 
+						setTimeout(() => {          
 								this.$refs.frmdata.resetValidation(); 
-								this.formdata = Object.assign({}, this.formdefault);  
+								this.formdata = Object.assign({}, this.formdefault);
 								this.editedIndex = -1
 								},300
 						);
 				},
-				closedialogsalinpersyaratan() {     
+				closedialogsalinpersyaratan() {   
 						this.dialogcopypersyaratan = false; 
 						setTimeout(() => { 
 								this.$refs.frmdialogcopypersyaratan.reset(); 
 								this.editedIndex = -1
 								},300
-						);  
+						);
 				},
 		},
 		computed: {

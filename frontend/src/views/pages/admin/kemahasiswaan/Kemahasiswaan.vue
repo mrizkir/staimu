@@ -155,7 +155,7 @@ export default {
         },
 		initialize: async function()
 		{	            
-            this.firstloading = false;   
+            this.firstloading = false; 
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
         },
         field_alias(atr)
@@ -185,7 +185,7 @@ export default {
         clearDataMhs()
         {
             this.data_mhs = null;
-            this.$refs.ref_data_mhs.cachedItems=[];   
+            this.$refs.ref_data_mhs.cachedItems=[]; 
         }
     },
     computed: {
@@ -217,20 +217,20 @@ export default {
                     this.isLoading = true 
                     await this.$ajax.post('/kemahasiswaan/profil/search',
                     {
-                        search:val,             
+                        search:val,
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {                       
+                    }).then(({ data }) => {                     
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;
                         this.isLoading=false;
                     }).catch(() => {
                         this.isLoading=false;
-                    });  
+                    });
                     },1000
                 );
             }

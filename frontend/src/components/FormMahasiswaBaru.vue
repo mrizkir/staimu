@@ -217,11 +217,11 @@ export default {
         daftar_kelas: [],
         
         formdata: {
-            nama_mhs: '',    
+            nama_mhs: '',  
             tempat_lahir: '',
             tanggal_lahir: '',
             jk: 'L',
-            nomor_hp: '',  
+            nomor_hp: '',
             email: '',
             alamat_rumah: '',
             nama_ibu_kandung: '',
@@ -233,13 +233,13 @@ export default {
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ], 
         rule_nidn: [
-            value => !!value || "Mohon untuk di isi NIDN !!!",              
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',         
-        ],  
+            value => !!value || "Mohon untuk di isi NIDN !!!", 
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+        ],
         rule_nipy: [
-            value => !!value || "Mohon untuk di isi NIP Yayasan !!!",              
-            value => /^[0-9]+$/.test(value) || 'NIP Yayasan hanya boleh angka',         
-        ],  
+            value => !!value || "Mohon untuk di isi NIP Yayasan !!!", 
+            value => /^[0-9]+$/.test(value) || 'NIP Yayasan hanya boleh angka',       
+        ],
         rule_tempat_lahir: [
             value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
@@ -280,10 +280,10 @@ export default {
             let bentukpt=this.$store.getters['uifront/getBentukPT'];
             this.$ajax.get('/datamaster/provinsi').then(({ data }) => { 
                 this.daftar_provinsi=data.provinsi;
-            });   
+            }); 
             if (bentukpt=='universitas')
             { 
-                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {  
+                await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {
                     this.daftar_fakultas=data.fakultas;
                 });
             }
@@ -296,7 +296,7 @@ export default {
             this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
                 this.daftar_kelas=data.kelas;
             });
-            await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),      
+            await this.$ajax.get('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),    
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -304,13 +304,13 @@ export default {
                 },
                 
             ).then(({ data }) => {
-                this.formdata.nama_mhs=data.formulir.nama_mhs;  
-                this.formdata.tempat_lahir=data.formulir.tempat_lahir;  
-                this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;  
-                this.formdata.jk=data.formulir.jk;  
-                this.formdata.nomor_hp='+'+data.formulir.nomor_hp;  
-                this.formdata.email=data.formulir.email;    
-                this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;    
+                this.formdata.nama_mhs=data.formulir.nama_mhs;
+                this.formdata.tempat_lahir=data.formulir.tempat_lahir;
+                this.formdata.tanggal_lahir=data.formulir.tanggal_lahir;
+                this.formdata.jk=data.formulir.jk;
+                this.formdata.nomor_hp='+'+data.formulir.nomor_hp;
+                this.formdata.email=data.formulir.email;  
+                this.formdata.nama_ibu_kandung=data.formulir.nama_ibu_kandung;  
                 
                 this.provinsi_id={
                     id: ""+data.formulir.address1_provinsi_id,
@@ -329,32 +329,32 @@ export default {
                     nama: ""+data.formulir.address1_kelurahan
                 };
                 
-                this.formdata.alamat_rumah=data.formulir.alamat_rumah;    
+                this.formdata.alamat_rumah=data.formulir.alamat_rumah;  
                 if (bentukpt=='universitas' && data.formulir.kode_fakultas !=null)
                 {
                     this.kode_fakultas=data.formulir.kode_fakultas;
                 }
-                this.formdata.kjur1=data.formulir.kjur1;    
-                this.formdata.idkelas=data.formulir.idkelas;    
+                this.formdata.kjur1=data.formulir.kjur1;  
+                this.formdata.idkelas=data.formulir.idkelas;  
                 
                 this.kode_billing=data.no_transaksi;
-                this.$refs.frmdata.resetValidation();       
+                this.$refs.frmdata.resetValidation();
             });
         },
-        save: async function ()
+        save: async function()
         {
             if (this.$refs.frmdata.validate())
             {
                 this.btnLoading = true;
-                await this.$ajax.post('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),{  
+                await this.$ajax.post('/spmb/formulirpendaftaran/'+this.$store.getters['auth/AttributeUser']('id'),{
                     _method: "put",
-                    nama_mhs: this.formdata.nama_mhs,    
-                    tempat_lahir: this.formdata.tempat_lahir,    
-                    tanggal_lahir: this.formdata.tanggal_lahir,    
-                    jk: this.formdata.jk,    
-                    nomor_hp: this.formdata.nomor_hp,    
-                    email: this.formdata.email,  
-                    nama_ibu_kandung: this.formdata.nama_ibu_kandung,  
+                    nama_mhs: this.formdata.nama_mhs,  
+                    tempat_lahir: this.formdata.tempat_lahir,  
+                    tanggal_lahir: this.formdata.tanggal_lahir,  
+                    jk: this.formdata.jk,  
+                    nomor_hp: this.formdata.nomor_hp,  
+                    email: this.formdata.email,
+                    nama_ibu_kandung: this.formdata.nama_ibu_kandung,
                     address1_provinsi_id: this.provinsi_id.id,
                     address1_provinsi: this.provinsi_id.nama,
                     address1_kabupaten_id: this.kabupaten_id.id,
@@ -363,24 +363,24 @@ export default {
                     address1_kecamatan: this.kecamatan_id.nama,
                     address1_desa_id: this.desa_id.id,
                     address1_kelurahan: this.desa_id.nama,
-                    alamat_rumah: this.formdata.alamat_rumah,  
-                    kjur1: this.formdata.kjur1,  
-                    idkelas: this.formdata.idkelas,  
+                    alamat_rumah: this.formdata.alamat_rumah,
+                    kjur1: this.formdata.kjur1,
+                    idkelas: this.formdata.idkelas,
                 },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-                ).then(({ data }) => {    
+                ).then(({ data }) => {  
                     this.kode_billing=data.no_transaksi;
                     this.btnLoading = false;
-                }).catch(() => {   
+                }).catch(() => { 
                     this.btnLoading = false;
-                });   
-                this.form_valid=true;                                       
+                }); 
+                this.form_valid = true; 
                 this.$refs.frmdata.resetValidation(); 
-            }              
+            }  
         },
     },
     watch: {

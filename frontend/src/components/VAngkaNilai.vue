@@ -29,7 +29,7 @@ export default {
             this.fractPart=b[1];
             this.fractDigitsEdited=true;
         }
-        this.fractPart=b.length > 0 ? b[1]: null;        
+        this.fractPart=b.length > 0 ? b[1]: null;
     },
     methods: {
         clearValue()
@@ -44,23 +44,23 @@ export default {
         },
         onBlur() 
         {
-            this.setFocus(false);   
+            this.setFocus(false); 
         },
         onFocus() 
         {
-            this.setFocus(true);   
+            this.setFocus(true); 
         },
         keyProcess(keyEvent)
         {
-            if (!this.isFocused) return;   
+            if (!this.isFocused) return; 
 
-            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {         
+            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {       
                 keyEvent.preventDefault();
             }
 
             keyEvent.stopPropagation();
             if (keyEvent.key === 'Enter') 
-            {    
+            {  
                 return;
             } 
             else if (keyEvent.key === 'Delete') 
@@ -86,7 +86,7 @@ export default {
                 }
                 else
                 {
-                    strVal += keyEvent.key;    
+                    strVal += keyEvent.key;  
                 } 
             } 
             else if (keyEvent.key === 'Backspace') 
@@ -104,7 +104,7 @@ export default {
                 } 
                 else 
                 {
-                    strVal = strVal.length <= 1 ? '0' : strVal.substring(0, strVal.length - 1);   
+                    strVal = strVal.length <= 1 ? '0' : strVal.substring(0, strVal.length - 1); 
                 }
             }
             else if (['.'].includes(keyEvent.key)) 

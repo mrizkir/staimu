@@ -204,13 +204,13 @@
                         </template>
                         <template v-slot:item.foto="{ item }">    
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" />       
+                                <v-img :src="$api.url+'/'+item.foto" /> 
                             </v-avatar>                                                      
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}                     
+                                    <strong>ID:</strong>{{ item.id }} 
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
@@ -284,22 +284,22 @@ export default {
         data_mhs: {},
         daftar_dw: [],
 
-        formdata: {    
+        formdata: {  
             dosen_id: ''           
         },
-        formdefault: {    
+        formdefault: {  
             dosen_id: ''           
         },
 
         rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
-        ],  
+        ],
     }),
     methods: {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id,      
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id,    
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -307,14 +307,14 @@ export default {
                 },
                 
             ).then(({ data }) => {
-                this.data_dosen=data.biodatadiri;   
-            });       
+                this.data_dosen=data.biodatadiri; 
+            });  
 
             await this.$ajax.get('/akademik/dosenwali/'+this.dosen_id,{
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.daftar_mahasiswa = data.daftar_mahasiswa;
                 this.datatableLoading = false;
             }); 
@@ -339,12 +339,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.dialogfrm = true;
                 this.daftar_dw = data.users; 
                 this.formdata.dosen_id = this.dosen_id;
             }); 
-        },   
+        }, 
         changeDosenWali ()
         {
             this.btnLoading = true;
@@ -366,10 +366,10 @@ export default {
             });
         },
         closedialogfrm() { 
-            this.dialogfrm = false;   
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
-                this.data_mhs = Object.assign({},{});   
+            this.dialogfrm = false; 
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
+                this.data_mhs = Object.assign({},{}); 
                 },300
             );
         },
@@ -377,7 +377,7 @@ export default {
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     }, 
     components: {

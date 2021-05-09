@@ -239,7 +239,7 @@
 				value => (value && value.length == 1) || "Kode kelas hanya boleh 1 karakter"
 			],
 			rule_nama_kelas: [
-				value => !!value || "Mohon untuk di isi nama kelas !!!",     
+				value => !!value || "Mohon untuk di isi nama kelas !!!",   
 			],
 		}),
 		methods: {

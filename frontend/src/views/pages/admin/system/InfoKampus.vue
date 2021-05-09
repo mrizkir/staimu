@@ -94,7 +94,7 @@ export default {
 				},
 				//form rules        
 				rule_term_id: [
-						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!",      
+						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!",    
 				], 
 		}),
 		methods: {
@@ -129,7 +129,7 @@ export default {
 												_method: 'PUT',
 												'pid': 'blog',
 												setting: JSON.stringify({
-														601: this.formdata.term_id,                     
+														601: this.formdata.term_id,      
 												}),
 										},
 										{

@@ -341,33 +341,33 @@ export default {
         dialogdetailitem: false,
 
         //form data   
-        form_valid: true,  
+        form_valid: true,
         formdata: {
             id: 0,
-            zoom_id: '',                 
-            email: '',                 
+            zoom_id: '',  
+            email: '',  
             api_key: '',
             api_secret: '',
             im_token: '',
             jwt_token: '',
             status: '',
-            desc: '',                 
-            created_at: '',    
-            updated_at: '',    
+            desc: '',  
+            created_at: '',  
+            updated_at: '',  
 
         },
         formdefault: {
             id: 0,
-            zoom_id: '',                 
-            email: '',                 
+            zoom_id: '',  
+            email: '',  
             api_key: '',
             api_secret: '',
             im_token: '',
             jwt_token: '',
             status: '',
-            desc: '',                 
-            created_at: '',    
-            updated_at: '',  
+            desc: '',  
+            created_at: '',  
+            updated_at: '',
         },
         editedIndex: -1,
 
@@ -394,12 +394,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.zoom;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
         },
         dataTableRowClicked(item)
         {
@@ -413,15 +413,15 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;      
-            this.dialogdetailitem = true;     
+            this.formdata = item;    
+            this.dialogdetailitem = true;   
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {    
+            // }).then(({ data }) => {  
                                            
-            // });      
+            // }); 
         }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
@@ -437,9 +437,9 @@ export default {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            email: this.formdata.email,                     
+                            email: this.formdata.email,      
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,                     
+                            api_secret: this.formdata.api_secret,      
                             im_token: this.formdata.im_token, 
                         },
                         {
@@ -458,10 +458,10 @@ export default {
                 } else {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/store',
                         {
-                            email: this.formdata.email,                     
+                            email: this.formdata.email,      
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,                     
-                            im_token: this.formdata.im_token,                                                
+                            api_secret: this.formdata.api_secret,      
+                            im_token: this.formdata.im_token,                 
                         },
                         {
                             headers: {
@@ -523,7 +523,7 @@ export default {
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
@@ -531,7 +531,7 @@ export default {
             );
         },
         closedialogfrm() {
-            this.dialogfrm = false;   
+            this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1

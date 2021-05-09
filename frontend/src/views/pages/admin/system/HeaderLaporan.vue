@@ -129,8 +129,8 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
-                let setting = data.setting;   
+            }).then(({ data }) => {
+                let setting = data.setting; 
                 this.formdata.header_1=setting.HEADER_1;
                 this.formdata.header_2=setting.HEADER_2;
                 this.formdata.header_3=setting.HEADER_3;
@@ -153,25 +153,25 @@ export default {
                             703: this.formdata.header_3,
                             704: this.formdata.header_4,
                             705: this.formdata.header_address,
-                        }),                                                                                                              
+                        }),                                                                               
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });        
+                });
             }
         }
     },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",                 
+            TOKEN: "Token",  
         }),
     },
     components: {

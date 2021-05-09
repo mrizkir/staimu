@@ -112,7 +112,7 @@
                                 text-color="white"
                                 small
                                 >
-                                {{item.sah==1?'YA': 'TIDAK'}}             
+                                {{item.sah==1?'YA': 'TIDAK'}} 
                             </v-chip>
                         </template>
                         <template v-slot:item.idkelas="{item}">
@@ -194,7 +194,7 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];  
+        ];
         if (this.$store.getters['uiadmin/getDefaultDashboard']== 'mahasiswa')
         {
             this.initializeMhs();
@@ -205,14 +205,14 @@ export default {
             this.prodi_id = prodi_id;
             this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
             this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];    
+            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];  
         }   
     },
     mounted()
     {
         if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
         { 
-            this.initialize();   
+            this.initialize(); 
         }
     },
     data: () => ({ 
@@ -236,8 +236,8 @@ export default {
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },
-            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },         
-            { text: 'SAH', value: 'sah', sortable: true, width: 100},         
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },       
+            { text: 'SAH', value: 'sah', sortable: true, width: 100},       
             { text: "AKSI", value: "actions", sortable: false, width: 140 },
         ],
         search: "", 
@@ -269,12 +269,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });     
+            });
         },
         initialize: async function() 
         {
@@ -289,14 +289,14 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => {      
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
-                this.firstloading = false;     
+                this.firstloading = false;   
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(() => {
                 this.datatableLoading = false;
-            });     
+            });
         },
         dataTableRowClicked(item)
         {
@@ -337,14 +337,14 @@ export default {
         async printpdf(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,         
+            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -355,7 +355,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         }, 
@@ -390,8 +390,8 @@ export default {
                 setTimeout(async () => {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
-                        this.datatableLoading = true;   
-                        await this.$ajax.post("/akademik/perkuliahan/krs",     
+                        this.datatableLoading = true; 
+                        await this.$ajax.post("/akademik/perkuliahan/krs",   
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_akademik,
@@ -402,10 +402,10 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {    
+                        }).then(({ data }) => {  
                             this.datatable = data.daftar_krs;
                             this.datatableLoading = false;
-                        });     
+                        });
                     }
                     this.awaiting_search = false;
                 },1000); // 1 sec delay
@@ -415,7 +415,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter6               
     },
 }

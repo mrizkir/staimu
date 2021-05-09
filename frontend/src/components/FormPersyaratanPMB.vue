@@ -22,11 +22,11 @@ export default {
     data: () => ({
         //form        
         daftar_persyaratan: [], 
-    }),  
+    }),
     methods: {
         initialize: async function()
         {
-            await this.$ajax.get('/spmb/pmbpersyaratan/'+this.user_id,      
+            await this.$ajax.get('/spmb/pmbpersyaratan/'+this.user_id,    
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]

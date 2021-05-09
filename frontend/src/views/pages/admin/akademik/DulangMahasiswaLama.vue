@@ -114,7 +114,7 @@ import Filter6 from "@/components/sidebar/FilterMode6";
 export default {
     name: 'DulangMahasiswaBaru',
     created() {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -141,7 +141,7 @@ export default {
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];   
+        this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"]; 
         this.initialize()
     },
     data: () => ({ 
@@ -161,9 +161,9 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },
             { text: "NIM", value: "nim", sortable: true, width: 100  },
             { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },         
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },         
-            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },         
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },       
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
+            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },       
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -194,12 +194,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
         },
@@ -240,10 +240,10 @@ export default {
             });
         },
         closedialogfrm() { 
-            this.dialogfrm = false;   
-            setTimeout(() => {    
-                this.formdata = Object.assign({}, this.formdefault);        
-                this.data_mhs = Object.assign({},{});   
+            this.dialogfrm = false; 
+            setTimeout(() => {  
+                this.formdata = Object.assign({}, this.formdefault);
+                this.data_mhs = Object.assign({},{}); 
                 },300
             );
         },
@@ -274,7 +274,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter6               
     },
 }

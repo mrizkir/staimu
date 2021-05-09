@@ -243,36 +243,36 @@ export default {
                 nama_kelas: 'N.A',
                 dosen_wali: 'N.A',
             },
-            form_valid: true,  
+            form_valid: true,
             formdata: {
-                id: 0,                 
-                username: '',  
-                password: '',         
-                name: '',                 
-                email: '',                 
-                nomor_hp: '',                 
-                theme: '',                                 
+                id: 0,  
+                username: '',
+                password: '',       
+                name: '',  
+                email: '',  
+                nomor_hp: '',  
+                theme: '',  
                 foto: '',
-                active: '',                                                                                        
-                default_role: '',                                 
-                locked: '',                                 
-                created_at: '',    
-                updated_at: '',    
+                active: '',                                                         
+                default_role: '',  
+                locked: '',  
+                created_at: '',  
+                updated_at: '',  
             },
             formdefault: {
-                id: 0,                 
-                username: '',  
-                password: '',         
-                name: '',                 
-                email: '',                 
-                nomor_hp: '',                 
-                theme: '',                                 
+                id: 0,  
+                username: '',
+                password: '',       
+                name: '',  
+                email: '',  
+                nomor_hp: '',  
+                theme: '',  
                 foto: '',
-                active: '',                                                                                        
-                default_role: '',                                 
-                locked: '',                                 
-                created_at: '',    
-                updated_at: '',    
+                active: '',                                                         
+                default_role: '',  
+                locked: '',  
+                created_at: '',  
+                updated_at: '',  
             },
             //form rules  
             rule_foto: [
@@ -301,22 +301,22 @@ export default {
                 this.btnLoading = true;
                 this.$ajax.post('/system/users/updatepassword/'+this.$store.getters['auth/AttributeUser']('id'),
                     {
-                        _method: 'PUT',                 
-                        password: this.formdata.password,                    
+                        _method: 'PUT',  
+                        password: this.formdata.password,     
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(({ data }) => {                                            
+                ).then(({ data }) => {                                          
                     this.$refs.frmdata.reset(); 
-                    this.formdata.foto=data.foto;       
+                    this.formdata.foto=data.foto;
                     this.formdata=this.formdefault; 
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;
-                });     
+                });
             }
         },
         previewImage (e)
@@ -329,7 +329,7 @@ export default {
             {
                 let reader = new FileReader();
                 reader.readAsDataURL(e);
-                reader.onload = img => {  
+                reader.onload = img => {
                     this.photoUser=img.target.result;
                 }
             } 
@@ -344,19 +344,19 @@ export default {
                     this.btnLoading = true;
                     var formdata = new FormData();
                     formdata.append('foto',this.formdata.foto);
-                    await this.$ajax.post('/setting/users/uploadfoto/'+this.$store.getters.User.id,formdata,             
+                    await this.$ajax.post('/setting/users/uploadfoto/'+this.$store.getters.User.id,formdata,
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"],
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(({ data }) => {         
+                    ).then(({ data }) => {       
                         this.btnLoading = false;
                         this.$store.dispatch('updateFoto',data.user.foto);
                     }).catch(() => {
                         this.btnLoading = false;
-                    });    
+                    });  
                     this.$refs.frmdata.reset(); 
                 } 
             }
@@ -364,29 +364,29 @@ export default {
         resetFoto: async function() 
         {
             this.btnLoading = true;
-            await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},  
+            await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},
                 {
                     headers: {
-                        Authorization: this.$store.getters["auth/Token"],                       
+                        Authorization: this.$store.getters["auth/Token"],        
                     }
                 }
-            ).then(({ data }) => {         
+            ).then(({ data }) => {       
                 this.btnLoading = false;
                 this.$store.dispatch('updateFoto',data.user.foto);
             }).catch(() => {
                 this.btnLoading = false;
-            });    
+            });  
         },
         async fetchMahasiswa()
         {
-            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),             
+            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),
                 {
                     headers: {
-                        Authorization: this.$store.getters["auth/Token"],                       
+                        Authorization: this.$store.getters["auth/Token"],        
                     }
                 }
-            ).then(({ data }) => {         
-                this.data_mhs=data.mahasiswa;   
+            ).then(({ data }) => {       
+                this.data_mhs=data.mahasiswa; 
             })
         }
         

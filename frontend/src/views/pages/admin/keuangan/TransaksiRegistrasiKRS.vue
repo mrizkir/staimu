@@ -204,7 +204,7 @@
 			name: "TransaksiRegistrasiKRS",
 			created()
 			{
-				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];   
+				this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
 				this.breadcrumbs = [
 						{
 							text: "HOME",
@@ -221,12 +221,12 @@
 							disabled: true,
 							href: "#"
 						}
-				];        
+				];
 				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 				this.prodi_id = prodi_id;
 				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];    
-				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];  
+				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
 			},
 			mounted() {
 					this.initialize()
@@ -280,7 +280,7 @@
 					], 
 					rule_semester: [
 							value => !!value || "Mohon dipilih Semester untuk transaksi ini !!!"
-					],  
+					],
 			}),
 			methods: {
 					changeTahunAkademik(tahun)
@@ -295,10 +295,10 @@
 					{
 							this.prodi_id = id;
 					},
-					initialize: async function () 
+					initialize: async function() 
 					{
-							this.datatableLoading = true;   
-							await this.$ajax.post("/keuangan/transaksi-registrasikrs",     
+							this.datatableLoading = true; 
+							await this.$ajax.post("/keuangan/transaksi-registrasikrs",   
 							{
 								TA: this.tahun_akademik,
 								SEMESTER_AKADEMIK: this.semester_akademik,
@@ -308,12 +308,12 @@
 									headers: {
 											Authorization: this.$store.getters["auth/Token"]
 									}
-							}).then(({ data }) => {    
+							}).then(({ data }) => {  
 									this.datatable = data.transaksi;
 									this.datatableLoading = false;
-							});     
+							});
 							this.firstloading = false;
-							this.$refs.filter6.setFirstTimeLoading(this.firstloading);       
+							this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 					},
 					dataTableRowClicked(item)
 					{
@@ -328,13 +328,13 @@
 					},
 					async addItem()
 					{
-							this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];  
+							this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
 							this.formdata.semester_akademik = this.semester_akademik;
 							if (this.dashboard  == "mahasiswa")
 							{
 									this.formdata.nim = this.$store.getters["auth/AttributeUser"]("username");
 							}
-							this.dialogfrm = true;   
+							this.dialogfrm = true; 
 					},
 					viewItem(item)
 					{
@@ -347,8 +347,8 @@
 									await this.$ajax.post("/keuangan/transaksi-registrasikrs/store",
 											{
 													nim: this.formdata.nim, 
-													semester_akademik: this.formdata.semester_akademik,                                                                     
-													TA: this.tahun_akademik,                                              
+													semester_akademik: this.formdata.semester_akademik,                                      
+													TA: this.tahun_akademik,               
 											},
 											{
 													headers: {
@@ -358,7 +358,7 @@
 									).then(() => {
 											this.closedialogfrm();
 											this.btnLoading = false;
-											this.initialize();    
+											this.initialize();  
 											
 									}).catch(() => {
 											this.btnLoading = false;
@@ -382,24 +382,24 @@
 									},
 									responseType: "arraybuffer",
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => { 
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement("a");
                 link.href = url;
                 link.setAttribute("download", "registrasi_krs_"+Date.now()+".xlsx");
                 link.setAttribute("id", "download_laporan");
                 document.body.appendChild(link);
-                link.click();     
+                link.click();   
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
                 this.btnLoading = false;
-            });     
+            });
         }, 
 					closedialogfrm() {
-							this.dialogfrm = false;   
+							this.dialogfrm = false; 
 							setTimeout(() => {
-									this.formdata = Object.assign({}, this.formdefault);        
+									this.formdata = Object.assign({}, this.formdefault);
 									this.$refs.frmdata.reset(); 
 									},300
 							);
@@ -494,8 +494,8 @@
 									setTimeout(async () => {
 											if (this.search.length > 0 && this.filter_ignore)
 											{
-													this.datatableLoading = true;   
-													await this.$ajax.post("/keuangan/transaksi-registrasikrs",     
+													this.datatableLoading = true; 
+													await this.$ajax.post("/keuangan/transaksi-registrasikrs",   
 													{
 															TA: this.tahun_akademik,
 															SEMESTER_AKADEMIK: this.semester_akademik,
@@ -506,10 +506,10 @@
 															headers: {
 																	Authorization: this.$store.getters["auth/Token"]
 															}
-													}).then(({ data }) => {    
+													}).then(({ data }) => {  
 															this.datatable = data.transaksi;
 															this.datatableLoading = false;
-													});     
+													});
 											}
 											this.awaiting_search = false;
 									},1000); // 1 sec delay

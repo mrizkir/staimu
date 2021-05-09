@@ -130,7 +130,7 @@
 				{ text: "GUARD", value: "guard_name" },
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
-			search: "",  
+			search: "",
 			perm_selected: [],
 		}),
 		methods: {

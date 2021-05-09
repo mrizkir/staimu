@@ -85,7 +85,7 @@ import DataKRS from '@/components/DataKRS';
 export default {
     name: 'PerkuliahanKRSDetail',
     created() {
-        this.krs_id = this.$route.params.krsid;        
+        this.krs_id = this.$route.params.krsid;
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -113,7 +113,7 @@ export default {
                 href: "#"
             },
         ];
-        this.fetchKRS();      
+        this.fetchKRS();    
     },
     data: () => ({ 
         firstloading: true, 
@@ -135,28 +135,28 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },         
-            { text: 'SMT', value: 'semester', sortable: false, width:50 },         
-            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },         
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },                                              
+            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
+            { text: 'SMT', value: 'semester', sortable: false, width:50 },       
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },       
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },               
         ],
     }),
-    methods: {  
+    methods: {
         async fetchKRS()
         {
-            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,                 
+            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {               
+            }).then(({ data }) => {             
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id = this.datakrs.kjur;    
+                    let prodi_id = this.datakrs.kjur;  
                     this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-                    this.tahun_akademik = this.datakrs.tahun;     
+                    this.tahun_akademik = this.datakrs.tahun;   
                     this.semester_akademik = this.datakrs.idsmt;
                 }
             })  
@@ -165,7 +165,7 @@ export default {
     computed: {
         totalMatkul()
         {
-            return this.datatable.length;   
+            return this.datatable.length; 
         },
         totalSKS()
         {

@@ -129,7 +129,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-    name: 'SystemMigrationLayout',  
+    name: 'SystemMigrationLayout',
     props: {
         showrightsidebar: {
             type: Boolean,
@@ -142,7 +142,7 @@ export default {
     },
     created()
     {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];        
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
     },
     data: () => ({
         loginTime: 0,
@@ -185,7 +185,7 @@ export default {
             AUTHENTICATED: "Authenticated",
             ACCESS_TOKEN: "AccessToken",
             TOKEN: 'Token', 
-            DEFAULT_ROLE: "DefaultRole",  
+            DEFAULT_ROLE: "DefaultRole",
             ROLE: "Role",
             CAN_ACCESS: "can",
             ATTRIBUTE_USER: "AttributeUser",
@@ -217,7 +217,7 @@ export default {
                 if (value >= 0)
                 {
                     setTimeout(() => { 
-                        this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1;                    
+                        this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1; 
 					},1000);
                 }
                 else

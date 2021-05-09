@@ -148,7 +148,7 @@ export default {
                 href: "#"
             }
         ];
-        this.kelas_mhs_id = this.$route.params.kelas_mhs_id;        
+        this.kelas_mhs_id = this.$route.params.kelas_mhs_id;
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
@@ -163,17 +163,17 @@ export default {
         datatableLoading: false,
         btnLoading: false,
         
-        datatable: [],  
-        datatable_peserta: [],          
+        datatable: [],
+        datatable_peserta: [],        
         headers_peserta: [
             { text: "NIM", value: "nim", sortable: false, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: false  },
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
-            { text: 'KELAS', value: 'idkelas', sortable: false  },         
-            { text: 'TAHUN MASUK', value: 'tahun', sortable: false },                                 
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },                                 
-            { text: 'NILAI HURUP', value: 'n_kual', sortable: false },                                 
-        ],         
+            { text: 'KELAS', value: 'idkelas', sortable: false  },       
+            { text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },  
+            { text: 'NILAI HURUP', value: 'n_kual', sortable: false },  
+        ],       
 
         //formdata
         form_valid: true, 
@@ -197,7 +197,7 @@ export default {
     methods: {
         initialize: async function() 
         {
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,     
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -206,26 +206,26 @@ export default {
                 this.data_kelas_mhs=data.pembagiankelas; 
             });
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,     
+            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                                 
+            }).then(({ data }) => {                                               
                 this.datatableLoading = false;
-                this.datatable_peserta=data.peserta;   
+                this.datatable_peserta=data.peserta; 
             })              
         },
         async fetchPeserta()
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,     
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                      
-                this.datatable_peserta=data.peserta;        
+            }).then(({ data }) => {                    
+                this.datatable_peserta=data.peserta;
                 this.datatableLoading = false;
             })   
         },

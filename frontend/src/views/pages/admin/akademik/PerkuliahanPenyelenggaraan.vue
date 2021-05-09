@@ -185,8 +185,8 @@ export default {
             { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },
             { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },
             { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },         
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},         
+            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },       
+            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},       
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -218,12 +218,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.penyelenggaraan;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
         },
@@ -290,12 +290,12 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",     
+            CAN_ACCESS: "can",   
         }),
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter6               
     },
 }

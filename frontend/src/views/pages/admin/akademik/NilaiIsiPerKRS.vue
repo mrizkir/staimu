@@ -158,7 +158,7 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];  
+        ];
         if (this.$store.getters['uiadmin/getDefaultDashboard']== 'mahasiswa')
         {
             this.initializeMhs();
@@ -169,14 +169,14 @@ export default {
             this.prodi_id = prodi_id;
             this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
             this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];    
+            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];  
         }   
     },
     mounted()
     {
         if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
         { 
-            this.initialize();   
+            this.initialize(); 
         }
     },
     data: () => ({ 
@@ -197,8 +197,8 @@ export default {
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width:80  },
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width:80  },
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width:80 },
-            { text: 'TA.SMT', value: 'tasmt', sortable: true, width:80 },         
-            { text: 'SAH', value: 'sah', sortable: true, width:50},         
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width:80 },       
+            { text: 'SAH', value: 'sah', sortable: true, width:50},       
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -230,12 +230,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });     
+            });
         },
         initialize: async function() 
         {
@@ -250,14 +250,14 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => {      
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
-                this.firstloading = false;     
+                this.firstloading = false;   
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(() => {
                 this.datatableLoading = false;
-            });     
+            });
         },
         dataTableRowClicked(item)
         {
@@ -298,14 +298,14 @@ export default {
         async printpdf(item)
         {
             this.btnLoadingTable=true;
-            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,         
+            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,       
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {            
+            ).then(({ data }) => {          
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoadingTable=false;
@@ -316,7 +316,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;      
+                this.dialogprintpdf = false;    
                 },300
             );
         }, 
@@ -347,7 +347,7 @@ export default {
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter6               
     },
 }

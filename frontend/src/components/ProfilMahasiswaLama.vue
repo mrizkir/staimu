@@ -125,11 +125,11 @@ export default {
     name: 'ProfilMahasiswaLama',
     created()
     {
-        this.initialize();     
+        this.initialize();   
     },
     props: {
         datamhs: {
-            type: Object,     
+            type: Object,   
             required: true
         },
         url: {

@@ -225,7 +225,7 @@ export default {
                 disabled: true,
                 href: "#"
             }
-        ];        
+        ];
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
@@ -243,11 +243,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },         
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },       
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
-            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },         
-            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},         
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},         
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },       
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},       
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},       
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "",
@@ -286,21 +286,21 @@ export default {
         ],
         formdata: { 
             id: '',
-            idkelas: '',     
-            hari: '',     
+            idkelas: '',   
+            hari: '',   
             jam_masuk: '',
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
-            ruang_kelas_id: '',     
+            ruang_kelas_id: '',   
         },
         formdefault: { 
             id: '',
-            idkelas: '',     
-            hari: '',     
+            idkelas: '',   
+            hari: '',   
             jam_masuk: '',
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
-            ruang_kelas_id: '',     
+            ruang_kelas_id: '',   
         },
 
         rule_hari: [
@@ -340,12 +340,12 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
             this.firstloading = false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
         },
@@ -368,7 +368,7 @@ export default {
             }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan; 
                 this.formdata = Object.assign({}, item);
-                this.dialogfrm = true;      
+                this.dialogfrm = true;    
             });
         }, 
         save: async function() {
@@ -378,11 +378,11 @@ export default {
                 
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
                     {
-                        _method: 'PUT',                 
-                        hari: this.formdata.hari,                     
+                        _method: 'PUT',  
+                        hari: this.formdata.hari,      
                         jam_masuk: this.formdata.jam_masuk,
-                        jam_keluar: this.formdata.jam_keluar,                 
-                        ruang_kelas_id: this.formdata.ruang_kelas_id,                     
+                        jam_keluar: this.formdata.jam_keluar,  
+                        ruang_kelas_id: this.formdata.ruang_kelas_id,      
                     },
                     {
                         headers: {
@@ -424,9 +424,9 @@ export default {
             });
         },
         closedialogfrm() {
-            this.dialogfrm = false;   
+            this.dialogfrm = false; 
             setTimeout(() => {
-                this.formdata = Object.assign({}, this.formdefault);        
+                this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 },300
             );
@@ -450,12 +450,12 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",     
+            CAN_ACCESS: "can",   
         }),
     },
     components: {
         AkademikLayout,
-        ModuleHeader,  
+        ModuleHeader,
         Filter2               
     },
 }

@@ -104,16 +104,16 @@ export default {
     methods: {
         initialize: async function()
 		{
-            this.datatableLoading = true;   
-            await this.$ajax.get('/keuangan/komponenbiaya',     
+            this.datatableLoading = true; 
+            await this.$ajax.get('/keuangan/komponenbiaya',   
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.kombi;
                 this.datatableLoading = false;
-            });     
+            });
         },
         dataTableRowClicked(item)
         {

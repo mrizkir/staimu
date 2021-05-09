@@ -253,15 +253,15 @@ export default {
 				disabled: true,
 				href: "#"
 			}
-        ];               
+        ];
     },
     mounted()
     {
         this.initialize();
     },
     data: () => ({ 
-        firstloading: true,             
-        breadcrumbs: [],       
+        firstloading: true,
+        breadcrumbs: [],     
         
         //profil mahasiswa      
         user_id: null,
@@ -296,12 +296,12 @@ export default {
     methods: {
 		initialize: async function()
 		{	
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,    
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,  
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {            
+            }).then(({ data }) => {          
                 this.datamhs=data.mahasiswa;
                 
                 this.totalSKS=data.jumlah_sks;
@@ -310,8 +310,8 @@ export default {
                 this.ipk=data.ipk;
             });
 
-            this.datatableLoading = true;     
-            await this.$ajax.post('/keuangan/transaksi',     
+            this.datatableLoading = true;   
+            await this.$ajax.post('/keuangan/transaksi',   
             {
                 TA: this.$store.getters['uiadmin/getTahunAkademik'],
                 user_id: this.user_id
@@ -320,10 +320,10 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
-            });     
+            });
         },
         dataTableRowClicked(item)
         {
@@ -343,19 +343,19 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                             
-                this.data_transaksi=item;   
-                this.data_transaksi_detail=data.transaksi_detail;   
+            }).then(({ data }) => {                           
+                this.data_transaksi=item; 
+                this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;
                 this.btnLoading = false;
             });
         },
         closedialogdetailitem() {
-            this.dialogdetailitem = false;   
+            this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi={}; 
-                this.data_transaksi_detail={};      
+                this.data_transaksi_detail={};    
                 },300
             );
         },
