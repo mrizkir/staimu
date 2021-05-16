@@ -177,7 +177,6 @@
 					sortable: true,
 				},
 			],
-			dialogfrm: false,
 			total_keseluruhan: 0,
 		}),
 		methods: {
@@ -205,16 +204,6 @@
 					});
 				this.firstloading = false;
 				this.$refs.filter1.setFirstTimeLoading(this.firstloading);
-			},
-			async addItem() {
-				this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
-				this.formdata.semester_akademik = this.semester_akademik;
-				if (this.dashboard == "mahasiswa") {
-					this.formdata.nim = this.$store.getters["auth/AttributeUser"](
-						"username"
-					);
-				}
-				this.dialogfrm = true;
 			},
 			printtoexcel: async function() {
 				this.btnLoading = true;

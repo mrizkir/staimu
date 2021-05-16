@@ -13,24 +13,24 @@ use App\Models\Keuangan\TransaksiDetailModel;
 
 use App\Helpers\Helper;
 
-class ReportKeuanganUjianMunaqasahModel extends ReportModel
+class ReportKeuanganPendaftaranModel extends ReportModel
 {   
   public function __construct($dataReport)
   {
       parent::__construct($dataReport); 
-  }    
+  }      
   /**
-   * cetak rekap penerimaan spp per bulan setiap prodi
+   * cetak rekap penerimaan pendaftaran mahasiswa baru setiap prodi
    */
   public function printtoexcel2() 
   {
     $ta=$this->dataReport['TA'];    
 
-    $this->spreadsheet->getProperties()->setTitle("Report Munaqasah");
-    $this->spreadsheet->getProperties()->setSubject("Report Munaqasah");
+    $this->spreadsheet->getProperties()->setTitle("Report Pendaftaran");
+    $this->spreadsheet->getProperties()->setSubject("Report Pendaftaran");
 
     $sheet = $this->spreadsheet->getActiveSheet();    
-    $sheet->setTitle ('LAPORAN PENERIMAAN MUNAQASAH');
+    $sheet->setTitle ('LAPORAN PENERIMAAN PENDAFTARAN');
 
     $sheet->getParent()->getDefaultStyle()->applyFromArray([
       'font' => [
@@ -41,7 +41,7 @@ class ReportKeuanganUjianMunaqasahModel extends ReportModel
 
     $row=2;
     $sheet->mergeCells("A$row:D$row");				                
-    $sheet->setCellValue("A$row","LAPORAN PENERIMAAN UJIAN MUNAQASAH");
+    $sheet->setCellValue("A$row","LAPORAN PENERIMAAN PENDAFTARAN MAHASISWA BARU");
 
     $row+=1;
     $sheet->mergeCells("A$row:D$row");		
@@ -111,7 +111,7 @@ class ReportKeuanganUjianMunaqasahModel extends ReportModel
                   ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
                   ->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
                   ->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
-                  ->where('kombi_id', 601)
+                  ->where('kombi_id', 101)
                   ->where('status', 1)
                   ->where('kjur',$prodi_id)
                   ->sum('sub_total');
@@ -143,7 +143,7 @@ class ReportKeuanganUjianMunaqasahModel extends ReportModel
                   ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
                   ->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
                   ->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
-                  ->where('kombi_id', 601)
+                  ->where('kombi_id', 101)
                   ->where('status', 1)
                   ->where('kjur',$prodi_id)
                   ->sum('sub_total');
@@ -198,6 +198,6 @@ class ReportKeuanganUjianMunaqasahModel extends ReportModel
     $sheet->getStyle("D$row_awal:D$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("laporan_ujian_munaqasah_$generate_date.xlsx");
+    return $this->download("laporan_spp_$generate_date.xlsx");
   }    
 }

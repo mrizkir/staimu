@@ -8,13 +8,13 @@ use App\Models\Keuangan\TransaksiModel;
 use App\Models\Keuangan\TransaksiDetailModel;
 use App\Helpers\Helper;
 
-class TransaksiLaporanUjianMunaqasahController extends Controller {  
+class TransaksiLaporanPendaftaranController extends Controller {  
 		/**
 		 * daftar transaksi 
 		 */
 		public function index(Request $request)
 		{
-			$this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');        				
+			$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');        				
 					
 			$this->validate($request, [           
 				'TA'=>'required',				
@@ -43,10 +43,10 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 					foreach ($daftar_prodi as $prodi_id=>$nama_prodi)
 					{
 						$jumlah = \DB::table('pe3_transaksi_detail')
-										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
+										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')																				
 										->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
 										->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
-										->where('kombi_id', 601)
+										->where('kombi_id', 101)
 										->where('status', 1)
 										->where('kjur',$prodi_id)
 										->sum('sub_total');
@@ -68,7 +68,7 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
 										->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
 										->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
-										->where('kombi_id', 601)
+										->where('kombi_id', 101)
 										->where('status', 1)
 										->where('kjur',$prodi_id)
 										->sum('sub_total');
@@ -92,20 +92,20 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 			}
 			
 			return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',  
-                                'transaksi'=>$daftar_transaksi,
-                                'total_keseluruhan'=>$total_keseluruhan,
-                                'message'=>'Fetch data daftar transaksi berhasil.'
-                            ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
+																	'status'=>1,
+																	'pid'=>'fetchdata',  
+																	'transaksi'=>$daftar_transaksi,
+																	'total_keseluruhan'=>$total_keseluruhan,
+																	'message'=>'Fetch data daftar transaksi berhasil.'
+															],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
 		}		
 	/**
 	 * cetak seluruh transaksi spp per prodi dan ta
 	 */
 	public function printtoexcel1 (Request $request)
 	{
-    $this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');
-
+		$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');        				
+		
 		$this->validate($request, [           
 			'TA'=>'required',			
 		]);
@@ -114,7 +114,7 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 			'TA'=>$request->input('TA'),			
 		];
 
-		$report= new \App\Models\Report\ReportKeuanganUjianMunaqasahModel ($data_report);
+		$report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
 		return $report->printtoexcel2();
 	}
 }

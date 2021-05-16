@@ -284,8 +284,8 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
         {
           $jumlah = \DB::table('pe3_transaksi_detail')
                   ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
-                  ->where('ta', $ta)
-                  ->where('bulan',$k)
+                  ->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
+                  ->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
                   ->where('kombi_id', 102)
                   ->where('status', 1)
                   ->where('kjur',$prodi_id)
@@ -316,8 +316,8 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
         {
           $jumlah = \DB::table('pe3_transaksi_detail')
                   ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
-                  ->where('ta', $ta)
-                  ->where('bulan',$k)
+                  ->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
+                  ->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
                   ->where('kombi_id', 102)
                   ->where('status', 1)
                   ->where('kjur',$prodi_id)

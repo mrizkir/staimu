@@ -5,7 +5,7 @@
 				mdi-video-input-component
 			</template>
 			<template v-slot:name>
-				LAPORAN PENERIMAAN UJIAN MUNAQASAH
+				LAPORAN PENERIMAAN PENDAFTARAN MHS BARU
 			</template>
 			<template v-slot:subtitle>TAHUN AKADEMIK {{ tahun_akademik }}</template>
 			<template v-slot:breadcrumbs>
@@ -17,8 +17,8 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman ini digunakan untuk memperoleh laporan penerimaan UJIAN
-					MUNAQASAH mahasiswa baru dan lama.
+					Halaman ini digunakan untuk memperoleh laporan penerimaan PENDAFTARAN
+					mahasiswa baru.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -35,7 +35,7 @@
 						>
 							<div class="v-toolbar__content" style="height: 64px;">
 								<div class="v-toolbar__title">
-									REKAPITULASI PENERIMAAN UJIAN MUNAQASAH
+									REKAPITULASI PENERIMAAN PENDAFTARAN MHS BARU
 								</div>
 								<hr
 									role="separator"
@@ -123,7 +123,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import Filter1 from "@/components/sidebar/FilterMode1";
 	export default {
-		name: "TransaksiLaporanUjianMunaqasah",
+		name: "TransaksiLaporanPendaftaran",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -138,7 +138,7 @@
 					href: "/keuangan",
 				},
 				{
-					text: "LAPORAN PENERIMAAN UJIAN MUNAQASAH",
+					text: "LAPORAN PENERIMAAN PENDAFTARAN MHS BARU",
 					disabled: true,
 					href: "#",
 				},
@@ -187,7 +187,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/keuangan/transaksi-laporanujianmunaqasah",
+						"/keuangan/transaksi-laporanpendaftaran",
 						{
 							TA: this.tahun_akademik,
 						},
@@ -209,7 +209,7 @@
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
-						"/keuangan/transaksi-laporanujianmunaqasah/printtoexcel1",
+						"/keuangan/transaksi-laporanpendaftaran/printtoexcel1",
 						{
 							TA: this.tahun_akademik,
 						},
@@ -224,10 +224,7 @@
 						const url = window.URL.createObjectURL(new Blob([data]));
 						const link = document.createElement("a");
 						link.href = url;
-						link.setAttribute(
-							"download",
-							"ujian_munaqasah_" + Date.now() + ".xlsx"
-						);
+						link.setAttribute("download", "pendaftaran_" + Date.now() + ".xlsx");
 						link.setAttribute("id", "download_laporan");
 						document.body.appendChild(link);
 						link.click();

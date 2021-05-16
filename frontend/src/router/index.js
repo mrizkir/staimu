@@ -531,6 +531,16 @@ const routes = [
 			import("../views/pages/admin/keuangan/KonfirmasiPembayaran.vue"),
 	},
 	{
+		path: "/keuangan/transaksi-laporanpendaftaran",
+		name: "KeuanganTransaksiLaporanPendaftaran",
+		meta: {
+			title: "KEUANGAN - LAPORAN PENERIMAAN PENDAFTARAN",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiLaporanPendaftaran.vue"),
+	},
+	{
 		path: "/keuangan/transaksi-laporandulangmhsbaru",
 		name: "KeuanganTransaksiLaporanDulangMHSBaru",
 		meta: {
