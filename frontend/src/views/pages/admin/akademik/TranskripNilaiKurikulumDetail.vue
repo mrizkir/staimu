@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -35,11 +35,11 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">   
+                <v-col cols="12">
                     <v-card>
                         <v-card-title>
                             DAFTAR NILAI TRANSKRIP
-                            <v-spacer></v-spacer>       
+                            <v-spacer></v-spacer>    
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -56,7 +56,7 @@
                                         <v-icon>mdi-printer</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Cetak Transkrip Satu Kolom</span>   
+                                <span>Cetak Transkrip Satu Kolom</span>
                             </v-tooltip> 
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
@@ -74,16 +74,16 @@
                                         <v-icon>mdi-printer</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Cetak Transkrip Dua Kolom</span>   
+                                <span>Cetak Transkrip Dua Kolom</span>
                             </v-tooltip> 
                         </v-card-title>
                         <v-data-table        
                             dense                        
                             :headers="headers"
-                            :items="datatable"                                
-                            item-key="id"                                                        
+                            :items="datatable"    
+                            item-key="id"                            
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                                                
+                            :hide-default-footer="true"                                    
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"> 
                             <template v-slot:item.actions="{ item }">
@@ -103,10 +103,10 @@
                                             <v-icon>mdi-history</v-icon>
                                         </v-btn> 
                                     </template>
-                                    <span>Histori Nilai</span>   
+                                    <span>Histori Nilai</span>
                                 </v-tooltip> 
-                            </template>                              
-                            <template v-slot:body.append v-if="datatable.length > 0">   
+                            </template>                           
+                            <template v-slot:body.append v-if="datatable.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right" colspan="3">JUMLAH</td>
                                     <td></td> 
@@ -115,7 +115,7 @@
                                     <td>{{totalAM}}</td>
                                     <td>{{totalSKS}}</td>
                                     <td>{{totalM}}</td> 
-                                    <td></td>     
+                                    <td></td>  
                                 </tr>
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right" colspan="3">IPK SEMENTARA</td>
@@ -124,10 +124,10 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>    
-                                    <td></td>    
+                                    <td></td> 
+                                    <td></td> 
                                 </tr>
-                            </template>   
+                            </template>
                             <template v-slot:no-data>
                                 Data matakuliah belum tersedia silahkan tambah
                             </template>
@@ -145,13 +145,13 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">    
+                        :href="$api.url+'/'+file_pdf"> 
                         Download
-                    </v-btn>   
+                    </v-btn>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -184,10 +184,10 @@
                     <v-data-table        
                         dense                        
                         :headers="history_headers"
-                        :items="data_history"                                
-                        item-key="krsmatkul_id"                                                        
+                        :items="data_history"    
+                        item-key="krsmatkul_id"                            
                         :disable-pagination="true"
-                        :hide-default-footer="true"                                                                
+                        :hide-default-footer="true"                                    
                         :loading="datatableLoading"
                         show-expand
                         :expanded.sync="expanded"
@@ -207,7 +207,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialoghistory">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialoghistory">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -252,7 +252,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
     },
     data: () => ({ 
@@ -268,13 +268,13 @@ export default {
         datatable: [], 
         headers: [            
             { text: 'NO', value: 'no', sortable: true, width:50  },
-            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width:350 },       
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, },       
-            { text: 'SMT', value: 'semester', sortable: true, width: 80, },       
-            { text: 'KLP', value: 'group_alias', sortable: true, width: 100, },       
-            { text: 'HM', value: 'HM', sortable: false, width: 100, },       
-            { text: 'AM', value: 'AM', sortable: false, width: 100, },       
-            { text: 'K', value: 'sks', sortable: true, width: 100, },       
+            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width:350 }, 
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, }, 
+            { text: 'SMT', value: 'semester', sortable: true, width: 80, }, 
+            { text: 'KLP', value: 'group_alias', sortable: true, width: 100, }, 
+            { text: 'HM', value: 'HM', sortable: false, width: 100, }, 
+            { text: 'AM', value: 'AM', sortable: false, width: 100, }, 
+            { text: 'K', value: 'sks', sortable: true, width: 100, }, 
             { text: 'M', value: 'M', sortable: false, width: 100 },
             { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],
@@ -292,12 +292,12 @@ export default {
         data_history: [],
         expanded: [],
         history_headers: [            
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: true, width: 80, },      
-            { text: 'NILAI AKHIR', value: 'n_kuan', sortable: false, width: 100, },       
-            { text: 'NILAI MUTU', value: 'n_mutu', sortable: true, width: 100, },       
-            { text: 'TA.SMT', value: 'tasmt', sortable: false, width: 100, },       
-            { text: 'TA.MATKUL', value: 'ta_matkul', sortable: false, width: 100, },      
-            { text: 'DI INPUT OLEH', value: 'username', sortable: false, width: 100, },      
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: true, width: 80, },
+            { text: 'NILAI AKHIR', value: 'n_kuan', sortable: false, width: 100, }, 
+            { text: 'NILAI MUTU', value: 'n_mutu', sortable: true, width: 100, }, 
+            { text: 'TA.SMT', value: 'tasmt', sortable: false, width: 100, }, 
+            { text: 'TA.MATKUL', value: 'ta_matkul', sortable: false, width: 100, },
+            { text: 'DI INPUT OLEH', value: 'username', sortable: false, width: 100, },
         ],
 
         dialoghistory: false,
@@ -321,7 +321,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {          
+            }).then(({ data }) => {        
                 this.data_mhs=data.mahasiswa;
                 this.jumlahMatkul=data.jumlah_matkul;
                 this.totalSKS=data.jumlah_sks;
@@ -339,7 +339,7 @@ export default {
         async viewItem(item)
         {
             this.btnLoading = true;
-            await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history',       
+            await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history', 
                 {
                     user_id: this.data_mhs.user_id,
                 },
@@ -349,7 +349,7 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.data_matkul=data.matakuliah;
                 this.data_history=data.history;
                 this.dialoghistory=true;
@@ -372,14 +372,14 @@ export default {
         async printpdf1()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id,       
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf1/'+this.data_mhs.user_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -390,14 +390,14 @@ export default {
         async printpdf2()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id,       
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+this.data_mhs.user_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;

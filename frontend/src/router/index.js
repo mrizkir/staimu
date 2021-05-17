@@ -572,7 +572,7 @@ const routes = [
 	},
 	{
 		path: "/keuangan/transaksi-laporanujianmunaqasah",
-		name: "KeuanganTransaksiLaporanRegistrasiKRS",
+		name: "KeuanganTransaksiLaporanUjianMunaqasah",
 		meta: {
 			title: "KEUANGAN - LAPORAN PENERIMAAN UJIAN MUNAQASAH",
 			requiresAuth: true,

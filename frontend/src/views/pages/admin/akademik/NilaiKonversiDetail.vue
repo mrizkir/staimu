@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -145,7 +145,7 @@
                                     </v-card>
                                 </v-col>
                                 <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
-                            </v-row>    
+                            </v-row> 
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -184,7 +184,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                class="warning"                                                                
+                                class="warning"                                    
                                 @click="putuskan"
                             >
                                 Putuskan
@@ -209,11 +209,11 @@
                                         v-model="data_mhs"
                                         :items="entries"
                                         :loading="isLoading"
-                                        :search-input.sync="search"     
+                                        :search-input.sync="search"
                                         cache-items                                        
                                         dense                                                                                                                
                                         item-text="nama_mhs_alias"
-                                        item-value="user_id"       
+                                        item-value="user_id"  
                                         hide-no-data                                 
                                         hide-details                                                                              
                                         prepend-icon="mdi-database-search"
@@ -250,7 +250,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!data_mhs"                                
+                                :disabled="!data_mhs"    
                                 @click="pasangkan"
                             >
                                 Pasangkan
@@ -259,7 +259,7 @@
                                 </v-icon>
                             </v-btn>
                             <v-btn
-                                :disabled="!data_mhs"                                
+                                :disabled="!data_mhs"    
                                 @click="clearDataMhs"
                             >
                                 Clear
@@ -275,10 +275,10 @@
                 <v-col cols="12">
                     <v-data-table                            
                         :headers="headers"
-                        :items="datatable"                        
-                        item-key="id"                                                                        
+                        :items="datatable"   
+                        item-key="id"                                            
                         :disable-pagination="true"
-                        :hide-default-footer="true"                        
+                        :hide-default-footer="true"   
                         class="elevation-1"
                         :loading="datatableLoading"
                         loading-text="Loading... Please wait">
@@ -293,21 +293,21 @@
                                 <v-spacer></v-spacer>  
                             </v-toolbar>
                         </template> 
-                        <template v-slot:item.kmatkul_asal="{item}">
+                        <template v-slot:item.kmatkul_asal="{ item }">
                             {{item.kmatkul_asal==null ? 'N.A':item.kmatkul_asal}}
-                        </template>                                    
-                        <template v-slot:item.matkul_asal="{item}">
+                        </template>                                 
+                        <template v-slot:item.matkul_asal="{ item }">
                             {{item.matkul_asal==null ? 'N.A':item.matkul_asal}}
-                        </template>                                    
-                        <template v-slot:item.sks_asal="{item}">
+                        </template>                                 
+                        <template v-slot:item.sks_asal="{ item }">
                             {{item.sks_asal==null ? 'N.A':item.sks_asal}}
-                        </template>                      
-                        <template v-slot:item.n_kual="{item}">
+                        </template>                   
+                        <template v-slot:item.n_kual="{ item }">
                             {{item.n_kual==null ? 'N.A':item.n_kual}}
-                        </template>                                                                                                                          
+                        </template>                                                                                                                       
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                         <template v-slot:body.append v-if="datatable.length > 0">
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="2">TOTAL SKS</td>
@@ -331,13 +331,13 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">    
+                        :href="$api.url+'/'+file_pdf"> 
                         Download
-                    </v-btn>   
+                    </v-btn>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -380,7 +380,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
     },
     data: () => ({ 
@@ -396,12 +396,12 @@ export default {
         headers: [            
             { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },
             { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },
-            { text: 'SKS', value: 'sks', sortable: false, width:70 },       
-            { text: 'SMT', value: 'semester', sortable: true, width:70, },       
-            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 },       
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width:170 },       
-            { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width:70},       
-            { text: 'NILAI', value: 'n_kual', sortable: false, width:70},      
+            { text: 'SKS', value: 'sks', sortable: false, width:70 }, 
+            { text: 'SMT', value: 'semester', sortable: true, width:70, }, 
+            { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 }, 
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width:170 }, 
+            { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width:70}, 
+            { text: 'NILAI', value: 'n_kual', sortable: false, width:70},
         ],
 
         dialogprintpdf: false,
@@ -438,12 +438,12 @@ export default {
         initialize: async function() 
         { 
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/konversi/'+this.nilai_konversi_id,   
+            await this.$ajax.get('/akademik/nilai/konversi/'+this.nilai_konversi_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.nilai_konversi;
                 this.data_konversi = data.data_konversi;
                 this.datatableLoading = false;
@@ -476,17 +476,17 @@ export default {
                 await this.$ajax.post('/akademik/nilai/konversi/'+this.nilai_konversi_id,
                     {
                         _method: "put",
-                        nim_asal: this.data_konversi.nim_asal,      
-                        nama_mhs: this.data_konversi.nama_mhs,      
+                        nim_asal: this.data_konversi.nim_asal,
+                        nama_mhs: this.data_konversi.nama_mhs,
                         alamat: this.data_konversi.alamat, 
-                        no_telp: this.data_konversi.no_telp,                  
-                        email: this.data_konversi.email,                  
-                        kode_jenjang: this.data_konversi.kode_jenjang,                  
-                        kode_pt_asal: this.data_konversi.kode_pt_asal,                                                                       
-                        nama_pt_asal: this.data_konversi.nama_pt_asal,                                                                       
-                        kode_ps_asal: this.data_konversi.kode_ps_asal,                                                                       
-                        nama_ps_asal: this.data_konversi.nama_ps_asal,                                                                       
-                        tahun: this.tahun_pendaftaran,                                                                       
+                        no_telp: this.data_konversi.no_telp,
+                        email: this.data_konversi.email,
+                        kode_jenjang: this.data_konversi.kode_jenjang,
+                        kode_pt_asal: this.data_konversi.kode_pt_asal,               
+                        nama_pt_asal: this.data_konversi.nama_pt_asal,               
+                        kode_ps_asal: this.data_konversi.kode_ps_asal,               
+                        nama_ps_asal: this.data_konversi.nama_ps_asal,               
+                        tahun: this.tahun_pendaftaran,               
                         kjur: this.prodi_id,
                         daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
                     },
@@ -526,14 +526,14 @@ export default {
         async printpdf2(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,       
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -551,7 +551,7 @@ export default {
         async pasangkan()
         {
             this.btnLoading = true;
-            await this.$ajax.post('/akademik/nilai/konversi/plugtomhs',       
+            await this.$ajax.post('/akademik/nilai/konversi/plugtomhs', 
                 {
                     nilai_konversi_id: this.nilai_konversi_id,
                     user_id: this.data_mhs.user_id
@@ -562,7 +562,7 @@ export default {
                     },
                     
                 }
-            ).then(() => {          
+            ).then(() => {        
                 this.$router.go();
             }).catch(() => {
                 this.btnLoading = false;
@@ -576,7 +576,7 @@ export default {
                     this.btnLoading = true;
                     this.$ajax.post('/akademik/nilai/konversi/unplugtomhs',
                         {
-                            nilai_konversi_id: this.nilai_konversi_id,      
+                            nilai_konversi_id: this.nilai_konversi_id,
                         },
                         {
                             headers: {
@@ -647,7 +647,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {                     
+                    }).then(({ data }) => {                   
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;

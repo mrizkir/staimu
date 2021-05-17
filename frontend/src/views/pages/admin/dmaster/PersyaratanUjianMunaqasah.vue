@@ -17,14 +17,14 @@
 						<template v-slot:desc>
 							<v-alert                                        
 								color="cyan"
-								border="left"                    
+								border="left"  
 								colored-border
 								type="info"
 							>
 									Halaman untuk mengelola persyaratan Ujian Munaqasah setiap tahun pendaftaran.
 							</v-alert>
 						</template>
-					</ModuleHeader>   
+					</ModuleHeader>
 					<v-container fluid> 
 						<v-row class="mb-4" no-gutters>
 								<v-col cols="12">
@@ -47,7 +47,7 @@
 												:headers="headers"
 												:items="datatable"
 												:search="search"
-												item-key="id"                        
+												item-key="id"   
 												show-expand
 												:expanded.sync="expanded"
 												:single-expand="true"
@@ -73,7 +73,7 @@
 																						<v-card-title>
 																								<span class="headline">UBAH PERSYARATAN UJIAN MUNAQASAH</span>
 																						</v-card-title>
-																						<v-card-text>                                                          
+																						<v-card-text>                                                       
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -161,7 +161,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                                                                                     
+																						</v-row>                                                                                                  
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>

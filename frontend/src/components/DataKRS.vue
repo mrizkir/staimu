@@ -112,7 +112,7 @@ export default {
     },
     props: {
         datakrs: {
-            type: Object,   
+            type: Object,
             required: true
         },
         totalmatkul: {

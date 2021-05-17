@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -42,7 +42,7 @@
                                 </v-alert>
                                 <v-select
                                     v-model="ta_matkul"
-                                    :items="daftar_ta"                                    
+                                    :items="daftar_ta"        
                                     label="TAHUN MATAKULIAH"
                                     :rules="rule_tamatkul"
                                     outlined/>  
@@ -58,14 +58,14 @@
                                     :headers="headers"
                                     :items="datatable"
                                     :search="search"
-                                    item-key="id"                        
+                                    item-key="id"   
                                     show-expand
                                     :expanded.sync="expanded"
                                     :single-expand="true"
                                     show-select
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
-                                    @click:row="dataTableRowClicked"                                    
+                                    @click:row="dataTableRowClicked"        
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
 
@@ -241,7 +241,7 @@
                         </v-card>
                     </v-form>
                 </v-col>
-            </v-row>   
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>
@@ -316,7 +316,7 @@ export default {
         formdata: [],
         daftar_matkul_selected: [],
         rule_tamatkul: [
-            value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",     
+            value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",  
         ]        
 
     }),
@@ -346,7 +346,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.matakuliah;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -373,15 +373,15 @@ export default {
                     {
                         prodi_id: this.prodi_id,
                         ta: this.tahun_akademik,
-                        semester_akademik: this.semester_akademik,    
-                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),                              
+                        semester_akademik: this.semester_akademik, 
+                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)), 
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                     this.closedialogfrm();
                 }).catch(() => {
@@ -397,8 +397,8 @@ export default {
                 },300
             );
         },
-        closedialogfrm() {         
-            setTimeout(() => {  
+        closedialogfrm() {       
+            setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');
                 },300

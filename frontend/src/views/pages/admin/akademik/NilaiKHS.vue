@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -58,10 +58,10 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
-                        :single-expand="true"                        
+                        :single-expand="true"   
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
@@ -85,18 +85,18 @@
                                         <v-btn
                                             color="green"
                                             text
-                                            :href="$api.url+'/'+file_pdf">    
+                                            :href="$api.url+'/'+file_pdf"> 
                                             Download
-                                        </v-btn>   
+                                        </v-btn>
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -109,7 +109,7 @@
                                 <v-icon>
                                     mdi-printer
                                 </v-icon>
-                            </v-btn>   
+                            </v-btn>
                             <v-btn
                                 small
                                 icon
@@ -117,8 +117,8 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>       
-                        </template>   
+                            </v-btn>    
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -130,7 +130,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -207,9 +207,9 @@ export default {
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },
-            { text: 'IPS', value: 'ips', sortable: true, width:50},       
-            { text: 'IPK', value: 'ipk', sortable: true, width:50},       
-            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },      
+            { text: 'IPS', value: 'ips', sortable: true, width:50}, 
+            { text: 'IPK', value: 'ipk', sortable: true, width:50}, 
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -241,7 +241,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {       
                 this.datatable = data.daftar_khs;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -261,7 +261,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {      
+            }).then(({ data }) => {    
                 this.datatable = data.daftar_khs;
                 this.datatableLoading = false;
                 this.firstloading = false;   
@@ -284,14 +284,14 @@ export default {
         async printpdf(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+item.id,       
+            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+item.id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -338,7 +338,7 @@ export default {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
                         this.datatableLoading = true; 
-                        await this.$ajax.post('/akademik/nilai/khs/',   
+                        await this.$ajax.post('/akademik/nilai/khs/',
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_akademik,
@@ -349,13 +349,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.daftar_khs;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }

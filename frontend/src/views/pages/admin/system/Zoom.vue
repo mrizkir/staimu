@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -67,8 +67,8 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="600px" persistent>
-                                    <template v-slot:activator="{ on }">    
-                                        <v-btn color="primary" icon outlined small class="ma-2"  v-on="on">
+                                    <template v-slot:activator="{ on }"> 
+                                        <v-btn color="primary" icon outlined small class="ma-2"v-on="on">
                                             <v-icon>mdi-plus</v-icon>
                                         </v-btn>
                                     </template>
@@ -107,7 +107,7 @@
                                                     label="IM TOKEN"
                                                     outlined
                                                     :rules="rule_im_token">
-                                                </v-text-field>   
+                                                </v-text-field>
                                                 <v-text-field 
                                                     v-model="formdata.jwt_token" 
                                                     label="JWT TOKEN"
@@ -394,7 +394,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.zoom;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -419,7 +419,7 @@ export default {
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {  
+            // }).then(({ data }) => {
                                            
             // }); 
         }, 
@@ -437,9 +437,9 @@ export default {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            email: this.formdata.email,      
+                            email: this.formdata.email,
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,      
+                            api_secret: this.formdata.api_secret,
                             im_token: this.formdata.im_token, 
                         },
                         {
@@ -458,10 +458,10 @@ export default {
                 } else {
                     await this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/store',
                         {
-                            email: this.formdata.email,      
+                            email: this.formdata.email,
                             api_key: this.formdata.api_key, 
-                            api_secret: this.formdata.api_secret,      
-                            im_token: this.formdata.im_token,                 
+                            api_secret: this.formdata.api_secret,
+                            im_token: this.formdata.im_token,  
                         },
                         {
                             headers: {

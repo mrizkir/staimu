@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -77,7 +77,7 @@
                                     <v-icon>
                                         mdi-printer
                                     </v-icon>
-                                </v-btn>      
+                                </v-btn>   
                                 <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">
                                     <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />  
                                 </v-dialog>
@@ -90,9 +90,9 @@
                                     :icon="badgeIcon(item)"
                                     overlap
                                 >
-                                    <v-avatar size="30">    
-                                        <v-img :src="$api.url+'/'+item.foto" />   
-                                    </v-avatar>                                                      
+                                    <v-avatar size="30"> 
+                                        <v-img :src="$api.url+'/'+item.foto" />
+                                    </v-avatar>                                                   
                             </v-badge>
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -156,7 +156,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()   
     },
     data: () => ({
@@ -224,7 +224,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {  
+                    }).then(({ data }) => {
                         this.datatable = data.pmb;
                         this.datatableLoading = false;
                     });
@@ -262,10 +262,10 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbkelulusan/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,                          
+                    TA: this.tahun_pendaftaran,
                     prodi_id: this.prodi_id,
-                    nama_prodi: this.nama_prodi,        
-                    filter_status: this.filter_status,        
+                    nama_prodi: this.nama_prodi,  
+                    filter_status: this.filter_status,  
                 },
                 {
                     headers: {

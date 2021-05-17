@@ -282,9 +282,7 @@
 				<v-subheader>LAPORAN PENERIMAAN</v-subheader>
 				<v-list-item
 					link
-					v-if="
-						CAN_ACCESS('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE')
-					"
+					v-if="CAN_ACCESS('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE')"
 					to="/keuangan/transaksi-laporanpendaftaran"
 				>
 					<v-list-item-icon class="mr-2">

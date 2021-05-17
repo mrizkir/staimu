@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -74,10 +74,10 @@
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.nmatkul="{item}">
+                        <template v-slot:item.nmatkul="{ item }">
                             {{item.nmatkul}} - {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
-                        <template v-slot:item.jam_masuk="{item}">
+                        <template v-slot:item.jam_masuk="{ item }">
                             {{item.jam_masuk}}-{{item.jam_keluar}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -93,7 +93,7 @@
                             <span v-else>
                                 N.A
                             </span>
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -105,7 +105,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -161,11 +161,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },       
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  }, 
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
-            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },       
-            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},       
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},       
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 }, 
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100}, 
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100}, 
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "", 
@@ -192,7 +192,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -231,7 +231,7 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",   
+            CAN_ACCESS: "can",
         }),
     },
     components: {

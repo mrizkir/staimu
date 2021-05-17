@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -45,11 +45,11 @@
                                         v-model="data_mhs"
                                         :items="entries"
                                         :loading="isLoading"
-                                        :search-input.sync="search"     
+                                        :search-input.sync="search"
                                         cache-items                                        
                                         dense                                                                                                                
                                         item-text="nama_mhs_alias"
-                                        item-value="user_id"       
+                                        item-value="user_id"  
                                         hide-no-data                                 
                                         hide-details                                                                              
                                         prepend-icon="mdi-database-search"
@@ -86,7 +86,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!data_mhs"                                
+                                :disabled="!data_mhs"    
                                 @click="goProfilMhs"
                             >
                                 Detail
@@ -95,7 +95,7 @@
                                 </v-icon>
                             </v-btn>
                             <v-btn
-                                :disabled="!data_mhs"                                
+                                :disabled="!data_mhs"    
                                 @click="clearDataMhs"
                             >
                                 Clear
@@ -223,7 +223,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {                     
+                    }).then(({ data }) => {                   
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;

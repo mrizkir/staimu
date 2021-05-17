@@ -143,7 +143,7 @@
                             CACHE
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>   
+                </v-list-item>
                 <v-subheader>BLOG</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SYSTEM-SETTING-VARIABLES')" to="/system-setting/blog-infokampus">
                     <v-list-item-icon class="mr-2">
@@ -154,7 +154,7 @@
                             INFO KAMPUS
                         </v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>   
+                </v-list-item>
                 <v-subheader>PLUGIN</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('PLUGINS-H2H-ZOOMAPI_BROWSE')" to="/system-setting/zoom">
                     <v-list-item-icon class="mr-2">
@@ -269,7 +269,7 @@ export default {
                 {
                     setTimeout(() => { 
                         this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1; 
-					},1000);
+					}, 1000);
                 }
                 else
                 {

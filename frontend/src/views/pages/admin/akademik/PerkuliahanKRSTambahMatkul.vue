@@ -20,18 +20,18 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk melihat detail krs mahasiswa 
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid v-if="Object.keys(datakrs).length">   
+        </ModuleHeader>
+        <v-container fluid v-if="Object.keys(datakrs).length">
             <v-row>
                 <v-col cols="12">
-                    <DataKRS :datakrs="datakrs" :url="'/akademik/perkuliahan/krs/'+datakrs.id+'/detail'" :totalmatkul="totalMatkul" :totalsks="totalSKS" />   
+                    <DataKRS :datakrs="datakrs" :url="'/akademik/perkuliahan/krs/'+datakrs.id+'/detail'" :totalmatkul="totalMatkul" :totalsks="totalSKS" />
                 </v-col>
             </v-row>
             <v-row>
@@ -40,17 +40,17 @@
                         <v-card>
                             <v-card-title>
                                 DAFTAR PENYELENGGARAAN MATAKULIAH
-                                <v-spacer></v-spacer>    
+                                <v-spacer></v-spacer> 
                             </v-card-title>
                             <v-card-text>
                                 <v-data-table   
-                                    v-model="daftar_matkul_selected"                             
+                                    v-model="daftar_matkul_selected" 
                                     :headers="headers"
-                                    :items="datatable"                                
-                                    item-key="id"                
+                                    :items="datatable"    
+                                    item-key="id"
                                     show-select                                        
                                     :disable-pagination="true"
-                                    :hide-default-footer="true"                                                                
+                                    :hide-default-footer="true"                                    
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
                                     <template v-slot:no-data>
@@ -148,9 +148,9 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width: 120 },       
-            { text: 'SMT', value: 'semester', sortable: false, width: 120 },      
-            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width: 120 },      
+            { text: 'SKS', value: 'sks', sortable: false, width: 120 }, 
+            { text: 'SMT', value: 'semester', sortable: false, width: 120 },
+            { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: false, width: 120 },
         ],
     }),
     methods: {
@@ -161,7 +161,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datakrs=data.krs;
                 if (Object.keys(this.datakrs).length)
                 {
@@ -187,7 +187,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                }).then(({ data }) => {  
+                }).then(({ data }) => {
                     this.datatable = data.penyelenggaraan;
                     this.datatableLoading = false;
                 }).catch(() => {
@@ -210,7 +210,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                     this.closedialogfrm();
                 }).catch(() => {
@@ -218,8 +218,8 @@ export default {
                 });
             }
         },
-        closedialogfrm() {         
-            setTimeout(() => {   
+        closedialogfrm() {       
+            setTimeout(() => { 
                 this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
                 },300
             );

@@ -256,7 +256,7 @@
 					href: "#",
 				},
 			];    
-			this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];    
+			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];    
 			this.semester_pendaftaran = this.$store.getters['uiadmin/getSemesterPendaftaran'];
 			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);		
 		},

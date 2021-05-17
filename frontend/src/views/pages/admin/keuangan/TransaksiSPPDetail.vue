@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -28,8 +28,8 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid v-if="data_transaksi">   
-            <v-row>   
+        <v-container fluid v-if="data_transaksi">
+            <v-row>
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
@@ -126,10 +126,10 @@
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-data-table
                             :headers="headers"
-                            :items="item_selected"                                                                       
+                            :items="item_selected"                                           
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                                                
-                            item-key="id"                                                   
+                            :hide-default-footer="true"                                    
+                            item-key="id"                       
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait">
@@ -141,16 +141,16 @@
                                         inset
                                         vertical
                                     ></v-divider>
-                                    <v-spacer></v-spacer>    
+                                    <v-spacer></v-spacer> 
                                     <v-btn color="primary" icon outlined small class="ma-2" :to="{path: '/keuangan/transaksi-spp/tambah/'+transaksi_id}" :disabled="data_transaksi.status == 1 || data_transaksi.status==2">
                                         <v-icon>mdi-plus</v-icon>
-                                    </v-btn>    
+                                    </v-btn> 
                                 </v-toolbar>
-                            </template>   
+                            </template>
                             <template v-slot:item.biaya_kombi="{ item }">  
                                 {{item.biaya_kombi|formatUang}}
                             </template>
-                            <template v-slot:item.actions="{ item }">     
+                            <template v-slot:item.actions="{ item }">  
                                 <v-icon
                                     small
                                     
@@ -164,10 +164,10 @@
                                     <td>JUMLAH</td>
                                     <td>{{totalBulan}} Bulan</td> 
                                     <td></td>
-                                    <td>{{totalBiayaKombi|formatUang}}</td>   
-                                    <td></td>     
-                                </tr>    
-                            </template>   
+                                    <td>{{totalBiayaKombi|formatUang}}</td>
+                                    <td></td>  
+                                </tr> 
+                            </template>
                             <template v-slot:no-data>
                                 daftar bulan yang akan dibayar belum tersedia; silahkan pilih bulan di bawah ini.
                             </template> 
@@ -219,7 +219,7 @@ export default {
 
         breadcrumbs: [],
         tahun_akademik: 0,
-        btnLoading: false,     
+        btnLoading: false,  
         //tables
         datatableLoading: false,
         datatable: [], 
@@ -229,7 +229,7 @@ export default {
             { text: 'TAHUN', value: 'tahun', sortable: false }, 
             { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false }, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],     
+        ],  
         //form
         form_valid: true  
     }),
@@ -246,7 +246,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.data_transaksi=data.transaksi;    
                 this.item_selected = data.item_selected;
                 this.datatableLoading = false;

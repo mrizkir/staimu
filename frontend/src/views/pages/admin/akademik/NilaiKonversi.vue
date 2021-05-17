@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -84,7 +84,7 @@
                                 </v-btn>  
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.nim="{item}">
+                        <template v-slot:item.nim="{ item }">
                             {{item.nim == null ?'N.A':item.nim}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -103,7 +103,7 @@
                                         <v-icon>mdi-eye</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Detail Konversi Nilai</span>   
+                                <span>Detail Konversi Nilai</span>
                             </v-tooltip> 
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
@@ -120,8 +120,8 @@
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Ubah Konversi Nilai</span>   
-                            </v-tooltip>     
+                                <span>Ubah Konversi Nilai</span>
+                            </v-tooltip>  
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -137,7 +137,7 @@
                                         <v-icon>mdi-printer</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Cetak Konversi Nilai</span>   
+                                <span>Cetak Konversi Nilai</span>
                             </v-tooltip>
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
@@ -154,9 +154,9 @@
                                         <v-icon>mdi-delete</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Hapus Konversi Nilai</span>   
+                                <span>Hapus Konversi Nilai</span>
                             </v-tooltip>  
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -168,7 +168,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -182,13 +182,13 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">    
+                        :href="$api.url+'/'+file_pdf"> 
                         Download
-                    </v-btn>   
+                    </v-btn>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -226,7 +226,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
     },
     data: () => ({ 
@@ -243,11 +243,11 @@ export default {
         headers: [            
             { text: 'NIM', value: 'nim_asal', sortable: true, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },
-            { text: 'ALAMAT', value: 'alamat', sortable: true, width: 200 },       
-            { text: 'NO. TELP', value: 'no_telp', sortable: true, width: 120, },       
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },       
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },       
-            { text: 'NIM SISTEM', value: 'nim', sortable: true, width: 100, },       
+            { text: 'ALAMAT', value: 'alamat', sortable: true, width: 200 }, 
+            { text: 'NO. TELP', value: 'no_telp', sortable: true, width: 120, }, 
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, }, 
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, }, 
+            { text: 'NIM SISTEM', value: 'nim', sortable: true, width: 100, }, 
             { text: "AKSI", value: "actions", sortable: false, width:150 },
         ],
         search: "", 
@@ -276,7 +276,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -331,14 +331,14 @@ export default {
         async printpdf1(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id,       
+            await this.$ajax.get('/akademik/nilai/konversi/printpdf1/'+item.id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;

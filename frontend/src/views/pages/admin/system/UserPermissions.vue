@@ -132,7 +132,7 @@
                             show-select
                             class="elevation-1"
                         >
-                        <template v-slot:item.actions="{ item }">    
+                        <template v-slot:item.actions="{ item }"> 
                             <v-icon
                                 small
                                 
@@ -187,7 +187,7 @@ export default {
         permissions_selected: [],
 
     }),
-    props: {    
+    props: {  
         user: {
             type: Object,
             required: true
@@ -199,7 +199,7 @@ export default {
     methods: {
         initialize()
         {
-            this.$ajax.get('/system/users/'+this.user.id+'/roles',       
+            this.$ajax.get('/system/users/'+this.user.id+'/roles', 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]

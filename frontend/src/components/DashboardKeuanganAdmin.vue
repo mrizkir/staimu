@@ -87,23 +87,23 @@
                         <v-data-table 
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"
-                            :dense="true"                                                  
+                            :dense="true"                      
                             :disable-pagination="true"
                             :hide-default-footer="true"
                             :headers="headers"
                             :items="kombi_ganjil_paid"> 
-                            <template v-slot:item.jumlah="{ item }">    
+                            <template v-slot:item.jumlah="{ item }"> 
                                 {{item.jumlah|formatUang }}
                             </template>
                             <template v-slot:body.append v-if="kombi_ganjil_paid.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right">TOTAL</td>
-                                    <td class="text-right">{{totalKombiGanjilPaid|formatUang}}</td>                                    
+                                    <td class="text-right">{{totalKombiGanjilPaid|formatUang}}</td>                                 
                                 </tr>
                             </template>
-                            <template v-slot:no-data>    
+                            <template v-slot:no-data> 
                                 belum ada transaksi dengan status PAID.
-                            </template>   
+                            </template>
                         </v-data-table>
                     </v-card-text>
                 </v-card>
@@ -120,24 +120,24 @@
                     <v-card-text>
                         <v-data-table       
                             :loading="datatableLoading"
-                            loading-text="Loading... Please wait"      
-                            :dense="true"                   
+                            loading-text="Loading... Please wait" 
+                            :dense="true" 
                             :disable-pagination="true"
                             :hide-default-footer="true"
                             :headers="headers"
                             :items="kombi_genap_paid"> 
-                            <template v-slot:item.jumlah="{ item }">    
+                            <template v-slot:item.jumlah="{ item }"> 
                                 {{item.jumlah|formatUang }}
                             </template>
                             <template v-slot:body.append v-if="kombi_genap_paid.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right">TOTAL</td>
-                                    <td class="text-right">{{totalKombiGenapPaid|formatUang}}</td>                                    
+                                    <td class="text-right">{{totalKombiGenapPaid|formatUang}}</td>                                 
                                 </tr>
                             </template>
-                            <template v-slot:no-data>    
+                            <template v-slot:no-data> 
                                 belum ada transaksi dengan status PAID.
-                            </template>   
+                            </template>
                         </v-data-table>
                     </v-card-text>
                 </v-card>
@@ -188,7 +188,7 @@ export default {
             this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/keuangan',
             {
-                TA: this.ta,       
+                TA: this.ta, 
             },
             {
                 headers: {

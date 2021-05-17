@@ -17,20 +17,20 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                         berisi informasi profile user.
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container fluid>
             <v-row class="mb-4">
                 <v-col cols="12">
                     <v-card color="grey lighten-4">
                         <v-toolbar elevation="2"> 
-                            <v-toolbar-title>DATA USER</v-toolbar-title>            
+                            <v-toolbar-title>DATA USER</v-toolbar-title>         
                         </v-toolbar>
                         <v-card-text>
                             <v-row>
@@ -247,13 +247,13 @@ export default {
             formdata: {
                 id: 0,  
                 username: '',
-                password: '',       
+                password: '', 
                 name: '',  
                 email: '',  
                 nomor_hp: '',  
                 theme: '',  
                 foto: '',
-                active: '',                                                         
+                active: '', 
                 default_role: '',  
                 locked: '',  
                 created_at: '',  
@@ -262,13 +262,13 @@ export default {
             formdefault: {
                 id: 0,  
                 username: '',
-                password: '',       
+                password: '', 
                 name: '',  
                 email: '',  
                 nomor_hp: '',  
                 theme: '',  
                 foto: '',
-                active: '',                                                         
+                active: '', 
                 default_role: '',  
                 locked: '',  
                 created_at: '',  
@@ -302,14 +302,14 @@ export default {
                 this.$ajax.post('/system/users/updatepassword/'+this.$store.getters['auth/AttributeUser']('id'),
                     {
                         _method: 'PUT',  
-                        password: this.formdata.password,     
+                        password: this.formdata.password,  
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(({ data }) => {                                          
+                ).then(({ data }) => {                                        
                     this.$refs.frmdata.reset(); 
                     this.formdata.foto=data.foto;
                     this.formdata=this.formdefault; 
@@ -351,7 +351,7 @@ export default {
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(({ data }) => {       
+                    ).then(({ data }) => {     
                         this.btnLoading = false;
                         this.$store.dispatch('updateFoto',data.user.foto);
                     }).catch(() => {
@@ -367,10 +367,10 @@ export default {
             await this.$ajax.post('/setting/users/resetfoto/'+this.$store.getters.User.id,{},
                 {
                     headers: {
-                        Authorization: this.$store.getters["auth/Token"],        
+                        Authorization: this.$store.getters["auth/Token"],  
                     }
                 }
-            ).then(({ data }) => {       
+            ).then(({ data }) => {     
                 this.btnLoading = false;
                 this.$store.dispatch('updateFoto',data.user.foto);
             }).catch(() => {
@@ -382,10 +382,10 @@ export default {
             await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),
                 {
                     headers: {
-                        Authorization: this.$store.getters["auth/Token"],        
+                        Authorization: this.$store.getters["auth/Token"],  
                     }
                 }
-            ).then(({ data }) => {       
+            ).then(({ data }) => {     
                 this.data_mhs=data.mahasiswa; 
             })
         }

@@ -20,14 +20,14 @@
 						<template v-slot:desc>
 							<v-alert                                        
 								color="cyan"
-								border="left"                    
+								border="left"  
 								colored-border
 								type="info"
 							>
 									Halaman untuk mengelola persyaratan PMB setiap tahun pendaftaran.
 							</v-alert>
 						</template>
-					</ModuleHeader>   
+					</ModuleHeader>
 					<v-container fluid> 
 						<v-row class="mb-4" no-gutters>
 								<v-col cols="12">
@@ -50,7 +50,7 @@
 												:headers="headers"
 												:items="datatable"
 												:search="search"
-												item-key="id"                        
+												item-key="id"   
 												show-expand
 												:expanded.sync="expanded"
 												:single-expand="true"
@@ -75,7 +75,7 @@
 																		color="primary" 
 																		dark 
 																		class="mb-2" 
-																		@click.stop="tambahItem"                                    
+																		@click.stop="tambahItem"        
 																		v-if="$store.getters['auth/can']('DMASTER-PERSYARATAN-PMB_STORE')">
 																		TAMBAH
 																</v-btn>
@@ -85,7 +85,7 @@
 																						<v-card-title>
 																								<span class="headline">{{ formTitle }}</span>
 																						</v-card-title>
-																						<v-card-text>                                                          
+																						<v-card-text>                                                       
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -173,7 +173,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                                                                                     
+																						</v-row>                                                                                                  
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>
@@ -187,7 +187,7 @@
 																						<v-card-title>
 																								<span class="headline">SALIN PERSYARATAN PMB</span>
 																						</v-card-title>
-																						<v-card-text>   
+																						<v-card-text>
 																								<v-alert
 																										class="info"
 																										dark>
@@ -195,7 +195,7 @@
 																								</v-alert>
 																								<v-select
 																										v-model="dari_tahun_pendaftaran"
-																										:items="daftar_ta"                                                    
+																										:items="daftar_ta"                        
 																										label="TAHUN PENDAFTARAN"
 																										:rules="rule_dari_tahun_pendaftaran"
 																										outlined/>  
@@ -354,7 +354,7 @@
 								headers: {
 										Authorization: this.TOKEN
 								}
-						}).then(({ data }) => {  
+						}).then(({ data }) => {
 								this.datatable = data.persyaratan;
 								this.datatableLoading = false;
 						}).catch(() => {
@@ -506,14 +506,14 @@
 				},
 				closedialogfrm() {
 						this.dialogfrm = false; 
-						setTimeout(() => {          
+						setTimeout(() => {        
 								this.$refs.frmdata.resetValidation(); 
 								this.formdata = Object.assign({}, this.formdefault);
 								this.editedIndex = -1
 								},300
 						);
 				},
-				closedialogsalinpersyaratan() {   
+				closedialogsalinpersyaratan() { 
 						this.dialogcopypersyaratan = false; 
 						setTimeout(() => { 
 								this.$refs.frmdialogcopypersyaratan.reset(); 

@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -98,12 +98,12 @@
                                                 </v-text-field> 
                                                 <v-select
                                                     v-model="formdata.semester_akademik"
-                                                    :items="daftar_semester"                                    
-                                                    label="TRANSAKSI UNTUK SEMESTER"                                                                                                
+                                                    :items="daftar_semester"        
+                                                    label="TRANSAKSI UNTUK SEMESTER"                                                                    
                                                     :rules="rule_semester"
                                                     item-text="text"
                                                     item-value="id"
-                                                    outlined/>   
+                                                    outlined/>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -140,26 +140,26 @@
                                 <td class="text-right">{{ totaltransaksi_paid | formatUang }}</td> 
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
                                 <td class="text-right">{{ totaltransaksi_unpaid | formatUang }}</td> 
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
                                 <td class="text-right">{{ totaltransaksi_canceled | formatUang }}</td> 
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
                                 <td class="text-right">{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
                                 <td></td>
                                 <td></td>
-                            </tr>    
-                        </template>   
+                            </tr> 
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
@@ -299,7 +299,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true; 
-            await this.$ajax.post('/keuangan/transaksi-kkn',   
+            await this.$ajax.post('/keuangan/transaksi-kkn',
             {
                 TA: this.tahun_akademik,
                 SEMESTER_AKADEMIK: this.semester_akademik,
@@ -309,7 +309,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
             });
@@ -348,8 +348,8 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-kkn/store',
                     {
                         nim: this.formdata.nim, 
-                        semester_akademik: this.formdata.semester_akademik,                                      
-                        TA: this.tahun_akademik,               
+                        semester_akademik: this.formdata.semester_akademik,  
+                        TA: this.tahun_akademik,
                     },
                     {
                         headers: {
@@ -469,7 +469,7 @@ export default {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
                         this.datatableLoading = true; 
-                        await this.$ajax.post('/keuangan/transaksi-kkn',   
+                        await this.$ajax.post('/keuangan/transaksi-kkn',
                         {
                             TA: this.tahun_akademik,
                             SEMESTER_AKADEMIK: this.semester_akademik,
@@ -480,13 +480,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.transaksi;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }

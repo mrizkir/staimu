@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -28,8 +28,8 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid>   
-            <v-row class="mb-4">   
+        <v-container fluid>
+            <v-row class="mb-4">
                 <v-col cols="12">
                     <DataMatakuliahPenyelenggaraan :datamatkul="data_matkul"></DataMatakuliahPenyelenggaraan>
                 </v-col>
@@ -50,11 +50,11 @@
                                     item-text="nama_dosen"
                                     item-value="user_id"
                                     :rules="rule_dosen"
-                                    outlined/>   
+                                    outlined/>
                                 <v-switch
                                     v-model="formdata.is_ketua"
                                     label="SEBAGAI KETUA GROUP DOSEN PENGAMPU">
-                                </v-switch>                                  
+                                </v-switch>                               
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -76,7 +76,7 @@
                         </v-card>
                     </v-form>
                 </v-col>
-                <v-col cols="12">   
+                <v-col cols="12">
                     <v-card>
                         <v-card-title>
                             DAFTAR DOSEN PENGAMPU
@@ -84,10 +84,10 @@
                         <v-card-text>
                             <v-data-table                                
                                 :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
+                                :items="datatable"    
+                                item-key="id"                            
                                 :disable-pagination="true"
-                                :hide-default-footer="true"                                
+                                :hide-default-footer="true"    
                                 class="elevation-1"
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait">
@@ -108,7 +108,7 @@
                                         <v-icon>
                                             mdi-delete
                                         </v-icon>
-                                    </v-btn>   
+                                    </v-btn>
                                 </template>
                                 <template v-slot:no-data>
                                     Data dosen pengampu penyelenggaraan matakuliah ini belum tersedia
@@ -158,7 +158,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA']; 
+        this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"]; 
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.formdata.idpenyelenggaraan=this.$route.params.idpenyelenggaraan;
@@ -186,8 +186,8 @@ export default {
         headers: [
             { text: 'NIDN', value: 'nidn', sortable: false, width: 120  },
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false },
-            { text: 'KETUA', value: 'is_ketua', sortable: false, width: 120 },       
-            { text: "AKSI", value: "actions", sortable: false, width: 120 },       
+            { text: 'KETUA', value: 'is_ketua', sortable: false, width: 120 }, 
+            { text: "AKSI", value: "actions", sortable: false, width: 120 }, 
         ],
         
         //formdata
@@ -213,7 +213,7 @@ export default {
     methods: {
         async initialize()
         {
-            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',   
+            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
                 idpenyelenggaraan: this.formdata.idpenyelenggaraan,
                 pid: 'terdaftar'
@@ -222,24 +222,24 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.datatable = data.dosen;
             })  
         },
         async fetchMatkul ()
         {
-            await this.$ajax.get('/akademik/perkuliahan/penyelenggaraanmatakuliah/'+this.formdata.idpenyelenggaraan,   
+            await this.$ajax.get('/akademik/perkuliahan/penyelenggaraanmatakuliah/'+this.formdata.idpenyelenggaraan,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.data_matkul = data.penyelenggaraan;
             })  
         },
         async fetchDosenPengampu ()
         {
-            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',   
+            await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
                 idpenyelenggaraan: this.formdata.idpenyelenggaraan,
                 pid: 'belumterdaftar'
@@ -248,7 +248,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.daftar_dosen = data.dosen;
             })  
         },
@@ -259,8 +259,8 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/storedosenpengampu',
                     {
                         penyelenggaraan_id: this.formdata.idpenyelenggaraan, 
-                        dosen_id: this.formdata.dosen_id,              
-                        is_ketua: this.formdata.is_ketua,                                                                                         
+                        dosen_id: this.formdata.dosen_id,
+                        is_ketua: this.formdata.is_ketua,                                 
                     },
                     {
                         headers: {
@@ -309,8 +309,8 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/'+item.id,
                 {
                     _method: "put",
-                    penyelenggaraan_id:item.penyelenggaraan_id,                                                                                         
-                    is_ketua:item.is_ketua,                                                                                         
+                    penyelenggaraan_id:item.penyelenggaraan_id,                                 
+                    is_ketua:item.is_ketua,                                 
                 },
                 {
                     headers: {
@@ -318,7 +318,7 @@ export default {
                     }
                 }
             ).then(() => {
-                setTimeout(() => {   
+                setTimeout(() => { 
                     this.initialize();
                     },500
                 );

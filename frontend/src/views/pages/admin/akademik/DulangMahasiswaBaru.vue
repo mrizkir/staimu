@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,10 +53,10 @@
                         :headers="headers"
                         :item="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
-                        :single-expand="true"                        
+                        :single-expand="true"   
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
@@ -72,7 +72,7 @@
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -82,7 +82,7 @@
                                 @click.stop="deleteItem(item)">
                                 mdi-delete
                             </v-icon>
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -94,7 +94,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -133,7 +133,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
     },
     data: () => ({ 
@@ -151,8 +151,8 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width:150  },
             { text: "NIM", value: "nim", sortable: true, width:150  },
             { text: 'NIRM', value: 'nirm', sortable: true, width:150  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true }, 
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -164,12 +164,12 @@ export default {
         dialogfrm: false, 
         daftar_dw: [],
 
-        formdata: {    
+        formdata: {  
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {    
+        formdefault: {  
             nim: "",
             nirm: '',
             dosen_id: ''           
@@ -208,7 +208,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -229,7 +229,7 @@ export default {
             }
         },
         async tambahItem ()
-        {  
+        {
             await this.$ajax.post('/keuangan/transaksi/'+this.formdata.nim+'/sppmhsbaru',
             {
                 jenis_id: 'nim'
@@ -279,7 +279,7 @@ export default {
         },
         closedialogfrm() { 
             this.dialogfrm = false; 
-            setTimeout(() => {  
+            setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
                 },300

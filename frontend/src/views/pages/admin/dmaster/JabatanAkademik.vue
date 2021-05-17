@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -33,7 +33,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"                        
+                        :items="datatable"   
                         item-key="id"
                         sort-by="id"
                         show-expand
@@ -97,19 +97,19 @@ export default {
         datatable: [],
         headers: [                    
             { text: 'ID', value: 'id_jabatan', width:10, sortable: false },
-            { text: 'NAMA JABATAN', value: 'nama_jabatan', sortable: false},    
+            { text: 'NAMA JABATAN', value: 'nama_jabatan', sortable: false}, 
         ], 
     }),
     methods: {
         initialize: async function()
 		{
             this.datatableLoading = true; 
-            await this.$ajax.get('/datamaster/jabatanakademik',   
+            await this.$ajax.get('/datamaster/jabatanakademik',
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.jabatan_akademik;
                 this.datatableLoading = false;
             });

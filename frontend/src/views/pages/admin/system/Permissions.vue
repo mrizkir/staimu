@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -67,17 +67,17 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialog" max-width="500px" persistent>
-                                    <template v-slot:activator="{ on }">    
+                                    <template v-slot:activator="{ on }"> 
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on" :disabled="!CAN_ACCESS('PERMISSIONS_STORE')">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>    
+                                        </v-btn> 
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
-                                            <v-card-text>    
+                                            <v-card-text> 
                                                 <v-container fluid>
                                                     <v-row>
                                                         <v-col cols="12" sm="12" md="12">
@@ -194,7 +194,7 @@ export default {
         //form rules        
         rule_permission_name: [
             value => !!value || "Mohon untuk di isi nama Permission !!!",
-            value => /^[0-9\\a-zA-Z\\-]+$/.test(value) || 'Nama Permission hanya boleh angka,huruf,dan tanda -',       
+            value => /^[0-9\\a-zA-Z\\-]+$/.test(value) || 'Nama Permission hanya boleh angka,huruf,dan tanda -', 
         ], 
     }),
     methods: {

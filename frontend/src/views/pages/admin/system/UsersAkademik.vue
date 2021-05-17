@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -74,7 +74,7 @@
                                     v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
                                     SYNC PERMISSION
                                 </v-btn>
-                                <v-btn color="primary"                                    
+                                <v-btn color="primary"        
                                     class="mb-2" 
                                     
                                     :disabled="btnLoading"
@@ -96,13 +96,13 @@
                                                     label="NAMA USER"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                   
+                                                </v-text-field>                                                
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>            
+                                                </v-text-field>         
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -130,15 +130,15 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                    
+                                                    outlined>                                 
                                                 </v-autocomplete>
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
                                                     v-model="editedItem.role_id"
-                                                    label="ROLES"                                                     
+                                                    label="ROLES"                         
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                    
+                                                    outlined>                                 
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -165,7 +165,7 @@
                                             <v-card-subtitle>
                                                 Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data akademik
                                             </v-card-subtitle>
-                                            <v-card-text>                                                    
+                                            <v-card-text>                                                 
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
@@ -196,7 +196,7 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_passwordEdit">
-                                                </v-text-field>   
+                                                </v-text-field>
                                                 <v-autocomplete 
                                                     :items="daftar_prodi" 
                                                     v-model="editedItem.prodi_id"
@@ -205,15 +205,15 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                    
+                                                    outlined>                                 
                                                 </v-autocomplete>
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
                                                     v-model="editedItem.role_id"
-                                                    label="ROLES"                                                     
+                                                    label="ROLES"                         
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                    
+                                                    outlined>                                 
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -229,7 +229,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                        =                                    
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                     =                                    
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="akademik" />
                                 </v-dialog>
                             </v-toolbar>
@@ -262,10 +262,10 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url+'/'+item.foto" /> 
-                            </v-avatar>                                                      
+                            </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -365,7 +365,7 @@ export default {
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi', 
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -411,7 +411,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;
@@ -463,7 +463,7 @@ export default {
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='akademik')
-                    {    
+                    {  
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -473,7 +473,7 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,      
+                            disabled: false,
                         });
                     }     
                 });
@@ -487,7 +487,7 @@ export default {
             item.password=''; 
             this.editedItem = Object.assign({}, item);    
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
-            await this.$ajax.get('/system/users/' + item.id + '/prodi',      
+            await this.$ajax.get('/system/users/' + item.id + '/prodi',
                 {
                     headers: {
                         Authorization: this.TOKEN
@@ -511,7 +511,7 @@ export default {
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='akademik')
-                    {    
+                    {  
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -521,7 +521,7 @@ export default {
                     {
                         daftar_roles.push({
                             text:element.name,
-                            disabled: false,      
+                            disabled: false,
                         });
                     }     
                 });
@@ -573,7 +573,7 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),                                                                    
+                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),            
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {
@@ -595,8 +595,8 @@ export default {
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
-                            password: this.editedItem.password,   
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),       
+                            password: this.editedItem.password,
+                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
                         },
                         {

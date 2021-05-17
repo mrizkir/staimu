@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -132,7 +132,7 @@
                                                     outlined />
                                                 <v-select
                                                     v-model="formdata.ta"
-                                                    :items="daftar_ta"                                                    
+                                                    :items="daftar_ta"                        
                                                     label="TAHUN PENDAFTARAN"
                                                     :disabled="registered"
                                                     outlined/>  
@@ -144,16 +144,16 @@
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
-                                                    type="password"                                                                             
-                                                    :disabled="registered"                                                                       
+                                                    type="password"                                                 
+                                                    :disabled="registered"                                           
                                                     outlined 
                                                     v-if="editedIndex>-1" />
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
-                                                    type="password"         
-                                                    :disabled="registered"       
-                                                    :rules="rule_password"                
+                                                    type="password"
+                                                    :disabled="registered"  
+                                                    :rules="rule_password"
                                                     outlined 
                                                     v-else />
                                             </v-card-text>
@@ -211,7 +211,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TAHUN PENDAFTARAN:</v-card-title>
-                                                        <v-card-subtitle>                
+                                                        <v-card-subtitle>             
                                                             {{formdata.ta}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -222,7 +222,7 @@
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>PROGRAM STUDI :</v-card-title>
-                                                        <v-card-subtitle>                
+                                                        <v-card-subtitle>             
                                                             {{$store.getters["uiadmin/getProdiName"](formdata.prodi_id)}}
                                                         </v-card-subtitle>
                                                     </v-card>
@@ -250,7 +250,7 @@
                                                             <v-btn small color="primary" @click.stop="resend(formdata.id)" class="mb-2">KIRIM ULANG</v-btn>
                                                         </v-card-text>
                                                     </v-card>
-                                                </v-col>    
+                                                </v-col> 
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>
@@ -295,15 +295,15 @@
                                 :color="badgeColor(item)"
                                 :icon="badgeIcon(item)"
                                 overlap>
-                                <v-avatar size="30">    
-                                    <v-img :src="$api.url+'/'+item.foto" />   
-                                </v-avatar>                                                      
+                                <v-avatar size="30"> 
+                                    <v-img :src="$api.url+'/'+item.foto" />
+                                </v-avatar>                                                   
                             </v-badge>
                         </template>
                         <template v-slot:item.nomor_hp="{ item }">
                             {{ item.nomor_hp == null || item.nomor_hp == ''? 'N.A' : '+'+item.nomor_hp}}
                         </template>
-                        <template v-slot:item.created_at="{ item }">    
+                        <template v-slot:item.created_at="{ item }"> 
                             {{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -317,7 +317,7 @@
                                     <v-btn 
                                         small 
                                         class="primary" 
-                                        @click.stop="aktifkan(item.id)"                                         
+                                        @click.stop="aktifkan(item.id)"             
                                         :disabled="btnLoading"
                                         >
                                             <v-icon>mdi-email-check</v-icon>
@@ -369,7 +369,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize();
     },
     data: () => ({ 
@@ -413,7 +413,7 @@ export default {
         daftar_ta: [],
         formdata: {
             name: '',
-            email: '',   
+            email: '',
             nomor_hp: '',
             username: '',
             password: '', 
@@ -424,14 +424,14 @@ export default {
         },
         formdefault: {
             name: '',
-            email: '',   
+            email: '',
             nomor_hp: '',
             username: '',
             password: '',
             prodi_id: '',
             ta: '',
             created_at: '',  
-            updated_at: '',     
+            updated_at: '',  
         }, 
         editedIndex: -1,
 
@@ -481,7 +481,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.pmb;
                 this.datatableLoading = false;
             }); 
@@ -549,7 +549,7 @@ export default {
         },
         async addItem()
         {
-            this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+            this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
             this.formdata.ta=this.tahun_pendaftaran;
             this.formdata.prodi_id = this.prodi_id;
 
@@ -581,7 +581,7 @@ export default {
                             nomor_hp: this.formdata.nomor_hp,
                             prodi_id: this.formdata.prodi_id,
                             tahun_pendaftaran: this.formdata.ta,
-                            username: this.formdata.username,                            
+                            username: this.formdata.username,  
                             password: this.formdata.password, 
                         },
                         {
@@ -604,16 +604,16 @@ export default {
                             email: this.formdata.email,
                             nomor_hp: this.formdata.nomor_hp,
                             username: this.formdata.username,
-                            prodi_id: this.formdata.prodi_id,      
+                            prodi_id: this.formdata.prodi_id,
                             tahun_pendaftaran: this.formdata.ta,
-                            password: this.formdata.password,      
+                            password: this.formdata.password,
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {       
+                    ).then(({ data }) => {     
                         this.datatable.push(data.pendaftar);
                         this.closedialogfrm();
                         this.btnLoading = false;
@@ -635,7 +635,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {         
+            ).then(() => {       
                 this.closedialogdetailitem();
                 this.btnLoading = false;
             }).catch(() => {
@@ -650,7 +650,7 @@ export default {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.formdata.nomor_hp='+'+this.formdata.nomor_hp;
-            this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+            this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
             if (this.$store.getters['uifront/getBentukPT'] == 'universitas')
             { 
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {
@@ -666,7 +666,7 @@ export default {
                     this.daftar_prodi=data.prodi;
                 });
             } 
-            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id,       
+            await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs2/'+item.id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -768,13 +768,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.pmb;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }  

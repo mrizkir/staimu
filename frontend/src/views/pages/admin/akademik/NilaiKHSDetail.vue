@@ -20,16 +20,16 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk melihat daftar nilai matakuliah per tahun akademik, dan semester yang telah dilakukan.
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid v-if="Object.keys(datakrs).length">   
-            <v-row>   
+        </ModuleHeader>
+        <v-container fluid v-if="Object.keys(datakrs).length">
+            <v-row>
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
@@ -72,7 +72,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -97,7 +97,7 @@
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">   
+                <v-col cols="12">
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
@@ -110,36 +110,36 @@
                                 
                                 :disabled="btnLoading || !datakrs.hasOwnProperty('id')">
                                 <v-icon>mdi-printer</v-icon>
-                            </v-btn>           
+                            </v-btn>        
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
                                 dense                        
                                 :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
+                                :items="datatable"    
+                                item-key="id"                            
                                 :disable-pagination="true"
-                                :hide-default-footer="true"                                                                
+                                :hide-default-footer="true"                                    
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                   
+                                loading-text="Loading... Please wait">                
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">JUMLAH</td>
-                                        <td>{{jumlah_sks}}</td>     
-                                        <td></td>     
-                                        <td>{{jumlah_am}}</td>   
-                                        <td>{{jumlah_m}}</td>   
+                                        <td>{{jumlah_sks}}</td>  
+                                        <td></td>  
+                                        <td>{{jumlah_am}}</td>
+                                        <td>{{jumlah_m}}</td>
                                         <td></td> 
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">IPS</td>
-                                        <td colspan="5">{{ips}}</td>     
+                                        <td colspan="5">{{ips}}</td>  
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">IPK</td>
-                                        <td colspan="5">{{ipk}}</td>     
+                                        <td colspan="5">{{ipk}}</td>  
                                     </tr>
-                                </template>   
+                                </template>
                                 <template v-slot:no-data>
                                     Data matakuliah belum tersedia silahkan tambah
                                 </template>
@@ -158,13 +158,13 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">    
+                        :href="$api.url+'/'+file_pdf"> 
                         Download
-                    </v-btn>   
+                    </v-btn>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -226,11 +226,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
-            { text: 'HM', value: 'HM', sortable: false, width:50 },       
-            { text: 'AM', value: 'AM', sortable: false, width:50 },       
-            { text: 'M', value: 'M', sortable: false, width:50 },       
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },               
+            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
+            { text: 'HM', value: 'HM', sortable: false, width:50 }, 
+            { text: 'AM', value: 'AM', sortable: false, width:50 }, 
+            { text: 'M', value: 'M', sortable: false, width:50 }, 
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
         ],
 
         jumlah_sks: 0,
@@ -251,7 +251,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datakrs=data.krs;
                 this.datatable=data.daftar_nilai;
                 if (Object.keys(this.datakrs).length)
@@ -273,14 +273,14 @@ export default {
         async printpdf()
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id,       
+            await this.$ajax.get('/akademik/nilai/khs/printpdf/'+this.krs_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;

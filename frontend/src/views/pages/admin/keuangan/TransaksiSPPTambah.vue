@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -28,8 +28,8 @@
                     </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid v-if="data_transaksi">   
-            <v-row>   
+        <v-container fluid v-if="data_transaksi">
+            <v-row>
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
@@ -126,10 +126,10 @@
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-data-table
                             :headers="headers"
-                            :items="item_selected"                                                                       
+                            :items="item_selected"                                           
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                                                
-                            item-key="no_bulan"                                                   
+                            :hide-default-footer="true"                                    
+                            item-key="no_bulan"                       
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait">
@@ -142,13 +142,13 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length > 0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>                
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length > 0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>             
                                 </v-toolbar>
-                            </template>   
+                            </template>
                             <template v-slot:item.biaya_kombi="{ item }">  
                                 {{item.biaya_kombi|formatUang}}
                             </template>
-                            <template v-slot:item.actions="{ item }">     
+                            <template v-slot:item.actions="{ item }">  
                                 <v-icon
                                     small
                                     
@@ -164,8 +164,8 @@
                                     <td></td>
                                     <td>{{totalBiayaKombi|formatUang}}</td>
                                     <td></td>
-                                </tr>    
-                            </template>   
+                                </tr> 
+                            </template>
                             <template v-slot:no-data>
                                 daftar bulan yang akan dibayar belum tersedia; silahkan pilih bulan di bawah ini.
                             </template> 
@@ -177,10 +177,10 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="enrichedDataTable"   
-                        v-model="item_selected"                                                  
+                        :items="enrichedDataTable" 
+                        v-model="item_selected"                      
                         :disable-pagination="true"
-                        :hide-default-footer="true"                                                                
+                        :hide-default-footer="true"                                    
                         item-key="id"
                         show-select                                             
                         class="elevation-1"
@@ -274,7 +274,7 @@ export default {
 
         breadcrumbs: [],
         tahun_akademik: 0,
-        btnLoading: false,     
+        btnLoading: false,  
         //tables
         datatableLoading: false,
         datatable: [], 
@@ -284,7 +284,7 @@ export default {
             { text: 'TAHUN', value: 'tahun', sortable: false }, 
             { text: 'BIAYA KOMBI', value: 'biaya_kombi', sortable: false },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ],     
+        ],  
         //form
         form_valid: true  
     }),
@@ -301,7 +301,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.data_transaksi=data.transaksi;
                 this.datatable = data.transaksi_detail;
                 this.item_selected = data.item_selected;
@@ -316,14 +316,14 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
                         id: this.transaksi_id,  
-                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)),                              
+                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)), 
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                     this.$router.go();
                 }).catch(() => {

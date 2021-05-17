@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -73,8 +73,8 @@
                                     @click.stop="syncPermission" 
                                     v-if="$store.getters['auth/can']('USER_STOREPERMISSIONS')">
                                     SYNC PERMISSION
-                                </v-btn>       
-                                <v-btn color="primary"                                    
+                                </v-btn>    
+                                <v-btn color="primary"        
                                     class="mb-2" 
                                     
                                     :disabled="btnLoading"
@@ -93,24 +93,24 @@
                                                     label="NAMA DOSEN"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                   
+                                                </v-text-field>                                                
                                                 <v-text-field 
                                                     v-model="editedItem.nidn" 
                                                     label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
                                                     outlined>
-                                                </v-text-field>                                                   
+                                                </v-text-field>                                                
                                                 <v-text-field 
                                                     v-model="editedItem.nipy" 
                                                     label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
                                                     outlined
                                                     :rules="rule_nipy">
-                                                </v-text-field>                                                   
+                                                </v-text-field>                                                
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>            
+                                                </v-text-field>         
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -129,11 +129,11 @@
                                                     :type="'password'"
                                                     outlined
                                                     :rules="rule_user_password">
-                                                </v-text-field>   
+                                                </v-text-field>
                                                 <v-switch
                                                     v-model="editedItem.is_dw"
                                                     label="SEBAGAI DOSEN WALI">
-                                                </v-switch>                     
+                                                </v-switch>                  
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -156,7 +156,7 @@
                                             <v-card-title>
                                                 <span class="headline">{{ formTitle }}</span>
                                             </v-card-title>
-                                            <v-card-text>                                                    
+                                            <v-card-text>                                                 
                                                 <v-text-field 
                                                     v-model="editedItem.onlyname" 
                                                     label="NAMA DOSEN"
@@ -167,7 +167,7 @@
                                                     v-model="editedItem.nidn" 
                                                     label="NIDN (NOMOR INDUK DOSEN NASIONAL)"
                                                     outlined>
-                                                </v-text-field>                                                   
+                                                </v-text-field>                                                
                                                 <v-text-field 
                                                     v-model="editedItem.nipy" 
                                                     label="NIPY (NOMOR INDUK PEGAWAI YAYASAN)"
@@ -202,7 +202,7 @@
                                                 <v-switch
                                                     v-model="editedItem.is_dw"
                                                     label="SEBAGAI DOSEN WALI">
-                                                </v-switch>      
+                                                </v-switch>   
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -216,10 +216,10 @@
                                             </v-card-actions>
                                         </v-card>
                                     </v-form>
-                                </v-dialog>   
+                                </v-dialog>
                                 <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="dosen" />
-                                </v-dialog>     
+                                </v-dialog>  
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nidn="{ item }">
@@ -228,7 +228,7 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">   
+                        <template v-slot:item.actions="{ item }">
                             <v-tooltip bottom v-if="item.default_role=='dosen'"> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -243,8 +243,8 @@
                                         <v-icon>mdi-axis-arrow-lock</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Setting Hak Akses</span>   
-                            </v-tooltip>   
+                                <span>Setting Hak Akses</span>
+                            </v-tooltip>
                             <v-tooltip bottom v-if="item.default_role=='dosen'"> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -260,8 +260,8 @@
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Ubah data user dosen</span>   
-                            </v-tooltip>   
+                                <span>Ubah data user dosen</span>
+                            </v-tooltip>
                             <v-tooltip bottom v-if="item.default_role=='dosen'"> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -276,13 +276,13 @@
                                         <v-icon>mdi-delete</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Hapus data user dosen</span>   
-                            </v-tooltip>     
+                                <span>Hapus data user dosen</span>
+                            </v-tooltip>  
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url+'/'+item.foto" /> 
-                            </v-avatar>                                                      
+                            </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -366,7 +366,7 @@ export default {
             nidn: '', 
             nipy: '',
             email: '',  
-            nomor_hp: '',        
+            nomor_hp: '',  
             is_dw: false, 
             created_at: '',  
             updated_at: '', 
@@ -388,13 +388,13 @@ export default {
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama Dosen !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Dosen hanya boleh string dan spasi', 
         ],
         rule_nidn: [ 
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka', 
         ],
         rule_nipy: [            
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',       
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka', 
         ], 
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
@@ -440,7 +440,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.daftar_users = data.users;
                 this.datatableLoading = false;
             }); 
@@ -498,7 +498,7 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password,
-                            is_dw: this.editedItem.is_dw,          
+                            is_dw: this.editedItem.is_dw, 
                         },
                         {
                             headers: {

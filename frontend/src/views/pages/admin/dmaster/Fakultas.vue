@@ -17,14 +17,14 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk mengelola nama-nama fakultas pada perguruan tinggi
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -67,10 +67,10 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                                 <v-dialog v-model="dialogfrm" max-width="500px" persistent>
-                                    <template v-slot:activator="{ on }">    
+                                    <template v-slot:activator="{ on }"> 
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>    
+                                        </v-btn> 
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -240,7 +240,7 @@ export default {
         ], 
         rule_nama_fakultas: [
             value => !!value || "Mohon Nama Fakultas untuk di isi !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama Fakultas hanya boleh string dan spasi', 
         ], 
     }),
     methods: {
@@ -251,7 +251,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.fakultas;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -288,8 +288,8 @@ export default {
                     await this.$ajax.post('/datamaster/fakultas/'+this.kode_fakultas,
                         {
                             _method: 'PUT',
-                            kode_fakultas: this.formdata.kode_fakultas,      
-                            nama_fakultas: this.formdata.nama_fakultas,                  
+                            kode_fakultas: this.formdata.kode_fakultas,
+                            nama_fakultas: this.formdata.nama_fakultas,
                         },
                         {
                             headers: {
@@ -307,8 +307,8 @@ export default {
                 } else {
                     await this.$ajax.post('/datamaster/fakultas/store',
                         {
-                            kode_fakultas: this.formdata.kode_fakultas,      
-                            nama_fakultas: this.formdata.nama_fakultas,                  
+                            kode_fakultas: this.formdata.kode_fakultas,
+                            nama_fakultas: this.formdata.nama_fakultas,
                         },
                         {
                             headers: {

@@ -118,7 +118,7 @@ export default {
             this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/keuangan',
             {
-                TA: this.ta,       
+                TA: this.ta, 
             },
             {
                 headers: {

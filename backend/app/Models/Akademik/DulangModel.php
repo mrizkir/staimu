@@ -31,7 +31,8 @@ class DulangModel extends Model {
         'tasmt', 
         'idkelas', 
         'status_sebelumnya',
-        'k_status',              
+        'k_status',
+        'update_info',
     ];
     /**
      * enable auto_increment.

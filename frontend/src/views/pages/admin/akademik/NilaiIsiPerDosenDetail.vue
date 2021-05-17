@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -30,7 +30,7 @@
         </ModuleHeader>
         <v-container fluid v-if="data_kelas_mhs">
             <v-row>
-                <v-col cols="12">    
+                <v-col cols="12"> 
                     <DataKelasMHS :datakelas="data_kelas_mhs" />
                 </v-col>
             </v-row>
@@ -68,11 +68,11 @@
                         <v-data-table
                             v-model="daftar_nilai"
                             :headers="headers_peserta"
-                            :items="datatable_peserta"                        
+                            :items="datatable_peserta"   
                             item-key="krsmatkul_id"
                             show-select                                                                            
                             :disable-pagination="true"
-                            :hide-default-footer="true"                        
+                            :hide-default-footer="true"   
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"
@@ -88,10 +88,10 @@
                                     <v-spacer></v-spacer>
                                 </v-toolbar>
                             </template>
-                            <template v-slot:item.idkelas="{item}">
+                            <template v-slot:item.idkelas="{ item }">
                                 {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                             </template>
-                            <template v-slot:item.kjur="{item}">
+                            <template v-slot:item.kjur="{ item }">
                                 {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
                             </template> 
                             <template v-slot:item.nilai_absen="props"> 
@@ -106,54 +106,54 @@
                             <template v-slot:item.nilai_quiz="props"> 
                                 <VAngkaNilai               
                                     @input="updateNKuan(props)" 
-                                    v-model="props.item.nilai_quiz"                                    
+                                    v-model="props.item.nilai_quiz"        
                                     dense    
-                                    :disabled="isbydosen(props.item.bydosen)"                                
+                                    :disabled="isbydosen(props.item.bydosen)"    
                                     style="width:65px">
-                                </VAngkaNilai>            
+                                </VAngkaNilai>         
                             </template>
                             <template v-slot:item.nilai_tugas_individu="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_tugas_individu"                                    
+                                    v-model="props.item.nilai_tugas_individu"        
                                     dense      
-                                    :disabled="isbydosen(props.item.bydosen)"                              
+                                    :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
-                                </VAngkaNilai>            
+                                </VAngkaNilai>         
                             </template>
                             <template v-slot:item.nilai_tugas_kelompok="props"> 
                                 <VAngkaNilai            
-                                    @input="updateNKuan(props)"    
-                                    v-model="props.item.nilai_tugas_kelompok"                                    
+                                    @input="updateNKuan(props)"  
+                                    v-model="props.item.nilai_tugas_kelompok"        
                                     dense      
-                                    :disabled="isbydosen(props.item.bydosen)"                              
+                                    :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
-                                </VAngkaNilai>            
+                                </VAngkaNilai>         
                             </template>
                             <template v-slot:item.nilai_uts="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uts"                                    
+                                    v-model="props.item.nilai_uts"        
                                     dense                   
-                                    :disabled="isbydosen(props.item.bydosen)"                 
+                                    :disabled="isbydosen(props.item.bydosen)" 
                                     style="width:65px">
-                                </VAngkaNilai>            
+                                </VAngkaNilai>         
                             </template>
                             <template v-slot:item.nilai_uas="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uas"                                    
+                                    v-model="props.item.nilai_uas"        
                                     dense             
-                                    :disabled="isbydosen(props.item.bydosen)"                       
+                                    :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
-                                </VAngkaNilai>            
+                                </VAngkaNilai>         
                             </template>
-                            <template v-slot:item.n_kuan="props">         
+                            <template v-slot:item.n_kuan="props">      
                                 <v-chip color="primary" class="ma-2" outlined label v-if="props.item.n_kuan != null">{{props.item.n_kuan}}</v-chip>
                             </template>
                             <template v-slot:item.n_kual="props">
                                 <v-select 
-                                    :items="$store.getters['uiadmin/getSkalaNilai']"  
+                                    :items="$store.getters['uiadmin/getSkalaNilai']"
                                     v-model="props.item.n_kual"
                                     style="width:65px"
                                     :disabled="isbydosen(props.item.bydosen)"
@@ -164,7 +164,7 @@
                                 <tr>
                                     <td class="text-right" colspan="12">
                                         <v-btn 
-                                            class="primary mt-2 mb-2"                                 
+                                            class="primary mt-2 mb-2"     
                                             @click.stop="save" 
                                             
                                             :disabled="btnLoading">
@@ -175,7 +175,7 @@
                             </template> 
                             <template v-slot:no-data>
                                 Data belum tersedia
-                            </template>   
+                            </template>
                         </v-data-table>
                     </v-form>
                 </v-col> 
@@ -229,7 +229,7 @@ export default {
         btnLoading: false,
         
         datatable: [],
-        datatable_peserta: [],        
+        datatable_peserta: [],  
         headers_peserta: [             
             { text: "NIM", value: "nim", sortable: false, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: false, width: 250   },
@@ -237,11 +237,11 @@ export default {
             { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false, width: 100   },
             { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable: false, width: 100   },
             { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable: false, width: 100   },
-            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100   },       
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100   }, 
             { text: 'NILAI UAS', value: 'nilai_uas', sortable: false, width: 100  },  
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width: 100 },  
             { text: 'NILAI HURUP', value: 'n_kual', sortable: false, width: 100 },  
-        ],       
+        ], 
 
         //formdata
         form_valid: true, 
@@ -251,7 +251,7 @@ export default {
             'persen_tugas_individu':35,
             'persen_tugas_kelompok': 0,
             'persen_uts':25,
-            'persen_uas':25,   
+            'persen_uas':25,
         },
         daftar_nilai: [],
     }),
@@ -259,7 +259,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -267,12 +267,12 @@ export default {
             }).then(({ data }) => {
                 this.data_kelas_mhs=data.pembagiankelas; 
             });
-            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,   
+            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                               
+            }).then(({ data }) => {                                             
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              

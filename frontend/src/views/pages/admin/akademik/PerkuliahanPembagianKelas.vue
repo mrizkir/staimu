@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -89,9 +89,9 @@
                                                     <v-col cols="4">
                                                         <v-select
                                                             v-model="formdata.hari"
-                                                            :items="daftar_hari"                                                    
+                                                            :items="daftar_hari"                        
                                                             label="HARI"
-                                                            :rules="rule_hari"        
+                                                            :rules="rule_hari"   
                                                             outlined/>
                                                     </v-col>
                                                     <v-col cols="4">
@@ -113,7 +113,7 @@
                                                 </v-row>
                                                 <v-select
                                                     v-model="formdata.ruang_kelas_id"
-                                                    :items="daftar_ruang_kelas"                                                    
+                                                    :items="daftar_ruang_kelas"                        
                                                     label="RUANG KELAS"
                                                     :rules="rule_ruang_kelas"
                                                     item-text="namaruang"
@@ -137,10 +137,10 @@
                                 </v-dialog>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.nmatkul="{item}">
+                        <template v-slot:item.nmatkul="{ item }">
                             {{item.nmatkul}} - {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
-                        <template v-slot:item.jam_masuk="{item}">
+                        <template v-slot:item.jam_masuk="{ item }">
                             {{item.jam_masuk}}-{{item.jam_keluar}}
                         </template>
                         <template v-slot:item.actions="{ item }" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
@@ -151,7 +151,7 @@
                                 <v-icon>
                                     mdi-account-child-outline
                                 </v-icon>
-                            </v-btn>   
+                            </v-btn>
                             <v-btn
                                 small
                                 icon
@@ -161,7 +161,7 @@
                                 <v-icon>
                                     mdi-pencil
                                 </v-icon>
-                            </v-btn>   
+                            </v-btn>
                             <v-btn
                                 small
                                 icon
@@ -171,11 +171,11 @@
                                 <v-icon>
                                     mdi-delete
                                 </v-icon>
-                            </v-btn>   
-                        </template>   
+                            </v-btn>
+                        </template>
                         <template v-slot:item.actions v-else>
                             N.A
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -187,7 +187,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -243,11 +243,11 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  },       
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  }, 
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
-            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 },       
-            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100},       
-            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100},       
+            { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 }, 
+            { text: 'RUANG', value: 'namaruang', sortable: true, width: 100}, 
+            { text: 'JUMLAH PESERTA', value: 'jumlah_mhs', sortable: true, width: 100}, 
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "",
@@ -286,21 +286,21 @@ export default {
         ],
         formdata: { 
             id: '',
-            idkelas: '',   
-            hari: '',   
+            idkelas: '',
+            hari: '',
             jam_masuk: '',
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
-            ruang_kelas_id: '',   
+            ruang_kelas_id: '',
         },
         formdefault: { 
             id: '',
-            idkelas: '',   
-            hari: '',   
+            idkelas: '',
+            hari: '',
             jam_masuk: '',
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
-            ruang_kelas_id: '',   
+            ruang_kelas_id: '',
         },
 
         rule_hari: [
@@ -340,7 +340,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -379,10 +379,10 @@ export default {
                 await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+this.formdata.id,
                     {
                         _method: 'PUT',  
-                        hari: this.formdata.hari,      
+                        hari: this.formdata.hari,
                         jam_masuk: this.formdata.jam_masuk,
                         jam_keluar: this.formdata.jam_keluar,  
-                        ruang_kelas_id: this.formdata.ruang_kelas_id,      
+                        ruang_kelas_id: this.formdata.ruang_kelas_id,
                     },
                     {
                         headers: {
@@ -450,7 +450,7 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",   
+            CAN_ACCESS: "can",
         }),
     },
     components: {

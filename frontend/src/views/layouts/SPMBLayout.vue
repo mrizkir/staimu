@@ -83,7 +83,7 @@
                     <v-list-item-content>
                         <v-list-item-title>BOARD SPMB</v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>   
+                </v-list-item>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-SOAL_BROWSE')" to="/spmb/soalpmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-head-question-outline</v-icon>
@@ -125,7 +125,7 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-subheader>UJIAN PMB</v-subheader>   
+                <v-subheader>UJIAN PMB</v-subheader>
                 <v-list-item link v-if="CAN_ACCESS('SPMB-PMB-JADWAL-UJIAN_BROWSE') && dashboard!='mahasiswabaru' && dashboard!='mahasiswa'" to="/spmb/jadwalujianpmb">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-calendar-account</v-icon>
@@ -311,7 +311,7 @@ export default {
                 {
                     setTimeout(() => { 
                         this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1; 
-					},1000);
+					}, 1000);
                 }
                 else
                 {

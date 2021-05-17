@@ -63,15 +63,15 @@
 							<v-text-field 
 								v-model="formdata.password"
 								label="PASSWORD" 
-								type="password"         
-								:rules="rule_password"                
+								type="password"
+								:rules="rule_password"
 								outlined 
 								dense
 							/> 
 							<v-alert color="error" class="mb-0" text v-if="formdata.captcha_response.length<=0">
 								Mohon dicentang Google Captcha    
 							</v-alert>
-						</v-card-text>    
+						</v-card-text> 
 						<v-card-actions class="justify-center">
 							<vue-recaptcha 
 								ref="recaptcha"
@@ -80,8 +80,8 @@
 								@expired="onExpired"
 								:loadRecaptchaScript="true"
 							>
-						</vue-recaptcha>                       
-					</v-card-actions>    
+						</vue-recaptcha>                    
+					</v-card-actions> 
 					<v-card-actions class="justify-center">
 						<v-btn 
 							color="primary" 
@@ -126,7 +126,7 @@
 								</v-card-actions>
 							</v-card>
 						</v-form>
-					</v-dialog>   
+					</v-dialog>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -145,15 +145,15 @@
 			btnLoading: false,
 			btnLoadingFakultas: false,
 			//form
-			form_valid: true,        
+			form_valid: true,  
 			dialogkonfirmasiemail: false,
 			daftar_fakultas: [],
 			kode_fakultas: "",
 			daftar_prodi: [],
-			prodi_id: "",         
+			prodi_id: "",
 			formdata: {
 				name: "",
-				email: "",   
+				email: "",
 				nomor_hp: "",
 				username: "",
 				password: "",
@@ -161,11 +161,11 @@
 			},
 			formdefault: {
 				name: "",
-				email: "",   
+				email: "",
 				nomor_hp: "",
 				username: "",
 				password: "",
-				captcha_response: ""       
+				captcha_response: ""  
 			}, 
 			formkonfirmasi: {
 				email: "",

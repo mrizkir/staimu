@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -58,7 +58,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="user_id"                        
+                        item-key="user_id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -79,7 +79,7 @@
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -99,7 +99,7 @@
                                         <v-icon>mdi-eye</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Detail Transkrip</span>   
+                                <span>Detail Transkrip</span>
                             </v-tooltip> 
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
@@ -117,9 +117,9 @@
                                         <v-icon>mdi-printer</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Cetak Transkrip Dua Kolom</span>   
+                                <span>Cetak Transkrip Dua Kolom</span>
                             </v-tooltip> 
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -129,7 +129,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -143,13 +143,13 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf">    
+                        :href="$api.url+'/'+file_pdf"> 
                         Download
-                    </v-btn>   
+                    </v-btn>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                    <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -187,7 +187,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
     },
     data: () => ({ 
@@ -205,11 +205,11 @@ export default {
         datatable: [], 
         headers: [            
             { text: "NIM", value: "nim", sortable: true, width: 100  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },       
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, },       
-            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, },       
-            { text: 'IPK SEMENTARA', value: 'ipk', sortable: true, width: 100, },       
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true }, 
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: false, width: 100, }, 
+            { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: false, width: 100, }, 
+            { text: 'IPK SEMENTARA', value: 'ipk', sortable: true, width: 100, }, 
             { text: "AKSI", value: "actions", sortable: false, width: 120 },
         ],
         search: "", 
@@ -238,7 +238,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -265,14 +265,14 @@ export default {
         async printpdf2(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id,       
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/printpdf2/'+item.user_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -315,20 +315,20 @@ export default {
                         await this.$ajax.post('/akademik/nilai/transkripkurikulum',
                         {
                             prodi_id: this.prodi_id,
-                            ta: this.tahun_pendaftaran,   
+                            ta: this.tahun_pendaftaran,
                             search: this.search
                         },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.mahasiswa;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }

@@ -789,7 +789,7 @@ export default {
 		computed: {
 				TahunPendaftaran()
 				{
-						return this.$store.getters['uiadmin/getTahunPendaftaran'];
+						return this.$store.getters["uiadmin/getTahunPendaftaran"];
 				},
 				buktiBayar: {
 						get()
@@ -850,7 +850,7 @@ export default {
 												});
 										}
 										this.awaiting_search = false;
-								},1000); // 1 sec delay
+								}, 1000); // 1 sec delay
 						}
 						this.awaiting_search = true;
 				}

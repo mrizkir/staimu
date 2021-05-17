@@ -20,14 +20,14 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Berisi Soal PMB yang dikelompokan berdasarkan tahun akademik dan semester.
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -73,7 +73,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>    
+                                        </v-btn> 
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -94,32 +94,32 @@
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-1:</h3>  
                                                 <v-text-field
-                                                    label="ISI JAWABAN"    
-                                                    v-model="formdata.jawaban1"    
+                                                    label="ISI JAWABAN"  
+                                                    v-model="formdata.jawaban1"  
                                                     :rules="rule_jawaban"
                                                     outlined
                                                 />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-2:</h3>  
                                                 <v-text-field
-                                                    label="ISI JAWABAN"    
-                                                    v-model="formdata.jawaban2"    
+                                                    label="ISI JAWABAN"  
+                                                    v-model="formdata.jawaban2"  
                                                     :rules="rule_jawaban"
                                                     outlined
                                                 />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-3:</h3>  
                                                 <v-text-field
-                                                    label="ISI JAWABAN"    
-                                                    v-model="formdata.jawaban3"    
+                                                    label="ISI JAWABAN"  
+                                                    v-model="formdata.jawaban3"  
                                                     :rules="rule_jawaban"
                                                     outlined
                                                 />  
                                                 <v-divider class="mt-2"/>
                                                 <h3 class="headline mt-2">Jawaban Ke-4:</h3>  
                                                 <v-text-field
-                                                    label="ISI JAWABAN"    
-                                                    v-model="formdata.jawaban4"    
+                                                    label="ISI JAWABAN"  
+                                                    v-model="formdata.jawaban4"  
                                                     :rules="rule_jawaban"
                                                     outlined
                                                 />  
@@ -127,11 +127,11 @@
                                                 <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>  
                                                 <v-select
                                                     v-model="formdata.jawaban_benar"
-                                                    :items="daftar_jawaban"    
+                                                    :items="daftar_jawaban"  
                                                     item-value="id"
-                                                    item-text="text"                                                
+                                                    item-text="text"                    
                                                     label="JAWABAN BENAR"
-                                                    outlined/>   
+                                                    outlined/>
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -172,7 +172,7 @@
                                                         :items="daftar_soal_jawaban"
                                                         :search="search"
                                                         item-key="id"
-                                                        sort-by="jawaban"  
+                                                        sort-by="jawaban"
                                                         hide-default-footer                                                      
                                                         class="elevation-1">
                                                         <template v-slot:item.status="{ item }">
@@ -249,7 +249,7 @@
                                                         :items="daftar_soal_jawaban"
                                                         :search="search"
                                                         item-key="id"
-                                                        sort-by="jawaban"  
+                                                        sort-by="jawaban"
                                                         hide-default-footer                                                      
                                                         class="elevation-1"
                                                     >
@@ -336,7 +336,7 @@ export default {
                 href: "#"
             }
         ];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];
         this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
         this.initialize()
@@ -411,7 +411,7 @@ export default {
             jawaban2: '',
             jawaban3: '',
             jawaban4: '', 
-            jawaban_benar: '',          
+            jawaban_benar: '', 
             created_at: '',  
             updated_at: '',
         },
@@ -419,16 +419,16 @@ export default {
 
         //form rules      
         rule_soal: [
-            value => !!value || "Mohon untuk di isi soal !!!",     
+            value => !!value || "Mohon untuk di isi soal !!!",  
         ], 
         rule_gambar: [            
             value =>  !value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
         ],
         rule_jawaban: [
-            value => !!value || "Mohon isi jawaban dari soal ini",     
+            value => !!value || "Mohon isi jawaban dari soal ini",  
         ], 
         rule_jawaban_benar: [
-            value => !!value || "Mohon pilih jawaban benar dari soal ini",     
+            value => !!value || "Mohon pilih jawaban benar dari soal ini",  
         ], 
     }),
     methods: {
@@ -452,7 +452,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => {  
                 this.datatable = data.soal;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -472,7 +472,7 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem: async function(item) {      
+        viewItem: async function(item) {    
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -483,7 +483,7 @@ export default {
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 
         }, 
-        editItem: async function(item) {      
+        editItem: async function(item) {    
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -546,16 +546,16 @@ export default {
                 } else {
                     await this.$ajax.post('/spmb/soalpmb/store',
                         {
-                            soal: this.formdata.soal,      
-                            gambar: 'gambar',      
-                            jawaban1: this.formdata.jawaban1,      
-                            jawaban2: this.formdata.jawaban2,      
-                            jawaban3: this.formdata.jawaban3,      
-                            jawaban4: this.formdata.jawaban4,      
-                            jawaban_benar: this.formdata.jawaban_benar,      
+                            soal: this.formdata.soal,
+                            gambar: 'gambar',
+                            jawaban1: this.formdata.jawaban1,
+                            jawaban2: this.formdata.jawaban2,
+                            jawaban3: this.formdata.jawaban3,
+                            jawaban4: this.formdata.jawaban4,
+                            jawaban_benar: this.formdata.jawaban_benar,
                             tahun_pendaftaran: this.tahun_pendaftaran,
                             semester_pendaftaran: this.semester_pendaftaran
-                        },    
+                        }, 
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]

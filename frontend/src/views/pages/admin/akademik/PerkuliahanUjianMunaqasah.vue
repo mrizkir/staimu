@@ -591,7 +591,7 @@
 								});
 						}
 						this.awaiting_search = false;
-					},1000); // 1 sec delay
+					}, 1000); // 1 sec delay
 				}
 				this.awaiting_search = true;
 			},

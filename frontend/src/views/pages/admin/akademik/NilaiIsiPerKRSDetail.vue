@@ -20,16 +20,16 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk melakukan pengisian nilai berdasarkan krs mahasiswa per tahun akademik, dan semester yang telah dilakukan.
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid v-if="Object.keys(datakrs).length">   
-            <v-row>   
+        </ModuleHeader>
+        <v-container fluid v-if="Object.keys(datakrs).length">
+            <v-row>
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
@@ -72,7 +72,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -102,21 +102,21 @@
                         <v-card>
                             <v-card-title>
                                 DAFTAR MATAKULIAH
-                                <v-spacer></v-spacer>    
+                                <v-spacer></v-spacer> 
                             </v-card-title>
                             <v-card-text>
                                 <v-data-table        
                                     dense                        
                                     :headers="headers"
-                                    :items="datatable"                                
-                                    item-key="id"                                                        
+                                    :items="datatable"    
+                                    item-key="id"                            
                                     :disable-pagination="true"
-                                    :hide-default-footer="true"                                                                
+                                    :hide-default-footer="true"                                    
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
                                     <template v-slot:item.n_kuan="props">
                                         <VAngkaNilai                                                            
-                                            v-model="props.item.n_kuan"                                    
+                                            v-model="props.item.n_kuan"        
                                             dense                                    
                                             style="width:65px"
                                             :disabled="props.item.bydosen">
@@ -148,7 +148,7 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-                                    </template>   
+                                    </template>
                                     <template v-slot:no-data>
                                         Data matakuliah belum tersedia silahkan tambah
                                     </template>
@@ -226,15 +226,15 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:260 },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
-            { text: 'SMT', value: 'semester', sortable: false, width:50 },       
-            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },       
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 },       
-            { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 },       
+            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
+            { text: 'SMT', value: 'semester', sortable: false, width:50 }, 
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 }, 
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 }, 
+            { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 }, 
                                    
         ],
         //formdata
-        form_valid: true,        
+        form_valid: true,  
     }),
     methods: {
         async fetchKRS()
@@ -244,7 +244,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)

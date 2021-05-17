@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -58,10 +58,10 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
-                        :single-expand="true"                        
+                        :single-expand="true"   
                         @click:row="dataTableRowClicked"
                         class="elevation-1"
                         :loading="datatableLoading"
@@ -74,7 +74,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                   
+                                <v-spacer></v-spacer>                
                             </v-toolbar>
                             <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
                                 <v-card>
@@ -85,18 +85,18 @@
                                         <v-btn
                                             color="green"
                                             text
-                                            :href="$api.url+'/'+file_pdf">    
+                                            :href="$api.url+'/'+file_pdf"> 
                                             Download
-                                        </v-btn>   
+                                        </v-btn>
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn>    
+                                        <v-btn color="blue darken-1" text @click.stop="closedialogprintpdf">CLOSE</v-btn> 
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
                         </template>
-                        <template v-slot:item.sah="{item}">    
+                        <template v-slot:item.sah="{ item }"> 
                             <v-chip                                
                                 :color="item.sah==1?'green': 'warning'"
                                 text-color="white"
@@ -105,7 +105,7 @@
                                 {{item.sah==1?'YA': 'TIDAK'}} 
                             </v-chip>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }">
@@ -118,7 +118,7 @@
                                 <v-icon>
                                     mdi-printer
                                 </v-icon>
-                            </v-btn>   
+                            </v-btn>
                             <v-btn
                                 small
                                 icon
@@ -126,7 +126,7 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>                 
+                            </v-btn>              
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -143,9 +143,9 @@
                                         <v-icon>mdi-check</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Verifikasi KRS</span>   
+                                <span>Verifikasi KRS</span>
                             </v-tooltip>  
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -157,7 +157,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -234,8 +234,8 @@ export default {
             { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },
             { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },
-            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 },       
-            { text: 'SAH', value: 'sah', sortable: true, width: 100},       
+            { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 }, 
+            { text: 'SAH', value: 'sah', sortable: true, width: 100}, 
             { text: "AKSI", value: "actions", sortable: false, width: 140 },
         ],
         search: "", 
@@ -267,7 +267,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {       
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -287,7 +287,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {      
+            }).then(({ data }) => {    
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
                 this.firstloading = false;   
@@ -310,14 +310,14 @@ export default {
         async printpdf(item)
         {
             this.btnLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id,       
+            await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     },
                     
                 }
-            ).then(({ data }) => {          
+            ).then(({ data }) => {        
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -338,7 +338,7 @@ export default {
                     },
                     
                 }
-            ).then(() => {          
+            ).then(() => {        
                 this.$router.go();
                 this.btnLoading = false;
             }).catch(() => {
@@ -384,7 +384,7 @@ export default {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
                         this.datatableLoading = true; 
-                        await this.$ajax.post("/akademik/perkuliahan/krs",   
+                        await this.$ajax.post("/akademik/perkuliahan/krs",
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_akademik,
@@ -395,13 +395,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.daftar_krs;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }

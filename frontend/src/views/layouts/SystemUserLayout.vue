@@ -312,7 +312,7 @@ export default {
 								{
 										setTimeout(() => { 
 												this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1; 
-					},1000);
+					}, 1000);
 								}
 								else
 								{

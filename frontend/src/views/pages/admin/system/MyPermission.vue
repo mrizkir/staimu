@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -65,9 +65,9 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                 
+                                <v-spacer></v-spacer>              
                             </v-toolbar>
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <strong>ID:</strong>{{ item.id }}
@@ -120,7 +120,7 @@ export default {
         //tables
         headers: [
             { text: 'NAMA PERMISSION', value: 'name' },
-            { text: 'GUARD', value: 'guard_name' },    
+            { text: 'GUARD', value: 'guard_name' }, 
         ],
         search: "", 
    

@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -25,7 +25,7 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid>   
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <ProfilDosen :datadosen="data_dosen" url="/akademik/dosenwali" />
@@ -148,7 +148,7 @@
                                                     </v-col>
                                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                                                 </v-row> 
-                                                <v-row no-gutters>   
+                                                <v-row no-gutters>
                                                     <v-col xs="12">  
                                                         <v-select
                                                             label="DOSEN WALI :"
@@ -184,7 +184,7 @@
                         <template v-slot:item.is_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:item.actions="{ item }">    
+                        <template v-slot:item.actions="{ item }"> 
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -199,13 +199,13 @@
                                         <v-icon>mdi-file-replace-outline</v-icon>
                                     </v-btn> 
                                 </template>
-                                <span>Ganti Dosen Wali</span>   
+                                <span>Ganti Dosen Wali</span>
                             </v-tooltip>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url+'/'+item.foto" /> 
-                            </v-avatar>                                                      
+                            </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -284,10 +284,10 @@ export default {
         data_mhs: {},
         daftar_dw: [],
 
-        formdata: {  
+        formdata: {
             dosen_id: ''           
         },
-        formdefault: {  
+        formdefault: {
             dosen_id: ''           
         },
 
@@ -299,7 +299,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id,    
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.dosen_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -314,7 +314,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.daftar_mahasiswa = data.daftar_mahasiswa;
                 this.datatableLoading = false;
             }); 
@@ -367,7 +367,7 @@ export default {
         },
         closedialogfrm() { 
             this.dialogfrm = false; 
-            setTimeout(() => {  
+            setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
                 },300

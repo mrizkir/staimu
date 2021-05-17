@@ -20,14 +20,14 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk mengelola nama-nama matakuliah program studi setiap angkatannya.
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -50,7 +50,7 @@
                         :headers="headers"
                         :item="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -75,7 +75,7 @@
                                     color="primary" 
                                     dark 
                                     class="mb-2" 
-                                    @click.stop="tambahItem"                                    
+                                    @click.stop="tambahItem"        
                                     v-if="$store.getters['auth/can']('AKADEMIK-MATAKULIAH_STORE')">
                                     TAMBAH
                                 </v-btn>
@@ -91,11 +91,11 @@
                                                     label="KELOMPOK MATAKULIAH"
                                                     :item="group_matakuliah"
                                                     item-text="group_alias"
-                                                    item-value="id_group"                                                    
+                                                    item-value="id_group"                        
                                                     outlined
                                                     :rules="rule_group_matakuliah"
                                                     v-if="(group_matakuliah && group_matakuliah.length > 0)">
-                                                </v-select>     
+                                                </v-select>  
                                                 <v-text-field 
                                                     v-model="formdata.kmatkul" 
                                                     label="KODE MATAKULIAH"
@@ -111,42 +111,42 @@
                                                 <v-select 
                                                     v-model="formdata.sks" 
                                                     label="SKS"
-                                                    :items="daftar_sks"                                                    
+                                                    :items="daftar_sks"                        
                                                     outlined
                                                     :rules="rule_sks">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_tatap_muka" 
                                                     label="SKS TATAP MUKA"
-                                                    :items="daftar_sks"                                                    
+                                                    :items="daftar_sks"                        
                                                     outlined
                                                     :rules="rule_sks_tatap_muka">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_praktikum" 
                                                     label="SKS PRAKTIKUM"
-                                                    :clearable="true"                                                 
-                                                    :items="daftar_sks"                                                    
+                                                    :clearable="true"                     
+                                                    :items="daftar_sks"                        
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_praktik_lapangan" 
                                                     label="SKS PRAKTIK LAPANGAN"
-                                                    :items="daftar_sks"   
-                                                    :clearable="true"                                                 
+                                                    :items="daftar_sks" 
+                                                    :clearable="true"                     
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.semester" 
                                                     label="SEMESTER"
-                                                    :items="daftar_semester"                                                    
+                                                    :items="daftar_semester"                        
                                                     outlined
                                                     :rules="rule_semester">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.minimal_nilai" 
                                                     label="MIMIMAL NILAI"
-                                                    :items="daftar_nilai"                                                    
+                                                    :items="daftar_nilai"                        
                                                     outlined
                                                     :rules="rule_minimal_nilai">
                                                 </v-select>
@@ -155,7 +155,7 @@
                                                     label="KONSENTRASI"
                                                     :items="group_matakuliah"
                                                     item-text="nama_konsentrasi"
-                                                    item-value="id_konsentrasi"                                                    
+                                                    item-value="id_konsentrasi"                        
                                                     outlined
                                                     v-if="(daftar_konsentrasi && daftar_konsentrasi.length > 0)">
                                                 </v-select>
@@ -338,7 +338,7 @@
                                             <v-card-subtitle>
                                                 Program Studi {{ nama_prodi }}
                                             </v-card-subtitle>
-                                            <v-card-text>   
+                                            <v-card-text>
                                                 <v-alert
                                                     class="info"
                                                     dark>
@@ -346,7 +346,7 @@
                                                 </v-alert>
                                                 <v-select
                                                     v-model="dari_tahun_akademik"
-                                                    :items="daftar_ta"                                                    
+                                                    :items="daftar_ta"                        
                                                     label="TAHUN AKADEMIK"
                                                     :rules="rule_dari_tahun_akademik"
                                                     outlined/>  
@@ -558,29 +558,29 @@ export default {
 
         //form rules    
         rule_group_matakuliah: [
-            value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",     
+            value => !!value || "Mohon Group Matakuliah untuk dipilih !!!",  
         ], 
         rule_kode_matkul: [
-            value => !!value || "Kode Program Studi mohon untuk diisi !!!",   
+            value => !!value || "Kode Program Studi mohon untuk diisi !!!",
         ], 
         rule_nama_matakuliah: [
-            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",     
+            value => !!value || "Mohon Nama Program Studi untuk diisi !!!",  
         ], 
         rule_sks: [
-            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",     
+            value => !!value || "Mohon SKS Matakuliah untuk dipilih !!!",  
         ],
         rule_sks_tatap_muka: [
-            value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",     
+            value => !!value || "Mohon SKS Matakuliah Tatap Muka untuk dipilih !!!",  
         ],
         rule_semester: [
-            value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",     
+            value => !!value || "Mohon Semester Matakuliah ini diselenggarakan untuk dipilih !!!",  
         ],
         rule_minimal_nilai: [
-            value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",     
+            value => !!value || "Mohon Minimal nilai kelulusan matakuliah untuk dipilih !!!",  
         ], 
         rule_dari_tahun_akademik: [
-            value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",     
-        ],    
+            value => !!value || "Mohon Tahun Akademik sumber data matakuliah untuk dipilih !!!",  
+        ], 
     }),
     methods: {
         changeTahunAkademik(tahun)
@@ -603,7 +603,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.matakuliah;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -670,7 +670,7 @@ export default {
         }, 
         showDialogCopyMatkul()
         {
-            let list_ta = this.$store.getters['uiadmin/getDaftarTA'];
+            let list_ta = this.$store.getters["uiadmin/getDaftarTA"];
             for (var i =0; i < list_ta.length; i++)
             {
                 var item = list_ta[i];
@@ -693,9 +693,9 @@ export default {
                     await this.$ajax.post('/akademik/matakuliah/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            id_group: this.formdata.id_group,              
-                            nama_group: this.formdata.nama_group,              
-                            group_alias: this.formdata.group_alias,              
+                            id_group: this.formdata.id_group,
+                            nama_group: this.formdata.nama_group,
+                            group_alias: this.formdata.group_alias,
                             kmatkul: this.formdata.kmatkul,
                             nmatkul: this.formdata.nmatkul, 
                             sks: this.formdata.sks, 
@@ -708,10 +708,10 @@ export default {
                             sks_praktik_lapangan: this.formdata.sks_praktik_lapangan, 
                             minimal_nilai: this.formdata.minimal_nilai,
                             syarat_skripsi: this.formdata.syarat_skripsi, 
-                            status: this.formdata.status,       
-                            ta: this.formdata.ta,       
+                            status: this.formdata.status, 
+                            ta: this.formdata.ta, 
                             kjur: this.formdata.kjur,
-                            update_penyelenggaraan: this.formdata.update_penyelenggaraan,                 
+                            update_penyelenggaraan: this.formdata.update_penyelenggaraan,  
                         },
                         {
                             headers: {
@@ -730,8 +730,8 @@ export default {
                     await this.$ajax.post('/akademik/matakuliah/store',
                         {
                             id_group: this.formdata.id_group, 
-                            nama_group: this.formdata.nama_group,              
-                            group_alias: this.formdata.group_alias,                                                                 
+                            nama_group: this.formdata.nama_group,
+                            group_alias: this.formdata.group_alias,         
                             kmatkul: this.formdata.kmatkul,
                             nmatkul: this.formdata.nmatkul, 
                             sks: this.formdata.sks, 
@@ -745,8 +745,8 @@ export default {
                             minimal_nilai: this.formdata.minimal_nilai,
                             syarat_skripsi: this.formdata.syarat_skripsi, 
                             status: this.formdata.status, 
-                            ta: this.tahun_akademik,       
-                            kjur: this.prodi_id,                                             
+                            ta: this.tahun_akademik, 
+                            kjur: this.prodi_id,
                         },
                         {
                             headers: {
@@ -821,14 +821,14 @@ export default {
         },
         closedialogfrm() {
             this.dialogfrm = false; 
-            setTimeout(() => {          
+            setTimeout(() => {        
                 this.$refs.frmdata.resetValidation();
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
                 },300
             );
         },
-        closedialogsalinmatkul() {   
+        closedialogsalinmatkul() { 
             this.dialogcopymatkul = false; 
             setTimeout(() => { 
                 this.$refs.frmdialogcopymatkul.reset();

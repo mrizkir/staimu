@@ -3,12 +3,12 @@
         <v-list-item-content> 
             <v-select
                 v-model="tahun_pendaftaran"
-                :items="daftar_ta"                
+                :items="daftar_ta"
                 label="TAHUN PENDAFTARAN"
                 outlined/>  
             <v-select
                 v-model="semester_pendaftaran"
-                :items="daftar_semester"                
+                :items="daftar_semester"
                 item-text="text"
                 item-value="id"
                 label="SEMESTER PENDAFTARAN"
@@ -21,11 +21,11 @@ export default {
     name: 'FilterMode19',
     created()
     {
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 
         this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
-        this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];  
+        this.semester_pendaftaran = this.$store.getters["uiadmin/getSemesterPendaftaran"];  
     },
     data: () => ({
         firstloading: true,
@@ -37,9 +37,9 @@ export default {
         tahun_pendaftaran: null
     }),
     methods: {
-        setFirstTimeLoading (bool)
+        setFirstTimeLoading(bool)
         {
-            this.firstloading=bool;
+            this.firstloading = bool;
         }
     },
     watch: {

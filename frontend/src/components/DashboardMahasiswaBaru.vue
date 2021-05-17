@@ -20,14 +20,14 @@
 								<v-timeline-item color="purple darken-1" icon="mdi-book-variant" fill-dot>
 										<v-card color="purple darken-1" dark>
 												<v-card-title class="title">Formulir Pendaftaran</v-card-title>
-												<v-card-text class="white text--primary">    
+												<v-card-text class="white text--primary"> 
 														<p>Isi formulir pendaftaran dan lengkapi persyaratannya yaitu:</p>
 														<ul>
 																<li>Scan Pas Foto</li>
 																<li>Scan Ijazah Terakhir</li>
 																<li>Scan KTP</li>
 																<li>Scan Kartu Keluarga</li>
-														</ul>    
+														</ul> 
 														<v-btn
 																color="purple darken-1"
 																class="mx-0 mr-2"
@@ -137,7 +137,7 @@
 								</v-timeline-item> -->
 						</v-timeline>
 				</v-col>
-				<v-dialog v-model="dialogpilihjadwal" persistent>   
+				<v-dialog v-model="dialogpilihjadwal" persistent>
 						<v-card>
 								<v-card-title>
 										<span class="headline">Pilih Jadwal Ujian PMB</span>
@@ -145,9 +145,9 @@
 								<v-card-text>
 										<v-data-table
 												:headers="headers"
-												:items="datatable"                        
+												:items="datatable"   
 												item-key="id"
-												sort-by="name"                        
+												sort-by="name"   
 												class="elevation-1"
 												:loading="datatableLoading"
 												loading-text="Loading... Please wait">

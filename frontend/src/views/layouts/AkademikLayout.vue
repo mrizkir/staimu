@@ -833,7 +833,7 @@
 						setTimeout(() => {
 							this.loginTime =
 								this.AUTHENTICATED == true ? this.loginTime + 1 : -1;
-						},1000);
+						}, 1000);
 					} else {
 						this.$store.dispatch("auth/logout");
 						this.$router.replace("/login");

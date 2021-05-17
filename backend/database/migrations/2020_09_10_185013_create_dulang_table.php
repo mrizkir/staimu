@@ -24,6 +24,7 @@ class CreateDulangTable extends Migration
             $table->char('idkelas',1); 
             $table->char('status_sebelumnya',1); 
             $table->char('k_status',1); 
+            $table->boolean('update_info')->default(0);
 
             $table->timestamps();  
             

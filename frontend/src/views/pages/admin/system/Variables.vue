@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -38,7 +38,7 @@
                                     <v-col xs="12" sm="12" md="4">
                                         <v-select
                                             v-model="formdata.default_ta" 
-                                            :items="daftar_ta"                
+                                            :items="daftar_ta"
                                             label="TAHUN AKADEMIK"
                                             outlined
                                             :rules="rule_default_ta"/>
@@ -52,19 +52,19 @@
                                             item-value="id"
                                             label="SEMESTER AKADEMIK"
                                             outlined
-                                            :rules="rule_default_semester"/>   
+                                            :rules="rule_default_semester"/>
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
                                     <v-col xs="12" sm="12" md="4">
                                         <v-select
                                             v-model="formdata.tahun_pendaftaran" 
-                                            :items="daftar_ta"                                            
+                                            :items="daftar_ta"                
                                             label="TAHUN PENDAFTARAN"
                                             outlined
-                                            :rules="rule_tahun_pendaftaran"/>   
+                                            :rules="rule_tahun_pendaftaran"/>
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
-                                </v-row>                                                                                
+                                </v-row>                                                                             
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -112,7 +112,7 @@ export default {
                 href: "#"
             }
         ];
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA'];
+        this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
         this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
         this.initialize();
     },
@@ -125,18 +125,18 @@ export default {
         daftar_semester: [],
         formdata: {
             default_ta: '',
-            default_semester: '',   
+            default_semester: '',
             tahun_pendaftaran: 0,
         },
         //form rules        
         rule_default_ta: [
-            value => !!value || "Mohon untuk dipilih Tahun Akademik !!!",    
+            value => !!value || "Mohon untuk dipilih Tahun Akademik !!!", 
         ], 
         rule_default_semester: [
-            value => !!value || "Mohon untuk diisi Semester !!!",    
+            value => !!value || "Mohon untuk diisi Semester !!!", 
         ],
         rule_tahun_pendaftaran: [
-            value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",           
+            value => !!value || "Mohon untuk dipilih Tahun Pendaftaran !!!",
         ]
     }),
     methods: {
@@ -165,16 +165,16 @@ export default {
                         'pid': 'Variable default sistem',
                         setting: JSON.stringify({
                             201: this.formdata.default_ta,
-                            202: this.formdata.default_semester,      
+                            202: this.formdata.default_semester,
                             203: this.formdata.tahun_pendaftaran,
-                        }),                                                                               
+                        }),                       
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;

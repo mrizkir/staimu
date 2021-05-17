@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -46,17 +46,17 @@
                                 </v-alert>
                                 <v-text-field 
                                     v-model="formdata.nim"
-                                    label="NIM"   
-                                    :rules="rule_nim"                                                               
+                                    label="NIM" 
+                                    :rules="rule_nim"                                   
                                     outlined />
                                 <v-text-field 
                                     v-model="formdata.nirm"
                                     label="NIRM" 
-                                    :rules="rule_nirm"                                                                    
+                                    :rules="rule_nirm"                                        
                                     outlined />
                                 <v-text-field
-                                    label="NAMA LENGKAP"    
-                                    v-model="formdata.nama_mhs"    
+                                    label="NAMA LENGKAP"  
+                                    v-model="formdata.nama_mhs"  
                                     :rules="rule_nama_mhs"
                                     outlined/>
                                  <v-select
@@ -84,7 +84,7 @@
                                     item-value="id"
                                     :rules="rule_dw"
                                     outlined/>  
-                            </v-card-text>    
+                            </v-card-text> 
                         </v-card> 
                         <v-card class="mb-4">
                             <v-card-title>
@@ -93,28 +93,28 @@
                             <v-card-text>
                                 <v-data-table 
                                     :loading="datatableLoading"
-                                    loading-text="Loading... Please wait"                                                                                      
+                                    loading-text="Loading... Please wait"                                                          
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
                                     :headers="headers"
                                     item-key="id"
                                     :items="daftar_tasmt"
                                     dense> 
-                                    <template v-slot:item.k_status="{ item }">                        
+                                    <template v-slot:item.k_status="{ item }">                     
                                         <v-select       
-                                            v-model="formdata.status_mhs[daftar_tasmt.indexOf(item)]"                                                                                
+                                            v-model="formdata.status_mhs[daftar_tasmt.indexOf(item)]"                                                    
                                             :items="daftar_status_mhs"
                                             item-text="text"
                                             item-value="id" />
-                                    </template>    
-                                    <template v-slot:no-data>    
+                                    </template> 
+                                    <template v-slot:no-data> 
                                         belum ada data tahun akademik dan semester, silahkan ganti Tahun Pendaftaran ke yang lebih kecil dari 2020
-                                    </template>   
+                                    </template>
                                 </v-data-table>
-                            </v-card-text>    
+                            </v-card-text> 
                         </v-card>
                         <v-card>
-                            <v-card-actions>   
+                            <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn 
                                     color="blue darken-1" 
@@ -150,7 +150,7 @@ export default {
 				href: "#"
 			}
         ];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"]; 
     },
     mounted()
     {
@@ -166,7 +166,7 @@ export default {
         btnLoading: false,
 
         daftar_prodi: [],
-        daftar_kelas: [],       
+        daftar_kelas: [], 
         daftar_dw: [],
 
         daftar_tasmt: [],
@@ -174,7 +174,7 @@ export default {
         formdata: {
             nim: "",
             nirm: '',
-            nama_mhs: '',   
+            nama_mhs: '',
             dosen_id: '',  
             prodi_id: '',
             idkelas: '',
@@ -223,7 +223,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {          
+            }).then(({ data }) => {        
                 this.daftar_dw = data.users; 
             });
 
@@ -236,7 +236,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {          
+            }).then(({ data }) => {        
                 this.daftar_tasmt = data.daftar_tasmt; 
                 var dt = this.daftar_tasmt;
                 var i=0;
@@ -264,15 +264,15 @@ export default {
                         dosen_id: this.formdata.dosen_id,
                         prodi_id: this.formdata.prodi_id,
                         idkelas: this.formdata.idkelas,
-                        tahun_pendaftaran: this.tahun_pendaftaran,        
-                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),                                                                    
+                        tahun_pendaftaran: this.tahun_pendaftaran,  
+                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),            
                     },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {     
+                ).then(() => {   
                     setTimeout(() => {
                         this.$router.go();  
                         this.btnLoading = false;

@@ -103,7 +103,7 @@
 										</v-col>
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
-									<v-row no-gutters>   
+									<v-row no-gutters>
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 										<v-col xs="12" sm="6" md="7">
 											<v-card flat>
@@ -125,7 +125,7 @@
 										<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 									</v-row>
 								</v-col>
-							</v-row>    
+							</v-row> 
 						</v-card-text>
 					</v-card> 
 				</v-col>
@@ -196,7 +196,7 @@ export default {
 	methods: {
 		initialize: async function()
 		{
-			await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id,    
+			await this.$ajax.get('/spmb/formulirpendaftaran/'+this.item.id, 
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
@@ -209,7 +209,7 @@ export default {
 														}); 
 			});
 
-			await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id,    
+			await this.$ajax.get('/spmb/pmbpersyaratan/'+this.item.id, 
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]

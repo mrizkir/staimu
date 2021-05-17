@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -41,7 +41,7 @@
                         dark>
                         <v-card-title class="headline">
                             JUMLAH REGISTRASI
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             Jumlah calon mahasiswa baru yang melakukan registrasi
                         </v-card-subtitle>
@@ -59,7 +59,7 @@
                         dark>
                         <v-card-title class="headline">
                             JUMLAH ISI FORMULIR
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             Jumlah calon mahasiswa baru yang mengisi formulir pendaftaran
                         </v-card-subtitle>
@@ -77,7 +77,7 @@
                         dark>
                         <v-card-title class="headline">
                             JUMLAH LULUS
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             Jumlah calon mahasiswa baru yang dinyatakan lulus
                         </v-card-subtitle>
@@ -95,7 +95,7 @@
                         dark>
                         <v-card-title class="headline">
                             JUMLAH TIDAK LULUS
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             Jumlah calon mahasiswa baru yang dinyatakan tidak lulus
                         </v-card-subtitle>
@@ -119,7 +119,7 @@
                             <v-data-table 
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait"
-                                :dense="true"                                                  
+                                :dense="true"                      
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
@@ -127,12 +127,12 @@
                                 <template v-slot:body.append v-if="daftar_registrasi.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_registrasi}}</td>                                    
+                                        <td class="text-right">{{total_registrasi}}</td>                                 
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>    
+                                <template v-slot:no-data> 
                                     belum ada data calon mahasiswa baru yang mengisi formulir pendaftaran.
-                                </template>   
+                                </template>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -150,7 +150,7 @@
                             <v-data-table 
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait"
-                                :dense="true"                                                  
+                                :dense="true"                      
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
@@ -158,12 +158,12 @@
                                 <template v-slot:body.append v-if="daftar_isi_formulir.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_isi_formulir}}</td>                                    
+                                        <td class="text-right">{{total_isi_formulir}}</td>                                 
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>    
+                                <template v-slot:no-data> 
                                     belum ada data calon mahasiswa baru yang mengisi formulir.
-                                </template>   
+                                </template>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -183,7 +183,7 @@
                             <v-data-table 
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait"
-                                :dense="true"                                                  
+                                :dense="true"                      
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
@@ -191,12 +191,12 @@
                                 <template v-slot:body.append v-if="daftar_lulus.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_lulus}}</td>                                    
+                                        <td class="text-right">{{total_lulus}}</td>                                 
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>    
+                                <template v-slot:no-data> 
                                     belum ada data calon mahasiswa baru yang lulus.
-                                </template>   
+                                </template>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -214,7 +214,7 @@
                             <v-data-table 
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait"
-                                :dense="true"                                                  
+                                :dense="true"                      
                                 :disable-pagination="true"
                                 :hide-default-footer="true"
                                 :headers="headers"
@@ -222,12 +222,12 @@
                                 <template v-slot:body.append v-if="daftar_lulus.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL</td>
-                                        <td class="text-right">{{total_tidak_lulus}}</td>                                    
+                                        <td class="text-right">{{total_tidak_lulus}}</td>                                 
                                     </tr>
                                 </template>
-                                <template v-slot:no-data>    
+                                <template v-slot:no-data> 
                                     belum ada data calon mahasiswa baru yang tidak lulus.
-                                </template>   
+                                </template>
                             </v-data-table>
                         </v-card-text>
                     </v-card>
@@ -258,7 +258,7 @@ export default {
 				href: "#"
 			}
         ];
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran']; 
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"]; 
     },
     mounted()
     {
@@ -298,13 +298,13 @@ export default {
             this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/pmb',
             {
-                TA: this.tahun_pendaftaran,       
+                TA: this.tahun_pendaftaran, 
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => {      
                 this.daftar_registrasi = data.daftar_registrasi;
                 this.total_registrasi = data.total_registrasi;
                 

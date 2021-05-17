@@ -105,20 +105,20 @@
 													<template v-slot:activator="{ on }">
 														<v-text-field
 															v-model="formdata.tanggal_akhir_daftar"
-															label="TANGGAL AKHIR PENDAFTARAN"                                            
+															label="TANGGAL AKHIR PENDAFTARAN"                
 															readonly
 															outlined
 															v-on="on"></v-text-field>
 													</template>
 													<v-date-picker
-														v-model="formdata.tanggal_akhir_daftar"                                        
+														v-model="formdata.tanggal_akhir_daftar"            
 														no-title                                
-														scrollable>   
+														scrollable>
 														<v-spacer></v-spacer>
 														<v-btn text color="primary" @click="menuTanggalAkhirPendaftaran = false">Cancel</v-btn>
 														<v-btn text color="primary" @click="$refs.menuTanggalAkhirPendaftaran.save(formdata.tanggal_akhir_daftar)">OK</v-btn>
 													</v-date-picker>
-												</v-menu>   
+												</v-menu>
 												<v-menu
 													ref="menuTanggalUjian"
 													v-model="menuTanggalUjian"
@@ -131,16 +131,16 @@
 													<template v-slot:activator="{ on }">
 														<v-text-field
 															v-model="formdata.tanggal_ujian"
-															label="TANGGAL UJIAN"                                            
+															label="TANGGAL UJIAN"                
 															readonly
 															outlined
 															v-on="on">
 														</v-text-field>
 													</template>
 													<v-date-picker
-														v-model="formdata.tanggal_ujian"                                        
+														v-model="formdata.tanggal_ujian"            
 														no-title                                
-														scrollable>   
+														scrollable>
 														<v-spacer></v-spacer>
 														<v-btn text color="primary" @click="menuTanggalUjian = false">Cancel</v-btn>
 														<v-btn text color="primary" @click="$refs.menuTanggalUjian.save(formdata.tanggal_ujian)">OK</v-btn>
@@ -159,7 +159,7 @@
 													<template v-slot:activator="{ on, attrs }">
 														<v-text-field
 															v-model="formdata.jam_mulai_ujian"
-															label="JAM MULAI UJIAN"                                                            
+															label="JAM MULAI UJIAN"                                
 															readonly
 															outlined
 															v-bind="attrs"
@@ -187,7 +187,7 @@
 													<template v-slot:activator="{ on, attrs }">
 														<v-text-field
 															v-model="formdata.jam_selesai_ujian"
-															label="JAM SELESAI UJIAN"                                                            
+															label="JAM SELESAI UJIAN"                                
 															readonly
 															outlined
 															v-bind="attrs"
@@ -310,7 +310,7 @@
 					href: "#",
 				},
 			];    
-			this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];    
+			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];    
 			this.semester_pendaftaran = this.$store.getters['uiadmin/getSemesterPendaftaran'];
 			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
 			this.initialize();

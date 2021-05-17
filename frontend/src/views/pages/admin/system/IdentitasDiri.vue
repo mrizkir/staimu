@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -39,7 +39,7 @@
                                     label="NAMA PERGURUAN TINGGI"
                                     outlined
                                     :rules="rule_nama_pt">
-                                </v-text-field>                                                   
+                                </v-text-field>                                                
                                 <v-text-field 
                                     v-model="formdata.nama_alias_pt" 
                                     label="NAMA SINGKATAN PERGURUAN TINGGI"
@@ -56,7 +56,7 @@
                                     label="KODE PERGURUAN TINGGI (SESUAI FORLAP)"
                                     outlined
                                     :rules="rule_kode_pt">
-                                </v-text-field>                                                   
+                                </v-text-field>                                                
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -119,10 +119,10 @@ export default {
         },
         //form rules        
         rule_nama_pt: [
-            value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!",    
+            value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!", 
         ], 
         rule_nama_singkatan_pt: [
-            value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!",    
+            value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!", 
         ],
         rule_kode_pt: [
             value => !!value || "Mohon untuk di isi Kode Perguruan Tinggi !!!", 
@@ -159,14 +159,14 @@ export default {
                             102: this.formdata.nama_alias_pt,
                             103: this.formdata.bentuk_pt,
                             104: this.formdata.kode_pt,
-                        }),                                                                               
+                        }),                       
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;

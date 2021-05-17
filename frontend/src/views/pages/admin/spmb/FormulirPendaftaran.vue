@@ -20,7 +20,7 @@
 						<template v-slot:desc v-if="dashboard=='mahasiswabaru'">
 								<v-alert                                        
 										color="cyan"
-										border="left"                    
+										border="left"  
 										colored-border
 										type="info"
 										>
@@ -30,7 +30,7 @@
 						<template v-slot:desc v-else>
 								<v-alert                                        
 										color="cyan"
-										border="left"                    
+										border="left"  
 										colored-border
 										type="info"
 										>
@@ -93,9 +93,9 @@
 																		:icon="badgeIcon(item)"
 																		overlap
 																>
-																		<v-avatar size="30">    
-																				<v-img :src="$api.url+'/'+item.foto" />   
-																		</v-avatar>                                                      
+																		<v-avatar size="30"> 
+																				<v-img :src="$api.url+'/'+item.foto" />
+																		</v-avatar>                                                   
 														</v-badge>
 												</template>
 												<template v-slot:item.actions="{ item }">
@@ -219,7 +219,7 @@
 									headers: {
 											Authorization: this.$store.getters["auth/Token"]
 									}
-							}).then(({ data }) => {  
+							}).then(({ data }) => {
 									this.datatable = data.pmb;
 									this.datatableLoading = false;
 							});

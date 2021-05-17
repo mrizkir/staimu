@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -30,7 +30,7 @@
         </ModuleHeader>
         <v-container fluid v-if="data_kelas_mhs">
             <v-row>
-                <v-col cols="12">    
+                <v-col cols="12"> 
                     <DataKelasMHS :datakelas="data_kelas_mhs" />
                 </v-col>
             </v-row>
@@ -45,11 +45,11 @@
                         <v-data-table
                             v-model="daftar_nilai"
                             :headers="headers_peserta"
-                            :items="datatable_peserta"                        
-                            item-key="id"  
+                            :items="datatable_peserta"   
+                            item-key="id"
                             show-select                                              
                             :disable-pagination="true"
-                            :hide-default-footer="true"                        
+                            :hide-default-footer="true"   
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"
@@ -65,10 +65,10 @@
                                     <v-spacer></v-spacer>
                                 </v-toolbar>
                             </template>
-                            <template v-slot:item.idkelas="{item}">
+                            <template v-slot:item.idkelas="{ item }">
                                 {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                             </template>
-                            <template v-slot:item.kjur="{item}">
+                            <template v-slot:item.kjur="{ item }">
                                 {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
                             </template>
                             <template v-slot:item.n_kuan="props"> 
@@ -99,7 +99,7 @@
                                 <tr>
                                     <td class="text-right" colspan="8">
                                         <v-btn 
-                                            class="primary mt-2 mb-2"                                 
+                                            class="primary mt-2 mb-2"     
                                             @click.stop="save" 
                                             
                                             :disabled="btnLoading">
@@ -110,7 +110,7 @@
                             </template> 
                             <template v-slot:no-data>
                                 Data belum tersedia
-                            </template>   
+                            </template>
                         </v-data-table>
                     </v-form>
                 </v-col> 
@@ -164,16 +164,16 @@ export default {
         btnLoading: false,
         
         datatable: [],
-        datatable_peserta: [],        
+        datatable_peserta: [],  
         headers_peserta: [
             { text: "NIM", value: "nim", sortable: false, width: 100  },
             { text: 'NAMA', value: 'nama_mhs', sortable: false  },
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
-            { text: 'KELAS', value: 'idkelas', sortable: false  },       
+            { text: 'KELAS', value: 'idkelas', sortable: false  }, 
             { text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },  
             { text: 'NILAI HURUP', value: 'n_kual', sortable: false },  
-        ],       
+        ], 
 
         //formdata
         form_valid: true, 
@@ -197,7 +197,7 @@ export default {
     methods: {
         initialize: async function() 
         {
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -206,12 +206,12 @@ export default {
                 this.data_kelas_mhs=data.pembagiankelas; 
             });
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,   
+            await this.$ajax.get('/akademik/nilai/matakuliah/pesertakelas/'+this.kelas_mhs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                               
+            }).then(({ data }) => {                                             
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              
@@ -219,12 +219,12 @@ export default {
         async fetchPeserta()
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,   
+            await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                    
+            }).then(({ data }) => {                  
                 this.datatable_peserta=data.peserta;
                 this.datatableLoading = false;
             })   

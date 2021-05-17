@@ -90,7 +90,7 @@
 						DAFTAR MAHASISWA
 					</v-list-item-title>
 				</v-list-item-content>
-			</v-list-item>    
+			</v-list-item> 
 			</v-list>
 		</v-navigation-drawer>
 		<v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
@@ -228,7 +228,7 @@
 						setTimeout(() => {
 							this.loginTime =
 								this.AUTHENTICATED == true ? this.loginTime + 1 : -1;
-						},1000);
+						}, 1000);
 					} else {
 						this.$store.dispatch("auth/logout");
 						this.$router.replace("/login");

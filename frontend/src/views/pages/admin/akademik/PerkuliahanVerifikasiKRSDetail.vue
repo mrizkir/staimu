@@ -20,53 +20,53 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk melihat detail dan verifikasi krs mahasiswa 
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid v-if="Object.keys(datakrs).length">   
+        </ModuleHeader>
+        <v-container fluid v-if="Object.keys(datakrs).length">
             <v-row> 
                 <v-col cols="12">  
                     <DataKRS :datakrs="datakrs" url="/akademik/perkuliahan/krs/verifikasi" :totalmatkul="totalMatkul" :totalsks="totalSKS" />
                 </v-col>
             </v-row>
             <v-row>
-                <v-col cols="12">   
+                <v-col cols="12">
                     <v-card>
                         <v-card-title>
                             DAFTAR MATAKULIAH
-                            <v-spacer></v-spacer>            
+                            <v-spacer></v-spacer>         
                         </v-card-title>
                         <v-card-text>
                             <v-data-table        
                                 dense                        
                                 :headers="headers"
-                                :items="datatable"                                
-                                item-key="id"                                                        
+                                :items="datatable"    
+                                item-key="id"                            
                                 :disable-pagination="true"
-                                :hide-default-footer="true"                                                                
+                                :hide-default-footer="true"                                    
                                 :loading="datatableLoading"
-                                loading-text="Loading... Please wait">                    
+                                loading-text="Loading... Please wait">                 
                                 <template v-slot:body.append v-if="datatable.length > 0">
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
                                         <td>{{totalMatkul}}</td> 
                                         <td></td>
                                         <td></td>
-                                        <td></td>    
+                                        <td></td> 
                                     </tr>
                                     <tr class="grey lighten-4 font-weight-black">
                                         <td class="text-right" colspan="2">TOTAL SKS</td>
                                         <td>{{totalSKS}}</td> 
                                         <td></td>
-                                        <td></td>    
+                                        <td></td> 
                                         <td></td>
                                     </tr>
-                                </template>   
+                                </template>
                                 <template v-slot:no-data>
                                     Data matakuliah belum tersedia silahkan tambah
                                 </template>
@@ -135,10 +135,10 @@ export default {
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 },       
-            { text: 'SMT', value: 'semester', sortable: false, width:50 },       
-            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },       
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },               
+            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
+            { text: 'SMT', value: 'semester', sortable: false, width:50 }, 
+            { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 }, 
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
         ],
     }),
     methods: {
@@ -149,7 +149,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {             
+            }).then(({ data }) => {           
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)

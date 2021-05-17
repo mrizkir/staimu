@@ -103,14 +103,14 @@ export default {
     props: {
         datakelas: {
             default: null,
-            type: Object,   
+            type: Object,
         },
         url: {
             type: String,
             default: null            
         }
     },
-    methods: {  
+    methods: {
         exit()
         {
             if (this.url != null)

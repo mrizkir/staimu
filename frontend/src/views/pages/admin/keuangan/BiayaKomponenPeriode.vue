@@ -122,7 +122,7 @@
 									</template>
 							</v-edit-dialog>
 						</template>
-						<template v-slot:item.idkelas="{item}">
+						<template v-slot:item.idkelas="{ item }">
 							{{ $store.getters['uiadmin/getNamaKelas'](item.idkelas) }}
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">

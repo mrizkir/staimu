@@ -29,11 +29,11 @@
 						<v-row class="mb-4" no-gutters>
 								<v-col cols="12">
 										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-												<v-card>    
+												<v-card> 
 														<v-card-text>
 																<v-select
 																		v-model="formdata.term_id" 
-																		:items="daftar_category"                
+																		:items="daftar_category"
 																		label="KATEGORI"
 																		item-value="id"
 																		item-text="name"
@@ -94,7 +94,7 @@ export default {
 				},
 				//form rules        
 				rule_term_id: [
-						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!",    
+						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!", 
 				], 
 		}),
 		methods: {
@@ -129,7 +129,7 @@ export default {
 												_method: 'PUT',
 												'pid': 'blog',
 												setting: JSON.stringify({
-														601: this.formdata.term_id,      
+														601: this.formdata.term_id,
 												}),
 										},
 										{

@@ -28,11 +28,11 @@
                 <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="green darken-1"
-                        color="#385F73"                         
+                        color="#385F73"
                         dark>
                         <v-card-title class="headline">
                             IPK
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             indeks Prestasi Kumulatif
                         </v-card-subtitle>
@@ -45,11 +45,11 @@
                 <v-col xs="12" sm="6" md="3">
                     <v-card                         
                         class="green darken-1"
-                        color="#385F73"                     
+                        color="#385F73"
                         dark>
                         <v-card-title class="headline">
                             SKS
-                        </v-card-title>   
+                        </v-card-title>
                         <v-card-subtitle>
                             Total SKS
                         </v-card-subtitle>
@@ -208,8 +208,8 @@
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
                                 mdi-eye
-                            </v-icon>   
-                        </template>   
+                            </v-icon>
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -261,7 +261,7 @@ export default {
     },
     data: () => ({ 
         firstloading: true,
-        breadcrumbs: [],     
+        breadcrumbs: [],  
         
         //profil mahasiswa      
         user_id: null,
@@ -301,7 +301,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {          
+            }).then(({ data }) => {        
                 this.datamhs=data.mahasiswa;
                 
                 this.totalSKS=data.jumlah_sks;
@@ -311,7 +311,7 @@ export default {
             });
 
             this.datatableLoading = true;   
-            await this.$ajax.post('/keuangan/transaksi',   
+            await this.$ajax.post('/keuangan/transaksi',
             {
                 TA: this.$store.getters['uiadmin/getTahunAkademik'],
                 user_id: this.user_id
@@ -320,7 +320,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
             });
@@ -343,7 +343,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                           
+            }).then(({ data }) => {                         
                 this.data_transaksi=item; 
                 this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;

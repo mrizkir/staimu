@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -185,8 +185,8 @@
                                 class="mr-2"
                                 @click.stop="viewItem(item)">
                                 mdi-eye
-                            </v-icon>   
-                        </template>   
+                            </v-icon>
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -206,28 +206,28 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI UNPAID</td>
                                 <td class="text-right">{{ totaltransaksi_unpaid | formatUang }}</td> 
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI CANCELED</td>
                                 <td class="text-right">{{ totaltransaksi_canceled | formatUang }}</td> 
                                 <td></td>
                                 <td></td> 
                                 <td></td> 
-                            </tr>    
+                            </tr> 
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI</td>
                                 <td class="text-right">{{(totaltransaksi_canceled+totaltransaksi_paid+totaltransaksi_unpaid)|formatUang}}</td> 
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr>    
+                            </tr> 
                         </template>  
                     </v-data-table>
                 </v-col>
@@ -325,7 +325,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true; 
-            await this.$ajax.post('/keuangan/transaksi',   
+            await this.$ajax.post('/keuangan/transaksi',
             {
                 TA: this.tahun_akademik,
                 PRODI_ID: this.prodi_id,
@@ -334,7 +334,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
             });
@@ -359,7 +359,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                           
+            }).then(({ data }) => {                         
                 this.data_transaksi=item; 
                 this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;
@@ -401,7 +401,7 @@ export default {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
                         this.datatableLoading = true; 
-                        await this.$ajax.post('/keuangan/transaksi',        
+                        await this.$ajax.post('/keuangan/transaksi',  
                         {
                             PRODI_ID: this.prodi_id,
                             TA: this.tahun_akademik,
@@ -411,13 +411,13 @@ export default {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
-                        }).then(({ data }) => {  
+                        }).then(({ data }) => {
                             this.datatable = data.transaksi;
                             this.datatableLoading = false;
                         });
                     }
                     this.awaiting_search = false;
-                },1000); // 1 sec delay
+                }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }

@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -74,7 +74,7 @@
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions v-if="dashboard== 'mahasiswa'">
@@ -88,7 +88,7 @@
                                 @click.stop="deleteItem(item)">
                                 mdi-delete
                             </v-icon>
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -100,7 +100,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -161,9 +161,9 @@ export default {
             { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },
             { text: "NIM", value: "nim", sortable: true, width: 100  },
             { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },
-            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },       
-            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, },       
-            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, },       
+            { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 }, 
+            { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
+            { text: 'STATUS', value: 'n_status', sortable: true, width: 120, }, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -194,7 +194,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.mahasiswa;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -241,7 +241,7 @@ export default {
         },
         closedialogfrm() { 
             this.dialogfrm = false; 
-            setTimeout(() => {  
+            setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
                 },300

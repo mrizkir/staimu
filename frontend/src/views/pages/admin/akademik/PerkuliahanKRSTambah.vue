@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -42,8 +42,8 @@
                                 </v-alert>
                                 <v-text-field 
                                     v-model="formdata.nim"
-                                    label="NIM"   
-                                    :rules="rule_nim"                                                                  
+                                    label="NIM" 
+                                    :rules="rule_nim"                                      
                                     outlined
                                     append-outer-icon="mdi-send"
                                     @click:append-outer="cekNIM"
@@ -51,8 +51,8 @@
                                     />
                                 <v-select
                                     v-model="formdata.dulang_id"
-                                    :items="daftar_dulang"                                    
-                                    label="DAFTAR ULANG"                                            
+                                    :items="daftar_dulang"        
+                                    label="DAFTAR ULANG"                
                                     class="mr-2"
                                     :rules="rule_dulang"
                                     outlined/>
@@ -72,7 +72,7 @@
                         </v-card>
                     </v-form>
                 </v-col>
-            </v-row>   
+            </v-row>
         </v-container>
     </AkademikLayout>
 </template>
@@ -112,7 +112,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.daftar_ta = this.$store.getters['uiadmin/getDaftarTA']; 
+        this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"]; 
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.ta_matkul = this.tahun_akademik;
         this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"]; 
@@ -168,13 +168,13 @@ export default {
         {
             await this.$ajax.post('/akademik/dulang/dulangnotinkrs',
             {
-                nim: this.formdata.nim,       
+                nim: this.formdata.nim, 
             },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {         
                 this.daftar_dulang = data.daftar_dulang;
             })
         },
@@ -198,7 +198,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                }).then(({ data }) => {  
+                }).then(({ data }) => {
                     this.$router.push('/akademik/perkuliahan/krs/'+data.krs.id+'/detail');
                     this.btnLoading = false;
                 }).catch(() => {
@@ -206,8 +206,8 @@ export default {
                 });
             }
         },
-        closedialogfrm() {         
-            setTimeout(() => {  
+        closedialogfrm() {       
+            setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push("/akademik/perkuliahan/krs/daftar");
                 },300

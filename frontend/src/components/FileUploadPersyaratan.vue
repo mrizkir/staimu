@@ -1,7 +1,7 @@
 <template>
     <v-form v-model="form_valid" ref="frmpersyaratan" lazy-validation>
-        <v-card class="mx-auto" max-width="400">   
-            <v-img class="white--text align-end" height="200px" :src="photoPersyaratan"></v-img>    
+        <v-card class="mx-auto" max-width="400">
+            <v-img class="white--text align-end" height="200px" :src="photoPersyaratan"></v-img> 
             <v-card-text class="text--primary">
                 <div>
                     <v-file-input 
@@ -19,13 +19,13 @@
                 <v-badge
                     bordered
                     :color="badgeColor"
-                    :icon="badgeIcon">   
+                    :icon="badgeIcon">
                 </v-badge>
                 <v-spacer/> 
                 <v-btn
                     icon
                     :href="this.$api.url+'/'+this.item.path"
-                    target="_blank"                    
+                    target="_blank"  
                     v-if="verified == 1">
                     <v-icon>
                         mdi-download
@@ -37,7 +37,7 @@
                     @click="upload(index,item)"
                                                     
                     :disabled="btnLoading||btnSimpan"
-                    v-if="verified == 0">   
+                    v-if="verified == 0">
                     Simpan
                 </v-btn>
                 <v-btn
@@ -46,7 +46,7 @@
                     @click="hapusfilepersysaratan(item)"
                                                     
                     :disabled="btnLoading||btnHapus"
-                    v-if="verified == 0">   
+                    v-if="verified == 0">
                     Hapus
                 </v-btn>
                 <v-btn
@@ -151,7 +151,7 @@ export default {
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(() => {                 
+                    ).then(() => {               
                         this.btnHapus=false;
                         this.btnSimpan = true;
                         this.btnLoading = false;
@@ -219,7 +219,7 @@ export default {
                 this.btnHapus = true; 
                 this.btnVerifikasi=true;   
                 this.btnLoading = false;
-            }).catch(() => {                 
+            }).catch(() => {               
                 this.btnLoading = false;
             });
         }

@@ -29,14 +29,14 @@
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-                        <v-card>    
+                        <v-card> 
                             <v-card-text>
                                 <v-text-field
                                     v-model="formdata.token_ttl_expire"
                                     label="TTL EXPIRE TOKEN (MENIT)"
                                     outlined
                                     :rules="rule_ttl_token_expire">
-                                </v-text-field>       
+                                </v-text-field>    
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -120,7 +120,7 @@ export default {
                         _method: 'PUT',
                         'pid': 'token_ttl_expire',
                         setting: JSON.stringify({
-                            903: this.formdata.token_ttl_expire,      
+                            903: this.formdata.token_ttl_expire,
                         }),
                     },
                     {

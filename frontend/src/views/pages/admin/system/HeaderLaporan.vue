@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -36,7 +36,7 @@
                                     v-model="formdata.header_1" 
                                     label="HEADER 1"
                                     outlined>
-                                </v-text-field>                                                                                                                                                                              
+                                </v-text-field>                                                                                                                                                                           
                                 <v-text-field 
                                     v-model="formdata.header_2" 
                                     label="HEADER 2"
@@ -153,14 +153,14 @@ export default {
                             703: this.formdata.header_3,
                             704: this.formdata.header_4,
                             705: this.formdata.header_address,
-                        }),                                                                               
+                        }),                       
                     },
                     {
                         headers: {
                             Authorization: this.TOKEN
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     this.btnLoading = false;
                 }).catch(() => {
                     this.btnLoading = false;

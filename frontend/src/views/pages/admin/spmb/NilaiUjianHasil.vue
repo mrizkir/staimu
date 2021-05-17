@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -71,7 +71,7 @@ export default {
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-        this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+        this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()   
     },
     data: () => ({
@@ -117,20 +117,20 @@ export default {
             },
         ],
         formdata: { 
-            user_id: '',   
-            jadwal_ujian_id: null,   
-            jumlah_soal: null,   
-            jawaban_benar: null,   
-            jawaban_salah: null,   
-            soal_tidak_terjawab: null,   
-            passing_grade_1: null,   
-            passing_grade_2: null,   
-            nilai: 0,   
-            ket_lulus: '',   
-            kjur: null,   
-            desc: '',   
-            created_at: '',   
-            updated_at: '',   
+            user_id: '',
+            jadwal_ujian_id: null,
+            jumlah_soal: null,
+            jawaban_benar: null,
+            jawaban_salah: null,
+            soal_tidak_terjawab: null,
+            passing_grade_1: null,
+            passing_grade_2: null,
+            nilai: 0,
+            ket_lulus: '',
+            kjur: null,
+            desc: '',
+            created_at: '',
+            updated_at: '',
         },
     }),
     methods: {
@@ -152,7 +152,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {  
+                    }).then(({ data }) => {
                         this.datatable = data.pmb;
                         this.datatableLoading = false;
                     });
@@ -234,7 +234,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"],  
                         }
                     }
-                    ).then(() => {  
+                    ).then(() => {
                         this.btnLoading = false; 
                         this.closedialogfrm();
                         this.initialize();
@@ -258,7 +258,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"],  
                         }
                     }
-                    ).then(() => {  
+                    ).then(() => {
                         this.btnLoading = false; 
                         this.closedialogfrm();
                         this.initialize();
@@ -283,7 +283,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"],  
                         }
                     }
-                    ).then(() => {  
+                    ).then(() => {
                         this.btnLoading = false;
                         this.initialize();
                     }).catch(() => {
@@ -309,7 +309,7 @@ export default {
     }, 
     components: {
         SPMBLayout,
-        ModuleHeader,       
+        ModuleHeader, 
     },
 }
 </script>

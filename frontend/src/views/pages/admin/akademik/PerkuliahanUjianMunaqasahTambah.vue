@@ -481,7 +481,7 @@
 							Authorization: this.$store.getters["auth/Token"],
 						},
 					})
-					.then(({ data }) => {  
+					.then(({ data }) => {
 						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
 					});			

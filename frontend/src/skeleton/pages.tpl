@@ -17,14 +17,14 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Text
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -271,7 +271,7 @@ export default {
         ], 
         rule_name: [
             value => !!value || "Mohon untuk di isi name !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Name hanya boleh string dan spasi', 
         ], 
     }),
     methods: {
@@ -282,7 +282,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.object;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -307,7 +307,7 @@ export default {
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]
             //     }
-            // }).then(({ data }) => {  
+            // }).then(({ data }) => {
                                            
             // }); 
         }, 
@@ -343,7 +343,7 @@ export default {
                 } else {
                     await this.$ajax.post('/path/store',
                         {
-                            name: this.formdata.name,      
+                            name: this.formdata.name,
                         },
                         {
                             headers: {

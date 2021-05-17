@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -74,7 +74,7 @@
                         <template v-slot:itemis_dw="{ item }">
                             {{item.is_dw == false ? 'BUKAN': 'YA'}}
                         </template>
-                        <template v-slot:itemactions="{ item }">    
+                        <template v-slot:itemactions="{ item }"> 
                             <v-icon
                                 small
                                 class="mr-2"
@@ -93,10 +93,10 @@
                                 mdi-delete
                             </v-icon>
                         </template>
-                        <template v-slot:item.foto="{ item }">    
+                        <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url+'/'+item.foto" /> 
-                            </v-avatar>                                                      
+                            </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
@@ -161,7 +161,7 @@ export default {
         ],
         expanded: [],
         search: "",
-        daftar_users: [],      
+        daftar_users: [],
     }),
     methods: {
         initialize: async function() 
@@ -171,7 +171,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.daftar_users = data.users;
                 this.role_id=data.role.id;
                 this.datatableLoading = false;

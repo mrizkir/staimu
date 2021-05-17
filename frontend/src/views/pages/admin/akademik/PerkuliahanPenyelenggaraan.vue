@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -53,7 +53,7 @@
                         :headers="headers"
                         :items="datatable"
                         :search="search"
-                        item-key="id"                        
+                        item-key="id"   
                         show-expand
                         :expanded.sync="expanded"
                         :single-expand="true"
@@ -80,10 +80,10 @@
                                 </v-btn>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.nama_dosen="{item}">
+                        <template v-slot:item.nama_dosen="{ item }">
                             {{item.nama_dosen==null?'N.A':item.nama_dosen}}
                         </template>
-                        <template v-slot:item.idkelas="{item}">
+                        <template v-slot:item.idkelas="{ item }">
                             {{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
                         </template>
                         <template v-slot:item.actions="{ item }" v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE')">
@@ -94,7 +94,7 @@
                                 <v-icon>
                                     mdi-account-child-outline
                                 </v-icon>
-                            </v-btn>   
+                            </v-btn>
                             <v-btn
                                 small
                                 icon
@@ -104,11 +104,11 @@
                                 <v-icon>
                                     mdi-delete
                                 </v-icon>
-                            </v-btn>   
-                        </template>   
+                            </v-btn>
+                        </template>
                         <template v-slot:item.actions v-else>
                             N.A
-                        </template>   
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
@@ -121,7 +121,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>   
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>
@@ -185,8 +185,8 @@ export default {
             { text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },
             { text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },
             { text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },
-            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 },       
-            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50},       
+            { text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 }, 
+            { text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50}, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
         search: "", 
@@ -218,7 +218,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.penyelenggaraan;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -290,7 +290,7 @@ export default {
     },
     computed: {
         ...mapGetters("auth", { 
-            CAN_ACCESS: "can",   
+            CAN_ACCESS: "can",
         }),
     },
     components: {

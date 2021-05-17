@@ -20,7 +20,7 @@
 						<template v-slot:desc>
 								<v-alert                                        
 										color="cyan"
-										border="left"                    
+										border="left"  
 										colored-border
 										type="info"
 										>
@@ -30,18 +30,18 @@
 				</ModuleHeader>
 				<v-container fluid v-if="data_kelas_mhs">
 						<v-row>
-								<v-col cols="12">    
+								<v-col cols="12"> 
 										<DataKelasMHS :datakelas="data_kelas_mhs" url="/akademik/perkuliahan/pembagiankelas/daftar" />
 								</v-col>
 						</v-row>
 						<v-row>
-								<v-col cols="12">    
+								<v-col cols="12"> 
 										<v-data-table
 												:headers="headers"
-												:items="datatable"                        
-												item-key="id"                                                
+												:items="datatable"   
+												item-key="id"                    
 												:disable-pagination="true"
-												:hide-default-footer="true"                        
+												:hide-default-footer="true"   
 												class="elevation-1"
 												:loading="datatableLoading"
 												loading-text="Loading... Please wait">
@@ -68,20 +68,20 @@
 																						<v-icon>mdi-plus</v-icon>
 																				</v-btn> 
 																		</template>
-																		<span>Tambah Matakuliah</span>   
+																		<span>Tambah Matakuliah</span>
 																</v-tooltip>
 														</v-toolbar>
 												</template>
-												<template v-slot:item.nmatkul="{item}">
+												<template v-slot:item.nmatkul="{ item }">
 														{{item.nmatkul}} - TA {{item.ta}}
 												</template>
-												<template v-slot:item.jam_masuk="{item}">
+												<template v-slot:item.jam_masuk="{ item }">
 														{{item.jam_masuk}}-{{item.jam_keluar}}
 												</template>
-												<template v-slot:item.kjur="{item}">
+												<template v-slot:item.kjur="{ item }">
 														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">      
+												<template v-slot:item.actions="{ item }">   
 														<v-btn
 																small
 																icon
@@ -91,11 +91,11 @@
 																<v-icon>
 																		mdi-delete
 																</v-icon>
-														</v-btn>   
-												</template>               
+														</v-btn>
+												</template>            
 												<template v-slot:no-data>
 														Data belum tersedia
-												</template>   
+												</template>
 										</v-data-table>
 								</v-col>
 						</v-row>
@@ -149,14 +149,14 @@
 																				:items="datatable_members"
 																				:search="search_members"
 																				item-key="id"
-																				sort-by="name"     
+																				sort-by="name"
 																				show-select                                                                           
 																				:loading="datatableLoading"
 																				loading-text="Loading... Please wait">
 
 																				<template v-slot:item.id="{ item }">
 																						{{item.id}}
-																				</template>    
+																				</template> 
 																				<template v-slot:expanded-item="{ headers, item }">
 																						<td :colspan="headers.length" class="text-center">
 																								<v-col cols="12">
@@ -188,10 +188,10 @@
 										</v-dialog>  
 										<v-data-table
 												:headers="headers_peserta"
-												:items="datatable_peserta"                        
-												item-key="id"                                                
+												:items="datatable_peserta"   
+												item-key="id"                    
 												:disable-pagination="true"
-												:hide-default-footer="true"                        
+												:hide-default-footer="true"   
 												class="elevation-1"
 												:loading="datatableLoading"
 												loading-text="Loading... Please wait">
@@ -219,17 +219,17 @@
 																						<v-icon>mdi-plus</v-icon>
 																				</v-btn> 
 																		</template>
-																		<span>Tambah Peserta Kelas</span>   
+																		<span>Tambah Peserta Kelas</span>
 																</v-tooltip>
 														</v-toolbar>
 												</template>
-												<template v-slot:item.idkelas="{item}">
+												<template v-slot:item.idkelas="{ item }">
 														{{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
 												</template>
-												<template v-slot:item.kjur="{item}">
+												<template v-slot:item.kjur="{ item }">
 														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">      
+												<template v-slot:item.actions="{ item }">   
 														<v-btn
 																small
 																icon
@@ -239,11 +239,11 @@
 																<v-icon>
 																		mdi-delete
 																</v-icon>
-														</v-btn>   
-												</template>               
+														</v-btn>
+												</template>            
 												<template v-slot:no-data>
 														Data belum tersedia
-												</template>   
+												</template>
 										</v-data-table>
 								</v-col>
 						</v-row>
@@ -307,23 +307,23 @@ export default {
 				headers: [
 						{ text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nmatkul', sortable: false  },
-						{ text: 'SKS', value: 'sks', sortable: false  },       
-						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 },       
-						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 },       
+						{ text: 'SKS', value: 'sks', sortable: false  }, 
+						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false, width: 200 }, 
+						{ text: 'JUMLAH MHS DI KRS', value: 'jumlah_mhs', sortable: false, width: 100 }, 
 						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],
 				headers_peserta: [
 						{ text: "NIM", value: "nim", sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },
 						{ text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
-						{ text: 'KELAS', value: 'idkelas', sortable: false  },       
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },      
+						{ text: 'KELAS', value: 'idkelas', sortable: false  }, 
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },
 						{ text: "AKSI", value: "actions", sortable: false, width:60 },
 				],
 				headers_members: [
 						{ text: "NIM", value: "nim", sortable: false, width: 100  },
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false  },
-						{ text: 'KELAS', value: 'idkelas', sortable: false  },       
+						{ text: 'KELAS', value: 'idkelas', sortable: false  }, 
 						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
 				],
 				search_members: '',
@@ -334,7 +334,7 @@ export default {
 				//formdata
 				form_valid: true,
 				members_selected: [],
-				formdata: {    
+				formdata: {  
 						penyelenggaraan_dosen_id: '',  
 				},
 				
@@ -343,7 +343,7 @@ export default {
 				initialize: async function() 
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,   
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+this.kelas_mhs_id,
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
@@ -358,12 +358,12 @@ export default {
 				async fetchMatkul()
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/matakuliah/'+this.kelas_mhs_id,   
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/matakuliah/'+this.kelas_mhs_id,
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                    
+						}).then(({ data }) => {                  
 								this.datatable=data.penyelenggaraan;
 								this.datatableLoading = false;
 						})   
@@ -371,36 +371,36 @@ export default {
 				async fetchPeserta()
 				{
 						this.datatableLoading = true;
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,   
+						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/peserta/'+this.kelas_mhs_id,
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                    
+						}).then(({ data }) => {                  
 								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
 						})   
 				},
 				async tambahMatakuliah()
 				{
-						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',   
+						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/matakuliah',
 						{
 								user_id: this.data_kelas_mhs.user_id,
-								ta: this.data_kelas_mhs.tahun,       
-								semester_akademik: this.data_kelas_mhs.idsmt,       
+								ta: this.data_kelas_mhs.tahun, 
+								semester_akademik: this.data_kelas_mhs.idsmt, 
 						},
 						{
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                             
+						}).then(({ data }) => {                           
 								this.daftar_matakuliah = data.matakuliah; 
 								this.showdialogmatakuliah=true;    
 						})  
 				},
 				async tambahPeserta()
 				{
-						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',   
+						await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/members',
 						{
 								pid: 'belumterdaftar',
 								kelas_mhs_id: this.kelas_mhs_id,
@@ -433,7 +433,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {   
+							.then(() => { 
 								this.btnLoading = false;
 								this.closedialogpeserta();
 							})
@@ -456,7 +456,7 @@ export default {
 														Authorization: this.$store.getters["auth/Token"]
 												}
 										}
-								).then(() => {   
+								).then(() => { 
 										this.btnLoading = false;
 										this.closedialogmatakuliah();
 								}).catch(() => {
@@ -479,7 +479,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {       
+										).then(() => {     
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -503,7 +503,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {       
+										).then(() => {     
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {

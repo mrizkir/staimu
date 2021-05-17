@@ -20,7 +20,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
 					<v-card 
 						min-height="140"
@@ -36,7 +36,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
 					<v-card 
 						min-height="140"
@@ -52,7 +52,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEUANGAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -68,7 +68,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('AKADEMIK-GROUP')">
 					<v-card 
 						min-height="140"
@@ -84,7 +84,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEMAHASISWAAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -100,7 +100,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEPEGAWAIAN-GROUP')">
 					<v-card 
 						min-height="140"
@@ -116,7 +116,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
 					<v-card 
 						min-height="140"
@@ -132,7 +132,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-SETTING-GROUP')">
 					<v-card 
 						min-height="140"
@@ -148,7 +148,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
 					<v-card 
 						min-height="140"
@@ -164,7 +164,7 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>   
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 			</v-row>
 		</v-container>
 	</AdminLayout>
@@ -209,7 +209,7 @@ export default {
 	methods: {
 		initialize: async function()
 		{	            
-			await this.$ajax.get('/auth/me',       
+			await this.$ajax.get('/auth/me', 
 			{
 				headers: {
 					Authorization: 'Bearer '+this.TOKEN

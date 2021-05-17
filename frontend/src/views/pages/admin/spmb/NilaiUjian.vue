@@ -20,7 +20,7 @@
 						<template v-slot:desc>
 								<v-alert                                        
 										color="cyan"
-										border="left"                    
+										border="left"  
 										colored-border
 										type="info"
 										>
@@ -127,18 +127,18 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>    
+																						</v-row> 
 																						<v-row>
 																								<v-col cols="12">
 																										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-																												<v-card>                
-																														<v-card-text>                          
+																												<v-card>             
+																														<v-card-text>                       
 																																<v-currency-field 
 																																		label="NILAI UJIAN:" 
 																																		:min="null"
-																																		:max="null"                                            
+																																		:max="null"                
 																																		outlined                                                                    
-																																		v-model="formdata.nilai">    
+																																		v-model="formdata.nilai"> 
 																																</v-currency-field> 
 																																<v-select
 																																		label="DITERIMA DI PROGRAM STUDI :"
@@ -151,12 +151,12 @@
 																																<v-select
 																																		label="STATUS :"
 																																		v-model="formdata.ket_lulus"
-																																		:items="daftar_status"                                                                    
+																																		:items="daftar_status"                                        
 																																		:rules="rule_status"
 																																		outlined/>
 																																<v-text-field 
 																																		v-model="formdata.desc"
-																																		label="CATATAN:"                                                                     
+																																		label="CATATAN:"                                         
 																																		outlined />
 																														</v-card-text>
 																														<v-card-actions>
@@ -187,9 +187,9 @@
 																		:icon="badgeIcon(item)"
 																		overlap
 																>
-																		<v-avatar size="30">    
-																				<v-img :src="$api.url+'/'+item.foto" />   
-																		</v-avatar>                                                      
+																		<v-avatar size="30"> 
+																				<v-img :src="$api.url+'/'+item.foto" />
+																		</v-avatar>                                                   
 														</v-badge>
 												</template>
 												<template v-slot:item.no_formulir="{ item }">
@@ -227,7 +227,7 @@
 																				class="mb-2" 
 																				:disabled="btnLoading" 
 																				>ULANG UJIAN </v-btn>
-																</v-col>    
+																</v-col> 
 														</td>
 												</template>
 												<template v-slot:no-data>
@@ -274,7 +274,7 @@
 					let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 					this.prodi_id = prodi_id;
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-					this.tahun_pendaftaran = this.$store.getters['uiadmin/getTahunPendaftaran'];
+					this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 					this.initialize()   
 			},
 			data: () => ({
@@ -392,7 +392,7 @@
 													headers: {
 															Authorization: this.$store.getters["auth/Token"]
 													}
-											}).then(({ data }) => {  
+											}).then(({ data }) => {
 													this.datatable = data.pmb;
 													this.datatableLoading = false;
 											});
@@ -476,7 +476,7 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {  
+											).then(() => {
 													this.btnLoading = false; 
 													this.closedialogfrm();
 													this.initialize();
@@ -500,7 +500,7 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {  
+											).then(() => {
 													this.btnLoading = false; 
 													this.closedialogfrm();
 													this.initialize();
@@ -525,7 +525,7 @@
 															Authorization: this.$store.getters["auth/Token"],
 													}
 											}
-											).then(() => {  
+											).then(() => {
 													this.btnLoading = false;
 													this.initialize();
 											}).catch(() => {

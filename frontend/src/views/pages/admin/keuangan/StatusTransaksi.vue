@@ -17,7 +17,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -30,7 +30,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"                        
+                        :items="datatable"   
                         item-key="id_status"
                         sort-by="id_status"
                         show-expand
@@ -63,12 +63,12 @@
                                 @close="closeItem"> 
                                     <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>  
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Style</div>    
+                                        <div class="mt-4 title">Update Style</div> 
                                         <v-text-field 
-                                            label="STYLE STATUS TRANSAKSI"                                             
+                                            label="STYLE STATUS TRANSAKSI"                 
                                             outlined
                                             autofocus
-                                            v-model="props.item.style">    
+                                            v-model="props.item.style"> 
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
@@ -127,9 +127,9 @@ export default {
         expanded: [],
         datatable: [],
         headers: [            
-            { text: 'ID', value: 'id_status', width:10, sortable: false },          
+            { text: 'ID', value: 'id_status', width:10, sortable: false }, 
             { text: 'NAMA STATUS', value: 'nama_status', sortable: false},
-            { text: 'STYLE', value: 'style', width: 200, sortable: false },    
+            { text: 'STYLE', value: 'style', width: 200, sortable: false }, 
         ], 
         
     }),
@@ -142,7 +142,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.status;
                 this.datatableLoading = false;
             });
@@ -161,9 +161,9 @@ export default {
         },
         saveItem: async function ({id,style})
         {
-            await this.$ajax.post('/keuangan/statustransaksi/'+id,   
+            await this.$ajax.post('/keuangan/statustransaksi/'+id,
             {
-                _method: "put",       
+                _method: "put", 
                 id_status:id,
                 style:style
             },
@@ -171,7 +171,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(() => {  
+            }).then(() => {
                 this.initialize();
             });
         },

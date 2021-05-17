@@ -70,7 +70,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>    
+                                        </v-btn> 
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -114,15 +114,15 @@
                                                             <template v-slot:activator="{ on }">
                                                                 <v-text-field
                                                                     v-model="semesterGanjilText"
-                                                                    label="SEMESTER GANJIL"                                            
+                                                                    label="SEMESTER GANJIL"                
                                                                     readonly
                                                                     outlined
-                                                                    v-on="on"                                                                    
+                                                                    v-on="on"                                        
                                                                     class="mr-1"
                                                                 ></v-text-field>
                                                             </template>
                                                             <v-date-picker
-                                                                v-model="semester_ganjil"                                        
+                                                                v-model="semester_ganjil"            
                                                                 no-title                                
                                                                 scrollable
                                                                 range
@@ -152,15 +152,15 @@
                                                             <template v-slot:activator="{ on }">
                                                                 <v-text-field
                                                                     v-model="semesterGenapText"
-                                                                    label="SEMESTER GENAP"                                            
+                                                                    label="SEMESTER GENAP"                
                                                                     readonly
                                                                     outlined
-                                                                    v-on="on"                                                                    
+                                                                    v-on="on"                                        
                                                                     class="mr-1"
                                                                 ></v-text-field>
                                                             </template>
                                                             <v-date-picker
-                                                                v-model="semester_genap"                                        
+                                                                v-model="semester_genap"            
                                                                 no-title                                
                                                                 scrollable
                                                                 range
@@ -421,7 +421,7 @@ export default {
             //form rules
             rule_tahun: [
                 value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
-                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka',       
+                value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka', 
                 value => {
                     if (value && typeof value !== 'undefined' && value.length > 0){
                         return value.length == 4 || 'Tahun Akademik hanya boleh 4 karakter';
@@ -434,7 +434,7 @@ export default {
             ],
             rule_tahun_akademik: [                
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
-            ],   
+            ],
         }
     },
     methods: {

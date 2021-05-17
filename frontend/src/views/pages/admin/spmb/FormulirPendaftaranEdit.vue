@@ -16,11 +16,11 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </template>
                 </v-breadcrumbs>
-            </template>   
+            </template>
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -38,15 +38,15 @@
                             </v-card-title>
                             <v-card-text>
                                 <v-text-field
-                                    label="NAMA LENGKAP"    
-                                    v-model="formdata.nama_mhs"    
+                                    label="NAMA LENGKAP"  
+                                    v-model="formdata.nama_mhs"  
                                     :rules="rule_nama_mhs"
                                     filled
                                 />
                                 <v-text-field
                                     label="TEMPAT LAHIR"
-                                    v-model="formdata.tempat_lahir"     
-                                    :rules="rule_tempat_lahir"                   
+                                    v-model="formdata.tempat_lahir"
+                                    :rules="rule_tempat_lahir" 
                                     filled
                                 />
                                 <v-menu
@@ -62,7 +62,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-text-field
                                             v-model="formdata.tanggal_lahir"
-                                            label="TANGGAL LAHIR"                                            
+                                            label="TANGGAL LAHIR"                
                                             readonly
                                             filled
                                             v-on="on"
@@ -70,7 +70,7 @@
                                         ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                        v-model="formdata.tanggal_lahir"                                        
+                                        v-model="formdata.tanggal_lahir"            
                                         no-title                                
                                         scrollable
                                         >
@@ -296,7 +296,7 @@ export default {
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-        ],        
+        ],  
         rule_tempat_lahir: [
             value => !!value || "Tempat Lahir mohon untuk diisi !!!"
         ], 
@@ -354,7 +354,7 @@ export default {
             this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
                 this.daftar_kelas=data.kelas;
             });
-            await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id,    
+            await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id, 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -434,7 +434,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-                ).then(({ data }) => {  
+                ).then(({ data }) => {
                     this.kode_billing=data.no_transaksi;
                     this.btnLoading = false;
                 }).catch(() => { 

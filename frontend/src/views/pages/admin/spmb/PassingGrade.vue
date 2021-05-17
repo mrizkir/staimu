@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -33,7 +33,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"                        
+                        :items="datatable"   
                         item-key="id"
                         sort-by="id"
                         show-expand
@@ -64,7 +64,7 @@
                                 </v-btn>
                             </v-toolbar>
                         </template>
-                        <template v-slot:item.kjur="{item}">
+                        <template v-slot:item.kjur="{ item }">
                             {{$store.getters["uiadmin/getProdiName"](item.kjur)}}
                         </template>
                         <template v-slot:item.nilai="props">
@@ -77,13 +77,13 @@
                                 @close="closeItem"> 
                                     {{ props.item.nilai }} 
                                     <template v-slot:input>
-                                        <div class="mt-4 title">Update Nilai</div>    
+                                        <div class="mt-4 title">Update Nilai</div> 
                                         <v-text-field 
                                             label="NILAI PASSING GRADE" 
                                             :rules="rule_angka"
                                             outlined
                                             autofocus
-                                            v-model="props.item.nilai">    
+                                            v-model="props.item.nilai"> 
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
@@ -141,7 +141,7 @@ export default {
         jadwal_ujian_id: null,
         jadwal_ujian: {
             id: 0,  
-            nama_kegiatan: '',   
+            nama_kegiatan: '',
             ta: '',  
             idsmt: '',
         },
@@ -154,7 +154,7 @@ export default {
         datatable: [],
         headers: [                
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
-            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 },    
+            { text: 'NILAI', value: 'nilai', sortable: false, width: 100 }, 
         ],
         search: "",
 
@@ -169,7 +169,7 @@ export default {
             this.datatableLoading = true;
             await this.$ajax.post('/spmb/passinggrade',
             {
-                jadwal_ujian_id: this.jadwal_ujian_id,       
+                jadwal_ujian_id: this.jadwal_ujian_id, 
             },
             {
                 headers: {
@@ -199,7 +199,7 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/loadprodi',
                 {
-                    jadwal_ujian_id: this.jadwal_ujian_id,      
+                    jadwal_ujian_id: this.jadwal_ujian_id,
                 },
                 {
                     headers: {
@@ -216,7 +216,7 @@ export default {
         saveItem: async function ({id,nilai})
         {
             this.btnLoading = true;
-            await this.$ajax.post('/spmb/passinggrade/'+id,   
+            await this.$ajax.post('/spmb/passinggrade/'+id,
             {
                 _method: "put",
                 id:id,

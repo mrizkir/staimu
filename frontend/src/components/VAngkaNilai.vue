@@ -1,7 +1,7 @@
 <template>  
     <v-text-field
         class="right-input"
-        v-bind="$attrs"        
+        v-bind="$attrs"   
         @blur="onBlur"
         @focus="onFocus"
         @keydown="keyProcess"
@@ -54,13 +54,13 @@ export default {
         {
             if (!this.isFocused) return; 
 
-            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {       
+            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {     
                 keyEvent.preventDefault();
             }
 
             keyEvent.stopPropagation();
             if (keyEvent.key === 'Enter') 
-            {  
+            {
                 return;
             } 
             else if (keyEvent.key === 'Delete') 

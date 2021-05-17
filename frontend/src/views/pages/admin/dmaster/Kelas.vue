@@ -67,10 +67,10 @@
 																></v-divider>
 																<v-spacer></v-spacer>
 																<v-dialog v-model="dialogfrm" max-width="500px" persistent>
-																		<template v-slot:activator="{ on }">    
+																		<template v-slot:activator="{ on }"> 
 																				<v-btn color="primary" icon outlined small class="ma-2" v-on="on">
 																						<v-icon>mdi-plus</v-icon>
-																				</v-btn>    
+																				</v-btn> 
 																		</template>
 																		<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 																				<v-card>
@@ -239,7 +239,7 @@
 				value => (value && value.length == 1) || "Kode kelas hanya boleh 1 karakter"
 			],
 			rule_nama_kelas: [
-				value => !!value || "Mohon untuk di isi nama kelas !!!",   
+				value => !!value || "Mohon untuk di isi nama kelas !!!",
 			],
 		}),
 		methods: {

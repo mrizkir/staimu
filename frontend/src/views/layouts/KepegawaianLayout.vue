@@ -83,7 +83,7 @@
                     <v-list-item-content>
                         <v-list-item-title>BOARD KEPEGAWAIAN</v-list-item-title>
                     </v-list-item-content>
-                </v-list-item>   
+                </v-list-item>
                 <v-list-item link to="/kepegawaian/dosen" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('KEPEGAWAIAN-DOSEN_BROWSE')">
                     <v-list-item-icon class="mr-2">
                         <v-icon>mdi-teach</v-icon>
@@ -248,7 +248,7 @@ export default {
                 {
                     setTimeout(() => { 
                         this.loginTime = this.AUTHENTICATED == true ? this.loginTime + 1 : -1; 
-					},1000);
+					}, 1000);
                 }
                 else
                 {

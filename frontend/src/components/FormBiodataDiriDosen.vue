@@ -10,49 +10,49 @@
                         <v-row>
                             <v-col cols="6">
                                 <v-text-field
-                                    label="NIDN"    
-                                    v-model="formdata.nidn"    
+                                    label="NIDN"  
+                                    v-model="formdata.nidn"  
                                     :rules="rule_nidn"
                                     filled
                                 /> 
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
-                                    label="NIP YAYASAN"    
-                                    v-model="formdata.nipy"    
+                                    label="NIP YAYASAN"  
+                                    v-model="formdata.nipy"  
                                     :rules="rule_nipy"
                                     filled
                                 />
-                            </v-col>    
-                        </v-row>      
+                            </v-col> 
+                        </v-row>   
                         <v-row>
                             <v-col cols="3">
                                 <v-text-field
-                                    label="GELAR DEPAN"    
-                                    v-model="formdata.gelar_depan"                                        
+                                    label="GELAR DEPAN"  
+                                    v-model="formdata.gelar_depan"            
                                     filled
                                 />
                             </v-col>
                             <v-col cols="6">
                                 <v-text-field
-                                    label="NAMA LENGKAP"    
-                                    v-model="formdata.nama_dosen"    
+                                    label="NAMA LENGKAP"  
+                                    v-model="formdata.nama_dosen"  
                                     :rules="rule_nama_dosen"
                                     filled
                                 />
                             </v-col>
                             <v-col cols="3">
                                 <v-text-field
-                                    label="GELAR BELAKANG"    
-                                    v-model="formdata.gelar_belakang"                                        
+                                    label="GELAR BELAKANG"  
+                                    v-model="formdata.gelar_belakang"            
                                     filled
                                 />
                             </v-col>
                         </v-row>
                         <v-text-field
                             label="TEMPAT LAHIR"
-                            v-model="formdata.tempat_lahir"     
-                            :rules="rule_tempat_lahir"                   
+                            v-model="formdata.tempat_lahir"
+                            :rules="rule_tempat_lahir" 
                             filled
                         />
                         <v-menu
@@ -68,7 +68,7 @@
                             <template v-slot:activator="{ on }">
                                 <v-text-field
                                     v-model="formdata.tanggal_lahir"
-                                    label="TANGGAL LAHIR"                                            
+                                    label="TANGGAL LAHIR"                
                                     readonly
                                     filled
                                     v-on="on"
@@ -76,7 +76,7 @@
                                 ></v-text-field>
                             </template>
                             <v-date-picker
-                                v-model="formdata.tanggal_lahir"                                        
+                                v-model="formdata.tanggal_lahir"            
                                 no-title                                
                                 scrollable
                                 >
@@ -155,7 +155,7 @@
                             filled
                         />
                     </v-card-text>
-                </v-card>   
+                </v-card>
                 <v-card class="mb-4">
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -248,10 +248,10 @@ export default {
             active: '',
         },
         rule_nidn: [ 
-            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka',       
+            value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka', 
         ],
         rule_nipy: [            
-            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka',       
+            value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka', 
         ], 
         rule_nama_dosen: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
@@ -284,7 +284,7 @@ export default {
             this.$ajax.get('/datamaster/provinsi').then(({ data }) => { 
                 this.daftar_provinsi=data.provinsi;
             });  
-            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'),    
+            await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'), 
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -323,7 +323,7 @@ export default {
                     _method: "put",
                     nidn: this.formdata.nidn,  
                     nipy: this.formdata.nipy,  
-                    gelar_depan: this.formdata.gelar_depan,         
+                    gelar_depan: this.formdata.gelar_depan,
                     nama_dosen: this.formdata.nama_dosen,  
                     gelar_belakang: this.formdata.gelar_belakang,  
 

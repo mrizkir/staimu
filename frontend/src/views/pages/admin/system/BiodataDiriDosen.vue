@@ -17,15 +17,15 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                         berisi informasi biodata diri dosen.
                 </v-alert>
             </template>
-        </ModuleHeader>   
-        <v-container fluid>   
+        </ModuleHeader>
+        <v-container fluid>
             <form-biodata-diri-dosen />
         </v-container>
     </SystemUserLayout>

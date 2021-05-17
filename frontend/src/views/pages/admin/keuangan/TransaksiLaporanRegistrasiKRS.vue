@@ -17,8 +17,8 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman ini digunakan untuk memperoleh laporan PENERIMAAN REGISTRASI KRS
-					mahasiswa baru dan lama.
+					Halaman ini digunakan untuk memperoleh laporan PENERIMAAN REGISTRASI
+					KRS mahasiswa baru dan lama.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -224,7 +224,10 @@
 						const url = window.URL.createObjectURL(new Blob([data]));
 						const link = document.createElement("a");
 						link.href = url;
-						link.setAttribute("download", "registrasi_krs_" + Date.now() + ".xlsx");
+						link.setAttribute(
+							"download",
+							"registrasi_krs_" + Date.now() + ".xlsx"
+						);
 						link.setAttribute("id", "download_laporan");
 						document.body.appendChild(link);
 						link.click();

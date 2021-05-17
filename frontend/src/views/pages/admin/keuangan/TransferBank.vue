@@ -17,14 +17,14 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
                     Halaman untuk mengelola nama bank sebagai penampung dana pembayaran mahasiswa.
                 </v-alert>
             </template>
-        </ModuleHeader>   
+        </ModuleHeader>
         <v-container fluid> 
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
@@ -70,7 +70,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-btn color="primary" icon outlined small class="ma-2" v-on="on">
                                             <v-icon>mdi-plus</v-icon>
-                                        </v-btn>    
+                                        </v-btn> 
                                     </template>
                                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                                         <v-card>
@@ -83,25 +83,25 @@
                                                     label="NAMA BANK"
                                                     outlined
                                                     :rules="rule_nama_bank">
-                                                </v-text-field>    
+                                                </v-text-field> 
                                                 <v-text-field 
                                                     v-model="formdata.nama_cabang" 
                                                     label="CABANG"
                                                     outlined
                                                     :rules="rule_nama_cabang">
-                                                </v-text-field>    
+                                                </v-text-field> 
                                                 <v-text-field 
                                                     v-model="formdata.nomor_rekening" 
                                                     label="NOMOR REKENING"
                                                     outlined
                                                     :rules="rule_no_rekening">
-                                                </v-text-field>    
+                                                </v-text-field> 
                                                 <v-text-field 
                                                     v-model="formdata.pemilik_rekening" 
                                                     label="PEMILIK REKENING"
                                                     outlined
                                                     :rules="rule_pemilik">
-                                                </v-text-field>    
+                                                </v-text-field> 
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -294,18 +294,18 @@ export default {
             nomor_rekening: '',  
             pemilik_rekening: '',  
             created_at: '',  
-            updated_at: '',         
+            updated_at: '',
         },
         editedIndex: -1,
 
         //form rules  
         rule_nama_bank: [
             value => !!value || "Mohon untuk di isi nama bank !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi', 
         ], 
         rule_nama_cabang: [
             value => !!value || "Mohon untuk di isi nama cabang bank !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi', 
         ],
         rule_no_rekening: [
             value => !!value || "Mohon untuk di isi nomor rekening !!!", 
@@ -313,7 +313,7 @@ export default {
         ],
         rule_pemilik: [
             value => !!value || "Mohon untuk di isi nama pemilik rekening !!!",
-            value => /^[A-Za-z\s]*$/.test(value) || 'Nama pemilik rekening hanya boleh string dan spasi',       
+            value => /^[A-Za-z\s]*$/.test(value) || 'Nama pemilik rekening hanya boleh string dan spasi', 
         ],
     }),
     methods: {
@@ -324,7 +324,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.bank;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -360,10 +360,10 @@ export default {
                     await this.$ajax.post('/keuangan/transferbank/'+this.formdata.id,
                         {
                             _method: 'PUT',
-                            nama_bank: this.formdata.nama_bank,      
-                            nama_cabang: this.formdata.nama_cabang,      
-                            nomor_rekening: this.formdata.nomor_rekening,      
-                            pemilik_rekening: this.formdata.pemilik_rekening,      
+                            nama_bank: this.formdata.nama_bank,
+                            nama_cabang: this.formdata.nama_cabang,
+                            nomor_rekening: this.formdata.nomor_rekening,
+                            pemilik_rekening: this.formdata.pemilik_rekening,
                         },
                         {
                             headers: {
@@ -381,10 +381,10 @@ export default {
                 } else {
                     await this.$ajax.post('/keuangan/transferbank/store',
                         {
-                            nama_bank: this.formdata.nama_bank,      
-                            nama_cabang: this.formdata.nama_cabang,      
-                            nomor_rekening: this.formdata.nomor_rekening,      
-                            pemilik_rekening: this.formdata.pemilik_rekening,      
+                            nama_bank: this.formdata.nama_bank,
+                            nama_cabang: this.formdata.nama_cabang,
+                            nomor_rekening: this.formdata.nomor_rekening,
+                            pemilik_rekening: this.formdata.pemilik_rekening,
                         },
                         {
                             headers: {

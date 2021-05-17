@@ -20,7 +20,7 @@
             <template v-slot:desc>
                 <v-alert                                        
                     color="cyan"
-                    border="left"                    
+                    border="left"  
                     colored-border
                     type="info"
                     >
@@ -33,7 +33,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :items="datatable"                        
+                        :items="datatable"   
                         item-key="id"
                         sort-by="id"
                         show-expand
@@ -105,12 +105,12 @@ export default {
         initialize: async function()
 		{
             this.datatableLoading = true; 
-            await this.$ajax.get('/keuangan/komponenbiaya',   
+            await this.$ajax.get('/keuangan/komponenbiaya',
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.kombi;
                 this.datatableLoading = false;
             });
