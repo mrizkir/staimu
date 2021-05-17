@@ -3,7 +3,7 @@
 		<v-list-item-content>
 			<v-select
 				v-model="prodi_id"
-				:item="daftar_prodi"
+				:items="daftar_prodi"
 				item-text="text"
 				item-value="id"
 				label="PROGRAM STUDI"
@@ -11,7 +11,7 @@
 			/>
 			<v-select
 				v-model="tahun_pendaftaran"
-				:item="daftar_ta"
+				:items="daftar_ta"
 				label="TAHUN PENDAFTARAN"
 				outlined
 			/>
