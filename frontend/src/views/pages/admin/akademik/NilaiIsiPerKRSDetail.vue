@@ -108,15 +108,15 @@
                                 <v-data-table        
                                     dense                        
                                     :headers="headers"
-                                    :items="datatable"    
-                                    item-key="id"                            
+                                    :items="datatable"
+                                    item-key="id"        
                                     :disable-pagination="true"
-                                    :hide-default-footer="true"                                    
+                                    :hide-default-footer="true"                
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
                                     <template v-slot:item.n_kuan="props">
                                         <VAngkaNilai                                                            
-                                            v-model="props.item.n_kuan"        
+                                            v-model="props.item.n_kuan"
                                             dense                                    
                                             style="width:65px"
                                             :disabled="props.item.bydosen">
@@ -244,7 +244,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {  
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)

@@ -87,7 +87,7 @@
                         <v-data-table 
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"
-                            :dense="true"                      
+                            :dense="true"  
                             :disable-pagination="true"
                             :hide-default-footer="true"
                             :headers="headers"

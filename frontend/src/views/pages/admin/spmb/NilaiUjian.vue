@@ -136,7 +136,7 @@
 																																<v-currency-field 
 																																		label="NILAI UJIAN:" 
 																																		:min="null"
-																																		:max="null"                
+																																		:max="null"
 																																		outlined                                                                    
 																																		v-model="formdata.nilai"> 
 																																</v-currency-field> 
@@ -151,12 +151,12 @@
 																																<v-select
 																																		label="STATUS :"
 																																		v-model="formdata.ket_lulus"
-																																		:items="daftar_status"                                        
+																																		:items="daftar_status"  
 																																		:rules="rule_status"
 																																		outlined/>
 																																<v-text-field 
 																																		v-model="formdata.desc"
-																																		label="CATATAN:"                                         
+																																		label="CATATAN:"   
 																																		outlined />
 																														</v-card-text>
 																														<v-card-actions>

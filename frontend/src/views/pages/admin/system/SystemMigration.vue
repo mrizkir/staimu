@@ -47,12 +47,12 @@
                                 <v-text-field 
                                     v-model="formdata.nim"
                                     label="NIM" 
-                                    :rules="rule_nim"                                   
+                                    :rules="rule_nim"               
                                     outlined />
                                 <v-text-field 
                                     v-model="formdata.nirm"
                                     label="NIRM" 
-                                    :rules="rule_nirm"                                        
+                                    :rules="rule_nirm"  
                                     outlined />
                                 <v-text-field
                                     label="NAMA LENGKAP"  
@@ -93,7 +93,7 @@
                             <v-card-text>
                                 <v-data-table 
                                     :loading="datatableLoading"
-                                    loading-text="Loading... Please wait"                                                          
+                                    loading-text="Loading... Please wait"                
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
                                     :headers="headers"
@@ -102,7 +102,7 @@
                                     dense> 
                                     <template v-slot:item.k_status="{ item }">                     
                                         <v-select       
-                                            v-model="formdata.status_mhs[daftar_tasmt.indexOf(item)]"                                                    
+                                            v-model="formdata.status_mhs[daftar_tasmt.indexOf(item)]"          
                                             :items="daftar_status_mhs"
                                             item-text="text"
                                             item-value="id" />
@@ -223,7 +223,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => { 
                 this.daftar_dw = data.users; 
             });
 
@@ -236,7 +236,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => { 
                 this.daftar_tasmt = data.daftar_tasmt; 
                 var dt = this.daftar_tasmt;
                 var i=0;
@@ -272,7 +272,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(() => {   
+                ).then(() => { 
                     setTimeout(() => {
                         this.$router.go();  
                         this.btnLoading = false;

@@ -75,7 +75,7 @@
                                     color="primary" 
                                     dark 
                                     class="mb-2" 
-                                    @click.stop="tambahItem"        
+                                    @click.stop="tambahItem"
                                     v-if="$store.getters['auth/can']('AKADEMIK-MATAKULIAH_STORE')">
                                     TAMBAH
                                 </v-btn>
@@ -91,7 +91,7 @@
                                                     label="KELOMPOK MATAKULIAH"
                                                     :item="group_matakuliah"
                                                     item-text="group_alias"
-                                                    item-value="id_group"                        
+                                                    item-value="id_group"    
                                                     outlined
                                                     :rules="rule_group_matakuliah"
                                                     v-if="(group_matakuliah && group_matakuliah.length > 0)">
@@ -111,42 +111,42 @@
                                                 <v-select 
                                                     v-model="formdata.sks" 
                                                     label="SKS"
-                                                    :items="daftar_sks"                        
+                                                    :items="daftar_sks"    
                                                     outlined
                                                     :rules="rule_sks">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_tatap_muka" 
                                                     label="SKS TATAP MUKA"
-                                                    :items="daftar_sks"                        
+                                                    :items="daftar_sks"    
                                                     outlined
                                                     :rules="rule_sks_tatap_muka">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_praktikum" 
                                                     label="SKS PRAKTIKUM"
-                                                    :clearable="true"                     
-                                                    :items="daftar_sks"                        
+                                                    :clearable="true" 
+                                                    :items="daftar_sks"    
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.sks_praktik_lapangan" 
                                                     label="SKS PRAKTIK LAPANGAN"
                                                     :items="daftar_sks" 
-                                                    :clearable="true"                     
+                                                    :clearable="true" 
                                                     outlined>
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.semester" 
                                                     label="SEMESTER"
-                                                    :items="daftar_semester"                        
+                                                    :items="daftar_semester"    
                                                     outlined
                                                     :rules="rule_semester">
                                                 </v-select>
                                                 <v-select 
                                                     v-model="formdata.minimal_nilai" 
                                                     label="MIMIMAL NILAI"
-                                                    :items="daftar_nilai"                        
+                                                    :items="daftar_nilai"    
                                                     outlined
                                                     :rules="rule_minimal_nilai">
                                                 </v-select>
@@ -155,7 +155,7 @@
                                                     label="KONSENTRASI"
                                                     :items="group_matakuliah"
                                                     item-text="nama_konsentrasi"
-                                                    item-value="id_konsentrasi"                        
+                                                    item-value="id_konsentrasi"    
                                                     outlined
                                                     v-if="(daftar_konsentrasi && daftar_konsentrasi.length > 0)">
                                                 </v-select>
@@ -346,7 +346,7 @@
                                                 </v-alert>
                                                 <v-select
                                                     v-model="dari_tahun_akademik"
-                                                    :items="daftar_ta"                        
+                                                    :items="daftar_ta"    
                                                     label="TAHUN AKADEMIK"
                                                     :rules="rule_dari_tahun_akademik"
                                                     outlined/>  
@@ -821,7 +821,7 @@ export default {
         },
         closedialogfrm() {
             this.dialogfrm = false; 
-            setTimeout(() => {        
+            setTimeout(() => { 
                 this.$refs.frmdata.resetValidation();
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1

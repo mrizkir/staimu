@@ -105,13 +105,13 @@
 													<template v-slot:activator="{ on }">
 														<v-text-field
 															v-model="formdata.tanggal_akhir_daftar"
-															label="TANGGAL AKHIR PENDAFTARAN"                
+															label="TANGGAL AKHIR PENDAFTARAN"
 															readonly
 															outlined
 															v-on="on"></v-text-field>
 													</template>
 													<v-date-picker
-														v-model="formdata.tanggal_akhir_daftar"            
+														v-model="formdata.tanggal_akhir_daftar"
 														no-title                                
 														scrollable>
 														<v-spacer></v-spacer>
@@ -131,14 +131,14 @@
 													<template v-slot:activator="{ on }">
 														<v-text-field
 															v-model="formdata.tanggal_ujian"
-															label="TANGGAL UJIAN"                
+															label="TANGGAL UJIAN"
 															readonly
 															outlined
 															v-on="on">
 														</v-text-field>
 													</template>
 													<v-date-picker
-														v-model="formdata.tanggal_ujian"            
+														v-model="formdata.tanggal_ujian"
 														no-title                                
 														scrollable>
 														<v-spacer></v-spacer>
@@ -159,7 +159,7 @@
 													<template v-slot:activator="{ on, attrs }">
 														<v-text-field
 															v-model="formdata.jam_mulai_ujian"
-															label="JAM MULAI UJIAN"                                
+															label="JAM MULAI UJIAN"            
 															readonly
 															outlined
 															v-bind="attrs"
@@ -187,7 +187,7 @@
 													<template v-slot:activator="{ on, attrs }">
 														<v-text-field
 															v-model="formdata.jam_selesai_ujian"
-															label="JAM SELESAI UJIAN"                                
+															label="JAM SELESAI UJIAN"            
 															readonly
 															outlined
 															v-bind="attrs"

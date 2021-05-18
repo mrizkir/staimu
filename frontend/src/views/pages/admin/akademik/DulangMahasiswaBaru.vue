@@ -164,12 +164,12 @@ export default {
         dialogfrm: false, 
         daftar_dw: [],
 
-        formdata: {  
+        formdata: {
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {  
+        formdefault: {
             nim: "",
             nirm: '',
             dosen_id: ''           

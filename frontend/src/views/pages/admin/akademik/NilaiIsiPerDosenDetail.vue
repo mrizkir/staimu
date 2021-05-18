@@ -106,16 +106,16 @@
                             <template v-slot:item.nilai_quiz="props"> 
                                 <VAngkaNilai               
                                     @input="updateNKuan(props)" 
-                                    v-model="props.item.nilai_quiz"        
+                                    v-model="props.item.nilai_quiz"
                                     dense    
-                                    :disabled="isbydosen(props.item.bydosen)"    
+                                    :disabled="isbydosen(props.item.bydosen)"
                                     style="width:65px">
                                 </VAngkaNilai>         
                             </template>
                             <template v-slot:item.nilai_tugas_individu="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_tugas_individu"        
+                                    v-model="props.item.nilai_tugas_individu"
                                     dense      
                                     :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
@@ -124,7 +124,7 @@
                             <template v-slot:item.nilai_tugas_kelompok="props"> 
                                 <VAngkaNilai            
                                     @input="updateNKuan(props)"  
-                                    v-model="props.item.nilai_tugas_kelompok"        
+                                    v-model="props.item.nilai_tugas_kelompok"
                                     dense      
                                     :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
@@ -133,7 +133,7 @@
                             <template v-slot:item.nilai_uts="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uts"        
+                                    v-model="props.item.nilai_uts"
                                     dense                   
                                     :disabled="isbydosen(props.item.bydosen)" 
                                     style="width:65px">
@@ -142,7 +142,7 @@
                             <template v-slot:item.nilai_uas="props"> 
                                 <VAngkaNilai                
                                     @input="updateNKuan(props)"
-                                    v-model="props.item.nilai_uas"        
+                                    v-model="props.item.nilai_uas"
                                     dense             
                                     :disabled="isbydosen(props.item.bydosen)"  
                                     style="width:65px">
@@ -164,7 +164,7 @@
                                 <tr>
                                     <td class="text-right" colspan="12">
                                         <v-btn 
-                                            class="primary mt-2 mb-2"     
+                                            class="primary mt-2 mb-2" 
                                             @click.stop="save" 
                                             
                                             :disabled="btnLoading">
@@ -272,7 +272,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                             
+            }).then(({ data }) => {                                    
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              

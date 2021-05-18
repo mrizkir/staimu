@@ -58,7 +58,7 @@
                                     <v-col xs="12" sm="12" md="4">
                                         <v-select
                                             v-model="formdata.tahun_pendaftaran" 
-                                            :items="daftar_ta"                
+                                            :items="daftar_ta"
                                             label="TAHUN PENDAFTARAN"
                                             outlined
                                             :rules="rule_tahun_pendaftaran"/>

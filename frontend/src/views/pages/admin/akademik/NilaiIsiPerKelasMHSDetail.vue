@@ -99,7 +99,7 @@
                                 <tr>
                                     <td class="text-right" colspan="8">
                                         <v-btn 
-                                            class="primary mt-2 mb-2"     
+                                            class="primary mt-2 mb-2" 
                                             @click.stop="save" 
                                             
                                             :disabled="btnLoading">
@@ -211,7 +211,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                             
+            }).then(({ data }) => {                                    
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              
@@ -224,7 +224,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                  
+            }).then(({ data }) => {         
                 this.datatable_peserta=data.peserta;
                 this.datatableLoading = false;
             })   

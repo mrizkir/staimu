@@ -129,7 +129,7 @@
 																																label="DAFTAR KELAS"
 																																:items="daftar_kelas"
 																																item-value="id"
-																																item-text="nmatkul"                          
+																																item-text="nmatkul"      
 																																outlined>
 																														</v-select> 
 																												</v-col>
@@ -331,7 +331,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {     
+							.then(() => {   
 								this.closedialogfrm();
 								this.fetchKRS();
 								this.btnLoading = false;

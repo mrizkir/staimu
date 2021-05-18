@@ -114,15 +114,15 @@
                                                             <template v-slot:activator="{ on }">
                                                                 <v-text-field
                                                                     v-model="semesterGanjilText"
-                                                                    label="SEMESTER GANJIL"                
+                                                                    label="SEMESTER GANJIL"
                                                                     readonly
                                                                     outlined
-                                                                    v-on="on"                                        
+                                                                    v-on="on"  
                                                                     class="mr-1"
                                                                 ></v-text-field>
                                                             </template>
                                                             <v-date-picker
-                                                                v-model="semester_ganjil"            
+                                                                v-model="semester_ganjil"
                                                                 no-title                                
                                                                 scrollable
                                                                 range
@@ -152,15 +152,15 @@
                                                             <template v-slot:activator="{ on }">
                                                                 <v-text-field
                                                                     v-model="semesterGenapText"
-                                                                    label="SEMESTER GENAP"                
+                                                                    label="SEMESTER GENAP"
                                                                     readonly
                                                                     outlined
-                                                                    v-on="on"                                        
+                                                                    v-on="on"  
                                                                     class="mr-1"
                                                                 ></v-text-field>
                                                             </template>
                                                             <v-date-picker
-                                                                v-model="semester_genap"            
+                                                                v-model="semester_genap"
                                                                 no-title                                
                                                                 scrollable
                                                                 range

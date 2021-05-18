@@ -89,7 +89,7 @@
                                                     <v-col cols="4">
                                                         <v-select
                                                             v-model="formdata.hari"
-                                                            :items="daftar_hari"                        
+                                                            :items="daftar_hari"    
                                                             label="HARI"
                                                             :rules="rule_hari"   
                                                             outlined/>
@@ -113,7 +113,7 @@
                                                 </v-row>
                                                 <v-select
                                                     v-model="formdata.ruang_kelas_id"
-                                                    :items="daftar_ruang_kelas"                        
+                                                    :items="daftar_ruang_kelas"    
                                                     label="RUANG KELAS"
                                                     :rules="rule_ruang_kelas"
                                                     item-text="namaruang"
@@ -340,7 +340,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {
                 this.datatable = data.pembagiankelas;
                 this.datatableLoading = false;
             }).catch(() => {

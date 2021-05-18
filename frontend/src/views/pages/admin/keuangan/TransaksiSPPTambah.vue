@@ -126,10 +126,10 @@
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-data-table
                             :headers="headers"
-                            :items="item_selected"                                           
+                            :items="item_selected" 
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                    
-                            item-key="no_bulan"                       
+                            :hide-default-footer="true"                
+                            item-key="no_bulan"   
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait">
@@ -178,9 +178,9 @@
                     <v-data-table
                         :headers="headers"
                         :items="enrichedDataTable" 
-                        v-model="item_selected"                      
+                        v-model="item_selected"  
                         :disable-pagination="true"
-                        :hide-default-footer="true"                                    
+                        :hide-default-footer="true"                
                         item-key="id"
                         show-select                                             
                         class="elevation-1"

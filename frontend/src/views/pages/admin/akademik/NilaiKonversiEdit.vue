@@ -38,43 +38,43 @@
                             </v-card-title>
                             <v-card-text>
                                 <v-text-field
-                                    v-model="formdata.nim_asal"    
+                                    v-model="formdata.nim_asal"
                                     label="NIM ASAL"
                                     :rules="rule_nim_asal"
                                     outlined                                
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.nama_mhs"    
+                                    v-model="formdata.nama_mhs"
                                     label="NAMA"
                                     :rules="rule_nama_mhs"
                                     outlined                                
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.alamat"    
+                                    v-model="formdata.alamat"
                                     label="ALAMAT"
                                     outlined       
                                     :rules="rule_alamat"
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.no_telp"    
+                                    v-model="formdata.no_telp"
                                     label="NO. TELEPON/HP"
                                     outlined       
                                     :rules="rule_telepon" 
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.email"    
+                                    v-model="formdata.email"
                                     label="EMAIL"
                                     outlined       
                                     :rules="rule_email" 
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.kode_pt_asal"    
+                                    v-model="formdata.kode_pt_asal"
                                     label="KODE P.T. ASAL"
                                     outlined        
                                     :rules="rule_kode_pt_asal"   
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.nama_pt_asal"    
+                                    v-model="formdata.nama_pt_asal"
                                     label="NAMA P.T. ASAL"
                                     outlined            
                                     :rules="rule_nama_pt_asal"  
@@ -84,18 +84,18 @@
                                     label="JENJANG"
                                     :items="daftar_jenjang"
                                     item-text="nama_jenjang"
-                                    item-value="kode_jenjang"    
+                                    item-value="kode_jenjang"
                                     outlined
                                     :rules="rule_kode_jenjang">
                                 </v-select>
                                 <v-text-field
-                                    v-model="formdata.kode_ps_asal"    
+                                    v-model="formdata.kode_ps_asal"
                                     label="KODE PRODI ASAL"
                                     :rules="rule_kode_ps_asal"
                                     outlined                                
                                 ></v-text-field>
                                 <v-text-field
-                                    v-model="formdata.nama_ps_asal"    
+                                    v-model="formdata.nama_ps_asal"
                                     label="NAMA PRODI ASAL"
                                     :rules="rule_nama_ps_asal"
                                     outlined                                
@@ -122,7 +122,7 @@
                             :headers="headers"
                             :items="datatable"
                             :search="search"
-                            item-key="id"                                            
+                            item-key="id"  
                             :disable-pagination="true"
                             :hide-default-footer="true"   
                             class="elevation-1"
@@ -164,7 +164,7 @@
                                 <v-select 
                                     :items="$store.getters['uiadmin/getSkalaNilai']"
                                     v-model="props.item.n_kual"
-                                    style="width:65px"    
+                                    style="width:65px"
                                     dense>
                                 </v-select>
                             </template>                                 

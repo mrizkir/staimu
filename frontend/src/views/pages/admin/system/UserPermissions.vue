@@ -187,7 +187,7 @@ export default {
         permissions_selected: [],
 
     }),
-    props: {  
+    props: {
         user: {
             type: Object,
             required: true

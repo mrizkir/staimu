@@ -46,11 +46,11 @@
                                 <v-data-table   
                                     v-model="daftar_matkul_selected" 
                                     :headers="headers"
-                                    :items="datatable"    
+                                    :items="datatable"
                                     item-key="id"
                                     show-select                                        
                                     :disable-pagination="true"
-                                    :hide-default-footer="true"                                    
+                                    :hide-default-footer="true"                
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
                                     <template v-slot:no-data>
@@ -161,7 +161,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {  
                 this.datakrs=data.krs;
                 if (Object.keys(this.datakrs).length)
                 {
@@ -218,7 +218,7 @@ export default {
                 });
             }
         },
-        closedialogfrm() {       
+        closedialogfrm() {
             setTimeout(() => { 
                 this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
                 },300

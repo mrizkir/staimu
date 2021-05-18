@@ -84,10 +84,10 @@
                         <v-card-text>
                             <v-data-table                                
                                 :headers="headers"
-                                :items="datatable"    
-                                item-key="id"                            
+                                :items="datatable"
+                                item-key="id"        
                                 :disable-pagination="true"
-                                :hide-default-footer="true"    
+                                :hide-default-footer="true"
                                 class="elevation-1"
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait">
@@ -222,7 +222,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {
                 this.datatable = data.dosen;
             })  
         },
@@ -233,7 +233,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {
                 this.data_matkul = data.penyelenggaraan;
             })  
         },
@@ -248,7 +248,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {         
+            }).then(({ data }) => {
                 this.daftar_dosen = data.dosen;
             })  
         },

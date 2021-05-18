@@ -42,7 +42,7 @@
                                 </v-alert>
                                 <v-select
                                     v-model="ta_matkul"
-                                    :items="daftar_ta"        
+                                    :items="daftar_ta"
                                     label="TAHUN MATAKULIAH"
                                     :rules="rule_tamatkul"
                                     outlined/>  
@@ -65,7 +65,7 @@
                                     show-select
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
-                                    @click:row="dataTableRowClicked"        
+                                    @click:row="dataTableRowClicked"
                                     :loading="datatableLoading"
                                     loading-text="Loading... Please wait">
 
@@ -397,7 +397,7 @@ export default {
                 },300
             );
         },
-        closedialogfrm() {       
+        closedialogfrm() {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');

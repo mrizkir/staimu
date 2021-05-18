@@ -29,7 +29,7 @@
                             <v-col cols="3">
                                 <v-text-field
                                     label="GELAR DEPAN"  
-                                    v-model="formdata.gelar_depan"            
+                                    v-model="formdata.gelar_depan"
                                     filled
                                 />
                             </v-col>
@@ -44,7 +44,7 @@
                             <v-col cols="3">
                                 <v-text-field
                                     label="GELAR BELAKANG"  
-                                    v-model="formdata.gelar_belakang"            
+                                    v-model="formdata.gelar_belakang"
                                     filled
                                 />
                             </v-col>
@@ -68,7 +68,7 @@
                             <template v-slot:activator="{ on }">
                                 <v-text-field
                                     v-model="formdata.tanggal_lahir"
-                                    label="TANGGAL LAHIR"                
+                                    label="TANGGAL LAHIR"
                                     readonly
                                     filled
                                     v-on="on"
@@ -76,7 +76,7 @@
                                 ></v-text-field>
                             </template>
                             <v-date-picker
-                                v-model="formdata.tanggal_lahir"            
+                                v-model="formdata.tanggal_lahir"
                                 no-title                                
                                 scrollable
                                 >

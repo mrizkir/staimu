@@ -75,7 +75,7 @@
 																		color="primary" 
 																		dark 
 																		class="mb-2" 
-																		@click.stop="tambahItem"        
+																		@click.stop="tambahItem"
 																		v-if="$store.getters['auth/can']('DMASTER-PERSYARATAN-PMB_STORE')">
 																		TAMBAH
 																</v-btn>
@@ -195,7 +195,7 @@
 																								</v-alert>
 																								<v-select
 																										v-model="dari_tahun_pendaftaran"
-																										:items="daftar_ta"                        
+																										:items="daftar_ta"    
 																										label="TAHUN PENDAFTARAN"
 																										:rules="rule_dari_tahun_pendaftaran"
 																										outlined/>  
@@ -506,7 +506,7 @@
 				},
 				closedialogfrm() {
 						this.dialogfrm = false; 
-						setTimeout(() => {        
+						setTimeout(() => { 
 								this.$refs.frmdata.resetValidation(); 
 								this.formdata = Object.assign({}, this.formdefault);
 								this.editedIndex = -1

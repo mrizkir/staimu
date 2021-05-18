@@ -27,7 +27,8 @@ class DulangController extends Controller
 
         $daftar_dulang=DulangModel::select(\DB::raw('
                                     id AS value,
-                                    CONCAT("DAFTAR ULANG T.A ",tahun,idsmt) AS text
+                                    CONCAT("DAFTAR ULANG T.A ",tahun,idsmt) AS text,
+                                    update_info
                                 '))       
                                 ->where('nim',$nim)                                
                                 ->where('k_status','A')   

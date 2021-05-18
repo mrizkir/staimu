@@ -85,7 +85,7 @@
                                         </v-toolbar>
                                         <v-card-text>
                                             <v-alert                                        
-                                                color="cyan"                                       
+                                                color="cyan" 
                                                 colored-border
                                                 type="info">
                                                 Mahasiswa Baru yang belum melakukan pembayaran SPP bulan September {{tahun_pendaftaran}} belum bisa daftar ulang otomatis
@@ -120,12 +120,12 @@
                                                                 <v-text-field 
                                                                     v-model="formdata.nim"
                                                                     label="NIM" 
-                                                                    :rules="rule_nim"                                      
+                                                                    :rules="rule_nim"
                                                                     outlined />
                                                                 <v-text-field 
                                                                     v-model="formdata.nirm"
                                                                     label="NIRM" 
-                                                                    :rules="rule_nirm"                                        
+                                                                    :rules="rule_nirm"  
                                                                     outlined />
                                                                 <v-select
                                                                     label="DOSEN WALI :"
@@ -252,12 +252,12 @@ export default {
         dialogfrm: false, 
         daftar_dw: [],
         
-        formdata: {  
+        formdata: {
             nim: "",
             nirm: '',
             dosen_id: ''           
         },
-        formdefault: {  
+        formdefault: {
             nim: "",
             nirm: '',
             dosen_id: ''           

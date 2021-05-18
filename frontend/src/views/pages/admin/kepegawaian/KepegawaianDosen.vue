@@ -113,7 +113,7 @@
                                                     label="JABATAN AKADEMIK"
                                                     :items="daftar_jabatan"
                                                     item-text="nama_jabatan"
-                                                    item-value="id_jabatan"                        
+                                                    item-value="id_jabatan"    
                                                     outlined>
                                                 </v-select>  
                                                 <v-text-field 

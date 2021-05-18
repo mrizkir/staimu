@@ -65,7 +65,7 @@
                                     <template v-slot:input>
                                         <div class="mt-4 title">Update Style</div> 
                                         <v-text-field 
-                                            label="STYLE STATUS TRANSAKSI"                 
+                                            label="STYLE STATUS TRANSAKSI" 
                                             outlined
                                             autofocus
                                             v-model="props.item.style"> 

@@ -39,7 +39,7 @@
 										<v-data-table
 												:headers="headers"
 												:items="datatable"   
-												item-key="id"                    
+												item-key="id"
 												:disable-pagination="true"
 												:hide-default-footer="true"   
 												class="elevation-1"
@@ -189,7 +189,7 @@
 										<v-data-table
 												:headers="headers_peserta"
 												:items="datatable_peserta"   
-												item-key="id"                    
+												item-key="id"
 												:disable-pagination="true"
 												:hide-default-footer="true"   
 												class="elevation-1"
@@ -334,7 +334,7 @@ export default {
 				//formdata
 				form_valid: true,
 				members_selected: [],
-				formdata: {  
+				formdata: {
 						penyelenggaraan_dosen_id: '',  
 				},
 				
@@ -363,7 +363,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                  
+						}).then(({ data }) => {         
 								this.datatable=data.penyelenggaraan;
 								this.datatableLoading = false;
 						})   
@@ -376,7 +376,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                  
+						}).then(({ data }) => {         
 								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
 						})   
@@ -393,7 +393,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                           
+						}).then(({ data }) => {                  
 								this.daftar_matakuliah = data.matakuliah; 
 								this.showdialogmatakuliah=true;    
 						})  
@@ -479,7 +479,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {     
+										).then(() => {   
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -503,7 +503,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {     
+										).then(() => {   
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {

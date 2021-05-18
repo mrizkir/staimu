@@ -184,7 +184,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                class="warning"                                    
+                                class="warning"                
                                 @click="putuskan"
                             >
                                 Putuskan
@@ -250,7 +250,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!data_mhs"    
+                                :disabled="!data_mhs"
                                 @click="pasangkan"
                             >
                                 Pasangkan
@@ -259,7 +259,7 @@
                                 </v-icon>
                             </v-btn>
                             <v-btn
-                                :disabled="!data_mhs"    
+                                :disabled="!data_mhs"
                                 @click="clearDataMhs"
                             >
                                 Clear
@@ -276,7 +276,7 @@
                     <v-data-table                            
                         :headers="headers"
                         :items="datatable"   
-                        item-key="id"                                            
+                        item-key="id"  
                         :disable-pagination="true"
                         :hide-default-footer="true"   
                         class="elevation-1"
@@ -533,7 +533,7 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {        
+            ).then(({ data }) => { 
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -562,7 +562,7 @@ export default {
                     },
                     
                 }
-            ).then(() => {        
+            ).then(() => { 
                 this.$router.go();
             }).catch(() => {
                 this.btnLoading = false;
@@ -647,7 +647,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {                   
+                    }).then(({ data }) => {          
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;

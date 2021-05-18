@@ -80,10 +80,10 @@
                         <v-data-table        
                             dense                        
                             :headers="headers"
-                            :items="datatable"    
-                            item-key="id"                            
+                            :items="datatable"
+                            item-key="id"        
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                    
+                            :hide-default-footer="true"                
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"> 
                             <template v-slot:item.actions="{ item }">
@@ -184,10 +184,10 @@
                     <v-data-table        
                         dense                        
                         :headers="history_headers"
-                        :items="data_history"    
-                        item-key="krsmatkul_id"                            
+                        :items="data_history"
+                        item-key="krsmatkul_id"        
                         :disable-pagination="true"
-                        :hide-default-footer="true"                                    
+                        :hide-default-footer="true"                
                         :loading="datatableLoading"
                         show-expand
                         :expanded.sync="expanded"
@@ -321,7 +321,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {        
+            }).then(({ data }) => { 
                 this.data_mhs=data.mahasiswa;
                 this.jumlahMatkul=data.jumlah_matkul;
                 this.totalSKS=data.jumlah_sks;
@@ -349,7 +349,7 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {        
+            ).then(({ data }) => { 
                 this.data_matkul=data.matakuliah;
                 this.data_history=data.history;
                 this.dialoghistory=true;
@@ -379,7 +379,7 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {        
+            ).then(({ data }) => { 
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;
@@ -397,7 +397,7 @@ export default {
                     },
                     
                 }
-            ).then(({ data }) => {        
+            ).then(({ data }) => { 
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;

@@ -126,10 +126,10 @@
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
                         <v-data-table
                             :headers="headers"
-                            :items="item_selected"                                           
+                            :items="item_selected" 
                             :disable-pagination="true"
-                            :hide-default-footer="true"                                    
-                            item-key="id"                       
+                            :hide-default-footer="true"                
+                            item-key="id"   
                             class="elevation-1"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait">

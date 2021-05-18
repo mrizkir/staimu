@@ -129,7 +129,7 @@
                                                     v-model="formdata.jawaban_benar"
                                                     :items="daftar_jawaban"  
                                                     item-value="id"
-                                                    item-text="text"                    
+                                                    item-text="text"
                                                     label="JAWABAN BENAR"
                                                     outlined/>
                                             </v-card-text>
@@ -452,7 +452,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.soal;
                 this.datatableLoading = false;
             }).catch(() => {
@@ -472,7 +472,7 @@ export default {
                 this.expanded = [item];
             }
         },
-        viewItem: async function(item) {    
+        viewItem: async function(item) {  
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -483,7 +483,7 @@ export default {
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 
         }, 
-        editItem: async function(item) {    
+        editItem: async function(item) {  
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]

@@ -66,7 +66,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary"        
+                                <v-btn color="primary"
                                     class="mb-2" 
                                     
                                     :disabled="btnLoading"
@@ -114,7 +114,7 @@
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
                                                     v-model="editedItem.role_id"
-                                                    label="ROLES"                         
+                                                    label="ROLES"     
                                                     multiple 
                                                     small-chips
                                                     outlined>                                 
@@ -176,7 +176,7 @@
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
                                                     v-model="editedItem.role_id"
-                                                    label="ROLES"                         
+                                                    label="ROLES"     
                                                     multiple 
                                                     small-chips
                                                     outlined>                                 
@@ -389,7 +389,7 @@ export default {
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {  
+                    {
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,
@@ -422,7 +422,7 @@ export default {
                 var daftar_roles=[];
                 roles.forEach(element => {
                     if (element.name=='superadmin')
-                    {  
+                    {
                         daftar_roles.push({
                             text:element.name,
                             disabled: true,

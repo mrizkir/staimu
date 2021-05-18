@@ -279,7 +279,11 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
-				<v-subheader>LAPORAN PENERIMAAN</v-subheader>
+				<v-subheader
+					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"			
+				>
+					LAPORAN PENERIMAAN
+				</v-subheader>
 				<v-list-item
 					link
 					v-if="CAN_ACCESS('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE')"

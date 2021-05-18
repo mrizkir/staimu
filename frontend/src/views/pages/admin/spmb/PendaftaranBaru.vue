@@ -132,7 +132,7 @@
                                                     outlined />
                                                 <v-select
                                                     v-model="formdata.ta"
-                                                    :items="daftar_ta"                        
+                                                    :items="daftar_ta"    
                                                     label="TAHUN PENDAFTARAN"
                                                     :disabled="registered"
                                                     outlined/>  
@@ -144,8 +144,8 @@
                                                 <v-text-field 
                                                     v-model="formdata.password"
                                                     label="PASSWORD" 
-                                                    type="password"                                                 
-                                                    :disabled="registered"                                           
+                                                    type="password"       
+                                                    :disabled="registered" 
                                                     outlined 
                                                     v-if="editedIndex>-1" />
                                                 <v-text-field 
@@ -317,7 +317,7 @@
                                     <v-btn 
                                         small 
                                         class="primary" 
-                                        @click.stop="aktifkan(item.id)"             
+                                        @click.stop="aktifkan(item.id)" 
                                         :disabled="btnLoading"
                                         >
                                             <v-icon>mdi-email-check</v-icon>
@@ -613,7 +613,7 @@ export default {
                                 Authorization: this.$store.getters["auth/Token"]
                             }
                         }
-                    ).then(({ data }) => {     
+                    ).then(({ data }) => {   
                         this.datatable.push(data.pendaftar);
                         this.closedialogfrm();
                         this.btnLoading = false;
@@ -635,7 +635,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }
-            ).then(() => {       
+            ).then(() => {
                 this.closedialogdetailitem();
                 this.btnLoading = false;
             }).catch(() => {

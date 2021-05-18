@@ -86,7 +86,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                :disabled="!data_mhs"    
+                                :disabled="!data_mhs"
                                 @click="goProfilMhs"
                             >
                                 Detail
@@ -95,7 +95,7 @@
                                 </v-icon>
                             </v-btn>
                             <v-btn
-                                :disabled="!data_mhs"    
+                                :disabled="!data_mhs"
                                 @click="clearDataMhs"
                             >
                                 Clear
@@ -223,7 +223,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {                   
+                    }).then(({ data }) => {          
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;

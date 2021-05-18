@@ -45,10 +45,10 @@
                             <v-data-table        
                                 dense                        
                                 :headers="headers"
-                                :items="datatable"    
-                                item-key="id"                            
+                                :items="datatable"
+                                item-key="id"        
                                 :disable-pagination="true"
-                                :hide-default-footer="true"                                    
+                                :hide-default-footer="true"                
                                 :loading="datatableLoading"
                                 loading-text="Loading... Please wait">                 
                                 <template v-slot:body.append v-if="datatable.length > 0">
@@ -149,7 +149,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {           
+            }).then(({ data }) => {  
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)

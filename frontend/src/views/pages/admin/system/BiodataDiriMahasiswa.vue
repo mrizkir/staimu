@@ -59,7 +59,7 @@
                                     <template v-slot:activator="{ on }">
                                         <v-text-field
                                             v-model="formdata.tanggal_lahir"
-                                            label="TANGGAL LAHIR"                
+                                            label="TANGGAL LAHIR"
                                             readonly
                                             filled
                                             v-on="on"
@@ -67,7 +67,7 @@
                                         ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                        v-model="formdata.tanggal_lahir"            
+                                        v-model="formdata.tanggal_lahir"
                                         no-title                                
                                         scrollable
                                         >
