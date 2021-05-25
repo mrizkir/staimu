@@ -276,7 +276,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"]
                     }
                 }).then(({ data }) => {
-                    this.permissions_selected = data.permissions;  
+                    this.permissions_selected = data.permissions;
                 });
                 this.datatableLoading = false;
             }

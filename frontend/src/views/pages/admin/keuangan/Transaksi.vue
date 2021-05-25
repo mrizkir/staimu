@@ -370,8 +370,8 @@ export default {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
-                this.data_transaksi={}; 
-                this.data_transaksi_detail={};    
+                this.data_transaksi = {}; 
+                this.data_transaksi_detail = {};
                 },300
             );
         },

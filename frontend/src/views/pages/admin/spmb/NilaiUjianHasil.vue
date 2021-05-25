@@ -43,7 +43,7 @@ export default {
     created()
     {
         this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
-        this.user_id = this.$route.params.user_id;   
+        this.user_id = this.$route.params.user_id; 
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -217,7 +217,7 @@ export default {
         save() {
             if (this.$refs.frmdata.validate())
             {
-                this.btnLoading = true;    
+                this.btnLoading = true;
                 if (this.editedItem > 0)
                 {
                     this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,

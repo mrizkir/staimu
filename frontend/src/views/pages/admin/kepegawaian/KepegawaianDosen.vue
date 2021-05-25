@@ -327,10 +327,10 @@ export default {
                 }
             ).then(({ data }) => {
                 this.daftar_jabatan=data.jabatan_akademik;
-            });  
+            });
             
             this.editedIndex = this.daftar_dosen.indexOf(item);
-            this.editedItem = Object.assign({}, item);    
+            this.editedItem = Object.assign({}, item);
             this.dialogEdit = true;
         },
         close() { 
@@ -371,7 +371,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                     
                 } 
             }

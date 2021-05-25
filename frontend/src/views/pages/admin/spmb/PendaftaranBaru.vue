@@ -346,7 +346,7 @@ export default {
     name: 'PendaftaranBaru',
     created()
     {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];    
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -643,7 +643,7 @@ export default {
             });
         },
         viewItem(item) {
-            this.formdata = item;    
+            this.formdata = item;
             this.dialogdetailitem = true;
         },
         async editItem(item) {

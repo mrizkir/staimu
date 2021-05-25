@@ -368,7 +368,7 @@ export default {
             }).then(({ data }) => {
                 this.daftar_ruang_kelas = data.ruangan; 
                 this.formdata = Object.assign({}, item);
-                this.dialogfrm = true;    
+                this.dialogfrm = true;
             });
         }, 
         save: async function() {

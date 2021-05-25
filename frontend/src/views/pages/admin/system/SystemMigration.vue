@@ -217,7 +217,7 @@ export default {
 		initialize: async function()
 		{	
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
-            this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];    
+            this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];
 
             await this.$ajax.get('/akademik/dosenwali',{
                 headers: {
@@ -274,7 +274,7 @@ export default {
                     }
                 ).then(() => { 
                     setTimeout(() => {
-                        this.$router.go();  
+                        this.$router.go();
                         this.btnLoading = false;
                         },300
                     ); 

@@ -283,7 +283,7 @@ export default {
         {
             this.$ajax.get('/datamaster/provinsi').then(({ data }) => { 
                 this.daftar_provinsi=data.provinsi;
-            });  
+            });
             await this.$ajax.get('/system/usersdosen/biodatadiri/'+this.$store.getters['auth/AttributeUser']('id'), 
                 {
                     headers: {
@@ -294,23 +294,23 @@ export default {
             ).then(({ data }) => {
                 this.formdata=data.biodatadiri;
 
-                this.provinsi_id={
+                this.provinsi_id = {
                     id:data.biodatadiri.address1_provinsi_id,
                     nama:data.biodatadiri.address1_provinsi
                 };
-                this.kabupaten_id={
+                this.kabupaten_id = {
                     id:data.biodatadiri.address1_kabupaten_id,
                     nama:data.biodatadiri.address1_kabupaten
                 };
-                this.kecamatan_id={
+                this.kecamatan_id = {
                     id:data.biodatadiri.address1_kecamatan_id,
                     nama:data.biodatadiri.address1_kecamatan
                 };
-                this.desa_id={
+                this.desa_id = {
                     id:data.biodatadiri.address1_desa_id,
                     nama:data.biodatadiri.address1_kelurahan
                 };
-                this.formdata.alamat_rumah=data.biodatadiri.alamat_rumah;  
+                this.formdata.alamat_rumah = data.biodatadiri.alamat_rumah;
                 this.$refs.frmdata.resetValidation();
             });
         },
@@ -355,7 +355,7 @@ export default {
                     this.$router.go();
                 }).catch(() => { 
                     this.btnLoading = false;
-                });  
+                });
             }  
         },
     },
@@ -364,22 +364,22 @@ export default {
         {
             if (val.id != null && val.id != '')
             {
-                this.btnLoadingProv=true;
+                this.btnLoadingProv = true;
                 this.$ajax.get('/datamaster/provinsi/'+val.id+'/kabupaten').then(({ data }) => { 
-                    this.daftar_kabupaten=data.kabupaten;
-                    this.btnLoadingProv=false;
+                    this.daftar_kabupaten = data.kabupaten;
+                    this.btnLoadingProv = false;
                 });
-                this.daftar_kecamatan=[];
+                this.daftar_kecamatan = [];
             }
         },
         kabupaten_id(val)
         {
             if (val.id != null && val.id != '')
             {
-                this.btnLoadingKab=true;
+                this.btnLoadingKab = true;
                 this.$ajax.get('/datamaster/kabupaten/'+val.id+'/kecamatan').then(({ data }) => {
-                    this.daftar_kecamatan=data.kecamatan;
-                    this.btnLoadingKab=false;
+                    this.daftar_kecamatan = data.kecamatan;
+                    this.btnLoadingKab = false;
                 });
             }
         },
@@ -387,10 +387,10 @@ export default {
         {
             if (val.id != null && val.id != '')
             {
-                this.btnLoadingKec=true;
+                this.btnLoadingKec = true;
                 this.$ajax.get('/datamaster/kecamatan/'+val.id+'/desa').then(({ data }) => {
-                    this.daftar_desa=data.desa;
-                    this.btnLoadingKec=false;
+                    this.daftar_desa = data.desa;
+                    this.btnLoadingKec = false;
                 });
             }
         },

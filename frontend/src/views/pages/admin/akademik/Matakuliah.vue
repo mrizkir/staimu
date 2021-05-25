@@ -636,7 +636,7 @@ export default {
             this.dialogfrm = true;
         },
         async viewItem(item) {
-            this.formdata = item;    
+            this.formdata = item;
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {

@@ -125,7 +125,7 @@ export default {
     name: 'ProfiDosen',
     created()
     {
-        this.initialize();   
+        this.initialize(); 
     },
     props: {
         datadosen: {

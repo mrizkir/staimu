@@ -356,7 +356,7 @@ export default {
                         this.$store.dispatch('updateFoto',data.user.foto);
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                     this.$refs.frmdata.reset(); 
                 } 
             }
@@ -375,7 +375,7 @@ export default {
                 this.$store.dispatch('updateFoto',data.user.foto);
             }).catch(() => {
                 this.btnLoading = false;
-            });  
+            });
         },
         async fetchMahasiswa()
         {

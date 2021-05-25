@@ -139,7 +139,7 @@ export default {
                 if (typeof this.filepersyaratan[index] !== 'undefined')
                 {
                     this.btnLoading = true;
-                    var formdata = new FormData();  
+                    var formdata = new FormData();
                     formdata.append('nama_persyaratan',data.nama_persyaratan);
                     formdata.append('persyaratan_id',data.persyaratan_id);
                     formdata.append('persyaratan_pmb_id',data.persyaratan_pmb_id);
@@ -157,7 +157,7 @@ export default {
                         this.btnLoading = false;
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                 }
             } 
         },
@@ -203,7 +203,7 @@ export default {
         },
         verifikasipersyaratan: async function(item)
         {
-            this.btnLoading = true;  
+            this.btnLoading = true;
             await this.$ajax.post('/spmb/pmbpersyaratan/verifikasipersyaratan/'+item.persyaratan_pmb_id,
             {
                 
@@ -214,10 +214,10 @@ export default {
                 }
             }
             ).then(({ data }) => {
-                this.badgeColor = data.persyaratan.verified;   
-                this.badgeIcon = data.persyaratan.verified;   
+                this.badgeColor = data.persyaratan.verified; 
+                this.badgeIcon = data.persyaratan.verified; 
                 this.btnHapus = true; 
-                this.btnVerifikasi=true;   
+                this.btnVerifikasi=true; 
                 this.btnLoading = false;
             }).catch(() => {      
                 this.btnLoading = false;

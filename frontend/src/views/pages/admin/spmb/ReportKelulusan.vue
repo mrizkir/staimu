@@ -280,7 +280,7 @@ export default {
                 link.setAttribute('download', 'laporan_prodi_'+Date.now()+'.xlsx');
                 link.setAttribute('id', 'download_laporan');
                 document.body.appendChild(link);
-                link.click();   
+                link.click(); 
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {
@@ -289,7 +289,7 @@ export default {
         },
         closeProfilMahasiswaBaru ()
         {
-            this.dialogprofilmhsbaru = false;   
+            this.dialogprofilmhsbaru = false; 
         }  
     },
     watch: {

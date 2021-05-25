@@ -349,7 +349,7 @@ export default {
 										Authorization: this.$store.getters["auth/Token"]
 								}
 						}).then(({ data }) => {
-								this.data_kelas_mhs=data.pembagiankelas;  
+								this.data_kelas_mhs=data.pembagiankelas;
 								this.datatable=data.penyelenggaraan;
 								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
@@ -395,7 +395,7 @@ export default {
 								}
 						}).then(({ data }) => {                  
 								this.daftar_matakuliah = data.matakuliah; 
-								this.showdialogmatakuliah=true;    
+								this.showdialogmatakuliah=true;
 						})  
 				},
 				async tambahPeserta()

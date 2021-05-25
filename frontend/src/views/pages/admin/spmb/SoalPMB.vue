@@ -478,8 +478,8 @@ export default {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => { 
-                this.formdata = item;    
-                this.dialogdetailitem = true;   
+                this.formdata = item;
+                this.dialogdetailitem = true; 
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 
         }, 
@@ -498,7 +498,7 @@ export default {
                     {
                         jawaban_benar=element.id;
                     }      
-                });  
+                });
                 this.formdata.jawaban_benar=jawaban_benar;
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 

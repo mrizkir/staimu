@@ -204,7 +204,7 @@ export default {
                 href: "#"
             },
         ];
-        this.fetchKHS();    
+        this.fetchKHS();
     },
     data: () => ({ 
         firstloading: true, 
@@ -256,9 +256,9 @@ export default {
                 this.datatable=data.daftar_nilai;
                 if (Object.keys(this.datakrs).length)
                 {
-                    let prodi_id = this.datakrs.kjur;  
+                    let prodi_id = this.datakrs.kjur;
                     this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-                    this.tahun_akademik = this.datakrs.tahun;   
+                    this.tahun_akademik = this.datakrs.tahun; 
                     this.semester_akademik = this.datakrs.idsmt;
                     
                     this.jumlah_sks=data.jumlah_sks;
@@ -291,7 +291,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;    
+                this.dialogprintpdf = false;
                 },300
             );
         },

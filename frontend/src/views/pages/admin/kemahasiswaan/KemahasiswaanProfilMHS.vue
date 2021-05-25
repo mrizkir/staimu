@@ -310,7 +310,7 @@ export default {
                 this.ipk=data.ipk;
             });
 
-            this.datatableLoading = true;   
+            this.datatableLoading = true; 
             await this.$ajax.post('/keuangan/transaksi',
             {
                 TA: this.$store.getters['uiadmin/getTahunAkademik'],
@@ -354,8 +354,8 @@ export default {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
-                this.data_transaksi={}; 
-                this.data_transaksi_detail={};    
+                this.data_transaksi = {}; 
+                this.data_transaksi_detail = {};
                 },300
             );
         },

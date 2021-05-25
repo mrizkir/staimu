@@ -86,7 +86,7 @@ export default {
                 }
                 else
                 {
-                    strVal += keyEvent.key;  
+                    strVal += keyEvent.key;
                 } 
             } 
             else if (keyEvent.key === 'Backspace') 

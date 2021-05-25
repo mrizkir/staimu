@@ -459,7 +459,7 @@
 					save() {
 							if (this.$refs.frmdata.validate())
 							{
-									this.btnLoading = true;    
+									this.btnLoading = true;
 									if (this.editedItem > 0)
 									{
 											this.$ajax.post('/spmb/nilaiujian/'+this.formdata.user_id,

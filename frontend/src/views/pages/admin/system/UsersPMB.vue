@@ -477,7 +477,7 @@ export default {
                         });
                     }     
                 });
-                this.daftar_roles=daftar_roles;   
+                this.daftar_roles=daftar_roles; 
                 this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
                 this.dialog = true; 
             }); 
@@ -485,7 +485,7 @@ export default {
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password=''; 
-            this.editedItem = Object.assign({}, item);    
+            this.editedItem = Object.assign({}, item);
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
             await this.$ajax.get('/system/users/' + item.id + '/prodi',
                 {
@@ -526,7 +526,7 @@ export default {
                     }     
                 });
                 this.daftar_roles=daftar_roles;
-            });  
+            });
 
             this.btnLoading = true;
             await this.$ajax.get('/system/users/' + item.id + '/roles',
@@ -587,7 +587,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                     
                 } else {
                     this.$ajax.post('/system/userspmb/store',

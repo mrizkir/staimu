@@ -356,7 +356,7 @@ export default {
                             }
                         ).then(() => {
                             this.btnLoading = false;
-                            this.$router.go();  
+                            this.$router.go();
                         }).catch(() => {
                             this.btnLoading = false;
                         });

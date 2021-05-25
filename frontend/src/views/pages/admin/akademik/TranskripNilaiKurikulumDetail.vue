@@ -408,15 +408,15 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;    
+                this.dialogprintpdf = false;
                 },300
             );
         },
         closedialoghistory() {
             setTimeout(() => {
-                this.data_matkul={};
+                this.data_matkul = {};
                 this.data_history=[];
-                this.dialoghistory = false;    
+                this.dialoghistory = false;
                 },300
             );
         },

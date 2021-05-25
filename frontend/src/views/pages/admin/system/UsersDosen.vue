@@ -464,7 +464,7 @@ export default {
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password=''; 
-            this.editedItem = Object.assign({}, item);    
+            this.editedItem = Object.assign({}, item);
             this.dialogEdit = true;
         },
         close() { 
@@ -510,7 +510,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                     
                 } else {
                     this.$ajax.post('/system/usersdosen/store',

@@ -135,7 +135,7 @@ export default {
                     Authorization: this.$store.getters["auth/Token"]
                 }
             }).then(({ data }) => {
-                this.data_transaksi=data.transaksi;    
+                this.data_transaksi=data.transaksi;
                 this.transaksi_detail = data.transaksi_detail;
                 this.datatableLoading = false;
             }).catch(() => {

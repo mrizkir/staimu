@@ -225,7 +225,7 @@
 				let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 				this.prodi_id = prodi_id;
 				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];  
+				this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 				this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
 			},
 			mounted() {
@@ -358,7 +358,7 @@
 									).then(() => {
 											this.closedialogfrm();
 											this.btnLoading = false;
-											this.initialize();  
+											this.initialize();
 											
 									}).catch(() => {
 											this.btnLoading = false;
@@ -389,7 +389,7 @@
                 link.setAttribute("download", "registrasi_krs_"+Date.now()+".xlsx");
                 link.setAttribute("id", "download_laporan");
                 document.body.appendChild(link);
-                link.click();   
+                link.click(); 
                 document.body.removeChild(link);
                 this.btnLoading = false;
             }).catch(() => {

@@ -211,7 +211,7 @@ export default {
                     },
                     
                 ).then(({ data }) => { 
-                    this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false: true;  
+                    this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false: true;
                 });
             }
             else
@@ -231,7 +231,7 @@ export default {
                     this.datatableLoading = false;
                 });
                 this.firstloading = false; 
-                this.$refs.filter7.setFirstTimeLoading(this.firstloading);    
+                this.$refs.filter7.setFirstTimeLoading(this.firstloading);
             }
         },
         dataTableRowClicked(item)

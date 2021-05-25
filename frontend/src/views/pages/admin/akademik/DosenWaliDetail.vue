@@ -308,7 +308,7 @@ export default {
                 
             ).then(({ data }) => {
                 this.data_dosen=data.biodatadiri; 
-            });  
+            });
 
             await this.$ajax.get('/akademik/dosenwali/'+this.dosen_id,{
                 headers: {

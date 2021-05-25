@@ -403,7 +403,7 @@ export default {
                         });
                     }     
                 });
-                this.daftar_roles=daftar_roles;   
+                this.daftar_roles=daftar_roles; 
                 this.dialog = true; 
             });
             
@@ -437,7 +437,7 @@ export default {
                     }     
                 });
                 this.daftar_roles=daftar_roles;
-            });  
+            });
 
             this.btnLoading = true;
             await this.$ajax.get('/system/users/' + item.id + '/roles',
@@ -488,7 +488,7 @@ export default {
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
-                    });  
+                    });
                     
                 } else {
                     this.$ajax.post('/system/users/store',

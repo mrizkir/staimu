@@ -544,7 +544,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;    
+                this.dialogprintpdf = false;
                 },300
             );
         },

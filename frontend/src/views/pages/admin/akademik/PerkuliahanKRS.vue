@@ -205,7 +205,7 @@ export default {
             this.prodi_id = prodi_id;
             this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
             this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];  
+            this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         }   
     },
     mounted()
@@ -292,7 +292,7 @@ export default {
             }).then(({ data }) => {  
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
-                this.firstloading = false;   
+                this.firstloading = false; 
                 this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
             }).catch(() => {
                 this.datatableLoading = false;
@@ -355,7 +355,7 @@ export default {
         closedialogprintpdf() {
             setTimeout(() => {
                 this.file_pdf=null;
-                this.dialogprintpdf = false;    
+                this.dialogprintpdf = false;
                 },300
             );
         }, 

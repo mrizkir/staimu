@@ -270,7 +270,7 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;    
+            this.formdata = item;
             this.dialogdetailitem = true;
         }, 
         editItem(item) {

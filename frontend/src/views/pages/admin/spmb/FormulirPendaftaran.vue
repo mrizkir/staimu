@@ -248,7 +248,7 @@
 				this.$router.push("/spmb/formulirpendaftaran/" + item.id + "/edit")
 			},
 			closeProfilMahasiswaBaru() {
-				this.dialogprofilmhsbaru = false;    
+				this.dialogprofilmhsbaru = false;
 			}  
 		},
 		watch: {

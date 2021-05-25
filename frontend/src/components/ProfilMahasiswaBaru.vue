@@ -173,7 +173,7 @@ export default {
 	name: 'ProfilMahasiswaBaru',
 	created()
 	{
-		this.initialize();   
+		this.initialize(); 
 	},
 	props: {
 		item:Object,

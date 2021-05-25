@@ -328,6 +328,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //akademik - dulang
     $router->post('/akademik/dulang/dulangnotinkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\DulangController@dulangnotinkrs','as'=>'dulang.dulangnotinkrs']);
     $router->post('/akademik/dulang/cekdulangkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\DulangController@cekdulangkrs','as'=>'dulang.cekdulangkrs']);
+    //id disini adalah dulang_id
+    $router->put('/akademik/dulang/{id}/updatebiodata',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\DulangController@updatebiodata','as'=>'dulang.updatebiodata']);
+
 
     //akademik - daftar ulang - mahasiswa belum punya nim
     $router->post('/akademik/dulang/mhsbelumpunyanim',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\MahasiswaBelumPunyaNIMController@index','as'=>'mhsbelumpunyanim.index']);

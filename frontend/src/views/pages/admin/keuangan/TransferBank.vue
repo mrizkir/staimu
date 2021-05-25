@@ -343,8 +343,8 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;    
-            this.dialogdetailitem = true;  
+            this.formdata = item;
+            this.dialogdetailitem = true;
         }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);

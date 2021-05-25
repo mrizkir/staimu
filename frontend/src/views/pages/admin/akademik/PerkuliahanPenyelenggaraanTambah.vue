@@ -354,7 +354,7 @@ export default {
             });
         },
         async viewItem(item) {
-            this.formdata = item;    
+            this.formdata = item;
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
             {
                 headers: {

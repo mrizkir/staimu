@@ -112,7 +112,7 @@ import ModuleHeader from "@/components/ModuleHeader";
 export default {
     name: 'PassingGrade',
     created() {
-        this.jadwal_ujian_id = this.$route.params.idjadwalujian;   
+        this.jadwal_ujian_id = this.$route.params.idjadwalujian; 
         this.breadcrumbs = [
             {
                 text: "HOME",
@@ -135,7 +135,7 @@ export default {
                 href: "#"
             }
         ]; 
-        this.initialize();  
+        this.initialize();
     },
     data: () => ({
         jadwal_ujian_id: null,
@@ -177,7 +177,7 @@ export default {
                 }
             }).then(({ data }) => {
                 this.datatableLoading = false;
-                this.jadwal_ujian=data.jadwal_ujian;    
+                this.jadwal_ujian=data.jadwal_ujian;
                 this.datatable=data.passing_grade;
             }).catch(() => {
                 this.datatableLoading = false;

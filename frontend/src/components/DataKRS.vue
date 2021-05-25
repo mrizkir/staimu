@@ -108,7 +108,7 @@ export default {
     name: 'DataKRS',
     created()
     {
-        this.initialize();   
+        this.initialize(); 
     },
     props: {
         datakrs: {

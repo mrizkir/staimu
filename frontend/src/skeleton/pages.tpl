@@ -301,8 +301,8 @@ export default {
             }
         },
         viewItem(item) {
-            this.formdata = item;    
-            this.dialogdetailitem = true;   
+            this.formdata = item;
+            this.dialogdetailitem = true; 
             // this.$ajax.get('/path/'+item.id,{
             //     headers: {
             //         Authorization: this.$store.getters["auth/Token"]

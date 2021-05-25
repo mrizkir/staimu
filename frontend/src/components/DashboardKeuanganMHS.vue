@@ -142,7 +142,7 @@ export default {
                 this.datatableLoading = false;
             }).catch(() => {
                 this.datatableLoading = false;
-            });  
+            });
 
         }
     },

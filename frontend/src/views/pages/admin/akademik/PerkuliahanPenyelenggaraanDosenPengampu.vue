@@ -269,7 +269,7 @@ export default {
                     }
                 ).then(() => {
                     setTimeout(() => {
-                        this.btnLoading = false;  
+                        this.btnLoading = false;
                         this.$router.go();
                         },500
                     );

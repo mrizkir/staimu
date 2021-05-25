@@ -384,7 +384,7 @@
 				},
 				editItem: async function(item) { 
 						this.editedIndex = this.datatable.indexOf(item);
-						this.formdata = item;    
+						this.formdata = item;
 						this.dialogfrm = true
 				},
 				showDialogCopyPersyaratan() {

@@ -142,7 +142,7 @@ export default {
     name: 'KepegawaianLayout',
     created()
     {
-        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];    
+        this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
     },
     props: {
         showrightsidebar: {
