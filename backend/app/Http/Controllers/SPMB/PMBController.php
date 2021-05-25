@@ -47,6 +47,7 @@ class PMBController extends Controller {
                                     users.nomor_hp,
                                     users.active,
                                     users.foto,
+                                    COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
                                     pe3_formulir_pendaftaran.kjur1 AS prodi_id,
                                     pe3_formulir_pendaftaran.ta,
                                     users.created_at,
@@ -93,8 +94,8 @@ class PMBController extends Controller {
                                             users.id,
                                             users.name,
                                             users.username,
-                                            COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,                                            
-                                            pe3_formulir_pendaftaran.jk,                                            
+                                            COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
+                                            pe3_formulir_pendaftaran.jk,
                                             users.nomor_hp,
                                             pe3_kelas.nkelas,
                                             users.active,
@@ -205,7 +206,7 @@ class PMBController extends Controller {
                                     'status'=>1,
                                     'pid'=>'store',
                                     'email'=>$user->email,                              
-                                    'code'=>$code,                                                                    
+                                    'code'=>$code,                        
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
                                 ],200); 
 
@@ -279,7 +280,7 @@ class PMBController extends Controller {
                                     'status'=>1,
                                     'pid'=>'store',
                                     'pendaftar'=>$user,
-                                    'code'=>$code,                                                                                                    
+                                    'code'=>$code,            
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
                                 ],200); 
 
@@ -351,7 +352,7 @@ class PMBController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',
-                                    'pendaftar'=>$user,                                                                                                  
+                                    'pendaftar'=>$user,          
                                     'message'=>'Data Mahasiswa baru berhasil diubah.'
                                 ],200); 
 
@@ -379,9 +380,9 @@ class PMBController extends Controller {
                                                                 address1_kecamatan_id,
                                                                 address1_kecamatan,
                                                                 address1_kabupaten_id,
-                                                                address1_kabupaten,                                                                
+                                                                address1_kabupaten,                    
                                                                 address1_provinsi_id,
-                                                                address1_provinsi,                                                                
+                                                                address1_provinsi,                    
                                                                 alamat_rumah,
                                                                 pe3_prodi.kode_fakultas,
                                                                 kjur1,
@@ -454,7 +455,7 @@ class PMBController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                                                                                                                                        
+                                        'pid'=>'update',    
                                         'message'=>'Email Mahasiswa berhasil diverifikasi.'
                                     ],200);
         }
@@ -462,7 +463,7 @@ class PMBController extends Controller {
         {
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                                                                                                                                        
+                                        'pid'=>'update',    
                                         'message'=>['Email Registrasi Mahasiswa gagal diverifikasi.']
                                     ],422);
         }
@@ -607,8 +608,8 @@ class PMBController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',
-                                        'formulir'=>$data_mhs['formulir']. " ",                                                                                                  
-                                        'no_transaksi'=>$data_mhs['no_transaksi']. " ",                                                                                                  
+                                        'formulir'=>$data_mhs['formulir']. " ",          
+                                        'no_transaksi'=>$data_mhs['no_transaksi']. " ",          
                                         'message'=>'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }

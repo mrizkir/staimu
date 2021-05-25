@@ -373,7 +373,7 @@ export default {
             datatable: [],
             headers: [
                 { text: 'TA', value: 'tahun', width:50 },
-                { text: 'TAHUN AKADEMIK', value: 'tahun_akademik', width:150 },
+                { text: 'TAHUN AKADEMIK', value: 'tahun_akademik', width: 150 },
                 { text: 'AWAL GANJIL', value: 'awal_ganjil', width:50 },
                 { text: 'AKHIR GANJIL', value: 'akhir_ganjil', width:50 },
                 { text: 'AWAL GENAP', value: 'awal_genap', width:50 },
@@ -567,7 +567,7 @@ export default {
             TOKEN: 'Token',
         }),
         formTitle() {
-            return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+            return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
         },
         semesterGanjilText : {
             set()

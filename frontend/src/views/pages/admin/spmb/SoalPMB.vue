@@ -374,7 +374,7 @@ export default {
         image_prev: null, 
         daftar_jawaban: [
             {
-                id:1,
+                id: 1,
                 text: 'JAWABAN KE 1'
             },
             {
@@ -382,7 +382,7 @@ export default {
                 text: 'JAWABAN KE 2'
             },
             {
-                id:3,
+                id: 3,
                 text: 'JAWABAN KE 3'
             },
             {
@@ -601,7 +601,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogfrm() {
@@ -610,7 +610,7 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogeditfrm() {
@@ -619,7 +619,7 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
     },
@@ -642,7 +642,7 @@ export default {
             } 
         },
         formTitle() {
-            return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+            return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
         },
     },
     watch: {

@@ -394,14 +394,14 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogfrm() {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');
-                },300
+                }, 300
             );
         },
     },

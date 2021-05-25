@@ -168,7 +168,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" /> 
+                                <v-img :src="$api.url + '/' + item.foto" /> 
                             </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -246,7 +246,7 @@ export default {
             username: '',  
             name: '', 
             nama_dosen: '',  
-            id_jabatan:1,  
+            id_jabatan: 1,  
             gelar_depan: '',  
             gelar_belakang: '1', 
             nidn: '', 
@@ -262,7 +262,7 @@ export default {
             username: '', 
             name: '', 
             nama_dosen: '', 
-            id_jabatan:1, 
+            id_jabatan: 1, 
             gelar_depan: '',  
             gelar_belakang: '1', 
             nidn: '',
@@ -340,7 +340,7 @@ export default {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                },300
+                }, 300
             );
         },
         save() {

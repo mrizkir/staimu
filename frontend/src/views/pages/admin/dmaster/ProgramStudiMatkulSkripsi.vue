@@ -367,7 +367,7 @@
 				setTimeout(() => {
 					this.$refs.frmdata.reset();
 					this.matkul_id = null;
-				},300);
+				}, 300);
 			},
 			kaprodi(item) {
 				var message = "N.A";

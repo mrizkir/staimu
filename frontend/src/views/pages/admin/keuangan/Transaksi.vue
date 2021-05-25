@@ -293,7 +293,7 @@ export default {
             { text: "SMT", value: "idsmt", width:50, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
             { text: "STATUS", value: "nama_status", width:50, sortable: true }, 
-            { text: 'KET.', value: 'desc', width:150, sortable: false }, 
+            { text: 'KET.', value: 'desc', width: 150, sortable: false }, 
             { text: "AKSI", value: "actions", sortable: false, width:50 },
         ], 
         expanded: [],
@@ -359,7 +359,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                
+            }).then(({ data }) => {             
                 this.data_transaksi=item; 
                 this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;
@@ -372,7 +372,7 @@ export default {
                 this.editedIndex = -1;
                 this.data_transaksi = {}; 
                 this.data_transaksi_detail = {};
-                },300
+                }, 300
             );
         },
     }, 

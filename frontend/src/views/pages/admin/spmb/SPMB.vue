@@ -304,7 +304,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {    
+            }).then(({ data }) => { 
                 this.daftar_registrasi = data.daftar_registrasi;
                 this.total_registrasi = data.total_registrasi;
                 

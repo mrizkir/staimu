@@ -455,7 +455,7 @@
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
-				},300);
+				}, 300);
 			},
 			deleteItem(item) {
 				this.$root.$confirm

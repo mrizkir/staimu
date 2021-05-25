@@ -268,7 +268,7 @@ export default {
         datatable: [], 
         headers: [            
             { text: 'NO', value: 'no', sortable: true, width:50  },
-            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width:350 }, 
+            { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width: 350 }, 
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, }, 
             { text: 'SMT', value: 'semester', sortable: true, width: 80, }, 
             { text: 'KLP', value: 'group_alias', sortable: true, width: 100, }, 
@@ -409,7 +409,7 @@ export default {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;
-                },300
+                }, 300
             );
         },
         closedialoghistory() {
@@ -417,7 +417,7 @@ export default {
                 this.data_matkul = {};
                 this.data_history=[];
                 this.dialoghistory = false;
-                },300
+                }, 300
             );
         },
     },

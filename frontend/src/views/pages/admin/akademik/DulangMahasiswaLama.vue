@@ -244,7 +244,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                },300
+                }, 300
             );
         },
     },

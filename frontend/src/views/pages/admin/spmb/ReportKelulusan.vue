@@ -91,7 +91,7 @@
                                     overlap
                                 >
                                     <v-avatar size="30"> 
-                                        <v-img :src="$api.url+'/'+item.foto" />
+                                        <v-img :src="$api.url + '/' + item.foto" />
                                     </v-avatar>                                                   
                             </v-badge>
                         </template>
@@ -177,7 +177,7 @@ export default {
         headers: [
             { text: '', value: 'foto', width:70 },
             { text: 'NO.FORMULIR', value: 'no_formulir', width: 120, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name', width: 350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
             { text: 'NILAI', value: 'nilai', width: 100, sortable: true },
@@ -189,7 +189,7 @@ export default {
         datamhsbaru: {},
 
         //form data 
-        filter_status:1,
+        filter_status: 1,
         form_valid: true, 
 
         data_mhs: {},
@@ -313,7 +313,7 @@ export default {
         SPMBLayout,
         ModuleHeader, 
         ProfilMahasiswaBaru,
-        Filter7    
+        Filter7,
     },
 }
 </script>

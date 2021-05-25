@@ -41,7 +41,7 @@ export default {
                     Authorization: this.$store.getters["auth/Token"], 
                 }
             }
-            ).then(() => {      
+            ).then(() => {   
                 this.$emit('selesaiJawab');
             }).catch(() => {
                 

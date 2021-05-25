@@ -25,7 +25,7 @@
 								<v-col xs="12" sm="6" md="2">
 									<v-card flat>
 										<v-card-text>
-											<v-img :src="$api.url+'/'+item.foto" />
+											<v-img :src="$api.url + '/' + item.foto" />
 										</v-card-text>
 									</v-card>
 									<v-card flat>
@@ -240,7 +240,7 @@ export default {
 		{
 			setTimeout(() => {
 				this.$emit('closeProfilMahasiswaBaru');
-				},300
+				}, 300
 			); 
 		}
 	},

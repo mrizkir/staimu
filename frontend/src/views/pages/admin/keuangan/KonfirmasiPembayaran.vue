@@ -563,7 +563,7 @@ export default {
 				data_konfirmasi: {},
 				daftar_channel: [],
 				formdata: {
-						id_channel:1,
+						id_channel: 1,
 						total_bayar: 0,
 						nomor_rekening_pengirim: '',
 						nama_rekening_pengirim: '',
@@ -573,7 +573,7 @@ export default {
 						bukti_bayar: [],
 				},
 				formdefault: {
-						id_channel:1,
+						id_channel: 1,
 						total_bayar: 0,
 						nomor_rekening_pengirim: '',
 						nama_rekening_pengirim: '',
@@ -773,7 +773,7 @@ export default {
 								this.formdata = Object.assign({}, this.formdefault);
 								this.data_transaksi = Object.assign({},{});
 								this.data_konfirmasi = Object.assign({},{});
-								},300
+								}, 300
 						);
 				},
 				closedialogdetailitem() {
@@ -782,7 +782,7 @@ export default {
 								this.formdata = Object.assign({}, this.formdefault);
 								this.data_transaksi = Object.assign({},{});
 								this.data_konfirmasi = Object.assign({},{});
-								},300
+								}, 300
 						);
 				},
 		},

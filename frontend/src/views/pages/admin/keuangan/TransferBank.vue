@@ -264,7 +264,7 @@ export default {
         expanded: [],
         datatable: [],
         headers: [
-            { text: 'NAMA BANK', value: 'nama_bank', width:350 },
+            { text: 'NAMA BANK', value: 'nama_bank', width: 350 },
             { text: 'CABANG', value: 'nama_cabang' },
             { text: 'NOMOR REKENING', value: 'nomor_rekening' },
             { text: 'PEMILIK REKENING', value: 'pemilik_rekening' },
@@ -430,7 +430,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogfrm() { 
@@ -439,7 +439,7 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
     },
@@ -449,7 +449,7 @@ export default {
             TOKEN: "Token",  
         }),
         formTitle() {
-            return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+            return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
         },
     },
     components: {

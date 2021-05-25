@@ -341,7 +341,7 @@
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
-				},300);
+				}, 300);
 			},
 			closedialogfrm() {
 				this.dialogfrm = false;
@@ -349,7 +349,7 @@
 					this.$refs.frmdata.resetValidation();
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
-				},300);
+				}, 300);
 			},
 		},
 		computed: {

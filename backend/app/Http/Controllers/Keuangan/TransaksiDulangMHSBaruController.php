@@ -180,7 +180,7 @@ class TransaksiDulangMHSBaruController extends Controller {
             
             if (!($biaya_kombi > 0))
             {
-                throw new Exception ("Komponen Biaya Daftar Ulang Mahasiswa Baru (102) belum disetting pada TA $tahun");  
+                throw new Exception ("Komponen Biaya Daftar Ulang Mahasiswa Baru (102) belum disetting pada TA $tahun Kelas ($idkelas) Prodi ($kjur)");  
             }
 
             $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){

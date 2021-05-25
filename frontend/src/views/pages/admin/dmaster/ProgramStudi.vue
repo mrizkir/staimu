@@ -457,7 +457,7 @@
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
 					this.editedIndex = -1;
-				},300);
+				}, 300);
 			},
 		},
 		computed: {

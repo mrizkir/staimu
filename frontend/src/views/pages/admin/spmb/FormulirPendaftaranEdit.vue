@@ -342,13 +342,13 @@ export default {
             if (bentukpt == "universitas")
             { 
                 await this.$ajax.get('/datamaster/fakultas').then(({ data }) => {
-                    this.daftar_fakultas=data.fakultas;
+                    this.daftar_fakultas = data.fakultas;
                 });
             }
             else
             {
                 await this.$ajax.get('/datamaster/programstudi').then(({ data }) => {
-                    this.daftar_prodi=data.prodi;
+                    this.daftar_prodi = data.prodi;
                 });
             }
             this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
@@ -482,10 +482,10 @@ export default {
         },
         kode_fakultas (val)
         {
-            this.btnLoadingFakultas=true;
+            this.btnLoadingFakultas = true;
             this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {
-                this.daftar_prodi=data.programstudi;
-                this.btnLoadingFakultas=false;
+                this.daftar_prodi = data.programstudi;
+                this.btnLoadingFakultas = false;
             });
         }
 

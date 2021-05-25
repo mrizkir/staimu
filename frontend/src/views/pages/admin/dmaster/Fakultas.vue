@@ -210,7 +210,7 @@ export default {
         expanded: [],
         datatable: [],
         headers: [
-            { text: 'KODE FAKULTAS', value: 'kode_fakultas', width:150 },
+            { text: 'KODE FAKULTAS', value: 'kode_fakultas', width: 150 },
             { text: 'NAMA FAKULTAS', value: 'nama_fakultas' },
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
         ],
@@ -354,7 +354,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogfrm() {
@@ -363,7 +363,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
     },
@@ -373,7 +373,7 @@ export default {
             TOKEN: "Token",  
         }),
         formTitle() {
-            return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+            return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
         },
     },
     components: {

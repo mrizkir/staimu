@@ -545,13 +545,13 @@
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.$refs.frmdata.reset();
-				},300);
+				}, 300);
 			},
 			closedialogprintpdf() {
 				setTimeout(() => {
 					this.file_pdf = null;
 					this.dialogprintpdf = false;
-				},300);
+				}, 300);
 			},
 		},
 		watch: {

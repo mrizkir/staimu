@@ -276,7 +276,7 @@ export default {
                     setTimeout(() => {
                         this.$router.go();
                         this.btnLoading = false;
-                        },300
+                        }, 300
                     ); 
                 }).catch(() => {
                     this.btnLoading = false;

@@ -54,7 +54,7 @@ export default {
         {
             if (!this.isFocused) return; 
 
-            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {   
+            if (keyEvent.key !== 'ArrowLeft' && keyEvent.key !== 'ArrowRight') {
                 keyEvent.preventDefault();
             }
 

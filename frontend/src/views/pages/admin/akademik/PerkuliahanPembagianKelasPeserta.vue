@@ -363,7 +363,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {         
+						}).then(({ data }) => {      
 								this.datatable=data.penyelenggaraan;
 								this.datatableLoading = false;
 						})   
@@ -376,7 +376,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {         
+						}).then(({ data }) => {      
 								this.datatable_peserta=data.peserta;
 								this.datatableLoading = false;
 						})   
@@ -393,7 +393,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {                  
+						}).then(({ data }) => {               
 								this.daftar_matakuliah = data.matakuliah; 
 								this.showdialogmatakuliah=true;
 						})  
@@ -479,7 +479,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {   
+										).then(() => {
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -503,7 +503,7 @@ export default {
 																Authorization: this.$store.getters["auth/Token"]
 														}
 												}
-										).then(() => {   
+										).then(() => {
 												this.btnLoading = false;
 												this.$router.go();
 										}).catch(() => {
@@ -518,7 +518,7 @@ export default {
 								this.members_selected=[];
 								this.fetchPeserta();
 								this.$refs.frmdata.reset(); 
-								},300
+								}, 300
 						);
 				},
 				closedialogmatakuliah() {
@@ -526,7 +526,7 @@ export default {
 						setTimeout(() => {
 								this.fetchMatkul();
 								this.$refs.frmdatamatkul.reset(); 
-								},300
+								}, 300
 						);
 				},
 		},

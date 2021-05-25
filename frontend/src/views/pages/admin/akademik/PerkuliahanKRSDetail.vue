@@ -266,7 +266,7 @@ export default {
 				datatable: [],
 				headers: [
 						{ text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
-						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:300 },
+						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width: 300 },
 						{ text: 'SKS', value: 'sks', sortable: false, width:50 },
 						{ text: 'SMT', value: 'semester', sortable: false, width:50 },
 						{ text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 },
@@ -331,7 +331,7 @@ export default {
 									},
 								}
 							)
-							.then(() => {   
+							.then(() => {
 								this.closedialogfrm();
 								this.fetchKRS();
 								this.btnLoading = false;
@@ -371,7 +371,7 @@ export default {
 						setTimeout(() => {
 								this.datamatkul = Object.assign({},{});
 								this.$refs.frmdata.reset();
-								},300
+								}, 300
 						);
 				},
 		},

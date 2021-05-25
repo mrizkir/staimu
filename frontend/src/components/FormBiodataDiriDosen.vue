@@ -396,10 +396,10 @@ export default {
         },
         kode_fakultas (val)
         {
-            this.btnLoadingFakultas=true;
+            this.btnLoadingFakultas = true;
             this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {
-                this.daftar_prodi=data.programstudi;
-                this.btnLoadingFakultas=false;
+                this.daftar_prodi = data.programstudi;
+                this.btnLoadingFakultas = false;
             });
         }
 

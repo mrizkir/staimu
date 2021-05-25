@@ -399,7 +399,7 @@ export default {
             { text: 'SKS', value: 'sks', sortable: false, width:70 }, 
             { text: 'SMT', value: 'semester', sortable: true, width:70, }, 
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 }, 
-            { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width:170 }, 
+            { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width: 170 }, 
             { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width:70}, 
             { text: 'NILAI', value: 'n_kual', sortable: false, width:70},
         ],
@@ -545,7 +545,7 @@ export default {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;
-                },300
+                }, 300
             );
         },
         async pasangkan()
@@ -647,7 +647,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    }).then(({ data }) => {          
+                    }).then(({ data }) => {       
                         const { jumlah, daftar_mhs } = data;
                         this.count = jumlah;
                         this.entries = daftar_mhs;

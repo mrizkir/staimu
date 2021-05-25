@@ -221,7 +221,7 @@ export default {
         closedialogfrm() {
             setTimeout(() => { 
                 this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
-                },300
+                }, 300
             );
         },
     },

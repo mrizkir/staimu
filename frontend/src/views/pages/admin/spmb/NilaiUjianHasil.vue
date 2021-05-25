@@ -90,7 +90,7 @@ export default {
         headers: [
             { text: '', value: 'foto', width:70 },
             { text: 'NO.FORMULIR', value: 'no_formulir', width: 120, sortable: true },
-            { text: 'NAMA MAHASISWA', value: 'name', width:350, sortable: true },
+            { text: 'NAMA MAHASISWA', value: 'name', width: 350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
             { text: 'NILAI', value: 'nilai', width: 100, sortable: true },
@@ -298,7 +298,7 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
                 this.editedItem=-1;
-                },300
+                }, 300
             );
         },
         closeProfilMahasiswaBaru ()

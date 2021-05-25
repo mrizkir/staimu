@@ -355,7 +355,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
         closedialogfrm() {
@@ -364,7 +364,7 @@ export default {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset();
                 this.editedIndex = -1
-                },300
+                }, 300
             );
         },
     },
@@ -374,7 +374,7 @@ export default {
             TOKEN: 'Token',
         }),
         formTitle() {
-            return this.editedIndex === -1 ? 'TAMBAH DATA' : 'UBAH DATA'
+            return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
         },
     },
     components: {

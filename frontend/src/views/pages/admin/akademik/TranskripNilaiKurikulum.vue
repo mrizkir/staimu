@@ -284,7 +284,7 @@ export default {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;
-                },300
+                }, 300
             );
         },
     },
@@ -337,7 +337,7 @@ export default {
     components: {
         AkademikLayout,
         ModuleHeader,
-        Filter7               
+        Filter7,           
     },
 }
 </script>

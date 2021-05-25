@@ -246,9 +246,9 @@ export default {
         //formdata
         form_valid: true, 
         komponen_nilai: {
-            'persen_absen':15,
+            'persen_absen': 15,
             'persen_quiz': 0,
-            'persen_tugas_individu':35,
+            'persen_tugas_individu': 35,
             'persen_tugas_kelompok': 0,
             'persen_uts':25,
             'persen_uas':25,
@@ -272,7 +272,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {                                    
+            }).then(({ data }) => {                                 
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              

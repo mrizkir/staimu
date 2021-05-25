@@ -219,7 +219,7 @@ export default {
             await this.$ajax.post('/spmb/passinggrade/'+id,
             {
                 _method: "put",
-                id:id,
+                id: id,
                 nilai:nilai
             },
             {

@@ -309,7 +309,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(({ data }) => {                               
+                ).then(({ data }) => {                            
                     this.$refs.frmdata.reset(); 
                     this.formdata.foto=data.foto;
                     this.formdata=this.formdefault; 
@@ -351,7 +351,7 @@ export default {
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(({ data }) => {   
+                    ).then(({ data }) => {
                         this.btnLoading = false;
                         this.$store.dispatch('updateFoto',data.user.foto);
                     }).catch(() => {
@@ -370,7 +370,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"],  
                     }
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => {
                 this.btnLoading = false;
                 this.$store.dispatch('updateFoto',data.user.foto);
             }).catch(() => {
@@ -385,7 +385,7 @@ export default {
                         Authorization: this.$store.getters["auth/Token"],  
                     }
                 }
-            ).then(({ data }) => {   
+            ).then(({ data }) => {
                 this.data_mhs=data.mahasiswa; 
             })
         }

@@ -151,7 +151,7 @@ export default {
                                 'Content-Type': 'multipart/form-data'                      
                             }
                         }
-                    ).then(() => {      
+                    ).then(() => {   
                         this.btnHapus=false;
                         this.btnSimpan = true;
                         this.btnLoading = false;
@@ -219,7 +219,7 @@ export default {
                 this.btnHapus = true; 
                 this.btnVerifikasi=true; 
                 this.btnLoading = false;
-            }).catch(() => {      
+            }).catch(() => {   
                 this.btnLoading = false;
             });
         }

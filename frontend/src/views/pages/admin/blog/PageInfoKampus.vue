@@ -154,9 +154,9 @@
 				expanded: [],
 				datatable: [],
 				headers: [
-						{ text: "JUDUL", value: "post_title", width:300 },
-						{ text: "PENULIS", value: "username", width:150 },
-						{ text: "TANGGAL", value: "created_at", width:150 },
+						{ text: "JUDUL", value: "post_title", width: 300 },
+						{ text: "PENULIS", value: "username", width: 150 },
+						{ text: "TANGGAL", value: "created_at", width: 150 },
 						{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],
 				search: "",

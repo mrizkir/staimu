@@ -317,7 +317,7 @@ export default {
             setTimeout(() => {
                 this.file_pdf=null;
                 this.dialogprintpdf = false;
-                },300
+                }, 300
             );
         }, 
     },

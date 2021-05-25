@@ -501,7 +501,7 @@
 						setTimeout(() => {
 								this.formdata = Object.assign({}, this.formdefault)
 								this.editedIndex = -1
-								},300
+								}, 300
 						);
 				},
 				closedialogfrm() {
@@ -510,7 +510,7 @@
 								this.$refs.frmdata.resetValidation(); 
 								this.formdata = Object.assign({}, this.formdefault);
 								this.editedIndex = -1
-								},300
+								}, 300
 						);
 				},
 				closedialogsalinpersyaratan() { 
@@ -518,7 +518,7 @@
 						setTimeout(() => { 
 								this.$refs.frmdialogcopypersyaratan.reset(); 
 								this.editedIndex = -1
-								},300
+								}, 300
 						);
 				},
 		},

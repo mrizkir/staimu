@@ -261,7 +261,7 @@ export default {
         daftar_hari: [
             {
                 text: 'SENIN',
-                value:1,
+                value: 1,
             },
             {
                 text: 'SELASA',
@@ -269,7 +269,7 @@ export default {
             },
             {
                 text: 'RABU',
-                value:3,
+                value: 3,
             },
             {
                 text: 'KAMIS',
@@ -308,7 +308,7 @@ export default {
         ],
         rule_jam_masuk: [
             value => !!value || "Mohon diisi jam masuk mengajar!!!",
-            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15:30'
+            value => /^([0-9]|0[0-9]|1[0-9]|2[0-3]): [0-5][0-9]$/.test(value) || 'Format jam masuk mengajar hh:mm, misalnya 15: 30'
         ],
         rule_jam_keluar: [
             value => !!value || "Mohon diisi jam keluar mengajar!!!",
@@ -428,7 +428,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
-                },300
+                }, 300
             );
         },
     },

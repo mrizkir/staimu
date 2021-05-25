@@ -204,7 +204,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" /> 
+                                <v-img :src="$api.url + '/' + item.foto" /> 
                             </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -269,8 +269,8 @@ export default {
             { text: '', value: 'foto', width:70, },
             { text: "NIM", value: "nim", width: 100, sortable: true },
             { text: "NAMA MAHASISWA", value: "nama_mhs", width: 250, sortable: true },
-            { text: 'PROGRAM STUDI', value: 'nama_prodi', width:150, sortable: true },
-            { text: 'KELAS', value: 'nkelas', width:150, sortable: true },
+            { text: 'PROGRAM STUDI', value: 'nama_prodi', width: 150, sortable: true },
+            { text: 'KELAS', value: 'nkelas', width: 150, sortable: true },
             { text: 'TAHUN MASUK', value: 'tahun', sortable: true }, 
             { text: "AKSI", value: "actions", sortable: false, width:50 },
         ],
@@ -370,7 +370,7 @@ export default {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                },300
+                }, 300
             );
         },
     },

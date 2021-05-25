@@ -281,7 +281,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
-                                <v-img :src="$api.url+'/'+item.foto" /> 
+                                <v-img :src="$api.url + '/' + item.foto" /> 
                             </v-avatar>                                                   
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
@@ -338,7 +338,7 @@ export default {
         //tables
         headers: [
             { text: '', value: 'foto' },
-            { text: 'USERNAME', value: 'username', sortable: true, width:150 },
+            { text: 'USERNAME', value: 'username', sortable: true, width: 150 },
             { text: 'NAMA DOSEN', value: 'name', sortable: true, width: 250 },
             { text: 'NIDN', value: 'nidn', sortable: true },
             { text: 'NIPY', value: 'nipy', sortable: true },
@@ -475,7 +475,7 @@ export default {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                },300
+                }, 300
             );
         },
         closeUserPermissions() {

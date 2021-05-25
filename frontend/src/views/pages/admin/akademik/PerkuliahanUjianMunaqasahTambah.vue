@@ -492,7 +492,7 @@
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
 					this.$refs.frmdata.reset();
-				},300);
+				}, 300);
 			},
 			exit() {
 				setTimeout(() => {
@@ -504,7 +504,7 @@
 					};
 					this.$store.dispatch("uiadmin/updatePage", page);
 					this.$router.push("/akademik/perkuliahan/ujianmunaqasah");
-				},300);
+				}, 300);
 			},
 		},
 		components: {
