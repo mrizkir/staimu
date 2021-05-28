@@ -3,7 +3,7 @@
 		<v-container fluid>
 			<v-row>
 				<v-col cols="12">
-					<v-carousel cycle show-arrows-on-hover>
+					<v-carousel cycle show-arrows-on-hover height="auto">
 						<v-carousel-item
 							v-for="(slide, i) in slides"
 							:key="i"

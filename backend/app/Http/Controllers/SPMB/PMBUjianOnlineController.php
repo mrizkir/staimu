@@ -13,6 +13,9 @@ use App\Models\SPMB\NilaiUjianPMBModel;
 use App\Models\SPMB\PMBPassingGradeModel;
 use App\Models\SPMB\FormulirPendaftaranModel;
 
+use App\Models\Keuangan\TransaksiModel;
+use App\Models\Keuangan\TransaksiDetailModel;
+
 use Ramsey\Uuid\Uuid;
 
 class PMBUjianOnlineController extends Controller {  
@@ -359,7 +362,10 @@ class PMBUjianOnlineController extends Controller {
             $jumlah_soal = $jadwalujian->jumlah_soal;            
             $nilai = \App\Helpers\Helper::formatPersen($benar,$jumlah_soal);            
             $nilai_passing_grade = is_null($passing_grade)?0:$passing_grade->nilai;
-            $kjur = $nilai>$nilai_passing_grade ? FormulirPendaftaranModel::find($user_id)->kjur1 : null;
+            
+            $formulir = FormulirPendaftaranModel::find($user_id);
+            $kjur = $nilai > $nilai_passing_grade ? $formulir->kjur1 : null;
+            $ket_lulus = $nilai > $nilai_passing_grade;
             NilaiUjianPMBModel::create([
                 'user_id'=>$user_id,
                 'jadwal_ujian_id'=>$jadwal_ujian_id,
@@ -370,7 +376,7 @@ class PMBUjianOnlineController extends Controller {
                 'passing_grade_1'=>$nilai_passing_grade,
                 'passing_grade_2'=>0,
                 'nilai'=>$nilai,
-                'ket_lulus'=>(($nilai>$nilai_passing_grade)?1:0),
+                'ket_lulus'=>$ket_lulus,
                 'kjur'=>$kjur,
                 'desc'=>'Dihitung otomatis oleh sistem'
             ]);           
@@ -378,10 +384,116 @@ class PMBUjianOnlineController extends Controller {
             $peserta->selesai_ujian=\Carbon\Carbon::now()->toDateTimeString();
             $peserta->isfinish=1;
             $peserta->save();
-
+            
+            if ($ket_lulus)
+            {
+                $this->createTransaksiDulang($formulir);
+                $this->createTransaksiSPP($formulir);
+            }
             return $peserta;
         });
 
         return $peserta;
     }
+    //buat transaksi keuangan daftar ulang 
+    private function createTransaksiDulang($formulir)
+    {
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();                
+        if (is_null($transaksi_detail))
+        {   
+            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
+                                                                ->where('kjur',$formulir->kjur1)
+                                                                ->where('idkelas',$formulir->idkelas)
+                                                                ->where('tahun',$formulir->ta)
+                                                                ->first();
+            if (!is_null($kombi))
+            {                
+                $no_transaksi='102'.date('YmdHms');
+                $transaksi=TransaksiModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'no_transaksi'=>$no_transaksi,
+                    'no_faktur'=>'',
+                    'kjur'=>$formulir->kjur1,
+                    'ta'=>$formulir->ta,
+                    'idsmt'=>$formulir->idsmt,
+                    'idkelas'=>$formulir->idkelas,
+                    'no_formulir'=>$formulir->no_formulir,
+                    'nim'=>$formulir->nim,
+                    'commited'=>0,
+                    'total'=>0,
+                    'tanggal'=>date('Y-m-d'),
+                ]);  
+                
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>$kombi->kombi_id,
+                    'nama_kombi'=>$kombi->nama_kombi,
+                    'biaya'=>$kombi->biaya,
+                    'jumlah'=>1,
+                    'sub_total'=>$kombi->biaya    
+                ]);
+                $transaksi->total=$kombi->biaya;
+                $transaksi->desc=$kombi->nama_kombi;
+                $transaksi->save();
+            }
+        }        
+        
+    }   
+    //buat transaksi spp      
+    private function createTransaksiSPP($formulir)
+    {            
+        $mulai_bulan_pembayaran=9;
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)
+                                                ->where('kombi_id',201)
+                                                ->where('bulan',$mulai_bulan_pembayaran)
+                                                ->first();       
+
+        if (is_null($transaksi_detail))
+        {   
+            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',201)
+                                                                ->where('kjur',$formulir->kjur1)
+                                                                ->where('idkelas',$formulir->idkelas)
+                                                                ->where('tahun',$formulir->ta)
+                                                                ->first();
+            if (!is_null($kombi))
+            {                
+                $no_transaksi='201'.date('YmdHms');
+                $transaksi=TransaksiModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'no_transaksi'=>$no_transaksi,
+                    'no_faktur'=>'',
+                    'kjur'=>$formulir->kjur1,
+                    'ta'=>$formulir->ta,
+                    'idsmt'=>$formulir->idsmt,
+                    'idkelas'=>$formulir->idkelas,
+                    'no_formulir'=>$formulir->no_formulir,
+                    'nim'=>$formulir->nim,
+                    'commited'=>0,
+                    'total'=>0,
+                    'tanggal'=>date('Y-m-d'),
+                ]);  
+                
+                $transaksi_detail=TransaksiDetailModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$formulir->user_id,
+                    'transaksi_id'=>$transaksi->id,
+                    'no_transaksi'=>$transaksi->no_transaksi,
+                    'kombi_id'=>$kombi->kombi_id,
+                    'nama_kombi'=>$kombi->nama_kombi,
+                    'biaya'=>$kombi->biaya,
+                    'jumlah'=>1,
+                    'bulan'=>$mulai_bulan_pembayaran,
+                    'sub_total'=>$kombi->biaya    
+                ]);
+                $transaksi->total=$kombi->biaya;
+                $transaksi->desc=$kombi->nama_kombi;
+                $transaksi->save();
+            }
+        }
+    }     
 }
