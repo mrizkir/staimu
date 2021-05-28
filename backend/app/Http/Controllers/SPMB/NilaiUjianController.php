@@ -151,7 +151,8 @@ class NilaiUjianController extends Controller {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
 
         $formulir=FormulirPendaftaranModel::select(\DB::raw('   
-                                                            pe3_formulir_pendaftaran.user_id,                                                       
+                                                            pe3_formulir_pendaftaran.user_id,
+                                                            pe3_formulir_pendaftaran.nama_mhs,
                                                             kjur1,
                                                             CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
                                                         '))
@@ -193,7 +194,8 @@ class NilaiUjianController extends Controller {
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
                                         'kjur'=>$formulir->kjur1,                                        
-                                        'data_nilai_ujian'=>$data_nilai_ujian,                                        
+                                        'data_nilai_ujian'=>$data_nilai_ujian,  
+                                        'formulir'=>$formulir,                                      
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
                                     ],200);        
         }

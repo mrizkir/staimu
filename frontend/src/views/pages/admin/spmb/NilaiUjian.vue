@@ -2,7 +2,7 @@
 		<SPMBLayout>
 				<ModuleHeader>
 						<template v-slot:icon>
-								mdi-file-document-edit-outline
+							mdi-file-document-edit-outline
 						</template>
 						<template v-slot:name>
 								NILAI UJIAN
@@ -24,7 +24,7 @@
 										colored-border
 										type="info"
 										>
-												Berisi nilai ujian PMB, dan juga bisa untuk penentuan nilai ujian dan kelulusan.
+											Berisi nilai ujian PMB, dan juga bisa untuk penentuan nilai ujian dan kelulusan.
 								</v-alert>
 						</template>
 				</ModuleHeader> 
@@ -420,9 +420,8 @@
 					{
 							return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
 					},
-					viewItem(item)
-					{
-							this.$router.push('/spmb/nilaiujian/' + item.id + '/detail');
+					viewItem(item) {
+						this.$router.push('/spmb/nilaiujian/' + item.id + '/detail');
 					},
 					async addItem(item)
 					{
