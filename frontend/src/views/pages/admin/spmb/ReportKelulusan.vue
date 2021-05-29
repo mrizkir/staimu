@@ -207,7 +207,7 @@ export default {
         },
 		initialize: async function()
 		{	
-            switch(this.dashboard)
+            switch (this.dashboard)
             {
                 case 'mahasiswabaru':
 

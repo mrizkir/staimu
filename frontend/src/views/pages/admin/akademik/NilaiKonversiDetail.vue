@@ -506,7 +506,7 @@ export default {
         field_alias(atr)
         {
             var alias;
-            switch(atr)
+            switch (atr)
             {
                 case 'user_id' :
                     alias = 'USER ID';
