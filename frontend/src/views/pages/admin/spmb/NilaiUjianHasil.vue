@@ -70,7 +70,7 @@
 									<v-card flat>
 										<v-card-title>JUMLAH SOAL :</v-card-title>
 										<v-card-subtitle>
-											{{ data_nilai_ujian.jumlah_soal }}
+											{{ data_nilai_ujian.jumlah_soal > 0 ? data_nilai_ujian.jumlah_soal : "N.A" }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -89,7 +89,7 @@
 									<v-card flat>
 										<v-card-title>JAWABAN :</v-card-title>
 										<v-card-subtitle>
-											BENAR ({{ data_nilai_ujian.jawaban_benar }}), SALAH ({{ data_nilai_ujian.jawaban_salah }})
+											{{ data_nilai_ujian.jumlah_soal > 0 ? "BENAR (" + data_nilai_ujian.jawaban_benar + "), SALAH (" +  data_nilai_ujian.jawaban_salah + ")": "N.A" }}											
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
@@ -98,6 +98,11 @@
 					</v-card>
 				</v-col>
 			</v-row>
+		</v-container>
+		<v-container v-else>
+			<v-alert type="warning">
+				Data Nilai Ujian PMB mahasiswa ini tidak ditemukan !!! barangkali belum melakukan ujian PMB.
+			</v-alert>
 		</v-container>
 	</SPMBLayout>
 </template>
