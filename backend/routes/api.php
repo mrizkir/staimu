@@ -189,7 +189,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //spmb/ujianonline/store, digunakan untuk menyimpan jawaban soal ujian online
     $router->post('/spmb/ujianonline/store',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@store','as'=>'spmbujianonline.store']);
     //spmb/ujianonline/selesaiujian, digunakan untuk selesai ujian
-    $router->put('/spmb/ujianonline/selesaiujian',['middleware'=>['role:mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@selesaiujian','as'=>'spmbujianonline.selesaiujian']);
+    $router->put('/spmb/ujianonline/selesaiujian',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBUjianOnlineController@selesaiujian','as'=>'spmbujianonline.selesaiujian']);
 
     //spmb - nilai ujian
     $router->post('/spmb/nilaiujian',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\NilaiUjianController@index','as'=>'nilaiujian.index']);

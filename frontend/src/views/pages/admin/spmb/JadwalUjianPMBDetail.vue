@@ -196,6 +196,9 @@
 								<v-spacer></v-spacer>											
 							</v-toolbar>
 						</template>
+						<template v-slot:item.kjur1="{ item }">
+							{{ $store.getters["uiadmin/getProdiName"](item.kjur1) }}
+						</template>	
 						<template v-slot:item.isfinish="{ item }">
 							{{ getStatusUjianPeserta(item)}}
 						</template>	
@@ -203,8 +206,18 @@
 							<v-icon
 								small								
 								:disabled="btnLoading || item.isfinish!=0 || item.mulai_ujian != null"
-								@click.stop="deleteItem(item)">
+								@click.stop="deleteItem(item)"
+								title="Hapus Peserta"
+							>
 								mdi-delete
+							</v-icon>
+							<v-icon
+								small								
+								:disabled="btnLoading || (item.isfinish == 1 && item.mulai_ujian != null &&  item.selesai_ujian != null)"
+								@click.stop="selesaiUjianMhs(item)"
+								title="Selesaikan Ujian"
+							>
+								mdi-alarm-note-off
 							</v-icon>
 						</template>	
 						<template v-slot:expanded-item="{ headers, item }">
@@ -284,6 +297,7 @@
 					{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
 					{ text: "JK", value: "jk", sortable: true, width:65 },
 					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width:50 },
+					{ text: "PRODI", value: "kjur1", sortable: true, width:150 },
 					{ text: "STATUS", value: "isfinish", sortable: true, width: 100 },					
 					{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],		
@@ -295,7 +309,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.get(
-						"/spmb/jadwalujianpmb/" + this.jadwal_ujian_id,						
+						"/spmb/jadwalujianpmb/" + this.jadwal_ujian_id,
 						{
 							headers: {
 								Authorization: this.$store.getters["auth/Token"],
@@ -312,7 +326,7 @@
 						});
 			},
 			getStatusUjianPeserta(item) {
-				if (item.isfinish ==1 ) {
+				if (item.isfinish == 1 ) {
 					return "SELESAI";
 				} else if (item.mulai_ujian) {
 					return "SEDANG UJIAN";
@@ -351,7 +365,34 @@
 					}).catch(() => {
 						this.btnLoading = false;
 					});
-			},			
+			},
+			selesaiUjianMhs(item) {
+				this.$root.$confirm.open("Delete", "Apakah Anda ingin menyatakan ujian mahasiswa telah selesai ?", { color: "red" }).then(confirm => {
+					if (confirm) {
+						this.btnLoading = true;
+						this.$ajax
+							.post(
+								"/spmb/ujianonline/selesaiujian",
+								{
+									_method: "put",
+									user_id: item.user_id,
+								},
+								{
+									headers: {
+										Authorization: this.$store.getters["auth/Token"],
+									},
+								}
+							)
+							.then(() => {
+								this.btnLoading = false;
+								this.$router.go();
+							})
+							.catch(() => {
+								this.btnLoading = false;
+							});
+					}
+				});
+			},
 			selesaiUjian: async function() {
 				this.$root.$confirm.open("Delete", "Apakah Anda ingin menyatakan ujian telah selesai ?", { color: "red" }).then(confirm => {
 					if (confirm) {

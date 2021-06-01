@@ -174,6 +174,7 @@ class JadwalUjianPMBController extends Controller {
                                                 selesai_ujian,
                                                 sisa_waktu,
                                                 isfinish,
+                                                kjur1,                                                
                                                 pe3_peserta_ujian_pmb.created_at,
                                                 pe3_peserta_ujian_pmb.updated_at
                                             '))

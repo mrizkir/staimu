@@ -366,20 +366,40 @@ class PMBUjianOnlineController extends Controller {
             $formulir = FormulirPendaftaranModel::find($user_id);
             $kjur = $nilai > $nilai_passing_grade ? $formulir->kjur1 : null;
             $ket_lulus = $nilai > $nilai_passing_grade;
-            NilaiUjianPMBModel::create([
-                'user_id'=>$user_id,
-                'jadwal_ujian_id'=>$jadwal_ujian_id,
-                'jumlah_soal'=>$jumlah_soal,
-                'jawaban_benar'=>$benar,
-                'jawaban_salah'=>$salah,
-                'soal_tidak_terjawab'=>$jumlah_soal - ($benar+$salah),
-                'passing_grade_1'=>$nilai_passing_grade,
-                'passing_grade_2'=>0,
-                'nilai'=>$nilai,
-                'ket_lulus'=>$ket_lulus,
-                'kjur'=>$kjur,
-                'desc'=>'Dihitung otomatis oleh sistem'
-            ]);           
+
+            $nilai_ujian = NilaiUjianPMBModel::find($user_id);
+            if(is_null($nilai_ujian))
+            {
+                NilaiUjianPMBModel::create([
+                    'user_id'=>$user_id,
+                    'jadwal_ujian_id'=>$jadwal_ujian_id,
+                    'jumlah_soal'=>$jumlah_soal,
+                    'jawaban_benar'=>$benar,
+                    'jawaban_salah'=>$salah,
+                    'soal_tidak_terjawab'=>$jumlah_soal - ($benar+$salah),
+                    'passing_grade_1'=>$nilai_passing_grade,
+                    'passing_grade_2'=>0,
+                    'nilai'=>$nilai,
+                    'ket_lulus'=>$ket_lulus,
+                    'kjur'=>$kjur,
+                    'desc'=>'Dihitung otomatis oleh sistem'
+                ]);           
+            }
+            else
+            {
+                $nilai_ujian->jadwal_ujian_id=$jadwal_ujian_id;
+                $nilai_ujian->jumlah_soal=$jumlah_soal;
+                $nilai_ujian->jawaban_benar=$benar;
+                $nilai_ujian->jawaban_salah=$salah;
+                $nilai_ujian->soal_tidak_terjawab=$jumlah_soal - ($benar+$salah);
+                $nilai_ujian->passing_grade_1=$nilai_passing_grade;
+                $nilai_ujian->passing_grade_2=0;
+                $nilai_ujian->nilai=$nilai;
+                $nilai_ujian->ket_lulus=$ket_lulus;
+                $nilai_ujian->kjur=$kjur;
+                $nilai_ujian->desc='Dihitung otomatis oleh sistem';
+                $nilai_ujian->save();
+            }
 
             $peserta->selesai_ujian=\Carbon\Carbon::now()->toDateTimeString();
             $peserta->isfinish=1;

@@ -196,7 +196,29 @@ class NilaiUjianController extends Controller {
                 $transaksi_status=$transaksi_detail->status;
             }             
             $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];
-            $data_nilai_ujian=NilaiUjianPMBModel::find($id);                     
+            $data_nilai_ujian=NilaiUjianPMBModel::select(\DB::raw('
+                                                    pe3_nilai_ujian_pmb.user_id,
+                                                    pe3_nilai_ujian_pmb.jadwal_ujian_id, 
+                                                    pe3_jadwal_ujian_pmb.nama_kegiatan,
+                                                    pe3_jadwal_ujian_pmb.tanggal_ujian,
+                                                    pe3_peserta_ujian_pmb.mulai_ujian,
+                                                    pe3_peserta_ujian_pmb.selesai_ujian,
+                                                    pe3_nilai_ujian_pmb.jumlah_soal, 
+                                                    pe3_nilai_ujian_pmb.jawaban_benar,
+                                                    pe3_nilai_ujian_pmb.jawaban_salah,
+                                                    pe3_nilai_ujian_pmb.soal_tidak_terjawab,
+                                                    pe3_nilai_ujian_pmb.passing_grade_1,
+                                                    pe3_nilai_ujian_pmb.passing_grade_2,
+                                                    pe3_nilai_ujian_pmb.nilai,
+                                                    pe3_nilai_ujian_pmb.ket_lulus,
+                                                    pe3_nilai_ujian_pmb.kjur,
+                                                    pe3_nilai_ujian_pmb.`desc`
+                                                '))
+                                                ->leftJoin('pe3_jadwal_ujian_pmb','pe3_jadwal_ujian_pmb.id','pe3_nilai_ujian_pmb.jadwal_ujian_id')
+                                                ->leftJoin('pe3_peserta_ujian_pmb','pe3_peserta_ujian_pmb.jadwal_ujian_id','pe3_nilai_ujian_pmb.jadwal_ujian_id')
+                                                ->where('pe3_nilai_ujian_pmb.user_id', $id)
+                                                ->first();
+
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                                                        
