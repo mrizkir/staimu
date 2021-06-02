@@ -10,6 +10,7 @@ use App\Models\Akademik\MatakuliahModel;
 use App\Models\DMaster\ProgramStudiModel;
 
 use App\Models\System\ConfigurationModel;
+use App\Helpers\Helper;
 
 class TranskripKurikulumController  extends Controller 
 {
@@ -70,12 +71,15 @@ class TranskripKurikulumController  extends Controller
                             ->get();
             }
         }
+        $jumlah_mhs = $data->count();
+        $rata2ipk = Helper::formatPecahan($data->sum('ipk'),$jumlah_mhs);
         return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'mahasiswa'=>$data,                                                                                                                                   
+                                        'mahasiswa'=>$data,                                        
+                                        'rata2ipk'=>$rata2ipk,
                                         'message'=>'Fetch data daftar mahasiswa berhasil.'
-                                    ],200);     
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
     public function show(Request $request,$id)
     {

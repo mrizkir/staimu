@@ -104,6 +104,7 @@ class ReportAkademikTranskripKurikulumModel extends ReportModel
     $row_awal=$row; 
     $no=1;
     $total_ipk=0;
+    $total_mhs=0;
     foreach ($data as $v)
     {
         $sheet->setCellValue("A$row",$no);
@@ -116,6 +117,7 @@ class ReportAkademikTranskripKurikulumModel extends ReportModel
         $total_ipk += $v->ipk;
         $row+=1;
         $no+=1;
+        $total_mhs+=1;
     }
     $row-=1;
     $styleArray=array(								
@@ -135,7 +137,7 @@ class ReportAkademikTranskripKurikulumModel extends ReportModel
     $row_awal_mhs=$row;
     $sheet->mergeCells("E$row:F$row");				                
     $sheet->setCellValue("E$row",'RATA-RATA IPK');
-    $sheet->setCellValue("G$row",Helper::formatPecahan($total_ipk,$no));
+    $sheet->setCellValue("G$row",Helper::formatPecahan($total_ipk,$total_mhs));
     
     $styleArray=array(
     'font' => array('bold' => true)

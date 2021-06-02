@@ -145,6 +145,13 @@
 						<template v-slot:no-data>
 							Data belum tersedia
 						</template>
+						<template v-slot:body.append v-if="datatable.length > 0">
+							<tr class="grey lighten-4 font-weight-black">
+									<td class="text-right" colspan="6">RATA-RATA IPK</td>
+									<td class="text-left">{{ rata2ipk }}</td> 
+									<td></td>									
+							</tr>
+						</template>
 					</v-data-table>
 				</v-col>
 			</v-row>
@@ -230,7 +237,9 @@
 			search: "", 
 
 			dialogprintpdf: false,
-			file_pdf: null
+			file_pdf: null,
+
+			rata2ipk: 0,
 		}),
 		methods: {
 			changeTahunPendaftaran(tahun)
@@ -241,8 +250,7 @@
 			{
 				this.prodi_id = id;
 			},
-			initialize: async function() 
-			{
+			initialize: async function() {
 				this.datatableLoading = true;
 				await this.$ajax.post("/akademik/nilai/transkripkurikulum",
 				{
@@ -256,6 +264,7 @@
 				}).then(({ data }) => {
 					this.datatable = data.mahasiswa;
 					this.datatableLoading = false;
+					this.rata2ipk = data.rata2ipk;
 				}).catch(() => {
 					this.datatableLoading = false;
 				});
