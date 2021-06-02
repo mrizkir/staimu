@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\RekapTranskripKurikulumModel;
 use App\Models\Akademik\MatakuliahModel;
+use App\Models\DMaster\ProgramStudiModel;
 
 use App\Models\System\ConfigurationModel;
 
@@ -44,7 +45,7 @@ class TranskripKurikulumController  extends Controller
             $ta=$request->input('ta');
             $prodi_id=$request->input('prodi_id');
             
-            $data = RegisterMahasiswaModel::select(\DB::raw('        
+            $data = RegisterMahasiswaModel::select(\DB::raw('
                                     pe3_register_mahasiswa.user_id,                                
                                     pe3_register_mahasiswa.nim,                                
                                     pe3_formulir_pendaftaran.nama_mhs,                                
@@ -55,8 +56,8 @@ class TranskripKurikulumController  extends Controller
                                 '))
                                 ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
                                 ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
-                                ->orderBy('nama_mhs','asc');                                
-
+                                ->orderBy('nama_mhs','asc');
+                                
             if ($request->has('search'))
             {
                 $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                                                
@@ -1198,4 +1199,27 @@ class TranskripKurikulumController  extends Controller
                                 ],200);
         }
     }
+    /**
+	 * cetak seluruh transaksi spp per prodi dan ta
+	 */
+	public function printtoexcel1 (Request $request)
+	{
+		$this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE');				
+		
+		$this->validate($request, [           
+			'ta'=>'required',			
+			'prodi_id'=>'required',
+		]);
+        
+        $prodi=ProgramStudiModel::find($request->input('prodi_id'));
+        $data_report = [
+			'ta'=>$request->input('ta'),
+			'prodi_id'=>$request->input('prodi_id'),
+			'nama_prodi'=>$prodi->nama_prodi,
+			'nama_prodi'=>$prodi->nama_prodi . " (".$prodi->nama_jenjang.")",
+		];
+        
+		$report= new \App\Models\Report\ReportAkademikTranskripKurikulumModel ($data_report);
+		return $report->printtoexcel1();
+	}
 }

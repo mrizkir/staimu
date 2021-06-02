@@ -457,6 +457,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/akademik/nilai/transkripkurikulum/{id}/history',['uses'=>'Akademik\TranskripKurikulumController@history','as'=>'transkripkurikulum.history']);
     $router->get('/akademik/nilai/transkripkurikulum/printpdf1/{id}',['uses'=>'Akademik\TranskripKurikulumController@printpdf1','as'=>'transkripkurikulum.printpdf1']);
     $router->get('/akademik/nilai/transkripkurikulum/printpdf2/{id}',['uses'=>'Akademik\TranskripKurikulumController@printpdf2','as'=>'transkripkurikulum.printpdf2']);
+    $router->post('/akademik/nilai/transkripkurikulum/printtoexcel1',['uses'=>'Akademik\TranskripKurikulumController@printtoexcel1','as'=>'transkripkurikulum.printtoexcel1']);
 
     // kemahasiswaan - profil mahasiswa
     $router->post('/kemahasiswaan/profil/search',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@search','as'=>'profilmhs.search']);

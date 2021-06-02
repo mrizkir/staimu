@@ -22,7 +22,7 @@
 					Berisi daftar dan pengelolaan jadwal ujian PMB.
 				</v-alert>
 			</template>
-		</ModuleHeader>  
+		</ModuleHeader>
 		<v-container fluid v-if="jadwal_ujian_id && data_jadwal">
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
@@ -40,8 +40,8 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-								
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>JUMLAH SOAL :</v-card-title>
@@ -131,9 +131,9 @@
 									</v-card>
 								</v-col>
 								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-							</v-row>		
-						</v-card-text>		
-					</v-card> 
+							</v-row>
+						</v-card-text>
+					</v-card>
 				</v-col>
 			</v-row>
 			<v-row>
@@ -147,12 +147,12 @@
 							<span>SELESAI UJIAN</span>
 							<v-icon>mdi-exit-run</v-icon>
 						</v-btn>
-						<v-btn @click.stop="closedetail"> 
+						<v-btn @click.stop="closedetail">
 							<span>Keluar</span>
 							<v-icon>mdi-close</v-icon>
 						</v-btn>
 					</v-bottom-navigation>
-				</v-col>	
+				</v-col>
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
@@ -193,18 +193,18 @@
 									inset
 									vertical
 								></v-divider>
-								<v-spacer></v-spacer>											
+								<v-spacer></v-spacer>
 							</v-toolbar>
 						</template>
 						<template v-slot:item.kjur1="{ item }">
 							{{ $store.getters["uiadmin/getProdiName"](item.kjur1) }}
-						</template>	
+						</template>
 						<template v-slot:item.isfinish="{ item }">
 							{{ getStatusUjianPeserta(item)}}
-						</template>	
-						<template v-slot:item.actions="{ item }">									
+						</template>
+						<template v-slot:item.actions="{ item }">
 							<v-icon
-								small								
+								small
 								:disabled="btnLoading || item.isfinish!=0 || item.mulai_ujian != null"
 								@click.stop="deleteItem(item)"
 								title="Hapus Peserta"
@@ -212,22 +212,22 @@
 								mdi-delete
 							</v-icon>
 							<v-icon
-								small								
+								small
 								:disabled="btnLoading || (item.isfinish == 1 && item.mulai_ujian != null &&  item.selesai_ujian != null)"
 								@click.stop="selesaiUjianMhs(item)"
 								title="Selesaikan Ujian"
 							>
 								mdi-alarm-note-off
 							</v-icon>
-						</template>	
+						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
-									<strong>ID:</strong>{{ item.user_id }} 									
-									<strong>Username:</strong>{{ item.username }} 									
-									<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }} 
-									<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }} 
-								</v-col> 								
+									<strong>ID:</strong>{{ item.user_id }}
+									<strong>Username:</strong>{{ item.username }}
+									<strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+									<strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
+								</v-col>
 							</td>
 						</template>
 						<template v-slot:no-data>
@@ -271,19 +271,19 @@
 			];
 			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 			this.semester_pendaftaran = this.$store.getters['uiadmin/getSemesterPendaftaran'];
-			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);		
+			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
 		},
 		mounted() {
-			this.initialize();		
+			this.initialize();
 		},
-		data() { 			
+		data() {
 			return {
 				jadwal_ujian_id: null,
 				data_jadwal: null,
 				status_jadwan_ujian: null,
 				breadcrumbs: [],
 				dashboard: null,
-				
+
 				tahun_pendaftaran: null,
 				semester_pendaftaran: null,
 				nama_semester_pendaftaran: null,
@@ -292,19 +292,19 @@
 				datatableLoading: false,
 				expanded: [],
 				datatable: [],
-				headers: [                
+				headers: [
 					{ text: "NO", value: "no_peserta", sortable: true, width:70 },
 					{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
 					{ text: "JK", value: "jk", sortable: true, width:65 },
 					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width:50 },
 					{ text: "PRODI", value: "kjur1", sortable: true, width:150 },
-					{ text: "STATUS", value: "isfinish", sortable: true, width: 100 },					
+					{ text: "STATUS", value: "isfinish", sortable: true, width: 100 },
 					{ text: "AKSI", value: "actions", sortable: false, width: 100 },
-				],		
+				],
 				search: "",
 			}
 		},
-		methods: {			
+		methods: {
 			initialize: async function() {
 				this.datatableLoading = true;
 				await this.$ajax
@@ -332,7 +332,7 @@
 					return "SEDANG UJIAN";
 				} else {
 					return "BELUM MULAI";
-				}				
+				}
 			},
 			dataTableRowClicked(item) {
 				if (item === this.expanded[0]) {
@@ -340,12 +340,12 @@
 				} else {
 					this.expanded = [item];
 				}
-			},			
+			},
 			durasiUjian (item) {
 				let waktu_mulai = this.$date(item.tanggal_ujian + " " +item.jam_mulai_ujian);
 				let waktu_selesai = this.$date(item.tanggal_ujian + " " +item.jam_selesai_ujian);
 				return waktu_selesai.diff(waktu_mulai, "minute");
-			},			
+			},
 			mulaiUjian: async function() {
 				this.btnLoading = true;
 				await this.$ajax
@@ -367,7 +367,7 @@
 					});
 			},
 			selesaiUjianMhs(item) {
-				this.$root.$confirm.open("Delete", "Apakah Anda ingin menyatakan ujian mahasiswa telah selesai ?", { color: "red" }).then(confirm => {
+				this.$root.$confirm.open("Selesai Ujian", "Apakah Anda ingin menyatakan ujian mahasiswa telah selesai ?", { color: "red" }).then(confirm => {
 					if (confirm) {
 						this.btnLoading = true;
 						this.$ajax
@@ -414,9 +414,9 @@
 							}).catch(() => {
 								this.btnLoading = false;
 							});
-					} 
-				});			
-			},			
+					}
+				});
+			},
 			closedetail() {
 				this.jadwal_ujian_id = null;
 				this.data_jadwal = null;
@@ -443,7 +443,7 @@
 						}).catch(() => {
 							this.btnLoading = false;
 						});
-					} 
+					}
 				});
 			},
 		},
@@ -455,12 +455,12 @@
 				get() {
 					switch (this.status_jadwan_ujian){
 						case 0:
-							return "BELUM MULAI";		
+							return "BELUM MULAI";
 						case 1:
-							return "BERJALAN";		
+							return "BERJALAN";
 						case 2:
-							return "SELESAI";		
-						default: 
+							return "SELESAI";
+						default:
 							return "";
 					}
 				},
