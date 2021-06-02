@@ -299,7 +299,7 @@
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/nilai/transkripkurikulum/printtoexcel1/",
+						"/akademik/nilai/transkripkurikulum/printtoexcel1",
 						{
 							prodi_id: this.prodi_id,
 							ta: this.tahun_pendaftaran,
