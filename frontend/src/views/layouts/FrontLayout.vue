@@ -28,7 +28,7 @@
 					</v-btn>
 				</v-card-text>
 			</v-card>
-		</v-footer>  
+		</v-footer>
     </div>
 </template>
 <script>

@@ -33,7 +33,7 @@
 												</v-list-item-avatar>
 												<v-list-item-content>
 														<v-list-item-title class="title">
-																{{ ATTRIBUTE_USER('username') }}
+																{{ ATTRIBUTE_USER("username") }}
 														</v-list-item-title>
 														<v-list-item-subtitle>
 																[{{ DEFAULT_ROLE }}]
@@ -64,7 +64,7 @@
 				</v-list-item-avatar>
 				<v-list-item-content>
 					<v-list-item-title class="title">
-						{{ ATTRIBUTE_USER('username') }}
+						{{ ATTRIBUTE_USER("username") }}
 					</v-list-item-title>
 					<v-list-item-subtitle>
 						[{{ DEFAULT_ROLE }}]
@@ -218,7 +218,7 @@
 					</v-btn>
 				</v-card-text>
 			</v-card>
-		</v-footer>  
+		</v-footer>
 		</div>
 </template>
 <script>
@@ -249,7 +249,7 @@ export default {
 				logout()
 				{
 						this.loginTime = 0;
-						this.$ajax.post('/auth/logout',
+						this.$ajax.post("/auth/logout",
 								{},
 								{
 										headers: {

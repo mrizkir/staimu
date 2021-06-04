@@ -29,7 +29,7 @@
 						</v-list-item-avatar>
 						<v-list-item-content>
 							<v-list-item-title class="title">
-								{{ ATTRIBUTE_USER('username') }}
+								{{ ATTRIBUTE_USER("username") }}
 							</v-list-item-title>
 							<v-list-item-subtitle>
 								[{{ DEFAULT_ROLE }}]
@@ -72,7 +72,7 @@
 					</v-btn>
 				</v-card-text>
 			</v-card>
-		</v-footer>  
+		</v-footer>
 	</div>
 </template>
 <script>
