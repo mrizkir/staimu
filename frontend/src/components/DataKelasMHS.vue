@@ -104,12 +104,12 @@ export default {
         datakelas: {
             default: null,
             type: Object,
-        },
+       },
         url: {
             type: String,
             default: null            
         }
-    },
+   },
     methods: {
         exit()
         {
@@ -118,6 +118,6 @@ export default {
                 this.$router.push(this.url);
             } 
         }
-    },
+   },
 }
 </script>

@@ -34,7 +34,7 @@
           { src: 'https://upload.wikimedia.org/wikipedia/commons/4/44/F-18F_after_launch_from_USS_Abraham_Lincoln_%28CVN-72%29.jpg', alt: 'F-18F after launch from USS Abraham Lincoln (CVN-72)' },
         ]
       };
-    },
+   },
     methods: {
       selectImage(img) {
         this.$emit('select-file', img);

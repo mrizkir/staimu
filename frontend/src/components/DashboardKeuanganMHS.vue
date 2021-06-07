@@ -82,7 +82,7 @@ export default {
     created()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         datatableLoading: false,
 
@@ -111,7 +111,7 @@ export default {
             type: Number,
             required: true
         }
-    },
+   },
     methods: {
         initialize: async function()
 		{	
@@ -119,7 +119,7 @@ export default {
             await this.$ajax.post('/dashboard/keuangan',
             {
                 TA: this.ta, 
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -145,7 +145,7 @@ export default {
             });
 
         }
-    },
+   },
     computed: {
         totalKombiGanjilPaid()
         {
@@ -156,7 +156,7 @@ export default {
                 total=total+parseFloat(item.jumlah);
             }
             return total;
-        },
+       },
         totalKombiGenapPaid()
         {
             var total = 0;
@@ -167,7 +167,7 @@ export default {
             }
             return total;
         }
-    }, 
+   }, 
     watch: {
         ta ()
         {

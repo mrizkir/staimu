@@ -101,30 +101,30 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: "KRS",
                 disabled: false,
                 href: "/akademik/perkuliahan/krs/daftar"
-            },
+           },
             {
                 text: 'TAMBAH MATAKULIAH',
                 disabled: true,
                 href: "#"
-            },
+           },
         ];
         this.fetchKRS();
-    },
+   },
     data: () => ({ 
         firstloading: true, 
         nama_prodi: null,
@@ -146,7 +146,7 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
             { text: 'SKS', value: 'sks', sortable: false, width: 120 }, 
             { text: 'SMT', value: 'semester', sortable: false, width: 120 },
@@ -182,7 +182,7 @@ export default {
                     ta: this.datakrs.tahun,
                     semester_akademik: this.datakrs.idsmt,
                     pid: 'belumterdaftar'
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -194,7 +194,7 @@ export default {
                     this.datatableLoading = false;
                 });
             }
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -204,7 +204,7 @@ export default {
                     {
                         krs_id: this.krs_id,  
                         matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -217,14 +217,14 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         closedialogfrm() {
             setTimeout(() => { 
                 this.$router.push('/akademik/perkuliahan/krs/'+this.krs_id+'/detail');
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         totalSKS()
         {
@@ -236,11 +236,11 @@ export default {
             } 
             return total;
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader, 
         DataKRS           
-    },
+   },
 }
 </script>

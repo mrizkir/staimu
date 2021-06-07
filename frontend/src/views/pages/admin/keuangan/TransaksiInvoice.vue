@@ -84,7 +84,7 @@ export default {
     {
         this.transaksi_id = this.$route.params.transaksi_id; 
         this.initialize();
-    },
+   },
     data: () => ({
         transaksi_id: null,
         data_transaksi: null,
@@ -100,9 +100,9 @@ export default {
             header_3: '',
             header_4: '',
             header_address: '',
-        },
+       },
         headers_detail: [
-            { text: 'KODE', value: 'kombi_id', width:50, sortable: false },
+            { text: 'KODE', value: 'kombi_id', width: 50, sortable: false },
             { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable: false },
             { text: 'BIAYA', value: 'biaya', width:60, sortable: false },
             { text: 'JUMLAH', value: 'jumlah', width:60, sortable: false },
@@ -143,8 +143,8 @@ export default {
                 this.errormessage='Gagal memperoleh data';
             });
 
-        },
-    }, 
+       },
+   }, 
     computed: {
         ...mapGetters("uifront", {
             namaPTAlias: 'getNamaPTAlias'

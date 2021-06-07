@@ -189,22 +189,22 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'NILAI',
                 disabled: false,
                 href: "#"
-            }, 
+           }, 
             {
                 text: 'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled: false,
                 href: '/akademik/nilai/konversi'
-            },
+           },
             {
                 text: 'TAMBAH',
                 disabled: true,
@@ -216,7 +216,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         prodi_id: null,
         nama_prodi: null,
@@ -227,8 +227,8 @@ export default {
         datatableLoading: false, 
         datatable: [], 
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },
-            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },
+            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
+            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250 },
             { text: 'SKS', value: 'sks', sortable: false, width:70 }, 
             { text: 'SMT', value: 'semester', sortable: true, width:70, }, 
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 }, 
@@ -257,7 +257,7 @@ export default {
             
             'kjur': '',
             'perpanjangan': '', 
-        },
+       },
         formdefault: {
             'id': '',
             'user_id': '',
@@ -275,7 +275,7 @@ export default {
             
             'kjur': '',
             'perpanjangan': '', 
-        },
+       },
         rule_nim_asal: [
             value => !!value || "Mohon di isi nim mahasiswa pindahan/ampulan dengan  nim dari perguruan tinggi asal !!!",  
         ],
@@ -320,7 +320,7 @@ export default {
             {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_pendaftaran
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -334,7 +334,7 @@ export default {
             await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
             }); 
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -369,7 +369,7 @@ export default {
                         tahun: this.tahun_pendaftaran,               
                         kjur: this.prodi_id,
                         daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -382,11 +382,11 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
-    }, 
+       },
+   }, 
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

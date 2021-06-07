@@ -120,17 +120,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'DAFTAR ULANG',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'DAFTAR ULANG MAHASISWA LAMA',
                 disabled: true,
@@ -143,7 +143,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"]; 
         this.initialize()
-    },
+   },
     data: () => ({ 
         dashboard: null,
         firstloading: true,
@@ -158,9 +158,9 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100  },
-            { text: "NIM", value: "nim", sortable: true, width: 100  },
-            { text: 'NIRM', value: 'nirm', sortable: true, width: 100  },
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100 },
+            { text: "NIM", value: "nim", sortable: true, width: 100 },
+            { text: 'NIRM', value: 'nirm', sortable: true, width: 100 },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 }, 
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
             { text: 'STATUS', value: 'n_status', sortable: true, width: 120, }, 
@@ -172,15 +172,15 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeSemesterAkademik(semester)
         {
             this.semester_akademik = semester; 
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -189,7 +189,7 @@ export default {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_akademik,
                 idsmt: this.semester_akademik,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -202,7 +202,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -213,7 +213,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then(confirm => {
@@ -223,7 +223,7 @@ export default {
                     this.$ajax.post('/akademik/dulang/mhslama'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -238,16 +238,16 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogfrm() { 
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     watch: {
         tahun_akademik()
         {
@@ -255,14 +255,14 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -271,11 +271,11 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
-        Filter6               
-    },
+        Filter6,
+   },
 }
 </script>

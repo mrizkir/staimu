@@ -184,12 +184,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SYSTEM',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'BIODATA DIRI',
                 disabled: true,
@@ -197,7 +197,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [], 
         dashboard: null,
@@ -244,7 +244,7 @@ export default {
             nama_ibu_kandung: '',
             kjur1: '',
             idkelas: '',
-        },
+       },
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
@@ -305,7 +305,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-            },
+           },
                 
             ).then(({ data }) => { 
                 this.formdata.nama_mhs = data.formulir.nama_mhs;
@@ -342,7 +342,7 @@ export default {
                 this.formdata.idkelas = data.formulir.idkelas; 
                 
             }); 
-        },
+       },
         save: async function()
         {
             if (this.$refs.frmdata.validate())
@@ -366,7 +366,7 @@ export default {
                     address1_desa_id: this.desa_id.id,
                     address1_kelurahan: this.desa_id.nama,
                     alamat_rumah: this.formdata.alamat_rumah,  
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -379,8 +379,8 @@ export default {
                     this.btnLoading = false;
                 }); 
             }  
-        },
-    }, 
+       },
+   }, 
     watch: {
         provinsi_id(val)
         {
@@ -393,7 +393,7 @@ export default {
                 });
                 this.daftar_kecamatan = [];
             }
-        },
+       },
         kabupaten_id(val)
         {
             if (val.id != null && val.id != '')
@@ -404,7 +404,7 @@ export default {
                     this.btnLoadingKab = false;
                 });
             }
-        },
+       },
         kecamatan_id(val)
         {
             if (val.id != null && val.id != '')
@@ -415,7 +415,7 @@ export default {
                     this.btnLoadingKec = false;
                 });
             }
-        },
+       },
         kode_fakultas (val)
         {
             this.btnLoadingFakultas = true;
@@ -425,10 +425,10 @@ export default {
             });
         }
 
-    },
+   },
     components: {
         SystemUserLayout,
         ModuleHeader, 
-    },
+   },
 }
 </script>

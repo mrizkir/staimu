@@ -184,7 +184,7 @@ export default {
     created()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         btnLoading: false,
         btnLoadingProv: false,
@@ -227,7 +227,7 @@ export default {
             nama_ibu_kandung: '',
             kjur1: '',
             idkelas: '',
-        },
+       },
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
@@ -301,7 +301,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                },
+               },
                 
             ).then(({ data }) => {
                 this.formdata.nama_mhs = data.formulir.nama_mhs;
@@ -340,7 +340,7 @@ export default {
                 this.kode_billing=data.no_transaksi;
                 this.$refs.frmdata.resetValidation();
             });
-        },
+       },
         save: async function()
         {
             if (this.$refs.frmdata.validate())
@@ -366,7 +366,7 @@ export default {
                     alamat_rumah: this.formdata.alamat_rumah,
                     kjur1: this.formdata.kjur1,
                     idkelas: this.formdata.idkelas,
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -381,8 +381,8 @@ export default {
                 this.form_valid = true; 
                 this.$refs.frmdata.resetValidation(); 
             }  
-        },
-    },
+       },
+   },
     watch: {
         provinsi_id(val)
         {
@@ -395,7 +395,7 @@ export default {
                 });
                 this.daftar_kecamatan = [];
             }
-        },
+       },
         kabupaten_id(val)
         {
             if (val.id != null && val.id != '')
@@ -406,7 +406,7 @@ export default {
                     this.btnLoadingKab = false;
                 });
             }
-        },
+       },
         kecamatan_id(val)
         {
             if (val.id != null && val.id != '')
@@ -417,7 +417,7 @@ export default {
                     this.btnLoadingKec = false;
                 });
             }
-        },
+       },
         kode_fakultas (val)
         {
             this.btnLoadingFakultas = true;

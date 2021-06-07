@@ -57,11 +57,11 @@ export default {
 			}
         ];
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"]; 
-    },
+   },
     mounted()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         datatableLoading: false,
         firstloading: true,
@@ -73,7 +73,7 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
 		initialize: async function()
 		{	
             this.datatableLoading = true; 
@@ -82,7 +82,7 @@ export default {
             this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
 
         }
-    },
+   },
     watch: {
         tahun_akademik()
         {
@@ -90,12 +90,12 @@ export default {
             {
                 this.initialize();
             } 
-        },
-    },
+       },
+   },
     components: {
         AkademikLayout,
         ModuleHeader, 
         Filter1, 
-    },
+   },
 }
 </script>

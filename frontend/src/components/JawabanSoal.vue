@@ -13,17 +13,17 @@ export default {
     created()
     {
              
-    },
+   },
     props: {
         index: {
             type: Number,
             required: true
-        },
+       },
         item: {
             type: Object,
             required: true
         }
-    },
+   },
     data: () => ({
         
     }),
@@ -35,7 +35,7 @@ export default {
                 user_id: this.$store.getters['auth/AttributeUser']('id'),
                 soal_id: this.item.soal_id,
                 jawaban_id: this.item.id
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"], 

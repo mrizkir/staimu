@@ -210,12 +210,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'TRANSAKSI KKN',
                 disabled: true,
@@ -227,11 +227,11 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
-    },
+   },
     mounted()
     {
         this.initialize()
-    },
+   },
     data: () => ({
         dashboard: null,
         firstloading: true,
@@ -270,11 +270,11 @@ export default {
         formdata: {
             nim: "",
             semester_akademik: ""
-        },
+       },
         formdefault: {
             nim: "",
             semester_akademik: ""
-        },
+       },
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
@@ -287,15 +287,15 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeSemesterAkademik(semester)
         {
             this.semester_akademik = semester; 
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true; 
@@ -304,7 +304,7 @@ export default {
                 TA: this.tahun_akademik,
                 SEMESTER_AKADEMIK: this.semester_akademik,
                 PRODI_ID: this.prodi_id,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -315,7 +315,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter6.setFirstTimeLoading(this.firstloading);
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -326,7 +326,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async addItem()
         {
             this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
@@ -336,11 +336,11 @@ export default {
                 this.formdata.nim = this.$store.getters["auth/AttributeUser"]("username");
             }
             this.dialogfrm = true; 
-        },
+       },
         viewItem(item)
         {
             this.$router.push('/keuangan/transaksi-kkn/'+item.transaksi_id);
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -350,7 +350,7 @@ export default {
                         nim: this.formdata.nim, 
                         semester_akademik: this.formdata.semester_akademik,  
                         TA: this.tahun_akademik,
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -365,19 +365,19 @@ export default {
                     this.btnLoading = false;
                 });
             } 
-        },
+       },
         showDialogPrintout()
         {
             this.$refs.dialogprint.open();
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
-                }, 300
+               }, 300
             );
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data transaksi kkn dengan ID ' + item.id + ' ?', { color: "red", width: "500px" }).then(confirm => {
                 if (confirm)
@@ -386,7 +386,7 @@ export default {
                     this.$ajax.post('/keuangan/transaksi-kkn/'+item.transaksi_id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -401,8 +401,8 @@ export default {
                     });
                 } 
             });
-        },
-    }, 
+       },
+   }, 
     computed: {
         totaltransaksi_paid()
         {
@@ -414,7 +414,7 @@ export default {
                 }
             }); 
             return total;
-        },
+       },
         totaltransaksi_unpaid()
         {
             var total = 0;
@@ -425,7 +425,7 @@ export default {
                 }
             }); 
             return total;
-        },
+       },
         totaltransaksi_canceled()
         {
             var total = 0;
@@ -437,7 +437,7 @@ export default {
             }); 
             return total;
         }
-    },
+   },
     watch: {
         tahun_akademik()
         {
@@ -445,14 +445,14 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -460,7 +460,7 @@ export default {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             } 
-        },
+       },
         search()
         {
             if (!this.awaiting_search) 
@@ -475,7 +475,7 @@ export default {
                             SEMESTER_AKADEMIK: this.semester_akademik,
                             PRODI_ID: this.prodi_id,
                             SEARCH: this.search
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -486,16 +486,16 @@ export default {
                         });
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+               }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
-    },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
         Filter6,
         'dialog-printout':DialogPrintoutKeuangan    
-    },
+   },
 }
 </script>

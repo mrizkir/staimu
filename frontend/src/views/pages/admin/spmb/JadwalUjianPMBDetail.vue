@@ -296,7 +296,7 @@
 					{ text: "NO", value: "no_peserta", sortable: true, width:70 },
 					{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
 					{ text: "JK", value: "jk", sortable: true, width:65 },
-					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width:50 },
+					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width: 50 },
 					{ text: "PRODI", value: "kjur1", sortable: true, width:150 },
 					{ text: "STATUS", value: "isfinish", sortable: true, width: 100 },
 					{ text: "AKSI", value: "actions", sortable: false, width: 100 },

@@ -145,7 +145,7 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf"> 
+                        :href="$api.url + '/' + file_pdf"> 
                         Download
                     </v-btn>
                 </v-card-text>
@@ -227,22 +227,22 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'TRANSKRIP KURIKULUM',
                 disabled: false,
                 href: '/akademik/nilai/transkripkurikulum'
-            },
+           },
             {
                 text: 'DETAIL',
                 disabled: true,
@@ -254,7 +254,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         user_id: null,
         firstloading: true,
@@ -267,7 +267,7 @@ export default {
         datatableLoading: false, 
         datatable: [], 
         headers: [            
-            { text: 'NO', value: 'no', sortable: true, width:50  },
+            { text: 'NO', value: 'no', sortable: true, width: 50 },
             { text: 'MATAKULIAH', value: 'nmatkul', sortable: true, width: 350 }, 
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120, }, 
             { text: 'SMT', value: 'semester', sortable: true, width: 80, }, 
@@ -276,7 +276,7 @@ export default {
             { text: 'AM', value: 'AM', sortable: false, width: 100, }, 
             { text: 'K', value: 'sks', sortable: true, width: 100, }, 
             { text: 'M', value: 'M', sortable: false, width: 100 },
-            { text: "AKSI", value: "actions", sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width: 50 },
         ],
         search: "", 
 
@@ -308,11 +308,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -335,18 +335,18 @@ export default {
                 this.datatableLoading = false;
             });
             this.firstloading = false;
-        },
+       },
         async viewItem(item)
         {
             this.btnLoading = true;
             await this.$ajax.post('/akademik/nilai/transkripkurikulum/' + item.id + '/history', 
                 {
                     user_id: this.data_mhs.user_id,
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -357,7 +357,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -368,7 +368,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async printpdf1()
         {
             this.btnLoading = true;
@@ -376,7 +376,7 @@ export default {
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -386,7 +386,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         async printpdf2()
         {
             this.btnLoading = true;
@@ -394,7 +394,7 @@ export default {
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -404,27 +404,27 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         closedialogprintpdf() {
             setTimeout(() => {
-                this.file_pdf=null;
+                this.file_pdf = null;
                 this.dialogprintpdf = false;
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialoghistory() {
             setTimeout(() => {
                 this.data_matkul = {};
                 this.data_history=[];
                 this.dialoghistory = false;
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         ProfilMahasiswa  
-    },
+   },
 }
 </script>

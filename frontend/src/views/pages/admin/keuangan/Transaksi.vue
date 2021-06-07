@@ -250,12 +250,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'DAFTAR TRANSAKSI',
                 disabled: true,
@@ -267,11 +267,11 @@ export default {
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-    },
+   },
     mounted()
     {
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true,
         breadcrumbs: [],
@@ -290,11 +290,11 @@ export default {
             { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
             { text: "NIM", value: "nim", width: 100, sortable: true },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
-            { text: "SMT", value: "idsmt", width:50, sortable: true },
+            { text: "SMT", value: "idsmt", width: 50, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
-            { text: "STATUS", value: "nama_status", width:50, sortable: true }, 
+            { text: "STATUS", value: "nama_status", width: 50, sortable: true }, 
             { text: 'KET.', value: 'desc', width: 150, sortable: false }, 
-            { text: "AKSI", value: "actions", sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width: 50 },
         ], 
         expanded: [],
         search: "", 
@@ -302,7 +302,7 @@ export default {
         //dialog        
         dialogdetailitem: false,
         headers_detail: [
-            { text: 'KODE', value: 'kombi_id', width:50, sortable: false },
+            { text: 'KODE', value: 'kombi_id', width: 50, sortable: false },
             { text: 'NAMA KOMPONEN', value: 'nama_kombi', sortable: false },
             { text: 'BIAYA', value: 'biaya', width:60, sortable: false },
             { text: 'JUMLAH', value: 'jumlah', width:60, sortable: false },
@@ -317,11 +317,11 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true; 
@@ -329,7 +329,7 @@ export default {
             {
                 TA: this.tahun_akademik,
                 PRODI_ID: this.prodi_id,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -340,7 +340,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading);
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -351,7 +351,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async viewItem(item) {
             this.btnLoading = true;
             await this.$ajax.get('/keuangan/transaksi/'+item.id,
@@ -365,17 +365,17 @@ export default {
                 this.dialogdetailitem = true;
                 this.btnLoading = false;
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi = {}; 
                 this.data_transaksi_detail = {};
-                }, 300
+               }, 300
             );
-        },
-    }, 
+       },
+   }, 
     watch: {
         tahun_akademik()
         {
@@ -384,7 +384,7 @@ export default {
                 console.log('test');
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -392,7 +392,7 @@ export default {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             } 
-        },
+       },
         search()
         {
             if (!this.awaiting_search) 
@@ -406,7 +406,7 @@ export default {
                             PRODI_ID: this.prodi_id,
                             TA: this.tahun_akademik,
                             search: this.search
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -417,11 +417,11 @@ export default {
                         });
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+               }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
-    },
+   },
     computed: {
         totaltransaksi_paid()
         {
@@ -433,7 +433,7 @@ export default {
                 }
             }); 
             return total;
-        },
+       },
         totaltransaksi_unpaid()
         {
             var total = 0;
@@ -444,7 +444,7 @@ export default {
                 }
             }); 
             return total;
-        },
+       },
         totaltransaksi_canceled()
         {
             var total = 0;
@@ -456,12 +456,12 @@ export default {
             }); 
             return total;
         }
-    },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
         Filter18,
         'dialog-printout':DialogPrintoutKeuangan       
-    },
+   },
 }
 </script>

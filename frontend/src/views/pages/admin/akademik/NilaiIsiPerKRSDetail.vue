@@ -186,17 +186,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'ISI NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PER KRS',
                 disabled: true,
@@ -204,7 +204,7 @@ export default {
             }
         ];
         this.fetchKRS();
-    },
+   },
     data: () => ({ 
         test: 100,
         firstloading: true, 
@@ -224,10 +224,10 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:260 },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
-            { text: 'SMT', value: 'semester', sortable: false, width:50 }, 
+            { text: 'SKS', value: 'sks', sortable: false, width: 50 }, 
+            { text: 'SMT', value: 'semester', sortable: false, width: 50 }, 
             { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 }, 
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 }, 
             { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 }, 
@@ -255,7 +255,7 @@ export default {
                     this.semester_akademik = this.datakrs.idsmt;
                 }
             })  
-        },
+       },
         async save()
         {
             this.btnLoadingTable=true;
@@ -272,7 +272,7 @@ export default {
                 {
                     krs_id: this.krs_id,
                     daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -283,13 +283,13 @@ export default {
             }).catch(() => {
                 this.btnLoadingTable=false;
             });
-        },
-    },
+       },
+   },
     computed: {
         totalMatkul()
         {
             return this.datatable.length; 
-        },
+       },
         totalSKS()
         {
             var total = 0;
@@ -300,11 +300,11 @@ export default {
             } 
             return total;
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader, 
         VAngkaNilai           
-    },
+   },
 }
 </script>

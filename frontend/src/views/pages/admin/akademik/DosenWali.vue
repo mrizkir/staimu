@@ -130,12 +130,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'DOSEN WALI',
                 disabled: true,
@@ -143,7 +143,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
    
     data: () => ({ 
         role_id: 0,
@@ -177,7 +177,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -188,10 +188,10 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem: async function(item) {
             this.$router.push('/akademik/dosenwali/'+item.id)
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus dosen wali '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -200,7 +200,7 @@ export default {
                     this.$ajax.post('/akademik/dosenwali/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -215,25 +215,25 @@ export default {
                     });
                 }
             });
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
     watch: {
         dialog (val) {
             val || this.close()
-        },
+       },
         dialogAlihkan (val) {
             val || this.close()
-        },
-    }, 
+       },
+   }, 
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

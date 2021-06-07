@@ -298,12 +298,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'USER SISTEM',
                 disabled: false,
                 href: '/system-users'
-            },
+           },
             {
                 text: 'USERS PMB',
                 disabled: true,
@@ -311,7 +311,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
    
     data: () => ({ 
         role_id: 0,
@@ -349,7 +349,7 @@ export default {
             role_id: ['pmb'],  
             created_at: '',  
             updated_at: '', 
-        },
+       },
         defaultItem: {
             id: 0,
             username: '',  
@@ -361,7 +361,7 @@ export default {
             role_id: ['pmb'], 
             created_at: '',  
             updated_at: '', 
-        },
+       },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
@@ -417,7 +417,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -428,17 +428,17 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         syncPermission ()
         {
-            this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role pmb, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning', width:500 }).then(async (confirm) => {
+            this.$root.$confirm.open('Konfirmasi Sinkronisasi', 'Sinkronisasi hanya untuk user dalam role pmb, bila user memiliki role lain akan terhapus permission-nya ?', { color: 'warning', width: 500 }).then(async (confirm) => {
                 if (confirm)
                 {
                     this.btnLoading = true;
                     await this.$ajax.post('/system/users/syncallpermissions',
                         {
                             role_name: 'pmb',
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -451,7 +451,7 @@ export default {
                     });
                 }
             });
-        },
+       },
         showDialogTambahUserPMB: async function()
         {
             await this.$ajax.get('/system/setting/roles',{
@@ -475,13 +475,13 @@ export default {
                             text:element.name,
                             disabled: false,
                         });
-                    }     
+                    }  
                 });
                 this.daftar_roles=daftar_roles; 
                 this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
                 this.dialog = true; 
             }); 
-        },
+       },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password=''; 
@@ -523,7 +523,7 @@ export default {
                             text:element.name,
                             disabled: false,
                         });
-                    }     
+                    }  
                 });
                 this.daftar_roles=daftar_roles;
             });
@@ -539,12 +539,12 @@ export default {
                 this.btnLoading = false;
                 this.dialogEdit = true;
             });
-        },
+       },
         setPermission: async function(item) {
             this.dialogUserPermission = true;
             this.editedItem = item;
         
-        },
+       },
         close() { 
             this.btnLoading = false;
             this.dialog = false;
@@ -553,13 +553,13 @@ export default {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                }, 300
+               }, 300
             );
-        },
+       },
         closeUserPermissions() {
             this.btnLoading = false; 
             this.dialogUserPermission = false;
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -576,7 +576,7 @@ export default {
                             password: this.editedItem.password, 
                             prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -599,7 +599,7 @@ export default {
                             password: this.editedItem.password,
                             prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)), 
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -613,7 +613,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -622,7 +622,7 @@ export default {
                     this.$ajax.post('/system/userspmb/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -637,30 +637,30 @@ export default {
                     });
                 }
             });
-        },
-    },
+       },
+   },
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER PMB' : 'EDIT USER PMB'
-        },
+       },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
 
     watch: {
         dialog (val) {
             val || this.close()
-        },
+       },
         dialogEdit (val) {
             val || this.close()
-        },
-    }, 
+       },
+   }, 
     components: {
         SystemUserLayout,
         ModuleHeader,
         UserPermissions
-    },
+   },
 }
 </script>

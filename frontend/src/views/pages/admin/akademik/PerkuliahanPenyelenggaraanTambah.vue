@@ -256,27 +256,27 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PENYELENGGARAAN MATAKULIAH',
                 disabled: false,
                 href: '/akademik/perkuliahan/penyelenggaraan/daftar'
-            },
+           },
             {
                 text: 'TAMBAH',
                 disabled: true,
                 href: "#"
-            },
+           },
         ];
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
@@ -285,7 +285,7 @@ export default {
         this.daftar_ta = this.$store.getters['uiadmin/getDaftarTABefore'](this.tahun_akademik);
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -302,7 +302,7 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
             { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },
@@ -331,7 +331,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         fetchMatkul: async function (val) 
         {
             this.datatableLoading = true;
@@ -341,7 +341,7 @@ export default {
                 ta_matkul:val,
                 ta_akademik: this.tahun_akademik,
                 semester_akademik: this.semester_akademik,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -352,7 +352,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         async viewItem(item) {
             this.formdata = item;
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
@@ -364,7 +364,7 @@ export default {
                 this.formdata=data.matakuliah;
             });
             this.dialogdetailitem = true;
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             { 
@@ -375,7 +375,7 @@ export default {
                         ta: this.tahun_akademik,
                         semester_akademik: this.semester_akademik, 
                         matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)), 
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -388,32 +388,32 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() {
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$router.push('/akademik/perkuliahan/penyelenggaraan/daftar');
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     watch: {
         ta_matkul(val)
         {
             this.fetchMatkul(val);
-        },
-    },
+       },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

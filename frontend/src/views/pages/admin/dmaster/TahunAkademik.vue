@@ -347,12 +347,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'DATA MASTER',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'TAHUN AKADEMIK',
                 disabled: true,
@@ -360,7 +360,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
     data()
     {
         let d = new Date();
@@ -372,14 +372,14 @@ export default {
             expanded: [],
             datatable: [],
             headers: [
-                { text: 'TA', value: 'tahun', width:50 },
+                { text: 'TA', value: 'tahun', width: 50 },
                 { text: 'TAHUN AKADEMIK', value: 'tahun_akademik', width: 150 },
-                { text: 'AWAL GANJIL', value: 'awal_ganjil', width:50 },
-                { text: 'AKHIR GANJIL', value: 'akhir_ganjil', width:50 },
-                { text: 'AWAL GENAP', value: 'awal_genap', width:50 },
-                { text: 'AKHIR GENAP', value: 'akhir_genap', width:50 },
-                { text: 'AWAL PENDEK', value: 'awal_pendek', width:50 },
-                { text: 'AKHIR PENDEK', value: 'akhir_pendek', width:50 },
+                { text: 'AWAL GANJIL', value: 'awal_ganjil', width: 50 },
+                { text: 'AKHIR GANJIL', value: 'akhir_ganjil', width: 50 },
+                { text: 'AWAL GENAP', value: 'awal_genap', width: 50 },
+                { text: 'AKHIR GENAP', value: 'akhir_genap', width: 50 },
+                { text: 'AWAL PENDEK', value: 'awal_pendek', width: 50 },
+                { text: 'AKHIR PENDEK', value: 'akhir_pendek', width: 50 },
                 { text: "AKSI", value: "actions", sortable: false, width: 100 },
             ],
             search: "",
@@ -405,7 +405,7 @@ export default {
                 akhir_genap: '',
                 awal_pendek: '',
                 akhir_pendek: '',
-            },
+           },
             formdefault: {
                 tahun: '',
                 tahun_akademik: '',
@@ -415,7 +415,7 @@ export default {
                 akhir_genap: '',
                 awal_pendek: '',
                 akhir_pendek: '',
-            },
+           },
             editedIndex: -1,
 
             //form rules
@@ -429,14 +429,14 @@ export default {
                     else
                     {
                         return true;
-                    }     
+                    }  
                 }
             ],
             rule_tahun_akademik: [                
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
             ],
         }
-    },
+   },
     methods: {
         initialize: async function()
         {
@@ -451,7 +451,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -462,11 +462,11 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem(item) {
             this.formdata = item;
             this.dialogdetailitem = true;
-        },
+       },
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item); 
@@ -476,7 +476,7 @@ export default {
             this.semester_genap[1]=this.formdata.akhir_genap == null ? (item.tahun+1)+'-08-31':item.akhir_genap;
             this.old_tahun=item.tahun;
             this.dialogfrm = true
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -492,7 +492,7 @@ export default {
                             akhir_ganjil: this.semester_ganjil[1],
                             awal_genap: this.semester_genap[0],
                             akhir_genap: this.semester_genap[1],
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -514,7 +514,7 @@ export default {
                             akhir_ganjil: this.semester_ganjil[1],
                             awal_genap: this.semester_genap[0],
                             akhir_genap: this.semester_genap[1],
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -529,7 +529,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID '+item.tahun+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -538,7 +538,7 @@ export default {
                     this.$ajax.post('/datamaster/tahunakademik/'+item.tahun,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -553,14 +553,14 @@ export default {
                     });
                 }
             });
-        },
+       },
         closedialogdetailitem() {
             this.$router.go();
-        },
+       },
         closedialogfrm() {
             this.$router.go();
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
@@ -568,32 +568,32 @@ export default {
         }),
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        },
+       },
         semesterGanjilText : {
             set()
             {
                 
-            },
+           },
             get()
             {
                 return this.semester_ganjil.join(' ~ ');
             }
-        },
+       },
         semesterGenapText: {
             set()
             {
 
-            },
+           },
             get()
             {
                   return this.semester_genap.join(' ~ ');
             }
-        },
-    },
+       },
+   },
     components: {
         DataMasterLayout,
         ModuleHeader,
-    },
+   },
 
 }
 </script>

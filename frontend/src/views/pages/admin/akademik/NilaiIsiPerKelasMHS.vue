@@ -127,17 +127,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'ISI NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PER KELAS MAHASISWA',
                 disabled: true,
@@ -147,7 +147,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true, 
         daftar_ta: [],
@@ -159,9 +159,9 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
-            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  }, 
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100 },
+            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true },
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true }, 
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
             { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 }, 
             { text: 'RUANG', value: 'namaruang', sortable: true, width: 100}, 
@@ -175,11 +175,11 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeSemesterAkademik(semester)
         {
             this.semester_akademik = semester; 
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -187,7 +187,7 @@ export default {
             {
                 ta: this.tahun_akademik,
                 semester_akademik: this.semester_akademik,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -200,7 +200,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -211,8 +211,8 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
-    },
+       },
+   },
     watch: {
         tahun_akademik()
         {
@@ -220,24 +220,24 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             } 
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             CAN_ACCESS: "can",
         }),
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         Filter2               
-    },
+   },
 }
 </script>

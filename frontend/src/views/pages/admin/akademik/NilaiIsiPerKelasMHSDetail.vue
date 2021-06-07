@@ -131,17 +131,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'ISI NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PER KELAS MAHASISWA',
                 disabled: true,
@@ -152,7 +152,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         kelas_mhs_id: null,
         data_kelas_mhs: null,
@@ -166,10 +166,10 @@ export default {
         datatable: [],
         datatable_peserta: [],  
         headers_peserta: [
-            { text: "NIM", value: "nim", sortable: false, width: 100  },
-            { text: 'NAMA', value: 'nama_mhs', sortable: false  },
-            { text: 'PROGRAM STUDI', value: 'kjur', sortable: false  },
-            { text: 'KELAS', value: 'idkelas', sortable: false  }, 
+            { text: "NIM", value: "nim", sortable: false, width: 100 },
+            { text: 'NAMA', value: 'nama_mhs', sortable: false },
+            { text: 'PROGRAM STUDI', value: 'kjur', sortable: false },
+            { text: 'KELAS', value: 'idkelas', sortable: false }, 
             { text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false },  
             { text: 'NILAI HURUP', value: 'n_kual', sortable: false },  
@@ -215,7 +215,7 @@ export default {
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              
-        },
+       },
         async fetchPeserta()
         {
             this.datatableLoading = true;
@@ -228,19 +228,19 @@ export default {
                 this.datatable_peserta=data.peserta;
                 this.datatableLoading = false;
             })   
-        },
+       },
         save()
         {
             
         }
-    },
+   },
     watch: {
         
-    }, 
+   }, 
     components: {
         AkademikLayout,
         ModuleHeader,
         DataKelasMHS       
-    },
+   },
 }
 </script>

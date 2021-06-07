@@ -151,11 +151,11 @@ export default {
 			}
         ];
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"]; 
-    },
+   },
     mounted()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         firstloading: true,
         breadcrumbs: [], 
@@ -179,7 +179,7 @@ export default {
             prodi_id: '',
             idkelas: '',
             status_mhs: [],
-        },
+       },
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
@@ -213,7 +213,7 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
 		initialize: async function()
 		{	
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
@@ -231,7 +231,7 @@ export default {
             await this.$ajax.post('/system/migration',
             {
                 TA: this.tahun_pendaftaran
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -250,7 +250,7 @@ export default {
 
             this.firstloading = false; 
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -266,7 +266,7 @@ export default {
                         idkelas: this.formdata.idkelas,
                         tahun_pendaftaran: this.tahun_pendaftaran,  
                         status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),            
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -276,15 +276,15 @@ export default {
                     setTimeout(() => {
                         this.$router.go();
                         this.btnLoading = false;
-                        }, 300
+                       }, 300
                     ); 
                 }).catch(() => {
                     this.btnLoading = false;
                 });
                  
             }
-        },
-    },
+       },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -292,12 +292,12 @@ export default {
             {
                 this.initialize();
             } 
-        },
-    },
+       },
+   },
     components: {
         SystemMigrationLayout,
         ModuleHeader, 
         Filter9, 
-    },
+   },
 }
 </script>

@@ -97,12 +97,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'USER SISTEM',
                 disabled: false,
                 href: '/system-users'
-            },
+           },
             {
                 text: 'PERMISSIONS',
                 disabled: true,
@@ -110,7 +110,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
@@ -139,7 +139,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -150,8 +150,8 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
@@ -159,7 +159,7 @@ export default {
             CAN_ACCESS: "can",
             ATTRIBUTE_USER: 'AttributeUser', 
         }),
-    }, 
+   }, 
     components: {
 		SystemUserLayout,
 		ModuleHeader,

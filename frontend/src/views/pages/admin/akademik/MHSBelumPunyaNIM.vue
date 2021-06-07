@@ -203,17 +203,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'DAFTAR ULANG',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'MAHASISWA BARU BELUM PUNYA NIM',
                 disabled: true,
@@ -225,7 +225,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -237,7 +237,7 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 150  },
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 150 },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },
             { text: 'TELP. HP', value: 'telp_hp', sortable: true, width: 150 },
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
@@ -256,12 +256,12 @@ export default {
             nim: "",
             nirm: '',
             dosen_id: ''           
-        },
+       },
         formdefault: {
             nim: "",
             nirm: '',
             dosen_id: ''           
-        },
+       },
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
@@ -278,11 +278,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -290,7 +290,7 @@ export default {
             {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_pendaftaran
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -303,7 +303,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -314,7 +314,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async addItem (item)
         {
             await this.$ajax.get('/akademik/dosenwali',{
@@ -326,7 +326,7 @@ export default {
                 this.dialogfrm = true;
                 this.daftar_dw = data.users; 
             });
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -337,7 +337,7 @@ export default {
                     nim: this.formdata.nim,
                     nirm: this.formdata.nirm,
                     dosen_id: this.formdata.dosen_id, 
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"],  
@@ -351,16 +351,16 @@ export default {
                     this.btnLoading = false;
                 }); 
             }
-        },
+       },
         closedialogfrm() { 
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -368,7 +368,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -377,11 +377,11 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         Filter7,    
-    },
+   },
 }
 </script>

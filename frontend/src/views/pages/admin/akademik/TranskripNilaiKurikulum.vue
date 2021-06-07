@@ -138,7 +138,7 @@
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">  
-									<strong>user_id:</strong>{{ item.user_id }}           
+									<strong>user_id:</strong>{{ item.user_id }}        
 								</v-col>
 							</td>
 						</template>
@@ -165,7 +165,7 @@
 					<v-btn
 						color="green"
 						text
-						:href="$api.url+'/'+file_pdf"> 
+						:href="$api.url + '/' + file_pdf"> 
 						Download
 					</v-btn>
 				</v-card-text>
@@ -226,7 +226,7 @@
 			expanded: [],
 			datatable: [], 
 			headers: [            
-				{ text: "NIM", value: "nim", sortable: true, width: 100  },
+				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true }, 
 				{ text: "KELAS", value: "idkelas", sortable: true, width: 120, }, 
 				{ text: "JUMLAH MATKUL", value: "jumlah_matkul", sortable: false, width: 100, }, 
@@ -340,7 +340,7 @@
 			},
 			closedialogprintpdf() {
 				setTimeout(() => {
-					this.file_pdf=null;
+					this.file_pdf = null;
 					this.dialogprintpdf = false;
 					}, 300
 				);

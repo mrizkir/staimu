@@ -307,12 +307,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'PLUGIN - ZOOM',
                 disabled: true,
@@ -320,7 +320,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
@@ -355,7 +355,7 @@ export default {
             created_at: '',  
             updated_at: '',  
 
-        },
+       },
         formdefault: {
             id: 0,
             zoom_id: '',  
@@ -368,7 +368,7 @@ export default {
             desc: '',  
             created_at: '',  
             updated_at: '',
-        },
+       },
         editedIndex: -1,
 
         //form rules  
@@ -400,7 +400,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -411,7 +411,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem(item) {
             this.formdata = item;
             this.dialogdetailitem = true; 
@@ -422,12 +422,12 @@ export default {
             // }).then(({ data }) => {
                                            
             // }); 
-        }, 
+       }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true;
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -441,7 +441,7 @@ export default {
                             api_key: this.formdata.api_key, 
                             api_secret: this.formdata.api_secret,
                             im_token: this.formdata.im_token, 
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -462,7 +462,7 @@ export default {
                             api_key: this.formdata.api_key, 
                             api_secret: this.formdata.api_secret,
                             im_token: this.formdata.im_token,  
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -477,7 +477,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         sink (item) {
             this.$root.$confirm.open('Sinkronisasi', 'Sinkronasi Akun Zoom dengan ID ' + item.id + ' ?', { color: 'yellow' }).then(confirm => {
                 if (confirm)
@@ -497,7 +497,7 @@ export default {
                     });
                 } 
             });
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus Akun Zoom dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -506,7 +506,7 @@ export default {
                     this.$ajax.post(process.env.VUE_APP_API_HOST+'/h2h/zoom/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -521,34 +521,34 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
                 this.$refs.frmdata.reset(); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        },
-    },
+       },
+   },
     components: {
         SystemConfigLayout,
         ModuleHeader,
-    },
+   },
 
 }
 </script>

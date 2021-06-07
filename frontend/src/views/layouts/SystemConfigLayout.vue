@@ -192,12 +192,12 @@ export default {
         showrightsidebar: {
             type: Boolean,
             default: true
-        },
+       },
         temporaryleftsidebar: {
             type: Boolean,
             default: false
-        },
-    },
+       },
+   },
     data: () => ({
         loginTime: 0,
         drawer: null, 
@@ -225,7 +225,7 @@ export default {
                 this.$store.dispatch("uiadmin/reinit");
                 this.$router.push("/");
             });
-        },
+       },
         isBentukPT(bentuk_pt)
         {
             return this.$store.getters['uifront/getBentukPT'] == bentuk_pt ? true : false;
@@ -244,7 +244,7 @@ export default {
         APP_NAME()
         {
             return process.env.VUE_APP_NAME;
-        },
+       },
         photoUser()
 		{
 			let img = this.ATTRIBUTE_USER("foto");
@@ -258,8 +258,8 @@ export default {
 				photo = this.$api.url + "/" + img;	
 			}
 			return photo;
-        }, 
-    },
+       }, 
+   },
     watch: {
         loginTime: {
             handler(value)
@@ -276,9 +276,9 @@ export default {
                     this.$store.dispatch("auth/logout");
                     this.$router.replace("/login");
                 }
-            },
+           },
             immediate: true
-        },
+       },
     }
 }
 </script>

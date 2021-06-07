@@ -168,7 +168,7 @@ export default {
     {
         this.role_name=this.role_default;
         this.initialize();
-    },
+   },
     data: () => ({
         btnLoading: false,
         datatableLoading: false,
@@ -191,11 +191,11 @@ export default {
         user: {
             type: Object,
             required: true
-        },
+       },
         role_default: {
             required: true
         }
-    },
+   },
     methods: {
         initialize()
         {
@@ -208,7 +208,7 @@ export default {
             ).then(({ data }) => {
                 this.daftar_role=data.roles;
             }); 
-        },
+       },
         save()
         {
             this.btnLoading = true;
@@ -216,7 +216,7 @@ export default {
                 {
                     user_id: this.user.id,
                     chkpermission: this.permissions_selected
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -227,7 +227,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        },
+       },
         revoke(item)
         {
             this.btnLoading = true;
@@ -235,7 +235,7 @@ export default {
                 {
                     user_id: this.user.id,
                     name:item.name
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -246,18 +246,18 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        },
+       },
         exit()
         {
             this.$emit('closeUserPermissions');
         }
-    },
+   },
     computed: {
         role_user()
         {
             return this.daftar_role.join(',').toUpperCase();
         }
-    },
+   },
     watch: {
         async role_name(val)
         {

@@ -109,31 +109,31 @@ export default {
     created()
     {
         this.initialize(); 
-    },
+   },
     props: {
         datakrs: {
             type: Object,
             required: true
-        },
+       },
         totalmatkul: {
             type: Number,
             requreid: true
-        },
+       },
         totalsks: {
             type: Number,
             requreid: true
-        },
+       },
         url: {
             type: String,
             default: null            
         }
-    },
+   },
     
     methods: {
         initialize: async function()
         {
             
-        },
+       },
         exit()
         {
             if (this.url != null)
@@ -141,6 +141,6 @@ export default {
                 this.$router.push(this.url);
             } 
         }
-    }, 
+   }, 
 }
 </script>

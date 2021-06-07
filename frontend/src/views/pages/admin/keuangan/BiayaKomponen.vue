@@ -74,12 +74,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'KOMPONEN BIAYA',
                 disabled: true,
@@ -87,7 +87,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
 
@@ -114,7 +114,7 @@ export default {
                 this.datatable = data.kombi;
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -125,11 +125,11 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
-    },
+       },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

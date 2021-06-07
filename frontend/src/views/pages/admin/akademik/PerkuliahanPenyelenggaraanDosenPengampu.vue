@@ -133,27 +133,27 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PENYELENGGARAAN MATAKULIAH',
                 disabled: false,
                 href: '/akademik/perkuliahan/penyelenggaraan/daftar'
-            },
+           },
             {
                 text: 'DOSEN PENGAMPU',
                 disabled: true,
                 href: "#"
-            },
+           },
         ];
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
@@ -163,12 +163,12 @@ export default {
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.formdata.idpenyelenggaraan=this.$route.params.idpenyelenggaraan;
         this.initialize();
-    },
+   },
     mounted()
     {
         this.fetchMatkul(); 
         this.fetchDosenPengampu(); 
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -184,7 +184,7 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'NIDN', value: 'nidn', sortable: false, width: 120  },
+            { text: 'NIDN', value: 'nidn', sortable: false, width: 120 },
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false },
             { text: 'KETUA', value: 'is_ketua', sortable: false, width: 120 }, 
             { text: "AKSI", value: "actions", sortable: false, width: 120 }, 
@@ -200,12 +200,12 @@ export default {
             idpenyelenggaraan: null,
             dosen_id: null,
             is_ketua: false,
-        },
+       },
         formdefault: {
             idpenyelenggaraan: null,
             dosen_id: null,
             is_ketua: false,
-        },
+       },
         rule_dosen: [
             value => !!value || "Mohon dipilih Dosen untuk matakuliah ini !!!"
         ],
@@ -217,7 +217,7 @@ export default {
             {
                 idpenyelenggaraan: this.formdata.idpenyelenggaraan,
                 pid: 'terdaftar'
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -225,7 +225,7 @@ export default {
             }).then(({ data }) => {
                 this.datatable = data.dosen;
             })  
-        },
+       },
         async fetchMatkul ()
         {
             await this.$ajax.get('/akademik/perkuliahan/penyelenggaraanmatakuliah/'+this.formdata.idpenyelenggaraan,
@@ -236,14 +236,14 @@ export default {
             }).then(({ data }) => {
                 this.data_matkul = data.penyelenggaraan;
             })  
-        },
+       },
         async fetchDosenPengampu ()
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu',
             {
                 idpenyelenggaraan: this.formdata.idpenyelenggaraan,
                 pid: 'belumterdaftar'
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -251,7 +251,7 @@ export default {
             }).then(({ data }) => {
                 this.daftar_dosen = data.dosen;
             })  
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -261,7 +261,7 @@ export default {
                         penyelenggaraan_id: this.formdata.idpenyelenggaraan, 
                         dosen_id: this.formdata.dosen_id,
                         is_ketua: this.formdata.is_ketua,                                 
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -271,14 +271,14 @@ export default {
                     setTimeout(() => {
                         this.btnLoading = false;
                         this.$router.go();
-                        },500
+                       },500
                     );
                     
                 }).catch(() => {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then(confirm => {
@@ -288,7 +288,7 @@ export default {
                     this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -303,7 +303,7 @@ export default {
                     });
                 } 
             });
-        },
+       },
         async updateketua(item)
         {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/'+item.id,
@@ -311,7 +311,7 @@ export default {
                     _method: "put",
                     penyelenggaraan_id:item.penyelenggaraan_id,                                 
                     is_ketua:item.is_ketua,                                 
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -320,19 +320,19 @@ export default {
             ).then(() => {
                 setTimeout(() => { 
                     this.initialize();
-                    },500
+                   },500
                 );
                 
             }).catch(() => {
                 this.btnLoading = false;
             });
         }
-    },
+   },
    
     components: {
         AkademikLayout,
         ModuleHeader, 
         DataMatakuliahPenyelenggaraan           
-    },
+   },
 }
 </script>

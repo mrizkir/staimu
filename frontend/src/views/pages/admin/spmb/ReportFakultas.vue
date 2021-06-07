@@ -127,12 +127,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SPMB',
                 disabled: false,
                 href: '/spmb'
-            },
+           },
             {
                 text: 'LAPORAN PMB FAKULTAS',
                 disabled: true,
@@ -144,7 +144,7 @@ export default {
         this.nama_fakultas=this.$store.getters['uiadmin/getFakultasName'](fakultas_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()   
-    },
+   },
     data: () => ({
         firstloading: true,
         fakultas_id: null,
@@ -173,11 +173,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeFakultas (id)
         {
             this.fakultas_id=id;
-        },
+       },
 		initialize: async function()
 		{	
             switch (this.dashboard)
@@ -191,7 +191,7 @@ export default {
                     {
                         TA: this.tahun_pendaftaran,
                         fakultas_id: this.fakultas_id,
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -203,7 +203,7 @@ export default {
             }
             this.firstloading = false;
             this.$refs.filter20.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -214,15 +214,15 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         badgeColor(item)
         {
             return item.active == 1 ? 'success': 'error'
-        },
+       },
         badgeIcon(item)
         {
             return item.active == 1 ? 'mdi-check-bold': 'mdi-close-thick'
-        },
+       },
         printtoexcel: async function()
         {
             this.btnLoading = true;
@@ -231,11 +231,11 @@ export default {
                     TA: this.tahun_pendaftaran,
                     fakultas_id: this.fakultas_id,
                     nama_fakultas: this.nama_fakultas,  
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     responseType: 'arraybuffer'
                 }
             ).then(({ data }) => { 
@@ -251,8 +251,8 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        }   
-    },
+        }
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -260,7 +260,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         fakultas_id(val)
         {
             if (!this.firstloading)
@@ -269,11 +269,11 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         SPMBLayout,
         ModuleHeader, 
         Filter20    
-    },
+   },
 }
 </script>

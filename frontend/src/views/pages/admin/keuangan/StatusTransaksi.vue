@@ -104,12 +104,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'STATUS TRANSAKSI',
                 disabled: true,
@@ -117,7 +117,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         firstloading: true,
         breadcrumbs: [],
@@ -147,7 +147,7 @@ export default {
                 this.datatableLoading = false;
             });
             this.firstloading = false;
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -158,7 +158,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         saveItem: async function ({id,style})
         {
             await this.$ajax.post('/keuangan/statustransaksi/'+id,
@@ -166,7 +166,7 @@ export default {
                 _method: "put", 
                 id_status:id,
                 style:style
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -174,23 +174,23 @@ export default {
             }).then(() => {
                 this.initialize();
             });
-        },
+       },
         cancelItem()
         {
 
-        },
+       },
         openItem()
         {
 
-        },
+       },
         closeItem()
         {
 
-        },
-    },
+       },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

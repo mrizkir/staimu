@@ -35,6 +35,6 @@ export default {
     components: {
         DataMasterLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

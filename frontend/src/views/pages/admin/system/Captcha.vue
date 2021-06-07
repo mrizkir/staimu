@@ -76,12 +76,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'SERVER - CAPTCHA',
                 disabled: true,
@@ -89,7 +89,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
@@ -99,7 +99,7 @@ export default {
         formdata: {
             siteKey: '',
             privateKey: ''
-        },
+       },
         //form rules
         rule_site_key: [
             value => !!value || "Mohon untuk di isi site key !!!",
@@ -123,7 +123,7 @@ export default {
                 this.formdata.privateKey=setting.CAPTCHA_PRIVATE_KEY;
             });
 
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -136,7 +136,7 @@ export default {
                             901: this.formdata.siteKey,
                             902: this.formdata.privateKey,
                         }),
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -149,13 +149,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: {
         ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

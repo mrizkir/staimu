@@ -44,12 +44,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SYSTEM',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'BIODATA DIRI DOSEN',
                 disabled: true,
@@ -60,18 +60,18 @@ export default {
         {
             this.fetchMahasiswa();
         }
-    },
+   },
     data ()
     {
         return {
         }
-    },
+   },
     methods: {
-    },
+   },
     components: {
         SystemUserLayout,
         ModuleHeader,
         'form-biodata-diri-dosen':FormBiodataDiriDosen,
-    },
+   },
 }
 </script>

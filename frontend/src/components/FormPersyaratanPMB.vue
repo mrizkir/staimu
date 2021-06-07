@@ -12,13 +12,13 @@ export default {
     name: 'FormPersyaratanPMB',
     created() {
         this.initialize();
-    },
+   },
     props: {
         user_id: {
             type: String,
             required: true
         }
-    },
+   },
     data: () => ({
         //form        
         daftar_persyaratan: [], 
@@ -35,8 +35,8 @@ export default {
             ).then(({ data }) => { 
                 this.daftar_persyaratan=data.persyaratan;
             })
-        },
-    },
+       },
+   },
     components: {
         FileUpload
     }

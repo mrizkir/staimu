@@ -146,12 +146,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'USER SISTEM',
                 disabled: false,
                 href: '/system-users'
-            },
+           },
             {
                 text: 'PERMISSIONS',
                 disabled: true,
@@ -159,7 +159,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
@@ -183,14 +183,14 @@ export default {
             guard: '',  
             created_at: '',  
             updated_at: '',  
-        },
+       },
         defaultItem: {
             id: 0,
             name: '',  
             guard: 'api',  
             created_at: '',  
             updated_at: '',  
-        },
+       },
         //form rules        
         rule_permission_name: [
             value => !!value || "Mohon untuk di isi nama Permission !!!",
@@ -210,7 +210,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -221,12 +221,12 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         editItem(item) {
             this.editedIndex = this.daftar_permissions.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
-        },
+       },
         close() {
             this.btnLoading = false;
             this.dialog = false;
@@ -234,9 +234,9 @@ export default {
             setTimeout(() => {
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -246,7 +246,7 @@ export default {
                     this.$ajax.post('/system/setting/permissions/store',
                         {
                             name: this.editedItem.name.toLowerCase()
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -260,7 +260,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus permission '+item.name+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -269,7 +269,7 @@ export default {
                     this.$ajax.post('/system/setting/permissions/'+item.id,
                     {
                         _method: "DELETE",
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -284,24 +284,24 @@ export default {
                     });
                 }
             }); 
-        },
-    },
+       },
+   },
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH PERMISSION' : 'EDIT PERMISSION'
-        },
+       },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",
             CAN_ACCESS: "can",
             ATTRIBUTE_USER: 'AttributeUser', 
         }),
-    },
+   },
     watch: {
         dialog (val) {
             val || this.close()
-        },
-    },
+       },
+   },
     components: {
 		SystemUserLayout,
 		ModuleHeader,

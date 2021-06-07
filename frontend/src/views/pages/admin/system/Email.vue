@@ -70,12 +70,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'SERVER - EMAIL',
                 disabled: true,
@@ -83,7 +83,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [], 
         btnLoading: false, 
@@ -91,7 +91,7 @@ export default {
         form_valid: true, 
         formdata: {
             email_mhs_isvalid: null,
-        },
+       },
         //form rules        
         
     }),
@@ -109,7 +109,7 @@ export default {
                 this.formdata.email_mhs_isvalid=parseInt(setting.EMAIL_MHS_ISVALID);
             }); 
             
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -121,7 +121,7 @@ export default {
                         setting: JSON.stringify({
                             910: this.formdata.email_mhs_isvalid,
                         }),                       
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -134,13 +134,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

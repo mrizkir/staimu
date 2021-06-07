@@ -30,26 +30,26 @@ export default {
             this.fractDigitsEdited=true;
         }
         this.fractPart=b.length > 0 ? b[1]: null;
-    },
+   },
     methods: {
         clearValue()
         {
             this.dataValue = 0.00;
             this.fractPart = null;
             this.fractDigitsEdited = false;
-        },
+       },
         setFocus(val)
         {
             this.isFocused=val;
-        },
+       },
         onBlur() 
         {
             this.setFocus(false); 
-        },
+       },
         onFocus() 
         {
             this.setFocus(true); 
-        },
+       },
         keyProcess(keyEvent)
         {
             if (!this.isFocused) return; 
@@ -78,11 +78,11 @@ export default {
                     if (this.fractPart == null)
                     {
                         this.fractPart = keyEvent.key;
-                    }     
+                    }  
                     else if (this.fractPart.length <= 1)
                     {
                         this.fractPart += keyEvent.key.toString();
-                    }     
+                    }  
                 }
                 else
                 {
@@ -118,7 +118,7 @@ export default {
                 this.$emit('input',this.dataValue);
             } 
         }
-    },
+   },
 }
 </script>
 

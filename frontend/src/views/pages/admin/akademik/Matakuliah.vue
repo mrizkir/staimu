@@ -433,17 +433,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'MATAKULIAH',
                 disabled: true,
@@ -455,7 +455,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -467,7 +467,7 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
             { text: 'KELOMPOK', value: 'group_alias', sortable: true, width: 120 },
             { text: 'SKS', value: 'sks', sortable: true, width: 80, align: 'center' },
@@ -531,7 +531,7 @@ export default {
             ta: '', 
             kjur: '', 
             update_penyelenggaraan: false,
-        },
+       },
         formdefault: {
             id: '',  
             id_group: null,  
@@ -553,7 +553,7 @@ export default {
             ta: '', 
             kjur: '',
             update_penyelenggaraan: false,
-        },
+       },
         editedIndex: -1,
 
         //form rules    
@@ -586,11 +586,11 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -598,7 +598,7 @@ export default {
             {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_akademik
-            },
+           },
             {
                 headers: {
                     Authorization: this.TOKEN
@@ -611,7 +611,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter18.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -622,7 +622,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         tambahItem: async function()
         {
             await this.$ajax.get('/akademik/groupmatakuliah',
@@ -634,7 +634,7 @@ export default {
                 this.group_matakuliah=data.group_matakuliah;
             }); 
             this.dialogfrm = true;
-        },
+       },
         async viewItem(item) {
             this.formdata = item;
             await this.$ajax.get('/akademik/matakuliah/'+item.id,
@@ -646,7 +646,7 @@ export default {
                 this.formdata=data.matakuliah;
             });
             this.dialogdetailitem = true;
-        }, 
+       }, 
         editItem: async function(item) { 
             this.editedIndex = this.datatable.indexOf(item); 
             await this.$ajax.get('/akademik/groupmatakuliah',
@@ -667,7 +667,7 @@ export default {
                 this.formdata=data.matakuliah;
             });
             this.dialogfrm = true
-        }, 
+       }, 
         showDialogCopyMatkul()
         {
             let list_ta = this.$store.getters["uiadmin/getDaftarTA"];
@@ -680,10 +680,10 @@ export default {
                         value:item.value,
                         text:item.text
                     })
-                }   
+                }
             } 
             this.dialogcopymatkul=true;
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -712,7 +712,7 @@ export default {
                             ta: this.formdata.ta, 
                             kjur: this.formdata.kjur,
                             update_penyelenggaraan: this.formdata.update_penyelenggaraan,  
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -747,7 +747,7 @@ export default {
                             status: this.formdata.status, 
                             ta: this.tahun_akademik, 
                             kjur: this.prodi_id,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -762,7 +762,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         salinmatkul()
         {
             if (this.$refs.frmdialogcopymatkul.validate())
@@ -772,7 +772,7 @@ export default {
                     {
                         dari_tahun_akademik: this.dari_tahun_akademik,
                         prodi_id: this.prodi_id,
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -786,7 +786,7 @@ export default {
                     this.btnLoading = false;
                 }); 
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus matakuliah '+item.nmatkul+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -795,7 +795,7 @@ export default {
                     this.$ajax.post('/akademik/matakuliah/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -810,33 +810,33 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => { 
                 this.$refs.frmdata.resetValidation();
                 this.formdata = Object.assign({}, this.formdefault);
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogsalinmatkul() { 
             this.dialogcopymatkul = false; 
             setTimeout(() => { 
                 this.$refs.frmdialogcopymatkul.reset();
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
@@ -844,7 +844,7 @@ export default {
         }),
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        }, 
+       }, 
         totalSKS()
         {
             var total = 0;
@@ -854,8 +854,8 @@ export default {
                 total=total+parseInt(item.sks);
             }
             return total;
-        }, 
-    },
+       }, 
+   },
     watch: {
         tahun_akademik()
         {
@@ -863,7 +863,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -872,12 +872,12 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         Filter18        
-    },
+   },
 
 }
 </script>

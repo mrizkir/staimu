@@ -118,17 +118,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SPMB',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'JADWAL UJIAN PMB',
                 disabled: false,
                 href: '/spmb/jadwalujianpmb'
-            },
+           },
             {
                 text: 'PASSING GRADE',
                 disabled: true,
@@ -136,7 +136,7 @@ export default {
             }
         ]; 
         this.initialize();
-    },
+   },
     data: () => ({
         jadwal_ujian_id: null,
         jadwal_ujian: {
@@ -144,7 +144,7 @@ export default {
             nama_kegiatan: '',
             ta: '',  
             idsmt: '',
-        },
+       },
         breadcrumbs: [], 
         dashboard: null,
 
@@ -170,7 +170,7 @@ export default {
             await this.$ajax.post('/spmb/passinggrade',
             {
                 jadwal_ujian_id: this.jadwal_ujian_id, 
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -182,7 +182,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -193,14 +193,14 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         loadprodi: async function()
         {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/passinggrade/loadprodi',
                 {
                     jadwal_ujian_id: this.jadwal_ujian_id,
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -212,7 +212,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        },
+       },
         saveItem: async function ({id,nilai})
         {
             this.btnLoading = true;
@@ -221,7 +221,7 @@ export default {
                 _method: "put",
                 id: id,
                 nilai:nilai
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -230,26 +230,26 @@ export default {
                 this.btnLoading = false;
                 this.initialize();
             });
-        },
+       },
         cancelItem()
         {
 
-        },
+       },
         openItem()
         {
 
-        },
+       },
         closeItem()
         {
 
-        },
-    },
+       },
+   },
     computed: {
         
-    },
+   },
     components: {
         SPMBLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

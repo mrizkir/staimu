@@ -221,7 +221,7 @@ export default {
 					if (element.path != null)
 					{
 						this.slides.push({
-							path: this.$api.url+'/'+element.path,
+							path: this.$api.url + '/' + element.path,
 							nama_persyaratan:element.nama_persyaratan
 						});
 					}

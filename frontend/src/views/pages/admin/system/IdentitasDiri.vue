@@ -87,17 +87,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'PERGURUAN TINGGI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'IDENTITAS DIRI',
                 disabled: true,
@@ -105,7 +105,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [], 
         btnLoading: false, 
@@ -116,7 +116,7 @@ export default {
             nama_alias_pt: '',
             bentuk_pt: '',
             kode_pt: 0,
-        },
+       },
         //form rules        
         rule_nama_pt: [
             value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!", 
@@ -145,7 +145,7 @@ export default {
                 this.formdata.kode_pt=setting.KODE_PT;
             }); 
             
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -160,7 +160,7 @@ export default {
                             103: this.formdata.bentuk_pt,
                             104: this.formdata.kode_pt,
                         }),                       
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -173,13 +173,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

@@ -90,11 +90,11 @@ export default {
                 this.resolve = resolve
                 this.reject = reject
             })
-        },
+       },
         agree() {
             this.resolve(true)
             this.dialog = false
-        },
+       },
         cancel() {
             this.resolve(false)
             this.dialog = false

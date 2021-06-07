@@ -91,30 +91,30 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: "KRS",
                 disabled: false,
                 href: "/akademik/perkuliahan/krs/daftar"
-            },
+           },
             {
                 text: 'DETAIL',
                 disabled: true,
                 href: "#"
-            },
+           },
         ];
         this.fetchKRS();
-    },
+   },
     data: () => ({ 
         firstloading: true, 
         nama_prodi: null,
@@ -133,10 +133,10 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
-            { text: 'SMT', value: 'semester', sortable: false, width:50 }, 
+            { text: 'SKS', value: 'sks', sortable: false, width: 50 }, 
+            { text: 'SMT', value: 'semester', sortable: false, width: 50 }, 
             { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 }, 
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
         ],
@@ -160,13 +160,13 @@ export default {
                     this.semester_akademik = this.datakrs.idsmt;
                 }
             })  
-        },
-    },
+       },
+   },
     computed: {
         totalMatkul()
         {
             return this.datatable.length; 
-        },
+       },
         totalSKS()
         {
             var total = 0;
@@ -177,11 +177,11 @@ export default {
             } 
             return total;
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader, 
         DataKRS            
-    },
+   },
 }
 </script>

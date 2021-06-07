@@ -239,17 +239,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'DOSEN WALI',
                 disabled: false,
                 href: '/akademik/dosenwali'
-            },
+           },
             {
                 text: 'DETAIL',
                 disabled: true,
@@ -257,7 +257,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
    
     data: () => ({ 
         dosen_id: null,
@@ -272,7 +272,7 @@ export default {
             { text: 'PROGRAM STUDI', value: 'nama_prodi', width: 150, sortable: true },
             { text: 'KELAS', value: 'nkelas', width: 150, sortable: true },
             { text: 'TAHUN MASUK', value: 'tahun', sortable: true }, 
-            { text: "AKSI", value: "actions", sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width: 50 },
         ],
         expanded: [],
         search: "",
@@ -286,10 +286,10 @@ export default {
 
         formdata: {
             dosen_id: ''           
-        },
+       },
         formdefault: {
             dosen_id: ''           
-        },
+       },
 
         rule_dw: [
             value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
@@ -304,7 +304,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                },
+               },
                 
             ).then(({ data }) => {
                 this.data_dosen=data.biodatadiri; 
@@ -319,7 +319,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -330,7 +330,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async showDialogChangeDW(item)
         {
             this.data_mhs = item;
@@ -344,7 +344,7 @@ export default {
                 this.daftar_dw = data.users; 
                 this.formdata.dosen_id = this.dosen_id;
             }); 
-        }, 
+       }, 
         changeDosenWali ()
         {
             this.btnLoading = true;
@@ -352,7 +352,7 @@ export default {
                 {
                     _method: 'PUT',
                     'dosen_id': this.formdata.dosen_id,
-                },
+               },
                 {
                     headers: {
                         Authorization: this.TOKEN
@@ -364,26 +364,26 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        },
+       },
         closedialogfrm() { 
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    }, 
+   }, 
     components: {
         AkademikLayout,
         ModuleHeader,
         ProfilDosen          
-    },
+   },
 }
 </script>

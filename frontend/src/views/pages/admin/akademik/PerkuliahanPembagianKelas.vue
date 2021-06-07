@@ -209,17 +209,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PEMBAGIAN KELAS',
                 disabled: true,
@@ -229,7 +229,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true, 
         tahun_akademik: null,
@@ -241,9 +241,9 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
-            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true  },
-            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true  }, 
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100 },
+            { text: 'NAMA MATAKULIAH/KELAS', value: 'nmatkul', sortable: true },
+            { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: true }, 
             { text: 'HARI', value: 'nama_hari', sortable: true, width: 100 },
             { text: 'JAM', value: 'jam_masuk', sortable: true, width: 100 }, 
             { text: 'RUANG', value: 'namaruang', sortable: true, width: 100}, 
@@ -262,27 +262,27 @@ export default {
             {
                 text: 'SENIN',
                 value: 1,
-            },
+           },
             {
                 text: 'SELASA',
                 value:2,
-            },
+           },
             {
                 text: 'RABU',
                 value: 3,
-            },
+           },
             {
                 text: 'KAMIS',
                 value:4,
-            },
+           },
             {
                 text: 'JUMAT',
                 value:5,
-            },
+           },
             {
                 text: 'SABTU',
                 value:6,
-            },
+           },
         ],
         formdata: { 
             id: '',
@@ -292,7 +292,7 @@ export default {
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
             ruang_kelas_id: '',
-        },
+       },
         formdefault: { 
             id: '',
             idkelas: '',
@@ -301,7 +301,7 @@ export default {
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
             ruang_kelas_id: '',
-        },
+       },
 
         rule_hari: [
             value => !!value || "Mohon dipilih hari mengajar!!!"
@@ -323,11 +323,11 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeSemesterAkademik(semester)
         {
             this.semester_akademik = semester; 
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -335,7 +335,7 @@ export default {
             {
                 ta: this.tahun_akademik,
                 semester_akademik: this.semester_akademik,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -348,7 +348,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter2.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -359,7 +359,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async editItem(item) {
             await this.$ajax.get('/datamaster/ruangankelas',{
                 headers: {
@@ -370,7 +370,7 @@ export default {
                 this.formdata = Object.assign({}, item);
                 this.dialogfrm = true;
             });
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -383,7 +383,7 @@ export default {
                         jam_masuk: this.formdata.jam_masuk,
                         jam_keluar: this.formdata.jam_keluar,  
                         ruang_kelas_id: this.formdata.ruang_kelas_id,
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -397,7 +397,7 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        }, 
+       }, 
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus pembagian kelas matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini membuat mahasiswa tidak memiliki kelas.' }).then(confirm => {
@@ -407,7 +407,7 @@ export default {
                     this.$ajax.post('/akademik/perkuliahan/pembagiankelas/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -422,16 +422,16 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     watch: {
         tahun_akademik()
         {
@@ -439,24 +439,24 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             } 
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             CAN_ACCESS: "can",
         }),
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         Filter2               
-    },
+   },
 }
 </script>

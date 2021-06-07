@@ -87,17 +87,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'PERGURUAN TINGGI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'HEADER LAPORAN',
                 disabled: true,
@@ -105,7 +105,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
@@ -118,7 +118,7 @@ export default {
             header_3: null,
             header_4: null,
             header_address: null,
-        },
+       },
     }),
     methods: {
         initialize: async function() 
@@ -138,7 +138,7 @@ export default {
                 this.formdata.header_address=setting.HEADER_ADDRESS;
             }); 
             
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -154,7 +154,7 @@ export default {
                             704: this.formdata.header_4,
                             705: this.formdata.header_address,
                         }),                       
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -167,13 +167,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

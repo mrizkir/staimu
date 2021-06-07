@@ -113,17 +113,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'DAFTAR ULANG',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'DAFTAR ULANG MAHASISWA BARU',
                 disabled: true,
@@ -135,7 +135,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -148,9 +148,9 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 150  },
-            { text: "NIM", value: "nim", sortable: true, width: 150  },
-            { text: 'NIRM', value: 'nirm', sortable: true, width: 150  },
+            { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 150 },
+            { text: "NIM", value: "nim", sortable: true, width: 150 },
+            { text: 'NIRM', value: 'nirm', sortable: true, width: 150 },
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true }, 
             { text: 'KELAS', value: 'idkelas', sortable: true, width: 120, }, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
@@ -168,12 +168,12 @@ export default {
             nim: "",
             nirm: '',
             dosen_id: ''           
-        },
+       },
         formdefault: {
             nim: "",
             nirm: '',
             dosen_id: ''           
-        },
+       },
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
@@ -191,11 +191,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -203,7 +203,7 @@ export default {
             {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_pendaftaran
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -216,7 +216,7 @@ export default {
             });
             this.firstloading = false;
             this.$refs.filter7.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -227,13 +227,13 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async tambahItem ()
         {
             await this.$ajax.post('/keuangan/transaksi/'+this.formdata.nim+'/sppmhsbaru',
             {
                 jenis_id: 'nim'
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -251,7 +251,7 @@ export default {
             //     this.daftar_dw = data.users; 
             // }); 
 
-        },
+       },
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.' }).then(confirm => {
@@ -261,7 +261,7 @@ export default {
                     this.$ajax.post('/akademik/dulang/mhsbaru'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -276,16 +276,16 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogfrm() { 
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.data_mhs = Object.assign({},{}); 
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -293,7 +293,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -302,11 +302,11 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         Filter7,           
-    },
+   },
 }
 </script>

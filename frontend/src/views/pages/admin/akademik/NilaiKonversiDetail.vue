@@ -331,7 +331,7 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf"> 
+                        :href="$api.url + '/' + file_pdf"> 
                         Download
                     </v-btn>
                 </v-card-text>
@@ -355,22 +355,22 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'NILAI',
                 disabled: false,
                 href: "#"
-            }, 
+           }, 
             {
                 text: 'KONVERSI MAHASISWA PINDAHAN/AMPULAN',
                 disabled: false,
                 href: '/akademik/nilai/konversi'
-            },
+           },
             {
                 text: 'DETAIL',
                 disabled: true,
@@ -382,7 +382,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         nilai_konversi_id: null, 
         prodi_id: null,
@@ -394,8 +394,8 @@ export default {
         datatableLoading: false, 
         datatable: [], 
         headers: [            
-            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100  },
-            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250  },
+            { text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
+            { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250 },
             { text: 'SKS', value: 'sks', sortable: false, width:70 }, 
             { text: 'SMT', value: 'semester', sortable: true, width:70, }, 
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 }, 
@@ -426,7 +426,7 @@ export default {
             
             'kjur': '',
             'perpanjangan': '', 
-        },
+       },
         
         //profil mahasiswa        
         entries: [],
@@ -453,7 +453,7 @@ export default {
             await this.$ajax.get('/datamaster/programstudi/jenjangstudi').then(({ data }) => {
                 this.daftar_jenjang=data.jenjangstudi;
             }); 
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -489,7 +489,7 @@ export default {
                         tahun: this.tahun_pendaftaran,               
                         kjur: this.prodi_id,
                         daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -502,7 +502,7 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         field_alias(atr)
         {
             var alias;
@@ -522,7 +522,7 @@ export default {
                 break;
             }
             return alias;
-        },
+       },
         async printpdf2(item)
         {
             this.btnLoading = true;
@@ -530,7 +530,7 @@ export default {
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -540,14 +540,14 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         closedialogprintpdf() {
             setTimeout(() => {
-                this.file_pdf=null;
+                this.file_pdf = null;
                 this.dialogprintpdf = false;
-                }, 300
+               }, 300
             );
-        },
+       },
         async pasangkan()
         {
             this.btnLoading = true;
@@ -555,11 +555,11 @@ export default {
                 {
                     nilai_konversi_id: this.nilai_konversi_id,
                     user_id: this.data_mhs.user_id
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(() => { 
@@ -567,7 +567,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         putuskan ()
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin memutuskan dengan data mahasiswa ?', { color: 'red' }).then(confirm => {
@@ -577,7 +577,7 @@ export default {
                     this.$ajax.post('/akademik/nilai/konversi/unplugtomhs',
                         {
                             nilai_konversi_id: this.nilai_konversi_id,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -590,13 +590,13 @@ export default {
                     });
                 } 
             });
-        },
+       },
         clearDataMhs()
         {
             this.data_mhs = null;
             this.$refs.ref_data_mhs.cachedItems=[]; 
         }
-    },
+   },
     computed: {
         totalMatkul()
         {
@@ -608,7 +608,7 @@ export default {
                 }
             });
             return jumlah_matkul;
-        },
+       },
         totalSKS()
         {
             var jumlah_sks=0;
@@ -619,7 +619,7 @@ export default {
                 }
             });
             return jumlah_sks;
-        },
+       },
         fields() {
             if (!this.data_mhs) return [];
             return Object.keys(this.data_mhs).map(key => {
@@ -628,8 +628,8 @@ export default {
                     value: this.data_mhs[key] || 'n/a',
                 }
             })
-        },
-    },
+       },
+   },
     watch: {
         search (val) 
         {
@@ -642,7 +642,7 @@ export default {
                     await this.$ajax.post('/kemahasiswaan/profil/searchnonampulan',
                     {
                         search:val,
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -655,14 +655,14 @@ export default {
                     }).catch(() => {
                         this.isLoading=false;
                     });
-                    },1000
+                   },1000
                 );
             }
-        },
-    },
+       },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

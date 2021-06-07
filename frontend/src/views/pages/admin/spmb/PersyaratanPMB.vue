@@ -142,12 +142,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SPMB',
                 disabled: false,
                 href: '/spmb'
-            },
+           },
             {
                 text: 'FORMULIR PENDAFTARAN',
                 disabled: true,
@@ -160,7 +160,7 @@ export default {
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
         this.initialize()
-    },
+   },
     data: () => ({
         firstloading: true,
         prodi_id: null,
@@ -181,7 +181,7 @@ export default {
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},
             { text: 'KELAS', value: 'nkelas', width: 100, sortable: true },
             { text: 'STATUS', value: 'status', width: 120, sortable: true },
-            { text: "AKSI", value: "actions", sortable: false, width:50 },
+            { text: "AKSI", value: "actions", sortable: false, width: 50 },
         ],
         search: "",
 
@@ -194,11 +194,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
 		initialize: async function()
 		{	
             if (this.dashboard == 'mahasiswabaru' || this.dashboard == 'mahasiswa')
@@ -208,7 +208,7 @@ export default {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
                         }
-                    },
+                   },
                     
                 ).then(({ data }) => { 
                     this.showcomponentpersyaratan=data.formulir.idkelas==null||data.formulir.idkelas==''?false: true;
@@ -221,7 +221,7 @@ export default {
                 {
                     TA: this.tahun_pendaftaran,
                     prodi_id: this.prodi_id,
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -233,7 +233,7 @@ export default {
                 this.firstloading = false; 
                 this.$refs.filter7.setFirstTimeLoading(this.firstloading);
             }
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -244,25 +244,25 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         badgeColor(item)
         {
             return item.persyaratan<item.jumlah_persyaratan ? 'error': 'success' ;
-        },
+       },
         badgeIcon(item)
         {
             return item.persyaratan<item.jumlah_persyaratan == 1 ? 'mdi-close-thick': 'mdi-check-bold'; 
-        },
+       },
         viewItem(item)
         {
             this.datamhsbaru = Object.assign({}, item); 
             this.dialogprofilmhsbaru = true;
-        },
+       },
         closeProfilMahasiswaBaru ()
         {
             this.dialogprofilmhsbaru = false; 
         } 
-    },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -270,7 +270,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -279,13 +279,13 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         SPMBLayout,
         ModuleHeader,
         FormPersyaratan,
         ProfilMahasiswaBaru,
         Filter7
-    },
+   },
 }
 </script>

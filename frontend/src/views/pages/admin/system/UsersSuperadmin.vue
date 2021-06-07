@@ -251,12 +251,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'USER SISTEM',
                 disabled: false,
                 href: '/system-users'
-            },
+           },
             {
                 text: 'USERS SUPER ADMIN',
                 disabled: true,
@@ -264,7 +264,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
    
     data: () => ({ 
         role_id: 0,
@@ -299,7 +299,7 @@ export default {
             role_id: ['superadmin'],
             created_at: '',  
             updated_at: '', 
-        },
+       },
         defaultItem: {
             id: 0,
             username: '',  
@@ -310,7 +310,7 @@ export default {
             role_id: ['superadmin'],
             created_at: '',  
             updated_at: '', 
-        },
+       },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
@@ -366,7 +366,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -377,7 +377,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         showDialogTambahUserSuperAdmin: async function()
         {
             await this.$ajax.get('/system/setting/roles',{
@@ -401,13 +401,13 @@ export default {
                             text:element.name,
                             disabled: false,
                         });
-                    }     
+                    }  
                 });
                 this.daftar_roles=daftar_roles; 
                 this.dialog = true; 
             });
             
-        },
+       },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
             item.password=''; 
@@ -434,7 +434,7 @@ export default {
                             text:element.name,
                             disabled: false,
                         });
-                    }     
+                    }  
                 });
                 this.daftar_roles=daftar_roles;
             });
@@ -450,7 +450,7 @@ export default {
                 this.btnLoading = false;
                 this.dialogEdit = true;
             }); 
-        },
+       },
         close() { 
             this.btnLoading = false;
             this.dialog = false;
@@ -459,9 +459,9 @@ export default {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                }, 300
+               }, 300
             );
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -477,7 +477,7 @@ export default {
                             username: this.editedItem.username,
                             password: this.editedItem.password,
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -499,7 +499,7 @@ export default {
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
                             role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -513,7 +513,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus username '+item.username+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -522,7 +522,7 @@ export default {
                     this.$ajax.post('/system/users/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -537,29 +537,29 @@ export default {
                     });
                 }
             });
-        },
-    },
+       },
+   },
     computed: {
         formTitle() {
             return this.editedIndex === -1 ? 'TAMBAH USER SUPER ADMIN' : 'EDIT USER SUPER ADMIN'
-        },
+       },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
 
     watch: {
         dialog (val) {
             val || this.close()
-        },
+       },
         dialogEdit (val) {
             val || this.close()
-        },
-    }, 
+       },
+   }, 
     components: {
         SystemUserLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

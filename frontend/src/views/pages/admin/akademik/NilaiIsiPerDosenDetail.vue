@@ -196,17 +196,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'ISI NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PER KELAS MAHASISWA',
                 disabled: true,
@@ -217,7 +217,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({ 
         kelas_mhs_id: null,
         data_kelas_mhs: null,
@@ -231,14 +231,14 @@ export default {
         datatable: [],
         datatable_peserta: [],  
         headers_peserta: [             
-            { text: "NIM", value: "nim", sortable: false, width: 100  },
-            { text: 'NAMA', value: 'nama_mhs', sortable: false, width: 250   },
-            { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable: false, width: 100   },
-            { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false, width: 100   },
-            { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable: false, width: 100   },
-            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable: false, width: 100   },
-            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100   }, 
-            { text: 'NILAI UAS', value: 'nilai_uas', sortable: false, width: 100  },  
+            { text: "NIM", value: "nim", sortable: false, width: 100 },
+            { text: 'NAMA', value: 'nama_mhs', sortable: false, width: 250  },
+            { text: 'NILAI ABSENSI', value: 'nilai_absen', sortable: false, width: 100  },
+            { text: 'NILAI QUIZ', value: 'nilai_quiz', sortable: false, width: 100  },
+            { text: 'NILAI TUGAS INDIVIDU', value: 'nilai_tugas_individu', sortable: false, width: 100  },
+            { text: 'NILAI TUGAS KELOMPOK', value: 'nilai_tugas_kelompok', sortable: false, width: 100  },
+            { text: 'NILAI UTS', value: 'nilai_uts', sortable: false, width: 100  }, 
+            { text: 'NILAI UAS', value: 'nilai_uas', sortable: false, width: 100 },  
             { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width: 100 },  
             { text: 'NILAI HURUP', value: 'n_kual', sortable: false, width: 100 },  
         ], 
@@ -252,7 +252,7 @@ export default {
             'persen_tugas_kelompok': 0,
             'persen_uts':25,
             'persen_uas':25,
-        },
+       },
         daftar_nilai: [],
     }),
     methods: {
@@ -276,7 +276,7 @@ export default {
                 this.datatableLoading = false;
                 this.datatable_peserta=data.peserta; 
             })              
-        },
+       },
         updateNKuan(props)
         {
             var nilai_absen=0;
@@ -377,7 +377,7 @@ export default {
             } 
             props.item.n_kual=n_kual;
 
-        }, 
+       }, 
         async save()
         {
             this.btnLoadingTable=true;
@@ -400,7 +400,7 @@ export default {
                 {
                     kelas_mhs_id: this.kelas_mhs_id,
                     daftar_nilai: JSON.stringify(Object.assign({},daftar_nilai)),
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -411,7 +411,7 @@ export default {
             }).catch(() => {
                 this.btnLoadingTable=false;
             }); 
-        },
+       },
         isbydosen(bool)
         {
             if (bool)
@@ -423,15 +423,15 @@ export default {
                 return false;
             }
         }
-    },
+   },
     computed: {
         
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
         DataKelasMHS,
         VAngkaNilai       
-    },
+   },
 }
 </script>

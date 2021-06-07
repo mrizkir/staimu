@@ -190,12 +190,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'DATA MASTER',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'FAKULTAS',
                 disabled: true,
@@ -203,7 +203,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
@@ -226,11 +226,11 @@ export default {
         formdata: {
             kode_fakultas: '',  
             nama_fakultas: '', 
-        },
+       },
         formdefault: {
             kode_fakultas: '',  
             nama_fakultas: '',
-        },
+       },
         editedIndex: -1,
 
         //form rules  
@@ -257,7 +257,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -268,17 +268,17 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem(item) {
             this.formdata = item;
             this.dialogdetailitem = true;
-        }, 
+       }, 
         editItem(item) {
             this.kode_fakultas=item.kode_fakultas;
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item);
             this.dialogfrm = true
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -290,7 +290,7 @@ export default {
                             _method: 'PUT',
                             kode_fakultas: this.formdata.kode_fakultas,
                             nama_fakultas: this.formdata.nama_fakultas,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -309,7 +309,7 @@ export default {
                         {
                             kode_fakultas: this.formdata.kode_fakultas,
                             nama_fakultas: this.formdata.nama_fakultas,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -324,7 +324,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data fakultas dengan kode '+item.kode_fakultas+' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -333,7 +333,7 @@ export default {
                     this.$ajax.post('/datamaster/fakultas/'+item.kode_fakultas,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -348,25 +348,25 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false;
             this.$refs.frmdata.reset(); 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
@@ -374,12 +374,12 @@ export default {
         }),
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        },
-    },
+       },
+   },
     components: {
         DataMasterLayout,
         ModuleHeader,
-    },
+   },
 
 }
 </script>

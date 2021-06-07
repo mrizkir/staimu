@@ -204,12 +204,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KEPEGAWAIAN',
                 disabled: false,
                 href: '/kepegawaian'
-            },
+           },
             {
                 text: 'DOSEN',
                 disabled: true,
@@ -217,7 +217,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
    
     data: () => ({ 
         datatableLoading: false,
@@ -256,7 +256,7 @@ export default {
             is_dw: false, 
             created_at: '',  
             updated_at: '', 
-        },
+       },
         defaultItem: {
             id: 0,
             username: '', 
@@ -272,7 +272,7 @@ export default {
             is_dw: false,
             created_at: '',  
             updated_at: '', 
-        },
+       },
         //form rules        
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama Dosen !!!",
@@ -306,7 +306,7 @@ export default {
                 this.datatableLoading = false;
             }); 
             
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -317,7 +317,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        }, 
+       }, 
         editItem: async function(item) {
             this.$ajax.get('/datamaster/jabatanakademik', 
                 {
@@ -332,7 +332,7 @@ export default {
             this.editedIndex = this.daftar_dosen.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogEdit = true;
-        },
+       },
         close() { 
             this.btnLoading = false; 
             this.dialogEdit = false; 
@@ -340,9 +340,9 @@ export default {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({},this.defaultItem)
                 this.editedIndex = -1                
-                }, 300
+               }, 300
             );
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -360,7 +360,7 @@ export default {
                             nipy: this.editedItem.nipy,
                             email: this.editedItem.email,
                             nomor_hp: this.editedItem.nomor_hp, 
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -375,23 +375,23 @@ export default {
                     
                 } 
             }
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
 
     watch: {
         dialogEdit (val) {
             val || this.close()
-        },
-    }, 
+       },
+   }, 
     components: {
         KepegawaianLayout,
         ModuleHeader, 
-    },
+   },
 }
 </script>

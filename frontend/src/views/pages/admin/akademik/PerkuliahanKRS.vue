@@ -95,7 +95,7 @@
                                         <v-btn
                                             color="green"
                                             text
-                                            :href="$api.url+'/'+file_pdf"> 
+                                            :href="$api.url + '/' + file_pdf"> 
                                             Download
                                         </v-btn>
                                     </v-card-text>
@@ -178,17 +178,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: "KRS",
                 disabled: true,
@@ -206,15 +206,15 @@ export default {
             this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
             this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
             this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
-        }   
-    },
+        }
+   },
     mounted()
     {
         if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
         { 
             this.initialize(); 
         }
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null,
@@ -231,10 +231,10 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: "NIM", value: "nim", sortable: true, width: 100  },
-            { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250  },
-            { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100  },
-            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100  },
+            { text: "NIM", value: "nim", sortable: true, width: 100 },
+            { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250 },
+            { text: 'ANGK.', value: 'tahun_masuk', sortable: true, width: 100 },
+            { text: 'JUMLAH MATKUL', value: 'jumlah_matkul', sortable: true, width: 100 },
             { text: 'JUMLAH SKS', value: 'jumlah_sks', sortable: true, width: 100 },
             { text: 'TA.SMT', value: 'tasmt', sortable: true, width: 100 }, 
             { text: 'SAH', value: 'sah', sortable: true, width: 100}, 
@@ -249,22 +249,22 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         changeSemesterAkademik(semester)
         {
             this.semester_akademik = semester; 
-        },
+       },
         changeProdi(id)
         {
             this.prodi_id = id;
-        },
+       },
         async initializeMhs ()
         {
             this.datatableLoading = true;
             await this.$ajax.post("/akademik/perkuliahan/krs",
             {
                 
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -275,7 +275,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -284,7 +284,7 @@ export default {
                 prodi_id: this.prodi_id,
                 ta: this.tahun_akademik,
                 semester_akademik: this.semester_akademik,
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -297,7 +297,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -308,7 +308,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         deleteItem(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then(confirm => {
@@ -318,7 +318,7 @@ export default {
                     this.$ajax.post('/akademik/perkuliahan/krs/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -333,7 +333,7 @@ export default {
                     });
                 } 
             });
-        },
+       },
         async printpdf(item)
         {
             this.btnLoading = true;
@@ -341,7 +341,7 @@ export default {
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -351,15 +351,15 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         closedialogprintpdf() {
             setTimeout(() => {
-                this.file_pdf=null;
+                this.file_pdf = null;
                 this.dialogprintpdf = false;
-                }, 300
+               }, 300
             );
-        }, 
-    },
+       }, 
+   },
     watch: {
         tahun_akademik()
         {
@@ -367,14 +367,14 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_akademik()
         {
             if (!this.firstloading)
             {
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -382,7 +382,7 @@ export default {
                 this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
                 this.initialize();
             } 
-        },
+       },
         search()
         {
             if (!this.awaiting_search) 
@@ -397,7 +397,7 @@ export default {
                             ta: this.tahun_akademik,
                             semester_akademik: this.semester_akademik,
                             search: this.search
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -408,15 +408,15 @@ export default {
                         });
                     }
                     this.awaiting_search = false;
-                }, 1000); // 1 sec delay
+               }, 1000); // 1 sec delay
             }
             this.awaiting_search = true;
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
-        Filter6               
-    },
+        Filter6,
+   },
 }
 </script>

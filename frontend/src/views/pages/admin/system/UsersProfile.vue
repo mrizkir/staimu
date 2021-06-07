@@ -37,7 +37,7 @@
                                 <v-col xs="12" sm="6" md="3">
                                     <v-card flat>
                                         <v-card-text>
-                                            <v-img :src="$api.url+'/'+formdata.foto" />
+                                            <v-img :src="$api.url + '/' + formdata.foto" />
                                         </v-card-text>
                                     </v-card>
                                     <v-card flat v-if="dashboard== 'mahasiswa'">
@@ -209,12 +209,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SYSTEM',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PROFILE USER',
                 disabled: true,
@@ -225,7 +225,7 @@ export default {
         {
             this.fetchMahasiswa();
         }
-    },
+   },
     data ()
     {
         return {
@@ -242,7 +242,7 @@ export default {
                 nama_prodi: 'N.A',
                 nama_kelas: 'N.A',
                 dosen_wali: 'N.A',
-            },
+           },
             form_valid: true,
             formdata: {
                 id: 0,  
@@ -258,7 +258,7 @@ export default {
                 locked: '',  
                 created_at: '',  
                 updated_at: '',  
-            },
+           },
             formdefault: {
                 id: 0,  
                 username: '',
@@ -273,7 +273,7 @@ export default {
                 locked: '',  
                 created_at: '',  
                 updated_at: '',  
-            },
+           },
             //form rules  
             rule_foto: [
                 value => !!value || "Mohon pilih gambar !!!",
@@ -292,7 +292,7 @@ export default {
                 }
             ],
         };
-    },
+   },
     methods: {
         save()
         {
@@ -303,7 +303,7 @@ export default {
                     {
                         _method: 'PUT',  
                         password: this.formdata.password,  
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -318,7 +318,7 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         previewImage (e)
         {
             if (typeof e === 'undefined')
@@ -334,7 +334,7 @@ export default {
                 }
             } 
             
-        },
+       },
         uploadFoto: async function() 
         {
             if (this.$refs.frmuploadfoto.validate())
@@ -360,7 +360,7 @@ export default {
                     this.$refs.frmdata.reset(); 
                 } 
             }
-        },
+       },
         resetFoto: async function() 
         {
             this.btnLoading = true;
@@ -376,7 +376,7 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             });
-        },
+       },
         async fetchMahasiswa()
         {
             await this.$ajax.get('/akademik/kemahasiswaan/biodatamhs1/'+this.$store.getters['auth/AttributeUser']('id'),
@@ -390,14 +390,14 @@ export default {
             })
         }
         
-    },
+   },
     computed: {
 		photoUser: {
             get()
             {
                 if (this.avatar==null)
                 {
-                    let photo = this.$api.url+'/'+this.$store.getters.User.foto;			
+                    let photo = this.$api.url + '/' + this.$store.getters.User.foto;			
                     return photo;
                 }
                 else
@@ -405,20 +405,20 @@ export default {
                    return this.avatar;
                 }
                 
-            },
+           },
             set(val)
             {
                 this.avatar = val;
             }
-        },
+       },
         userstatus()
         {
             return this.formdata.active == 1 ?'green': 'red';
         }
-    },
+   },
     components: {
         SystemUserLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

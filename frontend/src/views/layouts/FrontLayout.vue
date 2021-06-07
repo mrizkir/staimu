@@ -39,12 +39,12 @@ export default {
     created()
     {
         this.$store.dispatch('uifront/init',this.$ajax);
-    },
+   },
     computed: {
         APP_NAME()
         {
             return process.env.VUE_APP_NAME;
-        },
+       },
         ...mapGetters("uifront", {
             namaPTAlias: 'getNamaPTAlias'
         })

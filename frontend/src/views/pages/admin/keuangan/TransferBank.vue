@@ -217,9 +217,9 @@
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">
-                                    <strong>ID:</strong>{{ item.id }}   
+                                    <strong>ID:</strong>{{ item.id }}
                                     <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}    
+                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }} 
                                 </v-col>
                             </td>
                         </template>
@@ -244,12 +244,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'TRANSFER BANK',
                 disabled: true,
@@ -257,7 +257,7 @@ export default {
             }
         ];
         this.initialize()
-    },
+   },
     data: () => ({ 
         btnLoading: false,
         datatableLoading: false,
@@ -286,7 +286,7 @@ export default {
             pemilik_rekening: '',  
             created_at: '',  
             updated_at: '',  
-        },
+       },
         formdefault: {
             id: '',  
             nama_bank: '',  
@@ -295,7 +295,7 @@ export default {
             pemilik_rekening: '',  
             created_at: '',  
             updated_at: '',
-        },
+       },
         editedIndex: -1,
 
         //form rules  
@@ -330,7 +330,7 @@ export default {
             }).catch(() => {
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -341,16 +341,16 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem(item) {
             this.formdata = item;
             this.dialogdetailitem = true;
-        }, 
+       }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
             this.formdata = Object.assign({}, item); 
             this.dialogfrm = true
-        }, 
+       }, 
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -364,7 +364,7 @@ export default {
                             nama_cabang: this.formdata.nama_cabang,
                             nomor_rekening: this.formdata.nomor_rekening,
                             pemilik_rekening: this.formdata.pemilik_rekening,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -385,7 +385,7 @@ export default {
                             nama_cabang: this.formdata.nama_cabang,
                             nomor_rekening: this.formdata.nomor_rekening,
                             pemilik_rekening: this.formdata.pemilik_rekening,
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -400,7 +400,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -409,7 +409,7 @@ export default {
                     this.$ajax.post('/keuangan/transferbank/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.TOKEN
@@ -424,25 +424,25 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() { 
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
@@ -450,12 +450,12 @@ export default {
         }),
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        },
-    },
+       },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
-    },
+   },
 
 }
 </script>

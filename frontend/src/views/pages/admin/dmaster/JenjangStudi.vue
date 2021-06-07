@@ -74,12 +74,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'DATA MASTER',
                 disabled: false,
                 href: '/dmaster'
-            },
+           },
             {
                 text: 'JENJANG STUDI',
                 disabled: true,
@@ -87,7 +87,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
 
@@ -113,7 +113,7 @@ export default {
                 this.datatable = data.jenjang_studi;
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -124,11 +124,11 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
-    },
+       },
+   },
     components: {
         DataMasterLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

@@ -24,7 +24,7 @@
                 <v-spacer/> 
                 <v-btn
                     icon
-                    :href="this.$api.url+'/'+this.item.path"
+                    :href="this.$api.url + '/' + this.item.path"
                     target="_blank"  
                     v-if="verified == 1">
                     <v-icon>
@@ -75,25 +75,25 @@ export default {
         else
         { 
             this.btnHapus=this.isVerified(this.item);
-            this.image_prev=this.$api.url+'/'+this.item.path;
+            this.image_prev=this.$api.url + '/' + this.item.path;
             this.badgeColor=this.item.verified;
             this.badgeIcon=this.item.verified;
         }  
-    },
+   },
     props: {
         user_id: {
             type: String,
             required: true
-        },
+       },
         index: {
             type: Number,
             required: true
-        },
+       },
         item: {
             type: Object,
             required: true
         }
-    },
+   },
     data: () => ({
         dashboard: null,
 
@@ -130,7 +130,7 @@ export default {
                 }
                 this.btnSimpan = false;
             } 
-        },
+       },
         upload: async function (index,item)
         {
             let data = item; 
@@ -160,7 +160,7 @@ export default {
                     });
                 }
             } 
-        },
+       },
         hapusfilepersysaratan(item)
         {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus persyaratan '+item.nama_persyaratan+' ?', { color: 'red' }).then(confirm => {
@@ -169,7 +169,7 @@ export default {
                     this.$ajax.post('/spmb/pmbpersyaratan/hapusfilepersyaratan/'+item.persyaratan_pmb_id,
                         {
                             _method: 'DELETE'
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]                
@@ -184,7 +184,7 @@ export default {
                     });
                 }
             });
-        },
+       },
         isVerified(item)
         {
             if (item.path==null)
@@ -200,14 +200,14 @@ export default {
                 this.btnVerifikasi=false;
             }
             return this.btnVerifikasi;
-        },
+       },
         verifikasipersyaratan: async function(item)
         {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/pmbpersyaratan/verifikasipersyaratan/'+item.persyaratan_pmb_id,
             {
                 
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -223,7 +223,7 @@ export default {
                 this.btnLoading = false;
             });
         }
-    },
+   },
     computed: {
         photoPersyaratan: {
             get()
@@ -236,35 +236,35 @@ export default {
                 {
                     return this.image_prev;
                 }
-            },
+           },
             set(val)
             {
                 this.image_prev=val;
             }
             
-        },
+       },
         badgeColor: {
             get()
             {
                 return this.verified == 1 ? 'success': 'error'
-            },
+           },
             set(val)
             {
                 this.verified=val;
             }
             
-        },
+       },
         badgeIcon: {
             get()
             {
                 return this.verified == 1 ? 'mdi-check-bold': 'mdi-close-thick';
-            },
+           },
             set(val)
             {
                 return this.verified=val;
             }
             
-        },
+       },
     }
 }
 </script>

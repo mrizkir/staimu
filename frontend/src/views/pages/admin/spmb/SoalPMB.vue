@@ -324,12 +324,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: 'SPMB',
                 disabled: false,
                 href: '/spmb'
-            },
+           },
             {
                 text: 'SOAL PMB',
                 disabled: true,
@@ -340,7 +340,7 @@ export default {
         this.semester_pendaftaran=this.$store.getters['uiadmin/getSemesterPendaftaran'];
         this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
         this.initialize()
-    },
+   },
     data: () => ({ 
         firstloading: true,
         prodi_id: null, 
@@ -376,19 +376,19 @@ export default {
             {
                 id: 1,
                 text: 'JAWABAN KE 1'
-            },
+           },
             {
                 id:2,
                 text: 'JAWABAN KE 2'
-            },
+           },
             {
                 id: 3,
                 text: 'JAWABAN KE 3'
-            },
+           },
             {
                 id:4,
                 text: 'JAWABAN KE 4'
-            },
+           },
         ],
         formdata: {
             id: 0,  
@@ -402,7 +402,7 @@ export default {
             created_at: '',  
             updated_at: '',  
 
-        },
+       },
         formdefault: {
             id: 0,  
             soal: '',
@@ -414,7 +414,7 @@ export default {
             jawaban_benar: '', 
             created_at: '',  
             updated_at: '',
-        },
+       },
         editedIndex: -1,
 
         //form rules      
@@ -435,11 +435,11 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
         changeSemesterPendaftaran (semester)
         {
             this.semester_pendaftaran=semester;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true;
@@ -447,7 +447,7 @@ export default {
             {
                 tahun_pendaftaran: this.tahun_pendaftaran,
                 semester_pendaftaran: this.semester_pendaftaran
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -460,7 +460,7 @@ export default {
             }); 
             this.firstloading = false; 
             this.$refs.filter19.setFirstTimeLoading(this.firstloading); 
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -471,7 +471,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         viewItem: async function(item) {  
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
@@ -482,7 +482,7 @@ export default {
                 this.dialogdetailitem = true; 
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 
-        }, 
+       }, 
         editItem: async function(item) {  
             await this.$ajax.get('/spmb/soalpmb/'+item.id,{
                 headers: {
@@ -497,12 +497,12 @@ export default {
                     if (element.status == 1)
                     {
                         jawaban_benar=element.id;
-                    }      
+                    }   
                 });
                 this.formdata.jawaban_benar=jawaban_benar;
                 this.daftar_soal_jawaban=data.soal.jawaban;
             }); 
-        },
+       },
         previewImage (e)
         {
             if (typeof e === 'undefined')
@@ -517,7 +517,7 @@ export default {
                     this.image_prev = img.target.result;
                 } 
             } 
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -529,7 +529,7 @@ export default {
                             _method: 'PUT',
                             soal: this.formdata.soal, 
                             jawaban_benar: this.formdata.jawaban_benar                      
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -555,7 +555,7 @@ export default {
                             jawaban_benar: this.formdata.jawaban_benar,
                             tahun_pendaftaran: this.tahun_pendaftaran,
                             semester_pendaftaran: this.semester_pendaftaran
-                        }, 
+                       }, 
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -570,7 +570,7 @@ export default {
                     });
                 }
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -579,7 +579,7 @@ export default {
                     this.$ajax.post('/spmb/soalpmb/'+item.id,
                         {
                             _method: "DELETE",
-                        },
+                       },
                         {
                             headers: {
                                 Authorization: this.$store.getters["auth/Token"]
@@ -594,35 +594,35 @@ export default {
                     });
                 } 
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             this.daftar_soal_jawaban=[];
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault)
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
+       },
         closedialogeditfrm() {
             this.dialogeditfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
                 this.$refs.frmdata.reset(); 
                 this.editedIndex = -1
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     computed: {
         gambarSoal: {
             get()
@@ -635,16 +635,16 @@ export default {
                 {
                     return this.image_prev;
                 }
-            },
+           },
             set(val)
             {
                 this.image_prev=val;
             } 
-        },
+       },
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"
-        },
-    },
+       },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -652,7 +652,7 @@ export default {
             {
                 this.initialize();
             } 
-        },
+       },
         semester_pendaftaran (val)
         {
             if (!this.firstloading)
@@ -660,7 +660,7 @@ export default {
                 this.nama_semester_pendaftaran=this.$store.getters['uiadmin/getNamaSemester'](val); 
                 this.initialize();
             } 
-        },
+       },
         prodi_id(val)
         {
             if (!this.firstloading)
@@ -669,12 +669,12 @@ export default {
                 this.initialize();
             } 
         }
-    },
+   },
     components: {
         SPMBLayout,
         ModuleHeader,
         Filter19, 
-    },
+   },
 
 }
 </script>

@@ -254,11 +254,11 @@ export default {
 				href: "#"
 			}
         ];
-    },
+   },
     mounted()
     {
         this.initialize();
-    },
+   },
     data: () => ({ 
         firstloading: true,
         breadcrumbs: [],  
@@ -267,7 +267,7 @@ export default {
         user_id: null,
         datamhs: {
             nama_mhs: ''
-        },
+       },
         totalSKS: 0, 
         totalM: 0, 
         totalAM: 0, 
@@ -283,8 +283,8 @@ export default {
             { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
             { text: 'T.A/SMT', value: 'idsmt', width: 100, sortable: true },
             { text: 'TOTAL', value: 'total', width: 100, sortable: true },
-            { text: "STATUS", value: "nama_status", width:50, sortable: true }, 
-            { text: "AKSI", value: "actions", sortable: false, width:50 },
+            { text: "STATUS", value: "nama_status", width: 50, sortable: true }, 
+            { text: "AKSI", value: "actions", sortable: false, width: 50 },
         ], 
         expanded: [],
         search: "", 
@@ -315,7 +315,7 @@ export default {
             {
                 TA: this.$store.getters['uiadmin/getTahunAkademik'],
                 user_id: this.user_id
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -324,7 +324,7 @@ export default {
                 this.datatable = data.transaksi;
                 this.datatableLoading = false;
             });
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -335,7 +335,7 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
+       },
         async viewItem(item) {
             this.btnLoading = true;
             await this.$ajax.get('/keuangan/transaksi/'+item.id,
@@ -349,21 +349,21 @@ export default {
                 this.dialogdetailitem = true;
                 this.btnLoading = false;
             });
-        },
+       },
         closedialogdetailitem() {
             this.dialogdetailitem = false; 
             setTimeout(() => {
                 this.editedIndex = -1;
                 this.data_transaksi = {}; 
                 this.data_transaksi_detail = {};
-                }, 300
+               }, 300
             );
-        },
-    },
+       },
+   },
     components: {
         KemahasiswaanLayout,
         ModuleHeader, 
         ProfilMahasiswa            
-    },
+   },
 }
 </script>

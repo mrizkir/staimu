@@ -158,7 +158,7 @@
                     <v-btn
                         color="green"
                         text
-                        :href="$api.url+'/'+file_pdf"> 
+                        :href="$api.url + '/' + file_pdf"> 
                         Download
                     </v-btn>
                 </v-card-text>
@@ -182,30 +182,30 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: 'NILAI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'KHS',
                 disabled: false,
                 href: '/akademik/nilai/khs'
-            },
+           },
             {
                 text: 'DETAIL',
                 disabled: true,
                 href: "#"
-            },
+           },
         ];
         this.fetchKHS();
-    },
+   },
     data: () => ({ 
         firstloading: true, 
         nama_prodi: null,
@@ -224,12 +224,12 @@ export default {
         expanded: [],
         datatable: [], 
         headers: [
-            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100  },
+            { text: 'KODE', value: 'kmatkul', sortable: true, width: 100 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
-            { text: 'SKS', value: 'sks', sortable: false, width:50 }, 
-            { text: 'HM', value: 'HM', sortable: false, width:50 }, 
-            { text: 'AM', value: 'AM', sortable: false, width:50 }, 
-            { text: 'M', value: 'M', sortable: false, width:50 }, 
+            { text: 'SKS', value: 'sks', sortable: false, width: 50 }, 
+            { text: 'HM', value: 'HM', sortable: false, width: 50 }, 
+            { text: 'AM', value: 'AM', sortable: false, width: 50 }, 
+            { text: 'M', value: 'M', sortable: false, width: 50 }, 
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false, width: 200 },
         ],
 
@@ -269,7 +269,7 @@ export default {
                     this.ipk=data.ipk;
                 }
             })  
-        },
+       },
         async printpdf()
         {
             this.btnLoading = true;
@@ -277,7 +277,7 @@ export default {
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
-                    },
+                   },
                     
                 }
             ).then(({ data }) => { 
@@ -287,18 +287,18 @@ export default {
             }).catch(() => {
                 this.btnLoading = false;
             }); 
-        },
+       },
         closedialogprintpdf() {
             setTimeout(() => {
-                this.file_pdf=null;
+                this.file_pdf = null;
                 this.dialogprintpdf = false;
-                }, 300
+               }, 300
             );
-        },
-    }, 
+       },
+   }, 
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

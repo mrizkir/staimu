@@ -67,12 +67,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'SERVER - CACHE',
                 disabled: true,
@@ -80,7 +80,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [],
         datatableLoading: false,
@@ -89,7 +89,7 @@ export default {
         form_valid: true,
         formdata: { 
             token_ttl_expire:60          
-        },
+       },
         //form rules
         rule_ttl_token_expire: [
             value => !!value || "Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
@@ -110,7 +110,7 @@ export default {
                 this.formdata.token_ttl_expire=setting.TOKEN_TTL_EXPIRE;
             });
 
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -122,7 +122,7 @@ export default {
                         setting: JSON.stringify({
                             903: this.formdata.token_ttl_expire,
                         }),
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -135,13 +135,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: {
         ...mapGetters("auth", {
             ACCESS_TOKEN: 'AccessToken',
             TOKEN: 'Token',
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

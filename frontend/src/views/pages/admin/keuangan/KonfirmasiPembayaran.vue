@@ -540,8 +540,8 @@ export default {
 						{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true, width: 250 },
 						{ text: "SMT", value: "idsmt", width: 100, sortable: true },
 						{ text: 'TOTAL', value: 'total', width: 100, sortable: true },
-						{ text: 'STATUS TRANSAKSI', value: 'nama_status', width:50, sortable: true },
-						{ text: 'KONFIRM.', value: 'status_konfirmasi', width:50, sortable: true },
+						{ text: 'STATUS TRANSAKSI', value: 'nama_status', width: 50, sortable: true },
+						{ text: 'KONFIRM.', value: 'status_konfirmasi', width: 50, sortable: true },
 						{ text: 'KET.', value: 'desc', width:80, sortable: false },
 						{ text: "AKSI", value: "actions", sortable: false, width:82 },
 				],
@@ -666,7 +666,7 @@ export default {
 								}
 						}).then(({ data }) => {
 								this.data_konfirmasi=data.konfirmasi;
-								this.image_prev=this.$api.url+'/'+data.konfirmasi.bukti_bayar;
+								this.image_prev=this.$api.url + '/' + data.konfirmasi.bukti_bayar;
 								this.dialogdetailitem = true;
 						});
 

@@ -9,6 +9,6 @@ export default {
     name: 'Kepegawaian',
     components: {
         KepegawaianLayout, 
-    },
+   },
 }
 </script>

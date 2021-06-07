@@ -259,11 +259,11 @@ export default {
 			}
         ];
         this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"]; 
-    },
+   },
     mounted()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         datatableLoading: false,
         firstloading: true,
@@ -292,14 +292,14 @@ export default {
         changeTahunPendaftaran(tahun)
         {
             this.tahun_pendaftaran = tahun;
-        },
+       },
 		initialize: async function()
 		{	
             this.datatableLoading = true; 
             await this.$ajax.post('/dashboard/pmb',
             {
                 TA: this.tahun_pendaftaran, 
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -324,7 +324,7 @@ export default {
             this.firstloading = false; 
             this.$refs.filter9.setFirstTimeLoading(this.firstloading); 
         }
-    },
+   },
     watch: {
         tahun_pendaftaran()
         {
@@ -332,12 +332,12 @@ export default {
             {
                 this.initialize();
             } 
-        },
-    },
+       },
+   },
     components: {
         SPMBLayout,
         ModuleHeader, 
         Filter9, 
-    },
+   },
 }
 </script>

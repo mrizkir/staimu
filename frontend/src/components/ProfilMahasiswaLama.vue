@@ -17,7 +17,7 @@
             <v-row>
                 <v-col xs="12" sm="12" md="2">
                     <v-card flat class="mb-2">
-                        <v-img :src="$api.url+'/'+datamhs.foto" />
+                        <v-img :src="$api.url + '/' + datamhs.foto" />
                         <v-card-title>NOMOR HP:</v-card-title>  
                         <v-card-subtitle>
                             {{datamhs.nomor_hp}}
@@ -126,23 +126,23 @@ export default {
     created()
     {
         this.initialize(); 
-    },
+   },
     props: {
         datamhs: {
             type: Object,
             required: true
-        },
+       },
         url: {
             type: String,
             default: null            
         }
-    },
+   },
     
     methods: {
         initialize: async function()
         {
             
-        },
+       },
         exit()
         {
             if (this.url != null)
@@ -150,6 +150,6 @@ export default {
                 this.$router.push(this.url);
             } 
         }
-    }, 
+   }, 
 }
 </script>

@@ -247,17 +247,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'TRANSAKSI SPP',
                 disabled: false,
                 href: '/keuangan/transaksi-spp'
-            },
+           },
             {
                 text: 'TAMBAH',
                 disabled: true,
@@ -266,7 +266,7 @@ export default {
         ];
         this.initialize();
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-    }, 
+   }, 
     data: () => ({
         transaksi_id: null,
         data_transaksi: null,
@@ -292,7 +292,7 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },
+       },
         initialize: async function() 
         {
             this.datatableLoading = true; 
@@ -307,7 +307,7 @@ export default {
                 this.item_selected = data.item_selected;
                 this.datatableLoading = false;
             });
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -317,7 +317,7 @@ export default {
                     {
                         id: this.transaksi_id,  
                         bulan_selected: JSON.stringify(Object.assign({},this.item_selected)), 
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -330,7 +330,7 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
+       },
         deleteItem(item) {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data dengan ID ' + item.id + ' ?', { color: 'red' }).then(confirm => {
                 if (confirm)
@@ -342,13 +342,13 @@ export default {
                         const index = this.item_selected.indexOf(item);
                         this.item_selected.splice(index, 1);
                         this.btnLoading = false;
-                    }     
+                    }  
                     else
                     {
                         this.$ajax.post('/keuangan/transaksi-spp/'+item.id,
                             {
                                 _method: "DELETE",
-                            },
+                           },
                             {
                                 headers: {
                                     Authorization: this.$store.getters["auth/Token"]
@@ -363,21 +363,21 @@ export default {
                     }
                 } 
             });
-        },
+       },
         closeTambahTransaksi (transaksi_id)
         {
             this.$router.push('/keuangan/transaksi-spp/'+transaksi_id);
-        },
-    },
+       },
+   },
     computed: {
         enrichedDataTable()
         {
             return this.datatable.map(x => ({ ...x, isSelectable: x.status ==0 }));
-        },
+       },
         totalBulan()
         {
             return this.item_selected.length; 
-        },
+       },
         totalBiayaKombi()
         {
             var total = 0;
@@ -388,10 +388,10 @@ export default {
             } 
             return total;
         }
-    },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

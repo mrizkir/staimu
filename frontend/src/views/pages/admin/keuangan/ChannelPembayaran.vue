@@ -84,12 +84,12 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "KEUANGAN",
                 disabled: false,
                 href: "/keuangan"
-            },
+           },
             {
                 text: 'CHANNEL PEMBAYARAN',
                 disabled: true,
@@ -97,7 +97,7 @@ export default {
             }
         ];
         this.initialize();
-    },
+   },
     data: () => ({
         firstloading: true,
         breadcrumbs: [],
@@ -126,7 +126,7 @@ export default {
                 this.datatableLoading = false;
             });
             this.firstloading = false;
-        },
+       },
         dataTableRowClicked(item)
         {
             if (item === this.expanded[0])
@@ -137,11 +137,11 @@ export default {
             {
                 this.expanded = [item];
             }
-        },
-    },
+       },
+   },
     components: {
         KeuanganLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

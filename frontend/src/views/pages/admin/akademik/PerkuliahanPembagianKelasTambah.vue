@@ -180,22 +180,22 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-            },
+           },
             {
                 text: "AKADEMIK",
                 disabled: false,
                 href: "/akademik"
-            },
+           },
             {
                 text: "PERKULIAHAN",
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'PEMBAGIAN KELAS',
                 disabled: false,
                 href: '/akademik/perkuliahan/pembagiankelas/daftar'
-            },
+           },
             {
                 text: 'TAMBAH',
                 disabled: true,
@@ -205,7 +205,7 @@ export default {
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
         this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
         this.initialize()
-    },
+   },
     data: () => ({
         tahun_akademik: null,
         semester_akademik: null,
@@ -231,27 +231,27 @@ export default {
             {
                 text: 'SENIN',
                 value: 1,
-            },
+           },
             {
                 text: 'SELASA',
                 value:2,
-            },
+           },
             {
                 text: 'RABU',
                 value: 3,
-            },
+           },
             {
                 text: 'KAMIS',
                 value:4,
-            },
+           },
             {
                 text: 'JUMAT',
                 value:5,
-            },
+           },
             {
                 text: 'SABTU',
                 value:6,
-            },
+           },
         ],
         formdata: {
             id: '',
@@ -266,7 +266,7 @@ export default {
             jam_keluar: '',
             penyelenggaraan_dosen_id: '',
             ruang_kelas_id: '',
-        },
+       },
         rule_dosen: [
             value => !!value || "Mohon dipilih Dosen pengampu matakuliah !!!"
         ],
@@ -308,7 +308,7 @@ export default {
                 ta: this.$store.getters['uiadmin/getTahunAkademik'],
                 semester_akademik: this.$store.getters["uiadmin/getSemesterAkademik"],
                 pid: 'daftarpengampu'
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -334,7 +334,7 @@ export default {
                 this.daftar_zoom = data.zoom;
             });
             
-        },
+       },
         save: async function() {
             if (this.$refs.frmdata.validate())
             {
@@ -355,7 +355,7 @@ export default {
                         tahun: this.tahun_akademik,
                         idsmt: this.semester_akademik,
 
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.$store.getters["auth/Token"]
@@ -368,8 +368,8 @@ export default {
                     this.btnLoading = false;
                 });
             }
-        },
-    },
+       },
+   },
     watch: {
         async dosen_id(val)
         {
@@ -378,7 +378,7 @@ export default {
                 user_id:val,
                 ta: this.$store.getters['uiadmin/getTahunAkademik'],
                 semester_akademik: this.$store.getters["uiadmin/getSemesterAkademik"],
-            },
+           },
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
@@ -389,10 +389,10 @@ export default {
                 this.daftar_kelas=this.$store.getters['uiadmin/getDaftarKelas'];
             })
         }
-    },
+   },
     components: {
         AkademikLayout,
         ModuleHeader,
-    },
+   },
 }
 </script>

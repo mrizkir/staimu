@@ -9,6 +9,6 @@ export default {
     name: 'Blog',
     components: {
         BlogLayout, 
-    },
+   },
 }
 </script>

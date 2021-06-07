@@ -179,14 +179,14 @@ export default {
 				expanded: [],
 				datatable: [], 
 				headers: [
-						{ text: 'KODE', value: 'kmatkul', sortable: true, width: 120  },
-						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true  },
-						{ text: 'SKS', value: 'sks', sortable: true, width:50  },
-						{ text: 'SMT. MATKUL', value: 'semester', sortable: true, width:50  },
-						{ text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width:50 },
+						{ text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
+						{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
+						{ text: 'SKS', value: 'sks', sortable: true, width: 50 },
+						{ text: 'SMT. MATKUL', value: 'semester', sortable: true, width: 50 },
+						{ text: 'TAHUN MATKUL', value: 'ta_matkul', sortable: true, width: 50 },
 						{ text: 'KETUA GROUP', value: 'nama_dosen', sortable: true },
-						{ text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width:50 }, 
-						{ text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width:50}, 
+						{ text: 'JUMLAH DOSEN', value: 'jumlah_dosen', sortable: true, width: 50 }, 
+						{ text: 'JUMLAH MHS', value: 'jumlah_mhs', sortable: true, width: 50}, 
 						{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 				],
 				search: "", 
@@ -296,7 +296,7 @@ export default {
 		components: {
 				AkademikLayout,
 				ModuleHeader,
-				Filter6               
+				Filter6,
 		},
 }
 </script>

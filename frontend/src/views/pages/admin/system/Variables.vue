@@ -95,17 +95,17 @@ export default {
                 text: "HOME",
                 disabled: false,
                 href: "/dashboard/" + this.ACCESS_TOKEN
-            },
+           },
             {
                 text: 'KONFIGURASI SISTEM',
                 disabled: false,
                 href: '/system-setting'
-            },
+           },
             {
                 text: 'PERGURUAN TINGGI',
                 disabled: false,
                 href: "#"
-            },
+           },
             {
                 text: 'VARIABLES',
                 disabled: true,
@@ -115,7 +115,7 @@ export default {
         this.daftar_ta = this.$store.getters["uiadmin/getDaftarTA"];
         this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
         this.initialize();
-    },
+   },
     data: () => ({
         breadcrumbs: [], 
         btnLoading: false, 
@@ -127,7 +127,7 @@ export default {
             default_ta: '',
             default_semester: '',
             tahun_pendaftaran: 0,
-        },
+       },
         //form rules        
         rule_default_ta: [
             value => !!value || "Mohon untuk dipilih Tahun Akademik !!!", 
@@ -154,7 +154,7 @@ export default {
                 this.formdata.tahun_pendaftaran=setting.DEFAULT_TAHUN_PENDAFTARAN;
             }); 
             
-        },
+       },
         save() {
             if (this.$refs.frmdata.validate())
             {
@@ -168,7 +168,7 @@ export default {
                             202: this.formdata.default_semester,
                             203: this.formdata.tahun_pendaftaran,
                         }),                       
-                    },
+                   },
                     {
                         headers: {
                             Authorization: this.TOKEN
@@ -181,13 +181,13 @@ export default {
                 });
             }
         }
-    },
+   },
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
             TOKEN: "Token",  
         }),
-    },
+   },
     components: {
 		SystemConfigLayout,
         ModuleHeader,

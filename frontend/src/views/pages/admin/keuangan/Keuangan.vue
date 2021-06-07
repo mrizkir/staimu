@@ -59,12 +59,12 @@ export default {
 			}
         ];
         this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-    },
+   },
     mounted()
     {
         this.firstloading = false; 
         this.$refs.filter1.setFirstTimeLoading(this.firstloading);
-    },
+   },
     data: () => ({
         firstloading: true,
         breadcrumbs: [], 
@@ -76,14 +76,14 @@ export default {
         changeTahunAkademik(tahun)
         {
             this.tahun_akademik = tahun;
-        },		
-    }, 
+       },		
+   }, 
     components: {
         KeuanganLayout,
         ModuleHeader, 
         Filter1, 
         DashboardKeuanganMHS,
         DashboardKeuanganAdmin 
-    },
+   },
 }
 </script>

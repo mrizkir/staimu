@@ -237,8 +237,8 @@
 			expanded: [],
 			datatable: [],
 			headers: [
-				{ text: "ID", value: "id", sortable: true, width: 200  },
-				{ text: "PROSES", value: "proses", sortable: true, width: 200  },
+				{ text: "ID", value: "id", sortable: true, width: 200 },
+				{ text: "PROSES", value: "proses", sortable: true, width: 200 },
 				{ text: "NAMA PERSYARATAN", value: "nama_persyaratan", sortable: true },					
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],

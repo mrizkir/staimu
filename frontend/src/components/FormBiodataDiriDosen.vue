@@ -177,7 +177,7 @@ export default {
     created()
     {
         this.initialize();
-    },
+   },
     data: () => ({
         btnLoading: false,
         btnLoadingProv: false,
@@ -246,7 +246,7 @@ export default {
             is_dw: '',
             desc: '',
             active: '',
-        },
+       },
         rule_nidn: [ 
             value => /^[0-9]+$/.test(value) || 'NIDN hanya boleh angka', 
         ],
@@ -289,7 +289,7 @@ export default {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
                     }
-                },
+               },
                 
             ).then(({ data }) => {
                 this.formdata=data.biodatadiri;
@@ -313,7 +313,7 @@ export default {
                 this.formdata.alamat_rumah = data.biodatadiri.alamat_rumah;
                 this.$refs.frmdata.resetValidation();
             });
-        },
+       },
         save: async function()
         {
             if (this.$refs.frmdata.validate())
@@ -344,7 +344,7 @@ export default {
                     alamat_rumah: this.formdata.alamat_rumah,
 
                     
-                },
+               },
                 {
                     headers: {
                         Authorization: this.$store.getters["auth/Token"]
@@ -357,8 +357,8 @@ export default {
                     this.btnLoading = false;
                 });
             }  
-        },
-    },
+       },
+   },
     watch: {
         provinsi_id(val)
         {
@@ -371,7 +371,7 @@ export default {
                 });
                 this.daftar_kecamatan = [];
             }
-        },
+       },
         kabupaten_id(val)
         {
             if (val.id != null && val.id != '')
@@ -382,7 +382,7 @@ export default {
                     this.btnLoadingKab = false;
                 });
             }
-        },
+       },
         kecamatan_id(val)
         {
             if (val.id != null && val.id != '')
@@ -393,7 +393,7 @@ export default {
                     this.btnLoadingKec = false;
                 });
             }
-        },
+       },
         kode_fakultas (val)
         {
             this.btnLoadingFakultas = true;

@@ -9,6 +9,6 @@ export default {
     name: 'SystemUsers',
     components: {
         SystemUserLayout, 
-    },
+   },
 }
 </script>
