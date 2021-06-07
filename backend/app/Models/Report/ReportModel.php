@@ -39,6 +39,6 @@ class ReportModel extends Model
         $this->spreadsheet->getProperties()->setLastModifiedBy('portalekampus');         
         $writer = new Xlsx($this->spreadsheet);
         $writer->save($pathToFile);        
-        return response()->download($pathToFile)->deleteFileAfterSend(true);
+        return response()->download($pathToFile)->deleteFileAfterSend(false);
     }   
 }
