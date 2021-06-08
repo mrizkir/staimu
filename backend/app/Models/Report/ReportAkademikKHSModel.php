@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use \PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 use App\Models\Akademik\RegisterMahasiswaModel;
+use App\Models\Akademik\KRSModel;
 
 use App\Helpers\Helper;
 
@@ -22,7 +23,8 @@ class ReportAkademikKHSModel extends ReportModel
   {
     $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
-    $nama_prodi=$this->dataReport['nama_prodi'];    
+    $nama_prodi=$this->dataReport['nama_prodi'];
+    $semester_akademik=$this->dataReport['semester_akademik'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report Rekap KHS");
     $this->spreadsheet->getProperties()->setSubject("Report Rekap KHS");
@@ -38,11 +40,11 @@ class ReportAkademikKHSModel extends ReportModel
     ]);
 
     $row=2;
-    $sheet->mergeCells("A$row:G$row");				                
+    $sheet->mergeCells("A$row:I$row");				                
     $sheet->setCellValue("A$row","LAPORAN REKAPITULASI KHS PROGRAM STUDI $nama_prodi");
 
     $row+=1;
-    $sheet->mergeCells("A$row:G$row");		
+    $sheet->mergeCells("A$row:I$row");		
     $sheet->setCellValue("A$row","MAHASISWA TAHUN PENDAFTARAN $ta"); 
     
     $styleArray=array( 
@@ -66,10 +68,12 @@ class ReportAkademikKHSModel extends ReportModel
     $sheet->setCellValue("A$row",'NO');        
     $sheet->setCellValue("B$row",'NIM');    
     $sheet->setCellValue("C$row",'NAMA MAHASISWA');    
-    $sheet->setCellValue("D$row",'KELAS');    
-    $sheet->setCellValue("E$row",'JUMLAH MATKUL');
-    $sheet->setCellValue("F$row",'JUMLAH SKS');    
-    $sheet->setCellValue("G$row",'IPK SEMENTARA');    
+    $sheet->setCellValue("D$row",'ANGK.');    
+    $sheet->setCellValue("E$row",'KELAS');    
+    $sheet->setCellValue("F$row",'JUMLAH MATKUL');
+    $sheet->setCellValue("G$row",'JUMLAH SKS');    
+    $sheet->setCellValue("H$row",'IPS');    
+    $sheet->setCellValue("I$row",'IPK');    
     
 
     $styleArray=array(
@@ -78,43 +82,61 @@ class ReportAkademikKHSModel extends ReportModel
                             'vertical'=>Alignment::HORIZONTAL_CENTER),
         'borders' => array('allBorders' => array('borderStyle' =>Border::BORDER_THIN))
     );
-    $sheet->getStyle("A$row:G$row")->applyFromArray($styleArray);
-    $sheet->getStyle("A$row:G$row")->getAlignment()->setWrapText(true);
+    $sheet->getStyle("A$row:I$row")->applyFromArray($styleArray);
+    $sheet->getStyle("A$row:I$row")->getAlignment()->setWrapText(true);
 
-    $data = RegisterMahasiswaModel::select(\DB::raw('
-                                    pe3_register_mahasiswa.user_id,                                
-                                    pe3_register_mahasiswa.nim,                                
-                                    pe3_formulir_pendaftaran.nama_mhs,                                
-                                    pe3_register_mahasiswa.idkelas,   
-                                    pe3_kelas.nkelas,   
-                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
-                                    COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
-                                    COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
-                                '))
-                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
-                                ->join('pe3_kelas','pe3_kelas.idkelas','pe3_register_mahasiswa.idkelas')                                                    
-                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
-                                ->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
-                                ->where('pe3_register_mahasiswa.tahun',$ta) 
-                                ->orderBy('nama_mhs','asc')
-                                ->get();
-
+    $data = KRSModel::select(\DB::raw('
+                                        pe3_krs.id,
+                                        pe3_krs.nim,
+                                        pe3_formulir_pendaftaran.nama_mhs,
+                                        pe3_krs.tasmt,
+                                        pe3_krs.sah,
+                                        pe3_kelas.nkelas,
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,
+                                        0 AS jumlah_matkul,
+                                        0 AS jumlah_sks,
+                                        ips,
+                                        ipk,
+                                        pe3_krs.created_at,
+                                        pe3_krs.updated_at
+                                    '))
+                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')                                
+                                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_register_mahasiswa.idkelas')
+                                    ->where('pe3_krs.kjur',$prodi_id)
+                                    ->where('pe3_krs.tahun',$ta)
+                                    ->where('pe3_krs.idsmt',$semester_akademik)                            
+                                    ->orderBy('nama_mhs','ASC')
+                                    ->get();
+                                    
+    $data->transform(function ($item,$key){								
+        $item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
+        $item->jumlah_sks=\DB::table('pe3_krsmatkul')
+                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+                            ->where('krs_id',$item->id)
+                            ->sum('pe3_penyelenggaraan.sks');
+        return $item;
+    });
     
     $row+=1;
     $row_awal=$row; 
     $no=1;
     $total_ipk=0;
+    $total_ips=0;
     $total_mhs=0;
     foreach ($data as $v)
     {
         $sheet->setCellValue("A$row",$no);
         $sheet->setCellValueExplicit("B$row",$v->nim,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
-        $sheet->setCellValue("C$row",$v->nama_mhs);                
-        $sheet->setCellValue("D$row",$v->nkelas);
-        $sheet->setCellValue("E$row",$v->jumlah_matkul);
-        $sheet->setCellValue("F$row",$v->jumlah_sks);
-        $sheet->setCellValue("G$row",$v->ipk);
+        $sheet->setCellValue("C$row",ucwords($v->nama_mhs));                
+        $sheet->setCellValue("D$row",$v->tahun_masuk);
+        $sheet->setCellValue("E$row",$v->nkelas);
+        $sheet->setCellValue("F$row",$v->jumlah_matkul);
+        $sheet->setCellValue("G$row",$v->jumlah_sks);
+        $sheet->setCellValue("H$row",$v->ips);
+        $sheet->setCellValue("I$row",$v->ipk);
         $total_ipk += $v->ipk;
+        $total_ips += $v->ips;
         $row+=1;
         $no+=1;
         $total_mhs+=1;
@@ -125,8 +147,8 @@ class ReportAkademikKHSModel extends ReportModel
                             'vertical'=>Alignment::HORIZONTAL_CENTER),
         'borders' => array('allBorders' => array('borderStyle' =>Border::BORDER_THIN))
     );   																					 
-    $sheet->getStyle("A$row_awal:G$row")->applyFromArray($styleArray);
-    $sheet->getStyle("A$row_awal:G$row")->getAlignment()->setWrapText(true);
+    $sheet->getStyle("A$row_awal:I$row")->applyFromArray($styleArray);
+    $sheet->getStyle("A$row_awal:I$row")->getAlignment()->setWrapText(true);
 
     $styleArray=array(								
         'alignment' => array('horizontal'=>Alignment::HORIZONTAL_LEFT)
@@ -136,13 +158,19 @@ class ReportAkademikKHSModel extends ReportModel
     $row+=1;
     $row_awal_mhs=$row;
     $sheet->mergeCells("E$row:F$row");				                
+    $sheet->setCellValue("E$row",'RATA-RATA IPS');
+    $sheet->setCellValue("I$row",Helper::formatPecahan($total_ips,$total_mhs));
+
+    $row+=1;
+    $row_awal_mhs=$row;
+    $sheet->mergeCells("E$row:F$row");				                
     $sheet->setCellValue("E$row",'RATA-RATA IPK');
-    $sheet->setCellValue("G$row",Helper::formatPecahan($total_ipk,$total_mhs));
+    $sheet->setCellValue("I$row",Helper::formatPecahan($total_ipk,$total_mhs));
     
     $styleArray=array(
     'font' => array('bold' => true)
     );
-    $sheet->getStyle("F$row_awal_mhs:G$row")->applyFromArray($styleArray);
+    $sheet->getStyle("F$row_awal_mhs:I$row")->applyFromArray($styleArray);
 
     $generate_date=date('Y-m-d_H_m_s');
     return $this->download("transkrip_kurikulum_$generate_date.xlsx");

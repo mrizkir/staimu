@@ -53,7 +53,7 @@ class NilaiKHSController extends Controller
 																		pe3_krs.updated_at
 																'))
 																->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')                                
-																->orderBy('nama_mhs','ASC');                                
+																->orderBy('nama_mhs','ASC');
 
 						if ($request->has('search'))
 						{
@@ -465,12 +465,14 @@ class NilaiKHSController extends Controller
 		$this->validate($request, [           
 			'ta'=>'required',			
 			'prodi_id'=>'required',
+			'semester_akademik'=>'required',
 		]);
         
 		$prodi=ProgramStudiModel::find($request->input('prodi_id'));
 		$data_report = [
 			'ta'=>$request->input('ta'),
 			'prodi_id'=>$request->input('prodi_id'),
+			'semester_akademik'=>$request->input('semester_akademik'),
 			'nama_prodi'=>$prodi->nama_prodi,
 			'nama_prodi'=>$prodi->nama_prodi . " (".$prodi->nama_jenjang.")",
 		];
