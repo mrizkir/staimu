@@ -8,10 +8,10 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use \PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\KRSModel;
 
 use App\Helpers\Helper;
+use App\Helpers\HelperAkademik;
 
 class ReportAkademikKHSModel extends ReportModel
 {   
@@ -23,8 +23,9 @@ class ReportAkademikKHSModel extends ReportModel
   {
     $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
-    $nama_prodi=$this->dataReport['nama_prodi'];
+    $nama_prodi=strtoupper($this->dataReport['nama_prodi']);
     $semester_akademik=$this->dataReport['semester_akademik'];    
+    $nama_semester=HelperAkademik::getSemester($semester_akademik);    
 
     $this->spreadsheet->getProperties()->setTitle("Report Rekap KHS");
     $this->spreadsheet->getProperties()->setSubject("Report Rekap KHS");
@@ -41,11 +42,11 @@ class ReportAkademikKHSModel extends ReportModel
 
     $row=2;
     $sheet->mergeCells("A$row:I$row");				                
-    $sheet->setCellValue("A$row","LAPORAN REKAPITULASI KHS PROGRAM STUDI $nama_prodi");
+    $sheet->setCellValue("A$row","LAPORAN REKAPITULASI KARTU HASIL STUDI (KHS)");
 
     $row+=1;
     $sheet->mergeCells("A$row:I$row");		
-    $sheet->setCellValue("A$row","MAHASISWA TAHUN PENDAFTARAN $ta"); 
+    $sheet->setCellValue("A$row","PROGRAM STUDI $nama_prodi TAHUN AKADEMIK $ta SEMESTER $nama_semester"); 
     
     $styleArray=array( 
         'font' => array('bold' => true,'size'=>'11'),
