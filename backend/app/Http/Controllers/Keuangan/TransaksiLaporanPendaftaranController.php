@@ -114,7 +114,7 @@ class TransaksiLaporanPendaftaranController extends Controller {
 			'TA'=>$request->input('TA'),			
 		];
 
-		$report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
+		$report= new \App\Models\Report\ReportKeuanganPendaftaranModel ($data_report);
 		return $report->printtoexcel2();
 	}
 }

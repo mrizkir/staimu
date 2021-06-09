@@ -90,7 +90,7 @@
 									outlined
 									small
 									class="ma-2"
-									@click.stop="printtoexcel"
+									@click.stop="printtoexcel1"
 									:disabled="btnLoading"
 								>
 									<v-icon>mdi-printer</v-icon>
@@ -470,11 +470,43 @@
 						}
 					});
 			},
-			printtoexcel: async function() {
+			printtoexcel1: async function() {
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
 						"/keuangan/transaksi-spp/printtoexcel1",
+						{
+							TA: this.tahun_akademik,
+							PRODI_ID: this.prodi_id,
+							NAMA_PRODI: this.nama_prodi,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data }) => {
+						const url = window.URL.createObjectURL(new Blob([data]));
+						const link = document.createElement("a");
+						link.href = url;
+						link.setAttribute("download", "spp_" + Date.now() + ".xlsx");
+						link.setAttribute("id", "download_laporan");
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
+			},
+			printtoexcel3: async function() {
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/keuangan/transaksi-spp/printtoexcel3",
 						{
 							TA: this.tahun_akademik,
 							PRODI_ID: this.prodi_id,

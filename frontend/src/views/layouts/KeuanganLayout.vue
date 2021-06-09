@@ -282,7 +282,7 @@
 				<v-subheader
 					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"			
 				>
-					LAPORAN PENERIMAAN
+					LAPORAN REKAP. PENERIMAAN
 				</v-subheader>
 				<v-list-item
 					link

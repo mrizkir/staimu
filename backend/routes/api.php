@@ -257,6 +257,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/keuangan/transaksi-spp/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@store','as'=>'transaksi-spp.store']);
     // id delete detail id
     $router->delete('/keuangan/transaksi-spp/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@destroy','as'=>'transaksi-spp.destroy']);
+    $router->post('/keuangan/transaksi-spp/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiSPPController@printtoexcel1','as'=>'transaksi-spp.printtoexcel1']);
+    $router->post('/keuangan/transaksi-spp/printtoexcel3',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiSPPController@printtoexcel3','as'=>'transaksi-spp.printtoexcel3']);
     
 
     //keuangan - laporan pendaftaran mahasiswa baru

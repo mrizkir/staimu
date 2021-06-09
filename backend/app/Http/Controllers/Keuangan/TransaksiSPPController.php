@@ -631,4 +631,24 @@ class TransaksiSPPController extends Controller {
         $report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
         return $report->printtoexcel1();
     }
+    /**
+     * cetak seluruh transaksi spp per prodi dan ta
+     */
+    public function printtoexcel3 (Request $request)
+    {
+        $this->validate($request, [           
+            'TA'=>'required',            
+            'PRODI_ID'=>'required',
+            'NAMA_PRODI'=>'required',
+        ]);
+
+        $data_report=[
+            'TA'=>$request->input('TA'),
+            'prodi_id'=>$request->input('PRODI_ID'),            
+            'nama_prodi'=>$request->input('NAMA_PRODI'),                        
+        ];
+
+        $report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);
+        return $report->printtoexcel3();
+    }
 }
