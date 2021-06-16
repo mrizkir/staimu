@@ -35,46 +35,21 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
       $tahun_pendaftaran=$request->input('tahun_pendaftaran');
       $semester_akademik=$request->input('semester_akademik');
 
-          // $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
-          //                                             pe3_transaksi_detail.id,
-          //                                             pe3_transaksi_detail.user_id,
-          //                                             pe3_transaksi_detail.transaksi_id,
-          //                                             CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
-          //                                             pe3_transaksi_detail.biaya,
-          //                                             pe3_transaksi_detail.jumlah,
-          //                                             pe3_transaksi_detail.bulan,
-          //                                             \'\' AS nama_bulan,
-          //                                             pe3_transaksi_detail.sub_total,
-          //                                             pe3_formulir_pendaftaran.nama_mhs,
-          //                                             pe3_transaksi.no_faktur,
-          //                                             pe3_transaksi.kjur,
-          //                                             pe3_transaksi.ta,
-          //                                             pe3_transaksi.idsmt,
-          //                                             pe3_transaksi.idkelas,
-          //                                             pe3_transaksi.no_formulir,
-          //                                             COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
-          //                                             pe3_transaksi.status,
-          //                                             pe3_status_transaksi.nama_status,
-          //                                             pe3_status_transaksi.style,
-          //                                             pe3_transaksi.total,
-          //                                             pe3_transaksi.tanggal,     
-          //                                             pe3_transaksi.ta,     
-          //                                             pe3_transaksi_detail.created_at,
-          //                                             pe3_transaksi_detail.updated_at
-          //                                         '))
-          //                                         ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
-          //                                         ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-          //                                         ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
-          //                                         ->where('pe3_transaksi_detail.kombi_id',201)
-          //                                         ->orderBy('pe3_transaksi.tanggal','DESC');
+			switch($semester_akademik)
+			{
+				case 1:
+					$select = 'A.user_id, A.nim, B.nama_mhs, "N.A" AS bulan9, "N.A" AS bulan10, "N.A" AS bulan11, "N.A" AS bulan12, "N.A" AS bulan1, "N.A" AS bulan2, 0 AS sub_total';
+					$daftar_bulan=[9,10,11,12,1,2];
+				break;
+				case 2:
+					$select = 'A.user_id, A.nim, B.nama_mhs, "N.A" AS bulan3, "N.A" AS bulan4, "N.A" AS bulan5, "N.A" AS bulan6, "N.A" AS bulan7, "N.A" AS bulan8, 0 AS sub_total';
+					$daftar_bulan=[3,4,5,6,7,8];
+				break;
+				default :
+					$select = "{} as bulan";
+					$daftar_bulan=[];
+			}
         
-        $select = $semester_akademik == 1 
-          ? 
-          'A.user_id, A.nim, B.nama_mhs, "N.A" AS bulan9, "N.A" AS bulan10, "N.A" AS bulan11, "N.A" AS bulan12, "N.A" AS bulan1, "N.A" AS bulan2, 0 AS sub_total'
-          :
-          'A.user_id, A.nim, B.nama_mhs, "N.A" AS bulan3, "N.A" AS bulan4, "N.A" AS bulan5, "N.A" AS bulan6, "N.A" AS bulan7, "N.A" AS bulan8, 0 AS sub_total'
-          ;
-
         $daftar_transaksi = \DB::table('pe3_register_mahasiswa AS A')
                             ->select(\DB::raw($select))
                             ->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id');
@@ -92,9 +67,10 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                                 ->get();
         }
                                
-        $daftar_transaksi->transform(function ($item,$key) use ($ta) {
+        $daftar_transaksi->transform(function ($item,$key) use ($ta, $daftar_bulan) {
           $transaksi = \DB::table('pe3_transaksi_detail AS A')  
                             ->select(\DB::raw("
+                                A.user_id,
                               CONCAT(
                                 '[',
                                 GROUP_CONCAT(
@@ -109,14 +85,13 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                             ->join('pe3_transaksi AS B','A.transaksi_id','B.id')
                             ->where('A.user_id', $item->user_id)
                             ->where('A.kombi_id', 201)
-                            ->whereRaw("(tahun=$ta OR tahun=".($ta+1).")")
-                            ->where('B.status', 1)
-                            ->where('A.user_id', $item->user_id)
-                            ->orderBy('tahun','ASC')
-                            ->orderBy('bulan','ASC')
-                            ->first();
-                            
-          if (!is_null($transaksi->bulan)) 
+                            ->where("A.tahun", $ta)
+                            ->where('B.status', 1)          
+														->whereIn("bulan", $daftar_bulan)                                     
+                            ->groupBy("A.user_id")
+                            ->first();					
+					
+          if (!is_null($transaksi)) 
           {
             $bulan = json_decode($transaksi->bulan, false);            
             foreach ($bulan as $r) {
