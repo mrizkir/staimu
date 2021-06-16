@@ -539,6 +539,18 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/keuangan/KonfirmasiPembayaran.vue"),
 	},
+	//keuangan - laporan transaksi
+	{
+		path: "/keuangan/transaksi-laporanspppersemester",
+		name: "KeuanganTransaksiLaporanSPPPerSeemster",
+		meta: {
+			title: "KEUANGAN - LAPORAN SPP PER SEMESTER",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiLaporanSPPPerSemester.vue"),
+	},
+	//keuangan - laporan penerimaan
 	{
 		path: "/keuangan/transaksi-laporanpendaftaran",
 		name: "KeuanganTransaksiLaporanPendaftaran",
