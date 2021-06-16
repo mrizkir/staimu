@@ -478,30 +478,11 @@
 						},
 					];
 				}
-				return [];
 			},
 			totaltransaksi_paid() {
 				var total = 0;
 				this.datatable.forEach(item => {
 					if (item.status == 1) {
-						total += item.sub_total;
-					}
-				});
-				return total;
-			},
-			totaltransaksi_unpaid() {
-				var total = 0;
-				this.datatable.forEach(item => {
-					if (item.status == 0) {
-						total += item.sub_total;
-					}
-				});
-				return total;
-			},
-			totaltransaksi_canceled() {
-				var total = 0;
-				this.datatable.forEach(item => {
-					if (item.status == 2) {
 						total += item.sub_total;
 					}
 				});
