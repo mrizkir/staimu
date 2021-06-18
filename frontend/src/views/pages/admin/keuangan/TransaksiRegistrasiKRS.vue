@@ -300,9 +300,9 @@
 							this.datatableLoading = true; 
 							await this.$ajax.post("/keuangan/transaksi-registrasikrs",
 							{
-								TA: this.tahun_akademik,
-								SEMESTER_AKADEMIK: this.semester_akademik,
-								PRODI_ID: this.prodi_id,
+								ta: this.tahun_akademik,
+								semester_akademik: this.semester_akademik,
+								prodi_id: this.prodi_id,
 							},
 							{
 									headers: {
@@ -348,7 +348,7 @@
 											{
 													nim: this.formdata.nim, 
 													semester_akademik: this.formdata.semester_akademik,  
-													TA: this.tahun_akademik,
+													ta: this.tahun_akademik,
 											},
 											{
 													headers: {
@@ -370,11 +370,11 @@
             await this.$ajax
 							.post("/keuangan/transaksi-registrasikrs/printtoexcel1",
                 {
-									TA: this.tahun_akademik,
-									SEMESTER_AKADEMIK: this.semester_akademik,
+									ta: this.tahun_akademik,
+									semester_akademik: this.semester_akademik,
 									NAMA_SEMESTER: this.$store.getters["uiadmin/getNamaSemester"](this.semester_akademik),
-									PRODI_ID: this.prodi_id,
-									NAMA_PRODI: this.nama_prodi,
+									prodi_id: this.prodi_id,
+									nama_prodi: this.nama_prodi,
 								},
                 {
 									headers: {
@@ -497,9 +497,9 @@
 													this.datatableLoading = true; 
 													await this.$ajax.post("/keuangan/transaksi-registrasikrs",
 													{
-															TA: this.tahun_akademik,
-															SEMESTER_AKADEMIK: this.semester_akademik,
-															PRODI_ID: this.prodi_id,
+															ta: this.tahun_akademik,
+															semester_akademik: this.semester_akademik,
+															prodi_id: this.prodi_id,
 															SEARCH: this.search
 													},
 													{

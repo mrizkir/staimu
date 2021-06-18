@@ -27,13 +27,13 @@ class ReportSPMBProdiController extends Controller {
         $this->hasPermissionTo('SPMB-PMB-LAPORAN-PRODI_BROWSE');
 
         $this->validate($request, [           
-            'TA'=>'required',
+            'ta'=>'required',
             'prodi_id'=>'required',
             'nama_prodi'=>'required',
         ]);
         
         $data_report=[
-            'TA'=>$request->input('TA'),
+            'TA'=>$request->input('ta'),
             'prodi_id'=>$request->input('prodi_id'),            
             'nama_prodi'=>$request->input('nama_prodi'),            
         ];

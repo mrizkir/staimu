@@ -24,7 +24,7 @@ class ReportKeuanganUjianMunaqasahModel extends ReportModel
    */
   public function printtoexcel2() 
   {
-    $ta=$this->dataReport['TA'];    
+    $ta=$this->dataReport['ta'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report Munaqasah");
     $this->spreadsheet->getProperties()->setSubject("Report Munaqasah");

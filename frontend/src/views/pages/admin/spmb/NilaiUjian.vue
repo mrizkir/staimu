@@ -415,7 +415,7 @@
 							.post(
 								"/spmb/nilaiujian",
 								{
-									TA: this.tahun_pendaftaran,
+									ta: this.tahun_pendaftaran,
 									prodi_id: this.prodi_id,
 								},
 								{

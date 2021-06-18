@@ -21,7 +21,7 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
   }    
   public function printtoexcel1()  
   {
-    $ta=$this->dataReport['TA'];
+    $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
     $nama_prodi=$this->dataReport['nama_prodi'];
     $idsmt=$this->dataReport['semester_akademik'];
@@ -210,7 +210,7 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
    */
   public function printtoexcel2() 
   {
-    $ta=$this->dataReport['TA'];    
+    $ta=$this->dataReport['ta'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report Registrasi KRS");
     $this->spreadsheet->getProperties()->setSubject("Report Registrasi KRS");

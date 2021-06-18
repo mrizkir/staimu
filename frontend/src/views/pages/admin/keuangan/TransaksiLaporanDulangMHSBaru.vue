@@ -189,7 +189,7 @@
 					.post(
 						"/keuangan/transaksi-laporandulangmhsbaru",
 						{
-							TA: this.tahun_akademik,
+							ta: this.tahun_akademik,
 						},
 						{
 							headers: {
@@ -211,7 +211,7 @@
 					.post(
 						"/keuangan/transaksi-laporandulangmhsbaru/printtoexcel1",
 						{
-							TA: this.tahun_akademik,
+							ta: this.tahun_akademik,
 						},
 						{
 							headers: {

@@ -373,7 +373,7 @@
 						"/keuangan/transaksi-spp",
 						{
 							prodi_id: this.prodi_id,
-							TA: this.tahun_akademik,
+							ta: this.tahun_akademik,
 						},
 						{
 							headers: {
@@ -416,7 +416,7 @@
 							{
 								nim: this.formdata.nim,
 								semester_akademik: this.formdata.semester_akademik,
-								TA: this.tahun_akademik,
+								ta: this.tahun_akademik,
 							},
 							{
 								headers: {
@@ -476,9 +476,9 @@
 					.post(
 						"/keuangan/transaksi-spp/printtoexcel1",
 						{
-							TA: this.tahun_akademik,
-							PRODI_ID: this.prodi_id,
-							NAMA_PRODI: this.nama_prodi,
+							ta: this.tahun_akademik,
+							prodi_id: this.prodi_id,
+							nama_prodi: this.nama_prodi,
 						},
 						{
 							headers: {
@@ -508,9 +508,9 @@
 					.post(
 						"/keuangan/transaksi-spp/printtoexcel3",
 						{
-							TA: this.tahun_akademik,
-							PRODI_ID: this.prodi_id,
-							NAMA_PRODI: this.nama_prodi,
+							ta: this.tahun_akademik,
+							prodi_id: this.prodi_id,
+							nama_prodi: this.nama_prodi,
 						},
 						{
 							headers: {
@@ -593,7 +593,7 @@
 									"/keuangan/transaksi-spp",
 									{
 										prodi_id: this.prodi_id,
-										TA: this.tahun_akademik,
+										ta: this.tahun_akademik,
 										search: this.search,
 									},
 									{

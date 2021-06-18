@@ -56,11 +56,11 @@ class NilaiUjianController extends Controller {
         else
         {
             $this->validate($request, [           
-                'TA'=>'required',
+                'ta'=>'required',
                 'prodi_id'=>'required'
             ]);
             
-            $ta=$request->input('TA');
+            $ta=$request->input('ta');
             $prodi_id=$request->input('prodi_id');
             
             $data=$data->where('users.ta',$ta)

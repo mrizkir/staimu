@@ -21,7 +21,7 @@ class ReportKeuanganSPPModel extends ReportModel
   }    
   public function printtoexcel1() 
   {
-    $ta=$this->dataReport['TA'];
+    $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
     $nama_prodi=$this->dataReport['nama_prodi'];
 
@@ -248,7 +248,7 @@ class ReportKeuanganSPPModel extends ReportModel
    */
   public function printtoexcel2() 
   {
-    $ta=$this->dataReport['TA'];    
+    $ta=$this->dataReport['ta'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report SPP");
     $this->spreadsheet->getProperties()->setSubject("Report SPP");
@@ -426,7 +426,7 @@ class ReportKeuanganSPPModel extends ReportModel
   }   
   public function printtoexcel3() 
   {
-    $ta=$this->dataReport['TA'];
+    $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
     $nama_prodi=$this->dataReport['nama_prodi'];
 
@@ -449,7 +449,7 @@ class ReportKeuanganSPPModel extends ReportModel
 
     $row+=1;
     $sheet->mergeCells("A$row:I$row");		
-    $sheet->setCellValue("A$row","TAHUN AKADEMIK $ta"); 
+    $sheet->setCellValue("A$row","TAHUN PENDAFTARAN TAHUN AKADEMIK $ta SEMESTER "); 
     
     $styleArray=array( 
         'font' => array('bold' => true,'size'=>'11'),

@@ -242,7 +242,7 @@
 					.post(
 						"/kemahasiswaan/daftarmhs/printtoexcel",
 						{
-							TA: this.tahun_pendaftaran,
+							ta: this.tahun_pendaftaran,
 							prodi_id: this.prodi_id,
 							nama_prodi: this.nama_prodi,
 						},
@@ -278,7 +278,7 @@
 						"/system/users/syncallpermissions",
 						{
 							role_name: "mahasiswa",
-							TA: this.tahun_pendaftaran,
+							ta: this.tahun_pendaftaran,
 							prodi_id: this.prodi_id,
 						},
 						{

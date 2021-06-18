@@ -25,12 +25,12 @@ class TransaksiRegistrasiKRSController extends Controller {
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
             $this->validate($request, [           
-                'TA'=>'required',
-                'SEMESTER_AKADEMIK'=>'required|in:1,2,3',            
+                'ta'=>'required',
+                'semester_akademik'=>'required|in:1,2,3',            
             ]);
     
-            $ta=$request->input('TA');
-            $idsmt=$request->input('SEMESTER_AKADEMIK');
+            $ta=$request->input('ta');
+            $idsmt=$request->input('semester_akademik');
 
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
@@ -72,14 +72,14 @@ class TransaksiRegistrasiKRSController extends Controller {
         else
         {
             $this->validate($request, [           
-                'TA'=>'required',
-                'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
-                'PRODI_ID'=>'required',
+                'ta'=>'required',
+                'semester_akademik'=>'required|in:1,2,3',
+                'prodi_id'=>'required',
             ]);
     
-            $ta=$request->input('TA');
-            $idsmt=$request->input('SEMESTER_AKADEMIK');
-            $prodi_id=$request->input('PRODI_ID');
+            $ta=$request->input('ta');
+            $idsmt=$request->input('semester_akademik');
+            $prodi_id=$request->input('prodi_id');
             
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
@@ -145,14 +145,14 @@ class TransaksiRegistrasiKRSController extends Controller {
         $this->validate($request, [           
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
             'semester_akademik'=>'required',
-            'TA'=>'required'
+            'ta'=>'required'
         ]);
         
         try 
         {
             $nim=$request->input('nim');
             $semester_akademik=$request->input('semester_akademik');
-            $ta=$request->input('TA');
+            $ta=$request->input('ta');
             
             $transaksi=TransaksiDetailModel::select(\DB::raw('
                                                 1
@@ -201,7 +201,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                     'no_transaksi'=>$no_transaksi,
                     'no_faktur'=>'',
                     'kjur'=>$mahasiswa->kjur,
-                    'ta'=>$request->input('TA'),
+                    'ta'=>$request->input('ta'),
                     'idsmt'=>$request->input('semester_akademik'),
                     'idkelas'=>$mahasiswa->idkelas,
                     'no_formulir'=>$mahasiswa->no_formulir,
@@ -225,7 +225,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 ]);
 
                 $transaksi->total=$biaya_kombi;
-                $transaksi->desc='REGISTRASI KRS '.$request->input('TA').$request->input('semester_akademik');
+                $transaksi->desc='REGISTRASI KRS '.$request->input('ta').$request->input('semester_akademik');
                 $transaksi->save();
 
                 return $transaksi;
@@ -302,18 +302,18 @@ class TransaksiRegistrasiKRSController extends Controller {
     public function printtoexcel1 (Request $request)
     {
         $this->validate($request, [           
-            'TA'=>'required',
-            'SEMESTER_AKADEMIK'=>'required|in:1,2,3',
+            'ta'=>'required',
+            'semester_akademik'=>'required|in:1,2,3',
             'NAMA_SEMESTER'=>'required|in:GANJIL,GENAP,PENDEK',
-            'PRODI_ID'=>'required',
-            'NAMA_PRODI'=>'required',
+            'prodi_id'=>'required',
+            'nama_prodi'=>'required',
         ]);
 
         $data_report=[
-            'TA'=>$request->input('TA'),
-            'prodi_id'=>$request->input('PRODI_ID'),            
-            'nama_prodi'=>$request->input('NAMA_PRODI'),            
-            'semester_akademik'=>$request->input('SEMESTER_AKADEMIK'),            
+            'TA'=>$request->input('ta'),
+            'prodi_id'=>$request->input('prodi_id'),            
+            'nama_prodi'=>$request->input('nama_prodi'),            
+            'semester_akademik'=>$request->input('semester_akademik'),            
             'nama_semester'=>$request->input('NAMA_SEMESTER'),            
         ];
 

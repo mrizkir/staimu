@@ -82,7 +82,6 @@
 									small
 									class="ma-2"
 									@click.stop="printtoexcel1"
-									:disabled="true"
 								>
 									<v-icon>mdi-printer</v-icon>
 								</v-btn>
@@ -243,7 +242,7 @@
 						"/keuangan/transaksi-laporanspppersemester",
 						{
 							prodi_id: this.prodi_id,
-							TA: this.tahun_akademik,
+							ta: this.tahun_akademik,
 							tahun_pendaftaran: this.tahun_pendaftaran,
 							semester_akademik: this.semester_akademik,
 						},
@@ -269,48 +268,18 @@
 			},
 			viewItem(item) {
 				this.$router.push("/keuangan/transaksi-laporanspppersemester/" + item.transaksi_id);
-			},
+			},			
 			printtoexcel1: async function() {
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
 						"/keuangan/transaksi-laporanspppersemester/printtoexcel1",
 						{
-							TA: this.tahun_akademik,
-							PRODI_ID: this.prodi_id,
-							NAMA_PRODI: this.nama_prodi,
-						},
-						{
-							headers: {
-								Authorization: this.$store.getters["auth/Token"],
-							},
-							responseType: "arraybuffer",
-						}
-					)
-					.then(({ data }) => {
-						const url = window.URL.createObjectURL(new Blob([data]));
-						const link = document.createElement("a");
-						link.href = url;
-						link.setAttribute("download", "spp_" + Date.now() + ".xlsx");
-						link.setAttribute("id", "download_laporan");
-						document.body.appendChild(link);
-						link.click();
-						document.body.removeChild(link);
-						this.btnLoading = false;
-					})
-					.catch(() => {
-						this.btnLoading = false;
-					});
-			},
-			printtoexcel3: async function() {
-				this.btnLoading = true;
-				await this.$ajax
-					.post(
-						"/keuangan/transaksi-laporanspppersemester/printtoexcel3",
-						{
-							TA: this.tahun_akademik,
-							PRODI_ID: this.prodi_id,
-							NAMA_PRODI: this.nama_prodi,
+							ta: this.tahun_akademik,
+							semester_akademik: this.semester_akademik,
+							prodi_id: this.prodi_id,
+							nama_prodi: this.nama_prodi,
+							tahun_pendaftaran: this.tahun_pendaftaran,							
 						},
 						{
 							headers: {
@@ -521,7 +490,7 @@
 									"/keuangan/transaksi-laporanspppersemester",
 									{
 										prodi_id: this.prodi_id,
-										TA: this.tahun_akademik,
+										ta: this.tahun_akademik,
 										search: this.search,
 									},
 									{

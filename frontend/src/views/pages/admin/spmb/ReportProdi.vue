@@ -189,7 +189,7 @@ export default {
                     this.datatableLoading = true; 
                     await this.$ajax.post('/spmb/formulirpendaftaran',
                     {
-                        TA: this.tahun_pendaftaran,
+                        ta: this.tahun_pendaftaran,
                         prodi_id: this.prodi_id,
                    },
                     {
@@ -228,7 +228,7 @@ export default {
             this.btnLoading = true;
             await this.$ajax.post('/spmb/reportspmbprodi/printtoexcel',
                 {
-                    TA: this.tahun_pendaftaran,
+                    ta: this.tahun_pendaftaran,
                     prodi_id: this.prodi_id,
                     nama_prodi: this.nama_prodi,  
                },

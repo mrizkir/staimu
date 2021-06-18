@@ -360,9 +360,9 @@
 					.post(
 						"/keuangan/transaksi-ujianmunaqasah",
 						{
-							TA: this.tahun_akademik,
-							SEMESTER_AKADEMIK: this.semester_akademik,
-							PRODI_ID: this.prodi_id,
+							ta: this.tahun_akademik,
+							semester_akademik: this.semester_akademik,
+							prodi_id: this.prodi_id,
 						},
 						{
 							headers: {
@@ -408,7 +408,7 @@
 							{
 								nim: this.formdata.nim,
 								semester_akademik: this.formdata.semester_akademik,
-								TA: this.tahun_akademik,
+								ta: this.tahun_akademik,
 							},
 							{
 								headers: {
@@ -527,9 +527,9 @@
 								.post(
 									"/keuangan/transaksi-ujianmunaqasah",
 									{
-										TA: this.tahun_akademik,
-										SEMESTER_AKADEMIK: this.semester_akademik,
-										PRODI_ID: this.prodi_id,
+										ta: this.tahun_akademik,
+										semester_akademik: this.semester_akademik,
+										prodi_id: this.prodi_id,
 										SEARCH: this.search,
 									},
 									{

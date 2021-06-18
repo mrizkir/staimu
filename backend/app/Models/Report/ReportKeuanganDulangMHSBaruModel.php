@@ -21,7 +21,7 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
   }    
   public function printtoexcel1()  
   {
-    $ta=$this->dataReport['TA'];
+    $ta=$this->dataReport['ta'];
     $prodi_id=$this->dataReport['prodi_id'];
     $nama_prodi=$this->dataReport['nama_prodi'];
 
@@ -199,7 +199,7 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
    */
   public function printtoexcel2() 
   {
-    $ta=$this->dataReport['TA'];    
+    $ta=$this->dataReport['ta'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report Reg. Mhs Baru");
     $this->spreadsheet->getProperties()->setSubject("Report Reg. Mhs Baru");

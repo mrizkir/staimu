@@ -22,12 +22,12 @@ class TransaksiDulangMHSBaruController extends Controller {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-DULANG-MHS-BARU_BROWSE');
         
         $this->validate($request, [           
-            'TA'=>'required',            
-            'PRODI_ID'=>'required',            
+            'ta'=>'required',            
+            'prodi_id'=>'required',            
         ]);
 
-        $ta=$request->input('TA');
-        $prodi_id=$request->input('PRODI_ID');
+        $ta=$request->input('ta');
+        $prodi_id=$request->input('prodi_id');
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
@@ -129,13 +129,13 @@ class TransaksiDulangMHSBaruController extends Controller {
 
         $this->validate($request, [           
             'no_formulir'=>'required|exists:pe3_formulir_pendaftaran,no_formulir',                             
-            'TA'=>'required'
+            'ta'=>'required'
         ]);
         
         try 
         {
             $no_formulir=$request->input('no_formulir');            
-            $ta=$request->input('TA');
+            $ta=$request->input('ta');
             
             $transaksi=TransaksiDetailModel::select(\DB::raw('
                                                 1
@@ -191,7 +191,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                     'no_transaksi'=>$no_transaksi,
                     'no_faktur'=>'',
                     'kjur'=>$mahasiswa->kjur1,
-                    'ta'=>$request->input('TA'),
+                    'ta'=>$request->input('ta'),
                     'idsmt'=>$mahasiswa->idsmt,
                     'idkelas'=>$mahasiswa->idkelas,
                     'no_formulir'=>$mahasiswa->no_formulir,                    
@@ -291,15 +291,15 @@ class TransaksiDulangMHSBaruController extends Controller {
     public function printtoexcel1 (Request $request)
     {
         $this->validate($request, [           
-            'TA'=>'required',            
-            'PRODI_ID'=>'required',
-            'NAMA_PRODI'=>'required',
+            'ta'=>'required',            
+            'prodi_id'=>'required',
+            'nama_prodi'=>'required',
         ]);
 
         $data_report=[
-            'TA'=>$request->input('TA'),
-            'prodi_id'=>$request->input('PRODI_ID'),            
-            'nama_prodi'=>$request->input('NAMA_PRODI'),                        
+            'TA'=>$request->input('ta'),
+            'prodi_id'=>$request->input('prodi_id'),            
+            'nama_prodi'=>$request->input('nama_prodi'),                        
         ];
 
         $report= new \App\Models\Report\ReportKeuanganDulangMHSBaruModel ($data_report);

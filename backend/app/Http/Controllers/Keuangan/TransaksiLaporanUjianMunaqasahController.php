@@ -17,9 +17,9 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 			$this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');        				
 					
 			$this->validate($request, [           
-				'TA'=>'required',				
+				'ta'=>'required',				
 			]);
-			$ta=$request->input('TA');
+			$ta=$request->input('ta');
 			
 			$bulan = Helper::getNamaBulanSPP();
 
@@ -107,11 +107,11 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
     $this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');
 
 		$this->validate($request, [           
-			'TA'=>'required',			
+			'ta'=>'required',			
 		]);
 
 		$data_report = [
-			'TA'=>$request->input('TA'),			
+			'TA'=>$request->input('ta'),			
 		];
 
 		$report= new \App\Models\Report\ReportKeuanganUjianMunaqasahModel ($data_report);

@@ -17,9 +17,9 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 			$this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');        				
 					
 			$this->validate($request, [           
-				'TA'=>'required',				
+				'ta'=>'required',				
 			]);
-			$ta=$request->input('TA');
+			$ta=$request->input('ta');
 			
 			$bulan = Helper::getNamaBulanSPP();
 
@@ -107,11 +107,11 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
     $this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');
 
 		$this->validate($request, [           
-			'TA'=>'required',			
+			'ta'=>'required',			
 		]);
 
 		$data_report = [
-			'TA'=>$request->input('TA'),			
+			'TA'=>$request->input('ta'),			
 		];
 
 		$report= new \App\Models\Report\ReportKeuanganRegistrasiKRSModel ($data_report);

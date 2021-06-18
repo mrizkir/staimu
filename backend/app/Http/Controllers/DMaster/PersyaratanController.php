@@ -14,12 +14,12 @@ class PersyaratanController extends Controller {
     public function index(Request $request)
     {
         $this->validate($request, [           
-            'TA'=>'required',
+            'ta'=>'required',
             'proses'=>'required|in:pmb,ujian-munaqasah',
         ]);
         
         $proses=$request->input('proses');
-        $ta=$request->input('TA');
+        $ta=$request->input('ta');
         
         $persyaratan=PersyaratanModel::where('proses',$proses);
 
@@ -146,9 +146,9 @@ class PersyaratanController extends Controller {
                 {
                     $this->validate($request, [            
                         'prodi_id'=>'required|numeric|exists:pe3_prodi,id',  
-                        'TA'=>'required',          
+                        'ta'=>'required',          
                     ]);
-                    $ta=$request->input('TA');
+                    $ta=$request->input('ta');
                     $persyaratan=PersyaratanModel::where('prodi_id',$request->input('prodi_id'))
                                                 ->where('proses','pmb')
                                                 ->where('ta',$ta)
@@ -157,9 +157,9 @@ class PersyaratanController extends Controller {
                 else
                 {
                     $this->validate($request, [                                    
-                        'TA'=>'required',          
+                        'ta'=>'required',          
                     ]);
-                    $ta=$request->input('TA');
+                    $ta=$request->input('ta');
                     $persyaratan=PersyaratanModel::where('proses','pmb')
                                                 ->where('ta',$ta)
                                                 ->get();

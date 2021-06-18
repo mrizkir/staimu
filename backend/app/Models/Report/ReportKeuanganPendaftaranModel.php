@@ -24,7 +24,7 @@ class ReportKeuanganPendaftaranModel extends ReportModel
    */
   public function printtoexcel2() 
   {
-    $ta=$this->dataReport['TA'];    
+    $ta=$this->dataReport['ta'];    
 
     $this->spreadsheet->getProperties()->setTitle("Report Pendaftaran");
     $this->spreadsheet->getProperties()->setSubject("Report Pendaftaran");
