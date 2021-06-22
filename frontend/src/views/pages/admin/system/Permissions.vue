@@ -112,7 +112,7 @@
                                 small
                                 @click.stop="deleteItem(item)"
                                 
-                                :disabled="!CAN_ACCESS('PERMISSIONS_DESTROY')||btnLoading"
+                                :disabled="!CAN_ACCESS('PERMISSIONS_DESTROY') || btnLoading"
                             >
                                 mdi-delete
                             </v-icon>

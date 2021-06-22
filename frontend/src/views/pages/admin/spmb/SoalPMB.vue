@@ -638,7 +638,7 @@ export default {
            },
             set(val)
             {
-                this.image_prev=val;
+                this.image_prev = val;
             } 
        },
         formTitle() {

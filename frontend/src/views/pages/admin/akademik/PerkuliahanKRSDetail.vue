@@ -369,7 +369,7 @@ export default {
 				closedialogfrm() {
 						this.dialogfrm = false;
 						setTimeout(() => {
-								this.datamatkul = Object.assign({},{});
+								this.datamatkul = Object.assign({}, {});
 								this.$refs.frmdata.reset();
 								}, 300
 						);

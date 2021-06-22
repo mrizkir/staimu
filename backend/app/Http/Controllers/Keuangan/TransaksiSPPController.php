@@ -85,6 +85,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi_detail.jumlah,
                                                         pe3_transaksi_detail.bulan,
                                                         \'\' AS nama_bulan,
+                                                        pe3_transaksi_detail.tahun,
                                                         pe3_transaksi_detail.sub_total,
                                                         pe3_formulir_pendaftaran.nama_mhs,
                                                         pe3_transaksi.no_faktur,
@@ -121,7 +122,7 @@ class TransaksiSPPController extends Controller {
             }
         }        
         $daftar_transaksi->transform(function ($item,$key){
-            $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->bulan);
+            $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->bulan) . ' '. $item->tahun;
             return $item;
         });
         return Response()->json([

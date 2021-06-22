@@ -281,7 +281,7 @@ export default {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);
-                this.data_mhs = Object.assign({},{}); 
+                this.data_mhs = Object.assign({}, {}); 
                }, 300
             );
        },

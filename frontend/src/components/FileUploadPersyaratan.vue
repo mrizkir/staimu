@@ -70,12 +70,12 @@ export default {
         this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
         if (this.item.path == null || this.item.persyaratan_pmb_id==null)
         { 
-            this.image_prev=this.item.path; 
+            this.image_prev = this.item.path; 
         }
         else
         { 
             this.btnHapus=this.isVerified(this.item);
-            this.image_prev=this.$api.url + '/' + this.item.path;
+            this.image_prev = this.$api.url + '/' + this.item.path;
             this.badgeColor=this.item.verified;
             this.badgeIcon=this.item.verified;
         }  
@@ -239,7 +239,7 @@ export default {
            },
             set(val)
             {
-                this.image_prev=val;
+                this.image_prev = val;
             }
             
        },
