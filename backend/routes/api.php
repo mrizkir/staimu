@@ -470,6 +470,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/kemahasiswaan/profil/search',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@search','as'=>'profilmhs.search']);
     $router->post('/kemahasiswaan/profil/searchnonampulan',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@searchnonampulan','as'=>'profilmhs.searchnonampulan']);
     $router->post('/kemahasiswaan/profil/resetpassword',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@resetpassword','as'=>'profilmhs.resetpassword']);
+    
+    // kemahasiswaan - pindah kelas
+    $router->post('/kemahasiswaan/pindahkelas',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\PindahKelasController@index','as'=>'pindahkelas.index']);
+    $router->post('/kemahasiswaan/pindahkelas/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@store','as'=>'pindahkelas.store']);        
 
     //kepegawaian - dosen
     $router->get('/kepegawaian/dosen',['uses'=>'Kepegawaian\KepegawaianDosenController@index','as'=>'kepegawaiandosen.index']);

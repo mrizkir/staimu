@@ -20,7 +20,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk memindahkan kelas dari seorang mahasiswa.
+					Halaman untuk memindahkan kelas dari seorang mahasiswa dilakukan di setiap awal semester sebelum daftar ulang dan memulai pengisian KRS.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -54,7 +54,7 @@
 				},
 				{
 					text: "PINDAH KELAS",
-					disabled: false,
+					disabled: true,
 					href: "#",
 				},
 			];
@@ -66,6 +66,11 @@
 			this.semester_akademik = this.$store.getters[
 				"uiadmin/getSemesterAkademik"
 			];
+			this.initialize();
+		},
+		mounted() {
+			this.firstloading = false;
+			this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			firstloading: true,
@@ -75,6 +80,59 @@
 			tahun_akademik: null,
 			semester_akademik: null,
 		}),
+		methods: {
+			changeTahunAkademik(tahun) {
+				this.tahun_akademik = tahun;
+			},
+			changeSemesterAkademik(semester) {
+				this.semester_akademik = semester;
+			},
+			changeProdi(id) {
+				this.prodi_id = id;
+			},
+			async initialize() {
+				this.datatableLoading = true;
+				await this.$ajax
+					.post(
+						"/kemahasiswaan/pindahkelas",
+						{
+							prodi_id: this.prodi_id,
+							ta: this.tahun_akademik,
+							semester_akademik: this.semester_akademik,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
+					.then(({ data }) => {
+						this.datatable = data.daftar_khs;
+						this.datatableLoading = false;						
+					})
+					.catch(() => {
+						this.datatableLoading = false;
+					});
+			},
+		},
+		watch: {
+			tahun_akademik() {
+				if (!this.firstloading) {
+					this.initialize();
+				}
+			},
+			semester_akademik() {
+				if (!this.firstloading) {
+					this.initialize();
+				}
+			},
+			prodi_id(val) {
+				if (!this.firstloading) {
+					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
+					this.initialize();
+				}
+			},
+		},
 		components: {
 			KemahasiswaanLayout,
 			ModuleHeader,
