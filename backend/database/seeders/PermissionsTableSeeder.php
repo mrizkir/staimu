@@ -301,6 +301,7 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-NILAI-KONVERSI',
 
             'KEMAHASISWAAN-PROFIL-MHS',
+            'KEMAHASISWAAN-PINDAH-KELAS',
             //permission ini digunakan untuk menset dosen wali pada mahasiswa, baik itu tambah atau ubah
             "AKADEMIK-KEMAHASISWAAN-DW",           
 

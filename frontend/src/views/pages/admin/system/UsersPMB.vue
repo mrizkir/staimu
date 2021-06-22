@@ -229,7 +229,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>                                                         
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>      
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="pmb" />
                                 </v-dialog>
                             </v-toolbar>
@@ -265,7 +265,7 @@
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url + '/' + item.foto" /> 
-                            </v-avatar>                                                   
+                            </v-avatar>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">

@@ -169,7 +169,7 @@
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
                                 <v-img :src="$api.url + '/' + item.foto" /> 
-                            </v-avatar>                                                   
+                            </v-avatar>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">

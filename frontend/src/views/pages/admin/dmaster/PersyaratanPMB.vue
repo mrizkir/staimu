@@ -85,7 +85,7 @@
 																						<v-card-title>
 																								<span class="headline">{{ formTitle }}</span>
 																						</v-card-title>
-																						<v-card-text>                                                       
+																						<v-card-text>    
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -173,7 +173,7 @@
 																										</v-card>
 																								</v-col>
 																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                                                                                  
+																						</v-row>                                               
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>

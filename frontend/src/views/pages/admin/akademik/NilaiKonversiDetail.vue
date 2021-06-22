@@ -304,7 +304,7 @@
                         </template>                   
                         <template v-slot:item.n_kual="{ item }">
                             {{item.n_kual==null ? 'N.A':item.n_kual}}
-                        </template>                                                                                                                       
+                        </template>                                                                    
                         <template v-slot:no-data>
                             Data belum tersedia
                         </template>

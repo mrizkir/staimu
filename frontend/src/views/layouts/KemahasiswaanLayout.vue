@@ -1,23 +1,42 @@
 <template>
 	<div>
-		<v-system-bar app dark :class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')">
+		<v-system-bar
+			app
+			dark
+			:class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')"
+		>
 			<strong>Hak Akses Sebagai :</strong> {{ ROLE }}
-		</v-system-bar>	
+		</v-system-bar>
 		<v-app-bar app>
-			<v-app-bar-nav-icon @click.stop="drawer = !drawer" :class="this.$store.getters['uiadmin/getTheme']('V-APP-BAR-NAV-ICON-CSS-CLASS')"></v-app-bar-nav-icon>
-			<v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/' + $store.getters['auth/AccessToken']).catch(err => {})">
+			<v-app-bar-nav-icon
+				@click.stop="drawer = !drawer"
+				:class="
+					this.$store.getters['uiadmin/getTheme'](
+						'V-APP-BAR-NAV-ICON-CSS-CLASS'
+					)
+				"
+			>
+			</v-app-bar-nav-icon>
+			<v-toolbar-title
+				class="headline clickable"
+				@click.stop="
+					$router
+						.push('/dashboard/' + $store.getters['auth/AccessToken'])
+						.catch(err => {})
+				"
+			>
 				<span class="hidden-sm-and-down">{{ APP_NAME }}</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-menu 
+			<v-menu
 				:close-on-content-click="true"
 				origin="center center"
 				transition="scale-transition"
 				:offset-y="true"
-				bottom 
+				bottom
 				left
 			>
-				<template v-slot:activator="{on}">
+				<template v-slot:activator="{ on }">
 					<v-avatar size="30">
 						<v-img :src="photoUser" v-on="on" />
 					</v-avatar>
@@ -32,7 +51,7 @@
 								{{ ATTRIBUTE_USER("username") }}
 							</v-list-item-title>
 							<v-list-item-subtitle>
-								[{{ DEFAULT_ROLE }}]
+								[ {{ DEFAULT_ROLE }} ]
 							</v-list-item-subtitle>
 						</v-list-item-content>
 					</v-list-item>
@@ -48,7 +67,7 @@
 						<v-list-item-icon class="mr-2">
 							<v-icon>mdi-power</v-icon>
 						</v-list-item-icon>
-							<v-list-item-title>Logout</v-list-item-title>
+						<v-list-item-title>Logout</v-list-item-title>
 					</v-list-item>
 				</v-list>
 			</v-menu>
@@ -57,7 +76,16 @@
 				<v-icon>mdi-menu-open</v-icon>
 			</v-app-bar-nav-icon>
 		</v-app-bar>
-		<v-navigation-drawer v-model="drawer" width="300" dark :class="this.$store.getters['uiadmin/getTheme']('V-NAVIGATION-DRAWER-CSS-CLASS')" :temporary="temporaryleftsidebar" app>
+		<v-navigation-drawer
+			v-model="drawer"
+			width="300"
+			dark
+			:class="
+				this.$store.getters['uiadmin/getTheme']('V-NAVIGATION-DRAWER-CSS-CLASS')
+			"
+			:temporary="temporaryleftsidebar"
+			app
+		>
 			<v-list-item>
 				<v-list-item-avatar>
 					<v-img :src="photoUser" @click.stop="toProfile"></v-img>
@@ -66,55 +94,108 @@
 					<v-list-item-title class="title">
 						{{ ATTRIBUTE_USER("username") }}
 					</v-list-item-title>
-					<v-list-item-subtitle>
-						[{{ DEFAULT_ROLE }}]
-					</v-list-item-subtitle>
+					<v-list-item-subtitle>[ {{ DEFAULT_ROLE }} ]</v-list-item-subtitle>
 				</v-list-item-content>
 			</v-list-item>
-		<v-divider></v-divider>
-		<v-list expand>
-			<v-list-item :to="{path: '/kemahasiswaan'}" link :class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-CSS-CLASS')" :color="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-COLOR')" v-if="CAN_ACCESS('KEMAHASISWAAN-GROUP')">
-				<v-list-item-icon class="mr-2">
-					<v-icon>mdi-monitor-dashboard</v-icon>
-				</v-list-item-icon>
-				<v-list-item-content>
-					<v-list-item-title>BOARD KEMAHASISWAAN</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item> 
-			<v-list-item link to="/kemahasiswaan/daftarmahasiswa" :active-class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')" v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')">
-				<v-list-item-icon class="mr-2">
-					<v-icon>mdi-account-box-multiple</v-icon>
-				</v-list-item-icon>
-				<v-list-item-content>
-					<v-list-item-title>
-						DAFTAR MAHASISWA
-					</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item> 
+			<v-divider></v-divider>
+			<v-list expand>
+				<v-list-item
+					:to="{ path: '/kemahasiswaan' }"
+					link
+					:class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-BOARD-CSS-CLASS'
+						)
+					"
+					:color="
+						this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-BOARD-COLOR')
+					"
+					v-if="CAN_ACCESS('KEMAHASISWAAN-GROUP')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-monitor-dashboard</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>BOARD KEMAHASISWAAN</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/daftarmahasiswa"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							DAFTAR MAHASISWA
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-divider />
+				<v-list-item
+					link
+					to="/kemahasiswaan/pindahkelas"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('KEMAHASISWAAN-PINDAH-KELAS_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-arrow-right-bold-box-outline</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							PINDAH KELAS
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
-		<v-navigation-drawer v-model="drawerRight" width="300" app fixed right temporary v-if="showrightsidebar">
+		<v-navigation-drawer
+			v-model="drawerRight"
+			width="300"
+			app
+			fixed
+			right
+			temporary
+			v-if="showrightsidebar"
+		>
 			<v-list dense>
 				<v-list-item>
 					<v-list-item-icon class="mr-2">
 						<v-icon>mdi-menu-open</v-icon>
 					</v-list-item-icon>
-					<v-list-item-content>				
+					<v-list-item-content>
 						<v-list-item-title class="title">
 							OPTIONS
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
 				<v-divider></v-divider>
-				<v-list-item :class="this.$store.getters['uiadmin/getTheme']('V-LIST-ITEM-ACTIVE-CSS-CLASS')">
+				<v-list-item
+					:class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+				>
 					<v-list-item-icon class="mr-2">
 						<v-icon>mdi-filter</v-icon>
 					</v-list-item-icon>
-					<v-list-item-content>			
+					<v-list-item-content>
 						<v-list-item-title>FILTER</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
-				<slot name="filtersidebar" />	
+				<slot name="filtersidebar" />
 			</v-list>
 		</v-navigation-drawer>
 		<v-main class="mx-4 mb-4">
@@ -124,7 +205,8 @@
 			<v-card class="flex" color="yellow darken-2" flat tile>
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
-					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang 
+					<strong>{{ APP_NAME }} (2021-2021)</strong>
+					dikembangkan oleh TIM ITSTAI Miftahul 'Ulum Tanjungpinang
 					<v-btn icon href="https://github.com/mrizkir/stiemu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>

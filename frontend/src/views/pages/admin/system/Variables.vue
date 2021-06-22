@@ -64,7 +64,7 @@
                                             :rules="rule_tahun_pendaftaran"/>
                                     </v-col>
                                     <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
-                                </v-row>                                                                             
+                                </v-row>                          
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>

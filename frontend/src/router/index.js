@@ -548,7 +548,9 @@ const routes = [
 			requiresAuth: true,
 		},
 		component: () =>
-			import("../views/pages/admin/keuangan/TransaksiLaporanSPPPerSemester.vue"),
+			import(
+				"../views/pages/admin/keuangan/TransaksiLaporanSPPPerSemester.vue"
+			),
 	},
 	//keuangan - laporan penerimaan
 	{
@@ -1013,6 +1015,16 @@ const routes = [
 			import(
 				"../views/pages/admin/kemahasiswaan/KemahasiswaanDaftarMahasiswa.vue"
 			),
+	},
+	{
+		path: "/kemahasiswaan/pindahkelas",
+		name: "KemahasiswaanPindahKelas",
+		meta: {
+			title: "KEMAHASISWAAN - PINDAH KELAS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanPindahKelas.vue"),
 	},
 	//system
 	{

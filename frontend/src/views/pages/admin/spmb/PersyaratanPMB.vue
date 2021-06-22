@@ -95,7 +95,7 @@
                                 overlap>
                                 <v-avatar size="30"> 
                                     <v-img :src="$api.url + '/' + item.foto" />
-                                </v-avatar>                                                   
+                                </v-avatar>
                             </v-badge>
                         </template>
                         <template v-slot:item.actions="{ item }">
