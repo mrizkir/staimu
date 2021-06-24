@@ -23,6 +23,7 @@ class CreatePindahKelasTable extends Migration
             $table->unsignedInteger('kjur'); 
             $table->tinyinteger('idsmt');
             $table->year('tahun');
+            $table->string('descr')->nullable();
             $table->timestamps();  
 
             $table->index('user_id');

@@ -44,6 +44,42 @@ class KemahasiswaanProfilController extends Controller {
     
     }
     /**
+     * profil mahasiswa berdasarkan nim
+     */
+    public function bynim(Request $request)
+    {
+        $this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
+
+        $this->validate($request,[
+            'nim'=>'required|numeric'
+        ]);
+        
+        $profil = \DB::table('pe3_register_mahasiswa AS A')
+                            ->select(\DB::raw('
+                                A.user_id,
+                                A.nim,
+                                B.nama_mhs,                                
+                                D.nama_prodi,
+                                A.idkelas,
+                                E.nkelas,
+                                C.foto
+                            '))
+                            ->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
+                            ->join('users AS C','A.user_id','C.id')
+                            ->join('pe3_prodi AS D','A.kjur','D.id')
+                            ->join('pe3_kelas AS E','A.idkelas','E.idkelas')
+                            ->where('A.nim', $request->input('nim'))                                                    
+                            ->first();
+
+        return Response()->json([
+                                    'status'=>1,
+                                    'pid'=>'fetchdata',
+                                    'profil'=>$profil,
+                                    'message'=>'Profil Mahasiswa berhasil diperoleh.'
+                                ], 200); 
+    
+    }
+    /**
      * melakukan pencarian untuk nim
      */
     public function searchnonampulan(Request $request)

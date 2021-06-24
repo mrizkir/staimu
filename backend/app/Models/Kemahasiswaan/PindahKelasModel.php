@@ -28,8 +28,10 @@ class PindahKelasModel extends Model {
         'nim',
         'idkelas_lama',               
         'idkelas_baru',               
+        'kjur',               
         'idsmt',               
         'tahun',        
+        'descr',        
     ];
     /**
      * enable auto_increment.
