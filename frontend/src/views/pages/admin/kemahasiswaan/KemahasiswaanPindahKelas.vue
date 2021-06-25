@@ -172,13 +172,16 @@
 								</v-dialog>
 								<v-dialog
 									v-model="dialogdetailitem"
-									max-width="500px"
+									max-width="750px"
 									persistent
 								>
 									<v-card>
 										<v-card-title>
 											<span class="headline">DETAIL DATA</span>
 										</v-card-title>
+										<v-card-subtitle>
+											Pindah kelas akan berlaku sejak Semester {{ $store.getters["uiadmin/getNamaSemester"](formdata.idsmt) }} T.A {{ formdata.tahun }}
+										</v-card-subtitle>
 										<v-card-text>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -195,13 +198,9 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>CREATED :</v-card-title>
+														<v-card-title>KELAS LAMA :</v-card-title>
 														<v-card-subtitle>
-															{{
-																$date(formdata.created_at).format(
-																	"DD/MM/YYYY HH:mm"
-																)
-															}}
+															{{ formdata.kelas_lama }}
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
@@ -213,9 +212,9 @@
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>NAME :</v-card-title>
+														<v-card-title>NIM :</v-card-title>
 														<v-card-subtitle>
-															{{ formdata.name }}
+															{{ formdata.nim }}
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
@@ -225,8 +224,40 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>UPDATED :</v-card-title>
+														<v-card-title>KELAS BARU :</v-card-title>
 														<v-card-subtitle>
+															{{ formdata.kelas_baru }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+											</v-row>
+											<v-row no-gutters>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>NAMA MAHASISWA :</v-card-title>
+														<v-card-subtitle>
+															{{ formdata.nama_mhs }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>CREATED / UPDATED :</v-card-title>
+														<v-card-subtitle>
+															{{
+																$date(formdata.created_at).format(
+																	"DD/MM/YYYY HH:mm"
+																)
+															}}
+															/
 															{{
 																$date(formdata.updated_at).format(
 																	"DD/MM/YYYY HH:mm"
@@ -281,7 +312,6 @@
 										small
 										class="mr-2"
 										@click.stop="editItem(item)"
-										:disabled="true"
 									>
 										mdi-pencil
 									</v-icon>
@@ -475,21 +505,19 @@
 			},
 			addItem() {
 				this.dialogfrm = true;
-				this.daftar_kelas=this.$store.getters["uiadmin/getDaftarKelas"];
+				this.daftar_kelas = this.$store.getters["uiadmin/getDaftarKelas"];
 			},
 			viewItem(item) {
 				this.formdata = item;
 				this.dialogdetailitem = true;
-				// this.$ajax.get("/path/"+item.id,{
-				//     headers: {
-				//         Authorization: this.$store.getters["auth/Token"],
-				//     }
-				// 	}).then(({ data }) => {
-				// });
 			},
 			editItem(item) {
 				this.editedIndex = this.datatable.indexOf(item);
+				this.daftar_kelas = this.$store.getters["uiadmin/getDaftarKelas"];
 				this.formdata = Object.assign({}, item);
+				
+				this.show_message_error = false;
+				this.is_mhs_checked = true;
 				this.dialogfrm = true;
 			},
 			async cekNIM() {
@@ -534,10 +562,11 @@
 					if (this.editedIndex > -1) {
 						await this.$ajax
 							.post(
-								"/path/" + this.formdata.id,
+								"/kemahasiswaan/pindahkelas/" + this.formdata.id,
 								{
 									_method: "PUT",
-									name: this.formdata.name,
+									idkelas_baru: this.formdata.idkelas_baru,
+									descr: this.formdata.descr,
 								},
 								{
 									headers: {
@@ -546,7 +575,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.object);
+								Object.assign(this.datatable[this.editedIndex], data.pindahkelas);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})
@@ -573,7 +602,7 @@
 								}
 							)
 							.then(({ data }) => {
-								this.datatable.push(data.pindah_kelas);
+								this.datatable.push(data.pindahkelas);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})
@@ -621,7 +650,7 @@
 					});
 			},
 			closedialogdetailitem() {
-				this.diavlogdetailitem = false;
+				this.dialogdetailitem = false;
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;

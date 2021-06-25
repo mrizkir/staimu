@@ -475,6 +475,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     // kemahasiswaan - pindah kelas
     $router->post('/kemahasiswaan/pindahkelas',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\PindahKelasController@index','as'=>'pindahkelas.index']);
     $router->post('/kemahasiswaan/pindahkelas/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@store','as'=>'pindahkelas.store']);        
+    $router->put('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@update','as'=>'pindahkelas.update']);
     $router->delete('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@destroy','as'=>'pindahkelas.destroy']);
 
     //kepegawaian - dosen

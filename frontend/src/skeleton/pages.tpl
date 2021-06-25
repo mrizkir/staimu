@@ -475,7 +475,7 @@
 					});
 			},
 			closedialogdetailitem() {
-				this.diavlogdetailitem = false;
+				this.dialogdetailitem = false;
 				setTimeout(() => {
 					this.formdata = Object.assign({}, this.formdefault);
 					this.editedIndex = -1;
