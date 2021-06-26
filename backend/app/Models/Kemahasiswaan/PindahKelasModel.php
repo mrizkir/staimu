@@ -32,6 +32,7 @@ class PindahKelasModel extends Model {
         'idsmt',               
         'tahun',        
         'descr',        
+        'forcefully',        
     ];
     /**
      * enable auto_increment.

@@ -164,7 +164,7 @@
 													@click.stop="save"
 													:disabled="!form_valid || btnLoading || !is_mhs_checked"
 												>
-													SIMPAN
+													PINDAH
 												</v-btn>
 											</v-card-actions>
 										</v-card>

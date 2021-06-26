@@ -24,6 +24,7 @@ class CreatePindahKelasTable extends Migration
             $table->tinyinteger('idsmt');
             $table->year('tahun');
             $table->string('descr')->nullable();
+            $table->boolean('forcefully')->default(false);
             $table->timestamps();  
 
             $table->index('user_id');

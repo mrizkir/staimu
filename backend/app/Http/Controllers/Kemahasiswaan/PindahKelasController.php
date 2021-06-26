@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Kemahasiswaan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Helpers\HelperAkademik;
 use App\Models\Kemahasiswaan\PindahKelasModel;
 use App\Models\Akademik\RegisterMahasiswaModel;
 
+use Exception;
 use Ramsey\Uuid\Uuid;
 
 class PindahKelasController  extends Controller 
@@ -75,47 +77,75 @@ class PindahKelasController  extends Controller
       'idsmt'=>'required',     
       'tahun'=>'required',     
     ]);
-    $data_mhs = RegisterMahasiswaModel::find($request->input('user_id'));
+    $user_id = $request->input('user_id');
+    $idsmt = $request->input('idsmt');
+    $tahun = $request->input('tahun');
+    try 
+    {
+      $data_mhs = RegisterMahasiswaModel::find($user_id);
 
-    $data = PindahKelasModel::create([
-      'id'=>Uuid::uuid4()->toString(),
-      'user_id'=>$request->input('user_id'),
-      'nim'=>$request->input('nim'),
-      'idkelas_lama'=>$data_mhs->idkelas,
-      'idkelas_baru'=>$request->input('idkelas_baru'),
-      'kjur'=>$data_mhs->kjur,
-      'idsmt'=>$request->input('idsmt'),
-      'tahun'=>$request->input('tahun'),
-      'descr'=>$request->input('descr'),
-    ]);
-    
-    $pindahkelas = PindahKelasModel::select(\DB::raw("
-              pe3_pindah_kelas.id,
-              pe3_pindah_kelas.user_id,
-              pe3_pindah_kelas.nim,
-              pe3_formulir_pendaftaran.nama_mhs,
-              pe3_pindah_kelas.idkelas_lama,
-              A.nkelas AS kelas_lama,
-              pe3_pindah_kelas.idkelas_baru,
-              B.nkelas AS kelas_baru,
-              pe3_pindah_kelas.idsmt,
-              pe3_pindah_kelas.tahun,
-              pe3_pindah_kelas.descr,
-              pe3_pindah_kelas.created_at,
-              pe3_pindah_kelas.updated_at
-            "))
-            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-            ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-            ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
-            ->where('pe3_pindah_kelas.id', $data->id)
-            ->first();
-            
-    return Response()->json([
-                            'status'=>1,
-                            'pid'=>'store',  
-                            'pindahkelas'=>$pindahkelas,                                                                                                                                   
-                            'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
-                          ], 200);     
+      $bool = \DB::table('pe3_dulang')
+              ->where('user_id', $user_id)
+              ->where('idsmt', $idsmt)
+              ->where('tahun', $tahun)
+              ->exists();              
+      if ($bool) {
+        $semester = HelperAkademik::getSemester($idsmt);
+        throw new Exception ("Pindah kelas tidak bisa dilakukan karena sudah daftar ulang semester $semester T.A $tahun.");  
+      }
+      $data = \DB::transaction(function () use ($request,$data_mhs) {
+        $data = PindahKelasModel::create([
+          'id'=>Uuid::uuid4()->toString(),
+          'user_id'=>$request->input('user_id'),
+          'nim'=>$request->input('nim'),
+          'idkelas_lama'=>$data_mhs->idkelas,
+          'idkelas_baru'=>$request->input('idkelas_baru'),
+          'kjur'=>$data_mhs->kjur,
+          'idsmt'=>$request->input('idsmt'),
+          'tahun'=>$request->input('tahun'),
+          'descr'=>$request->input('descr'),
+          'forcefull'=>false,
+        ]);
+        $data_mhs->idkelas = $request->input('idkelas_baru');
+        $data_mhs->save();
+        return $data;
+      }); 
+      $pindahkelas = PindahKelasModel::select(\DB::raw("
+        pe3_pindah_kelas.id,
+        pe3_pindah_kelas.user_id,
+        pe3_pindah_kelas.nim,
+        pe3_formulir_pendaftaran.nama_mhs,
+        pe3_pindah_kelas.idkelas_lama,
+        A.nkelas AS kelas_lama,
+        pe3_pindah_kelas.idkelas_baru,
+        B.nkelas AS kelas_baru,
+        pe3_pindah_kelas.idsmt,
+        pe3_pindah_kelas.tahun,
+        pe3_pindah_kelas.descr,
+        pe3_pindah_kelas.created_at,
+        pe3_pindah_kelas.updated_at
+      "))
+      ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
+      ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
+      ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+      ->where('pe3_pindah_kelas.id', $data->id)
+      ->first();
+              
+      return Response()->json([
+                              'status'=>1,
+                              'pid'=>'store',  
+                              'pindahkelas'=>$pindahkelas,                                                                                                                                   
+                              'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                            ], 200);     
+    }
+    catch (Exception $e)
+    {
+      return Response()->json([
+        'status'=>0,
+        'pid'=>'store',                                                                                                                                                  
+        'message'=>[$e->getMessage()]
+      ],422); 
+    }          
   }
   /**
    * ubah data
@@ -141,38 +171,66 @@ class PindahKelasController  extends Controller
         'idkelas_baru'=>'required',
       ]);
 
-      $data_mhs = RegisterMahasiswaModel::find($request->input('user_id'));     
-      $data->idkelas_baru = $request->input('idkelas_baru');
-      $data->descr = $request->input('descr');
-      $data->save();
-
-      $pindahkelas = PindahKelasModel::select(\DB::raw("
-                pe3_pindah_kelas.id,
-                pe3_pindah_kelas.user_id,
-                pe3_pindah_kelas.nim,
-                pe3_formulir_pendaftaran.nama_mhs,
-                pe3_pindah_kelas.idkelas_lama,
-                A.nkelas AS kelas_lama,
-                pe3_pindah_kelas.idkelas_baru,
-                B.nkelas AS kelas_baru,
-                pe3_pindah_kelas.idsmt,
-                pe3_pindah_kelas.tahun,
-                pe3_pindah_kelas.descr,
-                pe3_pindah_kelas.created_at,
-                pe3_pindah_kelas.updated_at
-              "))
-              ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-              ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-              ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
-              ->where('pe3_pindah_kelas.id', $data->id)
-              ->first();
+      try
+      {
+        $bool = \DB::table('pe3_dulang')
+              ->where('user_id', $data->user_id)
+              ->where('idsmt', $data->idsmt)
+              ->where('tahun', $data->tahun)
+              ->exists();              
               
-      return Response()->json([
-                              'status'=>1,
-                              'pid'=>'store',  
-                              'pindahkelas'=>$pindahkelas,                                                                                                                                   
-                              'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
-                            ], 200);     
+        if ($bool) {
+          $semester = HelperAkademik::getSemester($idsmt);
+          throw new Exception ("Menghapus tidak bisa dilakukan karena sudah daftar ulang semester $semester T.A $tahun.");  
+        }
+        $data = \DB::transaction(function () use ($request, $data) {
+          $data_mhs = RegisterMahasiswaModel::find($data->user_id);  
+          $data_mhs->idkelas =  $request->input('idkelas_baru');
+          $data_mhs->save();
+
+          $data->idkelas_baru = $request->input('idkelas_baru');
+          $data->descr = $request->input('descr');
+          $data->save();
+
+          return $data;
+        });        
+
+        $pindahkelas = PindahKelasModel::select(\DB::raw("
+                  pe3_pindah_kelas.id,
+                  pe3_pindah_kelas.user_id,
+                  pe3_pindah_kelas.nim,
+                  pe3_formulir_pendaftaran.nama_mhs,
+                  pe3_pindah_kelas.idkelas_lama,
+                  A.nkelas AS kelas_lama,
+                  pe3_pindah_kelas.idkelas_baru,
+                  B.nkelas AS kelas_baru,
+                  pe3_pindah_kelas.idsmt,
+                  pe3_pindah_kelas.tahun,
+                  pe3_pindah_kelas.descr,
+                  pe3_pindah_kelas.created_at,
+                  pe3_pindah_kelas.updated_at
+                "))
+                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
+                ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
+                ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+                ->where('pe3_pindah_kelas.id', $data->id)
+                ->first();
+                
+        return Response()->json([
+                                'status'=>1,
+                                'pid'=>'update',  
+                                'pindahkelas'=>$pindahkelas,                                                                                                                                   
+                                'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                              ], 200);    
+      }
+      catch (Exception $e)
+      {
+        return Response()->json([
+          'status'=>0,
+          'pid'=>'update',                                                                                                                                                  
+          'message'=>[$e->getMessage()]
+        ],422); 
+      }     
     }
   }
   public function destroy(Request $request,$id)
@@ -191,18 +249,45 @@ class PindahKelasController  extends Controller
     }
     else
     {
-        \App\Models\System\ActivityLog::log($request,[
-                                                      'object' => $pindahkelas, 
-                                                      'object_id' => $pindahkelas->id, 
-                                                      'user_id' => $this->getUserid(), 
-                                                      'message' => 'Menghapus Pindah Kelas dengan id ('.$id.') berhasil'
-                                                    ]);
-        $pindahkelas->delete();
+      try
+      {
+        $bool = \DB::table('pe3_dulang')
+              ->where('user_id', $pindahkelas->user_id)
+              ->where('idsmt', $pindahkelas->idsmt)
+              ->where('tahun', $pindahkelas->tahun)
+              ->exists();              
+
+        if ($bool) {
+          $semester = HelperAkademik::getSemester($idsmt);
+          throw new Exception ("Menghapus tidak bisa dilakukan karena sudah daftar ulang semester $semester T.A $tahun.");  
+        }
+        
+        \DB::transaction(function () use ($request, $pindahkelas) {
+          $data_mhs = RegisterMahasiswaModel::find($pindahkelas->user_id);             
+          $data_mhs->idkelas = $pindahkelas->idkelas_lama;
+          $data_mhs->save();
+          $pindahkelas->delete();
+          \App\Models\System\ActivityLog::log($request, [
+            'object' => $pindahkelas, 
+            'object_id' => $pindahkelas->id, 
+            'user_id' => $this->getUserid(), 
+            'message' => 'Menghapus Pindah Kelas dengan id ('.$pindahkelas->id.') berhasil'
+          ]);
+        });
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'destroy',                
-                                    'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
-                                ],200);         
+                                  'status'=>1,
+                                  'pid'=>'destroy',                
+                                  'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
+                              ],200);         
+      }
+      catch (Exception $e)
+      {
+        return Response()->json([
+          'status'=>0,
+          'pid'=>'destroy',                                                                                                                                                  
+          'message'=>[$e->getMessage()]
+        ],422); 
+      }        
     }
                 
   }
