@@ -38,7 +38,7 @@
 <script>
 import KeuanganLayout from "@/views/layouts/KeuanganLayout";
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter1 from "@/components/sidebar/FilterMode1";
 import DashboardKeuanganMHS from '@/components/DashboardKeuanganMHS';
 import DashboardKeuanganAdmin from '@/components/DashboardKeuanganAdmin';
 export default {

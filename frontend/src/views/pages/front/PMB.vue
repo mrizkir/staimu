@@ -190,7 +190,10 @@
 				value => !!value || "Program studi mohon untuk dipilih !!!"
 			], 
 			rule_username: [
-				value => !!value || "Username mohon untuk diisi !!!"
+				value => !!value || "Username mohon untuk diisi !!!",
+				value =>
+					/^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(value) || 
+					"Username tidak boleh ada spasi, koma, maksimal minimal 3 maksimal 30",
 			], 
 			rule_password: [
 				value => !!value || "Password mohon untuk diisi !!!"

@@ -113,7 +113,7 @@
 <script>
 import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter1 from "@/components/sidebar/FilterMode1";
 export default {
     name: 'Kemahasiswaan',
     created()

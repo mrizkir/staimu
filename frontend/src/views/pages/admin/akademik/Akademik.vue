@@ -39,7 +39,7 @@
 <script>
 import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
-import Filter1 from '@/components/sidebar/FilterMode1';
+import Filter1 from "@/components/sidebar/FilterMode1";
 export default {
     name: 'Akademik',
     created()

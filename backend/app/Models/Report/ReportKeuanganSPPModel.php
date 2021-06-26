@@ -489,7 +489,8 @@ class ReportKeuanganSPPModel extends ReportModel
         $sheet->setCellValue("G$row",'NOVEMBER');
         $sheet->setCellValue("H$row",'DESEMBER');
         $sheet->setCellValue("I$row",'JANUARI');
-        $sheet->setCellValue("K$row",'FEBRUARI');                
+        $sheet->setCellValue("J$row",'FEBRUARI'); 
+        $sheet->setCellValue("K$row",'JUMLAH');                 
       break;
       case 2:
         $sheet->setCellValue("E$row",'MARET');
