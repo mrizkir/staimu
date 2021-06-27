@@ -444,7 +444,7 @@ class KRSController extends Controller
         $ta=$request->input('ta');
         $idsmt=$request->input('idsmt');
 
-        $isdulang = KRSModel::where('nim',$nim)
+        $iskrs = KRSModel::where('nim',$nim)
                                 ->where('tahun',$ta)
                                 ->where('idsmt',$idsmt)                                
                                 ->exists();
