@@ -7,7 +7,7 @@
 			<template v-slot:name>
 				KARTU RENCANA STUDI
 			</template>
-			<template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
+			<template v-slot:subtitle v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'">
 				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
@@ -28,7 +28,7 @@
 				</v-alert>
 			</template>
 		</ModuleHeader>
-		<template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa'">
+		<template v-slot:filtersidebar v-if="$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa'">
 			<Filter6 v-on:changeTahunAkademik="changeTahunAkademik" v-on:changeSemesterAkademik="changeSemesterAkademik" v-on:changeProdi="changeProdi" ref="filter6" />	
 		</template>
 		<v-container fluid> 

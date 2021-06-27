@@ -775,6 +775,68 @@ const routes = [
 				"../views/pages/admin/akademik/PerkuliahanVerifikasiKRSDetail.vue"
 			),
 	},
+	//akademik - perkuliahan - pkrs
+	{
+		path: "/akademik/perkuliahan/pkrs/daftar",
+		name: "PerkuliahanPKRS",
+		meta: {
+			title: "AKADEMIK - PKRS",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/akademik/PerkuliahanPKRS.vue"),
+	},
+	{
+		path: "/akademik/perkuliahan/pkrs/:krsid/detail",
+		name: "PerkuliahanPKRSDetail",
+		meta: {
+			title: "AKADEMIK - PKRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanPKRSDetail.vue"),
+	},
+	{
+		path: "/akademik/perkuliahan/pkrs/tambah",
+		name: "PerkuliahanPKRSTambah",
+		meta: {
+			title: "AKADEMIK - PKRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanPKRSTambah.vue"),
+	},
+	{
+		path: "/akademik/perkuliahan/pkrs/:krsid/tambahmatkul",
+		name: "PerkuliahanPKRSTambahMatkul",
+		meta: {
+			title: "AKADEMIK - PKRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanPKRSTambahMatkul.vue"),
+	},
+	{
+		path: "/akademik/perkuliahan/pkrs/verifikasi",
+		name: "PerkuliahanPKRSVerifikasi",
+		meta: {
+			title: "AKADEMIK - VERIFIKASI PKRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanVerifikasiKRS.vue"),
+	},
+	{
+		path: "/akademik/perkuliahan/pkrs/verifikasi/:krsid/detail",
+		name: "PerkuliahanVerifikasiKRSDetail",
+		meta: {
+			title: "AKADEMIK - VERIFIKASI PKRS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import(
+				"../views/pages/admin/akademik/PerkuliahanVerifikasiKRSDetail.vue"
+			),
+	},
 	//akademik - perkuliahan - pembagian kelas
 	{
 		path: "/akademik/perkuliahan/pembagiankelas/daftar",

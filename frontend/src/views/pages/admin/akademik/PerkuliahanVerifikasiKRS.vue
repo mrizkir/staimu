@@ -208,7 +208,7 @@ export default {
    },
     mounted()
     {
-        if (this.$store.getters['uiadmin/getDefaultDashboard']!='mahasiswa')        
+        if (this.$store.getters['uiadmin/getDefaultDashboard'] != 'mahasiswa')        
         { 
             this.initialize(); 
         }
