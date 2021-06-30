@@ -185,6 +185,7 @@ class NilaiKHSController extends Controller
 																				->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
 																				->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')                                        
 																				->where('pe3_krsmatkul.krs_id',$krs->id)
+																				->where('pe3_krsmatkul.batal', 0)
 																				->orderBy('semester','asc')
 																				->orderBy('kmatkul','asc')
 																				->get();

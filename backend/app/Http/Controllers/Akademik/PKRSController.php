@@ -14,6 +14,7 @@ use App\Models\Akademik\KRSMatkulModel;
 
 use App\Models\System\ConfigurationModel;
 
+use Exception;
 use Ramsey\Uuid\Uuid;
 
 class PKRSController extends Controller
@@ -44,6 +45,9 @@ class PKRSController extends Controller
                                 pe3_penyelenggaraan.kmatkul,
                                 pe3_penyelenggaraan.nmatkul,
                                 pe3_penyelenggaraan.sks,
+                                pe3_pkrs.tambah,
+                                pe3_pkrs.hapus,
+                                pe3_pkrs.batal,
                                 \'N.A\' AS ket,                                    
                                 pe3_pkrs.created_at,
                                 pe3_pkrs.updated_at
@@ -67,15 +71,16 @@ class PKRSController extends Controller
                                     ->get();
         }
         $daftar_pkrs->transform(function ($item,$key) {                
-            if ($v->tambah == 1) {
+            if ($item->tambah == 1) {
                 $ket = 'TAMBAH';
-            } if ($v->hapus == 1) {
+            } if ($item->hapus == 1) {
                 $ket = 'HAPUS';
-                }if ($v->batal == 1) {
+                }if ($item->batal == 1) {
                 $ket = 'BATAL';
-            }if ($v->sah == 1) {
+            }if ($item->sah == 1) {
                 $ket = 'SAH';
             }
+            $item->ket = $ket;
             return $item;
         });    
         
@@ -90,8 +95,9 @@ class PKRSController extends Controller
     public function show (Request $request,$id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_SHOW');
-
-        $krs=KRSModel::select(\DB::raw('
+        try
+        {
+            $krs=KRSModel::select(\DB::raw('
                         pe3_krs.id,
                         pe3_krs.nim,
                         pe3_register_mahasiswa.nirm,
@@ -118,18 +124,15 @@ class PKRSController extends Controller
                     ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
                     ->find($id);
 
-        $daftar_matkul=[];
-
-        if (is_null($krs))
-        {
-            return Response()->json([
-                                    'status'=>0,
-                                    'pid'=>'fetchdata',                
-                                    'message'=>["KRS dengan ($id) gagal diperoleh"]
-                                ],422); 
-        }
-        else
-        {
+            if (is_null($krs))
+            {
+                throw new Exception ("KRS dengan ($id) gagal diperoleh");
+            }
+            if ($krs->sah == 0) 
+            {
+                throw new Exception ("Mohon maaf belum bisa melakukan PKRS karena KRS-nya belum disahkan oleh Dosen Wali");
+            }
+            $daftar_matkul=[];
             $daftar_matkul=KRSMatkulModel::select(\DB::raw('
                                             pe3_krsmatkul.id,
                                             A.kmatkul,
@@ -142,6 +145,7 @@ class PKRSController extends Controller
                                             COALESCE(D.nmatkul,\'N.A\') AS nama_kelas,
                                             C.kelas_mhs_id,
                                             pe3_krsmatkul.penyelenggaraan_id,
+                                            pe3_krsmatkul.batal,
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
@@ -181,7 +185,15 @@ class PKRSController extends Controller
                                     'jumlah_sks'=>$krs->jumlah_sks_1,                                                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
-        }        
+        }
+        catch (Exception $e)
+        {
+            return Response()->json([
+                'status'=>0,
+                'pid'=>'fetchdata',                                                                                                                                                  
+                'message'=>[$e->getMessage()]
+            ],422); 
+        }                 
     }
     public function penyelenggaraan (Request $request)
     {
@@ -316,6 +328,16 @@ class PKRSController extends Controller
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ];
+            PKRSModel::create([
+                'id'=>Uuid::uuid4()->toString(),
+                'user_id'=>$krs->user_id,
+                'nim'=>$krs->nim,
+                'penyelenggaraan_id'=>$v['id'],
+                'tambah'=>1,
+                'hapus'=>0,
+                'batal'=>0,
+                'sah'=>0,
+            ]);
         }
         KRSMatkulModel::insert($daftar_matkul);
         return Response()->json([
@@ -323,104 +345,75 @@ class PKRSController extends Controller
                                     'pid'=>'store',                                                                                                                                                                         
                                     'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
                                 ],200);  
-    }
-    public function verifikasi (Request $request,$id)
+    }  
+    public function updatestatus (Request $request,$id)
     {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-VERIFIKASI-PKRS_UPDATE');
+        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_UPDATE');
 
-        $krs = KRSModel::find($id); 
+        $krsmatkul = KRSMatkulModel::find($id); 
         
-        if (is_null($krs))
+        if (is_null($krsmatkul))
         {
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'update',                
-                                    'message'=>["KRS dengan ($id) gagal diverifikasi"]
+                                    'message'=>["PKRS dengan ($id) gagal diverifikasi"]
                                 ],422); 
         }
         else
         {
-            \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $krs, 
-                                                                'object_id' => $krs->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
-                                                            ]);
-            $krs->sah=1;
-            $krs->save();
+            $this->validate($request, [      
+                'status'=>'required',                                
+            ]);
+            
+            $user = \DB::transaction(function () use ($request, $krsmatkul) {
+                $status = $request->input('status');
+                \App\Models\System\ActivityLog::log($request,[
+                    'object' => $krsmatkul, 
+                    'object_id' => $krsmatkul->id, 
+                    'user_id' => $this->getUserid(), 
+                    'message' => "Merubah status menjadi $status matakuliah KRS dengan id ('.$krsmatkul->id.') berhasil"
+                ]);
 
+                $krsmatkul->batal=$status;
+                $krsmatkul->save();
+
+                $krs = $krsmatkul->krs;
+                if ($status)
+                {
+                    PKRSModel::create([
+                        'id'=>Uuid::uuid4()->toString(),
+                        'user_id'=>$krs->user_id,
+                        'nim'=>$krs->nim,
+                        'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                        'tambah'=>0,
+                        'hapus'=>0,
+                        'batal'=>1,
+                        'sah'=>0,
+                    ]);
+                }
+                else
+                {
+                    PKRSModel::create([
+                        'id'=>Uuid::uuid4()->toString(),
+                        'user_id'=>$krs->user_id,
+                        'nim'=>$krs->nim,
+                        'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                        'tambah'=>0,
+                        'hapus'=>0,
+                        'batal'=>0,
+                        'sah'=>1,
+                    ]);
+                }
+            });            
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update', 
-                                        'krs'=>$krs,               
-                                        'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
+                                        'krsmatkul'=>$krsmatkul,               
+                                        'message' => 'Memverifikasi Perubahan KRS dengan id ('.$id.') berhasil'
                                     ],200);    
         }
-    }
-    public function cekkrs (Request $request)
-    {
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_SHOW');
-
-        $this->validate($request, [      
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-            'ta'=>'required',
-            'idsmt'=>'required'
-        ]);
-        
-        $nim=$request->input('nim');
-        $ta=$request->input('ta');
-        $idsmt=$request->input('idsmt');
-
-        $isdulang = KRSModel::where('nim',$nim)
-                                ->where('tahun',$ta)
-                                ->where('idsmt',$idsmt)                                
-                                ->exists();
-
-        return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'iskrs'=>$iskrs,                                                                                                                                   
-                                    'message'=>'Cek krs mahasiswa'
-                                ],200);  
-
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request,$id)
-    { 
-        $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_DESTROY');
-
-        $krs = KRSModel::find($id); 
-        
-        if (is_null($krs))
-        {
-            return Response()->json([
-                                    'status'=>0,
-                                    'pid'=>'destroy',                
-                                    'message'=>["KRS dengan ($id) gagal dihapus"]
-                                ],422); 
-        }
-        else
-        {
-            \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $krs, 
-                                                                'object_id' => $krs->id, 
-                                                                'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus KRS dengan id ('.$id.') berhasil'
-                                                            ]);
-            $krs->delete();
-            return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',                
-                                        'message'=>"KRS dengan ID ($id) berhasil dihapus"
-                                    ],200);         
-        }
-                  
-    }
+    }  
     /**
      * Remove the specified resource from storage.
      *
@@ -443,13 +436,32 @@ class PKRSController extends Controller
         }
         else
         {
-            \App\Models\System\ActivityLog::log($request,[
-                                                            'object' => $krsmatkul, 
-                                                            'object_id' => $krsmatkul->id, 
-                                                            'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                                        ]);
-            $krsmatkul->delete();
+            $user = \DB::transaction(function () use ($request, $krsmatkul) {
+                \App\Models\System\ActivityLog::log($request, [
+                    'object' => $krsmatkul, 
+                    'object_id' => $krsmatkul->id, 
+                    'user_id' => $this->getUserid(), 
+                    'message' => 'Menghapus matakuliah KRS dengan id ('.$krsmatkul->id.') berhasil'
+                ]);
+                
+                \DB::table("pe3_kelas_mhs_peserta")
+                        ->where('krsmatkul_id', $krsmatkul->id)
+                        ->delete();
+
+                $krs = $krsmatkul->krs;
+                PKRSModel::create([
+                    'id'=>Uuid::uuid4()->toString(),
+                    'user_id'=>$krs->user_id,
+                    'nim'=>$krs->nim,
+                    'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                    'tambah'=>0,
+                    'hapus'=>1,
+                    'batal'=>0,
+                    'sah'=>0,
+                ]);
+
+                $krsmatkul->delete();
+            });            
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                

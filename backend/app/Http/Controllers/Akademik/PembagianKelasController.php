@@ -194,7 +194,10 @@ class PembagianKelasController extends Controller
                                     ->get();
 
         $penyelenggaraan->transform(function ($item,$key){
-            $item->jumlah_mhs=\DB::table('pe3_krsmatkul')->where('penyelenggaraan_id',$item->penyelenggaraan_id)->count();
+            $item->jumlah_mhs=\DB::table('pe3_krsmatkul')
+                                ->where('penyelenggaraan_id',$item->penyelenggaraan_id)
+                                ->where('pe3_krsmatku.batal', 0)
+                                ->count();
             return $item;
         });
 
@@ -212,6 +215,7 @@ class PembagianKelasController extends Controller
                                     ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
                                     ->where('kelas_mhs_id',$id)
+                                    ->where('pe3_krsmatku.batal', 0)
                                     ->get();
 
         return Response()->json([
@@ -290,6 +294,7 @@ class PembagianKelasController extends Controller
                                     ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
                                     ->where('kelas_mhs_id',$id)
+                                    ->where('pe3_krsmatku.batal', 0)
                                     ->get();
             return Response()->json([
                                 'status'=>1,

@@ -444,14 +444,17 @@ class KRSController extends Controller
         $ta=$request->input('ta');
         $idsmt=$request->input('idsmt');
 
-        $iskrs = KRSModel::where('nim',$nim)
+        $data_krs = KRSModel::where('nim',$nim)
                                 ->where('tahun',$ta)
                                 ->where('idsmt',$idsmt)                                
-                                ->exists();
+                                ->first();
 
+        $iskrs = !is_null($data_krs);        
+        
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',  
+                                    'pid'=>'fetchdata', 
+                                    'data_krs' => $data_krs,
                                     'iskrs'=>$iskrs,                                                                                                                                   
                                     'message'=>'Cek krs mahasiswa'
                                 ],200);  

@@ -33,12 +33,10 @@
 				<v-col cols="12">
 					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 						<v-card>
-							<v-card-title>
-								PILIH TAHUN & SEMESTER DAFTAR ULANG
-							</v-card-title>
 							<v-card-text>
 								<v-alert type="info">
-									Silahkan masukan nim, pastikan mahasiswa tersebut telah melakukan KRS dan disahkan oleh Dosen Wali.
+									Silahkan masukan nim, pastikan mahasiswa tersebut telah
+									melakukan KRS dan disahkan oleh Dosen Wali.
 								</v-alert>
 								<v-text-field
 									v-model="formdata.nim"
@@ -51,24 +49,16 @@
 										this.$store.getters['uiadmin/getDefaultDashboard'] ==
 											'mahasiswa'
 									"
-								/>								
+								/>
 							</v-card-text>
 							<v-card-actions>
 								<v-spacer></v-spacer>
 								<v-btn color="blue darken-1" text @click.stop="closedialogfrm">
 									BATAL
 								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click.stop="save"
-									:disabled="!form_valid || btnLoading"
-								>
-									BUAT
-								</v-btn>
 							</v-card-actions>
 						</v-card>
-					</v-form>					
+					</v-form>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -109,8 +99,8 @@
 			];
 			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 			this.prodi_id = prodi_id;
-			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);			
-			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];			
+			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
 			this.daftar_semester = this.$store.getters["uiadmin/getDaftarSemester"];
 			this.semester_akademik = this.$store.getters[
 				"uiadmin/getSemesterAkademik"
@@ -129,7 +119,7 @@
 			tahun_akademik: null,
 			semester_akademik: null,
 
-			btnLoading: false,		
+			btnLoading: false,
 
 			//formdata
 			form_valid: true,
@@ -296,7 +286,7 @@
 					});
 			},
 			async cekNIM() {
-				if (this.formdata.nim.length > 0) {					
+				if (this.formdata.nim.length > 0) {
 					let nim = this.formdata.nim;
 					await this.$ajax
 						.post(
@@ -313,12 +303,15 @@
 							}
 						)
 						.then(({ data }) => {
-							console.log(data);
+							if (data.iskrs) {
+								this.$router.push(
+									"/akademik/perkuliahan/pkrs/" + data.data_krs.id + "/detail"
+								);
+							}
 						})
 						.catch(() => {
 							this.btnLoading = false;
 						});
-				
 				}
 			},
 			save: async function() {

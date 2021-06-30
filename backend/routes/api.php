@@ -401,11 +401,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //digunakan untuk mendapatkan daftar matakuliah yang diselenggarakan dan belum terdaftar di krsnya mhs
     $router->post('/akademik/perkuliahan/pkrs/penyelenggaraan',['middleware'=>['role:superadmin||dosenwali'],'uses'=>'Akademik\PKRSController@penyelenggaraan','as'=>'pkrs.penyelenggaraan']);
     $router->post('/akademik/perkuliahan/pkrs/storematkul',['middleware'=>['role:superadmin||dosenwali'],'uses'=>'Akademik\PKRSController@storematkul','as'=>'pkrs.storematkul']);
-    $router->get('/akademik/perkuliahan/pkrs/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@show','as'=>'pkrs.show']);
-    $router->put('/akademik/perkuliahan/pkrs/{id}/verifikasi',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@verifikasi','as'=>'pkrs.verifikasi']);
-    $router->post('/akademik/perkuliahan/pkrs/cekkrs',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@cekkrs','as'=>'pkrs.cekkrs']);
-    $router->put('/akademik/perkuliahan/pkrs/updatestatus/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@updatestatus','as'=>'pkrs.updatestatus']);
-    $router->delete('/akademik/perkuliahan/pkrs/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@destroy','as'=>'pkrs.destroy']);
+    $router->get('/akademik/perkuliahan/pkrs/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@show','as'=>'pkrs.show']);    
+    $router->put('/akademik/perkuliahan/pkrs/updatestatus/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@updatestatus','as'=>'pkrs.updatestatus']);    
     $router->delete('/akademik/perkuliahan/pkrs/deletematkul/{id}',['middleware'=>['role:superadmin|dosenwali'],'uses'=>'Akademik\PKRSController@destroymatkul','as'=>'pkrs.destroymatkul']);
 
     //akademik - perkuliahan - pembagian kelas

@@ -298,7 +298,7 @@ export default {
                 });
             }
             this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
-                this.daftar_kelas=data.kelas;
+                this.daftar_kelas = data.kelas;
             });
             await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id, 
                 {

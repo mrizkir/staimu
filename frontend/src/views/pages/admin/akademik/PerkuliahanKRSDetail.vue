@@ -122,18 +122,19 @@
 																												</v-col>
 																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
 																										</v-row>
-																										<v-row>
-																												<v-col cols="12">
-																														<v-select 
-																																v-model="formdata.kelas_mhs_id" 
-																																label="DAFTAR KELAS"
-																																:items="daftar_kelas"
-																																item-value="id"
-																																item-text="nmatkul"      
-																																outlined>
-																														</v-select> 
-																												</v-col>
-																										</v-row>
+																									<v-row>
+																										<v-col cols="12">
+																											<v-select 
+																												v-model="formdata.kelas_mhs_id" 
+																												label="DAFTAR KELAS"
+																												:items="daftar_kelas"
+																												item-value="id"
+																												item-text="nmatkul"      
+																												outlined
+																											>
+																											</v-select> 
+																										</v-col>
+																									</v-row>
 																								</v-card-text>
 																								<v-card-actions>
 																										<v-spacer></v-spacer>
@@ -304,7 +305,7 @@ export default {
 						}).then(({ data }) => {
 								this.dialogfrm = true;
 								this.datamatkul=item;
-								this.daftar_kelas=data.daftarkelas;
+								this.daftar_kelas = data.daftarkelas;
 								this.formdata.kelas_mhs_id=item.kelas_mhs_id;
 						})
 				},

@@ -192,6 +192,7 @@ class TranskripKurikulumController  extends Controller
                             ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                             ->where('C.user_id',$user_id)
                             ->where('D.matkul_id',$item->id)
+                            ->where('B.batal', 0)
                             ->orderBy('n_mutu','desc')
                             ->limit(1)
                             ->get();
@@ -331,6 +332,7 @@ class TranskripKurikulumController  extends Controller
                                     ->leftJoin('users AS E','E.id','A.user_id_updated')
                                     ->where('C.user_id',$request->input('user_id'))
                                     ->where('D.matkul_id',$id)
+                                    ->where('B.batal',0)
                                     ->orderBy('D.created_at','desc')
                                     ->get();   
                                     
@@ -460,6 +462,7 @@ class TranskripKurikulumController  extends Controller
                                             ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                                             ->where('C.user_id',$mahasiswa->user_id)
                                             ->where('D.matkul_id',$item->id)
+                                            ->where('B.batal',0)                                            
                                             ->orderBy('A.n_mutu','DESC')
                                             ->limit(1);
 
@@ -854,6 +857,7 @@ class TranskripKurikulumController  extends Controller
                                     ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                                     ->where('C.user_id',$mahasiswa->user_id)
                                     ->where('D.matkul_id',$item->id)
+                                    ->where('B.batal',0)
                                     ->orderBy('A.n_mutu','DESC')
                                     ->limit(1);
 
@@ -969,6 +973,7 @@ class TranskripKurikulumController  extends Controller
                                     ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                                     ->where('C.user_id',$mahasiswa->user_id)
                                     ->where('D.matkul_id',$item->id)
+                                    ->where('B.batal',0)                                            
                                     ->orderBy('A.n_mutu','DESC')
                                     ->limit(1);
 

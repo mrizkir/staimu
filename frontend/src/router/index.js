@@ -825,18 +825,6 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/PerkuliahanVerifikasiKRS.vue"),
 	},
-	{
-		path: "/akademik/perkuliahan/pkrs/verifikasi/:krsid/detail",
-		name: "PerkuliahanVerifikasiKRSDetail",
-		meta: {
-			title: "AKADEMIK - VERIFIKASI PKRS",
-			requiresAuth: true,
-		},
-		component: () =>
-			import(
-				"../views/pages/admin/akademik/PerkuliahanVerifikasiKRSDetail.vue"
-			),
-	},
 	//akademik - perkuliahan - pembagian kelas
 	{
 		path: "/akademik/perkuliahan/pembagiankelas/daftar",

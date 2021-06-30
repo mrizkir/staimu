@@ -82,6 +82,7 @@ class NilaiMatakuliahController extends Controller
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
                                     ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_kelas_mhs_peserta.krsmatkul_id')
                                     ->where('pe3_kelas_mhs_peserta.kelas_mhs_id',$id)
+                                    ->where('pe3_krsmatkul.batal', 0)
                                     ->get();
             return Response()->json([
                                 'status'=>1,
@@ -142,6 +143,7 @@ class NilaiMatakuliahController extends Controller
                                         ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
                                         ->where('pe3_krsmatkul.krs_id',$krs->id)
+                                        ->where('pe3_krsmatkul.batal', 0)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
                                         ->get();
@@ -198,7 +200,8 @@ class NilaiMatakuliahController extends Controller
                                         ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
-                                        ->where('pe3_krsmatkul.id',$krsmatkul_id)                                        
+                                        ->where('pe3_krsmatkul.id',$krsmatkul_id)  
+                                        ->where('pe3_krsmatkul.batal', 0)                                      
                                         ->first();
                     
                     
@@ -321,7 +324,8 @@ class NilaiMatakuliahController extends Controller
                                         ->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
-                                        ->where('pe3_krsmatkul.id',$krsmatkul_id)                                        
+                                        ->where('pe3_krsmatkul.id',$krsmatkul_id)  
+                                        ->where('pe3_krsmatkul.batal', 0)                                      
                                         ->first();
                     
                     
