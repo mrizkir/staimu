@@ -23,7 +23,7 @@ class CreatePKRSTable extends Migration
             $table->tinyInteger('hapus');
             $table->tinyInteger('batal');
             $table->tinyInteger('sah');            
-            $table->timestamp();
+            $table->timestamps();
             
             $table->foreign('user_id')
                 ->references('user_id')

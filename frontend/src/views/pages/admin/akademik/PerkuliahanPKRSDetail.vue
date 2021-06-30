@@ -28,186 +28,235 @@
 		<v-container fluid v-if="Object.keys(datakrs).length">
 			<v-row>
 				<v-col cols="12">
-					<DataKRS :datakrs="datakrs" url="/akademik/perkuliahan/pkrs/daftar" :totalmatkul="totalMatkul" :totalsks="totalSKS" />
+					<DataKRS
+						:datakrs="datakrs"
+						url="/akademik/perkuliahan/pkrs/daftar"
+						:totalmatkul="totalMatkul"
+						:totalsks="totalSKS"
+					/>
 				</v-col>
 			</v-row>
-						<v-row>
-								<v-col cols="12">
-										<v-card>
+			<v-row>
+				<v-col cols="12">
+					<v-card>
+						<v-card-title>
+							DAFTAR MATAKULIAH
+							<v-spacer></v-spacer>
+							<v-btn
+								color="primary"
+								icon
+								outlined
+								small
+								class="ma-2"
+								:to="{
+									path:
+										'/akademik/perkuliahan/pkrs/' +
+										this.krs_id +
+										'/tambahmatkul',
+								}"
+							>
+								<v-icon>mdi-plus</v-icon>
+							</v-btn>
+						</v-card-title>
+						<v-card-text>
+							<v-data-table
+								dense
+								:headers="headers"
+								:items="datatable"
+								item-key="id"
+								:disable-pagination="true"
+								:hide-default-footer="true"
+								:loading="datatableLoading"
+								loading-text="Loading... Please wait"
+							>
+								<template v-slot:top>
+									<v-dialog v-model="dialogfrm" max-width="700px" persistent>
+										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+											<v-card>
 												<v-card-title>
-														DAFTAR MATAKULIAH
-														<v-spacer></v-spacer>
-														<v-btn color="primary" icon outlined small class="ma-2" :to="{path: '/akademik/perkuliahan/pkrs/'+this.krs_id+'/tambahmatkul'}">
-																<v-icon>mdi-plus</v-icon>
-														</v-btn>
+													<span class="headline">Pilih Kelas</span>
 												</v-card-title>
 												<v-card-text>
-														<v-data-table
-																dense
-																:headers="headers"
-																:items="datatable"
-																item-key="id"
-																:disable-pagination="true"
-																:hide-default-footer="true"
-																:loading="datatableLoading"
-																loading-text="Loading... Please wait">
-																<template v-slot:top
+													<v-row no-gutters>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>ID :</v-card-title>
+																<v-card-subtitle>
+																	{{ datamatkul.id }}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>SKS :</v-card-title>
+																<v-card-subtitle>
+																	{{ datamatkul.sks }}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+													</v-row>
+													<v-row no-gutters>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>KODE MATAKULIAH :</v-card-title>
+																<v-card-subtitle>
+																	{{ datamatkul.kmatkul }}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>
+																	NAMA DOSEN PENGAMPU :
+																</v-card-title>
+																<v-card-subtitle>
+																	{{ datamatkul.nama_dosen_penyelenggaraan }}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+													</v-row>
+													<v-row no-gutters>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>NAMA MATAKULIAH :</v-card-title>
+																<v-card-subtitle>
+																	{{ datamatkul.nmatkul }}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+														<v-col xs="12" sm="6" md="6">
+															<v-card flat>
+																<v-card-title>
+																	NAMA DOSEN PENGAJAR :
+																</v-card-title>
+																<v-card-subtitle>
+																	{{
+																		datamatkul.nama_dosen_kelas == null
+																			? "N.A"
+																			: datamatkul.nama_dosen_kelas
+																	}}
+																</v-card-subtitle>
+															</v-card>
+														</v-col>
+														<v-responsive
+															width="100%"
+															v-if="$vuetify.breakpoint.xsOnly"
+														/>
+													</v-row>
+													<v-row>
+														<v-col cols="12">
+															<v-select
+																v-model="formdata.kelas_mhs_id"
+																label="DAFTAR KELAS"
+																:items="daftar_kelas"
+																item-value="id"
+																item-text="nmatkul"
+																outlined
 															>
-																		<v-dialog v-model="dialogfrm" max-width="700px" persistent>
-																				<v-form ref="frmdata" v-model="form_valid" lazy-validation>
-																						<v-card>
-																								<v-card-title>
-																										<span class="headline">Pilih Kelas</span>
-																								</v-card-title>
-																								<v-card-text>
-																										<v-row no-gutters>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>ID :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.id}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>SKS :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.sks}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																										</v-row>
-																										<v-row no-gutters>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>KODE MATAKULIAH :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.kmatkul}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>NAMA DOSEN PENGAMPU :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.nama_dosen_penyelenggaraan}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																										</v-row>
-																										<v-row no-gutters>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>NAMA MATAKULIAH :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.nmatkul}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																												<v-col xs="12" sm="6" md="6">
-																														<v-card flat>
-																																<v-card-title>NAMA DOSEN PENGAJAR :</v-card-title>
-																																<v-card-subtitle>
-																																		{{datamatkul.nama_dosen_kelas == null ? "N.A":datamatkul.nama_dosen_kelas}}
-																																</v-card-subtitle>
-																														</v-card>
-																												</v-col>
-																												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																									</v-row>
-																<v-row>
-																	<v-col cols="12">
-																		<v-select 
-																			v-model="formdata.kelas_mhs_id" 
-																			label="DAFTAR KELAS"
-																			:items="daftar_kelas"
-																			item-value="id"
-																			item-text="nmatkul"      
-																			outlined
-																		>
-																		</v-select> 
-																	</v-col>
-																</v-row>
-															</v-card-text>
-														<v-card-actions>
-															<v-spacer></v-spacer>
-															<v-btn color="blue darken-1" text @click.stop="closedialogfrm">BATAL</v-btn>
-															<v-btn
-																	color="blue darken-1"
-																	text
-																	@click.stop="save"																												
-																	:disabled="!form_valid || btnLoading"
-																>
-																	SIMPAN
-															</v-btn>
-														</v-card-actions>
-													</v-card>
-												</v-form>
-											</v-dialog>
-										</template>
-										<template v-slot:item.batal="{ item }">											
-											<v-switch
-												v-model="item.batal"
-												:label="item.batal == 1 ? 'BATAL' : 'SAH'"
-												@change="updateStatus(item)"
-											>
-											</v-switch>
-										</template>
-										<template v-slot:item.actions="{ item }">
-											<v-btn
-												small
-												icon
-												:disabled="btnLoading"
-												@click.stop="showPilihKelas(item)"
-											>
-												<v-icon>
-													mdi-google-classroom
-												</v-icon>
-											</v-btn>
-											<v-btn
-												small
-												icon
-												:disabled="btnLoading"
-												@click.stop="deleteItem(item)"
-											>
-												<v-icon>
-													mdi-delete
-												</v-icon>
-										</v-btn>
-									</template>
-									<template v-slot:body.append v-if="datatable.length > 0">
-										<tr class="grey lighten-4 font-weight-black">
-											<td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
-											<td>{{totalMatkul}}</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr class="grey lighten-4 font-weight-black">
-											<td class="text-right" colspan="2">TOTAL SKS</td>
-											<td>{{totalSKS}}</td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-										</tr>
-									</template>
-									<template v-slot:no-data>
-										Data matakuliah belum tersedia silahkan tambah
-									</template>
-								</v-data-table>
-							</v-card-text>
-						</v-card>
-					</v-col>
-				</v-row>
-			</v-container>
-		</AkademikLayout>
+															</v-select>
+														</v-col>
+													</v-row>
+												</v-card-text>
+												<v-card-actions>
+													<v-spacer></v-spacer>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="closedialogfrm"
+													>
+														BATAL
+													</v-btn>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="save"
+														:disabled="!form_valid || btnLoading"
+													>
+														SIMPAN
+													</v-btn>
+												</v-card-actions>
+											</v-card>
+										</v-form>
+									</v-dialog>
+								</template>
+								<template v-slot:item.batal="{ item }">
+									<v-switch
+										v-model="item.batal"
+										:label="item.batal == 1 ? 'BATAL' : 'SAH'"
+										@change="updateStatus(item)"
+									>
+									</v-switch>
+								</template>
+								<template v-slot:item.actions="{ item }">
+									<v-btn
+										small
+										icon
+										:disabled="btnLoading"
+										@click.stop="showPilihKelas(item)"
+									>
+										<v-icon>
+											mdi-google-classroom
+										</v-icon>
+									</v-btn>
+									<v-btn
+										small
+										icon
+										:disabled="btnLoading"
+										@click.stop="deleteItem(item)"
+									>
+										<v-icon>
+											mdi-delete
+										</v-icon>
+									</v-btn>
+								</template>
+								<template v-slot:body.append v-if="datatable.length > 0">
+									<tr class="grey lighten-4 font-weight-black">
+										<td class="text-right" colspan="2">TOTAL MATAKULIAH</td>
+										<td>{{ totalMatkul }}</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr class="grey lighten-4 font-weight-black">
+										<td class="text-right" colspan="2">TOTAL SKS</td>
+										<td>{{ totalSKS }}</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</template>
+								<template v-slot:no-data>
+									Data matakuliah belum tersedia silahkan tambah
+								</template>
+							</v-data-table>
+						</v-card-text>
+					</v-card>
+				</v-col>
+			</v-row>
+		</v-container>
+	</AkademikLayout>
 </template>
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
@@ -241,11 +290,11 @@
 				{
 					text: "DETAIL",
 					disabled: true,
-					href: "#"
+					href: "#",
 				},
-		];
-		this.fetchKRS();
-	},
+			];
+			this.fetchKRS();
+		},
 		data: () => ({
 			firstloading: true,
 			nama_prodi: null,
@@ -265,7 +314,7 @@
 
 			daftar_kelas: [],
 			formdata: {
-					kelas_mhs_id: null,
+				kelas_mhs_id: null,
 			},
 			//table
 			datatableLoading: false,
@@ -273,45 +322,61 @@
 			datatable: [],
 			headers: [
 				{ text: "KODE", value: "kmatkul", sortable: true, width: 100 },
-				{ text: "NAMA MATAKULIAH", value: "nmatkul", sortable: true, width: 300 },
+				{
+					text: "NAMA MATAKULIAH",
+					value: "nmatkul",
+					sortable: true,
+					width: 250,
+				},
 				{ text: "SKS", value: "sks", sortable: false, width: 50 },
 				{ text: "SMT", value: "semester", sortable: false, width: 50 },
 				{ text: "KELAS", value: "nama_kelas", sortable: false, width: 200 },
-				{ text: "NAMA DOSEN", value: "nama_dosen", sortable: false, width: 200 },
+				{
+					text: "NAMA DOSEN",
+					value: "nama_dosen",
+					sortable: false,
+					width: 200,
+				},
 				{ text: "STATUS", value: "batal", sortable: false, width: 100 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 		}),
 		methods: {
-				async fetchKRS() {
-						await this.$ajax.get("/akademik/perkuliahan/pkrs/" + this.krs_id,
-						{
-								headers: {
-										Authorization: this.$store.getters["auth/Token"],
-								}
-						}).then(({ data }) => {
-								this.datakrs=data.krs;
-								this.datatable=data.krsmatkul;
-								if (Object.keys(this.datakrs).length)
-								{
-										let prodi_id = this.datakrs.kjur;
-										this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-										this.tahun_akademik = this.datakrs.tahun;
-										this.semester_akademik = this.datakrs.idsmt;
-								}
-						})
-				},
-			async showPilihKelas(item) {
+			async fetchKRS() {
 				await this.$ajax
-					.get("/akademik/perkuliahan/pembagiankelas/" + item.penyelenggaraan_id + "/penyelenggaraan",
-					{
+					.get("/akademik/perkuliahan/pkrs/" + this.krs_id, {
 						headers: {
 							Authorization: this.$store.getters["auth/Token"],
 						},
 					})
 					.then(({ data }) => {
+						this.datakrs = data.krs;
+						this.datatable = data.krsmatkul;
+						if (Object.keys(this.datakrs).length) {
+							let prodi_id = this.datakrs.kjur;
+							this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](
+								prodi_id
+							);
+							this.tahun_akademik = this.datakrs.tahun;
+							this.semester_akademik = this.datakrs.idsmt;
+						}
+					});
+			},
+			async showPilihKelas(item) {
+				await this.$ajax
+					.get(
+						"/akademik/perkuliahan/pembagiankelas/" +
+							item.penyelenggaraan_id +
+							"/penyelenggaraan",
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
+					.then(({ data }) => {
 						this.dialogfrm = true;
-						this.datamatkul=item;
+						this.datamatkul = item;
 						this.daftar_kelas = data.daftarkelas;
 						this.formdata.kelas_mhs_id = item.kelas_mhs_id;
 					});
@@ -353,26 +418,26 @@
 			},
 			async updateStatus(item) {
 				this.btnLoading = true;
-					await this.$ajax
-						.post(
-							"/akademik/perkuliahan/pkrs/updatestatus/" + item.id,
-							{
-								_method: "put",
-								status: item.batal,
+				await this.$ajax
+					.post(
+						"/akademik/perkuliahan/pkrs/updatestatus/" + item.id,
+						{
+							_method: "put",
+							status: item.batal,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
 							},
-							{
-								headers: {
-									Authorization: this.$store.getters["auth/Token"],
-								},
-							}
-						)
-						.then(() => { 
-							this.$router.go();
-							this.btnLoading = false;
-						})
-						.catch(() => {
-							this.btnLoading = false;
-						}); 
+						}
+					)
+					.then(() => {
+						this.$router.go();
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
 			deleteItem(item) {
 				this.$root.$confirm
