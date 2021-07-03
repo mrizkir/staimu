@@ -5,7 +5,7 @@
 				mdi-account-box-multiple
 			</template>
 			<template v-slot:name>
-				DAFTAR ULANG MAHASISWA AKTIF
+				DAFTAR ULANG MAHASISWA CUTI
 			</template>
 			<template v-slot:subtitle>
 				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
@@ -21,7 +21,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk melihat daftar mahasiswa yang aktif.
+					Halaman untuk melihat daftar mahasiswa yang cuti.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -142,7 +142,7 @@
 					href: "#",
 				},
 				{
-					text: "DAFTAR ULANG MAHASISWA AKTIF",
+					text: "DAFTAR ULANG MAHASISWA CUTI",
 					disabled: true,
 					href: "#",
 				},
@@ -208,7 +208,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/dulang/mhsaktif",
+						"/akademik/dulang/mhscuti",
 						{
 							prodi_id: this.prodi_id,
 							ta: this.tahun_akademik,
@@ -252,7 +252,7 @@
 							this.btnLoadingTable = true;
 							this.$ajax
 								.post(
-									"/akademik/dulang/mhsaktif/" + item.id,
+									"/akademik/dulang/mhscuti/" + item.id,
 									{
 										_method: "DELETE",
 									},

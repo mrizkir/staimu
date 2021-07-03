@@ -12,7 +12,7 @@ use App\Models\Keuangan\TransaksiDetailModel;
 
 use Ramsey\Uuid\Uuid;
 
-class DulangMahasiswaAktifController extends Controller 
+class DulangMahasiswaCutiController extends Controller 
 {
     /**
      * daftar mahasiswa

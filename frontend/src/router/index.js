@@ -685,6 +685,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/DulangMahasiswaAktif.vue"),
 	},
+	{
+		path: "/akademik/dulang/mahasiswacuti",
+		name: "AkademikDulangMHSCuti",
+		meta: {
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA CUTI",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/DulangMahasiswaCuti.vue"),
+	},
 	//akademik - perkuliahan - penyelenggaraan
 	{
 		path: "/akademik/perkuliahan/penyelenggaraan/daftar",

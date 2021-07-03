@@ -363,6 +363,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->put('/akademik/dulang/mhsaktif/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaAktifController@update','as'=>'dulangmhsaktif.update']);
     $router->delete('/akademik/dulang/mhsaktif/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaAktifController@destroy','as'=>'dulangmhsaktif.destroy']);
 
+    //akademik - daftar ulang - mahasiswa cuti
+    $router->post('/akademik/dulang/mhscuti',['middleware'=>['role:superadmin|akademik|keuangan|mahasiswa'],'uses'=>'Akademik\DulangMahasiswaCutiController@index','as'=>'dulangmhscuti.index']);
+    $router->post('/akademik/dulang/mhscuti/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaCutiController@store','as'=>'dulangmhscuti.store']);
+    $router->get('/akademik/dulang/mhscuti/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaCutiController@show','as'=>'dulangmhscuti.show']);
+    $router->put('/akademik/dulang/mhscuti/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaCutiController@update','as'=>'dulangmhscuti.update']);
+    $router->delete('/akademik/dulang/mhscuti/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaCutiController@destroy','as'=>'dulangmhscuti.destroy']);
+    
     //akademik - kemahasiswaan - daftar mahasiswa
     $router->put('/akademik/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);
     $router->put('/kemahasiswaan/biodata/{id}/update',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|mahasiswa'],'uses'=>'Akademik\KemahasiswaanController@updatebiodata','as'=>'kemahasiswaan.updatebiodata']);
