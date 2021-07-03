@@ -98,29 +98,37 @@ class DulangMahasiswaLamaController extends Controller
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('AKADEMIK-MATAKULIAH_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-DULANG-AKTIF_DESTROY');
 
         $dulang = DulangModel::find($id); 
         
-        if (is_null($mahasiswa))
+        if (is_null($dulang))
         {
             return Response()->json([
                                     'status'=>0,
                                     'pid'=>'destroy',                
-                                    'message'=>["Daftar Ulang Mahasiswa Baru ($id) gagal dihapus"]
+                                    'message'=>["Daftar Ulang Mahasiswa Lama ($id) gagal dihapus"]
                                 ],422); 
         }
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $matakuliah, 
-                                                                'object_id' => $matakuliah->id, 
+                                                                'object' => $dulang, 
+                                                                'object_id' => $dulang->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus daftar ulang mahasiswa lama dengan id ('.$dulang->user_id.') berhasil'
+                                                                'message' => 'Menghapus daftar ulang mahasiswa lama dengan id ('.$dulang->id.') berhasil'
                                                             ]);
+
             $register_mahasiswa=$dulang->register_mahasiswa;
-            $register_mahasiswa->delete();
-            
+            $register_mahasiswa->k_status = $dulang->status_sebelumnya;
+            $register_mahasiswa->save();
+
+            \DB::table('pe3_krs')
+                ->where('dulang_id', $dulang->id)
+                ->delete();
+
+            $dulang->delete();
+
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                

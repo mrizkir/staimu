@@ -19,7 +19,7 @@ class DulangMahasiswaAktifController extends Controller
      */
     public function index(Request $request)
     {
-        $this->hasPermissionTo('AKADEMIK-DULANG-AKTIF_BROWSE');
+        $this->hasPermissionTo('AKADEMIK-DULANG-CUTI_BROWSE');
 
         $this->validate($request, [           
             'ta'=>'required',
@@ -52,7 +52,7 @@ class DulangMahasiswaAktifController extends Controller
             ->where('pe3_dulang.idsmt',$idsmt)   
             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
             ->where('pe3_dulang.user_id',$this->getUserid())
-            ->where('pe3_dulang.k_status','A')
+            ->where('pe3_dulang.k_status','C')
             ->orderBy('pe3_dulang.idsmt','desc')
             ->orderBy('nama_mhs','desc')
             ->get();
@@ -78,7 +78,7 @@ class DulangMahasiswaAktifController extends Controller
             ->where('pe3_dulang.tahun',$ta)   
             ->where('pe3_dulang.idsmt',$idsmt)   
             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
-            ->where('pe3_dulang.k_status','A')
+            ->where('pe3_dulang.k_status','C')
             ->orderBy('pe3_dulang.idsmt','desc')
             ->orderBy('nama_mhs','desc')
             ->get();
@@ -88,7 +88,7 @@ class DulangMahasiswaAktifController extends Controller
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                             
-                                    'message'=>'Fetch data daftar ulang mahasiswa aktif berhasil.'
+                                    'message'=>'Fetch data daftar ulang mahasiswa cuti berhasil.'
                                 ],200);     
     }
     /**
@@ -99,7 +99,7 @@ class DulangMahasiswaAktifController extends Controller
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('AKADEMIK-DULANG-AKTIF_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-DULANG-CUTI_DESTROY');
 
         $dulang = DulangModel::find($id); 
         
@@ -108,7 +108,7 @@ class DulangMahasiswaAktifController extends Controller
             return Response()->json([
                 'status'=>0,
                 'pid'=>'destroy',                
-                'message'=>["Daftar Ulang Mahasiswa Aktif ($id) gagal dihapus"]
+                'message'=>["Daftar Ulang Mahasiswa Cuti ($id) gagal dihapus"]
             ],422); 
         }
         else
@@ -117,16 +117,12 @@ class DulangMahasiswaAktifController extends Controller
                 'object' => $dulang, 
                 'object_id' => $dulang->id, 
                 'user_id' => $this->getUserid(), 
-                'message' => 'Menghapus daftar ulang mahasiswa aktif dengan id ('.$dulang->id.') berhasil'
-            ]); 
+                'message' => 'Menghapus daftar ulang mahasiswa cuti dengan id ('.$dulang->id.') berhasil'
+            ]);             
             $register_mahasiswa=$dulang->register_mahasiswa;
             $register_mahasiswa->k_status = $dulang->status_sebelumnya;
             $register_mahasiswa->save();
             
-            \DB::table('pe3_krs')
-                ->where('dulang_id', $dulang->id)
-                ->delete();
-                
             $dulang->delete();
             
             return Response()->json([

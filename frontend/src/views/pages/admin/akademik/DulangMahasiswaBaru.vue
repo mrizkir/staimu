@@ -258,7 +258,7 @@ export default {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;
-                    this.$ajax.post('/akademik/dulang/mhsbaru'+item.id,
+                    this.$ajax.post('/akademik/dulang/mhsbaru/'+item.id,
                         {
                             _method: "DELETE",
                        },

@@ -65,11 +65,11 @@ class DulangMahasiswaBaruController extends Controller
      */
     public function destroy(Request $request,$id)
     { 
-        $this->hasPermissionTo('AKADEMIK-MATAKULIAH_DESTROY');
+        $this->hasPermissionTo('AKADEMIK-DULANG-BARU_DESTROY');
 
         $dulang = DulangModel::find($id); 
         
-        if (is_null($mahasiswa))
+        if (is_null($dulang))
         {
             return Response()->json([
                                     'status'=>1,
@@ -80,8 +80,8 @@ class DulangMahasiswaBaruController extends Controller
         else
         {
             \App\Models\System\ActivityLog::log($request,[
-                                                                'object' => $matakuliah, 
-                                                                'object_id' => $matakuliah->id, 
+                                                                'object' => $dulang, 
+                                                                'object_id' => $dulang->id, 
                                                                 'user_id' => $this->getUserid(), 
                                                                 'message' => 'Menghapus daftar ulang mahasiswa baru dengan id ('.$dulang->user_id.') berhasil'
                                                             ]);

@@ -244,7 +244,7 @@
 							color: "red",
 							width: 600,
 							desc:
-								"proses ini juga menghapus seluruh data akademik namun KEUANGAN TETAP ADA.",
+								"proses ini juga menghapus seluruh data KRS dan Nilai bila Ada namun KEUANGAN TETAP ADA.",
 						}
 					)
 					.then(confirm => {
@@ -252,7 +252,7 @@
 							this.btnLoadingTable = true;
 							this.$ajax
 								.post(
-									"/akademik/dulang/mhsaktif" + item.id,
+									"/akademik/dulang/mhsaktif/" + item.id,
 									{
 										_method: "DELETE",
 									},
