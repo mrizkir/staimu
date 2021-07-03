@@ -125,7 +125,7 @@ export default {
                 href: "#"
            },
             {
-                text: 'DAFTAR ULANG MAHASISWA BARU',
+                text: 'MAHASISWA BARU',
                 disabled: true,
                 href: "#"
             }

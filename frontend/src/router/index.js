@@ -695,6 +695,26 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/DulangMahasiswaCuti.vue"),
 	},
+	{
+		path: "/akademik/dulang/mahasiswalulus",
+		name: "AkademikDulangMHSLulus",
+		meta: {
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA LULUS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/DulangMahasiswaLulus.vue"),
+	},
+	{
+		path: "/akademik/dulang/mahasiswakeluar",
+		name: "AkademikDulangMHSKeluar",
+		meta: {
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA KELUAR",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/DulangMahasiswaKeluar.vue"),
+	},
 	//akademik - perkuliahan - penyelenggaraan
 	{
 		path: "/akademik/perkuliahan/penyelenggaraan/daftar",

@@ -112,7 +112,7 @@ import AkademikLayout from "@/views/layouts/AkademikLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter6 from "@/components/sidebar/FilterMode6";
 export default {
-    name: 'DulangMahasiswaBaru',
+    name: 'DulangMahasiswaLama',
     created() {
         this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"]; 
         this.breadcrumbs = [
@@ -132,7 +132,7 @@ export default {
                 href: "#"
            },
             {
-                text: 'DAFTAR ULANG MAHASISWA LAMA',
+                text: 'MAHASISWA LAMA',
                 disabled: true,
                 href: "#"
             }
@@ -216,7 +216,7 @@ export default {
        },
         deleteItem(item)
         {
-            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data KRS dan Nilai bila Ada namun KEUANGAN TETAP ADA.' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable=true;

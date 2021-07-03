@@ -5,7 +5,7 @@
 				mdi-account-box-multiple
 			</template>
 			<template v-slot:name>
-				DAFTAR ULANG MAHASISWA CUTI
+				DAFTAR ULANG MAHASISWA LULUS
 			</template>
 			<template v-slot:subtitle>
 				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
@@ -21,7 +21,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk melihat daftar mahasiswa yang cuti.
+					Halaman untuk melihat daftar mahasiswa yang lulus.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -122,7 +122,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import Filter6 from "@/components/sidebar/FilterMode6";
 	export default {
-		name: "DulangMahasiswaCuti",
+		name: "DulangMahasiswaLulus",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -142,7 +142,7 @@
 					href: "#",
 				},
 				{
-					text: "MAHASISWA CUTI",
+					text: "MAHASISWA LULUS",
 					disabled: true,
 					href: "#",
 				},
@@ -208,7 +208,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/dulang/mhscuti",
+						"/akademik/dulang/mhslulus",
 						{
 							prodi_id: this.prodi_id,
 							ta: this.tahun_akademik,
@@ -244,7 +244,7 @@
 							color: "red",
 							width: 600,
 							desc:
-								"proses ini juga mengembalikan mahasiswa ke status sebelumnya namun KEUANGAN TETAP ADA.",
+								"proses ini akan mengembalikan mahasiswa ke status sebelumnya dan tidak menghapus data KEUANGAN.",
 						}
 					)
 					.then(confirm => {
@@ -252,7 +252,7 @@
 							this.btnLoadingTable = true;
 							this.$ajax
 								.post(
-									"/akademik/dulang/mhscuti/" + item.id,
+									"/akademik/dulang/mhslulus/" + item.id,
 									{
 										_method: "DELETE",
 									},

@@ -122,7 +122,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import Filter6 from "@/components/sidebar/FilterMode6";
 	export default {
-		name: "DulangMahasiswaBaru",
+		name: "DulangMahasiswaAktif",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -142,7 +142,7 @@
 					href: "#",
 				},
 				{
-					text: "DAFTAR ULANG MAHASISWA AKTIF",
+					text: "MAHASISWA AKTIF",
 					disabled: true,
 					href: "#",
 				},
@@ -244,7 +244,7 @@
 							color: "red",
 							width: 600,
 							desc:
-								"proses ini juga menghapus seluruh data KRS dan Nilai bila Ada namun KEUANGAN TETAP ADA.",
+								"proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.",
 						}
 					)
 					.then(confirm => {
