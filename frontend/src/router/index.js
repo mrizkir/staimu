@@ -675,7 +675,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/DulangMahasiswaLama.vue"),
 	},
-
+	{
+		path: "/akademik/dulang/mahasiswaaktif",
+		name: "AkademikDulangMHSAktif",
+		meta: {
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA AKTIF",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/DulangMahasiswaAktif.vue"),
+	},
 	//akademik - perkuliahan - penyelenggaraan
 	{
 		path: "/akademik/perkuliahan/penyelenggaraan/daftar",

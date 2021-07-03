@@ -87,7 +87,7 @@ class DulangMahasiswaLamaController extends Controller
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                                                                                                                                   
-                                    'message'=>'Fetch data daftar ulang mahasiswa baru berhasil.'
+                                    'message'=>'Fetch data daftar ulang mahasiswa lama berhasil.'
                                 ],200);     
     }
     /**
@@ -116,7 +116,7 @@ class DulangMahasiswaLamaController extends Controller
                                                                 'object' => $matakuliah, 
                                                                 'object_id' => $matakuliah->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus daftar ulang mahasiswa baru dengan id ('.$dulang->user_id.') berhasil'
+                                                                'message' => 'Menghapus daftar ulang mahasiswa lama dengan id ('.$dulang->user_id.') berhasil'
                                                             ]);
             $register_mahasiswa=$dulang->register_mahasiswa;
             $register_mahasiswa->delete();
