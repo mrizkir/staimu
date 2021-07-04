@@ -725,6 +725,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/akademik/DulangMahasiswaKeluar.vue"),
 	},
+	{
+		path: "/akademik/dulang/mahasiswado",
+		name: "AkademikDulangMHSDO",
+		meta: {
+			title: "AKADEMIK - DAFTAR ULANG MAHASISWA DROPOUT / PUTUS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/DulangMahasiswaDO.vue"),
+	},
 	//akademik - perkuliahan - penyelenggaraan
 	{
 		path: "/akademik/perkuliahan/penyelenggaraan/daftar",
