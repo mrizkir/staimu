@@ -1135,6 +1135,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/kemahasiswaan/KemahasiswaanPindahKelas.vue"),
 	},
+	{
+		path: "/kemahasiswaan/statusaktif",
+		name: "KemahasiswaanStatusAktif",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS AKTIF",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusAktif.vue"),
+	},
 	//system
 	{
 		path: "/system-setting",

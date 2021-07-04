@@ -529,6 +529,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     $router->post('/kemahasiswaan/pindahkelas/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@store','as'=>'pindahkelas.store']);        
     $router->put('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@update','as'=>'pindahkelas.update']);
     $router->delete('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@destroy','as'=>'pindahkelas.destroy']);
+    
+    // kemahasiswaan - status aktif
+    $router->post('/kemahasiswaan/statusaktif',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusAktifController@index','as'=>'statusaktif.index']);    
 
     //kepegawaian - dosen
     $router->get('/kepegawaian/dosen',['uses'=>'Kepegawaian\KepegawaianDosenController@index','as'=>'kepegawaiandosen.index']);
