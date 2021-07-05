@@ -156,11 +156,9 @@
 							PINDAH KELAS
 						</v-list-item-title>
 					</v-list-item-content>
-				</v-list-item>				
+				</v-list-item>
 				<v-subheader
-					v-if="
-						CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')
-					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
 				>
 					STATUS TERAKHIR
 				</v-subheader>
@@ -232,7 +230,7 @@
 				<v-card-text class="py-2 black--text text-center">
 					<strong>{{ APP_NAME }} (2021-2021)</strong>
 					dikembangkan oleh TIM ITSTAI Miftahul 'Ulum Tanjungpinang
-					<v-btn icon href="https://github.com/mrizkir/stiemu">
+					<v-btn icon href="https://github.com/mrizkir/staimu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>
 				</v-card-text>

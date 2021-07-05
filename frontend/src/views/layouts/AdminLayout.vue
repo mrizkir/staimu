@@ -1,10 +1,21 @@
 <template>
 	<div>
-		<v-system-bar app dark :class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')">
+		<v-system-bar
+			app
+			dark
+			:class="this.$store.getters['uiadmin/getTheme']('V-SYSTEM-BAR-CSS-CLASS')"
+		>
 			<strong>Hak Akses Sebagai :</strong> {{ ROLE }}
-		</v-system-bar>	
+		</v-system-bar>
 		<v-app-bar app>
-			<v-toolbar-title class="headline clickable" @click.stop="$router.push('/dashboard/' + $store.getters['auth/AccessToken']).catch(err => {})">
+			<v-toolbar-title
+				class="headline clickable"
+				@click.stop="
+					$router
+						.push('/dashboard/' + $store.getters['auth/AccessToken'])
+						.catch(err => {})
+				"
+			>
 				<span class="hidden-sm-and-down">{{ APP_NAME }}</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -17,7 +28,7 @@
 				bottom
 				left
 			>
-				<template v-slot:activator="{on}">
+				<template v-slot:activator="{ on }">
 					<v-avatar size="30">
 						<v-img :src="photoUser" v-on="on" />
 					</v-avatar>
@@ -39,22 +50,22 @@
 					<v-divider />
 					<v-list-item to="/system-users/mypermission">
 						<v-list-item-icon class="mr-2">
-					<v-icon>mdi-account-key</v-icon>
-					</v-list-item-icon>
-					<v-list-item-title>My Permission</v-list-item-title>
-				</v-list-item>
-				<v-list-item to="/system-users/profil">
-					<v-list-item-icon class="mr-2">
-						<v-icon>mdi-account</v-icon>
-					</v-list-item-icon>
-					<v-list-item-title>Profil</v-list-item-title>
-				</v-list-item>
-				<v-divider />
-				<v-list-item @click.prevent="logout">
-					<v-list-item-icon class="mr-2">
-						<v-icon>mdi-power</v-icon>
-					</v-list-item-icon>
-							<v-list-item-title>Logout</v-list-item-title>
+							<v-icon>mdi-account-key</v-icon>
+						</v-list-item-icon>
+						<v-list-item-title>My Permission</v-list-item-title>
+					</v-list-item>
+					<v-list-item to="/system-users/profil">
+						<v-list-item-icon class="mr-2">
+							<v-icon>mdi-account</v-icon>
+						</v-list-item-icon>
+						<v-list-item-title>Profil</v-list-item-title>
+					</v-list-item>
+					<v-divider />
+					<v-list-item @click.prevent="logout">
+						<v-list-item-icon class="mr-2">
+							<v-icon>mdi-power</v-icon>
+						</v-list-item-icon>
+						<v-list-item-title>Logout</v-list-item-title>
 					</v-list-item>
 				</v-list>
 			</v-menu>
@@ -66,8 +77,9 @@
 			<v-card class="flex" color="yellow darken-2" flat tile>
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
-					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT STAI Miftahul "Ulum Tanjungpinang 
-					<v-btn icon href="https://github.com/mrizkir/stiemu">
+					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT
+					STAI Miftahul "Ulum Tanjungpinang
+					<v-btn icon href="https://github.com/mrizkir/staimu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>
 				</v-card-text>

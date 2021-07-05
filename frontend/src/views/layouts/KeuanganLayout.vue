@@ -280,7 +280,7 @@
 					</v-list-item-content>
 				</v-list-item>
 				<v-subheader
-					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"			
+					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"
 				>
 					LAPORAN TRANSAKSI
 				</v-subheader>
@@ -299,7 +299,7 @@
 					</v-list-item-content>
 				</v-list-item>
 				<v-subheader
-					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"			
+					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"
 				>
 					LAPORAN REKAP. PENERIMAAN
 				</v-subheader>
@@ -418,7 +418,7 @@
 				<v-card-text class="py-2 black--text text-center">
 					<strong>{{ APP_NAME }} (2021-2021)</strong> dikembangkan oleh TIM IT
 					STAI Miftahul 'Ulum Tanjungpinang
-					<v-btn icon href="https://github.com/mrizkir/stiemu">
+					<v-btn icon href="https://github.com/mrizkir/staimu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>
 				</v-card-text>
