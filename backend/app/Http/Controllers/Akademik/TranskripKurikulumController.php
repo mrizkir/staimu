@@ -31,9 +31,9 @@ class TranskripKurikulumController  extends Controller
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
                                     COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                                 '))
-                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
-                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
-                                ->where('pe3_register_mahasiswa.user_id',$this->getUserid())                                
+                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')        
+                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
+                                ->where('pe3_register_mahasiswa.user_id',$this->getUserid())
                                 ->get();     
         }
         else
@@ -55,19 +55,19 @@ class TranskripKurikulumController  extends Controller
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
                                     COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                                 '))
-                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                    
-                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')                                
+                                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')        
+                                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
                                 ->orderBy('nama_mhs','asc');
                                 
             if ($request->has('search'))
             {
-                $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                                                
+                $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')
                             ->get();
             }            
             else
             {
-                $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
-                            ->where('pe3_register_mahasiswa.tahun',$ta)                            
+                $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)
+                            ->where('pe3_register_mahasiswa.tahun',$ta)
                             ->get();
             }
         }
@@ -105,7 +105,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -133,7 +133,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -164,7 +164,7 @@ class TranskripKurikulumController  extends Controller
                                             '))
                                             ->where('kjur',$mahasiswa->kjur)
                                             ->where('ta',$mahasiswa->tahun)   
-                                            ->orderBy('semester','ASC')                      
+                                            ->orderBy('semester','ASC')
                                             ->orderBy('kmatkul','ASC')    
                                             ->get();
 
@@ -213,7 +213,7 @@ class TranskripKurikulumController  extends Controller
                 }
                 if (!is_null($data_konversi))
                 {
-                    $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                    $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                         ->where('nilai_konversi_id',$data_konversi->id)
                         ->where('matkul_id',$item->id)
                         ->value('n_kual');
@@ -368,7 +368,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -395,7 +395,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -447,7 +447,7 @@ class TranskripKurikulumController  extends Controller
                                             ->where('kjur',$mahasiswa->kjur)
                                             ->where('ta',$mahasiswa->tahun) 
                                             ->where('semester',$i)  
-                                            ->orderBy('semester','ASC')                      
+                                            ->orderBy('semester','ASC')
                                             ->orderBy('kmatkul','ASC')    
                                             ->get();
                 $data_nilai_smt=[];
@@ -462,7 +462,7 @@ class TranskripKurikulumController  extends Controller
                                             ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                                             ->where('C.user_id',$mahasiswa->user_id)
                                             ->where('D.matkul_id',$item->id)
-                                            ->where('B.batal',0)                                            
+                                            ->where('B.batal',0)
                                             ->orderBy('A.n_mutu','DESC')
                                             ->limit(1);
 
@@ -487,7 +487,7 @@ class TranskripKurikulumController  extends Controller
 
                         if (!is_null($data_konversi))
                         {
-                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');
@@ -523,7 +523,7 @@ class TranskripKurikulumController  extends Controller
                     }
                     else if (!is_null($data_konversi))
                     {
-                        $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                        $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');
@@ -661,7 +661,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -687,7 +687,7 @@ class TranskripKurikulumController  extends Controller
                                                     C.foto
                                                 '))
                                                 ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')                                            
+                                                ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
                                                 ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
                                                 ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
                                                 ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
@@ -837,7 +837,7 @@ class TranskripKurikulumController  extends Controller
                                     ->where('kjur',$mahasiswa->kjur)
                                     ->where('ta',$mahasiswa->tahun) 
                                     ->where('semester',$i)  
-                                    ->orderBy('semester','ASC')                      
+                                    ->orderBy('semester','ASC')
                                     ->orderBy('kmatkul','ASC')    
                                     ->get();
                 if ($i%2==0) 
@@ -885,7 +885,7 @@ class TranskripKurikulumController  extends Controller
 
                             if (!is_null($data_konversi))
                             {
-                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');
@@ -920,7 +920,7 @@ class TranskripKurikulumController  extends Controller
                         }
                         else if (!is_null($data_konversi))
                         {
-                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');
@@ -973,7 +973,7 @@ class TranskripKurikulumController  extends Controller
                                     ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
                                     ->where('C.user_id',$mahasiswa->user_id)
                                     ->where('D.matkul_id',$item->id)
-                                    ->where('B.batal',0)                                            
+                                    ->where('B.batal',0)
                                     ->orderBy('A.n_mutu','DESC')
                                     ->limit(1);
 
@@ -999,7 +999,7 @@ class TranskripKurikulumController  extends Controller
                             $AM=number_format($nilai[0]->n_mutu,0);
                             if (!is_null($data_konversi))
                             {
-                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                                $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');
@@ -1034,7 +1034,7 @@ class TranskripKurikulumController  extends Controller
                         }
                         else if (!is_null($data_konversi))
                         {
-                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')                        
+                            $n_kual_konversi=\DB::table('pe3_nilai_konversi2')
                                                 ->where('nilai_konversi_id',$data_konversi->id)
                                                 ->where('matkul_id',$item->id)
                                                 ->value('n_kual');

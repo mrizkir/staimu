@@ -30,7 +30,7 @@ class NilaiKonversiController  extends Controller
                                             0 AS jumlah_matkul,
                                             0 AS jumlah_sks
                                         '))
-                                        ->where('user_id',$this->getUserid())                                
+                                        ->where('user_id',$this->getUserid())
                                         ->get();     
         }
         else
@@ -48,8 +48,8 @@ class NilaiKonversiController  extends Controller
                                                 0 AS jumlah_matkul,
                                                 0 AS jumlah_sks
                                             '))
-                                            ->where('kjur',$prodi_id)                            
-                                            ->where('tahun',$ta)                            
+                                            ->where('kjur',$prodi_id)
+                                            ->where('tahun',$ta)
                                             ->orderBy('nama_mhs','asc')
                                             ->get();                    
             
@@ -60,7 +60,7 @@ class NilaiKonversiController  extends Controller
                                     ->where('nilai_konversi_id',$item->id)
                                     ->count();
 
-            $item->jumlah_sks=\DB::table('pe3_nilai_konversi2')                                    
+            $item->jumlah_sks=\DB::table('pe3_nilai_konversi2')
                                     ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_nilai_konversi2.matkul_id')
                                     ->where('nilai_konversi_id',$item->id)
                                     ->sum('sks');
@@ -101,8 +101,8 @@ class NilaiKonversiController  extends Controller
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$ta)   
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
 
         return Response()->json([
@@ -194,7 +194,7 @@ class NilaiKonversiController  extends Controller
 
         $data_konversi=NilaiKonversi1Model::select(\DB::raw('
                                                     pe3_nilai_konversi1.*
-                                                '))                                                                                                
+                                                '))         
                                                 ->find($id);
 
 
@@ -295,7 +295,7 @@ class NilaiKonversiController  extends Controller
         {
             $data_konversi=NilaiKonversi1Model::select(\DB::raw('
                                                     pe3_nilai_konversi1.*
-                                                '))                                                                                                
+                                                '))         
                                                 ->find($id);
         }
         
@@ -317,7 +317,7 @@ class NilaiKonversiController  extends Controller
                                 B.matkul_asal,
                                 B.n_kual,
                                 B.keterangan
-                            '))                            
+                            '))
                             ->where('B.nilai_konversi_id',$data_konversi->id);                           
                             
             $nilai_konversi=\DB::table('pe3_matakuliah AS A')
@@ -342,8 +342,8 @@ class NilaiKonversiController  extends Controller
                                 })    
                                 ->where('kjur',$data_konversi->kjur)
                                 ->where('ta',$data_konversi->tahun)   
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
            
             return Response()->json([
@@ -365,14 +365,14 @@ class NilaiKonversiController  extends Controller
                 Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
                     return $query->whereNull('user_id')
                                 ->whereNull('nim');
-                })                       
+                })
             ],
             'user_id'=>[
                 'required',                                            
                 Rule::exists('pe3_register_mahasiswa','user_id')->where(function($query){
                     return $query->where('k_status','A');
                                 
-                })                       
+                })
             ]                         
         ]);
         $data_konversi = NilaiKonversi1Model::find($request->input('nilai_konversi_id')); 
@@ -413,7 +413,7 @@ class NilaiKonversiController  extends Controller
                 Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
                     return $query->whereNotNull('user_id')
                                 ->whereNotNull('nim');
-                })                       
+                })
             ],                          
         ]);
         $data_konversi = NilaiKonversi1Model::find($request->input('nilai_konversi_id')); 
@@ -505,7 +505,7 @@ class NilaiKonversiController  extends Controller
                                 B.matkul_asal,
                                 B.n_kual,
                                 B.keterangan
-                            '))                            
+                            '))
                             ->where('B.nilai_konversi_id',$data_konversi->id);                           
                             
             $nilai_konversi=\DB::table('pe3_matakuliah AS A')
@@ -530,8 +530,8 @@ class NilaiKonversiController  extends Controller
                                 })    
                                 ->where('kjur',$data_konversi->kjur)
                                 ->where('ta',$data_konversi->tahun)   
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
 
             $config = ConfigurationModel::getCache();

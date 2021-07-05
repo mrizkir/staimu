@@ -77,7 +77,7 @@ class NilaiMatakuliahController extends Controller
                                         pe3_nilai_matakuliah.updated_at
                                     '))
                                     ->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
-                                    ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')                            
+                                    ->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
                                     ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
                                     ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_kelas_mhs_peserta.krsmatkul_id')
@@ -201,7 +201,7 @@ class NilaiMatakuliahController extends Controller
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
                                         ->where('pe3_krsmatkul.id',$krsmatkul_id)  
-                                        ->where('pe3_krsmatkul.batal', 0)                                      
+                                        ->where('pe3_krsmatkul.batal', 0)
                                         ->first();
                     
                     
@@ -325,7 +325,7 @@ class NilaiMatakuliahController extends Controller
                                         ->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
                                         ->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
                                         ->where('pe3_krsmatkul.id',$krsmatkul_id)  
-                                        ->where('pe3_krsmatkul.batal', 0)                                      
+                                        ->where('pe3_krsmatkul.batal', 0)
                                         ->first();
                     
                     

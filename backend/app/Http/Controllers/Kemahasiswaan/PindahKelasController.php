@@ -70,8 +70,7 @@ class PindahKelasController  extends Controller
     $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
 
     $this->validate($request, [
-      'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
-      'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
+      'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',
       'idkelas_lama'=>'required',     
       'idkelas_baru'=>'required',     
       'idsmt'=>'required',     
@@ -97,7 +96,7 @@ class PindahKelasController  extends Controller
         $data = PindahKelasModel::create([
           'id'=>Uuid::uuid4()->toString(),
           'user_id'=>$request->input('user_id'),
-          'nim'=>$request->input('nim'),
+          'nim'=>$data_mhs->nim,
           'idkelas_lama'=>$data_mhs->idkelas,
           'idkelas_baru'=>$request->input('idkelas_baru'),
           'kjur'=>$data_mhs->kjur,

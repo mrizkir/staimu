@@ -42,14 +42,14 @@ class NilaiUjianController extends Controller {
             users.created_at,
             users.updated_at
         '))
-        ->join('users','pe3_formulir_pendaftaran.user_id','users.id')                    
-        ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')                    
+        ->join('users','pe3_formulir_pendaftaran.user_id','users.id')
+        ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
         ->leftJoin('pe3_nilai_ujian_pmb','pe3_formulir_pendaftaran.user_id','pe3_nilai_ujian_pmb.user_id');
         
         
         if ($request->has('search'))
         {
-            $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+            $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                         ->get();
             
         }            
@@ -64,7 +64,7 @@ class NilaiUjianController extends Controller {
             $prodi_id=$request->input('prodi_id');
             
             $data=$data->where('users.ta',$ta)
-                ->where('kjur1',$prodi_id)            
+                ->where('kjur1',$prodi_id)
                 ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
                 ->where('users.active',1)    
                 ->orderBy('users.name','ASC') 
@@ -167,7 +167,7 @@ class NilaiUjianController extends Controller {
                                                             CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
                                                         '))
                                             ->join('users','users.id','pe3_formulir_pendaftaran.user_id')
-                                            ->join('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')                                            
+                                            ->join('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')
                                             ->find($id);
         if (is_null($formulir))
         {
@@ -185,7 +185,7 @@ class NilaiUjianController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                                     ->where('pe3_transaksi.user_id',$formulir->user_id)
-                                                    ->where('kombi_id',101)                                                    
+                                                    ->where('kombi_id',101)        
                                                     ->first(); 
 
             $transaksi_status=0;

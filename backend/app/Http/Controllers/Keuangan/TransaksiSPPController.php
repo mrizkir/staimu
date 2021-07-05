@@ -63,7 +63,7 @@ class TransaksiSPPController extends Controller {
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)
                                                     ->where('pe3_transaksi_detail.user_id',$this->getUserid())
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',201)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }
@@ -106,18 +106,18 @@ class TransaksiSPPController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
                                                     ->where('pe3_transaksi_detail.kombi_id',201)
                                                     ->orderBy('pe3_transaksi.tanggal','DESC');
             if ($request->has('search'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                     ->get();
             }            
             else
             {
-                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)                                                    
-                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                                    
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)        
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)        
                                                     ->get();
             }
         }        
@@ -305,9 +305,9 @@ class TransaksiSPPController extends Controller {
                                     pe3_register_mahasiswa.kjur,
                                     pe3_register_mahasiswa.k_status,
                                     pe3_status_mahasiswa.n_status                                    
-                                '))                             
+                                '))
                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')   
-                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_register_mahasiswa.k_status')                                
+                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_register_mahasiswa.k_status')
                                 ->where('nim',$nim)
                                 ->first();
 
@@ -442,7 +442,7 @@ class TransaksiSPPController extends Controller {
                 $total_spp+=$v['biaya_kombi'];
             }
             \DB::table('pe3_transaksi_detail')
-                ->where ('transaksi_id',$transaksi_id)            
+                ->where ('transaksi_id',$transaksi_id)
                 ->delete();
                 
             TransaksiDetailModel::insert($bulan_spp);
@@ -558,9 +558,9 @@ class TransaksiSPPController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
                                                     ->where('pe3_transaksi_detail.user_id',$this->getUserid())
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',201)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }
@@ -595,9 +595,9 @@ class TransaksiSPPController extends Controller {
                                                     '))
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')                                                    
+                                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
                                                     ->where('pe3_transaksi_detail.user_id',$id)
-                                                    ->where('pe3_transaksi_detail.kombi_id',201)                                                    
+                                                    ->where('pe3_transaksi_detail.kombi_id',201)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }

@@ -48,8 +48,8 @@ class MahasiswaBelumPunyaNIMController extends Controller
                                     ->where('pe3_formulir_pendaftaran.kjur1',$prodi_id)
                                     ->where('pe3_formulir_pendaftaran.ta',$ta)
                                     ->whereNull('pe3_register_mahasiswa.nim')
-                                    ->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')                      
-                                    ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')                      
+                                    ->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')
+                                    ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')
                                     ->get();
 
         return Response()->json([

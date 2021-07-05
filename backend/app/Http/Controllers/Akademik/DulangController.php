@@ -33,15 +33,15 @@ class DulangController extends Controller
                                     update_info,
                                     user_id
                                 '))       
-                                ->where('nim',$nim)                                
+                                ->where('nim',$nim)
                                 ->where('k_status','A')   
                                 ->whereNotIn('id',function($query) use($nim){
                                     $query->select('dulang_id')
                                         ->from('pe3_krs')
                                         ->where('nim',$nim);
                                 })
-                                ->orderBy('tahun','ASC')                      
-                                ->orderBy('idsmt','ASC')                      
+                                ->orderBy('tahun','ASC')
+                                ->orderBy('idsmt','ASC')
                                 ->get();
 
         return Response()->json([

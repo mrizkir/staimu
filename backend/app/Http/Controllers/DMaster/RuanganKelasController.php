@@ -90,7 +90,7 @@ class RuanganKelasController extends Controller {
                                         'namaruang'=>[
                                                         'required',                                                        
                                                         'string',                                                            
-                                                        Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang,'namaruang')                                                       
+                                                        Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang,'namaruang')           
                                                     ],           
                                         
                                         'kapasitas'=>[

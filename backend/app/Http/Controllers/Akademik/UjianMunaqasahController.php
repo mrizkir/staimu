@@ -566,7 +566,7 @@ class UjianMunaqasahController extends Controller
                 break;
                 case '2021-ujian-munaqasah-2' : //Pembayaran Uang SKRIPSI
                     $detail1 = \DB::table('pe3_transaksi') 
-                                ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')                                            
+                                ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                 ->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
                                 ->where('status',1)
                                 ->where('kombi_id',601)
@@ -601,7 +601,7 @@ class UjianMunaqasahController extends Controller
                         $this->persyaratan_complete[]=true;
                         $this->persyaratan_verified[]=true;
                         $item->keterangan = \DB::table('pe3_krsmatkul') 
-                                            ->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')                                            
+                                            ->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
                                             ->where('nim', $mahasiswa->nim)   
                                             ->where('matkul_id',$detail1->matkul_skripsi)
                                             ->exists() 

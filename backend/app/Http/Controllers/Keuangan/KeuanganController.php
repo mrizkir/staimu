@@ -39,7 +39,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',1)
-                            ->where('status',1)                            
+                            ->where('status',1)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();
@@ -50,7 +50,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',2)
-                            ->where('status',1)                            
+                            ->where('status',1)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();
@@ -62,7 +62,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',1)
-                            ->where('status',0)                            
+                            ->where('status',0)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();
@@ -73,7 +73,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',2)
-                            ->where('status',0)                            
+                            ->where('status',0)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();
@@ -85,7 +85,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',1)
-                            ->where('status',2)                            
+                            ->where('status',2)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();
@@ -96,7 +96,7 @@ class KeuanganController extends Controller {
                             ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('ta',$ta)
                             ->where('idsmt',2)
-                            ->where('status',2)                            
+                            ->where('status',2)
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id','ASC')
                             ->get();

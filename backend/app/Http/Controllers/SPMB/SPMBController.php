@@ -70,7 +70,7 @@ class SPMBController extends Controller
                         ))
                         ->joinSub($subquery_kelulusan->where('ket_lulus',1),'pe3_nilai_ujian_pmb',function($join){
                             $join->on('pe3_nilai_ujian_pmb.kjur','=','pe3_prodi.id');
-                        })                        
+                        })
                         ->get();
 
             $daftar_tidak_lulus=ProgramStudiModel::select(\DB::raw('
@@ -82,7 +82,7 @@ class SPMBController extends Controller
                         ))
                         ->joinSub($subquery_kelulusan->where('ket_lulus',0),'pe3_nilai_ujian_pmb',function($join){
                             $join->on('pe3_nilai_ujian_pmb.kjur','=','pe3_prodi.id');
-                        })                        
+                        })
                         ->get();
                         
             $total_registrasi=$daftar_registrasi->sum('jumlah');

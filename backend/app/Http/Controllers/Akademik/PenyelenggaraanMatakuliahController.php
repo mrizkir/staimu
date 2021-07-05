@@ -50,8 +50,8 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                             ->where('kjur',$prodi_id)
                                                             ->where('ta_matkul',$user['ta'])
                                                             ->orderBy('ta_matkul','ASC')    
-                                                            ->orderBy('semester','ASC')                      
-                                                            ->orderBy('kmatkul','ASC')                                                            
+                                                            ->orderBy('semester','ASC')
+                                                            ->orderBy('kmatkul','ASC')
                                                             ->get();
         }
         else
@@ -73,8 +73,8 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                             ->where('idsmt',$semester_akademik)
                                                             ->where('kjur',$prodi_id)
                                                             ->orderBy('ta_matkul','ASC')    
-                                                            ->orderBy('semester','ASC')                      
-                                                            ->orderBy('kmatkul','ASC')                                                            
+                                                            ->orderBy('semester','ASC')
+                                                            ->orderBy('kmatkul','ASC')
                                                             ->get();
         }
                                                         
@@ -198,7 +198,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 ->from('pe3_kelas_mhs_peserta');                                        
                                 
                         })  
-                        ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')                
+                        ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')
                         ->get();
             break;
         }
@@ -232,13 +232,13 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     nidn,                                    
                                     nama_dosen
                                 '))       
-                                ->where('active',1)                                  
+                                ->where('active',1)
                                 ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
                                     $query->select('user_id')
                                         ->from('pe3_penyelenggaraan_dosen')
                                         ->where('penyelenggaraan_id',$idpenyelenggaraan);                                        
                                 })
-                                ->orderBy('nama_dosen','ASC')                                                      
+                                ->orderBy('nama_dosen','ASC')          
                                 ->get();
             break;
             case 'terdaftar':
@@ -256,9 +256,9 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     pe3_penyelenggaraan_dosen.created_at,
                                     pe3_penyelenggaraan_dosen.updated_at
                                 '))       
-                                ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')                                                                  
-                                ->where('penyelenggaraan_id',$idpenyelenggaraan)                                       
-                                ->orderBy('nama_dosen','ASC')                                                      
+                                ->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')
+                                ->where('penyelenggaraan_id',$idpenyelenggaraan)
+                                ->orderBy('nama_dosen','ASC')          
                                 ->get();
             break;
             case 'daftarpengampu':
@@ -277,7 +277,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
                                             ->join('pe3_dosen','pe3_dosen.user_id','pe3_penyelenggaraan_dosen.user_id')
-                                            ->where('pe3_penyelenggaraan.tahun',$ta)                                            
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)
                                             ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                             ->orderBy('nama_dosen','ASC')
                                             ->get();
@@ -312,7 +312,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                             '))
                                             ->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
                                             ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
-                                            ->where('pe3_penyelenggaraan.tahun',$ta)                                            
+                                            ->where('pe3_penyelenggaraan.tahun',$ta)
                                             ->where('pe3_penyelenggaraan_dosen.user_id',$user_id)
                                             ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                             ->orderBy('pe3_matakuliah.kmatkul','ASC')

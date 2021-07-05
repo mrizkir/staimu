@@ -218,7 +218,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('pmb')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -232,7 +232,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('akademik')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -246,7 +246,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('programstudi')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -260,7 +260,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('puslahta')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -274,7 +274,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('keuangan')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -288,7 +288,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('perpustakaan')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -302,7 +302,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('lppm')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -316,7 +316,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosen')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -330,7 +330,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosenwali')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -344,7 +344,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('alumni')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 
@@ -358,7 +358,7 @@ class UsersController extends Controller {
                 $permission=Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('orangtuawali')
-                        ->select(\DB::raw('users.id'))                        
+                        ->select(\DB::raw('users.id'))
                         ->where('active',1)
                         ->get();
 

@@ -47,6 +47,14 @@ class KomponenBiayaTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now()
         ]);
+        
+        \DB::table('pe3_kombi')->insert([
+            'id'=>"203",
+            'nama'=>'CUTI',
+            'periode'=>'persemester',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now()
+        ]);
 
         \DB::table('pe3_kombi')->insert([
             'id'=>"301",

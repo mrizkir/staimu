@@ -57,13 +57,13 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
 
         if ($request->has('search'))
         {          
-            $daftar_transaksi=$daftar_transaksi->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+            $daftar_transaksi=$daftar_transaksi->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                 ->get();
         }            
         else
         {
             $daftar_transaksi=$daftar_transaksi->where('A.kjur', $prodi_id)
-                                                ->where('A.tahun', $tahun_pendaftaran)                                                                             
+                                                ->where('A.tahun', $tahun_pendaftaran)
                                                 ->get();
         }
                                
@@ -87,7 +87,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                             ->where('A.kombi_id', 201)
                             ->where("A.tahun", $ta)
                             ->where('B.status', 1)          
-														->whereIn("bulan", $daftar_bulan)                                     
+														->whereIn("bulan", $daftar_bulan)
                             ->groupBy("A.user_id")
                             ->first();					
 					

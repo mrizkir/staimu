@@ -57,7 +57,7 @@ class PMBController extends Controller {
         
         if ($request->has('search'))
         {
-            $data=$data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+            $data=$data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                 ->get();
         }            
         else
@@ -103,10 +103,10 @@ class PMBController extends Controller {
                                             users.created_at,
                                             users.updated_at
                                         '))
-                                        ->join('users','pe3_formulir_pendaftaran.user_id','users.id')                    
-                                        ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')                    
+                                        ->join('users','pe3_formulir_pendaftaran.user_id','users.id')
+                                        ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
                                         ->where('users.ta',$ta)
-                                        ->where('kjur1',$prodi_id)            
+                                        ->where('kjur1',$prodi_id)
                                         ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
                                         ->where('users.active',1)    
                                         ->orderBy('users.name','ASC') 
@@ -404,7 +404,7 @@ class PMBController extends Controller {
         else
         {
             $transaksi_detail=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
-                                                    ->where('pe3_transaksi_detail.user_id',$formulir->user_id)                                                    
+                                                    ->where('pe3_transaksi_detail.user_id',$formulir->user_id)        
                                                     ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
                                                     ->where('kombi_id',101)
                                                     ->first(); 

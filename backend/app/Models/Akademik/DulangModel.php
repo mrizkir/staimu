@@ -33,6 +33,7 @@ class DulangModel extends Model {
         'status_sebelumnya',
         'k_status',
         'update_info',
+        'descr',
     ];
     /**
      * enable auto_increment.

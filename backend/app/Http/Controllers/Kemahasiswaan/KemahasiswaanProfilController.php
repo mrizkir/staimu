@@ -31,7 +31,7 @@ class KemahasiswaanProfilController extends Controller {
                             ->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
                             ->join('users AS C','A.user_id','C.id')
                             ->join('pe3_prodi AS D','A.kjur','D.id')
-                            ->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                            ->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                             ->get();
 
         return Response()->json([
@@ -68,7 +68,7 @@ class KemahasiswaanProfilController extends Controller {
                             ->join('users AS C','A.user_id','C.id')
                             ->join('pe3_prodi AS D','A.kjur','D.id')
                             ->join('pe3_kelas AS E','A.idkelas','E.idkelas')
-                            ->where('A.nim', $request->input('nim'))                                                    
+                            ->where('A.nim', $request->input('nim'))        
                             ->first();
 
         return Response()->json([

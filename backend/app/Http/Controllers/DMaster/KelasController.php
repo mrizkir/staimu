@@ -90,7 +90,7 @@ class KelasController extends Controller {
                                                             'required',                                                        
                                                             'string',
                                                             'max:1',
-                                                            Rule::unique('pe3_kelas')->ignore($kelas->idkelas,'idkelas')                                                       
+                                                            Rule::unique('pe3_kelas')->ignore($kelas->idkelas,'idkelas')           
                                                         ],           
                                             
                                             'nkelas'=>[

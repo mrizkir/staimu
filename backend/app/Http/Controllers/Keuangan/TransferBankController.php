@@ -96,7 +96,7 @@ class TransferBankController extends Controller {
                                         'nomor_rekening'=>[
                                                         'required',                                                        
                                                         'numeric',                                                        
-                                                        Rule::unique('pe3_transfer_bank')->ignore($bank->nomor_rekening,'nomor_rekening')                                                       
+                                                        Rule::unique('pe3_transfer_bank')->ignore($bank->nomor_rekening,'nomor_rekening')           
                                                     ],     
                                         'pemilik_rekening'=>'required',   
                                     ]); 

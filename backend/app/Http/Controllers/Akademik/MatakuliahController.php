@@ -40,8 +40,8 @@ class MatakuliahController extends Controller {
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$ta)   
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
         
         $matakuliah->transform(function ($item,$key) {                
@@ -262,8 +262,8 @@ class MatakuliahController extends Controller {
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$id)   
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
 
 		\App\Models\System\ActivityLog::log($request,[
@@ -457,8 +457,8 @@ class MatakuliahController extends Controller {
                                         ->where('tahun',$ta_akademik)
                                         ->where('idsmt',$semester_akademik);
                                 })
-                                ->orderBy('semester','ASC')                      
-                                ->orderBy('kmatkul','ASC')                      
+                                ->orderBy('semester','ASC')
+                                ->orderBy('kmatkul','ASC')
                                 ->get();
         
         return Response()->json([

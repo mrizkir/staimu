@@ -32,8 +32,8 @@ class BiayaKomponenPeriodeController extends Controller {
                                             '))
                                             ->join('pe3_kelas','pe3_kombi_periode.idkelas','pe3_kelas.idkelas')     
                                             ->where('tahun',$data_mhs->tahun)
-                                            ->where('kjur',$data_mhs->kjur)                                       
-                                            ->where('pe3_kombi_periode.idkelas',$data_mhs->idkelas)                                       
+                                            ->where('kjur',$data_mhs->kjur)
+                                            ->where('pe3_kombi_periode.idkelas',$data_mhs->idkelas)
                                             ->orderBy('pe3_kombi_periode.idkelas','asc')
                                             ->orderBy('kombi_id','asc')
                                             ->get();

@@ -83,18 +83,18 @@ class TransaksiController extends Controller {
 
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')                                            
+                                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                             ->orderBy('tanggal','DESC');                                            
 
             if ($request->has('search'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                     ->get();
             }            
             else
             {
-                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)                                                    
-                                                    ->where('pe3_transaksi.kjur',$prodi_id)                                                    
+                $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)        
+                                                    ->where('pe3_transaksi.kjur',$prodi_id)        
                                                     ->get();
             }
         }        

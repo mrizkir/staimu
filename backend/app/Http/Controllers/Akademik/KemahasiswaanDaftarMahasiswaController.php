@@ -34,18 +34,18 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                 pe3_register_mahasiswa.created_at,                                      
                                 pe3_register_mahasiswa.updated_at                                      
                             '))
-                            ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')                                                                                
+                            ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
                             ->orderBy('nama_mhs','desc');                            
         
         if ($request->has('search'))
         {
-            $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+            $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                         ->get();
         }            
         else
         {
-            $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)                            
-                        ->where('pe3_register_mahasiswa.tahun',$ta)                            
+            $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)
+                        ->where('pe3_register_mahasiswa.tahun',$ta)
                         ->get();
         }
         

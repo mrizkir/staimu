@@ -379,6 +379,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     //akademik - daftar ulang - mahasiswa lulus
     $router->post('/akademik/dulang/mhslulus',['middleware'=>['role:superadmin|akademik|keuangan|mahasiswa'],'uses'=>'Akademik\DulangMahasiswaLulusController@index','as'=>'dulangmhslulus.index']);
+    $router->post('/akademik/dulang/mhslulus/cek',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaLulusController@cek','as'=>'dulangmhslulus.cek']);
     $router->post('/akademik/dulang/mhslulus/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaLulusController@store','as'=>'dulangmhslulus.store']);
     $router->get('/akademik/dulang/mhslulus/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaLulusController@show','as'=>'dulangmhslulus.show']);
     $router->put('/akademik/dulang/mhslulus/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaLulusController@update','as'=>'dulangmhslulus.update']);

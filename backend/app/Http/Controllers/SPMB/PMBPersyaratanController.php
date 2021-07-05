@@ -28,7 +28,7 @@ class PMBPersyaratanController extends Controller {
         $prodi_id=$request->input('prodi_id');
         
         $jumlah_persyaratan=\DB::table('pe3_persyaratan')->where('ta',$ta)->count();
-        $data = FormulirPendaftaranModel::select(\DB::raw("users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,$jumlah_persyaratan AS jumlah_persyaratan,0 AS persyaratan,'BELUM LENGKAP' AS status,users.created_at,users.updated_at"))                    
+        $data = FormulirPendaftaranModel::select(\DB::raw("users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,$jumlah_persyaratan AS jumlah_persyaratan,0 AS persyaratan,'BELUM LENGKAP' AS status,users.created_at,users.updated_at"))
                     ->join('users','pe3_formulir_pendaftaran.user_id','users.id')
                     ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
                     ->whereExists(function ($query) {
@@ -37,7 +37,7 @@ class PMBPersyaratanController extends Controller {
                               ->whereRaw('pe3_pmb_persyaratan.user_id = users.id');
                     })
                     ->where('users.ta',$ta)
-                    ->where('kjur1',$prodi_id)                    
+                    ->where('kjur1',$prodi_id)
                     ->where('users.active',1)
                     ->orderBy('users.name','ASC')
                     ->get();

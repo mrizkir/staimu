@@ -52,14 +52,14 @@ class PKRSController extends Controller
                                 pe3_pkrs.created_at,
                                 pe3_pkrs.updated_at
                             '))
-                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pkrs.user_id')                                
-                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_pkrs.penyelenggaraan_id')                                
+                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pkrs.user_id')
+                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_pkrs.penyelenggaraan_id')
                             ->orderBy('nama_mhs','ASC');
                             
         
         if ($request->has('search'))
         {
-            $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')                                                    
+            $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                         ->orderBy('tasmt','desc')
                         ->get();
         }            
@@ -67,7 +67,7 @@ class PKRSController extends Controller
         {
             $daftar_pkrs=$daftar_pkrs->where('pe3_penyelenggaraan.kjur',$prodi_id)
                                     ->where('pe3_penyelenggaraan.tahun',$ta)
-                                    ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)                            
+                                    ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                     ->get();
         }
         $daftar_pkrs->transform(function ($item,$key) {                
@@ -150,12 +150,12 @@ class PKRSController extends Controller
                                             pe3_krsmatkul.updated_at
                                         '))
                                         ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
+                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
                                         ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-                                        ->leftJoin('pe3_kelas_mhs AS D','D.id','C.kelas_mhs_id')                                       
-                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                        ->leftJoin('pe3_dosen AS E','E.user_id','D.user_id')                                        
+                                        ->leftJoin('pe3_kelas_mhs AS D','D.id','C.kelas_mhs_id')
+                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
+                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
+                                        ->leftJoin('pe3_dosen AS E','E.user_id','D.user_id')
                                         ->where('krs_id',$krs->id)
                                         ->orderBy('semester','asc')
                                         ->orderBy('kmatkul','asc')
@@ -234,19 +234,19 @@ class PKRSController extends Controller
                                         semester,
                                         ta_matkul
                                     '))       
-                                    ->where('tahun',$ta)                                  
-                                    ->where('idsmt',$semester_akademik)                                  
-                                    ->where('kjur',$prodi_id)                                  
+                                    ->where('tahun',$ta)
+                                    ->where('idsmt',$semester_akademik)
+                                    ->where('kjur',$prodi_id)
                                     ->where('ta_matkul',$datamhs->tahun)
                                     ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
                                         $query->select('penyelenggaraan_id')
                                             ->from('pe3_krsmatkul')
-                                            ->where('nim',$nim)                                        
-                                            ->where('tahun',$ta)                                        
+                                            ->where('nim',$nim)
+                                            ->where('tahun',$ta)
                                             ->where('idsmt',$semester_akademik);                                        
                                     })
-                                    ->orderBy('semester','ASC')                                                      
-                                    ->orderBy('kmatkul','ASC')                                                      
+                                    ->orderBy('semester','ASC')          
+                                    ->orderBy('kmatkul','ASC')          
                                     ->get();
 
             return Response()->json([
@@ -527,11 +527,11 @@ class PKRSController extends Controller
                                                 pe3_krsmatkul.updated_at
                                             '))
                                             ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                            ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')                                        
-                                            ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')                                        
-                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')                                        
-                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')                                        
-                                            ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')                                        
+                                            ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
+                                            ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')
+                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
+                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
+                                            ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')
                                             ->where('krs_id',$krs->id)
                                             ->orderBy('semester','asc')
                                             ->orderBy('kmatkul','asc')
