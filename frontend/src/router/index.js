@@ -1145,6 +1145,56 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusAktif.vue"),
 	},
+	{
+		path: "/kemahasiswaan/statusnonaktif",
+		name: "KemahasiswaanStatusNonAktif",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS NON-AKTIF",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusNonAktif.vue"),
+	},
+	{
+		path: "/kemahasiswaan/statuscuti",
+		name: "KemahasiswaanStatusCuti",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS CUTI",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusCuti.vue"),
+	},
+	{
+		path: "/kemahasiswaan/statusdo",
+		name: "KemahasiswaanStatusDO",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS DO",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusDO.vue"),
+	},
+	{
+		path: "/kemahasiswaan/statuskeluar",
+		name: "KemahasiswaanStatusDO",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS KELUAR",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusKeluar.vue"),
+	},
+	{
+		path: "/kemahasiswaan/statuslulus",
+		name: "KemahasiswaanStatusLulus",
+		meta: {
+			title: "KEMAHASISWAAN - STATUS LULUS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusLulus.vue"),
+	},
 	//system
 	{
 		path: "/system-setting",

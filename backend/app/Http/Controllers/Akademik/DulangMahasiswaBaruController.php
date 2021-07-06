@@ -47,7 +47,7 @@ class DulangMahasiswaBaruController extends Controller
                             ->where('pe3_dulang.idsmt',1)   
                             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
                             ->orderBy('pe3_dulang.idsmt','desc')
-                            ->orderBy('nama_mhs','desc')
+                            ->orderBy('nama_mhs','asc')
                             ->get();
 
         return Response()->json([

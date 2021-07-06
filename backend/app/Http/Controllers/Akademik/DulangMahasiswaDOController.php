@@ -55,7 +55,7 @@ class DulangMahasiswaDOController extends Controller
             ->where('pe3_dulang.user_id',$this->getUserid())
             ->where('pe3_dulang.k_status','D')
             ->orderBy('pe3_dulang.idsmt','desc')
-            ->orderBy('nama_mhs','desc')
+            ->orderBy('nama_mhs','asc')
             ->get();
         }
         else
@@ -81,7 +81,7 @@ class DulangMahasiswaDOController extends Controller
             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
             ->where('pe3_dulang.k_status','D')
             ->orderBy('pe3_dulang.idsmt','desc')
-            ->orderBy('nama_mhs','desc')
+            ->orderBy('nama_mhs','asc')
             ->get();
         }
 
@@ -92,7 +92,7 @@ class DulangMahasiswaDOController extends Controller
                                     'message'=>'Fetch data daftar ulang mahasiswa Dropout / Putus berhasil.'
                                 ],200);     
     }
-    /**
+	/**
 	 * cek nim mahasiswa yang keluar
 	 */
 	public function cek(Request $request)

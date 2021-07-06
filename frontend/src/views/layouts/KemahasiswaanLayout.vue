@@ -181,6 +181,101 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/statusnonaktif"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							MAHASISWA NON-AKTIF
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/statuscuti"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							MAHASISWA CUTI
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/statusdo"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							MAHASISWA DROPOUT / PUTUS
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/statuskeluar"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							MAHASISWA KELUAR
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/statuslulus"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-box-multiple</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							MAHASISWA LULUS
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
 		<v-navigation-drawer

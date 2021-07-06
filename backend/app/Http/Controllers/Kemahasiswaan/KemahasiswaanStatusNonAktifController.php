@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Akademik\RegisterMahasiswaModel;
 
-class KemahasiswaanStatusAktifController  extends Controller 
+class KemahasiswaanStatusNonAktifController  extends Controller 
 {
   /**
    * daftar mahasiswa yang aktif
@@ -33,7 +33,7 @@ class KemahasiswaanStatusAktifController  extends Controller
             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
             ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')            
             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
-            ->where('pe3_register_mahasiswa.k_status','A')            
+            ->where('pe3_register_mahasiswa.k_status','N')            
             ->orderBy('nama_mhs','asc')
             ->get();
 
@@ -41,7 +41,7 @@ class KemahasiswaanStatusAktifController  extends Controller
       'status'=>1,
       'pid'=>'fetchdata',  
       'mahasiswa'=>$data,                                                                                                                                   
-      'message'=>'Fetch data daftar mahasiswa yang aktif berhasil.'
+      'message'=>'Fetch data daftar mahasiswa yang non-aktif berhasil.'
     ], 200); 
   }
 }

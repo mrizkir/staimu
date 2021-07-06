@@ -1,15 +1,13 @@
 <template>
-	<AkademikLayout>
+	<KemahasiswaanLayout>
 		<ModuleHeader>
 			<template v-slot:icon>
 				mdi-account-box-multiple
 			</template>
 			<template v-slot:name>
-				DAFTAR ULANG MAHASISWA AKTIF
+				DAFTAR MAHASISWA CUTI
 			</template>
-			<template v-slot:subtitle>
-				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
-				{{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} -
+			<template v-slot:subtitle>				
 				{{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
@@ -21,16 +19,14 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk melihat daftar mahasiswa yang aktif.
+					Halaman untuk melihat daftar mahasiswa yang cuti.
 				</v-alert>
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-			<Filter6
-				v-on:changeTahunAkademik="changeTahunAkademik"
-				v-on:changeSemesterAkademik="changeSemesterAkademik"
+			<Filter4
 				v-on:changeProdi="changeProdi"
-				ref="filter6"
+				ref="Filter4"
 			/>
 		</template>
 		<v-container fluid>
@@ -55,7 +51,7 @@
 						:headers="headers"
 						:items="datatable"
 						:search="search"
-						item-key="id"
+						item-key="user_id"
 						show-expand
 						:expanded.sync="expanded"
 						:single-expand="true"
@@ -77,35 +73,6 @@
 						<template v-slot:item.actions v-if="dashboard == 'mahasiswa'">
 							N.A
 						</template>
-						<template v-slot:item.actions="{ item }" v-else>
-							<v-tooltip bottom>
-								<template v-slot:activator="{ on, attrs }">
-									<v-icon
-										v-bind="attrs"
-										v-on="on"
-										small
-										color="red darken-1"
-										:disabled="btnLoading"
-										@click.stop="deleteItem(item)"
-									>
-										mdi-delete
-									</v-icon>
-								</template>
-								<span>Hapus Daftar Ulang Aktif</span>
-							</v-tooltip>
-						</template>
-						<template v-slot:expanded-item="{ headers, item }">
-							<td :colspan="headers.length" class="text-center">
-								<v-col cols="12">
-									<strong>id:</strong>
-									{{ item.id }}
-									<strong>created_at:</strong>
-									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>
-									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-								</v-col>
-							</td>
-						</template>
 						<template v-slot:no-data>
 							Data belum tersedia
 						</template>
@@ -113,14 +80,14 @@
 				</v-col>
 			</v-row>
 		</v-container>
-	</AkademikLayout>
+	</KemahasiswaanLayout>
 </template>
 <script>
-	import AkademikLayout from "@/views/layouts/AkademikLayout";
+	import KemahasiswaanLayout from "@/views/layouts/KemahasiswaanLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import Filter6 from "@/components/sidebar/FilterMode6";
+	import Filter4 from "@/components/sidebar/FilterMode4";
 	export default {
-		name: "DulangMahasiswaAktif",
+		name: "KemahasiswaanStatusCuti",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -130,17 +97,12 @@
 					href: "/dashboard/" + this.$store.getters["auth/AccessToken"],
 				},
 				{
-					text: "AKADEMIK",
+					text: "KEMAHASISWAAN",
 					disabled: false,
-					href: "/akademik",
+					href: "/kemahasiswaan",
 				},
 				{
-					text: "DAFTAR ULANG",
-					disabled: false,
-					href: "#",
-				},
-				{
-					text: "MAHASISWA AKTIF",
+					text: "MAHASISWA CUTI",
 					disabled: true,
 					href: "#",
 				},
@@ -148,24 +110,18 @@
 			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 			this.prodi_id = prodi_id;
 			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-			this.semester_akademik = this.$store.getters[
-				"uiadmin/getSemesterAkademik"
-			];
 			this.initialize();
 		},
 		mounted() {
 			this.firstloading = false;
-			this.$refs.filter6.setFirstTimeLoading(this.firstloading);
+			this.$refs.Filter4.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			dashboard: null,
 			firstloading: true,
 			prodi_id: null,
 			nama_prodi: null,
-			tahun_akademik: null,
-			semester_akademik: null,
-
+			
 			btnLoading: false,
 			btnLoadingTable: false,
 			datatableLoading: false,
@@ -188,17 +144,10 @@
 				},
 				{ text: "KELAS", value: "idkelas", sortable: true, width: 120 },
 				{ text: "DOSEN WALI", value: "dosen_wali", sortable: true, width: 200 },
-				{ text: "AKSI", value: "actions", sortable: false, width: 70 },
 			],
 			search: "",
 		}),
 		methods: {
-			changeTahunAkademik(tahun) {
-				this.tahun_akademik = tahun;
-			},
-			changeSemesterAkademik(semester) {
-				this.semester_akademik = semester;
-			},
 			changeProdi(id) {
 				this.prodi_id = id;
 			},
@@ -206,11 +155,9 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/dulang/mhsaktif",
+						"/kemahasiswaan/statuscuti",
 						{
 							prodi_id: this.prodi_id,
-							ta: this.tahun_akademik,
-							idsmt: this.semester_akademik,
 						},
 						{
 							headers: {
@@ -233,44 +180,6 @@
 					this.expanded = [item];
 				}
 			},
-			deleteItem(item) {
-				this.$root.$confirm
-					.open(
-						"Delete",
-						"Apakah Anda ingin menghapus daftar ulang " + item.nama_mhs + " ?",
-						{
-							color: "red",
-							width: 600,
-							desc:
-								"proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.",
-						}
-					)
-					.then(confirm => {
-						if (confirm) {
-							this.btnLoadingTable = true;
-							this.$ajax
-								.post(
-									"/akademik/dulang/mhsaktif/" + item.id,
-									{
-										_method: "DELETE",
-									},
-									{
-										headers: {
-											Authorization: this.$store.getters["auth/Token"],
-										},
-									}
-								)
-								.then(() => {
-									const index = this.datatable.indexOf(item);
-									this.datatable.splice(index, 1);
-									this.btnLoadingTable = false;
-								})
-								.catch(() => {
-									this.btnLoadingTable = false;
-								});
-						}
-					});
-			},
 			closedialogfrm() {
 				this.dialogfrm = false;
 				setTimeout(() => {
@@ -280,16 +189,6 @@
 			},
 		},
 		watch: {
-			tahun_akademik() {
-				if (!this.firstloading) {
-					this.initialize();
-				}
-			},
-			semester_akademik() {
-				if (!this.firstloading) {
-					this.initialize();
-				}
-			},
 			prodi_id(val) {
 				if (!this.firstloading) {
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
@@ -298,9 +197,9 @@
 			},
 		},
 		components: {
-			AkademikLayout,
+			KemahasiswaanLayout,
 			ModuleHeader,
-			Filter6,
+			Filter4,
 		},
 	};
 </script>

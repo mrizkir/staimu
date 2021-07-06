@@ -35,7 +35,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                 pe3_register_mahasiswa.updated_at                                      
                             '))
                             ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
-                            ->orderBy('nama_mhs','desc');                            
+                            ->orderBy('nama_mhs','asc');                            
         
         if ($request->has('search'))
         {

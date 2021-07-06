@@ -59,8 +59,6 @@
 						show-expand
 						:expanded.sync="expanded"
 						:single-expand="true"
-						:disable-pagination="true"
-						:hide-default-footer="true"
 						@click:row="dataTableRowClicked"
 						class="elevation-1"
 						:loading="datatableLoading"
@@ -86,7 +84,7 @@
 											<v-icon>mdi-plus</v-icon>
 										</v-btn>
 									</template>
-									<span>Tambah Mahasiswa Lulus</span>
+									<span>Tambah Mahasiswa Keluar</span>
 								</v-tooltip>
 								<v-dialog v-model="dialogfrm" max-width="800px" persistent>
 									<v-form ref="frmdata" v-model="form_valid" lazy-validation>

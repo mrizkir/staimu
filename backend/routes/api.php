@@ -365,6 +365,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     //akademik - daftar ulang - mahasiswa nonaktif
     $router->post('/akademik/dulang/mhsnonaktif',['middleware'=>['role:superadmin|akademik|keuangan|mahasiswa'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@index','as'=>'dulangmhsnonaktif.index']);
+    $router->post('/akademik/dulang/mhsnonaktif/cek',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@cek','as'=>'dulangmhsnonaktif.cek']);
+    $router->post('/akademik/dulang/mhsnonaktif/massal',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@massal','as'=>'dulangmhsnonaktif.massal']);
     $router->post('/akademik/dulang/mhsnonaktif/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@store','as'=>'dulangmhsnonaktif.store']);
     $router->get('/akademik/dulang/mhsnonaktif/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@show','as'=>'dulangmhsnonaktif.show']);
     $router->put('/akademik/dulang/mhsnonaktif/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaNonAktifController@update','as'=>'dulangmhsnonaktif.update']);
@@ -535,6 +537,21 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     // kemahasiswaan - status aktif
     $router->post('/kemahasiswaan/statusaktif',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusAktifController@index','as'=>'statusaktif.index']);    
+    
+    // kemahasiswaan - status non-aktif
+    $router->post('/kemahasiswaan/statusnonaktif',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusNonAktifController@index','as'=>'statusnonaktif.index']);    
+    
+    // kemahasiswaan - status cuti
+    $router->post('/kemahasiswaan/statuscuti',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusCutiController@index','as'=>'statuscuti.index']);    
+
+    // kemahasiswaan - status keluar
+    $router->post('/kemahasiswaan/statuskeluar',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusKeluarController@index','as'=>'statuskeluar.index']);    
+    
+    // kemahasiswaan - status do
+    $router->post('/kemahasiswaan/statusdo',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusDOController@index','as'=>'statusdo.index']);    
+    
+    // kemahasiswaan - status lulus
+    $router->post('/kemahasiswaan/statuslulus',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusLulusController@index','as'=>'statuslulus.index']);    
 
     //kepegawaian - dosen
     $router->get('/kepegawaian/dosen',['uses'=>'Kepegawaian\KepegawaianDosenController@index','as'=>'kepegawaiandosen.index']);
