@@ -59,7 +59,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         {          
             $daftar_transaksi=$daftar_transaksi->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                 ->get();
-        }            
+        }  
         else
         {
             $daftar_transaksi=$daftar_transaksi->where('A.kjur', $prodi_id)
@@ -146,7 +146,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                   $item->sub_total += $item->bulan12;
                 break;
               }
-            }            
+            }  
           }
           return $item;
         });
@@ -270,7 +270,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                     'isSelectable'=>$status,
                                     'status'=>$status
                                 ];
-            }            
+            }  
             $item_selected = TransaksiDetailModel::select(\DB::raw('
                                 id,
                                 bulan AS no_bulan,
@@ -301,7 +301,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                 'status'=>0,
                 'pid'=>'fetchdata',                                                                                                                                                  
                 'message'=>[$e->getMessage()]
-            ],422); 
+            ], 422); 
         }      
     }    
     /**

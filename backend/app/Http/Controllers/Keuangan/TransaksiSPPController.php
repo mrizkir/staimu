@@ -113,7 +113,7 @@ class TransaksiSPPController extends Controller {
             {
                 $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                     ->get();
-            }            
+            }  
             else
             {
                 $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)        
@@ -245,7 +245,7 @@ class TransaksiSPPController extends Controller {
                                     'isSelectable'=>$status,
                                     'status'=>$status
                                 ];
-            }            
+            }  
             $item_selected = TransaksiDetailModel::select(\DB::raw('
                                 id,
                                 bulan AS no_bulan,
@@ -276,7 +276,7 @@ class TransaksiSPPController extends Controller {
                 'status'=>0,
                 'pid'=>'fetchdata',                                                                                                                                                  
                 'message'=>[$e->getMessage()]
-            ],422); 
+            ], 422); 
         }      
     }
     public function newtransaction (Request $request)
@@ -376,7 +376,7 @@ class TransaksiSPPController extends Controller {
                 'status'=>0,
                 'pid'=>'store',                                                                                                                                                  
                 'message'=>[$e->getMessage()]
-            ],422); 
+            ], 422); 
         }  
     }
     public function store(Request $request)
@@ -481,7 +481,7 @@ class TransaksiSPPController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Transaksi Detail dengan ID ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else if ($transaksi->status==1)
         {
@@ -489,7 +489,7 @@ class TransaksiSPPController extends Controller {
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>["Transaksi dengan ID ($id) sudah tidak bisa dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

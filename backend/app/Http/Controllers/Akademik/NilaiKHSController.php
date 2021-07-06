@@ -60,7 +60,7 @@ class NilaiKHSController extends Controller
 								$daftar_khs=$daftar_khs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
 														->orderBy('tasmt','desc')
 														->get();
-						}            
+						}  
 						else
 						{
 								$daftar_khs=$daftar_khs->where('pe3_krs.kjur',$prodi_id)
@@ -156,7 +156,7 @@ class NilaiKHSController extends Controller
 																		'status'=>0,
 																		'pid'=>'destroy',                
 																		'message'=>["KRS dengan ($id) gagal diperoleh"]
-																],422); 
+																], 422); 
 				}
 				else
 				{
@@ -216,7 +216,7 @@ class NilaiKHSController extends Controller
 										$M=$item->sks*$item->AM;
 										$jumlah_m+=$M;
 										$jumlah_am+=$item->AM;
-								}                
+								}      
 								$daftar_nilai[]=[
 										'no'=>$key+1,
 										'nama_dosen'=>$nama_dosen,
@@ -304,7 +304,7 @@ class NilaiKHSController extends Controller
 																	'status'=>0,
 																	'pid'=>'destroy',                
 																	'message'=>["KRS dengan ($id) gagal diperoleh"]
-															],422); 
+															], 422); 
 			}
 			else
 			{
@@ -389,7 +389,7 @@ class NilaiKHSController extends Controller
 													'M'=>number_format($M,0),
 													'nama_dosen'=>$nama_dosen,
 											];
-									}                    
+									}          
 									$jumlah_sks+=$item->sks;
 									$jumlah_matkul+=1;                
 							}      
@@ -452,7 +452,7 @@ class NilaiKHSController extends Controller
 																			'status'=>0,
 																			'pid'=>'fetchdata',                                        
 																			'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
-																	],422);
+																	], 422);
 					}
 			}
 	}

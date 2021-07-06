@@ -52,7 +52,7 @@ class NilaiUjianController extends Controller {
             $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                         ->get();
             
-        }            
+        }  
         else
         {
             $this->validate($request, [           
@@ -175,7 +175,7 @@ class NilaiUjianController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -194,7 +194,7 @@ class NilaiUjianController extends Controller {
             {
                 $no_transaksi=$transaksi_detail->no_transaksi;
                 $transaksi_status=$transaksi_detail->status;
-            }             
+            }   
             $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];
             $data_nilai_ujian=NilaiUjianPMBModel::select(\DB::raw('
                                                     pe3_nilai_ujian_pmb.user_id,
@@ -251,7 +251,7 @@ class NilaiUjianController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Nilai ujian dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -299,7 +299,7 @@ class NilaiUjianController extends Controller {
                                         'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
                                     ],200); 
         }
-    }           
+    } 
     /**
      * Menghapus data nilai ujian sekaligus pendaftaran
      *
@@ -319,7 +319,7 @@ class NilaiUjianController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Nilai Ujian dengan ID ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

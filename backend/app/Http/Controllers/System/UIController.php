@@ -181,7 +181,7 @@ class UIController extends Controller {
                 }
                 $tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
                 $tahun_akademik = $config['DEFAULT_TA'];
-            }           
+            } 
             elseif ($this->hasRole('mahasiswa'))
             {
                 $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
@@ -289,7 +289,7 @@ class UIController extends Controller {
                                         'status'=>0,
                                         'pid'=>'fetchdata',
                                         'message'=>'Fetch data ui gagal karena roles kosong.'
-                                    ],422);
+                                    ], 422);
         }
     }
 }

@@ -34,7 +34,7 @@ class PMBUjianOnlineController extends Controller {
                                         'status'=>0,
                                         'pid'=>'fetchdata',                
                                         'message'=>["Peserta Ujian dengan ID ($id) gagal diperoleh, mungkin belum mendaftar"]
-                                    ],422); 
+                                    ], 422); 
         }
         else if ($peserta->isfinish)        
         {
@@ -42,7 +42,7 @@ class PMBUjianOnlineController extends Controller {
                                         'status'=>0,
                                         'pid'=>'fetchdata',                
                                         'message'=>['Jadwal Ujian PMB ini sudah dinyatakan selesai, oleh karena itu tidak bisa dilanjutkan']
-                                    ],422);
+                                    ], 422);
         }
         else
         {
@@ -65,7 +65,7 @@ class PMBUjianOnlineController extends Controller {
             {
                 $status=1;
                 $jawaban=$soal->jawabanUjian;
-            }           
+            } 
             return Response()->json([
                                     'status'=>$status,
                                     'pid'=>'fetchdata',  
@@ -201,7 +201,7 @@ class PMBUjianOnlineController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',  
                                     'message'=>'Mendaftarkan peserta ujian pmb ke jadwal ujian gagal karena belum melakukan pembayaran.'
-                                ],422);    
+                                ], 422);    
         }     
     
     }
@@ -290,7 +290,7 @@ class PMBUjianOnlineController extends Controller {
                                         'pid'=>'store',                                                                                                                                    
                                         'message'=>'Data Jawaban Ujian berhasil disimpan.'
                                     ],200); 
-        }               
+        }     
     }  
     /**
      * digunakan untuk menyimpan jawaban ujian

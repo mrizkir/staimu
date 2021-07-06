@@ -129,7 +129,7 @@ class UsersPMBController extends Controller {
                                 ->where('user_id',$user->id)
                                 ->update(['is_dw'=>true]);
                         }
-                    }                    
+                    }          
                 }
             }
 
@@ -169,7 +169,7 @@ class UsersPMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -236,7 +236,7 @@ class UsersPMBController extends Controller {
                     if ($key)
                     {
                         unset($daftar_roles[$key]);
-                    }                    
+                    }          
                 }
                 $user->syncRoles($daftar_roles);
                 $dosen=UserDosen::find($user->id);
@@ -320,7 +320,7 @@ class UsersPMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["User ID ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

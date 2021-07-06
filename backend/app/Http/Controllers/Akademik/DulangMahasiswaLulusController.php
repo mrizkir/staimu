@@ -159,7 +159,7 @@ class DulangMahasiswaLulusController extends Controller
 				'status'=>0,
 				'pid'=>'fetchdata',                                                                                                                                                  
 				'message'=>[$e->getMessage()]
-			],422); 
+			], 422); 
 		}  
 	
 	}
@@ -168,113 +168,130 @@ class DulangMahasiswaLulusController extends Controller
    */
   public function store(Request $request)
   {
-	$this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
+		$this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
 
-	$this->validate($request, [
-	  'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',	  
-	  'idsmt'=>'required',     
-	  'tahun'=>'required',     
-	]);
-	$user_id = $request->input('user_id');
-	$idsmt = $request->input('idsmt');
-	$tahun = $request->input('tahun');
-	try 
-	{
-		$data_mhs = \DB::table('pe3_register_mahasiswa AS A')
-							->select(\DB::raw('
-								A.user_id,																                                
-								A.nim,																                                
-								A.k_status,
-								A.idkelas,
-								C.n_status
-							'))							
-							->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
-							->where('A.user_id', $user_id)        
-							->first();
-
-		if (is_null($data_mhs))
+		$this->validate($request, [
+			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',	  
+			'idsmt'=>'required',     
+			'tahun'=>'required',     
+		]);
+		$user_id = $request->input('user_id');
+		$idsmt = $request->input('idsmt');
+		$tahun = $request->input('tahun');
+		try 
 		{
-			throw new Exception ("Data Mahasiswa dengan NIM ($nim) gagal diperoleh");
-		}
-		if ($data_mhs->k_status == 'L' || $data_mhs->k_status == 'K' || $data_mhs->k_status == 'D')
-		{
-			$status = $data_mhs->n_status;
-			throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
-		}	  
-	  $dulang = \DB::transaction(function () use ($request,$data_mhs) {
-			$dulang = \DB::table('pe3_dulang')
-			  ->where('user_id', $data_mhs->user_id)
-			  ->where('idsmt', $request->input('idsmt'))
-			  ->where('tahun', $request->input('tahun'))
-			  ->first();
+			$data_mhs = \DB::table('pe3_register_mahasiswa AS A')
+								->select(\DB::raw('
+									A.user_id,																                                
+									A.nim,																                                
+									A.k_status,
+									A.idkelas,
+									C.n_status
+								'))							
+								->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
+								->where('A.user_id', $user_id)        
+								->first();
 
-			if (is_null($dulang))	
+			if (is_null($data_mhs))
 			{
-				$dulang = DulangModel::create([
-					'id'=>Uuid::uuid4()->toString(),
-					'user_id'=>$request->input('user_id'),
-					'nim'=>$data_mhs->nim,		  
-					'idkelas'=>$data_mhs->idkelas,
-					'status_sebelumnya'=>$data_mhs->k_status,
-					'k_status'=>'L',
-					'idsmt'=>$request->input('idsmt'),
-					'tahun'=>$request->input('tahun'),
-					'update_info'=>0,
-					'descr'=>$request->input('descr'),
-				]);
+				throw new Exception ("Data Mahasiswa dengan NIM ($nim) gagal diperoleh");
 			}
-			else
+			if ($data_mhs->k_status == 'L' || $data_mhs->k_status == 'K' || $data_mhs->k_status == 'D')
 			{
-				\DB::table('pe3_dulang')
-				->where('id', $dulang->id)
-					->update([
-						'status_sebelumnya'=>$dulang->k_status,
-						'k_status'=>'L'
-					]);					
+				$status = $data_mhs->n_status;
+				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
 			}
-			\DB::table('pe3_register_mahasiswa')
-				->where('user_id', $dulang->user_id)
-					->update([						
-						'k_status'=>'L'
-					]);					
-			return $dulang;
-	  }); 
+			$total_sks = \DB::query()->fromSub(function($query) use ($profil) {
+				$query->select(\DB::raw('
+					DISTINCT(C.matkul_id),
+					C.sks
+				'))
+				->from('pe3_nilai_matakuliah AS A')
+				->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')													
+				->join('pe3_penyelenggaraan AS C','A.penyelenggaraan_id','C.id')
+				->where('A.user_id_mhs',$profil->user_id)													
+				->where('B.batal',0)
+				->where('A.n_mutu','>=',18);	
+			}, 'a')->sum('sks');
+
+			if ($total_sks <= 144)
+			{
+				throw new Exception ("Tidak bisa diproses karena jumlah SKS yang ditempuh baru $total_sks, kurang dari 144 sebagai syarat kelulusan.");
+			}
+			$dulang = \DB::transaction(function () use ($request,$data_mhs) {
+				$dulang = \DB::table('pe3_dulang')
+					->where('user_id', $data_mhs->user_id)
+					->where('idsmt', $request->input('idsmt'))
+					->where('tahun', $request->input('tahun'))
+					->first();
+
+				if (is_null($dulang))	
+				{
+					$dulang = DulangModel::create([
+						'id'=>Uuid::uuid4()->toString(),
+						'user_id'=>$request->input('user_id'),
+						'nim'=>$data_mhs->nim,		  
+						'idkelas'=>$data_mhs->idkelas,
+						'status_sebelumnya'=>$data_mhs->k_status,
+						'k_status'=>'L',
+						'idsmt'=>$request->input('idsmt'),
+						'tahun'=>$request->input('tahun'),
+						'update_info'=>0,
+						'descr'=>$request->input('descr'),
+					]);
+				}
+				else
+				{
+					\DB::table('pe3_dulang')
+					->where('id', $dulang->id)
+						->update([
+							'status_sebelumnya'=>$dulang->k_status,
+							'k_status'=>'L'
+						]);					
+				}
+				\DB::table('pe3_register_mahasiswa')
+					->where('user_id', $dulang->user_id)
+						->update([						
+							'k_status'=>'L'
+						]);					
+				return $dulang;
+			}); 
 	  
-		$data = DulangModel::select(\DB::raw('
-			pe3_dulang.id,
-			pe3_dulang.user_id,
-			pe3_formulir_pendaftaran.no_formulir,
-			pe3_dulang.nim,
-			pe3_register_mahasiswa.nirm,
-			pe3_formulir_pendaftaran.nama_mhs,
-			pe3_dulang.idkelas,
-			pe3_dulang.k_status,    
-			CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                      
-			pe3_dulang.created_at,      
-			pe3_dulang.updated_at      
-		'))
-		->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-		->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-		->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
-		->where('pe3_dulang.id',$dulang->id)		
-		->first();
-		
-			  
-	  return Response()->json([
-							  'status'=>1,
-							  'pid'=>'store',  
-							  'mahasiswa'=>$data,                                                                                                                                   
-							  'message'=>'Status Mahasiswa berhasil di ubah menjadi lulus.'
-							], 200);     
-	}
-	catch (Exception $e)
-	{
-	  return Response()->json([
-		'status'=>0,
-		'pid'=>'store',                                                                                                                                                  
-		'message'=>[$e->getMessage()]
-	  ],422); 
-	}          
+			$data = DulangModel::select(\DB::raw('
+				pe3_dulang.id,
+				pe3_dulang.user_id,
+				pe3_formulir_pendaftaran.no_formulir,
+				pe3_dulang.nim,
+				pe3_register_mahasiswa.nirm,
+				pe3_formulir_pendaftaran.nama_mhs,
+				pe3_dulang.idkelas,
+				pe3_dulang.k_status,    
+				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                      
+				pe3_dulang.created_at,      
+				pe3_dulang.updated_at      
+			'))
+			->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
+			->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
+			->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+			->where('pe3_dulang.id',$dulang->id)		
+			->first();
+			
+					
+			return Response()->json([
+									'status'=>1,
+									'pid'=>'store',  
+									'mahasiswa'=>$data,                                                                                                                                   
+									'message'=>'Status Mahasiswa berhasil di ubah menjadi lulus.'
+								], 200);     
+		}
+		catch (Exception $e)
+		{
+			return Response()->json([
+			'status'=>0,
+			'pid'=>'store',                                                                                                                                                  
+			'message'=>[$e->getMessage()]
+			], 422); 
+		}
   }
 	/**
 	 * Remove the specified resource from storage.
@@ -294,7 +311,7 @@ class DulangMahasiswaLulusController extends Controller
 				'status'=>0,
 				'pid'=>'destroy',                
 				'message'=>["Daftar Ulang Mahasiswa Lulus ($id) gagal dihapus"]
-			],422); 
+			], 422); 
 		}
 		else
 		{

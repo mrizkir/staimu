@@ -128,7 +128,7 @@ class UsersAkademikController extends Controller {
                                 ->where('user_id',$user->id)
                                 ->update(['is_dw'=>true]);
                         }
-                    }                    
+                    }          
                 }
             }
 
@@ -168,7 +168,7 @@ class UsersAkademikController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -235,7 +235,7 @@ class UsersAkademikController extends Controller {
                     if ($key)
                     {
                         unset($daftar_roles[$key]);
-                    }                    
+                    }          
                 }
                 $user->syncRoles($daftar_roles);
                 $dosen=UserDosen::find($user->id);
@@ -316,7 +316,7 @@ class UsersAkademikController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["User ID ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

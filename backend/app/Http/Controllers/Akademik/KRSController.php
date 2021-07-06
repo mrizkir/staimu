@@ -58,7 +58,7 @@ class KRSController extends Controller
                 $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                             ->orderBy('tasmt','desc')
                             ->get();
-            }            
+            }  
             else
             {
                 $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
@@ -108,7 +108,7 @@ class KRSController extends Controller
             {
                 $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                             ->get();
-            }            
+            }  
             else
             {
                 $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
@@ -199,7 +199,7 @@ class KRSController extends Controller
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -283,7 +283,7 @@ class KRSController extends Controller
                                         'status'=>0,
                                         'pid'=>'fetchdata',                
                                         'message'=>["Data MHS dengan NIM ($nim) gagal diperoleh"]
-                                    ],422); 
+                                    ], 422); 
         }
         else
         {        
@@ -409,7 +409,7 @@ class KRSController extends Controller
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["KRS dengan ($id) gagal diverifikasi"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -478,7 +478,7 @@ class KRSController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -515,7 +515,7 @@ class KRSController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -568,7 +568,7 @@ class KRSController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -653,7 +653,7 @@ class KRSController extends Controller
                     'status'=>0,
                     'pid'=>'fetchdata',                    
                     'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
-                ],422);
+                ], 422);
             }
         }        
     }

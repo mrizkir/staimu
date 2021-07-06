@@ -149,7 +149,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Penyelenggaraan dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -375,7 +375,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -426,7 +426,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Penyelenggaraan dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -463,7 +463,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

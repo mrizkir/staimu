@@ -82,11 +82,11 @@ class H2HBRKJWTCheckMiddleware
                         'message'=>'Token tidak terdaftar'
                     ]
                 ]);                
-            }               
+            }     
             else
             {
                 $object->headers->set('Authorization', "Bearer {$token}");
-            }                           
+            }                 
         }
 
         return $object;

@@ -163,7 +163,7 @@ class PersyaratanController extends Controller {
                     $persyaratan=PersyaratanModel::where('proses','pmb')
                                                 ->where('ta',$ta)
                                                 ->get();
-                }                
+                }      
             break;
         }
         return Response()->json([
@@ -194,7 +194,7 @@ class PersyaratanController extends Controller {
                                         'status'=>0,
                                         'pid'=>'destroy',                
                                         'message'=>["Kode persyaratan $proses dengan ($id) gagal dihapus"]
-                                    ],422); 
+                                    ], 422); 
         }
         else
         {
@@ -231,7 +231,7 @@ class PersyaratanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode persyaratan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

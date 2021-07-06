@@ -51,7 +51,7 @@ class NilaiMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -121,7 +121,7 @@ class NilaiMatakuliahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["KRS dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -366,7 +366,7 @@ class NilaiMatakuliahController extends Controller
                                                                 'message' => 'Menyimpan Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
                                                             ]);
                     $jumlah_matkul+=1;
-                }                
+                }      
                 elseif(!$nilai->bydosen)
                 {
                     $n_kuan_lama=$nilai->n_kuan;

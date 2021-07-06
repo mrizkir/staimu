@@ -207,16 +207,17 @@
 																<v-tooltip bottom> 
 																		<template v-slot:activator="{ on, attrs }"> 
 																				<v-btn 
-																						v-bind="attrs"
-																						v-on="on"
-																						color="primary" 
-																						icon 
-																						outlined 
-																						small 
-																						class="ma-2" 
-																						@click.stop="tambahPeserta"
-																						 :disabled="!datatable > 0">
-																						<v-icon>mdi-plus</v-icon>
+																					v-bind="attrs"
+																					v-on="on"
+																					color="primary" 
+																					icon 
+																					outlined 
+																					small 
+																					class="ma-2" 
+																					@click.stop="tambahPeserta"
+																					:disabled="!datatable > 0"
+																				>
+																					<v-icon>mdi-plus</v-icon>
 																				</v-btn> 
 																		</template>
 																		<span>Tambah Peserta Kelas</span>
@@ -227,7 +228,7 @@
 														{{$store.getters['uiadmin/getNamaKelas'](item.idkelas)}}
 												</template>
 												<template v-slot:item.kjur="{ item }">
-														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
+													{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
 												<template v-slot:item.actions="{ item }">   
 														<v-btn

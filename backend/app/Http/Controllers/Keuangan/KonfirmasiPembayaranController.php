@@ -105,7 +105,7 @@ class KonfirmasiPembayaranController extends Controller {
             {
                 $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_transaksi LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                     ->get();
-            }            
+            }  
             else
             {
                 $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)        
@@ -150,7 +150,7 @@ class KonfirmasiPembayaranController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Fetch data transaksi dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -219,7 +219,7 @@ class KonfirmasiPembayaranController extends Controller {
                                         'status'=>1,
                                         'pid'=>'store',
                                         'message'=>["Extensi file yang diupload bukan jpg atau png."]
-                                    ],422); 
+                                    ], 422); 
         } 
         
     }
@@ -237,7 +237,7 @@ class KonfirmasiPembayaranController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Update data transaksi dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

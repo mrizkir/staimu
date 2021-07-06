@@ -109,7 +109,7 @@ class DulangMahasiswaCutiController extends Controller
                 'status'=>0,
                 'pid'=>'destroy',                
                 'message'=>["Daftar Ulang Mahasiswa Cuti ($id) gagal dihapus"]
-            ],422); 
+            ], 422); 
         }
         else
         {

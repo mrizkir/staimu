@@ -41,7 +41,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
         {
             $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                         ->get();
-        }            
+        }  
         else
         {
             $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)

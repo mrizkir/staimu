@@ -237,7 +237,7 @@ class UjianMunaqasahController extends Controller
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -414,7 +414,7 @@ class UjianMunaqasahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal diupdate karean sudah diverifikasi"]
-                                ],422); 
+                                ], 422); 
         }
     }
     /**
@@ -530,7 +530,7 @@ class UjianMunaqasahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else if ($ujian->status == 0)
         {
@@ -553,7 +553,7 @@ class UjianMunaqasahController extends Controller
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus karean sudah diverifikasi"]
-                                ],422); 
+                                ], 422); 
         }
                   
     }
@@ -582,7 +582,7 @@ class UjianMunaqasahController extends Controller
                     {                        
                         $item->keterangan =  "BELUM BAYAR"; 
                         $this->persyaratan_verified[]=false;
-                    }                    
+                    }          
                 break;
                 case '2021-ujian-munaqasah-4' : //Matakuliah Skripsi terdapat di KRS
                     $detail1 = \DB::table('pe3_prodi_detail1')
@@ -608,7 +608,7 @@ class UjianMunaqasahController extends Controller
                                             ? "ADA" 
                                             : "TIDAK ADA"; 
                                             
-                    }                    
+                    }          
                 break;
                 case '2021-ujian-munaqasah-5' : //Jadwal konsultasi pembimbing                    
                     if (is_null($item->file))
@@ -630,7 +630,7 @@ class UjianMunaqasahController extends Controller
                     else
                     {
                         $this->persyaratan_verified[]=$item->status == 1;
-                    }                    
+                    }          
                 break;                
                 case '2021-ujian-munaqasah-7' : //Scanan KTP
                     if (is_null($item->file))

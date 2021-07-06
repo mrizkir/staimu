@@ -387,6 +387,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     
     //akademik - daftar ulang - mahasiswa keluar
     $router->post('/akademik/dulang/mhskeluar',['middleware'=>['role:superadmin|akademik|keuangan|mahasiswa'],'uses'=>'Akademik\DulangMahasiswaKeluarController@index','as'=>'dulangmhskeluar.index']);
+    $router->post('/akademik/dulang/mhskeluar/cek',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaKeluarController@cek','as'=>'dulangmhskeluar.cek']);
     $router->post('/akademik/dulang/mhskeluar/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaKeluarController@store','as'=>'dulangmhskeluar.store']);
     $router->get('/akademik/dulang/mhskeluar/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaKeluarController@show','as'=>'dulangmhskeluar.show']);
     $router->put('/akademik/dulang/mhskeluar/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaKeluarController@update','as'=>'dulangmhskeluar.update']);

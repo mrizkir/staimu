@@ -73,7 +73,7 @@ class AuthController extends Controller
         else
         {
             return response()->json($user->toArray());
-        }            
+        }  
         
     }
     /**

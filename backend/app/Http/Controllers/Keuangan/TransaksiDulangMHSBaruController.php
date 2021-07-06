@@ -104,7 +104,7 @@ class TransaksiDulangMHSBaruController extends Controller {
             {
                 $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                     ->get();
-            }            
+            }  
             else
             {
                 $daftar_transaksi=$daftar_transaksi->where('pe3_transaksi.ta',$ta)        
@@ -234,7 +234,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                 'status'=>0,
                 'pid'=>'store',                                                                                                                                                  
                 'message'=>[$e->getMessage()]
-            ],422); 
+            ], 422); 
         }        
     }
     public function destroy(Request $request,$id)
@@ -258,7 +258,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                                     'pid'=>'destroy',           
                                     'transaksi'=>$transaksi,     
                                     'message'=>["Transaksi daftar ulang mahasiswa baru dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else if ($transaksi->status==0)
         {
@@ -282,7 +282,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                                     'pid'=>'destroy',           
                                     'transaksi'=>$transaksi,     
                                     'message'=>["Transaksi daftar ulang mahasiswa baru dengan ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
     }
     /**

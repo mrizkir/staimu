@@ -63,7 +63,7 @@ class TranskripKurikulumController  extends Controller
             {
                 $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')
                             ->get();
-            }            
+            }  
             else
             {
                 $data=$data->where('pe3_register_mahasiswa.kjur',$prodi_id)
@@ -146,7 +146,7 @@ class TranskripKurikulumController  extends Controller
                                     'status'=>0,
                                     'pid'=>'show',                
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -234,7 +234,7 @@ class TranskripKurikulumController  extends Controller
                                 $HM=$HM_KONVERSI;
                                 $AM=$AM_KONVERSI;
                             }
-                        }                        
+                        }              
                         $M=$AM*$item->sks;
                         $jumlah_m+=$M;
                         $jumlah_am+=$AM;
@@ -306,7 +306,7 @@ class TranskripKurikulumController  extends Controller
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -407,7 +407,7 @@ class TranskripKurikulumController  extends Controller
                                     'status'=>0,
                                     'pid'=>'show',                
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -510,7 +510,7 @@ class TranskripKurikulumController  extends Controller
                                     }
                                 } 
                             }
-                        }                        
+                        }              
                         $M=$AM*$item->sks;
                         $jumlah_m_smt+=$M;
                         $jumlah_am_smt+=$AM;
@@ -699,7 +699,7 @@ class TranskripKurikulumController  extends Controller
                                     'status'=>0,
                                     'pid'=>'show',                
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -1063,7 +1063,7 @@ class TranskripKurikulumController  extends Controller
                         {
                             $rpt->Cell(1,0.5,'-',1,null,'C');
                             $rpt->Cell(1,0.5,'-',1,null,'C');                            
-                        }                                                
+                        }                                      
                         $rpt->Cell(0.1,0.5,'');				
                         $row_ganjil+=0.5;
                         $no_semester++;
@@ -1133,7 +1133,7 @@ class TranskripKurikulumController  extends Controller
                     $rpt->Cell(1,0.5,$ipk_genap,1,null,'C');
                     
                     $row_genap+=0.6;
-                }               
+                }     
             }
             $rpt->SetFont ('helvetica','B',6);
             $row=$row_genap+0.1;

@@ -59,7 +59,7 @@ class PMBController extends Controller {
         {
             $data=$data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
                                                 ->get();
-        }            
+        }  
         else
         {
             $data=$data->where('users.ta',$ta)
@@ -302,7 +302,7 @@ class PMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -343,7 +343,7 @@ class PMBController extends Controller {
                 {
                     $nilai_ujian->kjur=$formulir->kjur1;
                     $nilai_ujian->save();
-                }                
+                }      
                 
                 return $user;
             });
@@ -399,7 +399,7 @@ class PMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -465,7 +465,7 @@ class PMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'update',    
                                         'message'=>['Email Registrasi Mahasiswa gagal diverifikasi.']
-                                    ],422);
+                                    ], 422);
         }
 
     }   
@@ -485,7 +485,7 @@ class PMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -593,7 +593,7 @@ class PMBController extends Controller {
                         $transaksi->total=$kombi->biaya;
                         $transaksi->desc=$kombi->nama_kombi;
                         $transaksi->save();
-                    }                    
+                    }          
                 }
                 else
                 {
@@ -613,7 +613,7 @@ class PMBController extends Controller {
                                         'message'=>'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
-    }           
+    } 
     /**
      * Menghapus calon mahasiwa baru
      *
@@ -633,7 +633,7 @@ class PMBController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Calon Mahasiswa Baru dengan ID ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

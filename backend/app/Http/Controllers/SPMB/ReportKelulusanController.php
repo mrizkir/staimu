@@ -67,7 +67,7 @@ class ReportKelulusanController extends Controller {
                                 'pmb'=>$data,
                                 'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
                             ],200);  
-    }            
+    }  
     /**
      * Detail nilai dan jadwal ujian
      *
@@ -92,7 +92,7 @@ class ReportKelulusanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -108,7 +108,7 @@ class ReportKelulusanController extends Controller {
             {
                 $no_transaksi=$transaksi_detail->no_transaksi;
                 $transaksi_status=$transaksi_detail->status;
-            }             
+            }   
             $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];
             $data_nilai_ujian=NilaiUjianPMBModel::find($id);                     
             return Response()->json([

@@ -143,8 +143,8 @@ class PindahKelasController  extends Controller
         'status'=>0,
         'pid'=>'store',                                                                                                                                                  
         'message'=>[$e->getMessage()]
-      ],422); 
-    }          
+      ], 422); 
+    }
   }
   /**
    * ubah data
@@ -228,7 +228,7 @@ class PindahKelasController  extends Controller
           'status'=>0,
           'pid'=>'update',                                                                                                                                                  
           'message'=>[$e->getMessage()]
-        ],422); 
+        ], 422); 
       }     
     }
   }
@@ -244,7 +244,7 @@ class PindahKelasController  extends Controller
                                 'status'=>0,
                                 'pid'=>'destroy',                
                                 'message'=>["Data Pindah Kelas dengan ($id) gagal dihapus"]
-                            ],422); 
+                            ], 422); 
     }
     else
     {
@@ -285,7 +285,7 @@ class PindahKelasController  extends Controller
           'status'=>0,
           'pid'=>'destroy',                                                                                                                                                  
           'message'=>[$e->getMessage()]
-        ],422); 
+        ], 422); 
       }        
     }
                 

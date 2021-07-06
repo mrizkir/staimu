@@ -204,7 +204,7 @@ class SystemMigrationController extends Controller {
                         'idsmt'=>1
                     ]);
                     $i+=1;
-                }                
+                }      
             }   
             return $user;
         });        

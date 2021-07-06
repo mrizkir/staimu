@@ -66,7 +66,7 @@ class PageInfoKampusController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Kode post ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -154,7 +154,7 @@ class PageInfoKampusController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["Kode post ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -186,7 +186,7 @@ class PageInfoKampusController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Kode post ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {

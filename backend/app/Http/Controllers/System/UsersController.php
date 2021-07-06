@@ -134,7 +134,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',                
                                     'message'=>["User ID ($id) gagal diperoleh"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -190,7 +190,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'mahasiswa':
                 $permission=Role::findByName($role_name)->permissions;
@@ -212,7 +212,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);   
-                }                
+                }      
             break;
             case 'pmb':
                 $permission=Role::findByName($role_name)->permissions;
@@ -226,7 +226,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'akademik':
                 $permission=Role::findByName($role_name)->permissions;
@@ -240,7 +240,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'programstudi':
                 $permission=Role::findByName($role_name)->permissions;
@@ -254,7 +254,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'puslahta':
                 $permission=Role::findByName($role_name)->permissions;
@@ -268,7 +268,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'keuangan':
                 $permission=Role::findByName($role_name)->permissions;
@@ -282,7 +282,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'perpustakaan':
                 $permission=Role::findByName($role_name)->permissions;
@@ -296,7 +296,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'lppm':
                 $permission=Role::findByName($role_name)->permissions;
@@ -310,7 +310,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'dosen':
                 $permission=Role::findByName($role_name)->permissions;
@@ -324,7 +324,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'dosenwali':
                 $permission=Role::findByName($role_name)->permissions;
@@ -338,7 +338,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'alumni':
                 $permission=Role::findByName($role_name)->permissions;
@@ -352,7 +352,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
             case 'orangtuawali':
                 $permission=Role::findByName($role_name)->permissions;
@@ -366,7 +366,7 @@ class UsersController extends Controller {
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                     $user->givePermissionTo($permissions);                 
-                }                
+                }      
             break;
         }       
         return Response()->json([
@@ -457,7 +457,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["User ID ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -568,7 +568,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Password User ID ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -648,7 +648,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                                      
                                     'message'=>["User dengan id ($id) gagal dihapus"]
-                                ],422);    
+                                ], 422);    
         }
         else
         {
@@ -682,7 +682,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ],422);         
+                                ], 422);         
         }
         else
         {
@@ -723,7 +723,7 @@ class UsersController extends Controller {
                                         'status'=>1,
                                         'pid'=>'store',
                                         'message'=>["Extensi file yang diupload bukan jpg atau png."]
-                                    ],422); 
+                                    ], 422); 
                 
 
             }
@@ -739,7 +739,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ],422);         
+                                ], 422);         
         }
         else
         {
@@ -775,7 +775,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ],422);         
+                                ], 422);         
         }
         else
         {

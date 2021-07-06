@@ -145,7 +145,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',
                                     'message'=>["Kode Program Studi ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -286,7 +286,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',
                                     'message'=>["Kode Program Studi ($id) gagal diupdate"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -341,7 +341,7 @@ class ProgramStudiController extends Controller {
                                             'nama_jenjang'=>'required',
                                             
                                         ]); 
-            }                       
+            }             
             $prodi->kode_fakultas = $request->input('kode_fakultas');
             $prodi->kode_prodi = $request->input('kode_prodi');
             $prodi->nama_prodi = $request->input('nama_prodi');            
@@ -444,7 +444,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>0,
                                     'pid'=>'fetchdata',
                                     'message'=>["Fetch data program studi berdasarkan id program studi gagal"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
@@ -476,7 +476,7 @@ class ProgramStudiController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',
                                     'message'=>["Kode program studi ($id) gagal dihapus"]
-                                ],422); 
+                                ], 422); 
         }
         else
         {
