@@ -125,7 +125,7 @@ class DulangMahasiswaLulusController extends Controller
 			if ($profil->k_status == 'L' || $profil->k_status == 'K' || $profil->k_status == 'D')
 			{
 				$status = $profil->n_status;
-				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
+				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}
 
 			$total_sks = \DB::query()->fromSub(function($query) use ($profil) {
@@ -199,7 +199,7 @@ class DulangMahasiswaLulusController extends Controller
 			if ($data_mhs->k_status == 'L' || $data_mhs->k_status == 'K' || $data_mhs->k_status == 'D')
 			{
 				$status = $data_mhs->n_status;
-				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
+				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}
 			$total_sks = \DB::query()->fromSub(function($query) use ($profil) {
 				$query->select(\DB::raw('

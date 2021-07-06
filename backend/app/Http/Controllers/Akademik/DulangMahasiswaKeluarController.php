@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Keuangan\TransaksiDetailModel;
 
+use Exception;
 use Ramsey\Uuid\Uuid;
 
 class DulangMahasiswaKeluarController extends Controller 
@@ -92,7 +93,7 @@ class DulangMahasiswaKeluarController extends Controller
 								],200);     
 	}
 	/**
-	 * cek nim mahasiswa yang lulus
+	 * cek nim mahasiswa yang keluar
 	 */
 	public function cek(Request $request)
 	{
@@ -125,7 +126,7 @@ class DulangMahasiswaKeluarController extends Controller
 			if ($profil->k_status == 'L' || $profil->k_status == 'K' || $profil->k_status == 'D')
 			{
 				$status = $profil->n_status;
-				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
+				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}			
 			return Response()->json([
 									'status'=>1,
@@ -180,7 +181,7 @@ class DulangMahasiswaKeluarController extends Controller
 			if ($data_mhs->k_status == 'L' || $data_mhs->k_status == 'K' || $data_mhs->k_status == 'D')
 			{
 				$status = $data_mhs->n_status;
-				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) adalah $status ");
+				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}
 			$dulang = \DB::transaction(function () use ($request,$data_mhs) {
 				$dulang = \DB::table('pe3_dulang')
@@ -245,7 +246,7 @@ class DulangMahasiswaKeluarController extends Controller
 									'status'=>1,
 									'pid'=>'store',  
 									'mahasiswa'=>$data,                                                                                                                                   
-									'message'=>'Status Mahasiswa berhasil di ubah menjadi lulus.'
+									'message'=>'Status Mahasiswa berhasil di ubah menjadi keluar.'
 								], 200);     
 		}
 		catch (Exception $e)
