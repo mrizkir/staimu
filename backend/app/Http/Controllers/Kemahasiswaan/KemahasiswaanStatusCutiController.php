@@ -37,10 +37,31 @@ class KemahasiswaanStatusCutiController  extends Controller
             ->orderBy('nama_mhs','asc')
             ->get();
 
+    $subquery = \DB::table('pe3_register_mahasiswa')
+            ->select(\DB::raw('kjur, COUNT(user_id) AS total'))
+            ->where('k_status','C')
+            ->groupBy('kjur');
+
+    $daftar_prodi = \DB::table('pe3_prodi AS A')
+                    ->select(\DB::raw('
+                      id,
+                      nama_prodi,
+                      CONCAT(nama_prodi_alias," (",nama_jenjang, ")") AS nama_prodi_alias,                          
+                      COALESCE(total,0) AS  total
+                    '))
+                    ->leftJoinSub($subquery,'B',function($join){
+                      $join->on('B.kjur','=','A.id');
+                    })
+                    ->get();
+
+    $total_mahasiswa = $daftar_prodi->sum('total');
+
     return Response()->json([
       'status'=>1,
       'pid'=>'fetchdata',  
-      'mahasiswa'=>$data,                                                                                                                                   
+      'mahasiswa'=>$data,
+      'daftar_prodi'=>$daftar_prodi, 
+      'total_mahasiswa'=>$total_mahasiswa,
       'message'=>'Fetch data daftar mahasiswa yang cuti berhasil.'
     ], 200); 
   }

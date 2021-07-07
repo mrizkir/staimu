@@ -30,6 +30,42 @@
 			/>
 		</template>
 		<v-container fluid>
+			<v-row dense class="mb-4">
+				<v-col xs="12" sm="4" md="3">
+					<v-card                         
+						class="clickable green darken-1"
+						color="#385F73" 
+						@click.native="$router.push('/spmb/pendaftaranbaru')"
+						dark>
+						<v-card-title class="headline">
+							TOTAL MAHASISWA
+						</v-card-title>
+						<v-card-subtitle>
+							keseluruhan
+						</v-card-subtitle>
+						<v-card-text>
+							{{ totalmahasiwa }}
+						</v-card-text>
+					</v-card>
+				</v-col>
+				<v-col xs="12" sm="4" md="4" v-for="item in daftar_prodi" v-bind:key="item.id">
+					<v-card                         
+						class="clickable green darken-1"
+						color="#385F73" 
+						@click.native="$router.push('/spmb/pendaftaranbaru')"
+						dark>
+						<v-card-title class="headline">
+							{{ item.nama_prodi_alias }}
+						</v-card-title>
+						<v-card-subtitle>
+							{{ item.nama_prodi }}
+						</v-card-subtitle>
+						<v-card-text>
+							{{ item.total }}
+						</v-card-text>
+					</v-card>
+				</v-col>
+			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-card>
@@ -146,6 +182,10 @@
 				{ text: "DOSEN WALI", value: "dosen_wali", sortable: true, width: 200 },
 			],
 			search: "",
+
+			//statistik
+			totalmahasiwa: 0,
+			daftar_prodi: [],
 		}),
 		methods: {
 			changeProdi(id) {
@@ -167,6 +207,8 @@
 					)
 					.then(({ data }) => {
 						this.datatable = data.mahasiswa;
+						this.totalmahasiwa = data.total_mahasiswa;
+						this.daftar_prodi = data.daftar_prodi;
 						this.datatableLoading = false;
 					})
 					.catch(() => {
