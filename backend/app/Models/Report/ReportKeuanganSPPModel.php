@@ -366,7 +366,7 @@ class ReportKeuanganSPPModel extends ReportModel
         {
           $jumlah = \DB::table('pe3_transaksi_detail')
                   ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
-                  ->where('ta', $ta)
+                  ->where('ta', $ta + 1)
                   ->where('bulan',$k)
                   ->where('kombi_id', 201)
                   ->where('status', 1)

@@ -66,7 +66,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 					{
 						$jumlah = \DB::table('pe3_transaksi_detail')
 										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
-										->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
+										->whereRaw("YEAR(pe3_transaksi.updated_at)=" . ($ta + 1))
 										->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
 										->where('kombi_id', 202)
 										->where('status', 1)

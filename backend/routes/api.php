@@ -272,6 +272,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     //keuangan - laporan penerimaan spp
     $router->post('/keuangan/transaksi-laporanspp',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@index','as'=>'transaksi-laporanspp.index']);
     $router->post('/keuangan/transaksi-laporanspp/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPController@printtoexcel1','as'=>'transaksi-laporanspp.printtoexcel1']);
+    
+    //keuangan - laporan penerimaan spp per semester
     $router->post('/keuangan/transaksi-laporanspppersemester',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPPerSemesterController@index','as'=>'transaksi-laporanspppersemester.index']);
     $router->post('/keuangan/transaksi-laporanspppersemester/printtoexcel1',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiLaporanSPPPerSemesterController@printtoexcel1','as'=>'transaksi-laporanspppersemester.printtoexcel1']);
     
