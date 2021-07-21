@@ -45,7 +45,7 @@ class DosenWaliController extends Controller {
                                 'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data dosen wali berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
     public function show(Request $request,$id)
     {
@@ -89,7 +89,7 @@ class DosenWaliController extends Controller {
                                     'user'=>$user,      
                                     'daftar_mahasiswa'=>$daftar_mahasiswa,   
                                     'message'=>'data dosen wali beserta mahaiswanya berhasil diperoleh'                                                                           
-                                ],200);
+                                ], 200);
         }
     }
     /**
@@ -143,10 +143,10 @@ class DosenWaliController extends Controller {
             
             UserDosen::create([
                 'user_id'=>$user->id,
-                'nama_dosen'=>$request->input('name'),                                
-                'nidn'=>$request->input('nidn'),                                
-                'nipy'=>$request->input('nipy'),                                
-                'is_dw'=>$request->input('is_dw'),                                
+                'nama_dosen'=>$request->input('name'),
+                'nidn'=>$request->input('nidn'),
+                'nipy'=>$request->input('nipy'),
+                'is_dw'=>$request->input('is_dw'),
             ]);
             
             return $user;
@@ -162,9 +162,9 @@ class DosenWaliController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data dosen wali berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -192,7 +192,7 @@ class DosenWaliController extends Controller {
         {
             $this->validate($request, [           
                                         'pid'=>'required',            
-                                        'user_id'=>'required|:users,email,'.$user->id,                                        
+                                        'user_id'=>'required|:users,email,'.$user->id,        
                                     ]);             
             $message='no pid';
             switch($request->input('pid'))
@@ -214,8 +214,8 @@ class DosenWaliController extends Controller {
                                     'status'=>1,
                                     'pid'=>'update',
                                     'user'=>$user,      
-                                    'message'=>$message,                                    
-                                ],200); 
+                                    'message'=>$message,    
+                                ], 200); 
         }
     }
     /**
@@ -255,7 +255,7 @@ class DosenWaliController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Dosen Wali ($username) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

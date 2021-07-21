@@ -66,7 +66,7 @@ class ReportKelulusanController extends Controller {
                                 'pid'=>'fetchdata',
                                 'pmb'=>$data,
                                 'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     /**
      * Detail nilai dan jadwal ujian
@@ -79,7 +79,7 @@ class ReportKelulusanController extends Controller {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
 
         $formulir=FormulirPendaftaranModel::select(\DB::raw('   
-                                                            pe3_formulir_pendaftaran.user_id,                                                       
+                                                            pe3_formulir_pendaftaran.user_id,                       
                                                             kjur1,
                                                             CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
                                                         '))
@@ -113,14 +113,14 @@ class ReportKelulusanController extends Controller {
             $data_nilai_ujian=NilaiUjianPMBModel::find($id);                     
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                                                        
-                                        'no_transaksi'=>"$no_transaksi ",                                                                           
+                                        'pid'=>'fetchdata',                        
+                                        'no_transaksi'=>"$no_transaksi ",                                           
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
-                                        'kjur'=>$formulir->kjur1,                                        
-                                        'data_nilai_ujian'=>$data_nilai_ujian,                                        
+                                        'kjur'=>$formulir->kjur1,        
+                                        'data_nilai_ujian'=>$data_nilai_ujian,        
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
-                                    ],200);        
+                                    ], 200);        
         }
 
     }   

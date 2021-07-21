@@ -21,9 +21,9 @@ class TransferBankController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'bank'=>$bank,                                                                                                                                   
+                                    'bank'=>$bank,                                                                                                   
                                     'message'=>'Fetch data bank berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * Store a newly created resource in storage.
@@ -62,9 +62,9 @@ class TransferBankController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'bank'=>$bank,                                    
+                                    'bank'=>$bank,    
                                     'message'=>'Data bank berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -94,8 +94,8 @@ class TransferBankController extends Controller {
                                         'nama_bank'=>'required',                     
                                         'nama_cabang'=>'required',   
                                         'nomor_rekening'=>[
-                                                        'required',                                                        
-                                                        'numeric',                                                        
+                                                        'required',                        
+                                                        'numeric',                        
                                                         Rule::unique('pe3_transfer_bank')->ignore($bank->nomor_rekening,'nomor_rekening')           
                                                     ],     
                                         'pemilik_rekening'=>'required',   
@@ -120,7 +120,7 @@ class TransferBankController extends Controller {
                                     'pid'=>'update',
                                     'bank'=>$bank,      
                                     'message'=>'Data bank '.$bank->nama_bank.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }    
     /**
@@ -156,7 +156,7 @@ class TransferBankController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

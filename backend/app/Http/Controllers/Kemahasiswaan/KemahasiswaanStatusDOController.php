@@ -61,7 +61,7 @@ class KemahasiswaanStatusDOController  extends Controller
       'pid'=>'fetchdata',  
       'mahasiswa'=>$data,
       'daftar_prodi'=>$daftar_prodi, 
-      'total_mahasiswa'=>$total_mahasiswa,                                                                                                                                   
+      'total_mahasiswa'=>$total_mahasiswa,                                                                                                   
       'message'=>'Fetch data daftar mahasiswa yang dropout / putus berhasil.'
     ], 200); 
   }

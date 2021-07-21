@@ -31,7 +31,7 @@ class UsersKeuanganController extends Controller {
                                 'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data users Keuangan berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
     /**
      * Store a newly created resource in storage.
@@ -85,7 +85,7 @@ class UsersKeuanganController extends Controller {
                         nama_prodi,
                         nama_prodi_alias,
                         kode_jenjang,
-                        nama_jenjang,                                                        
+                        nama_jenjang,                        
                         created_at, 
                         updated_at
                     ) 
@@ -121,7 +121,7 @@ class UsersKeuanganController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                                                            
+                            'nama_dosen'=>$request->input('name'),                            
                         ]);
                         if ($v=='dosenwali')
                         {
@@ -144,9 +144,9 @@ class UsersKeuanganController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data user Keuangan berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -205,7 +205,7 @@ class UsersKeuanganController extends Controller {
                             nama_prodi,
                             nama_prodi_alias,
                             kode_jenjang,
-                            nama_jenjang,                                                        
+                            nama_jenjang,                        
                             created_at, 
                             updated_at
                         ) 
@@ -250,7 +250,7 @@ class UsersKeuanganController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                                                            
+                                'nama_dosen'=>$request->input('name'),                            
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -292,7 +292,7 @@ class UsersKeuanganController extends Controller {
                                     'pid'=>'update',
                                     'user'=>$user,      
                                     'message'=>'Data user Keuangan '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -332,7 +332,7 @@ class UsersKeuanganController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Keuangan ($username) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

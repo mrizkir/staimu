@@ -47,9 +47,9 @@ class DulangController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'daftar_dulang'=>$daftar_dulang,                                                                                                                                   
+                                    'daftar_dulang'=>$daftar_dulang,                                                                                                   
                                     'message'=>'daftar dulang mahasiswa yang tidak ada di KRS dengan status aktif berhasil diperoleh'
-                                ],200);  
+                                ], 200);  
     }
     /**
      * cek apakah mahasiswa telah melakukan daftar ulang
@@ -77,9 +77,9 @@ class DulangController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'isdulang'=>$isdulang,                                                                                                                                   
+                                    'isdulang'=>$isdulang,                                                                                                   
                                     'message'=>'Cek dulang mahasiswa'
-                                ],200);  
+                                ], 200);  
     }
     /**
      * digunakan untuk merubaha biodata mahasiwa dan mengeset sudah update info
@@ -203,7 +203,7 @@ class DulangController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }    

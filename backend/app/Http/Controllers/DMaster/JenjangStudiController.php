@@ -19,8 +19,8 @@ class JenjangStudiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'jenjang_studi'=>$jenjang_studi,                                                                                                                                   
+                                    'jenjang_studi'=>$jenjang_studi,                                                                                                   
                                     'message'=>'Fetch data jenjang studi berhasil.'
-                                ],200);     
+                                ], 200);     
     }  
 }

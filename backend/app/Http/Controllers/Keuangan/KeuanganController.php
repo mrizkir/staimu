@@ -133,7 +133,7 @@ class KeuanganController extends Controller {
                                     'kombi_ganjil_cancelled'=>$kombi_ganjil_cancelled,
                                     'kombi_genap_cancelled'=>$kombi_genap_cancelled,
                                     'message'=>'Fetch data rangkuman keuangan semester ganjil dan genap berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     private function fetchKeuanganMHS($ta)
     {
@@ -243,6 +243,6 @@ class KeuanganController extends Controller {
                                     'kombi_ganjil_cancelled'=>$kombi_ganjil_cancelled,
                                     'kombi_genap_cancelled'=>$kombi_genap_cancelled,
                                     'message'=>'Fetch data rangkuman keuangan semester ganjil dan genap berhasil.'
-                                ],200);     
+                                ], 200);     
     }
 }

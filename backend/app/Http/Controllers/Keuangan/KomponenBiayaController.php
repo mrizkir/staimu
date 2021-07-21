@@ -20,8 +20,8 @@ class KomponenBiayaController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'kombi'=>$kombi,                                                                                                                                   
+                                    'kombi'=>$kombi,                                                                                                   
                                     'message'=>'Fetch data komponen biaya berhasil.'
-                                ],200);     
+                                ], 200);     
     }  
 }

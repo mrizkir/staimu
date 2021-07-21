@@ -53,7 +53,7 @@ class PMBPersyaratanController extends Controller {
                                 'pid'=>'fetchdata',
                                 'persyaratan'=>$data,
                                 'message'=>'Fetch data persyaratancalon mahasiswa baru berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
 
     }
     /**
@@ -99,7 +99,7 @@ class PMBPersyaratanController extends Controller {
                                     'pid'=>'fetchdata',
                                     'persyaratan'=>$persyaratan,      
                                     'message'=>'Persyaratan user PMB '.$user->name.' berhasil diperoleh.'
-                                ],200); 
+                                ], 200); 
         }
     }
     public function upload (Request $request,$id)
@@ -120,7 +120,7 @@ class PMBPersyaratanController extends Controller {
         {
             $this->validate($request, [      
                 'persyaratan_pmb_id'=>'required',
-                'persyaratan_id'=>'required|exists:pe3_persyaratan,id',                                                               
+                'persyaratan_id'=>'required|exists:pe3_persyaratan,id',                               
                 'nama_persyaratan'=>'required',  
                 'foto'=>'required'                        
             ]);
@@ -142,7 +142,7 @@ class PMBPersyaratanController extends Controller {
                                                                 'persyaratan_id'=>$request->input('persyaratan_id'),
                                                                 'user_id'=>$id,
                                                                 'nama_persyaratan'=> $request->input('nama_persyaratan'),
-                                                                'path'=>"storage/images/pmb/$file_name",                                            
+                                                                'path'=>"storage/images/pmb/$file_name",            
                                                                 'created_at'=>$now, 
                                                                 'updated_at'=>$now
                                                             ]); 
@@ -168,7 +168,7 @@ class PMBPersyaratanController extends Controller {
                                             'pid'=>'store',
                                             'persyaratan'=>$persyaratan,                
                                             'message'=>"Persyaratan Mahasiswa baru ($name)  berhasil diupload"
-                                        ],200);    
+                                        ], 200);    
             }
             else
             {
@@ -213,9 +213,9 @@ class PMBPersyaratanController extends Controller {
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                                        
+                                        'pid'=>'destroy',        
                                         'message'=>"Persyaratan Mahasiswa Baru user id ($userid)  berhasil dihapus"
-                                    ],200);
+                                    ], 200);
         }
     }
     public function verifikasipersyaratan(Request $request,$id)
@@ -240,9 +240,9 @@ class PMBPersyaratanController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update', 
-                                        'persyaratan'=>$persyaratan,                                       
+                                        'persyaratan'=>$persyaratan,       
                                         'message'=>"Persyaratan Dokumen (".$persyaratan->nama_persyaratan.") berhasil diverifikasi"
-                                    ],200);
+                                    ], 200);
         }
     }
 }

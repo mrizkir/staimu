@@ -34,7 +34,7 @@ class UsersController extends Controller {
                                 'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data users berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
     /**
      * Store a newly created resource in storage.
@@ -85,7 +85,7 @@ class UsersController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                                                            
+                            'nama_dosen'=>$request->input('name'),                            
                         ]);
 
                         if ($v=='dosenwali')
@@ -110,9 +110,9 @@ class UsersController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data user berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -142,9 +142,9 @@ class UsersController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                
-                                        'roles'=>$roles,                                                        
+                                        'roles'=>$roles,                        
                                         'message'=>"daftar roles user ($user->username) berhasil diperoleh"
-                                    ],200); 
+                                    ], 200); 
         }
     }
     /**
@@ -371,9 +371,9 @@ class UsersController extends Controller {
         }       
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'update',                                                                                                     
+                                    'pid'=>'update',                                                                     
                                     'message'=>"Permission seluruh user role ($role_name) berhasil disinkronisasi."
-                                ],200); 
+                                ], 200); 
     }    
     /**
      * Store user permissions resource in storage.
@@ -407,7 +407,7 @@ class UsersController extends Controller {
                                     'status'=>1,
                                     'pid'=>'store',
                                     'message'=>'Permission user '.$user->username.' berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
     }
     /**
      * Store user permissions resource in storage.
@@ -437,7 +437,7 @@ class UsersController extends Controller {
                                     'status'=>1,
                                     'pid'=>'destroy',
                                     'message'=>'Role user '.$user->username.' berhasil di revoke.'
-                                ],200); 
+                                ], 200); 
     }
     /**
      * Update the specified resource in storage.
@@ -468,7 +468,7 @@ class UsersController extends Controller {
                                                     ],           
                                         'name'=>'required',            
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
-                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                                   
+                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                   
                                     ]);  
             
             $user = \DB::transaction(function () use ($request,$user){
@@ -507,7 +507,7 @@ class UsersController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                                                            
+                                'nama_dosen'=>$request->input('name'),                            
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -545,9 +545,9 @@ class UsersController extends Controller {
                 return Response()->json([
                                             'status'=>1,
                                             'pid'=>'update',
-                                            'user'=>$user,                                    
+                                            'user'=>$user,    
                                             'message'=>'Data user '.$user->username.' berhasil diubah.'
-                                        ],200); 
+                                        ], 200); 
             });
         }
     }
@@ -589,9 +589,9 @@ class UsersController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',
-                                        'user'=>$user,                                    
+                                        'user'=>$user,    
                                         'message'=>'Password user '.$user->username.' berhasil diubah.'
-                                    ],200); 
+                                    ], 200); 
         }
     }
     /**
@@ -646,7 +646,7 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                                      
+                                    'pid'=>'destroy',      
                                     'message'=>["User dengan id ($id) gagal dihapus"]
                                 ], 422);    
         }
@@ -667,7 +667,7 @@ class UsersController extends Controller {
                                     'pid'=>'destroy',  
                                     'user'=>$user,              
                                     'message'=>"User ($username) berhasil dihapus"
-                                ],200);    
+                                ], 200);    
         }
              
                   
@@ -715,7 +715,7 @@ class UsersController extends Controller {
                                             'pid'=>'store',
                                             'user'=>$user,                
                                             'message'=>"Foto User ($username)  berhasil diupload"
-                                        ],200);    
+                                        ], 200);    
             }
             else
             {
@@ -762,7 +762,7 @@ class UsersController extends Controller {
                                         'pid'=>'store',
                                         'user'=>$user,                
                                         'message'=>"Foto User ($username)  berhasil direset"
-                                    ],200); 
+                                    ], 200); 
         }
     }
     public function usersprodi (Request $request,$id)
@@ -786,7 +786,7 @@ class UsersController extends Controller {
                                         'pid'=>'fetchdata',
                                         'daftar_prodi'=>$prodi,                
                                         'message'=>"Daftar Prodi dari username ($username)  berhasil diperoleh"
-                                    ],200); 
+                                    ], 200); 
         }
     }
 }

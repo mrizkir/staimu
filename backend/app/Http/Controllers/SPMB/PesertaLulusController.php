@@ -65,6 +65,6 @@ class PesertaLulusController extends Controller {
                                 'pid'=>'fetchdata',
                                 'pmb'=>$data,
                                 'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
 }

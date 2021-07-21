@@ -34,7 +34,7 @@ class AuthController extends Controller
         if (! $token = $this->guard()->attempt($credentials, ['exp' => \Carbon\Carbon::now()->addMinutes($ttl_expire)->timestamp])) {
             return response()->json([
                                     'page' => 'login',
-                                    'error' => 'Unauthorized',                                    
+                                    'error' => 'Unauthorized',    
                                 ], 401);
         }
         //log user loggin
@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         $this->guard()->logout();
 
-        return response()->json(['message' => 'Successfully logged out'],200);
+        return response()->json(['message' => 'Successfully logged out'], 200);
     }
     /**
      * Refresh a token.

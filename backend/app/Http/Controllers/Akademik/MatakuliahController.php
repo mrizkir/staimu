@@ -28,7 +28,7 @@ class MatakuliahController extends Controller {
 
         $matakuliah=MatakuliahModel::select(\DB::raw('
                                     id,
-                                    group_alias,                                    
+                                    group_alias,    
                                     kmatkul,
                                     nmatkul,
                                     sks,
@@ -51,9 +51,9 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'matakuliah'=>$matakuliah,                                                                                                                                   
+                                    'matakuliah'=>$matakuliah,                                                                                                   
                                     'message'=>'Fetch data matakuliah berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * digunakan untuk mendapatkan detail matakuliah
@@ -85,10 +85,10 @@ class MatakuliahController extends Controller {
         {
             return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                                    
-                                    'matakuliah'=>$matakuliah,                                    
+                                    'pid'=>'fetchdata',    
+                                    'matakuliah'=>$matakuliah,    
                                     'message'=>'Data matakuliah dengan id ('.$id.') berhasil diperoleh.'
-                                ],200); 
+                                ], 200); 
 
         }
     }
@@ -173,10 +173,10 @@ class MatakuliahController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'store',                                    
-                                    'matakuliah'=>$matakuliah,                                    
+                                    'pid'=>'store',    
+                                    'matakuliah'=>$matakuliah,    
                                     'message'=>'Data matakuliah berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -251,7 +251,7 @@ class MatakuliahController extends Controller {
             
             $matakuliah=MatakuliahModel::select(\DB::raw('
                                     id,
-                                    group_alias,                                    
+                                    group_alias,    
                                     kmatkul,
                                     nmatkul,
                                     sks,
@@ -276,9 +276,9 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',  
-                                'matakuliah'=>$matakuliah,                                                                                                                                   
+                                'matakuliah'=>$matakuliah,                                                                                                   
                                 'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
-                            ],200);     
+                            ], 200);     
     }
     /**
      * Update the specified resource in storage.
@@ -315,7 +315,7 @@ class MatakuliahController extends Controller {
                                                     ],           
                                         
                                         'nmatkul'=>[
-                                                        'required',                                                        
+                                                        'required',                        
                                                         Rule::unique('pe3_matakuliah')->ignore($matakuliah->nmatkul,'nmatkul')->where(function ($query) use ($ta,$kjur) {
                                                             $query->where('ta', $ta)
                                                                 ->where('kjur',$kjur);
@@ -326,7 +326,7 @@ class MatakuliahController extends Controller {
                                         'sks_tatap_muka'=>'required|numeric',            
                                         'minimal_nilai'=>'required',            
                                         'ta'=>'required',            
-                                        'kjur'=>'required',                                          
+                                        'kjur'=>'required',          
                                     ]); 
             
             $id_group=$request->input('id_group');
@@ -382,7 +382,7 @@ class MatakuliahController extends Controller {
                                     'pid'=>'update',
                                     'matakuliah'=>$matakuliah,      
                                     'message'=>'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }   
     /**
@@ -418,7 +418,7 @@ class MatakuliahController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"matakuliah dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }
@@ -438,7 +438,7 @@ class MatakuliahController extends Controller {
 
         $matakuliah=MatakuliahModel::select(\DB::raw('
                                     id,
-                                    group_alias,                                    
+                                    group_alias,    
                                     kmatkul,
                                     nmatkul,
                                     sks,
@@ -464,8 +464,8 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'matakuliah'=>$matakuliah,                                                                                                                                   
+                                    'matakuliah'=>$matakuliah,                                                                                                   
                                     'message'=>'Fetch data matakuliah berhasil.'
-                                ],200);     
+                                ], 200);     
     }
 }

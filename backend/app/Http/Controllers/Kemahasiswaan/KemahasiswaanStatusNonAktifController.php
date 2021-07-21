@@ -61,7 +61,7 @@ class KemahasiswaanStatusNonAktifController  extends Controller
       'pid'=>'fetchdata',  
       'mahasiswa'=>$data,     
       'daftar_prodi'=>$daftar_prodi, 
-      'total_mahasiswa'=>$total_mahasiswa,                                                                                                                              
+      'total_mahasiswa'=>$total_mahasiswa,                                                                                              
       'message'=>'Fetch data daftar mahasiswa yang non-aktif berhasil.'
     ], 200); 
   }

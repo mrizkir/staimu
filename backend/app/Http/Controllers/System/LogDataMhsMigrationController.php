@@ -30,6 +30,6 @@ class LogDataMhsMigrationController extends Controller {
                                 'pid'=>'fetchdata',
                                 'daftar_log'=>$daftar_log,
                                 'message'=>'Fetch data log migrasi berhasil diperoleh'
-                            ],200); 
+                            ], 200); 
     }    
 }

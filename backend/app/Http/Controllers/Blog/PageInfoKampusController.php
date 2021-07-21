@@ -26,10 +26,10 @@ class PageInfoKampusController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                                
+                                    'pid'=>'fetchdata',
                                     'post'=>$data,
                                     'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
-                                ],200);
+                                ], 200);
     }
     public function all (Request $request)
     {
@@ -49,10 +49,10 @@ class PageInfoKampusController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                                
+                                    'pid'=>'fetchdata',
                                     'post'=>$data,
                                     'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
-                                ],200);
+                                ], 200);
     }
     public function show (Request $request,$id)
     {
@@ -75,7 +75,7 @@ class PageInfoKampusController extends Controller {
                                     'pid'=>'fetchdata',                
                                     'post'=>$post,
                                     'message'=>"Post dengan id ($id) berhasil diperoleh"
-                                ],200); 
+                                ], 200); 
         }
     }
     public function config (Request $request)
@@ -87,10 +87,10 @@ class PageInfoKampusController extends Controller {
         ];
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                                
+                                    'pid'=>'fetchdata',
                                     'config'=>$data,
                                     'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
-                                ],200);
+                                ], 200);
     }
     public function store(Request $request)
     {
@@ -137,10 +137,10 @@ class PageInfoKampusController extends Controller {
         });
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'store',                                    
-                                    'post'=>$post,                                    
+                                    'pid'=>'store',    
+                                    'post'=>$post,    
                                     'message'=>'Data post berhasil disimpan.'
-                                ],200);
+                                ], 200);
     }
     public function update (Request $request,$id)
     {
@@ -171,7 +171,7 @@ class PageInfoKampusController extends Controller {
                                     'pid'=>'update',                
                                     'post'=>$post,
                                     'message'=>"Post dengan id ($id) berhasil diubah"
-                                ],200); 
+                                ], 200); 
         }
     }
 	public function destroy(Request $request,$id)
@@ -211,7 +211,7 @@ class PageInfoKampusController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Post dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

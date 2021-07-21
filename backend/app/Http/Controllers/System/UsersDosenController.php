@@ -43,10 +43,10 @@ class UsersDosenController extends Controller {
         
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                                
+                                'pid'=>'fetchdata',
                                 'users'=>$data,
                                 'message'=>'Fetch data users Dosen berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     public function pengampu (Request $request)
     {
@@ -61,10 +61,10 @@ class UsersDosenController extends Controller {
 
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                                
+                                'pid'=>'fetchdata',
                                 'dosen'=>$data,
                                 'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     /**
      * Store a newly created resource in storage.
@@ -119,10 +119,10 @@ class UsersDosenController extends Controller {
             UserDosen::create([
                 'user_id'=>$user->id,
                 'id_jabatan'=>1,
-                'nama_dosen'=>$request->input('name'),                                
-                'nidn'=>$request->input('nidn'),                                
-                'nipy'=>$request->input('nipy'),                                
-                'is_dw'=>$request->input('is_dw'),                                
+                'nama_dosen'=>$request->input('name'),
+                'nidn'=>$request->input('nidn'),
+                'nipy'=>$request->input('nipy'),
+                'is_dw'=>$request->input('is_dw'),
             ]);
             
             return $user;
@@ -138,9 +138,9 @@ class UsersDosenController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data user Dosen berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -180,7 +180,7 @@ class UsersDosenController extends Controller {
                                                 ],           
                                         'name'=>'required',            
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
-                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                           
+                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
                                     ]); 
 
             $user = \DB::transaction(function () use ($request,$user){
@@ -231,7 +231,7 @@ class UsersDosenController extends Controller {
                                     'pid'=>'update',
                                     'user'=>$user,      
                                     'message'=>'Data user Dosen '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
         else
         {
@@ -276,10 +276,10 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                                    
+                                    'pid'=>'fetchdata',    
                                     'biodatadiri'=>$biodatadiri,      
                                     'message'=>'Data Biodata Diri Dosen '.$biodatadiri->username.' berhasil diperoleh.'
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -318,7 +318,7 @@ class UsersDosenController extends Controller {
                 'tanggal_lahir'=>'required',            
                 'jk'=>'required',                            
                 'email'=>'required|string|email|unique:users,email,'.$biodatadiri->user_id,
-                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$biodatadiri->user_id,                                           
+                'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$biodatadiri->user_id,           
                 'alamat_rumah'=>'required',            
             ]); 
 
@@ -362,7 +362,7 @@ class UsersDosenController extends Controller {
                                     'user'=>$user,      
                                     'biodatadiri'=>$biodatadiri,      
                                     'message'=>'Biodata diri Dosen '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -402,7 +402,7 @@ class UsersDosenController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Dosen ($username) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

@@ -21,9 +21,9 @@ class RuanganKelasController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'ruangan'=>$ruangan,                                                                                                                                   
+                                    'ruangan'=>$ruangan,                                                                                                   
                                     'message'=>'Fetch data ruangan kelas berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * Store a newly created resource in storage.
@@ -58,9 +58,9 @@ class RuanganKelasController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'ruangan'=>$ruangan,                                    
+                                    'ruangan'=>$ruangan,    
                                     'message'=>'Data ruang kelas berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -88,14 +88,14 @@ class RuanganKelasController extends Controller {
             
             $this->validate($request, [
                                         'namaruang'=>[
-                                                        'required',                                                        
-                                                        'string',                                                            
+                                                        'required',                        
+                                                        'string',                            
                                                         Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang,'namaruang')           
                                                     ],           
                                         
                                         'kapasitas'=>[
                                                         'required',
-                                                        'numeric',                                                            
+                                                        'numeric',                            
                                                     ],           
                                         
                                     ]); 
@@ -117,7 +117,7 @@ class RuanganKelasController extends Controller {
                                     'pid'=>'update',
                                     'ruangan'=>$ruangan,      
                                     'message'=>'Data ruang kelas '.$ruangan->namaruang.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }    
     /**
@@ -153,7 +153,7 @@ class RuanganKelasController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Ruang Kelas dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

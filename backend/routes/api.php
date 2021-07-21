@@ -555,6 +555,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
     // kemahasiswaan - status lulus
     $router->post('/kemahasiswaan/statuslulus',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusLulusController@index','as'=>'statuslulus.index']);    
 
+    //kepegawaian
+    $router->get('/kepegawaian',['uses'=>'Kepegawaian\KepegawaianController@index','as'=>'kepegawaian.index']);
+
     //kepegawaian - dosen
     $router->get('/kepegawaian/dosen',['uses'=>'Kepegawaian\KepegawaianDosenController@index','as'=>'kepegawaiandosen.index']);
     $router->put('/kepegawaian/dosen/{id}',['middleware'=>['role:superadmin|akademik|programstudi|dosen'],'uses'=>'Kepegawaian\KepegawaianDosenController@update','as'=>'kepegawaiandosen.update']);

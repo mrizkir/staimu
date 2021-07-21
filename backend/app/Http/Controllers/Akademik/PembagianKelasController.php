@@ -133,7 +133,7 @@ class PembagianKelasController extends Controller
                                 'pid'=>'store',
                                 'pembagiankelas'=>$pembagiankelas,
                                 'message'=>'Pembagian Kelas berhasil ditambahkan.'
-                            ],200);
+                            ], 200);
     }
     public function show(Request $request,$id)
     {
@@ -225,7 +225,7 @@ class PembagianKelasController extends Controller
                                 'penyelenggaraan'=>$penyelenggaraan,
                                 'peserta'=>$peserta,
                                 'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
-                            ],200);
+                            ], 200);
         }
     }
     public function matakuliah (Request $request,$id)
@@ -262,7 +262,7 @@ class PembagianKelasController extends Controller
                                 'pid'=>'fetchdata',
                                 'penyelenggaraan'=>$penyelenggaraan,
                                 'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
-                            ],200);
+                            ], 200);
         }
     }
     public function peserta (Request $request,$id)
@@ -301,7 +301,7 @@ class PembagianKelasController extends Controller
                                 'pid'=>'fetchdata',
                                 'peserta'=>$peserta,
                                 'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
-                            ],200);
+                            ], 200);
         }
     }
     public function penyelenggaraan (Request $request,$id)
@@ -323,7 +323,7 @@ class PembagianKelasController extends Controller
                                 'pid'=>'fetchdata',
                                 'daftarkelas'=>$daftar_kelas,
                                 'message'=>'Fetch daftar kelas berhasil diperoleh'
-                            ],200);
+                            ], 200);
     }
     public function pengampu (Request $request)
     {
@@ -375,7 +375,7 @@ class PembagianKelasController extends Controller
                                 'pid'=>'fetchdata',
                                 'dosen'=>$data,
                                 'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
-                            ],200);
+                            ], 200);
     }
     public function storematakuliah (Request $request)
     {
@@ -401,7 +401,7 @@ class PembagianKelasController extends Controller
                                 'status'=>1,
                                 'pid'=>'store',
                                 'message'=>"Menambahkan daftar matakuliah dengan ID ($kelas_mhs_id)  berhasil ditambahkan."
-                            ],200);
+                            ], 200);
     }
     public function storepeserta (Request $request)
     {
@@ -459,7 +459,7 @@ class PembagianKelasController extends Controller
                                     'pid'=>'store',
                                     'daftar_members'=>$daftar_members,
                                     'message'=>"Peserta kelas dengan ID ($kelas_mhs_id) berhasil ditambahkan."
-                                ],200);
+                                ], 200);
     }
 
     public function update(Request $request,$id)
@@ -502,7 +502,7 @@ class PembagianKelasController extends Controller
                                         'status'=>1,
                                         'pid'=>'update',
                                         'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
-                                    ],200);
+                                    ], 200);
         }
     }
     /**
@@ -538,7 +538,7 @@ class PembagianKelasController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',
                                         'message'=>"Kelas dengan ID ($id) berhasil dihapus"
-                                    ],200);
+                                    ], 200);
         }
 
     }
@@ -597,7 +597,7 @@ class PembagianKelasController extends Controller
                                         'pid'=>'destroy',
                                         'penyelenggaraan_id'=>$penyelenggaraan_id,
                                         'message' => 'Menghapus matakuliah di kelas mahasiswa dengan id ('.$id.') berhasil'
-                                    ],200);
+                                    ], 200);
         }
 
     }
@@ -634,7 +634,7 @@ class PembagianKelasController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',
                                         'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
-                                    ],200);
+                                    ], 200);
         }
 
     }

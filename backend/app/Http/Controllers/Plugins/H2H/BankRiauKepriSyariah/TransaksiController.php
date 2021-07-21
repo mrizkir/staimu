@@ -27,9 +27,9 @@ class TransaksiController extends Controller {
         $transaksi=TransaksiModel::select(\DB::raw('
                                         pe3_transaksi.no_transaksi AS kode_billing,
                                         pe3_formulir_pendaftaran.no_formulir,
-                                        pe3_transaksi.nim,                                        
+                                        pe3_transaksi.nim,        
                                         pe3_formulir_pendaftaran.nama_mhs,
-                                        \''.addslashes($config['NAMA_PT']).'\' AS universitas,                                        
+                                        \''.addslashes($config['NAMA_PT']).'\' AS universitas,        
                                         \'\' AS fakultas, 
                                         pe3_prodi.nama_prodi AS prodi,
                                         pe3_transaksi.desc AS jenis_pembayaran,
@@ -49,26 +49,26 @@ class TransaksiController extends Controller {
         
         if (is_null($transaksi))        {
             return Response()->json(['Result'=>[
-                                            'status'=>'14',                                        
+                                            'status'=>'14',        
                                             'message'=>"request KODE_BILLING ($kode_billing) tidak sesuai"
                                         ]
-                                    ],200); 
+                                    ], 200); 
         }
         else if ($transaksi->status==1)
         {
             return Response()->json(['Result'=>[
-                                        'status'=>'88',                                        
+                                        'status'=>'88',        
                                         'message'=>"Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
                                     ]
-                                ],200); 
+                                ], 200); 
         }
         else if ($transaksi->status==2)
             {
                 return Response()->json(['Result'=>[
-                                            'status'=>'88',                                        
+                                            'status'=>'88',        
                                             'message'=>"status kode billing ini dibatalkan"
                                         ]
-                                    ],200); 
+                                    ], 200); 
             }
         else
         {     
@@ -109,11 +109,11 @@ class TransaksiController extends Controller {
         if ($validator->fails())
         {
             return Response()->json(['Result'=>[
-                    'status'=>'11',                                        
+                    'status'=>'11',        
                     'message'=>"Format request tidak sesuai",
                     'errors'=>$validator->customMessages
                 ]
-            ],200); 
+            ], 200); 
         }
         else
         {
@@ -123,10 +123,10 @@ class TransaksiController extends Controller {
                                         CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                         pe3_transaksi.no_faktur,
                                         pe3_formulir_pendaftaran.no_formulir,
-                                        pe3_transaksi.nim,                                        
+                                        pe3_transaksi.nim,        
                                         pe3_formulir_pendaftaran.nama_mhs,    
-                                        \''.addslashes($config['NAMA_PT']).'\' AS universitas,                                        
-                                        \'\' AS fakultas,                                   
+                                        \''.addslashes($config['NAMA_PT']).'\' AS universitas,        
+                                        \'\' AS fakultas,   
                                         pe3_prodi.nama_prodi AS prodi,
                                         pe3_transaksi.kjur,
                                         pe3_transaksi.idsmt,
@@ -146,27 +146,27 @@ class TransaksiController extends Controller {
             if ($transaksi->status==1)
             {
                 return Response()->json(['Result'=>[
-                                                'status'=>'88',                                        
+                                                'status'=>'88',        
                                                 'message'=>"Tagihan sudah dibayarkan tanggal: ".\App\Helpers\Helper::tanggal('d/m/Y H:i:s',$transaksi->updated_at_konfirm),
                                                 'noref'=>$transaksi->no_faktur
                                             ]
-                                        ],200); 
+                                        ], 200); 
             }
             else if ($transaksi->status==2)
             {
                 return Response()->json(['Result'=>[
-                                                'status'=>'88',                                        
+                                                'status'=>'88',        
                                                 'message'=>"status kode billing ini dibatalkan"
                                             ]
-                                        ],200); 
+                                        ], 200); 
             }
             else if ($transaksi->total!=$request->input('amount'))
             {     
                 return Response()->json(['Result'=>[
-                                            'status'=>'11',                                        
+                                            'status'=>'11',        
                                             'message'=>'Nilai nominal salah ('.\App\Helpers\Helper::formatUang($request->input('amount')).') karena  tidak sama dengan dengan transaksi '.\App\Helpers\Helper::formatUang($transaksi->total)
                                         ]
-                                    ],200); 
+                                    ], 200); 
             }
             else
             {

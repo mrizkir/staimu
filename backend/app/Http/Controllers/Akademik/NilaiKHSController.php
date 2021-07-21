@@ -109,9 +109,9 @@ class NilaiKHSController extends Controller
 				return Response()->json([
 																		'status'=>1,
 																		'pid'=>'fetchdata',  
-																		'daftar_khs'=>$daftar_khs,                                                                                                                                   
+																		'daftar_khs'=>$daftar_khs,                                                                                                   
 																		'message'=>'Daftar khs mahasiswa berhasil diperoleh' 
-																],200);  
+																], 200);  
 				
 		}
 		public function show (Request $request,$id)
@@ -165,7 +165,7 @@ class NilaiKHSController extends Controller
 																						A.kmatkul,
 																						A.nmatkul,
 																						A.sks,
-																						A.semester,                                            
+																						A.semester,            
 																						CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
 																						CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
 																						\'\' AS nama_dosen,
@@ -246,14 +246,14 @@ class NilaiKHSController extends Controller
 						return Response()->json([
 																				'status'=>1,
 																				'pid'=>'fetchdata',  
-																				'krs'=>$krs,                                                                                                                                   
-																				'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
+																				'krs'=>$krs,                                                                                                   
+																				'daftar_nilai'=>$daftar_nilai,                                                                                                   
 																				'jumlah_matkul'=>$jumlah_matkul,
-																				'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
-																				'jumlah_m'=>$jumlah_m,                                                                                                                                   
-																				'jumlah_am'=>$jumlah_am,                                                                                                                                   
-																				'ipk'=>$krs->ipk ,                                                                                                                                   
-																				'ips'=>$ips,                                                                                                                                   
+																				'jumlah_sks'=>$jumlah_sks,                                                                                                   
+																				'jumlah_m'=>$jumlah_m,                                                                                                   
+																				'jumlah_am'=>$jumlah_am,                                                                                                   
+																				'ipk'=>$krs->ipk ,                                                                                                   
+																				'ips'=>$ips,                                                                                                   
 																				'message'=>'Fetch data khs dan detail khs mahasiswa berhasil diperoleh' 
 																		],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 				}        
@@ -317,7 +317,7 @@ class NilaiKHSController extends Controller
 																							A.kmatkul,
 																							A.nmatkul,
 																							A.sks,
-																							A.semester,                                            
+																							A.semester,            
 																							CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
 																							CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
 																							\'\' AS nama_dosen,
@@ -419,12 +419,12 @@ class NilaiKHSController extends Controller
 																																					'headers'=>$headers,
 																																					'data_krs'=>$krs,
 																																					'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
-																																					'daftar_nilai'=>$daftar_nilai,                                                                                                                                   
+																																					'daftar_nilai'=>$daftar_nilai,                                                                                                   
 																																					'jumlah_matkul'=>$jumlah_matkul,
-																																					'jumlah_sks'=>$jumlah_sks,                                                                                                                                   
-																																					'jumlah_m'=>$jumlah_m,                                                                                                                                   
-																																					'jumlah_am'=>$jumlah_am,                                                                                                                                   
-																																					'ipk'=>$krs->ipk,                                                                                                                                   
+																																					'jumlah_sks'=>$jumlah_sks,                                                                                                   
+																																					'jumlah_m'=>$jumlah_m,                                                                                                   
+																																					'jumlah_am'=>$jumlah_am,                                                                                                   
+																																					'ipk'=>$krs->ipk,                                                                                                   
 																																					'ips'=>$ips, 
 																																					'tanggal'=>\App\Helpers\Helper::tanggal('d F Y'),
 																																					'kaprodi'=>$kaprodi
@@ -444,13 +444,13 @@ class NilaiKHSController extends Controller
 																			'pid'=>'fetchdata',
 																			'krs'=>$krs,
 																			'pdf_file'=>$pdf_file                                    
-																	],200);
+																	], 200);
 					}
 					else
 					{
 							return Response()->json([
 																			'status'=>0,
-																			'pid'=>'fetchdata',                                        
+																			'pid'=>'fetchdata',        
 																			'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
 																	], 422);
 					}

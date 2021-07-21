@@ -28,10 +28,10 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                 pe3_formulir_pendaftaran.no_formulir,
                                 pe3_register_mahasiswa.nim,
                                 pe3_register_mahasiswa.nirm,
-                                pe3_formulir_pendaftaran.nama_mhs,                                
+                                pe3_formulir_pendaftaran.nama_mhs,
                                 pe3_register_mahasiswa.idkelas,   
                                 pe3_register_mahasiswa.k_status,
-                                pe3_register_mahasiswa.created_at,                                      
+                                pe3_register_mahasiswa.created_at,      
                                 pe3_register_mahasiswa.updated_at                                      
                             '))
                             ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
@@ -53,9 +53,9 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                                                   
+                                    'mahasiswa'=>$data,                                                                                                   
                                     'message'=>'Fetch data daftar mahasiswa berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * cetak ke excel

@@ -31,7 +31,7 @@ class UsersPMBController extends Controller {
                                 'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data users PMB berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
     /**
      * Store a newly created resource in storage.
@@ -85,7 +85,7 @@ class UsersPMBController extends Controller {
                         nama_prodi,
                         nama_prodi_alias,
                         kode_jenjang,
-                        nama_jenjang,                                                        
+                        nama_jenjang,                        
                         created_at, 
                         updated_at
                     ) 
@@ -121,7 +121,7 @@ class UsersPMBController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                                                            
+                            'nama_dosen'=>$request->input('name'),                            
                         ]);
                         if ($v=='dosenwali')
                         {
@@ -146,9 +146,9 @@ class UsersPMBController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data user PMB berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -208,7 +208,7 @@ class UsersPMBController extends Controller {
                             nama_prodi,
                             nama_prodi_alias,
                             kode_jenjang,
-                            nama_jenjang,                                                        
+                            nama_jenjang,                        
                             created_at, 
                             updated_at
                         ) 
@@ -253,7 +253,7 @@ class UsersPMBController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                                                            
+                                'nama_dosen'=>$request->input('name'),                            
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -298,7 +298,7 @@ class UsersPMBController extends Controller {
                                     'pid'=>'update',
                                     'user'=>$user,      
                                     'message'=>'Data user PMB '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -338,7 +338,7 @@ class UsersPMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User PMB ($username) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

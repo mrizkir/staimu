@@ -38,7 +38,7 @@ class TransaksiController extends Controller {
                             pe3_status_transaksi.style,
                             pe3_transaksi.total,
                             pe3_transaksi.tanggal,   
-                            COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,                                             
+                            COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,             
                             pe3_transaksi.created_at,
                             pe3_transaksi.updated_at
                         ');
@@ -102,7 +102,7 @@ class TransaksiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
@@ -116,15 +116,15 @@ class TransaksiController extends Controller {
                                         pe3_transaksi.user_id,
                                         pe3_formulir_pendaftaran.nama_mhs,
                                         pe3_formulir_pendaftaran.alamat_rumah,
-                                        pe3_formulir_pendaftaran.telp_hp,                                                                                
+                                        pe3_formulir_pendaftaran.telp_hp,                                                
                                         CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                         pe3_transaksi.no_faktur,
                                         pe3_transaksi.kjur,
                                         pe3_transaksi.ta,
                                         pe3_transaksi.idsmt,
-                                        pe3_transaksi.idkelas,                                        
+                                        pe3_transaksi.idkelas,        
                                         COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
-                                        COALESCE(pe3_transaksi.nim,"N.A") AS nim,                                        
+                                        COALESCE(pe3_transaksi.nim,"N.A") AS nim,        
                                         pe3_kelas.nkelas,
                                         pe3_transaksi.status,
                                         pe3_status_transaksi.nama_status,
@@ -132,7 +132,7 @@ class TransaksiController extends Controller {
                                         pe3_transaksi.total,
                                         pe3_transaksi.tanggal,   
                                         COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                             
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,             
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at                                        
                                     '))
@@ -145,7 +145,7 @@ class TransaksiController extends Controller {
         if (is_null($transaksi))        {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',                                          
+                                        'pid'=>'fetchdata',          
                                         'message'=>"Fetch data transaksi dengan id ($id) gagal diperoleh."
                                     ], 422); 
         }
@@ -156,8 +156,8 @@ class TransaksiController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'transaksi'=>$transaksi,                                                                                                                                   
-                                        'transaksi_detail'=>$transaksi_detail,                                                                                                                                   
+                                        'transaksi'=>$transaksi,                                                                                                   
+                                        'transaksi_detail'=>$transaksi_detail,                                                                                                   
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
@@ -196,15 +196,15 @@ class TransaksiController extends Controller {
                 'status'=>1,
                 'pid'=>'fetchdata',  
                 // 'status_transaksi'=>$spp->status,  
-                'spp'=>$spp,                                                                                                                                   
+                'spp'=>$spp,                                                                                                   
                 'message'=>'SPP Mahasiswa Baru berhasil DIPEROLEH.'
-            ],200); 
+            ], 200); 
         }
         catch (Exception $e)
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'update',                                                                                                                                                  
+                'pid'=>'update',                                                                                                                  
                 'message'=>[$e->getMessage()]
             ], 422); 
         }
@@ -225,7 +225,7 @@ class TransaksiController extends Controller {
             return Response()->json([
                 'status'=>0,
                 'pid'=>'update',  
-                'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                'transaksi_id'=>$transaksi_id,                                                                                                   
                 'message'=>'Transaksi ini gagal dibatalkan karena status sudah PAID.'
             ], 422);   
         }
@@ -234,7 +234,7 @@ class TransaksiController extends Controller {
             return Response()->json([
                 'status'=>0,
                 'pid'=>'update',  
-                'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                'transaksi_id'=>$transaksi_id,                                                                                                   
                 'message'=>'Transaksi ini gagal dibatalkan karena status sudah DIBATALKAN.'
             ], 422); 
         }
@@ -253,9 +253,9 @@ class TransaksiController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',  
-                                        'transaksi_id'=>$transaksi_id,                                                                                                                                   
+                                        'transaksi_id'=>$transaksi_id,                                                                                                   
                                         'message'=>'Kode billing dengan ID ('.$transaksi->no_transaksi.') berhasil DIBATALKAN.'
-                                    ],200); 
+                                    ], 200); 
         }
         
     }
@@ -336,9 +336,9 @@ class TransaksiController extends Controller {
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                                          
+                                        'pid'=>'update',          
                                         'message'=>"Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
-                                    ],200);   
+                                    ], 200);   
         }
         
     }

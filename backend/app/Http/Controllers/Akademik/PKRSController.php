@@ -48,7 +48,7 @@ class PKRSController extends Controller
                                 pe3_pkrs.tambah,
                                 pe3_pkrs.hapus,
                                 pe3_pkrs.batal,
-                                \'N.A\' AS ket,                                    
+                                \'N.A\' AS ket,    
                                 pe3_pkrs.created_at,
                                 pe3_pkrs.updated_at
                             '))
@@ -87,9 +87,9 @@ class PKRSController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'daftar_pkrs'=>$daftar_pkrs,                                                                                                                                   
+                                    'daftar_pkrs'=>$daftar_pkrs,                                                                                                   
                                     'message'=>'Daftar perubahan krs mahasiswa berhasil diperoleh' 
-                                ],200);  
+                                ], 200);  
         
     }
     public function show (Request $request,$id)
@@ -179,10 +179,10 @@ class PKRSController extends Controller
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'krs'=>$krs,                                                                                                                                   
-                                    'krsmatkul'=>$daftar_matkul,                                                                                                                                   
-                                    'jumlah_matkul'=>$krs->jumlah_matkul_1,                                                                                                                                   
-                                    'jumlah_sks'=>$krs->jumlah_sks_1,                                                                                                                                   
+                                    'krs'=>$krs,                                                                                                   
+                                    'krsmatkul'=>$daftar_matkul,                                                                                                   
+                                    'jumlah_matkul'=>$krs->jumlah_matkul_1,                                                                                                   
+                                    'jumlah_sks'=>$krs->jumlah_sks_1,                                                                                                   
                                     'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
         }
@@ -190,7 +190,7 @@ class PKRSController extends Controller
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'fetchdata',                                                                                                                                                  
+                'pid'=>'fetchdata',                                                                                                                  
                 'message'=>[$e->getMessage()]
             ], 422); 
         }       
@@ -228,7 +228,7 @@ class PKRSController extends Controller
         {        
             $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                         id,
-                                        kmatkul,                                    
+                                        kmatkul,    
                                         nmatkul,
                                         sks,
                                         semester,
@@ -252,7 +252,7 @@ class PKRSController extends Controller
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                                                       
+                                        'penyelenggaraan'=>$penyelenggaraan,                                                                                                                                       
                                         'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
@@ -294,9 +294,9 @@ class PKRSController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',  
-                                    'krs'=>$krs,                                                                                                                                   
+                                    'krs'=>$krs,                                                                                                   
                                     'message'=>'menyimpan krs mahasiswa berhasil'
-                                ],200);  
+                                ], 200);  
     }
     public function storematkul (Request $request)
     {
@@ -342,9 +342,9 @@ class PKRSController extends Controller
         KRSMatkulModel::insert($daftar_matkul);
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'store',                                                                                                                                                                         
+                                    'pid'=>'store',                                                                                                                                         
                                     'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
-                                ],200);  
+                                ], 200);  
     }  
     public function updatestatus (Request $request,$id)
     {
@@ -363,7 +363,7 @@ class PKRSController extends Controller
         else
         {
             $this->validate($request, [      
-                'status'=>'required',                                
+                'status'=>'required',
             ]);
             
             $user = \DB::transaction(function () use ($request, $krsmatkul) {
@@ -411,7 +411,7 @@ class PKRSController extends Controller
                                         'pid'=>'update', 
                                         'krsmatkul'=>$krsmatkul,               
                                         'message' => 'Memverifikasi Perubahan KRS dengan id ('.$id.') berhasil'
-                                    ],200);    
+                                    ], 200);    
         }
     }  
     /**
@@ -466,7 +466,7 @@ class PKRSController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }
@@ -561,7 +561,7 @@ class PKRSController extends Controller
                                                                         [
                                                                             'headers'=>$headers,
                                                                             'data_krs'=>$krs,
-                                                                            'daftar_matkul'=>$daftar_matkul,                                                                        
+                                                                            'daftar_matkul'=>$daftar_matkul,                                        
                                                                             'jumlah_sks'=>$daftar_matkul->sum('sks'),
                                                                             'kaprodi'=>$kaprodi,
                                                                             'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
@@ -581,7 +581,7 @@ class PKRSController extends Controller
                                         'pid'=>'fetchdata',
                                         'krs'=>$krs,
                                         'pdf_file'=>$pdf_file                                    
-                                    ],200);
+                                    ], 200);
             }
             else
             {

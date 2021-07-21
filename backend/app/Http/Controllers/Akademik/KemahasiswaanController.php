@@ -45,9 +45,9 @@ class KemahasiswaanController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                                                                                                                                     
+                                        'pid'=>'update',                                                                                                     
                                         'message'=>'Status Mahasiswa berhasil diubah.'
-                                    ],200); 
+                                    ], 200); 
         }
     }
     /**
@@ -128,7 +128,7 @@ class KemahasiswaanController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update',
-                                        'formulir'=>$data_mhs,                                                                                                                                          
+                                        'formulir'=>$data_mhs,                                                                                                          
                                         'message'=>'Biodata Mahasiswa berhasil diubah.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
@@ -168,9 +168,9 @@ class KemahasiswaanController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                                                                                                                                     
+                                        'pid'=>'update',                                                                                                     
                                         'message'=>'Dosen wali Mahasiswa berhasil diubah.'
-                                    ],200); 
+                                    ], 200); 
         }
     }
 }

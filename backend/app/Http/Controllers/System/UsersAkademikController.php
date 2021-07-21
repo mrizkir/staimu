@@ -31,7 +31,7 @@ class UsersAkademikController extends Controller {
                                 'role'=>$role,
                                 'users'=>$data,
                                 'message'=>'Fetch data users Akademik berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }    
     /**
      * Store a newly created resource in storage.
@@ -84,7 +84,7 @@ class UsersAkademikController extends Controller {
                         nama_prodi,
                         nama_prodi_alias,
                         kode_jenjang,
-                        nama_jenjang,                                                        
+                        nama_jenjang,                        
                         created_at, 
                         updated_at
                     ) 
@@ -120,7 +120,7 @@ class UsersAkademikController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                                                            
+                            'nama_dosen'=>$request->input('name'),                            
                         ]);
                         if ($v=='dosenwali')
                         {
@@ -145,9 +145,9 @@ class UsersAkademikController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'user'=>$user,                                    
+                                    'user'=>$user,    
                                     'message'=>'Data user Akademik berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -207,7 +207,7 @@ class UsersAkademikController extends Controller {
                             nama_prodi,
                             nama_prodi_alias,
                             kode_jenjang,
-                            nama_jenjang,                                                        
+                            nama_jenjang,                        
                             created_at, 
                             updated_at
                         ) 
@@ -252,7 +252,7 @@ class UsersAkademikController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                                                            
+                                'nama_dosen'=>$request->input('name'),                            
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -294,7 +294,7 @@ class UsersAkademikController extends Controller {
                                     'pid'=>'update',
                                     'user'=>$user,      
                                     'message'=>'Data user Akademik '.$user->username.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -334,7 +334,7 @@ class UsersAkademikController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Akademik ($username) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

@@ -48,10 +48,10 @@ class KepegawaianDosenController extends Controller {
         
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                                
+                                'pid'=>'fetchdata',
                                 'dosen'=>$dosen,
                                 'message'=>'Fetch data users Dosen berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     /**
      * Update the specified resource in storage.
@@ -85,10 +85,10 @@ class KepegawaianDosenController extends Controller {
                                                     'unique:pe3_dosen,nipy,'.$user->id.',user_id'
                                                 ],           
                                         'name'=>'required',            
-                                        'id_jabatan'=>'required',                                                    
+                                        'id_jabatan'=>'required',                    
                                         'name'=>'required',            
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
-                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                                           
+                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
                                     ]); 
 
             $user = \DB::transaction(function () use ($request,$user){
@@ -123,7 +123,7 @@ class KepegawaianDosenController extends Controller {
                                     'pid'=>'update',
                                     'user'=>$user,      
                                     'message'=>'Data user Dosen '.$user->name.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }        
     }   
     

@@ -23,9 +23,9 @@ class CategoriesController extends Controller {
 
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                                
+                                'pid'=>'fetchdata',
                                 'categories'=>$data,
                                 'message'=>'Fetch data categories berhasil diperoleh'
-                            ],200);
+                            ], 200);
     }
 }

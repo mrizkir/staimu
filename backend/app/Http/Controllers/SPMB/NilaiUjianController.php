@@ -75,7 +75,7 @@ class NilaiUjianController extends Controller {
                                 'pid'=>'fetchdata',
                                 'pmb'=>$data,
                                 'message'=>'Fetch data nilai ujian mahasiswa baru berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     /**
      * Store a newly created resource in storage.
@@ -145,9 +145,9 @@ class NilaiUjianController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'data_nilai'=>$data_nilai,                                    
+                                    'data_nilai'=>$data_nilai,    
                                     'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
-                                ],200); 
+                                ], 200); 
 
     }      
     /**
@@ -221,15 +221,15 @@ class NilaiUjianController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                                                        
-                                        'no_transaksi'=>"$no_transaksi ",                                                                           
+                                        'pid'=>'fetchdata',                        
+                                        'no_transaksi'=>"$no_transaksi ",                                           
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
-                                        'kjur'=>$formulir->kjur1,                                        
+                                        'kjur'=>$formulir->kjur1,        
                                         'data_nilai_ujian'=>$data_nilai_ujian,  
-                                        'formulir'=>$formulir,                                      
+                                        'formulir'=>$formulir,      
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
-                                    ],200);        
+                                    ], 200);        
         }
 
     }   
@@ -297,7 +297,7 @@ class NilaiUjianController extends Controller {
                                         'pid'=>'store',
                                         'data_nilai'=>$data_nilai,
                                         'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
-                                    ],200); 
+                                    ], 200); 
         }
     } 
     /**
@@ -337,7 +337,7 @@ class NilaiUjianController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
-                                    ],200);         
+                                    ], 200);         
         }
                   
     } 

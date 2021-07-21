@@ -35,9 +35,9 @@ class DulangMahasiswaBaruController extends Controller
                                 pe3_formulir_pendaftaran.no_formulir,
                                 pe3_dulang.nim,
                                 pe3_register_mahasiswa.nirm,
-                                pe3_formulir_pendaftaran.nama_mhs,                                
-                                pe3_dulang.idkelas,                                                                                                      
-                                pe3_dulang.created_at,                                      
+                                pe3_formulir_pendaftaran.nama_mhs,
+                                pe3_dulang.idkelas,                                                                      
+                                pe3_dulang.created_at,      
                                 pe3_dulang.updated_at                                      
                             '))
                             ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
@@ -53,9 +53,9 @@ class DulangMahasiswaBaruController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                                                   
+                                    'mahasiswa'=>$data,                                                                                                   
                                     'message'=>'Fetch data daftar ulang mahasiswa baru berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * Remove the specified resource from storage.
@@ -92,7 +92,7 @@ class DulangMahasiswaBaruController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

@@ -48,7 +48,7 @@ class TransaksiKKNController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                                                        
+                                                        pe3_transaksi.no_formulir,                        
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
@@ -130,7 +130,7 @@ class TransaksiKKNController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
@@ -234,15 +234,15 @@ class TransaksiKKNController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',                   
-                                        'transaksi'=>$transaksi,                                                                                                                                   
+                                        'transaksi'=>$transaksi,                                                                                                   
                                         'message'=>'Transaksi KKN berhasil di input.'
-                                    ],200); 
+                                    ], 200); 
         }
         catch (Exception $e)
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'store',                                                                                                                                                  
+                'pid'=>'store',                                                                                                                  
                 'message'=>[$e->getMessage()]
             ], 422); 
         }        
@@ -283,7 +283,7 @@ class TransaksiKKNController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
         else
         {

@@ -32,7 +32,7 @@ class UIController extends Controller {
                                     'semester_pendaftaran'=>$semester_pendaftaran,
                                     'identitas'=>$identitas,
                                     'message'=>'Fetch data ui untuk front berhasil diperoleh'
-                                ],200);
+                                ], 200);
     }
     /**
      * digunakan untuk mendapatkan setting variabel ui admin

@@ -47,7 +47,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                                                        
+                                                        pe3_transaksi.no_formulir,                        
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
@@ -128,7 +128,7 @@ class TransaksiSPPController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
@@ -147,7 +147,7 @@ class TransaksiSPPController extends Controller {
                                         pe3_transaksi.kjur,
                                         pe3_transaksi.ta,
                                         pe3_transaksi.idsmt,
-                                        pe3_transaksi.idkelas,                                        
+                                        pe3_transaksi.idkelas,        
                                         COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
                                         COALESCE(pe3_transaksi.nim,"N.A") AS nim,
                                         pe3_formulir_pendaftaran.nama_mhs,
@@ -158,7 +158,7 @@ class TransaksiSPPController extends Controller {
                                         pe3_transaksi.total,
                                         pe3_transaksi.tanggal,   
                                         COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`, 
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                            
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,            
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
@@ -179,7 +179,7 @@ class TransaksiSPPController extends Controller {
                                         pe3_transaksi.kjur,
                                         pe3_transaksi.ta,
                                         pe3_transaksi.idsmt,
-                                        pe3_transaksi.idkelas,                                        
+                                        pe3_transaksi.idkelas,        
                                         COALESCE(pe3_transaksi.no_formulir,"N.A") AS no_formulir,
                                         COALESCE(pe3_transaksi.nim,"N.A") AS nim,
                                         pe3_formulir_pendaftaran.nama_mhs,
@@ -190,7 +190,7 @@ class TransaksiSPPController extends Controller {
                                         pe3_transaksi.total,
                                         pe3_transaksi.tanggal,   
                                         COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,                                             
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,             
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
@@ -264,9 +264,9 @@ class TransaksiSPPController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'transaksi'=>$transaksi,                                                                                                                                   
-                                        'transaksi_detail'=>$transaksi_detail,                                                                                                                                   
-                                        'item_selected'=>$item_selected,                                                                                                                                   
+                                        'transaksi'=>$transaksi,                                                                                                   
+                                        'transaksi_detail'=>$transaksi_detail,                                                                                                   
+                                        'item_selected'=>$item_selected,                                                                                                   
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
@@ -274,7 +274,7 @@ class TransaksiSPPController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'fetchdata',                                                                                                                                                  
+                'pid'=>'fetchdata',                                                                                                                  
                 'message'=>[$e->getMessage()]
             ], 422); 
         }      
@@ -366,15 +366,15 @@ class TransaksiSPPController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',                   
-                                        'transaksi'=>$transaksi,                                                                                                                                   
+                                        'transaksi'=>$transaksi,                                                                                                   
                                         'message'=>'Membuat Transaksi SPP baru berhasil.'
-                                    ],200); 
+                                    ], 200); 
         }
         catch (Exception $e)
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'store',                                                                                                                                                  
+                'pid'=>'store',                                                                                                                  
                 'message'=>[$e->getMessage()]
             ], 422); 
         }  
@@ -455,11 +455,11 @@ class TransaksiSPPController extends Controller {
         $bulan_spp=$result['bulan_spp'];
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'store',                                                                                                                                                                         
-                                    'bulan_selected'=>$bulan_selected,                                                                                                                                                                         
-                                    'bulan_spp'=>$bulan_spp,                                                                                                                                                                         
+                                    'pid'=>'store',                                                                                                                                         
+                                    'bulan_selected'=>$bulan_selected,                                                                                                                                         
+                                    'bulan_spp'=>$bulan_spp,                                                                                                                                         
                                     'message'=>(count($bulan_spp)).' Bulan SPP telah berhasil ditambahkan'
-                                ],200);  
+                                ], 200);  
     }
     public function destroy (Request $request,$id)
     {
@@ -509,7 +509,7 @@ class TransaksiSPPController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',          
                                         'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
-                                    ],200);         
+                                    ], 200);         
         }
     }
     private function checkPembayaranSPP ($no_bulan,$tahun,$user_id)
@@ -545,7 +545,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                                                        
+                                                        pe3_transaksi.no_formulir,                        
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
@@ -582,7 +582,7 @@ class TransaksiSPPController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                                                        
+                                                        pe3_transaksi.no_formulir,                        
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,

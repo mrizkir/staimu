@@ -117,7 +117,7 @@ class PMBController extends Controller {
                                 'pid'=>'fetchdata',
                                 'pmb'=>$data,
                                 'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
-                            ],200);  
+                            ], 200);  
     }  
     /**
      * Store a newly created resource in storage.
@@ -208,7 +208,7 @@ class PMBController extends Controller {
                                     'email'=>$user->email,                              
                                     'code'=>$code,                        
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }      
     /**
@@ -282,7 +282,7 @@ class PMBController extends Controller {
                                     'pendaftar'=>$user,
                                     'code'=>$code,            
                                     'message'=>'Data Mahasiswa baru berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }      
     /**
@@ -354,7 +354,7 @@ class PMBController extends Controller {
                                     'pid'=>'update',
                                     'pendaftar'=>$user,          
                                     'message'=>'Data Mahasiswa baru berhasil diubah.'
-                                ],200); 
+                                ], 200); 
 
     }      
     /**
@@ -416,7 +416,7 @@ class PMBController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                
-                                        'formulir'=>$formulir,                                        
+                                        'formulir'=>$formulir,        
                                         'no_transaksi'=>"$no_transaksi ",
                                         'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);     
@@ -457,7 +457,7 @@ class PMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'update',    
                                         'message'=>'Email Mahasiswa berhasil diverifikasi.'
-                                    ],200);
+                                    ], 200);
         }
         else
         {
@@ -651,7 +651,7 @@ class PMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Mahasiswa Baru ($name) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }  
@@ -664,7 +664,7 @@ class PMBController extends Controller {
             'id'=>[
                 'required',
                 "exists:users,id"
-            ],                                         
+            ],         
         ]);
         $user = User::find($request->input('id'));
         $name=$user->name;
@@ -673,6 +673,6 @@ class PMBController extends Controller {
                                 'status'=>1,
                                 'pid'=>'resendemail',                
                                 'message'=>"Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
-                            ],200);         
+                            ], 200);         
     } 
 }

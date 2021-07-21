@@ -145,7 +145,7 @@ class TahunAkademikController extends Controller {
                                     'pid'=>'store',
                                     'ta'=>$ta,
                                     'message'=>'Data tahun akademik berhasil disimpan.'
-                                ],200);
+                                ], 200);
 
     }
     /**
@@ -217,7 +217,7 @@ class TahunAkademikController extends Controller {
                                     'pid'=>'update',
                                     'ta'=>$ta,
                                     'message'=>'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
-                                ],200);
+                                ], 200);
         }
     }
     /**
@@ -253,7 +253,7 @@ class TahunAkademikController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',
                                         'message'=>"Tahun Akademik dengan kode ($id) berhasil dihapus"
-                                    ],200);
+                                    ], 200);
         }
 
     }

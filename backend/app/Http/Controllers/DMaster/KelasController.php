@@ -19,9 +19,9 @@ class KelasController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'kelas'=>$kelas,                                                                                                                                   
+                                    'kelas'=>$kelas,                                                                                                   
                                     'message'=>'Fetch data kelas berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * Store a newly created resource in storage.
@@ -55,9 +55,9 @@ class KelasController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'kelas'=>$kelas,                                    
+                                    'kelas'=>$kelas,    
                                     'message'=>'Data kelas berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -87,7 +87,7 @@ class KelasController extends Controller {
             {
                 $this->validate($request, [
                                             'idkelas'=>[
-                                                            'required',                                                        
+                                                            'required',                        
                                                             'string',
                                                             'max:1',
                                                             Rule::unique('pe3_kelas')->ignore($kelas->idkelas,'idkelas')           
@@ -108,7 +108,7 @@ class KelasController extends Controller {
                                                 'required',
                                                 'string',
                                                 'max:1',
-                                                'exists:pe3_kelas,idkelas',                                                     
+                                                'exists:pe3_kelas,idkelas',                     
                                             ], 
                                             'nama_kelas'=>[
                                                 'required',
@@ -135,7 +135,7 @@ class KelasController extends Controller {
                                     'pid'=>'update',
                                     'kelas'=>$kelas,      
                                     'message'=>'Data kelas '.$kelas->nkelas.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }    
     /**
@@ -171,7 +171,7 @@ class KelasController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

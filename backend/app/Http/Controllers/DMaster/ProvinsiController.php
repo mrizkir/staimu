@@ -16,9 +16,9 @@ class ProvinsiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'provinsi'=>$provinsi,                                                                                                                                   
+                                    'provinsi'=>$provinsi,                                                                                                   
                                     'message'=>'Fetch data provinsi berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * daftar kabupaten
@@ -40,9 +40,9 @@ class ProvinsiController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'kabupaten'=>$kabupaten,                                                                                                                                   
+                                        'kabupaten'=>$kabupaten,                                                                                                   
                                         'message'=>'Fetch data kabupaten berdasarkan id provinsi berhasil.'
-                                    ],200);     
+                                    ], 200);     
 
         }
     }

@@ -31,7 +31,7 @@ class PersyaratanController extends Controller {
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'fetchdata',  
-                                'persyaratan'=>$persyaratan,                                                                                                                                   
+                                'persyaratan'=>$persyaratan,                                                                                                   
                                 'message'=>'Fetch data persyaratan berhasil.'
                             ], 200);     
     }    
@@ -69,9 +69,9 @@ class PersyaratanController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
-                                    'persyaratan'=>$persyaratan,                                    
+                                    'persyaratan'=>$persyaratan,    
                                     'message'=>"Data persyaratan $proses berhasil disimpan."
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -128,9 +128,9 @@ class PersyaratanController extends Controller {
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',  
-                                'persyaratan'=>$persyaratan,                                                                                                                                   
+                                'persyaratan'=>$persyaratan,                                                                                                   
                                 'message' => "Menyalin data persyaratan $proses dari tahun $dari_tahun_pendaftaran ke $id berhasil."
-                            ],200);    
+                            ], 200);    
     }
     /**
      * daftar persyaratan dari sebuah proses 
@@ -169,9 +169,9 @@ class PersyaratanController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'persyaratan'=>$persyaratan,                                                                                                                                   
+                                    'persyaratan'=>$persyaratan,                                                                                                   
                                     'message'=>"Fetch data persyaratan $proses dengan $id berhasil diperoleh."
-                                ],200);     
+                                ], 200);     
 
 
     }
@@ -210,7 +210,7 @@ class PersyaratanController extends Controller {
                                     'pid'=>'update',
                                     'persyaratan'=>$persyaratan,      
                                     'message'=>"Data persyaratan $proses ($persyaratan->nama_persyaratan) berhasil diubah."
-                                ],200); 
+                                ], 200); 
         }
     }
     /**
@@ -249,7 +249,7 @@ class PersyaratanController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Persyaratan $proses dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

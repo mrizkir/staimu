@@ -25,7 +25,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'fetchdata',
                                     'prodi'=>$prodi,
                                     'message'=>'Fetch data program studi berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * detail program studi
@@ -52,7 +52,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'fetchdata',
                                     'prodi'=>$prodi,
                                     'message'=>'Fetch data program studi berhasil.'
-                                ],200);     
+                                ], 200);     
         }        
     }
     /**
@@ -112,7 +112,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'store',
                                     'prodi'=>$prodi,
                                     'message'=>'Data program studi berhasil disimpan.'
-                                ],200); 
+                                ], 200); 
 
     }
     /**
@@ -126,7 +126,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'fetchdata',
                                     'jenjangstudi'=>$jenjangstudi,
                                     'message'=>'Jenjang studi berhasil diperoleh.'
-                                ],200);
+                                ], 200);
     }
     /**
      * ubah kaprodi
@@ -160,7 +160,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'update',
                                     'prodi'=>$prodi,
                                     'message'=>'Konfigurasi program studi '.$prodi->nama_prodi.' berhasil disimpan.'
-                                ],200);
+                                ], 200);
         }
     }
     /**
@@ -176,7 +176,7 @@ class ProgramStudiController extends Controller {
                                 'pid'=>'fetchdata',
                                 'skslulus'=>$skslulus,
                                 'message'=>'Fetch data sks lulus program studi berhasil.'
-                            ],200);     
+                            ], 200);     
         
     }
     /**
@@ -192,7 +192,7 @@ class ProgramStudiController extends Controller {
                                                         "N.A"
                                                     ELSE
                                                         CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
-                                                END AS matkul_skripsi,                                                
+                                                END AS matkul_skripsi,                
                                                 pe3_prodi_detail1.created_at,
                                                 pe3_prodi_detail1.updated_at
                                             '))
@@ -205,7 +205,7 @@ class ProgramStudiController extends Controller {
                                 'pid'=>'fetchdata',
                                 'matkulskripsi'=>$matkulskripsi,
                                 'message'=>'Fetch data matkul skripsi program studi berhasil.'
-                            ],200);     
+                            ], 200);     
         
     }
     public function loadskslulus(Request $request) 
@@ -229,7 +229,7 @@ class ProgramStudiController extends Controller {
                                                         "N.A"
                                                     ELSE
                                                         CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
-                                                END AS matkul_skripsi,                                                
+                                                END AS matkul_skripsi,                
                                                 pe3_prodi_detail1.created_at,
                                                 pe3_prodi_detail1.updated_at
                                             '))
@@ -243,7 +243,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'store',
                                     'matkulskripsi'=>$matkulskripsi,
                                     'message'=>'Menyalin data tahun akademik ke program studi detail berhasil.'
-                                ],200);
+                                ], 200);
     }
     public function loadmatkulskripsi(Request $request) 
     {
@@ -266,7 +266,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'store',
                                     'skslulus'=>$skslulus,
                                     'message'=>'Menyalin data tahun akademik ke program studi detail berhasil.'
-                                ],200);
+                                ], 200);
     }
     /**
      * Update the specified resource in storage.
@@ -372,7 +372,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'update',
                                     'prodi'=>$prodi,
                                     'message'=>'Data program studi '.$prodi->nama_prodi.' berhasil diubah.'
-                                ],200); 
+                                ], 200); 
         }
     }
     public function updateskslulus(Request $request)
@@ -400,9 +400,9 @@ class ProgramStudiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
-                                    'jumlah_sks'=>$jumlah_sks,                                                                                                                                                               
+                                    'jumlah_sks'=>$jumlah_sks,                                                                                                                               
                                     'message'=>'Mengubah jumlah sks '.$detail1->jumlah_sks.' berhasil.'
-                                ],200);  
+                                ], 200);  
     }
     public function updatematkulskripsi(Request $request)
     {
@@ -428,9 +428,9 @@ class ProgramStudiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
-                                    'matkul_id'=>$matkul_id,                                                                                                                                                               
+                                    'matkul_id'=>$matkul_id,                                                                                                                               
                                     'message'=>'Mengubah matakuliah skripsi berhasil dilakukan.'
-                                ],200);  
+                                ], 200);  
     }
     /**
      * daftar program studi
@@ -454,7 +454,7 @@ class ProgramStudiController extends Controller {
                                         'pid'=>'fetchdata',
                                         'programstudi'=>$programstudi,
                                         'message'=>'Fetch data program studi berdasarkan id program studi berhasil.'
-                                    ],200);     
+                                    ], 200);     
 
         }
     }
@@ -491,7 +491,7 @@ class ProgramStudiController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',
                                         'message'=>"Program Studi dengan kode ($id) berhasil dihapus"
-                                    ],200);         
+                                    ], 200);         
         }
                   
     }

@@ -89,7 +89,7 @@ class DulangMahasiswaNonAktifController extends Controller
 									'pid'=>'fetchdata',  
 									'mahasiswa'=>$data,                             
 									'message'=>'Fetch data daftar ulang mahasiswa non-aktif berhasil.'
-								],200);     
+								], 200);     
 	}
 	/**
 	 * cek nim mahasiswa yang keluar
@@ -109,7 +109,7 @@ class DulangMahasiswaNonAktifController extends Controller
 							->select(\DB::raw('
 								A.user_id,
 								A.nim,
-								B.nama_mhs,                                
+								B.nama_mhs,
 								A.k_status,
 								C.n_status
 							'))
@@ -138,7 +138,7 @@ class DulangMahasiswaNonAktifController extends Controller
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'fetchdata',                                                                                                                                                  
+				'pid'=>'fetchdata',                                                                                                                  
 				'message'=>[$e->getMessage()]
 			], 422); 
 		}  
@@ -265,7 +265,7 @@ class DulangMahasiswaNonAktifController extends Controller
 			return Response()->json([
 									'status'=>1,
 									'pid'=>'store',  
-									'mahasiswa'=>$data,                                                                                                                                   
+									'mahasiswa'=>$data,                                                                                                   
 									'message'=>'Status Mahasiswa berhasil di ubah menjadi non-aktif.'
 								], 200);     
 		}
@@ -273,7 +273,7 @@ class DulangMahasiswaNonAktifController extends Controller
 		{
 			return Response()->json([
 			'status'=>0,
-			'pid'=>'store',                                                                                                                                                  
+			'pid'=>'store',                                                                                                                  
 			'message'=>[$e->getMessage()]
 			], 422); 
 		}
@@ -316,7 +316,7 @@ class DulangMahasiswaNonAktifController extends Controller
 									'status'=>1,
 									'pid'=>'destroy',                
 									'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-								],200);         
+								], 200);         
 		}
 				  
 	}

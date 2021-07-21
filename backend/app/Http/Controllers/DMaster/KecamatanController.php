@@ -17,9 +17,9 @@ class KecamatanController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'kecamatan'=>$kecamatan,                                                                                                                                   
+                                    'kecamatan'=>$kecamatan,                                                                                                   
                                     'message'=>'Fetch data kecamatan berhasil.'
-                                ],200);     
+                                ], 200);     
     }
     /**
      * daftar kecamatan
@@ -41,9 +41,9 @@ class KecamatanController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'desa'=>$desa,                                                                                                                                   
+                                        'desa'=>$desa,                                                                                                   
                                         'message'=>'Fetch data desa berdasarkan id kecamatan berhasil.'
-                                    ],200);     
+                                    ], 200);     
 
         }
     }

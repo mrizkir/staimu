@@ -23,9 +23,9 @@ class TranskripKurikulumController  extends Controller
         if ($this->hasRole('mahasiswa'))
         {
             $data = RegisterMahasiswaModel::select(\DB::raw('        
-                                    pe3_register_mahasiswa.user_id,                                
-                                    pe3_register_mahasiswa.nim,                                
-                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_register_mahasiswa.user_id,
+                                    pe3_register_mahasiswa.nim,
+                                    pe3_formulir_pendaftaran.nama_mhs,
                                     pe3_register_mahasiswa.idkelas,   
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
@@ -47,9 +47,9 @@ class TranskripKurikulumController  extends Controller
             $prodi_id=$request->input('prodi_id');
             
             $data = RegisterMahasiswaModel::select(\DB::raw('
-                                    pe3_register_mahasiswa.user_id,                                
-                                    pe3_register_mahasiswa.nim,                                
-                                    pe3_formulir_pendaftaran.nama_mhs,                                
+                                    pe3_register_mahasiswa.user_id,
+                                    pe3_register_mahasiswa.nim,
+                                    pe3_formulir_pendaftaran.nama_mhs,
                                     pe3_register_mahasiswa.idkelas,   
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_matkul,0) AS jumlah_matkul,
                                     COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
@@ -76,7 +76,7 @@ class TranskripKurikulumController  extends Controller
         return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'mahasiswa'=>$data,                                        
+                                        'mahasiswa'=>$data,        
                                         'rata2ipk'=>$rata2ipk,
                                         'message'=>'Fetch data daftar mahasiswa berhasil.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
@@ -153,7 +153,7 @@ class TranskripKurikulumController  extends Controller
             $daftar_matkul=MatakuliahModel::select(\DB::raw('
                                                 0 AS no,
                                                 id,
-                                                group_alias,                                    
+                                                group_alias,    
                                                 kmatkul,
                                                 nmatkul,
                                                 sks,
@@ -184,7 +184,7 @@ class TranskripKurikulumController  extends Controller
             {                
                 $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                             ->select(\DB::raw('
-                                A.n_kual,                                
+                                A.n_kual,
                                 A.n_mutu
                             '))
                             ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
@@ -294,7 +294,7 @@ class TranskripKurikulumController  extends Controller
                                     'jumlah_m'=>$jumlah_m,              
                                     'ipk'=>$ipk,
                                     'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
-                                ],200); 
+                                ], 200); 
         }
     }
     public function history(Request $request,$id)
@@ -316,7 +316,7 @@ class TranskripKurikulumController  extends Controller
             $history=\DB::table('pe3_nilai_matakuliah AS A')
                                     ->select(\DB::raw('
                                         B.id AS krsmatkul_id,
-                                        D.id AS penyelenggaraan_id,                                                                                
+                                        D.id AS penyelenggaraan_id,                                                
                                         A.n_kual, 
                                         A.n_mutu,
                                         A.n_kuan,
@@ -339,10 +339,10 @@ class TranskripKurikulumController  extends Controller
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata', 
-                                    'matakuliah'=>$matakuliah,                                     
-                                    'history'=>$history,                                     
+                                    'matakuliah'=>$matakuliah,     
+                                    'history'=>$history,     
                                     'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
-                                ],200); 
+                                ], 200); 
         }
     }
     public function printpdf1(Request $request,$id)
@@ -435,7 +435,7 @@ class TranskripKurikulumController  extends Controller
                 $daftar_matkul=MatakuliahModel::select(\DB::raw('
                                                 0 AS no,
                                                 id,
-                                                group_alias,                                    
+                                                group_alias,    
                                                 kmatkul,
                                                 nmatkul,
                                                 sks,
@@ -468,7 +468,7 @@ class TranskripKurikulumController  extends Controller
 
                     $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                             ->select(\DB::raw('
-                                A.n_kual,                                
+                                A.n_kual,
                                 A.n_mutu
                             '))
                             ->joinSub($subquery,'B',function($join){
@@ -612,7 +612,7 @@ class TranskripKurikulumController  extends Controller
                                                                     [
                                                                         'headers'=>$headers,
                                                                         'mahasiswa'=>$mahasiswa,
-                                                                        'daftar_nilai'=>$daftar_nilai,                                                                        
+                                                                        'daftar_nilai'=>$daftar_nilai,                                        
                                                                         'jumlah_sks'=>$jumlah_sks_all,
                                                                         'jumlah_am'=>$jumlah_am_all,
                                                                         'jumlah_m'=>$jumlah_m_all,
@@ -635,7 +635,7 @@ class TranskripKurikulumController  extends Controller
                                     'pid'=>'fetchdata',
                                     'mahasiswa'=>$mahasiswa,
                                     'pdf_file'=>$pdf_file                                    
-                                ],200);
+                                ], 200);
         }
     }
     public function printpdf2(Request $request,$id)
@@ -673,7 +673,7 @@ class TranskripKurikulumController  extends Controller
                                                     A.user_id,
                                                     A.nama_mhs,
                                                     A.tempat_lahir,
-                                                    A.tanggal_lahir,                                                                                                
+                                                    A.tanggal_lahir,                                                                
                                                     A.ta,
                                                     pe3_register_mahasiswa.nim,
                                                     pe3_register_mahasiswa.nirm,
@@ -828,7 +828,7 @@ class TranskripKurikulumController  extends Controller
                 $daftar_matkul=MatakuliahModel::select(\DB::raw('
                                         0 AS no,
                                         id,
-                                        group_alias,                                    
+                                        group_alias,    
                                         kmatkul,
                                         nmatkul,
                                         sks,
@@ -863,7 +863,7 @@ class TranskripKurikulumController  extends Controller
 
                         $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                                     ->select(\DB::raw('
-                                        A.n_kual,                                
+                                        A.n_kual,
                                         A.n_mutu
                                     '))
                                     ->joinSub($subquery,'B',function($join){
@@ -979,7 +979,7 @@ class TranskripKurikulumController  extends Controller
 
                         $nilai=\DB::table('pe3_nilai_matakuliah AS A')
                                     ->select(\DB::raw('
-                                        A.n_kual,                                
+                                        A.n_kual,
                                         A.n_mutu
                                     '))
                                     ->joinSub($subquery,'B',function($join){
@@ -1205,7 +1205,7 @@ class TranskripKurikulumController  extends Controller
                                     'pid'=>'fetchdata',
                                     'mahasiswa'=>$mahasiswa,
                                     'pdf_file'=>$pdf_file                                    
-                                ],200);
+                                ], 200);
         }
     }
     /**
