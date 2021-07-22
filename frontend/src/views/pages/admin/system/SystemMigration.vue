@@ -203,7 +203,7 @@ export default {
         ],
         
         datatableLoading: false,
-        headers: [                        
+        headers: [           
             { text: 'TAHUN AKADEMIK', value: 'ta', sortable: false },
             { text: 'SEMESTER', value: 'semester', sortable: false },
             { text: 'STATUS', value: 'k_status', sortable: false, width: 250 }, 

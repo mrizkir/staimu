@@ -432,7 +432,7 @@ export default {
                     }  
                 }
             ],
-            rule_tahun_akademik: [                
+            rule_tahun_akademik: [   
                 value => !!value || "Mohon untuk di isi nama tahun akademik !!!",
             ],
         }

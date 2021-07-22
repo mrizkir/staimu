@@ -152,7 +152,7 @@ export default {
         datatableLoading: false, 
         expanded: [],
         datatable: [],
-        headers: [                
+        headers: [   
             { text: 'PROGRAM STUDI', value: 'kjur', sortable: true},
             { text: 'NILAI', value: 'nilai', sortable: false, width: 100 }, 
         ],

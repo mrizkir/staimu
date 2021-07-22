@@ -275,7 +275,7 @@ export default {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus krs dengan NIM ('+item.nim+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang berkaitan dengan krs ini.' }).then(confirm => {
                 if (confirm)
                 {
-                    this.btnLoadingTable=true;
+                    this.btnLoadingTable = true;
                     this.$ajax.post('/akademik/perkuliahan/krs/'+item.id,
                         {
                             _method: "DELETE",
@@ -288,16 +288,16 @@ export default {
                     ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     }).catch(() => {
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     });
                 } 
             });
        },
         async printpdf(item)
         {
-            this.btnLoadingTable=true;
+            this.btnLoadingTable = true;
             await this.$ajax.get('/akademik/perkuliahan/krs/printpdf/'+item.id, 
                 {
                     headers: {
@@ -308,9 +308,9 @@ export default {
             ).then(({ data }) => { 
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
-                this.btnLoadingTable=false;
+                this.btnLoadingTable = false;
             }).catch(() => {
-                this.btnLoadingTable=false;
+                this.btnLoadingTable = false;
             }); 
        },
         closedialogprintpdf() {

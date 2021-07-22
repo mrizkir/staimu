@@ -235,7 +235,7 @@
 							{{ $date(item.tanggal_akhir_daftar).format("DD/MM/YYYY")}}
 						</template>
 						<template v-slot:item.durasi_ujian="{ item }">
-							{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br>({{durasiUjian(item)}} Menit)
+							{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br />({{durasiUjian(item)}} Menit)
 						</template>
 						<template v-slot:item.status_ujian="{ item }">
 							{{ getStatusJadwanUjian(item)}}
@@ -330,7 +330,7 @@
 				datatableLoading: false,
 				expanded: [],
 				datatable: [],
-				headers: [                
+				headers: [   
 					{ text: "NAMA UJIAN", value: "nama_kegiatan", sortable: true, width: 300 },
 					{ text: "TGL. UJIAN", value: "tanggal_ujian", sortable: true, width: 100 },
 					{ text: "TGL. AKHIR PENDAFTARAN", value: "tanggal_akhir_daftar", sortable: true, width: 100 },

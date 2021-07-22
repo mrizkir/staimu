@@ -158,7 +158,7 @@
 														{{ $date(item.tanggal_akhir_daftar).format('DD/MM/YYYY')}}
 												</template>
 												<template v-slot:item.durasi_ujian="{ item }">
-														{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br>({{durasiUjian(item)}})
+														{{item.jam_mulai_ujian}} - {{item.jam_selesai_ujian}} <br />({{durasiUjian(item)}})
 												</template>
 												<template v-slot:item.actions="{ item }">
 														<v-icon                                

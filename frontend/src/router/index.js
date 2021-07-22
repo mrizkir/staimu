@@ -842,7 +842,8 @@ const routes = [
 			title: "AKADEMIK - PKRS",
 			requiresAuth: true,
 		},
-		component: () => import("../views/pages/admin/akademik/PerkuliahanPKRS.vue"),
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanPKRS.vue"),
 	},
 	{
 		path: "/akademik/perkuliahan/pkrs/:krsid/detail",
@@ -1153,7 +1154,9 @@ const routes = [
 			requiresAuth: true,
 		},
 		component: () =>
-			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusNonAktif.vue"),
+			import(
+				"../views/pages/admin/kemahasiswaan/KemahasiswaanStatusNonAktif.vue"
+			),
 	},
 	{
 		path: "/kemahasiswaan/statuscuti",
@@ -1177,13 +1180,15 @@ const routes = [
 	},
 	{
 		path: "/kemahasiswaan/statuskeluar",
-		name: "KemahasiswaanStatusDO",
+		name: "KemahasiswaanStatusKeluar",
 		meta: {
 			title: "KEMAHASISWAAN - STATUS KELUAR",
 			requiresAuth: true,
 		},
 		component: () =>
-			import("../views/pages/admin/kemahasiswaan/KemahasiswaanStatusKeluar.vue"),
+			import(
+				"../views/pages/admin/kemahasiswaan/KemahasiswaanStatusKeluar.vue"
+			),
 	},
 	{
 		path: "/kemahasiswaan/statuslulus",

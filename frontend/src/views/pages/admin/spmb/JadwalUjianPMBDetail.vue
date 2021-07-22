@@ -293,7 +293,7 @@
 				expanded: [],
 				datatable: [],
 				headers: [
-					{ text: "NO", value: "no_peserta", sortable: true, width:70 },
+					{ text: "NO", value: "no_peserta", sortable: true, width: 70 },
 					{ text: "NAMA", value: "nama_mhs", sortable: true, width: 250 },
 					{ text: "JK", value: "jk", sortable: true, width:65 },
 					{ text: "NOMOR HP", value: "telp_hp", sortable: true, width: 50 },

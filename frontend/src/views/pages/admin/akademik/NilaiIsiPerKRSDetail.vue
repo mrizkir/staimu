@@ -229,7 +229,7 @@ export default {
             { text: 'SKS', value: 'sks', sortable: false, width: 50 }, 
             { text: 'SMT', value: 'semester', sortable: false, width: 50 }, 
             { text: 'KELAS', value: 'nama_kelas', sortable: false, width: 200 }, 
-            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width:70 }, 
+            { text: 'NILAI ANGKA (0 s.d 100)', value: 'n_kuan', sortable: false, width: 70 }, 
             { text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 }, 
                                    
         ],
@@ -258,7 +258,7 @@ export default {
        },
         async save()
         {
-            this.btnLoadingTable=true;
+            this.btnLoadingTable = true;
             var daftar_nilai=[];
 
             this.datatable.forEach(item => {
@@ -281,7 +281,7 @@ export default {
             ).then(() => { 
                 this.$router.go();
             }).catch(() => {
-                this.btnLoadingTable=false;
+                this.btnLoadingTable = false;
             });
        },
    },

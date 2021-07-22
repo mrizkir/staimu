@@ -15,7 +15,7 @@
                         <v-divider></v-divider>
                         <v-row>
                             <v-col cols="6">
-                                {{this.headers.header_1}}<br>
+                                {{this.headers.header_1}}<br />
                                 {{this.headers.header_address}}
                             </v-col>
                             <v-col cols="6">
@@ -39,8 +39,8 @@
                                         <td>Mahasiswa</td>
                                         <td>:</td>
                                         <td>
-                                            {{data_transaksi.nama_mhs}}<br>
-                                            {{data_transaksi.alamat_rumah}}<br>
+                                            {{data_transaksi.nama_mhs}}<br />
+                                            {{data_transaksi.alamat_rumah}}<br />
                                             {{data_transaksi.telp_hp}}
                                         </td>
                                     </tr>

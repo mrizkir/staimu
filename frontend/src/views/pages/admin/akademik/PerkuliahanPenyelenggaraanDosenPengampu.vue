@@ -284,7 +284,7 @@ export default {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus DOSEN PENGAMPU matakuliah ('+item.nama_dosen+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dalam penyelenggaraan matkul ini.' }).then(confirm => {
                 if (confirm)
                 {
-                    this.btnLoadingTable=true;
+                    this.btnLoadingTable = true;
                     this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/deletepengampu/'+item.id,
                         {
                             _method: "DELETE",
@@ -297,9 +297,9 @@ export default {
                     ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     }).catch(() => {
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     });
                 } 
             });

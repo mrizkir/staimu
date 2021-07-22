@@ -223,7 +223,7 @@ export default {
         //tables
         datatableLoading: false,
         datatable: [], 
-        headers: [                        
+        headers: [           
             { text: 'NO. BULAN', value: 'no_bulan', width: 120, sortable: false },
             { text: 'BULAN', value: 'nama_bulan', sortable: false }, 
             { text: 'TAHUN', value: 'tahun', sortable: false }, 

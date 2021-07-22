@@ -9,7 +9,7 @@
 				<v-icon>mdi-printer</v-icon> 
 			</v-toolbar>
 			<v-card-text>
-				{{ message }}<br>	
+				{{ message }}<br />	
 				<v-btn
 					color="green"
 					text

@@ -248,7 +248,7 @@ export default {
         //tables
         datatableLoading: false,
         datatable: [], 
-        headers: [                        
+        headers: [           
             { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: "TANGGAL", value: "tanggal", width:90, sortable: true },
             { text: "NIM", value: "nim", sortable: true, width: 100 },

@@ -231,12 +231,12 @@ export default {
         headers: [            
             { text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
             { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250 },
-            { text: 'SKS', value: 'sks', sortable: false, width:70 }, 
-            { text: 'SMT', value: 'semester', sortable: true, width:70, }, 
+            { text: 'SKS', value: 'sks', sortable: false, width: 70 }, 
+            { text: 'SMT', value: 'semester', sortable: true, width: 70, }, 
             { text: 'KODE MATKUL ASAL', value: 'kmatkul_asal', sortable: false, width: 120 }, 
             { text: 'MATAKULIAH ASAL', value: 'matkul_asal', sortable: false, width: 170 }, 
-            { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width:70}, 
-            { text: 'NILAI', value: 'n_kual', sortable: false, width:70},
+            { text: 'SKS ASAL', value: 'sks_asal', sortable: false, width: 70}, 
+            { text: 'NILAI', value: 'n_kual', sortable: false, width: 70},
         ],
         search: "", 
         

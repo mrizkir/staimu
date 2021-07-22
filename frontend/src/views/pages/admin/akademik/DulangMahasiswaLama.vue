@@ -217,7 +217,7 @@ export default {
             this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.' }).then(confirm => {
                 if (confirm)
                 {
-                    this.btnLoadingTable=true;
+                    this.btnLoadingTable = true;
                     this.$ajax.post('/akademik/dulang/mhslama/'+item.id,
                         {
                             _method: "DELETE",
@@ -230,9 +230,9 @@ export default {
                     ).then(() => {
                         const index = this.datatable.indexOf(item);
                         this.datatable.splice(index, 1);
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     }).catch(() => {
-                        this.btnLoadingTable=false;
+                        this.btnLoadingTable = false;
                     });
                 } 
             });
