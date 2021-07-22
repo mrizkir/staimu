@@ -327,7 +327,7 @@ export default {
 						{ text: 'KELAS', value: 'idkelas', sortable: false }, 
 						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
 				],
-				search_members: '',
+				search_members: "",
 
 				showdialogmatakuliah: false, 
 				showdialogpeserta: false, 
@@ -336,7 +336,7 @@ export default {
 				form_valid: true,
 				members_selected: [],
 				formdata: {
-						penyelenggaraan_dosen_id: '',  
+						penyelenggaraan_dosen_id: "",  
 				},
 				
 		}),

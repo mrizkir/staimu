@@ -254,13 +254,13 @@ export default {
         
         formdata: {
             nim: "",
-            nirm: '',
-            dosen_id: ''           
+            nirm: "",
+            dosen_id: ""           
        },
         formdefault: {
             nim: "",
-            nirm: '',
-            dosen_id: ''           
+            nirm: "",
+            dosen_id: ""           
        },
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",

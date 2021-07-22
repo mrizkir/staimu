@@ -97,8 +97,8 @@ export default {
         //form
         form_valid: true,
         formdata: {
-            siteKey: '',
-            privateKey: ''
+            siteKey: "",
+            privateKey: ""
        },
         //form rules
         rule_site_key: [

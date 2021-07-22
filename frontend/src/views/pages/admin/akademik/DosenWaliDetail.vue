@@ -266,7 +266,7 @@ export default {
         btnLoading: false, 
         //tables
         headers: [
-            { text: '', value: 'foto', width:70, },
+            { text: "", value: 'foto', width:70, },
             { text: "NIM", value: "nim", width: 100, sortable: true },
             { text: "NAMA MAHASISWA", value: "nama_mhs", width: 250, sortable: true },
             { text: 'PROGRAM STUDI', value: 'nama_prodi', width: 150, sortable: true },
@@ -285,10 +285,10 @@ export default {
         daftar_dw: [],
 
         formdata: {
-            dosen_id: ''           
+            dosen_id: ""           
        },
         formdefault: {
-            dosen_id: ''           
+            dosen_id: ""           
        },
 
         rule_dw: [

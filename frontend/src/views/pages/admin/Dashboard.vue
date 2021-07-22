@@ -204,7 +204,7 @@ export default {
 		breadcrumbs: [],
 		TOKEN: null,
 		dashboard: null, 
-		tahun_pendaftaran: '',
+		tahun_pendaftaran: "",
 	}),
 	methods: {
 		initialize: async function()

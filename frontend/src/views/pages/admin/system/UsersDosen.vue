@@ -340,7 +340,7 @@ export default {
 		btnLoading: false, 
 		//tables
 		headers: [
-			{ text: '', value: 'foto' },
+			{ text: "", value: 'foto' },
 			{ text: 'USERNAME', value: 'username', sortable: true, width: 150 },
 			{ text: 'NAMA DOSEN', value: 'name', sortable: true, width: 250 },
 			{ text: 'NIDN', value: 'nidn', sortable: true },
@@ -362,31 +362,31 @@ export default {
 		editedIndex: -1, 
 		editedItem: {
 			id: 0,
-			username: '',  
-			password: '',  
-			onlyname: '', 
-			name: '', 
-			nidn: '', 
-			nipy: '',
-			email: '',  
-			nomor_hp: '',  
+			username: "",  
+			password: "",  
+			onlyname: "", 
+			name: "", 
+			nidn: "", 
+			nipy: "",
+			email: "",  
+			nomor_hp: "",  
 			is_dw: false, 
-			created_at: '',  
-			updated_at: '', 
+			created_at: "",  
+			updated_at: "", 
 		},
 		defaultItem: {
 			id: 0,
-			username: '',  
-			password: '',  
-			onlyname: '',
-			name: '',
-			nidn: '',
-			nipy: '',
-			email: '',  
-			nomor_hp: '', 
+			username: "",  
+			password: "",  
+			onlyname: "",
+			name: "",
+			nidn: "",
+			nipy: "",
+			email: "",  
+			nomor_hp: "", 
 			is_dw: false,
-			created_at: '',  
-			updated_at: '', 
+			created_at: "",  
+			updated_at: "", 
 		},
 		//form rules        
 		rule_user_name: [
@@ -476,7 +476,7 @@ export default {
 			this.dialogEdit = false; 
 			setTimeout(() => {
 				this.$refs.frmdata.resetValidation(); 
-				this.editedItem = Object.assign({},this.defaultItem)
+				this.editedItem = Object.assign({}, this.defaultItem)
 				this.editedIndex = -1                
 				}, 300
 			);

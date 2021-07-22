@@ -272,7 +272,7 @@ export default {
         btnLoading: false, 
         //tables
         headers: [
-            { text: '', value: 'foto' },
+            { text: "", value: 'foto' },
             { text: 'USERNAME', value: 'username', sortable: true },
             { text: 'NAME', value: 'name', sortable: true },
             { text: 'EMAIL', value: 'email', sortable: true },
@@ -291,25 +291,25 @@ export default {
         editedIndex: -1, 
         editedItem: {
             id: 0,
-            username: '',  
-            password: '',  
-            name: '',  
-            email: '',  
-            nomor_hp: '',
+            username: "",  
+            password: "",  
+            name: "",  
+            email: "",  
+            nomor_hp: "",
             role_id: ['superadmin'],
-            created_at: '',  
-            updated_at: '', 
+            created_at: "",  
+            updated_at: "", 
        },
         defaultItem: {
             id: 0,
-            username: '',  
-            password: '',  
-            name: '',  
-            email: '',  
-            nomor_hp: '', 
+            username: "",  
+            password: "",  
+            name: "",  
+            email: "",  
+            nomor_hp: "", 
             role_id: ['superadmin'],
-            created_at: '',  
-            updated_at: '', 
+            created_at: "",  
+            updated_at: "", 
        },
         //form rules        
         rule_user_name: [
@@ -457,7 +457,7 @@ export default {
             this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
-                this.editedItem = Object.assign({},this.defaultItem)
+                this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1                
                }, 300
             );

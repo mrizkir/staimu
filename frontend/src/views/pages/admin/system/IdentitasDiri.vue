@@ -112,9 +112,9 @@ export default {
         //form
         form_valid: true, 
         formdata: {
-            nama_pt: '',
-            nama_alias_pt: '',
-            bentuk_pt: '',
+            nama_pt: "",
+            nama_alias_pt: "",
+            bentuk_pt: "",
             kode_pt: 0,
        },
         //form rules        

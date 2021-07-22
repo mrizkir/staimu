@@ -222,14 +222,14 @@ export default {
 
         //form data   
         form_valid: true,
-        kode_fakultas: '',
+        kode_fakultas: "",
         formdata: {
-            kode_fakultas: '',  
-            nama_fakultas: '', 
+            kode_fakultas: "",  
+            nama_fakultas: "", 
        },
         formdefault: {
-            kode_fakultas: '',  
-            nama_fakultas: '',
+            kode_fakultas: "",  
+            nama_fakultas: "",
        },
         editedIndex: -1,
 

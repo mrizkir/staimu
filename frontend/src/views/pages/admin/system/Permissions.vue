@@ -179,17 +179,17 @@ export default {
         editedIndex: -1,
         editedItem: {
             id: 0,
-            name: '',  
-            guard: '',  
-            created_at: '',  
-            updated_at: '',  
+            name: "",  
+            guard: "",  
+            created_at: "",  
+            updated_at: "",  
        },
         defaultItem: {
             id: 0,
-            name: '',  
+            name: "",  
             guard: 'api',  
-            created_at: '',  
-            updated_at: '',  
+            created_at: "",  
+            updated_at: "",  
        },
         //form rules        
         rule_permission_name: [
@@ -232,7 +232,7 @@ export default {
             this.dialog = false;
             this.$refs.frmdata.reset(); 
             setTimeout(() => {
-                this.editedItem = Object.assign({},this.defaultItem)
+                this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1
                }, 300
             );

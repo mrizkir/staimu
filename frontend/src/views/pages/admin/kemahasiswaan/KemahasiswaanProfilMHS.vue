@@ -266,7 +266,7 @@ export default {
         //profil mahasiswa      
         user_id: null,
         datamhs: {
-            nama_mhs: ''
+            nama_mhs: ""
        },
         totalSKS: 0, 
         totalM: 0, 

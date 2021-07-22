@@ -225,13 +225,13 @@ export default {
         //form data        
         form_valid: true,
         formdata: {
-            id: '',
-            namaruang: '',
+            id: "",
+            namaruang: "",
             kapasitas: 0,
        },
         formdefault: {
-            id: '',
-            namaruang: '',
+            id: "",
+            namaruang: "",
             kapasitas: 0,
        },
         editedIndex: -1,

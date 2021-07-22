@@ -92,14 +92,14 @@ export default {
 
         datatableLoading: false,
         
-        errormessage: '',
+        errormessage: "",
 
         headers: {
-            header_1: '',
-            header_2: '',
-            header_3: '',
-            header_4: '',
-            header_address: '',
+            header_1: "",
+            header_2: "",
+            header_3: "",
+            header_4: "",
+            header_address: "",
        },
         headers_detail: [
             { text: 'KODE', value: 'kombi_id', width: 50, sortable: false },

@@ -175,7 +175,7 @@ export default {
         expanded: [],
         datatable: [],
         headers: [
-            { text: '', value: 'foto', width:70 },
+            { text: "", value: 'foto', width:70 },
             { text: 'NO.FORMULIR', value: 'no_formulir', width: 120, sortable: true },
             { text: 'NAMA MAHASISWA', value: 'name', width: 350, sortable: true },
             { text: 'NOMOR HP', value: 'nomor_hp', width: 100},

@@ -124,8 +124,8 @@ export default {
         daftar_ta: [],
         daftar_semester: [],
         formdata: {
-            default_ta: '',
-            default_semester: '',
+            default_ta: "",
+            default_semester: "",
             tahun_pendaftaran: 0,
        },
         //form rules        

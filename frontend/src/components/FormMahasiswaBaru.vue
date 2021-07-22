@@ -211,22 +211,22 @@ export default {
         desa_id: 0,
 
         daftar_fakultas: [],
-        kode_fakultas: '',
+        kode_fakultas: "",
 
         daftar_prodi: [], 
         daftar_kelas: [],
         
         formdata: {
-            nama_mhs: '',  
-            tempat_lahir: '',
-            tanggal_lahir: '',
+            nama_mhs: "",  
+            tempat_lahir: "",
+            tanggal_lahir: "",
             jk: 'L',
-            nomor_hp: '',
-            email: '',
-            alamat_rumah: '',
-            nama_ibu_kandung: '',
-            kjur1: '',
-            idkelas: '',
+            nomor_hp: "",
+            email: "",
+            alamat_rumah: "",
+            nama_ibu_kandung: "",
+            kjur1: "",
+            idkelas: "",
        },
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",

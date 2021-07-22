@@ -173,11 +173,11 @@ export default {
         daftar_status_mhs: [], 
         formdata: {
             nim: "",
-            nirm: '',
-            nama_mhs: '',
-            dosen_id: '',  
-            prodi_id: '',
-            idkelas: '',
+            nirm: "",
+            nama_mhs: "",
+            dosen_id: "",  
+            prodi_id: "",
+            idkelas: "",
             status_mhs: [],
        },
         rule_nim: [

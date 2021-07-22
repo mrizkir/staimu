@@ -141,9 +141,9 @@ export default {
         jadwal_ujian_id: null,
         jadwal_ujian: {
             id: 0,  
-            nama_kegiatan: '',
-            ta: '',  
-            idsmt: '',
+            nama_kegiatan: "",
+            ta: "",  
+            idsmt: "",
        },
         breadcrumbs: [], 
         dashboard: null,
