@@ -94,7 +94,7 @@ class JadwalUjianPMBController extends Controller {
                                     'jadwal_ujian'=>$jadwal_ujian,      
                                     'jumlah_bank_soal'=>$jumlah_bank_soal,                                                                                             
                                     'message'=>'Fetch data jadwal ujian pmb berhasil.'
-                                ], 200);     
+                                ], 200);
     }  
     /**
      * simpan jadwal ujian baru
@@ -128,7 +128,7 @@ class JadwalUjianPMBController extends Controller {
             'ruangkelas_id'=>$request->input('ruangkelas_id'),
             'ta'=> $request->input('ta'),
             'idsmt'=>$request->input('idsmt'),                        
-        ]);            
+        ]);       
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',
@@ -190,7 +190,7 @@ class JadwalUjianPMBController extends Controller {
                                         'jadwal_ujian'=>$jadwal_ujian,                                                                                                                                                                                                                                                                           
                                         'peserta'=>$peserta,                                                                                                                                                                                                                                                                           
                                         'message'=>"Fetch data jadwal ujian pmb dengan id ($id) berhasil diperoleh."
-                                    ], 200);     
+                                    ], 200);
         }
     } 
     /**
@@ -220,7 +220,7 @@ class JadwalUjianPMBController extends Controller {
                 'tanggal_akhir_daftar'=>'required',            
                 'durasi_ujian'=>'required',            
                 'ruangkelas_id'=>'required',                
-            ]);            
+            ]);       
                 
             $jadwal_ujian->nama_kegiatan=$request->input('nama_kegiatan');
             $jadwal_ujian->jumlah_soal=$request->input('jumlah_soal');
@@ -258,15 +258,15 @@ class JadwalUjianPMBController extends Controller {
         {
             $this->validate($request, [           
                 'status_ujian'=>'required|integer|digits_between:0,3',                               
-            ]);            
+            ]);       
             $status_ujian=$request->input('status_ujian');
-            $jadwal_ujian->status_pendaftaran=1;            
-            $jadwal_ujian->status_ujian=$status_ujian;            
+            $jadwal_ujian->status_pendaftaran=1;       
+            $jadwal_ujian->status_ujian=$status_ujian;       
             $jadwal_ujian->save();
             
             if ($status_ujian == 2)
             {
-                $now = \Carbon\Carbon::now()->toDateTimeString();        
+                $now = \Carbon\Carbon::now()->toDateTimeString();   
                 \DB::table('pe3_peserta_ujian_pmb')
                     ->where('jadwal_ujian_id', $jadwal_ujian->id)
                     ->where('isfinish','!=',1)
@@ -320,7 +320,7 @@ class JadwalUjianPMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Jadwal Ujian PMB ($nama_kegiatan) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     } 

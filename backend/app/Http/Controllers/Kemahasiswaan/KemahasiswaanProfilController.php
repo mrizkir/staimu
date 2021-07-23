@@ -104,7 +104,7 @@ class KemahasiswaanProfilController extends Controller {
                             ->join('pe3_prodi AS D','A.kjur','D.id')
                             ->whereNotIn('A.user_id',function($query){
                                 $query->select('user_id')
-                                    ->from('pe3_nilai_konversi1');                                    
+                                    ->from('pe3_nilai_konversi1');                               
                             })
                             ->where('A.nim','LIKE',$request->input('search').'%')
                             ->orWhere('B.nama_mhs', 'LIKE', '%'.$request->input('search').'%')

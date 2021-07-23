@@ -39,7 +39,7 @@ class UsersDosenController extends Controller {
                     '))
                     ->join('pe3_dosen','pe3_dosen.user_id','users.id')
                     ->orderBy('username','ASC')
-                    ->get();                           
+                    ->get();                      
         
         return Response()->json([
                                 'status'=>1,
@@ -87,7 +87,7 @@ class UsersDosenController extends Controller {
         ]);
         $user = \DB::transaction(function () use ($request){
 
-            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),
@@ -100,9 +100,9 @@ class UsersDosenController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='dosen';   
-            $user->assignRole($role);               
+            $user->assignRole($role);          
             
             $permission=Role::findByName('dosen')->permissions;
             $permissions=$permission->pluck('name');
@@ -185,21 +185,21 @@ class UsersDosenController extends Controller {
 
             $user = \DB::transaction(function () use ($request,$user){
 
-                $user->name = $request->input('name');                
+                $user->name = $request->input('name');           
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
-                $user->username = $request->input('username');        
+                $user->username = $request->input('username');   
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }    
-                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();                
+                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();           
                 $user->save();
 
                 $user_dosen=UserDosen::find($user->id);
                 $user_dosen->nama_dosen=$request->input('name');
                 $user_dosen->nidn = $request->input('nidn');
                 $user_dosen->nipy = $request->input('nipy');
-                $user_dosen->is_dw = $request->input('is_dw');                                             
+                $user_dosen->is_dw = $request->input('is_dw');                                        
                 
                 if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
                 {
@@ -322,15 +322,15 @@ class UsersDosenController extends Controller {
                 'alamat_rumah'=>'required',            
             ]); 
 
-            $biodatadiri->nidn=$request->input('nidn');           
-            $biodatadiri->nipy=$request->input('nipy');           
-            $biodatadiri->gelar_depan=$request->input('gelar_depan');                               
-            $biodatadiri->nama_dosen=$request->input('nama_dosen');           
-            $biodatadiri->gelar_belakang=$request->input('gelar_belakang');           
+            $biodatadiri->nidn=$request->input('nidn');      
+            $biodatadiri->nipy=$request->input('nipy');      
+            $biodatadiri->gelar_depan=$request->input('gelar_depan');                          
+            $biodatadiri->nama_dosen=$request->input('nama_dosen');      
+            $biodatadiri->gelar_belakang=$request->input('gelar_belakang');      
 
-            $biodatadiri->tempat_lahir=$request->input('tempat_lahir');           
-            $biodatadiri->tanggal_lahir=$request->input('tanggal_lahir');           
-            $biodatadiri->jk=$request->input('jk');                      
+            $biodatadiri->tempat_lahir=$request->input('tempat_lahir');      
+            $biodatadiri->tanggal_lahir=$request->input('tanggal_lahir');      
+            $biodatadiri->jk=$request->input('jk');                 
                
             $biodatadiri->address1_provinsi_id=$request->input('address1_provinsi_id');
             $biodatadiri->address1_provinsi=$request->input('address1_provinsi');
@@ -402,7 +402,7 @@ class UsersDosenController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Dosen ($username) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

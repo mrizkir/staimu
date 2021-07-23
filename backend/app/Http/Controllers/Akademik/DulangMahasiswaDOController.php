@@ -90,7 +90,7 @@ class DulangMahasiswaDOController extends Controller
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                             
                                     'message'=>'Fetch data daftar ulang mahasiswa Dropout / Putus berhasil.'
-                                ], 200);     
+                                ], 200);
     }
 	/**
 	 * cek nim mahasiswa yang keluar
@@ -247,7 +247,7 @@ class DulangMahasiswaDOController extends Controller
 									'pid'=>'store',  
 									'mahasiswa'=>$data,                                                                                                   
 									'message'=>'Status Mahasiswa berhasil di ubah menjadi lulus.'
-								], 200);     
+								], 200);
 		}
 		catch (Exception $e)
 		{
@@ -285,7 +285,7 @@ class DulangMahasiswaDOController extends Controller
                 'object_id' => $dulang->id, 
                 'user_id' => $this->getUserid(), 
                 'message' => 'Menghapus daftar ulang mahasiswa dropout / putus dengan id ('.$dulang->id.') berhasil'
-            ]);             
+            ]);        
             $register_mahasiswa=$dulang->register_mahasiswa;
             $register_mahasiswa->k_status = $dulang->status_sebelumnya;
             $register_mahasiswa->save();
@@ -296,7 +296,7 @@ class DulangMahasiswaDOController extends Controller
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                ], 200);         
+                                ], 200);    
         }
                   
     }

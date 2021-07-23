@@ -21,6 +21,6 @@ class JenjangStudiController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'jenjang_studi'=>$jenjang_studi,                                                                                                   
                                     'message'=>'Fetch data jenjang studi berhasil.'
-                                ], 200);     
+                                ], 200);
     }  
 }

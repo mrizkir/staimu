@@ -21,7 +21,7 @@ class KelasController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'kelas'=>$kelas,                                                                                                   
                                     'message'=>'Fetch data kelas berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * Store a newly created resource in storage.
@@ -43,7 +43,7 @@ class KelasController extends Controller {
         $kelas=KelasModel::create([
             'idkelas'=>$request->input('idkelas'),            
             'nkelas'=>strtoupper($request->input('nkelas')),                        
-        ]);                      
+        ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $kelas,
@@ -171,7 +171,7 @@ class KelasController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

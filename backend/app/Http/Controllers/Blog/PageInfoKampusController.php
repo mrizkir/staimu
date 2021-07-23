@@ -211,7 +211,7 @@ class PageInfoKampusController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Post dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

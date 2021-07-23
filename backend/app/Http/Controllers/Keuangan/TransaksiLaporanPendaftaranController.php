@@ -14,7 +14,7 @@ class TransaksiLaporanPendaftaranController extends Controller {
 		 */
 		public function index(Request $request)
 		{
-			$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');        				
+			$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');   				
 					
 			$this->validate($request, [           
 				'ta'=>'required',				
@@ -104,7 +104,7 @@ class TransaksiLaporanPendaftaranController extends Controller {
 	 */
 	public function printtoexcel1 (Request $request)
 	{
-		$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');        				
+		$this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-PENDAFTARAN_BROWSE');   				
 		
 		$this->validate($request, [           
 			'ta'=>'required',			

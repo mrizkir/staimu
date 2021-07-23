@@ -34,7 +34,7 @@ class TranskripKurikulumController  extends Controller
                                 ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')        
                                 ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
                                 ->where('pe3_register_mahasiswa.user_id',$this->getUserid())
-                                ->get();     
+                                ->get();
         }
         else
         {
@@ -168,8 +168,8 @@ class TranskripKurikulumController  extends Controller
                                             ->orderBy('kmatkul','ASC')    
                                             ->get();
 
-            $jumlah_sks=0;            
-            $jumlah_sks_nilai=0;            
+            $jumlah_sks=0;       
+            $jumlah_sks_nilai=0;       
             $jumlah_am=0;
             $jumlah_m=0;
             $jumlah_matkul=0;
@@ -228,7 +228,7 @@ class TranskripKurikulumController  extends Controller
                         else
                         {
                             $HM_KONVERSI=$n_kual_konversi;
-                            $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                            $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                       
                             if ($AM_KONVERSI>$AM)
                             {
                                 $HM=$HM_KONVERSI;
@@ -255,9 +255,9 @@ class TranskripKurikulumController  extends Controller
                     'M'=>$M
                 ];
 
-                $jumlah_sks+=$item->sks;                 
+                $jumlah_sks+=$item->sks;            
             }         
-            $ipk=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks_nilai);            
+            $ipk=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks_nilai);       
             $rekap=RekapTranskripKurikulumModel::find($user_id);
             if (is_null($rekap))
             {
@@ -430,7 +430,7 @@ class TranskripKurikulumController  extends Controller
                 $jumlah_sks_smt=0;
                 $jumlah_sks_smt_tanpa_nilai=0;
                 $jumlah_am_smt=0;
-                $jumlah_m_smt=0;                
+                $jumlah_m_smt=0;           
 
                 $daftar_matkul=MatakuliahModel::select(\DB::raw('
                                                 0 AS no,
@@ -483,7 +483,7 @@ class TranskripKurikulumController  extends Controller
                     if (isset($nilai[0]))
                     {                        
                         $HM=$nilai[0]->n_kual;
-                        $AM=number_format($nilai[0]->n_mutu,0);                       
+                        $AM=number_format($nilai[0]->n_mutu,0);                  
 
                         if (!is_null($data_konversi))
                         {
@@ -502,7 +502,7 @@ class TranskripKurikulumController  extends Controller
                                 else
                                 {
                                     $HM_KONVERSI=$n_kual_konversi;
-                                    $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                    $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                       
                                     if ($AM_KONVERSI>$AM)
                                     {
                                         $HM=$HM_KONVERSI;
@@ -519,7 +519,7 @@ class TranskripKurikulumController  extends Controller
 
                         $jumlah_m_all+=$M;
                         $jumlah_sks_all+=$item->sks;
-                        $jumlah_am_all+=$jumlah_am_smt;                        
+                        $jumlah_am_all+=$jumlah_am_smt;                   
                     }
                     else if (!is_null($data_konversi))
                     {
@@ -541,7 +541,7 @@ class TranskripKurikulumController  extends Controller
 
                             $jumlah_m_all+=$M;
                             $jumlah_sks_all+=$item->sks;
-                            $jumlah_am_all+=$jumlah_am_smt;                        
+                            $jumlah_am_all+=$jumlah_am_smt;                   
                         }
                     }
 
@@ -572,7 +572,7 @@ class TranskripKurikulumController  extends Controller
                     'ips'=>$ips,
                     'ipk'=>$ipk,
                 ];
-                $daftar_nilai[$i]=$data_nilai_smt;                
+                $daftar_nilai[$i]=$data_nilai_smt;           
             }
             
             $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
@@ -709,7 +709,7 @@ class TranskripKurikulumController  extends Controller
                                 ->first();
             $daftar_nilai=[];
             
-            $pdf = new \App\Helpers\HelperReport('fpdf','Legal');                   
+            $pdf = new \App\Helpers\HelperReport('fpdf','Legal');              
             
             $pdf->setHeader();
 
@@ -718,7 +718,7 @@ class TranskripKurikulumController  extends Controller
             $rpt->setTitle('Transkrip Nilai Semester');
             $rpt->setSubject('Transkrip Nilai Semester');
 
-            $row=$pdf->getCurrentRow();                
+            $row=$pdf->getCurrentRow();           
             $rpt->SetFont ('helvetica','B',12);	
             $rpt->setXY(0.5,$row);			
             $rpt->Cell(0,0.5,'TRANSKRIP NILAI SEMESTER',0,2,'C');
@@ -793,7 +793,7 @@ class TranskripKurikulumController  extends Controller
 
             $row+=0.5;
             $rpt->setXY(0.5,$row);	
-            $rpt->SetFont ('helvetica','B',8);     
+            $rpt->SetFont ('helvetica','B',8);
             //ganjil                        				
             $rpt->Cell(0.7,0.5,'NO',1,null,'C');
             $rpt->Cell(1.5,0.5,'KODE',1,null,'C');
@@ -819,7 +819,7 @@ class TranskripKurikulumController  extends Controller
             $row_ganjil=$row;
             $row_genap = $row;
 
-            // $rpt->setXY(0.5,$row);            
+            // $rpt->setXY(0.5,$row);       
             $tambah_ganjil_row=false;		
             $tambah_genap_row=false;
             for ($i = 1; $i <= 8; $i++) {
@@ -900,7 +900,7 @@ class TranskripKurikulumController  extends Controller
                                     else
                                     {
                                         $HM_KONVERSI=$n_kual_konversi;
-                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                       
                                         if ($AM_KONVERSI>$AM)
                                         {
                                             $HM=$HM_KONVERSI;
@@ -1014,7 +1014,7 @@ class TranskripKurikulumController  extends Controller
                                     else
                                     {
                                         $HM_KONVERSI=$n_kual_konversi;
-                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                            
+                                        $AM_KONVERSI=\App\Helpers\HelperAkademik::getNilaiMutu($HM);                       
                                         if ($AM_KONVERSI>$AM)
                                         {
                                             $HM=$HM_KONVERSI;
@@ -1062,7 +1062,7 @@ class TranskripKurikulumController  extends Controller
                         else
                         {
                             $rpt->Cell(1,0.5,'-',1,null,'C');
-                            $rpt->Cell(1,0.5,'-',1,null,'C');                            
+                            $rpt->Cell(1,0.5,'-',1,null,'C');                       
                         }                                      
                         $rpt->Cell(0.1,0.5,'');				
                         $row_ganjil+=0.5;
@@ -1092,39 +1092,39 @@ class TranskripKurikulumController  extends Controller
                     $rpt->SetFont ('helvetica','B',6);
                     //ganjil
                     $rpt->setXY(0.5,$row_ganjil);	                                        				
-                    $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');                    
-                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');                    
-                    $rpt->Cell(1,0.5,$ganjil_total_sks,1,null,'C');                    
-                    $rpt->Cell(1,0.5,'',1,null,'C');                    
-                    $rpt->Cell(1,0.5,$ganjil_total_m,1,null,'C');                    
+                    $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');               
+                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');               
+                    $rpt->Cell(1,0.5,$ganjil_total_sks,1,null,'C');               
+                    $rpt->Cell(1,0.5,'',1,null,'C');               
+                    $rpt->Cell(1,0.5,$ganjil_total_m,1,null,'C');               
 
                     $row_ganjil+=0.5;
                     $rpt->setXY(0.5,$row_ganjil);	                                        				
-                    $rpt->Cell(2.2,0.5,$smt_ganjil,1,null,'C');                    
-                    $rpt->Cell(7,0.5,'Indeks Prestasi Semester',1,null,'L');                    
-                    $ips=\App\Helpers\HelperAkademik::formatIPK($ganjil_total_m,$ganjil_total_sks);                                       				
+                    $rpt->Cell(2.2,0.5,$smt_ganjil,1,null,'C');               
+                    $rpt->Cell(7,0.5,'Indeks Prestasi Semester',1,null,'L');               
+                    $ips=\App\Helpers\HelperAkademik::formatIPK($ganjil_total_m,$ganjil_total_sks);                                  				
                     $rpt->Cell(1,0.5,$ips,1,null,'C');
 
                     $row_ganjil+=0.5;
                     $rpt->setXY(2.7,$row_ganjil);	                        
-                    $rpt->Cell(7,0.5,'Indeks Prestasi Kumulatif',1,null,'L');                      
+                    $rpt->Cell(7,0.5,'Indeks Prestasi Kumulatif',1,null,'L');                 
                     $rpt->Cell(1,0.5,$ipk_ganjil,1,null,'C');
 
                     $row_ganjil+=0.6;
                     
                     //genap                    
                     $rpt->setXY(10.8,$row_genap);	    
-                    $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');                                                        				
-                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');                    
+                    $rpt->Cell(2.2,0.5,'SEMESTER',1,null,'C');                                                   				
+                    $rpt->Cell(5,0.5,'Jumlah',1,null,'L');               
                     $rpt->Cell(1,0.5,$genap_total_sks,1,null,'C');  
-                    $rpt->Cell(1,0.5,'',1,null,'C');                    
+                    $rpt->Cell(1,0.5,'',1,null,'C');               
                     $rpt->Cell(1,0.5,$genap_total_m,1,null,'C');  
 
                     $row_genap+=0.5;
                     $rpt->setXY(10.8,$row_genap);	      
-                    $rpt->Cell(2.2,0.5,$smt_genap,1,null,'C');                                  				
+                    $rpt->Cell(2.2,0.5,$smt_genap,1,null,'C');                             				
                     $rpt->Cell(7,0.5,'Indeks Prestasi Semester',1,null,'L'); 
-                    $ips=\App\Helpers\HelperAkademik::formatIPK($genap_total_m,$genap_total_sks);                                       				
+                    $ips=\App\Helpers\HelperAkademik::formatIPK($genap_total_m,$genap_total_sks);                                  				
                     $rpt->Cell(1,0.5,$ips,1,null,'C');
                                        
                     $row_genap+=0.5;
@@ -1143,7 +1143,7 @@ class TranskripKurikulumController  extends Controller
             $rpt->SetFont ('helvetica','',6);
             $rpt->Cell(1,0.5,$totalSks,0,0,'L');
 
-            $rpt->SetFont ('helvetica','B',6);                                    	
+            $rpt->SetFont ('helvetica','B',6);                               	
             $rpt->Cell(3,0.5,'Jumlah Nilai Kumulatif',0,0,'L');
             $rpt->Cell(0.2,0.5,':',0,0,'L');
             $rpt->SetFont ('helvetica','',6);
@@ -1171,11 +1171,11 @@ class TranskripKurikulumController  extends Controller
             $rpt->SetXY(10.3,$row);	
             $rpt->Cell(5,0.5,'NIDN: 2128087201 / LEKTOR',0,0,'L');
 
-            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');            
+            $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');       
 
-            $pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";            
+            $pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";       
 
-            $pdf->save($file_pdf);            
+            $pdf->save($file_pdf);       
 
             $rekap=RekapTranskripKurikulumModel::find($mahasiswa->user_id);
             if (is_null($rekap))

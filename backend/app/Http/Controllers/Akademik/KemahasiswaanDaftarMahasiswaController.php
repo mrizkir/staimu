@@ -35,7 +35,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                 pe3_register_mahasiswa.updated_at                                      
                             '))
                             ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
-                            ->orderBy('nama_mhs','asc');                            
+                            ->orderBy('nama_mhs','asc');                       
         
         if ($request->has('search'))
         {
@@ -55,7 +55,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                                                                                                   
                                     'message'=>'Fetch data daftar mahasiswa berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * cetak ke excel
@@ -78,7 +78,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
             'nama_prodi'=>$request->input('nama_prodi'),            
         ];
 
-        $report= new \App\Models\Report\ReportKemahasiswaanModel ($data_report);          
+        $report= new \App\Models\Report\ReportKemahasiswaanModel ($data_report);     
         return $report->daftarmahasiswa();
     }
 }

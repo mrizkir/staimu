@@ -44,7 +44,7 @@ class KepegawaianDosenController extends Controller {
                     ->join('pe3_dosen','pe3_dosen.user_id','users.id')
                     ->join('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')
                     ->orderBy('name','ASC')
-                    ->get();                           
+                    ->get();                      
         
         return Response()->json([
                                 'status'=>1,
@@ -93,19 +93,19 @@ class KepegawaianDosenController extends Controller {
 
             $user = \DB::transaction(function () use ($request,$user){
 
-                $user->name = $request->input('name');                
+                $user->name = $request->input('name');           
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
-                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();                
+                $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();           
                 $user->save();
 
                 $user_dosen=UserDosen::find($user->id);
-                $user_dosen->nama_dosen=$request->input('name');                
+                $user_dosen->nama_dosen=$request->input('name');           
                 $user_dosen->id_jabatan=$request->input('id_jabatan');
                 $user_dosen->gelar_depan=$request->input('gelar_depan');
                 $user_dosen->gelar_belakang=$request->input('gelar_belakang');
                 $user_dosen->nidn = $request->input('nidn');
-                $user_dosen->nipy = $request->input('nipy');                                                           
+                $user_dosen->nipy = $request->input('nipy');                                                      
                 
                 $user_dosen->save();   
                 return $user;

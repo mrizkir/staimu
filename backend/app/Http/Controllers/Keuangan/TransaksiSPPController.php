@@ -22,7 +22,7 @@ class TransaksiSPPController extends Controller {
      */
     public function index(Request $request)
     {
-        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_BROWSE');        
+        $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_BROWSE');   
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
@@ -201,7 +201,7 @@ class TransaksiSPPController extends Controller {
             }
             if (is_null($transaksi))        
             {
-                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
+                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");           
             }
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$transaksi->tahun_masuk)
                                                     ->where('idkelas',$transaksi->idkelas)
@@ -213,7 +213,7 @@ class TransaksiSPPController extends Controller {
             {
                 throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->tahun_masuk);  
             }
-            $ta=TAModel::find($transaksi->ta);             
+            $ta=TAModel::find($transaksi->ta);        
             if (!Helper::checkformattanggal($ta->awal_ganjil))
             {
                 throw new Exception ("Awal bulan semester ganjil Tahun Akademik (".$transaksi->ta.") belum disetting");
@@ -258,7 +258,7 @@ class TransaksiSPPController extends Controller {
                             ->where('transaksi_id',$transaksi->id)
                             ->get();
             $item_selected->transform(function ($item,$key) {                
-                $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);                
+                $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);           
                 return $item;
             });
             return Response()->json([
@@ -342,7 +342,7 @@ class TransaksiSPPController extends Controller {
                 {
                     $query->select(\DB::raw('transaksi_id'))
                         ->from('pe3_transaksi_detail')
-                        ->where('user_id',$mahasiswa->user_id);                        
+                        ->where('user_id',$mahasiswa->user_id);                   
                 })
                 ->delete();
             $no_transaksi='201'.date('YmdHms');
@@ -383,7 +383,7 @@ class TransaksiSPPController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_STORE');
 
-        $bulan_selected=json_decode($request->input('bulan_selected'),true);
+        $bulan_selected=json_decode($request->input('bulan_selected'), true);
         $request->merge(['bulan_selected'=>$bulan_selected]);
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
@@ -509,7 +509,7 @@ class TransaksiSPPController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',          
                                         'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
-                                    ], 200);         
+                                    ], 200);    
         }
     }
     private function checkPembayaranSPP ($no_bulan,$tahun,$user_id)

@@ -93,7 +93,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
 					
           if (!is_null($transaksi)) 
           {
-            $bulan = json_decode($transaksi->bulan, false);            
+            $bulan = json_decode($transaksi->bulan, false);       
             foreach ($bulan as $r) {
               switch($r->bulan)
               {
@@ -226,7 +226,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             }
             if (is_null($transaksi))        
             {
-                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");                
+                throw new Exception ("Fetch data transaksi dengan id ($id) gagal diperoleh.");           
             }
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$transaksi->tahun_masuk)
                                                     ->where('idkelas',$transaksi->idkelas)
@@ -238,7 +238,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             {
                 throw new Exception ("Komponen Biaya SPP (201) belum disetting pada TA ".$transaksi->tahun_masuk);  
             }
-            $ta=TAModel::find($transaksi->ta);             
+            $ta=TAModel::find($transaksi->ta);        
             if (!Helper::checkformattanggal($ta->awal_ganjil))
             {
                 throw new Exception ("Awal bulan semester ganjil Tahun Akademik (".$transaksi->ta.") belum disetting");
@@ -283,7 +283,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                             ->where('transaksi_id',$transaksi->id)
                             ->get();
             $item_selected->transform(function ($item,$key) {                
-                $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);                
+                $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);           
                 return $item;
             });
             return Response()->json([

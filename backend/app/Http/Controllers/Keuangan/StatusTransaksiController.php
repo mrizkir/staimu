@@ -22,7 +22,7 @@ class StatusTransaksiController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'status'=>$status_transaksi,                                                                                                   
                                     'message'=>'Fetch data status transaksi berhasil.'
-                                ], 200);     
+                                ], 200);
     } 
     /**
      * digunakan untuk merubah style komponen
@@ -47,6 +47,6 @@ class StatusTransaksiController extends Controller {
                                     'pid'=>'update',     
                                     'status'=>$status,                                                                                                                               
                                     'message'=>'Mengubah status transaksi '.$status->nama_status.' berhasil.'
-                                ], 200);     
+                                ], 200);
     } 
 }

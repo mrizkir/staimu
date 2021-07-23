@@ -22,7 +22,7 @@ class UsersAkademikController extends Controller {
         $this->hasPermissionTo('SYSTEM-USERS-AKADEMIK_BROWSE');
         $data = User::where('default_role','akademik')
                     ->orderBy('username','ASC')
-                    ->get();       
+                    ->get();  
                     
         $role = Role::findByName('akademik');
         return Response()->json([
@@ -51,7 +51,7 @@ class UsersAkademikController extends Controller {
             'prodi_id'=>'required',
         ]);
         $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),
@@ -64,16 +64,16 @@ class UsersAkademikController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='akademik';   
-            $user->assignRole($role);               
+            $user->assignRole($role);          
             
             $permission=Role::findByName('akademik')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);    
 
             $user_id=$user->id;
-            $daftar_prodi=json_decode($request->input('prodi_id'),true);
+            $daftar_prodi=json_decode($request->input('prodi_id'), true);
             foreach($daftar_prodi as $v)
             {
                 $sql = "
@@ -106,12 +106,12 @@ class UsersAkademikController extends Controller {
                 \DB::statement($sql); 
             }
 
-            $daftar_roles=json_decode($request->input('role_id'),true);
+            $daftar_roles=json_decode($request->input('role_id'), true);
             foreach($daftar_roles as $v)
             {
                 if ($v=='dosen' || $v=='dosenwali' )
                 {
-                    $user->assignRole($v);               
+                    $user->assignRole($v);          
                     $permission=Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
@@ -187,7 +187,7 @@ class UsersAkademikController extends Controller {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
-                $user->username = $request->input('username');        
+                $user->username = $request->input('username');   
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }    
@@ -196,7 +196,7 @@ class UsersAkademikController extends Controller {
 
                 $user_id=$user->id;
                 \DB::table('usersprodi')->where('user_id',$user_id)->delete();
-                $daftar_prodi=json_decode($request->input('prodi_id'),true);
+                $daftar_prodi=json_decode($request->input('prodi_id'), true);
                 foreach($daftar_prodi as $v)
                 {
                     $sql = "
@@ -228,10 +228,10 @@ class UsersAkademikController extends Controller {
                     \DB::statement($sql); 
                 }
 
-                $daftar_roles=json_decode($request->input('role_id'),true);                
+                $daftar_roles=json_decode($request->input('role_id'), true);           
                 if (($key= array_search('dosen',$daftar_roles))===false)
                 {                    
-                    $key= array_search('dosenwali',$daftar_roles);                    
+                    $key= array_search('dosenwali',$daftar_roles);               
                     if ($key)
                     {
                         unset($daftar_roles[$key]);
@@ -334,7 +334,7 @@ class UsersAkademikController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Akademik ($username) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

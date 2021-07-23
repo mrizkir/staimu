@@ -99,7 +99,7 @@ class KonfirmasiPembayaranController extends Controller {
                                                 ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                                 ->leftJoin('pe3_konfirmasi_pembayaran','pe3_konfirmasi_pembayaran.transaksi_id','pe3_transaksi.id')    
-                                                ->orderBy('tanggal','DESC');                                                
+                                                ->orderBy('tanggal','DESC');                                           
             
             if ($request->has('search'))
             {
@@ -119,7 +119,7 @@ class KonfirmasiPembayaranController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'transaksi'=>$daftar_transaksi,                                                                                                   
                                     'message'=>'Fetch data daftar transaksi berhasil.'
-                                ], 200);     
+                                ], 200);
     }  
     public function show(Request $request,$id)
     {
@@ -159,7 +159,7 @@ class KonfirmasiPembayaranController extends Controller {
                                         'pid'=>'fetchdata',  
                                         'konfirmasi'=>$konfirmasi,                                                                                                   
                                         'message'=>'Fetch data detail konfirmasi berhasil.'
-                                    ], 200);     
+                                    ], 200);
         }
     }
     public function store(Request $request)

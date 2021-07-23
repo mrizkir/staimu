@@ -89,7 +89,7 @@ class DulangMahasiswaAktifController extends Controller
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                             
                                     'message'=>'Fetch data daftar ulang mahasiswa aktif berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -133,7 +133,7 @@ class DulangMahasiswaAktifController extends Controller
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                ], 200);         
+                                ], 200);    
         }
                   
     }

@@ -53,7 +53,7 @@ class UsersController extends Controller {
             'password'=>'required',
         ]);
         $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),
@@ -67,16 +67,16 @@ class UsersController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='superadmin';   
-            $user->assignRole($role);               
+            $user->assignRole($role);          
             
-            $daftar_roles=json_decode($request->input('role_id'),true);
+            $daftar_roles=json_decode($request->input('role_id'), true);
             foreach($daftar_roles as $v)
             {
                 if ($v!='superadmin')
                 {
-                    $user->assignRole($v);               
+                    $user->assignRole($v);          
                     $permission=Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
@@ -138,7 +138,7 @@ class UsersController extends Controller {
         }
         else
         {
-            $roles=$user->getRoleNames();           
+            $roles=$user->getRoleNames();      
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                
@@ -166,7 +166,7 @@ class UsersController extends Controller {
         $this->validate($request, [            
             'role_name'=>'required|exists:roles,name',            
         ]);
-        $role_name=$request->input('role_name');        
+        $role_name=$request->input('role_name');   
         switch($role_name)
         {
             case 'mahasiswabaru':
@@ -175,7 +175,7 @@ class UsersController extends Controller {
                 $this->validate($request, [           
                     'ta'=>'required',
                     'prodi_id'=>'required'
-                ]);                
+                ]);           
 
                 $ta=$request->input('ta');
                 $prodi_id=$request->input('prodi_id');
@@ -189,7 +189,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'mahasiswa':
@@ -225,7 +225,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'akademik':
@@ -239,7 +239,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'programstudi':
@@ -253,7 +253,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'puslahta':
@@ -267,7 +267,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'keuangan':
@@ -281,7 +281,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'perpustakaan':
@@ -295,7 +295,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'lppm':
@@ -309,7 +309,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'dosen':
@@ -323,7 +323,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'dosenwali':
@@ -337,7 +337,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'alumni':
@@ -351,7 +351,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
             case 'orangtuawali':
@@ -365,7 +365,7 @@ class UsersController extends Controller {
                 foreach ($data as $user)
                 {
                     \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                    $user->givePermissionTo($permissions);                 
+                    $user->givePermissionTo($permissions);            
                 }      
             break;
         }       
@@ -474,15 +474,15 @@ class UsersController extends Controller {
             $user = \DB::transaction(function () use ($request,$user){
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
-                $user->username = $request->input('username');                        
-                $user->nomor_hp = $request->input('nomor_hp');                        
+                $user->username = $request->input('username');                   
+                $user->nomor_hp = $request->input('nomor_hp');                   
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }    
                 $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
-                $user->save();                
+                $user->save();           
                 
-                $daftar_roles=json_decode($request->input('role_id'),true);
+                $daftar_roles=json_decode($request->input('role_id'), true);
                 if (($key= array_search('dosen',$daftar_roles))===false)
                 {
                     $key= array_search('dosenwali',$daftar_roles);
@@ -576,7 +576,7 @@ class UsersController extends Controller {
                 'password'=>'required',                        
             ]); 
 
-            $user->password = Hash::make($request->input('password'));                
+            $user->password = Hash::make($request->input('password'));           
             $user->save();
 
             \App\Models\System\ActivityLog::log($request,[
@@ -682,7 +682,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
@@ -739,7 +739,7 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
@@ -775,12 +775,12 @@ class UsersController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
-            $username = $user->username;            
-            $prodi=$user->prodi;            
+            $username = $user->username;       
+            $prodi=$user->prodi;       
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',

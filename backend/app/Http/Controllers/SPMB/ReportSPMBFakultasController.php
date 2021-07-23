@@ -71,7 +71,7 @@ class ReportSPMBFakultasController extends Controller {
             'nama_fakultas'=>$request->input('nama_fakultas'),            
         ];
 
-        $report= new \App\Models\Report\ReportSPMBModel ($data_report);          
+        $report= new \App\Models\Report\ReportSPMBModel ($data_report);     
         return $report->fakultas();
     }
 }

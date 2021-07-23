@@ -205,7 +205,7 @@ class NilaiKHSController extends Controller
 								}     
 								else
 								{
-										$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+										$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
 								}
 								if ($item->HM=='-')
 								{
@@ -229,7 +229,7 @@ class NilaiKHSController extends Controller
 										'nama_dosen'=>$nama_dosen,
 								];
 								$jumlah_sks+=$item->sks;
-								$jumlah_matkul+=1;        
+								$jumlah_matkul+=1;   
 						}      
 						$ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
 
@@ -356,7 +356,7 @@ class NilaiKHSController extends Controller
 									}     
 									else
 									{
-											$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+											$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
 									}
 									if ($item->HM=='-')
 									{
@@ -377,7 +377,7 @@ class NilaiKHSController extends Controller
 									{
 											$M=$item->sks*$item->AM;
 											$jumlah_m+=$M;
-											$jumlah_am+=$item->AM;               
+											$jumlah_am+=$item->AM;          
 											$daftar_nilai[]=[
 													'no'=>$key+1,
 													'nama_dosen'=>$nama_dosen,
@@ -391,7 +391,7 @@ class NilaiKHSController extends Controller
 											];
 									}          
 									$jumlah_sks+=$item->sks;
-									$jumlah_matkul+=1;                
+									$jumlah_matkul+=1;           
 							}      
 							$ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
 

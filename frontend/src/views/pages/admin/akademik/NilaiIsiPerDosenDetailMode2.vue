@@ -101,11 +101,31 @@
 									style="width:65px"
 								>
 								</VAngkaNilai>
-							</template>							
+							</template>
+							<template v-slot:item.nilai_quiz="props">
+								<VAngkaNilai
+									@input="updateNKuan(props)"
+									v-model="props.item.nilai_quiz"
+									dense
+									:disabled="isbydosen(props.item.bydosen)"
+									style="width:65px"
+								>
+								</VAngkaNilai>
+							</template>
 							<template v-slot:item.nilai_tugas_individu="props">
 								<VAngkaNilai
 									@input="updateNKuan(props)"
 									v-model="props.item.nilai_tugas_individu"
+									dense
+									:disabled="isbydosen(props.item.bydosen)"
+									style="width:65px"
+								>
+								</VAngkaNilai>
+							</template>
+							<template v-slot:item.nilai_tugas_kelompok="props">
+								<VAngkaNilai
+									@input="updateNKuan(props)"
+									v-model="props.item.nilai_tugas_kelompok"
 									dense
 									:disabled="isbydosen(props.item.bydosen)"
 									style="width:65px"
@@ -236,8 +256,20 @@
 					width: 100,
 				},
 				{
-					text: "NILAI TUGAS",
+					text: "NILAI QUIZ",
+					value: "nilai_quiz",
+					sortable: false,
+					width: 100,
+				},
+				{
+					text: "NILAI TUGAS INDIVIDU",
 					value: "nilai_tugas_individu",
+					sortable: false,
+					width: 100,
+				},
+				{
+					text: "NILAI TUGAS KELOMPOK",
+					value: "nilai_tugas_kelompok",
 					sortable: false,
 					width: 100,
 				},
@@ -259,10 +291,12 @@
 			//formdata
 			form_valid: true,
 			komponen_nilai: {
-				persen_absen: 10,
-				persen_tugas_individu: 20,
-				persen_uts: 30,
-				persen_uas: 40,
+				persen_absen: 15,
+				persen_quiz: 0,
+				persen_tugas_individu: 35,
+				persen_tugas_kelompok: 0,
+				persen_uts: 25,
+				persen_uas: 25,
 			},
 			daftar_nilai: [],
 		}),
@@ -298,6 +332,11 @@
 					nilai_absen =
 						(this.komponen_nilai.persen_absen / 100) * props.item.nilai_absen;
 				}
+				var nilai_quiz = 0;
+				if (props.item.nilai_quiz > 0 && this.komponen_nilai.persen_quiz > 0) {
+					nilai_quiz =
+						(this.komponen_nilai.persen_quiz / 100) * props.item.nilai_quiz;
+				}
 				var nilai_tugas_individu = 0;
 				if (
 					props.item.nilai_tugas_individu > 0 &&
@@ -306,6 +345,15 @@
 					nilai_tugas_individu =
 						(this.komponen_nilai.persen_tugas_individu / 100) *
 						props.item.nilai_tugas_individu;
+				}
+				var nilai_tugas_kelompok = 0;
+				if (
+					props.item.nilai_tugas_kelompok > 0 &&
+					this.komponen_nilai.persen_tugas_kelompok > 0
+				) {
+					nilai_tugas_kelompok =
+						(this.komponen_nilai.persen_tugas_kelompok / 100) *
+						props.item.nilai_tugas_kelompok;
 				}
 				var nilai_uts = 0;
 				if (props.item.nilai_uts > 0 && this.komponen_nilai.persen_uts > 0) {
@@ -319,7 +367,9 @@
 				}
 				var n_kuan = (
 					nilai_absen +
+					nilai_quiz +
 					nilai_tugas_individu +
+					nilai_tugas_kelompok +
 					nilai_uts +
 					nilai_uas
 				).toFixed(2);
@@ -365,6 +415,8 @@
 						krsmatkul_id: item.krsmatkul_id,
 						nilai_absen: item.nilai_absen,
 						nilai_tugas_individu: item.nilai_tugas_individu,
+						nilai_tugas_kelompok: item.nilai_tugas_kelompok,
+						nilai_quiz: item.nilai_quiz,
 						nilai_uts: item.nilai_uts,
 						nilai_uas: item.nilai_uas,
 						n_kuan: item.n_kuan,

@@ -126,12 +126,12 @@ class DulangController extends Controller
             ]);
 
             $dulang = \DB::transaction(function () use ($request,$dulang){ 
-                $formulir=FormulirPendaftaranModel::find($dulang->user_id);           
-                $formulir->nama_mhs=$request->input('nama_mhs');           
-                $formulir->tempat_lahir=$request->input('tempat_lahir');           
-                $formulir->tanggal_lahir=$request->input('tanggal_lahir');           
-                $formulir->jk=$request->input('jk');           
-                $formulir->telp_hp=$request->input('nomor_hp');           
+                $formulir=FormulirPendaftaranModel::find($dulang->user_id);      
+                $formulir->nama_mhs=$request->input('nama_mhs');      
+                $formulir->tempat_lahir=$request->input('tempat_lahir');      
+                $formulir->tanggal_lahir=$request->input('tanggal_lahir');      
+                $formulir->jk=$request->input('jk');      
+                $formulir->telp_hp=$request->input('nomor_hp');      
                   
                 $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    
                 $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
@@ -142,7 +142,7 @@ class DulangController extends Controller
                 $formulir->address1_kecamatan=$request->input('address1_kecamatan');
                 $formulir->address1_desa_id=$request->input('address1_desa_id');
                 $formulir->address1_kelurahan=$request->input('address1_kelurahan');
-                $formulir->alamat_rumah=$request->input('alamat_rumah');                   
+                $formulir->alamat_rumah=$request->input('alamat_rumah');              
 
                 $formulir->save();
 
@@ -154,7 +154,7 @@ class DulangController extends Controller
 
                 \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                 $permission=Role::findByName('mahasiswa')->permissions;
-                $user->givePermissionTo($permission->pluck('name'));             
+                $user->givePermissionTo($permission->pluck('name'));        
                 
                 $dulang->update_info = 1;
                 $dulang->save();
@@ -203,7 +203,7 @@ class DulangController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }    

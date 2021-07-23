@@ -113,7 +113,7 @@ class PembagianKelasController extends Controller
 
             ]);
 
-            $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'),true);
+            $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
 
             foreach ($penyelenggaraan_dosen as $v)
             {
@@ -387,7 +387,7 @@ class PembagianKelasController extends Controller
         ]);
         $kelas_mhs_id=$request->input('kelas_mhs_id');
 
-        $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'),true);
+        $penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
 
         foreach ($penyelenggaraan_dosen as $v)
         {
@@ -431,7 +431,7 @@ class PembagianKelasController extends Controller
         {
             $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
 
-            $members_selected=json_decode($request->input('members_selected'),true);
+            $members_selected=json_decode($request->input('members_selected'), true);
             $request->merge(['members_selected'=>$members_selected]);
 
             $this->validate($request, [
@@ -452,7 +452,7 @@ class PembagianKelasController extends Controller
                     'updated_at'=>\Carbon\Carbon::now()
                 ];
             }
-            PembagianKelasPesertaModel::insert($daftar_members);            
+            PembagianKelasPesertaModel::insert($daftar_members);       
         }        
         return Response()->json([
                                     'status'=>1,

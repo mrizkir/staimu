@@ -42,7 +42,7 @@ class Controller extends BaseController
      */
     public function hasRole($name) 
     {
-        return $this->guard()->user()->hasRole($name);        
+        return $this->guard()->user()->hasRole($name);   
     }
     /**
      * @return object auth api
@@ -91,7 +91,7 @@ class Controller extends BaseController
     public function userpermissions($id)
     {
         $user = User::find($id);
-        $permissions=is_null($user)?[]:$user->permissions;     
+        $permissions=is_null($user)?[]:$user->permissions;
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',

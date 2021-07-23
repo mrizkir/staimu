@@ -188,12 +188,12 @@ class TransaksiController extends Controller {
                             'tanggal_bayar'=>date ('Y-m-d H:m:s'),                
                             'bukti_bayar'=>"storage/images/buktibayar/paid.png",  
                             'verified'=>true
-                        ]);                        
-                        $transaksi=$konfirmasi_insert->transaksi;                        
+                        ]);                   
+                        $transaksi=$konfirmasi_insert->transaksi;                   
                     }
                     else
                     {
-                        $transaksi=$konfirmasi->transaksi;                        
+                        $transaksi=$konfirmasi->transaksi;                   
                     }
                     $transaksi->no_faktur=$no_ref;
                     $transaksi->status=1;
@@ -211,7 +211,7 @@ class TransaksiController extends Controller {
                         switch ($v->kombi_id)
                         {
                             case 101: //biaya formulir pendaftaran
-                                $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($transaksi->user_id);                        
+                                $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($transaksi->user_id);                   
                                 $no_formulir=$formulir->idsmt.mt_rand();
                                 $formulir->no_formulir=$no_formulir;
                                 $formulir->save();

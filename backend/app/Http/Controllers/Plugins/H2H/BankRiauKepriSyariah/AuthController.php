@@ -43,14 +43,14 @@ class AuthController extends Controller
                                                         'message' => 'user '.$credentials['username'].' berhasil login'
                                                     ]);
 
-        ConfigurationModel::toCache();       
+        ConfigurationModel::toCache();  
         return response()->json([
                                 'Result' => [
                                     'status'=>'00',
                                     'token'=>$token,
                                     'message'=>'Request berhasil'
                                 ]
-                            ], 200);        
+                            ], 200);   
     }
     /**
      * Get the authenticated User.

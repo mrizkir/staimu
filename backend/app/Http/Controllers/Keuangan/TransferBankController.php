@@ -23,7 +23,7 @@ class TransferBankController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'bank'=>$bank,                                                                                                   
                                     'message'=>'Fetch data bank berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * Store a newly created resource in storage.
@@ -50,7 +50,7 @@ class TransferBankController extends Controller {
             'nama_cabang'=>strtoupper($request->input('nama_cabang')),                        
             'nomor_rekening'=>$request->input('nomor_rekening'),                        
             'pemilik_rekening'=>strtoupper($request->input('pemilik_rekening')),                        
-        ]);                      
+        ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $bank,
@@ -156,7 +156,7 @@ class TransferBankController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

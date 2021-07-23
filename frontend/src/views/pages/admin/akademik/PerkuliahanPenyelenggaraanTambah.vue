@@ -317,7 +317,7 @@ export default {
         daftar_matkul_selected: [],
         rule_tamatkul: [
             value => !!value || "Mohon tahun matakuliah untuk dipilih !!!",  
-        ]        
+        ] 
 
     }),
     methods: {

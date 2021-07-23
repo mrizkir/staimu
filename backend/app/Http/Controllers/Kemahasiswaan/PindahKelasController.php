@@ -59,7 +59,7 @@ class PindahKelasController  extends Controller
                               'pid'=>'fetchdata',  
                               'pindahkelas'=>$data,                                                                                                   
                               'message'=>'Fetch data mahasiswa yang pindah kelas berhasil diperoleh.'
-                            ], 200);     
+                            ], 200);
   }
   
   /**
@@ -87,7 +87,7 @@ class PindahKelasController  extends Controller
               ->where('user_id', $user_id)
               ->where('idsmt', $idsmt)
               ->where('tahun', $tahun)
-              ->exists();              
+              ->exists();         
       if ($bool) {
         $semester = HelperAkademik::getSemester($idsmt);
         throw new Exception ("Pindah kelas tidak bisa dilakukan karena sudah daftar ulang semester $semester T.A $tahun.");  
@@ -135,7 +135,7 @@ class PindahKelasController  extends Controller
                               'pid'=>'store',  
                               'pindahkelas'=>$pindahkelas,                                                                                                   
                               'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
-                            ], 200);     
+                            ], 200);
     }
     catch (Exception $e)
     {
@@ -176,7 +176,7 @@ class PindahKelasController  extends Controller
               ->where('user_id', $data->user_id)
               ->where('idsmt', $data->idsmt)
               ->where('tahun', $data->tahun)
-              ->exists();              
+              ->exists();         
               
         if ($bool) {
           $semester = HelperAkademik::getSemester($idsmt);
@@ -192,7 +192,7 @@ class PindahKelasController  extends Controller
           $data->save();
 
           return $data;
-        });        
+        });   
 
         $pindahkelas = PindahKelasModel::select(\DB::raw("
                   pe3_pindah_kelas.id,
@@ -254,7 +254,7 @@ class PindahKelasController  extends Controller
               ->where('user_id', $pindahkelas->user_id)
               ->where('idsmt', $pindahkelas->idsmt)
               ->where('tahun', $pindahkelas->tahun)
-              ->exists();              
+              ->exists();         
 
         if ($bool) {
           $semester = HelperAkademik::getSemester($idsmt);
@@ -262,7 +262,7 @@ class PindahKelasController  extends Controller
         }
         
         \DB::transaction(function () use ($request, $pindahkelas) {
-          $data_mhs = RegisterMahasiswaModel::find($pindahkelas->user_id);             
+          $data_mhs = RegisterMahasiswaModel::find($pindahkelas->user_id);        
           $data_mhs->idkelas = $pindahkelas->idkelas_lama;
           $data_mhs->save();
           $pindahkelas->delete();
@@ -277,7 +277,7 @@ class PindahKelasController  extends Controller
                                   'status'=>1,
                                   'pid'=>'destroy',                
                                   'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
-                              ], 200);         
+                              ], 200);    
       }
       catch (Exception $e)
       {

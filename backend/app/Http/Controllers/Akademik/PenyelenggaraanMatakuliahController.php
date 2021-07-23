@@ -31,7 +31,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         
         if ($this->hasRole('mahasiswa'))
         {
-            $user = $this->guard()->user()->toArray();            
+            $user = $this->guard()->user()->toArray();       
             $penyelenggaraan=PenyelenggaraanMatakuliahModel::select(\DB::raw('
                                                                 id,
                                                                 matkul_id,
@@ -98,7 +98,7 @@ class PenyelenggaraanMatakuliahController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_STORE');
 
-        $matkul_selected=json_decode($request->input('matkul_selected'),true);
+        $matkul_selected=json_decode($request->input('matkul_selected'), true);
         $request->merge(['matkul_selected'=>$matkul_selected]);
 
         $this->validate($request, [            
@@ -195,7 +195,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                         ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)      
                         ->whereNotIn('pe3_krsmatkul.id',function($query){
                             $query->select('krsmatkul_id')
-                                ->from('pe3_kelas_mhs_peserta');                                        
+                                ->from('pe3_kelas_mhs_peserta');                                   
                                 
                         })  
                         ->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')
@@ -219,7 +219,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             'pid'=>'required|in:belumterdaftar,terdaftar,daftarpengampu',             
         ]);
         
-        $data=[];        
+        $data=[];   
         switch($request->input('pid'))
         {
             case 'belumterdaftar':
@@ -236,7 +236,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                 ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
                                     $query->select('user_id')
                                         ->from('pe3_penyelenggaraan_dosen')
-                                        ->where('penyelenggaraan_id',$idpenyelenggaraan);                                        
+                                        ->where('penyelenggaraan_id',$idpenyelenggaraan);                                   
                                 })
                                 ->orderBy('nama_dosen','ASC')          
                                 ->get();
@@ -267,7 +267,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                     'semester_akademik'=>'required',                    
                 ]);
 
-                $ta=$request->input('ta');                
+                $ta=$request->input('ta');           
                 $semester_akademik=$request->input('semester_akademik');
                 
                 $data=PenyelenggaraanDosenModel::select(\DB::raw('
@@ -302,7 +302,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         ]);
         
         $ta=$request->input('ta');
-        $user_id=$request->input('user_id');        
+        $user_id=$request->input('user_id');   
         $semester_akademik=$request->input('semester_akademik');
         
         $data=PenyelenggaraanDosenModel::select(\DB::raw(' 
@@ -405,7 +405,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                         'status'=>1,
                                         'pid'=>'update',                
                                         'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
-                                    ], 200);         
+                                    ], 200);    
         }
     }
     /**
@@ -441,7 +441,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Penyelenggaraan dengan ID ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }
@@ -478,7 +478,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Penyelenggaraan Dosen dengan ID ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

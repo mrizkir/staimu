@@ -29,7 +29,7 @@ class KemahasiswaanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data User tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
@@ -57,7 +57,7 @@ class KemahasiswaanController extends Controller {
     {
         if (!$this->hasRole('mahasiswa'))
         {
-            $this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_UPDATE');       
+            $this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_UPDATE');  
         }
         
         $formulir=FormulirPendaftaranModel::find($id);
@@ -94,11 +94,11 @@ class KemahasiswaanController extends Controller {
             ]);
 
             $data_mhs = \DB::transaction(function () use ($request,$formulir){            
-                $formulir->nama_mhs=$request->input('nama_mhs');           
-                $formulir->tempat_lahir=$request->input('tempat_lahir');           
-                $formulir->tanggal_lahir=$request->input('tanggal_lahir');           
-                $formulir->jk=$request->input('jk');           
-                $formulir->telp_hp=$request->input('nomor_hp');           
+                $formulir->nama_mhs=$request->input('nama_mhs');      
+                $formulir->tempat_lahir=$request->input('tempat_lahir');      
+                $formulir->tanggal_lahir=$request->input('tanggal_lahir');      
+                $formulir->jk=$request->input('jk');      
+                $formulir->telp_hp=$request->input('nomor_hp');      
                   
                 $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    
                 $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
@@ -109,7 +109,7 @@ class KemahasiswaanController extends Controller {
                 $formulir->address1_kecamatan=$request->input('address1_kecamatan');
                 $formulir->address1_desa_id=$request->input('address1_desa_id');
                 $formulir->address1_kelurahan=$request->input('address1_kelurahan');
-                $formulir->alamat_rumah=$request->input('alamat_rumah');                   
+                $formulir->alamat_rumah=$request->input('alamat_rumah');              
 
                 $formulir->save();
 
@@ -121,7 +121,7 @@ class KemahasiswaanController extends Controller {
 
                 \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
                 $permission=Role::findByName('mahasiswa')->permissions;
-                $user->givePermissionTo($permission->pluck('name'));             
+                $user->givePermissionTo($permission->pluck('name'));        
                 
                 return $formulir;
             });
@@ -148,7 +148,7 @@ class KemahasiswaanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Data Mahasiswa tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {

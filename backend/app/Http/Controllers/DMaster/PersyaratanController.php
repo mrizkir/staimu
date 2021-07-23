@@ -24,7 +24,7 @@ class PersyaratanController extends Controller {
         $persyaratan=PersyaratanModel::where('proses',$proses);
 
         if ($persyaratan=='pmb') {            
-            $persyaratan=$persyaratan->where('ta',$ta);            
+            $persyaratan=$persyaratan->where('ta',$ta);       
         }
         $persyaratan=$persyaratan->get();
 
@@ -33,7 +33,7 @@ class PersyaratanController extends Controller {
                                 'pid'=>'fetchdata',  
                                 'persyaratan'=>$persyaratan,                                                                                                   
                                 'message'=>'Fetch data persyaratan berhasil.'
-                            ], 200);     
+                            ], 200);
     }    
      /**
      * Store a newly created resource in storage.
@@ -56,7 +56,7 @@ class PersyaratanController extends Controller {
             'proses'=>$request->input('proses'),            
             'nama_persyaratan'=>$request->input('nama_persyaratan'),            
             'ta'=>$request->input('ta'),                       
-        ]);                      
+        ]);                 
         
         $proses = $request->input('proses');
         \App\Models\System\ActivityLog::log($request,[
@@ -141,7 +141,7 @@ class PersyaratanController extends Controller {
         switch($id)
         {
             case 'pmb' :     
-                $prodi_id=intval($request->input('prodi_id'));        
+                $prodi_id=intval($request->input('prodi_id'));   
                 if ($prodi_id >0 )
                 {
                     $this->validate($request, [            
@@ -171,7 +171,7 @@ class PersyaratanController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'persyaratan'=>$persyaratan,                                                                                                   
                                     'message'=>"Fetch data persyaratan $proses dengan $id berhasil diperoleh."
-                                ], 200);     
+                                ], 200);
 
 
     }
@@ -249,7 +249,7 @@ class PersyaratanController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Persyaratan $proses dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

@@ -28,7 +28,7 @@ class ZoomController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'zoom'=>$zoom,                                                                                                   
                                     'message'=>'Fetch data account zoom berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * Store a newly created resource in storage.
@@ -54,7 +54,7 @@ class ZoomController extends Controller {
             'api_key'=>$request->input('api_key'),
             'api_secret'=>$request->input('api_secret'),            
             'im_token'=>$request->input('im_token'),                        
-        ]);                      
+        ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $zoom,
@@ -100,7 +100,7 @@ class ZoomController extends Controller {
 
             try
             {
-                $jwt = JWT::encode($payload, $api_secret);                
+                $jwt = JWT::encode($payload, $api_secret);           
                 $client = new Client ();
                 $response = $client->get(
                     'https://api.zoom.us/v2/users/'.$zoom->email,                    
@@ -112,7 +112,7 @@ class ZoomController extends Controller {
                         ]
                     ]
                 );    
-                $result=json_decode($response->getBody(),true); 
+                $result=json_decode($response->getBody(), true); 
                 if (isset($result['id']))
                 {
                     $zoom->zoom_id=$result['id'];
@@ -157,7 +157,7 @@ class ZoomController extends Controller {
                     'request'=> \GuzzleHttp\Psr7\Message::toString($e->getRequest()),  
                     'response'=> \GuzzleHttp\Psr7\Message::toString($e->getResponse()),  
                     'message'=>["account zoom ($id) gagal di sync (check response untuk lebih detail)"]
-                ], 422);                 
+                ], 422);            
             }
         }
     }
@@ -209,12 +209,12 @@ class ZoomController extends Controller {
                                                     
                                         
                                         
-                                    ]);             
+                                    ]);        
             
             $zoom->email = $request->input('email');
             $zoom->api_key = $request->input('api_key');
-            $zoom->api_secret = $request->input('api_secret');            
-            $zoom->im_token = $request->input('im_token');            
+            $zoom->api_secret = $request->input('api_secret');       
+            $zoom->im_token = $request->input('im_token');       
             
             $zoom->save();
 
@@ -297,7 +297,7 @@ class ZoomController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Account zoom dengan id ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

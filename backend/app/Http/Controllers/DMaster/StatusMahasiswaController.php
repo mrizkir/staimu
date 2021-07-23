@@ -21,6 +21,6 @@ class StatusMahasiswaController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'status_mahasiswa'=>$status_mahasiswa,                                                                                                   
                                     'message'=>'Fetch data status mahasiswa berhasil.'
-                                ], 200);     
+                                ], 200);
     }  
 }

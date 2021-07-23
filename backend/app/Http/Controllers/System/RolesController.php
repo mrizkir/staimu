@@ -95,7 +95,7 @@ class RolesController extends Controller {
         $role = \DB::transaction(function () use ($request) {
             $post = $request->all();
             $name = $post['name'];
-            $role_id = $post['role_id'];        
+            $role_id = $post['role_id'];   
             
             $role = Role::find($role_id);
             $role->revokePermissionTo($name);
@@ -192,7 +192,7 @@ class RolesController extends Controller {
             ],                     
         ],[
             'name.required'=>'Nama role mohon untuk di isi',
-        ]);        
+        ]);   
        
         $role->name = $request->input('name');
         $role->save();

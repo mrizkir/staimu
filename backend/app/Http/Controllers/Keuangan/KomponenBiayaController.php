@@ -22,6 +22,6 @@ class KomponenBiayaController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'kombi'=>$kombi,                                                                                                   
                                     'message'=>'Fetch data komponen biaya berhasil.'
-                                ], 200);     
+                                ], 200);
     }  
 }

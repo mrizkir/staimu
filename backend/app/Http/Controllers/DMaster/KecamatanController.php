@@ -19,7 +19,7 @@ class KecamatanController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'kecamatan'=>$kecamatan,                                                                                                   
                                     'message'=>'Fetch data kecamatan berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * daftar kecamatan
@@ -43,7 +43,7 @@ class KecamatanController extends Controller {
                                         'pid'=>'fetchdata',  
                                         'desa'=>$desa,                                                                                                   
                                         'message'=>'Fetch data desa berdasarkan id kecamatan berhasil.'
-                                    ], 200);     
+                                    ], 200);
 
         }
     }

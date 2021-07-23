@@ -89,7 +89,7 @@ class DulangMahasiswaNonAktifController extends Controller
 									'pid'=>'fetchdata',  
 									'mahasiswa'=>$data,                             
 									'message'=>'Fetch data daftar ulang mahasiswa non-aktif berhasil.'
-								], 200);     
+								], 200);
 	}
 	/**
 	 * cek nim mahasiswa yang keluar
@@ -267,7 +267,7 @@ class DulangMahasiswaNonAktifController extends Controller
 									'pid'=>'store',  
 									'mahasiswa'=>$data,                                                                                                   
 									'message'=>'Status Mahasiswa berhasil di ubah menjadi non-aktif.'
-								], 200);     
+								], 200);
 		}
 		catch (Exception $e)
 		{
@@ -305,7 +305,7 @@ class DulangMahasiswaNonAktifController extends Controller
 				'object_id' => $dulang->id, 
 				'user_id' => $this->getUserid(), 
 				'message' => 'Menghapus daftar ulang mahasiswa non-aktif dengan id ('.$dulang->id.') berhasil'
-			]);             
+			]);        
 			$register_mahasiswa=$dulang->register_mahasiswa;
 			$register_mahasiswa->k_status = $dulang->status_sebelumnya;
 			$register_mahasiswa->save();
@@ -316,7 +316,7 @@ class DulangMahasiswaNonAktifController extends Controller
 									'status'=>1,
 									'pid'=>'destroy',                
 									'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-								], 200);         
+								], 200);    
 		}
 				  
 	}

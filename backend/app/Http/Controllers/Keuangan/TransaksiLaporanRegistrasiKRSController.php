@@ -14,7 +14,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 		 */
 		public function index(Request $request)
 		{
-			$this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');        				
+			$this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');   				
 					
 			$this->validate($request, [           
 				'ta'=>'required',				

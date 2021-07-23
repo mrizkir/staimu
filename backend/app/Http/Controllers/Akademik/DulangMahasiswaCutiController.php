@@ -89,7 +89,7 @@ class DulangMahasiswaCutiController extends Controller
                                     'pid'=>'fetchdata',  
                                     'mahasiswa'=>$data,                             
                                     'message'=>'Fetch data daftar ulang mahasiswa cuti berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * Remove the specified resource from storage.
@@ -118,7 +118,7 @@ class DulangMahasiswaCutiController extends Controller
                 'object_id' => $dulang->id, 
                 'user_id' => $this->getUserid(), 
                 'message' => 'Menghapus daftar ulang mahasiswa cuti dengan id ('.$dulang->id.') berhasil'
-            ]);             
+            ]);        
             $register_mahasiswa=$dulang->register_mahasiswa;
             $register_mahasiswa->k_status = $dulang->status_sebelumnya;
             $register_mahasiswa->save();
@@ -129,7 +129,7 @@ class DulangMahasiswaCutiController extends Controller
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
-                                ], 200);         
+                                ], 200);    
         }
                   
     }

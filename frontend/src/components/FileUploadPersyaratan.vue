@@ -172,7 +172,7 @@ export default {
                        },
                         {
                             headers: {
-                                Authorization: this.$store.getters["auth/Token"]                
+                                Authorization: this.$store.getters["auth/Token"]         
                             }
                         }
                     ).then(() => { 

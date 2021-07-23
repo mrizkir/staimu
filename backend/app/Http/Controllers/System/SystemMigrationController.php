@@ -55,7 +55,7 @@ class SystemMigrationController extends Controller {
     {
         $this->hasPermissionTo('SYSTEM-MIGRATION_STORE');
         
-        $status_mhs=json_decode($request->input('status_mhs'),true);
+        $status_mhs=json_decode($request->input('status_mhs'), true);
         $request->merge(['status_mhs'=>$status_mhs]);
 
         $this->validate($request, [
@@ -142,7 +142,7 @@ class SystemMigrationController extends Controller {
             $role='mahasiswa';   
             $user->assignRole($role);
             $permission=Role::findByName('mahasiswa')->permissions;
-            $user->givePermissionTo($permission->pluck('name'));            
+            $user->givePermissionTo($permission->pluck('name'));       
             
             DataMHSMigrationModel::create([
                 'id'=>Uuid::uuid4()->toString(),
@@ -153,7 +153,7 @@ class SystemMigrationController extends Controller {
                 'tahun'=>$ta,
                 'idsmt'=>1
             ]);
-            $status_mhs=$request->input('status_mhs');            
+            $status_mhs=$request->input('status_mhs');       
             $i=0;
             for ($tahun=$ta;$tahun < 2020; $tahun++)
             {
@@ -181,7 +181,7 @@ class SystemMigrationController extends Controller {
                         'tahun'=>$ta,
                         'idsmt'=>1
                     ]);
-                    $i+=1;                    
+                    $i+=1;               
                     DulangModel::create([
                         'id'=>Uuid::uuid4()->toString(),
                         'user_id'=>$user->id,
@@ -207,7 +207,7 @@ class SystemMigrationController extends Controller {
                 }      
             }   
             return $user;
-        });        
+        });   
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',

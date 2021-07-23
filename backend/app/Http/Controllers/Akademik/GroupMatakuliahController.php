@@ -19,6 +19,6 @@ class GroupMatakuliahController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'group_matakuliah'=>$group_matakuliah,                                                                                                   
                                     'message'=>'Fetch data group matakuliah berhasil.'
-                                ], 200);     
+                                ], 200);
     }
 }

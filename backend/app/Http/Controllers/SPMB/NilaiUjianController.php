@@ -122,7 +122,7 @@ class NilaiUjianController extends Controller {
                 'kjur'=>$request->input('kjur'),
                 'ket_lulus'=>$ket_lulus,
                 'desc'=>$request->input('desc'),
-            ]);          
+            ]);     
             $keterangan=$ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
 
             \App\Models\System\ActivityLog::log($request,[
@@ -133,14 +133,14 @@ class NilaiUjianController extends Controller {
                                                         ]);
             if ($ket_lulus==1)
             {        
-                $formulir=$data_nilai->formulir;       
+                $formulir=$data_nilai->formulir;  
                 $this->createTransaksiDulang($formulir);
                 $this->createTransaksiSPP($formulir);
                 
             }
 
             return $data_nilai;
-        });        
+        });   
         $keterangan=$data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
         return Response()->json([
                                     'status'=>1,
@@ -229,7 +229,7 @@ class NilaiUjianController extends Controller {
                                         'data_nilai_ujian'=>$data_nilai_ujian,  
                                         'formulir'=>$formulir,      
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
-                                    ], 200);        
+                                    ], 200);   
         }
 
     }   
@@ -284,7 +284,7 @@ class NilaiUjianController extends Controller {
                                                         ]);
                 if ($ket_lulus==1)
                 {        
-                    $formulir=$data_nilai->formulir;       
+                    $formulir=$data_nilai->formulir;  
                     $this->createTransaksiDulang($formulir);
                     $this->createTransaksiSPP($formulir);
                     
@@ -337,14 +337,14 @@ class NilaiUjianController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     } 
     //buat transaksi keuangan daftar ulang 
     private function createTransaksiDulang($formulir)
     {
-        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();                
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();           
         if (is_null($transaksi_detail))
         {   
             $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
@@ -396,7 +396,7 @@ class NilaiUjianController extends Controller {
         $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)
                                                 ->where('kombi_id',201)
                                                 ->where('bulan',$mulai_bulan_pembayaran)
-                                                ->first();       
+                                                ->first();  
 
         if (is_null($transaksi_detail))
         {   

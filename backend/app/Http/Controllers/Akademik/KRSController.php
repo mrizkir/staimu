@@ -237,7 +237,7 @@ class KRSController extends Controller
                 }     
                 else
                 {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
                 }
                 return $item;
             });
@@ -304,7 +304,7 @@ class KRSController extends Controller
                                             ->from('pe3_krsmatkul')
                                             ->where('nim',$nim)
                                             ->where('tahun',$ta)
-                                            ->where('idsmt',$semester_akademik);                                        
+                                            ->where('idsmt',$semester_akademik);                                   
                                     })
                                     ->orderBy('semester','ASC')          
                                     ->orderBy('kmatkul','ASC')          
@@ -363,8 +363,8 @@ class KRSController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_STORE');
 
-        $matkul_selected=json_decode($request->input('matkul_selected'),true);
-        $request->merge(['matkul_selected'=>$matkul_selected]);        
+        $matkul_selected=json_decode($request->input('matkul_selected'), true);
+        $request->merge(['matkul_selected'=>$matkul_selected]);   
 
         $this->validate($request, [      
             'krs_id'=>'required|exists:pe3_krs,id',     
@@ -449,7 +449,7 @@ class KRSController extends Controller
                                 ->where('idsmt',$idsmt)
                                 ->first();
 
-        $iskrs = !is_null($data_krs);        
+        $iskrs = !is_null($data_krs);   
         
         return Response()->json([
                                     'status'=>1,
@@ -493,7 +493,7 @@ class KRSController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"KRS dengan ID ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }
@@ -530,7 +530,7 @@ class KRSController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }
@@ -608,7 +608,7 @@ class KRSController extends Controller
                     }     
                     else
                     {
-                        $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                        $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
                     }
                     return $item;
                 });

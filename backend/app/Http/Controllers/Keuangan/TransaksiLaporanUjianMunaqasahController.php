@@ -14,7 +14,7 @@ class TransaksiLaporanUjianMunaqasahController extends Controller {
 		 */
 		public function index(Request $request)
 		{
-			$this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');        				
+			$this->hasPermissionTo('KEUANGAN-LAPORAN-UJIAN-MUNAQASAH_BROWSE');   				
 					
 			$this->validate($request, [           
 				'ta'=>'required',				

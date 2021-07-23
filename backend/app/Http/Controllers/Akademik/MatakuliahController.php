@@ -45,7 +45,7 @@ class MatakuliahController extends Controller {
                                 ->get();
         
         $matakuliah->transform(function ($item,$key) {                
-            $item->jummlah_penyelenggaraan=\DB::table('pe3_penyelenggaraan')->where('matkul_id',$item->id)->count();                
+            $item->jummlah_penyelenggaraan=\DB::table('pe3_penyelenggaraan')->where('matkul_id',$item->id)->count();           
             return $item;
         });
         return Response()->json([
@@ -53,7 +53,7 @@ class MatakuliahController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'matakuliah'=>$matakuliah,                                                                                                   
                                     'message'=>'Fetch data matakuliah berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * digunakan untuk mendapatkan detail matakuliah
@@ -162,7 +162,7 @@ class MatakuliahController extends Controller {
             'status'=>$request->input('status'),            
             'ta'=>$request->input('ta'),            
             'kjur'=>$request->input('kjur'),            
-        ]);                      
+        ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $matakuliah,
@@ -246,7 +246,7 @@ class MatakuliahController extends Controller {
                         FROM pe3_matakuliah 
                         WHERE ta=$id AND 
                             kjur=$prodi_id
-            )";                
+            )";           
             \DB::statement($sql);
             
             $matakuliah=MatakuliahModel::select(\DB::raw('
@@ -278,7 +278,7 @@ class MatakuliahController extends Controller {
                                 'pid'=>'store',  
                                 'matakuliah'=>$matakuliah,                                                                                                   
                                 'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
-                            ], 200);     
+                            ], 200);
     }
     /**
      * Update the specified resource in storage.
@@ -340,22 +340,22 @@ class MatakuliahController extends Controller {
                 $group_alias=$group_matakuliah->group_alias;
             }
 
-            $matakuliah->id_group = $request->input('id_group');
-            $matakuliah->nama_group = $request->input('nama_group');            
-            $matakuliah->group_alias = $request->input('group_alias');            
-            $matakuliah->kmatkul = strtoupper(trim($request->input('kmatkul')));            
+            $matakuliah->id_group = $id_group;
+            $matakuliah->nama_group = $nama_group;       
+            $matakuliah->group_alias = $group_alias;       
+            $matakuliah->kmatkul = strtoupper(trim($request->input('kmatkul')));       
             $matakuliah->nmatkul = ucwords(trim($request->input('nmatkul')));
-            $matakuliah->sks = $request->input('sks');            
-            $matakuliah->idkonsentrasi = $request->input('idkonsentrasi');            
-            $matakuliah->ispilihan = $request->input('ispilihan');            
-            $matakuliah->islintas_prodi = $request->input('islintas_prodi');            
-            $matakuliah->semester = $request->input('semester');            
-            $matakuliah->sks_tatap_muka = $request->input('sks_tatap_muka');            
-            $matakuliah->sks_praktikum = $request->input('sks_praktikum');            
-            $matakuliah->sks_praktik_lapangan = $request->input('sks_praktik_lapangan');            
-            $matakuliah->minimal_nilai = $request->input('minimal_nilai');            
-            $matakuliah->syarat_skripsi = $request->input('syarat_skripsi');            
-            $matakuliah->status = $request->input('status');           
+            $matakuliah->sks = $request->input('sks');       
+            $matakuliah->idkonsentrasi = $request->input('idkonsentrasi');       
+            $matakuliah->ispilihan = $request->input('ispilihan');       
+            $matakuliah->islintas_prodi = $request->input('islintas_prodi');       
+            $matakuliah->semester = $request->input('semester');       
+            $matakuliah->sks_tatap_muka = $request->input('sks_tatap_muka');       
+            $matakuliah->sks_praktikum = $request->input('sks_praktikum');       
+            $matakuliah->sks_praktik_lapangan = $request->input('sks_praktik_lapangan');       
+            $matakuliah->minimal_nilai = $request->input('minimal_nilai');       
+            $matakuliah->syarat_skripsi = $request->input('syarat_skripsi');       
+            $matakuliah->status = $request->input('status');      
             
             $matakuliah->save();
             
@@ -418,7 +418,7 @@ class MatakuliahController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"matakuliah dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }
@@ -466,6 +466,6 @@ class MatakuliahController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'matakuliah'=>$matakuliah,                                                                                                   
                                     'message'=>'Fetch data matakuliah berhasil.'
-                                ], 200);     
+                                ], 200);
     }
 }

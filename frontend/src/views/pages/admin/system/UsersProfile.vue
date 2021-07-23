@@ -309,7 +309,7 @@ export default {
                             Authorization: this.$store.getters["auth/Token"]
                         }
                     }
-                ).then(({ data }) => {                            
+                ).then(({ data }) => {                      
                     this.$refs.frmdata.reset(); 
                     this.formdata.foto=data.foto;
                     this.formdata=this.formdefault; 

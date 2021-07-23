@@ -53,7 +53,7 @@ class PMBController extends Controller {
                                     users.created_at,
                                     users.updated_at'
                                 ))
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id');                    
+                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id');               
         
         if ($request->has('search'))
         {
@@ -156,7 +156,7 @@ class PMBController extends Controller {
                             ]
         ]);
         $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();                   
+            $now = \Carbon\Carbon::now()->toDateTimeString();              
             $code=mt_rand(1000,9999);
             $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
             $user=User::create([
@@ -175,11 +175,11 @@ class PMBController extends Controller {
                 'default_role'=>'mahasiswabaru',          
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='mahasiswabaru';   
             $user->assignRole($role);
             $permission=Role::findByName('mahasiswabaru')->permissions;
-            $user->givePermissionTo($permission->pluck('name'));             
+            $user->givePermissionTo($permission->pluck('name'));        
             
             FormulirPendaftaranModel::create([
                 'user_id'=>$user->id,
@@ -191,11 +191,11 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');   
         if (!is_null($user) && $config_kirim_email==1)
         {
             $code='';
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
+            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));       
         }
         else
         {
@@ -231,7 +231,7 @@ class PMBController extends Controller {
             'password'=>'required',                        
         ]);
         $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();                   
+            $now = \Carbon\Carbon::now()->toDateTimeString();              
             $code=mt_rand(1000,9999);
             $ta=$request->input('tahun_pendaftaran');
             $user=User::create([
@@ -250,11 +250,11 @@ class PMBController extends Controller {
                 'foto'=>'storage/images/users/no_photo.png', 
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='mahasiswabaru';   
             $user->assignRole($role);
             $permission=Role::findByName('mahasiswabaru')->permissions;
-            $user->givePermissionTo($permission->pluck('name'));             
+            $user->givePermissionTo($permission->pluck('name'));        
             
             FormulirPendaftaranModel::create([
                 'user_id'=>$user->id,
@@ -266,11 +266,11 @@ class PMBController extends Controller {
 
             return $user;
         });
-        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
+        $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');   
         if (!is_null($user) && $config_kirim_email==1)
         {
-            $code='';            
-            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));            
+            $code='';       
+            app()->mailer->to($request->input('email'))->send(new VerifyEmailAddress($user->code));       
         }       
         else
         {
@@ -321,7 +321,7 @@ class PMBController extends Controller {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
-                $user->username = $request->input('username');        
+                $user->username = $request->input('username');   
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }
@@ -419,7 +419,7 @@ class PMBController extends Controller {
                                         'formulir'=>$formulir,        
                                         'no_transaksi'=>"$no_transaksi ",
                                         'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
-                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);     
+                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
 
     }
@@ -435,11 +435,11 @@ class PMBController extends Controller {
             'email'=>'required|string|email',
             'code'=>'required|numeric',                        
         ]);
-        $now = \Carbon\Carbon::now()->toDateTimeString();       
+        $now = \Carbon\Carbon::now()->toDateTimeString();  
         $email= $request->input('email');
         $code= $request->input('code');  
         
-        $user = \DB::table('users')->where('email',$email)->where('code',$code)->get();        
+        $user = \DB::table('users')->where('email',$email)->where('code',$code)->get();   
         if ($user->count()>0)
         {
             $user=User::find($user[0]->id);
@@ -447,7 +447,7 @@ class PMBController extends Controller {
             $user->active=1;
             $user->save();   
             
-            $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');        
+            $config_kirim_email = ConfigurationModel::getCache('EMAIL_MHS_ISVALID');   
             if (!is_null($user) && $config_kirim_email==1)
             {
                 app()->mailer->to($email)->send(new MahasiswaBaruRegistered($user));
@@ -514,11 +514,11 @@ class PMBController extends Controller {
             ]);
 
             $data_mhs = \DB::transaction(function () use ($request,$formulir){            
-                $formulir->nama_mhs=$request->input('nama_mhs');           
-                $formulir->tempat_lahir=$request->input('tempat_lahir');           
-                $formulir->tanggal_lahir=$request->input('tanggal_lahir');           
-                $formulir->jk=$request->input('jk');           
-                $formulir->telp_hp=$request->input('nomor_hp');           
+                $formulir->nama_mhs=$request->input('nama_mhs');      
+                $formulir->tempat_lahir=$request->input('tempat_lahir');      
+                $formulir->tanggal_lahir=$request->input('tanggal_lahir');      
+                $formulir->jk=$request->input('jk');      
+                $formulir->telp_hp=$request->input('nomor_hp');      
                   
                 $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    
                 $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
@@ -544,7 +544,7 @@ class PMBController extends Controller {
                 $role='mahasiswabaru';   
                 $user->assignRole($role);
                 $permission=Role::findByName('mahasiswabaru')->permissions;
-                $user->givePermissionTo($permission->pluck('name'));             
+                $user->givePermissionTo($permission->pluck('name'));        
                 
                 //buat transaksi keuangan pmb
                 $no_transaksi='N.A';
@@ -552,7 +552,7 @@ class PMBController extends Controller {
                                                         ->where('pe3_transaksi_detail.user_id',$formulir->user_id)
                                                         ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
                                                         ->where('pe3_transaksi_detail.kombi_id',101)
-                                                        ->first();                
+                                                        ->first();           
                 if (is_null($transaksi_detail))
                 {                  
                     $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',101)
@@ -651,7 +651,7 @@ class PMBController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Mahasiswa Baru ($name) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }  
@@ -673,6 +673,6 @@ class PMBController extends Controller {
                                 'status'=>1,
                                 'pid'=>'resendemail',                
                                 'message'=>"Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
-                            ], 200);         
+                            ], 200);    
     } 
 }

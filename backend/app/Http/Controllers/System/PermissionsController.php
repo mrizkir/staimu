@@ -36,7 +36,7 @@ class PermissionsController extends Controller {
                                 'pid'=>'fetchdata',
                                 'permissions'=>$data,
                                 'message'=>'Fetch data permissions berhasil diperoleh'
-                            ], 200);              
+                            ], 200);         
     }    
     /**
      * Store a newly created resource in storage.
@@ -61,8 +61,8 @@ class PermissionsController extends Controller {
         ],[
             'name.required'=>'Nama permission mohon untuk di isi',
         ]
-        );        
-        $permission = new Permission;        
+        );   
+        $permission = new Permission;   
         $now = \Carbon\Carbon::now()->toDateTimeString();
         $nama = strtoupper($request->input('name'));   
         
@@ -105,7 +105,7 @@ class PermissionsController extends Controller {
         }
         else
         {
-            $nama_permission = $permission->name;            
+            $nama_permission = $permission->name;       
             \DB::table('permissions')->where('id',$id)->delete();
 
             app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
@@ -115,7 +115,7 @@ class PermissionsController extends Controller {
                                                         'object_id'=>$permission->id, 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'Menghapus permission ('.$nama_permission.') berhasil'
-                                                    ]);                                                                 
+                                                    ]);                                                            
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                

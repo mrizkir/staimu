@@ -110,7 +110,7 @@ class ReportKelulusanController extends Controller {
                 $transaksi_status=$transaksi_detail->status;
             }   
             $daftar_prodi[]=['prodi_id'=>$formulir->kjur1,'nama_prodi'=>$formulir->nama_prodi];
-            $data_nilai_ujian=NilaiUjianPMBModel::find($id);                     
+            $data_nilai_ujian=NilaiUjianPMBModel::find($id);                
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',                        
@@ -120,7 +120,7 @@ class ReportKelulusanController extends Controller {
                                         'kjur'=>$formulir->kjur1,        
                                         'data_nilai_ujian'=>$data_nilai_ujian,        
                                         'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
-                                    ], 200);        
+                                    ], 200);   
         }
 
     }   
@@ -147,7 +147,7 @@ class ReportKelulusanController extends Controller {
             'filter_status'=>$request->input('filter_status'),            
         ];
 
-        $report= new \App\Models\Report\ReportSPMBModel ($data_report);          
+        $report= new \App\Models\Report\ReportSPMBModel ($data_report);     
         return $report->kelulusan();
     }
 }

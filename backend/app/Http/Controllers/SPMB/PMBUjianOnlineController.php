@@ -73,7 +73,7 @@ class PMBUjianOnlineController extends Controller {
                                     'jawaban'=>$jawaban,
                                     'peserta'=>$peserta,                                                                                              
                                     'message'=>'Fetch data soal pmb berhasil.'
-                                ], 200);     
+                                ], 200);
         }        
     }  
     /**
@@ -121,7 +121,7 @@ class PMBUjianOnlineController extends Controller {
                                     'jadwal_ujian'=>$jadwal_ujian,      
                                     'jumlah_bank_soal'=>$jumlah_bank_soal,                                                                                             
                                     'message'=>'Fetch data jadwal ujian pmb berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * digunakan untuk mendapatkan profil peserta ujian
@@ -148,7 +148,7 @@ class PMBUjianOnlineController extends Controller {
             if ($peserta->isfinish == 1 && is_null($nilai))
             {
                 $this->hitungNilaiUjian($peserta->user_id);
-                $nilai = NilaiUjianPMBModel::find($peserta->user_id);                            
+                $nilai = NilaiUjianPMBModel::find($peserta->user_id);                       
             }
             return Response()->json([
                                     'status'=>1,
@@ -157,7 +157,7 @@ class PMBUjianOnlineController extends Controller {
                                     'jadwal_ujian'=>$jadwal_ujian,
                                     'nilai'=>$nilai,
                                     'message'=>'Fetch data peserta ujian pmb berhasil.'
-                                ], 200);     
+                                ], 200);
         }
     }
     /**
@@ -193,7 +193,7 @@ class PMBUjianOnlineController extends Controller {
                                     'pid'=>'store',  
                                     'peserta'=>$peserta,
                                     'message'=>'Mendaftarkan peserta ujian pmb ke jadwal ujian berhasil.'
-                                ], 200);     
+                                ], 200);
         }
         else
         {
@@ -214,7 +214,7 @@ class PMBUjianOnlineController extends Controller {
             'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
         ]);
         
-        $peserta =PesertaUjianPMBModel::find($request->input('user_id'));        
+        $peserta =PesertaUjianPMBModel::find($request->input('user_id'));   
         $peserta->mulai_ujian=\Carbon\Carbon::now()->toDateTimeString();
         $peserta->save();
 
@@ -251,7 +251,7 @@ class PMBUjianOnlineController extends Controller {
                                     'status'=>1,
                                     'pid'=>'destroy',                
                                     'message'=>"Peserta berhasil dihapus dari jadwal ujian ini"
-                                ], 200);       
+                                ], 200);  
     
     }
     /**
@@ -327,7 +327,7 @@ class PMBUjianOnlineController extends Controller {
     private function hitungNilaiUjian($user_id)
     {
         $peserta = \DB::transaction(function () use ($user_id) {
-            $peserta = PesertaUjianPMBModel::find($user_id);        
+            $peserta = PesertaUjianPMBModel::find($user_id);   
             $jadwalujian = $peserta->jadwalujian;
             
             $jadwal_ujian_id = $peserta->jadwal_ujian_id;
@@ -359,8 +359,8 @@ class PMBUjianOnlineController extends Controller {
                     break;
                 }
             }
-            $jumlah_soal = $jadwalujian->jumlah_soal;            
-            $nilai = \App\Helpers\Helper::formatPersen($benar,$jumlah_soal);            
+            $jumlah_soal = $jadwalujian->jumlah_soal;       
+            $nilai = \App\Helpers\Helper::formatPersen($benar,$jumlah_soal);       
             $nilai_passing_grade = is_null($passing_grade)?0:$passing_grade->nilai;
             
             $formulir = FormulirPendaftaranModel::find($user_id);
@@ -383,7 +383,7 @@ class PMBUjianOnlineController extends Controller {
                     'ket_lulus'=>$ket_lulus,
                     'kjur'=>$kjur,
                     'desc'=>'Dihitung otomatis oleh sistem'
-                ]);           
+                ]);      
             }
             else
             {
@@ -418,7 +418,7 @@ class PMBUjianOnlineController extends Controller {
     //buat transaksi keuangan daftar ulang 
     private function createTransaksiDulang($formulir)
     {
-        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();                
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();           
         if (is_null($transaksi_detail))
         {   
             $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
@@ -470,7 +470,7 @@ class PMBUjianOnlineController extends Controller {
         $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)
                                                 ->where('kombi_id',201)
                                                 ->where('bulan',$mulai_bulan_pembayaran)
-                                                ->first();       
+                                                ->first();  
 
         if (is_null($transaksi_detail))
         {   

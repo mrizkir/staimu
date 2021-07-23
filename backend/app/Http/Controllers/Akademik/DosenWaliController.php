@@ -36,7 +36,7 @@ class DosenWaliController extends Controller {
                     ->join('pe3_dosen','pe3_dosen.user_id','users.id')
                     ->where('pe3_dosen.is_dw',true)
                     ->orderBy('username','ASC')
-                    ->get();       
+                    ->get();  
                     
         $role = Role::findByName('dosen');
         return Response()->json([
@@ -113,7 +113,7 @@ class DosenWaliController extends Controller {
         ]);
         $user = \DB::transaction(function () use ($request) {
 
-            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),
@@ -125,9 +125,9 @@ class DosenWaliController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='dosen';   
-            $user->assignRole($role);               
+            $user->assignRole($role);          
             
             $permission=Role::findByName('dosen')->permissions;
             $permissions=$permission->pluck('name');
@@ -193,7 +193,7 @@ class DosenWaliController extends Controller {
             $this->validate($request, [           
                                         'pid'=>'required',            
                                         'user_id'=>'required|:users,email,'.$user->id,        
-                                    ]);             
+                                    ]);        
             $message='no pid';
             switch($request->input('pid'))
             {
@@ -255,7 +255,7 @@ class DosenWaliController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Dosen Wali ($username) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

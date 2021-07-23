@@ -25,7 +25,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'fetchdata',
                                     'prodi'=>$prodi,
                                     'message'=>'Fetch data program studi berhasil.'
-                                ], 200);     
+                                ], 200);
     }
     /**
      * detail program studi
@@ -52,7 +52,7 @@ class ProgramStudiController extends Controller {
                                     'pid'=>'fetchdata',
                                     'prodi'=>$prodi,
                                     'message'=>'Fetch data program studi berhasil.'
-                                ], 200);     
+                                ], 200);
         }        
     }
     /**
@@ -98,7 +98,7 @@ class ProgramStudiController extends Controller {
             'nama_prodi_alias'=>$request->input('nama_prodi_alias'),
             'kode_jenjang'=>$request->input('kode_jenjang'),
             'nama_jenjang'=>$request->input('nama_jenjang'),
-        ]);                      
+        ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $prodi,
@@ -176,7 +176,7 @@ class ProgramStudiController extends Controller {
                                 'pid'=>'fetchdata',
                                 'skslulus'=>$skslulus,
                                 'message'=>'Fetch data sks lulus program studi berhasil.'
-                            ], 200);     
+                            ], 200);
         
     }
     /**
@@ -205,7 +205,7 @@ class ProgramStudiController extends Controller {
                                 'pid'=>'fetchdata',
                                 'matkulskripsi'=>$matkulskripsi,
                                 'message'=>'Fetch data matkul skripsi program studi berhasil.'
-                            ], 200);     
+                            ], 200);
         
     }
     public function loadskslulus(Request $request) 
@@ -217,7 +217,7 @@ class ProgramStudiController extends Controller {
         ]);
         $prodi_id = $request->input('prodi_id');
         $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
-        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";                
+        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";           
         
         \DB::statement($sql);
         
@@ -254,7 +254,7 @@ class ProgramStudiController extends Controller {
         ]);
         $prodi_id = $request->input('prodi_id');
         $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
-        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";                
+        SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";           
         
         \DB::statement($sql);
         
@@ -344,10 +344,10 @@ class ProgramStudiController extends Controller {
             }             
             $prodi->kode_fakultas = $request->input('kode_fakultas');
             $prodi->kode_prodi = $request->input('kode_prodi');
-            $prodi->nama_prodi = $request->input('nama_prodi');            
-            $prodi->nama_prodi_alias = $request->input('nama_prodi_alias');            
-            $prodi->kode_jenjang = $request->input('kode_jenjang');            
-            $prodi->nama_jenjang = $request->input('nama_jenjang');            
+            $prodi->nama_prodi = $request->input('nama_prodi');       
+            $prodi->nama_prodi_alias = $request->input('nama_prodi_alias');       
+            $prodi->kode_jenjang = $request->input('kode_jenjang');       
+            $prodi->nama_jenjang = $request->input('nama_jenjang');       
             $prodi->save();
 
             \DB::table('usersprodi')
@@ -415,7 +415,7 @@ class ProgramStudiController extends Controller {
         $id=$request->input('id');
         $matkul_id=$request->input('matkul_id');
         
-        $detail1=ProgramStudiDetail1Model::find($id);        
+        $detail1=ProgramStudiDetail1Model::find($id);   
         $detail1->matkul_skripsi=$matkul_id;
         $detail1->save();
         
@@ -454,7 +454,7 @@ class ProgramStudiController extends Controller {
                                         'pid'=>'fetchdata',
                                         'programstudi'=>$programstudi,
                                         'message'=>'Fetch data program studi berdasarkan id program studi berhasil.'
-                                    ], 200);     
+                                    ], 200);
 
         }
     }
@@ -491,7 +491,7 @@ class ProgramStudiController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',
                                         'message'=>"Program Studi dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

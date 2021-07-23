@@ -107,8 +107,8 @@ class PMBPassingGradeController extends Controller
         $passing_id=$request->input('id');
 
         $passing=PMBPassingGradeModel::find($passing_id);
-        $passing->nilai=$request->input('nilai');        
-        $passing->save();        
+        $passing->nilai=$request->input('nilai');   
+        $passing->save();   
 
         return Response()->json([
                                 'status'=>1,

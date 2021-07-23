@@ -111,7 +111,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                                   ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                   ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
                                                   ->where('pe3_transaksi_detail.kombi_id',601)        
-                                                  ->orderBy('pe3_transaksi.tanggal','DESC');                                                    
+                                                  ->orderBy('pe3_transaksi.tanggal','DESC');                                               
 
           if ($request->has('SEARCH'))
           {
@@ -283,7 +283,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                       'status'=>1,
                                       'pid'=>'destroy',                
                                       'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
-                                  ], 200);         
+                                  ], 200);    
       }
       else
       {

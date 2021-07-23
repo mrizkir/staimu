@@ -20,6 +20,6 @@ class ChannelPembayaranController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'channel'=>$channel,                                                                                                   
                                     'message'=>'Fetch data channel pembayaran berhasil.'
-                                ], 200);     
+                                ], 200);
     }    
 }

@@ -25,7 +25,7 @@ class PKRSController extends Controller
     public function index(Request $request)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_BROWSE');
-        $daftar_pkrs=[];       
+        $daftar_pkrs=[];  
             
         $this->validate($request, [
             'ta'=>'required',
@@ -168,7 +168,7 @@ class PKRSController extends Controller
                 }     
                 else
                 {
-                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                    $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
                 }
                 return $item;
             });
@@ -243,7 +243,7 @@ class PKRSController extends Controller
                                             ->from('pe3_krsmatkul')
                                             ->where('nim',$nim)
                                             ->where('tahun',$ta)
-                                            ->where('idsmt',$semester_akademik);                                        
+                                            ->where('idsmt',$semester_akademik);                                   
                                     })
                                     ->orderBy('semester','ASC')          
                                     ->orderBy('kmatkul','ASC')          
@@ -302,8 +302,8 @@ class PKRSController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_STORE');
 
-        $matkul_selected=json_decode($request->input('matkul_selected'),true);
-        $request->merge(['matkul_selected'=>$matkul_selected]);        
+        $matkul_selected=json_decode($request->input('matkul_selected'), true);
+        $request->merge(['matkul_selected'=>$matkul_selected]);   
 
         $this->validate($request, [      
             'krs_id'=>'required|exists:pe3_krs,id',     
@@ -405,7 +405,7 @@ class PKRSController extends Controller
                         'sah'=>1,
                     ]);
                 }
-            });            
+            });       
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update', 
@@ -461,12 +461,12 @@ class PKRSController extends Controller
                 ]);
 
                 $krsmatkul->delete();
-            });            
+            });       
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }
@@ -544,7 +544,7 @@ class PKRSController extends Controller
                     }     
                     else
                     {
-                        $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;                
+                        $item->nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
                     }
                     return $item;
                 });

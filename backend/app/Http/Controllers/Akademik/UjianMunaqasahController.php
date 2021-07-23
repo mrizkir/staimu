@@ -77,7 +77,7 @@ class UjianMunaqasahController extends Controller
         $this->validate($request, [            
             'nim'=>'required|exists:pe3_register_mahasiswa,nim',
         ]);
-        $nim = $request->input('nim');        
+        $nim = $request->input('nim');   
         $mahasiswa = RegisterMahasiswaModel::where('nim',$nim)
                                             ->first();
         $user_id = $mahasiswa->user_id;
@@ -171,7 +171,7 @@ class UjianMunaqasahController extends Controller
         {
             $ujian = $ujian->where('A.user_id',$this->getUserid())
                         ->where('A.id',$id)
-                        ->first();                                       
+                        ->first();                                  
             
         }
         else
@@ -277,23 +277,23 @@ class UjianMunaqasahController extends Controller
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
             $this->validate($request, [    
                 'filepersyaratan'=>'required'                        
-            ]);            
+            ]);       
             $foto = $request->file('filepersyaratan');
             $mime_type=$foto->getMimeType();
             if ($mime_type=='image/png' || $mime_type=='image/jpeg')
             {
                 $folder=Helper::public_path('images/ujianmunaqasah/');
-                $file_name="$id.".$foto->getClientOriginalExtension();                                
+                $file_name="$id.".$foto->getClientOriginalExtension();                           
                 $ujian_munaqasah->file="storage/images/ujianmunaqasah/$file_name";
-                $ujian_munaqasah->keterangan = 'ADA';                            
-                $ujian_munaqasah->save();                            
-                $foto->move($folder,$file_name);                
+                $ujian_munaqasah->keterangan = 'ADA';                       
+                $ujian_munaqasah->save();                       
+                $foto->move($folder,$file_name);           
                 return Response()->json([
                                             'status'=>0,
                                             'pid'=>'store',
@@ -307,7 +307,7 @@ class UjianMunaqasahController extends Controller
                                         'status'=>1,
                                         'pid'=>'store',
                                         'message'=>["Extensi file yang diupload bukan jpg atau png."]
-                                    ], 422);                 
+                                    ], 422);            
 
             }
         }
@@ -364,13 +364,13 @@ class UjianMunaqasahController extends Controller
         if ($this->hasRole('mahasiswa'))
         {
             $ujian = UjianMunaqasahModel::where('id',$id)
-                                        ->find($id);                                       
+                                        ->find($id);                                  
             
         }
         else
         {
             $ujian = UjianMunaqasahModel::where('id',$id)
-                                        ->find($id);                                       
+                                        ->find($id);                                  
         }
         if (is_null($ujian))
         {
@@ -387,7 +387,7 @@ class UjianMunaqasahController extends Controller
                 'abstrak'=>'required',     
                 'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
                 'pembimbing_2'=>'required|exists:pe3_dosen,user_id',                 
-            ]);            
+            ]);       
             
             $ujian->judul_skripsi = $request->input('judul_skripsi');
             $ujian->abstrak = $request->input('abstrak');
@@ -427,13 +427,13 @@ class UjianMunaqasahController extends Controller
         if ($this->hasRole('mahasiswa'))
         {
             $ujian = UjianMunaqasahModel::where('id',$id)
-                                        ->find($id);                                       
+                                        ->find($id);                                  
             
         }
         else
         {
             $ujian = UjianMunaqasahModel::where('id',$id)
-                                        ->find($id);                                       
+                                        ->find($id);                                  
         }
         if (is_null($ujian))
         {
@@ -489,7 +489,7 @@ class UjianMunaqasahController extends Controller
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
         
-        $persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                       
+        $persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                  
         
         if (is_null($persyaratan))
         {
@@ -545,7 +545,7 @@ class UjianMunaqasahController extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
         else 
         {
@@ -631,7 +631,7 @@ class UjianMunaqasahController extends Controller
                     {
                         $this->persyaratan_verified[]=$item->status == 1;
                     }          
-                break;                
+                break;           
                 case '2021-ujian-munaqasah-7' : //Scanan KTP
                     if (is_null($item->file))
                     {
@@ -642,7 +642,7 @@ class UjianMunaqasahController extends Controller
                     {
                         $this->persyaratan_verified[]=$item->status == 1;
                     }
-                break;                
+                break;           
                 case '2021-ujian-munaqasah-8' : //Pas Photo 3x4
                     if (is_null($item->file))
                     {
@@ -653,7 +653,7 @@ class UjianMunaqasahController extends Controller
                     {
                         $this->persyaratan_verified[]=$item->status == 1;
                     }
-                break;                
+                break;           
                 case '2021-ujian-munaqasah-9' : //Sertifikat OSPEK / PBAK
                     if (is_null($item->file))
                     {
@@ -664,7 +664,7 @@ class UjianMunaqasahController extends Controller
                     {
                         $this->persyaratan_verified[]=$item->status == 1;
                     }
-                break;                
+                break;           
             }
             switch($item->status) {
                 case 0:

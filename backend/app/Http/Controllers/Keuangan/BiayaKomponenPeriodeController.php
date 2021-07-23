@@ -73,7 +73,7 @@ class BiayaKomponenPeriodeController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'kombi'=>$kombi,                                                                                                   
                                     'message'=>'Fetch data biaya komponen periode berhasil.'
-                                ], 200);     
+                                ], 200);
     } 
     /**
      * digunakan untuk meload daftar kombi pertama kali atau selanjutnya ke table pe3_kombi_periode
@@ -94,7 +94,7 @@ class BiayaKomponenPeriodeController extends Controller {
         {
             $idkelas=$kelas->idkelas;
             $sql = "INSERT INTO pe3_kombi_periode (id,kombi_id,nama_kombi,periode,idkelas,kjur,tahun,biaya,created_at,updated_at)
-                    SELECT UUID(),id,nama AS nama_kombi,periode,'$idkelas' AS idkelas,$prodi_id AS kjur,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND kjur=$prodi_id AND idkelas='$idkelas')";                
+                    SELECT UUID(),id,nama AS nama_kombi,periode,'$idkelas' AS idkelas,$prodi_id AS kjur,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND kjur=$prodi_id AND idkelas='$idkelas')";           
                     
             \DB::statement($sql);
         }        
@@ -149,6 +149,6 @@ class BiayaKomponenPeriodeController extends Controller {
                                     'pid'=>'update',     
                                     'kombi_biaya'=>$kombi_biaya,                                                                                                                               
                                     'message'=>'Mengubah biaya komponen '.$kombi_biaya->nama_kombi.' berhasil.'
-                                ], 200);     
+                                ], 200);
     } 
 }

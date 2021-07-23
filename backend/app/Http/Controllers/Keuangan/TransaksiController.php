@@ -47,7 +47,7 @@ class TransaksiController extends Controller {
             $this->validate($request, [           
                 'ta'=>'required',                
             ]);
-            $ta=$request->input('ta');           
+            $ta=$request->input('ta');      
 
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
@@ -84,7 +84,7 @@ class TransaksiController extends Controller {
             $daftar_transaksi = TransaksiModel::select($select)
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-                                            ->orderBy('tanggal','DESC');                                            
+                                            ->orderBy('tanggal','DESC');                                       
 
             if ($request->has('search'))
             {
@@ -166,7 +166,7 @@ class TransaksiController extends Controller {
     {
         $this->validate($request, [                       
             'jenis_id'=>'required'
-        ]);        
+        ]);   
         $jenis_id=$request->input('jenis_id');
 
         try 
@@ -178,7 +178,7 @@ class TransaksiController extends Controller {
             }   
 
             $user_id=$mhs->user_id;
-            $no_bulan=9;        
+            $no_bulan=9;   
             $spp=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                             ->where('pe3_transaksi_detail.kombi_id',201)
                             ->where('pe3_transaksi.ta',$mhs->tahun)
@@ -297,7 +297,7 @@ class TransaksiController extends Controller {
                     switch ($v->kombi_id)
                     {
                         case 101: //biaya formulir pendaftaran
-                            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                        
+                            $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                   
                             $no_formulir=$formulir->idsmt.mt_rand();
                             $formulir->no_formulir=$no_formulir;
                             $formulir->save();

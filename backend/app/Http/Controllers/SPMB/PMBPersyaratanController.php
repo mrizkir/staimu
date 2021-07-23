@@ -114,7 +114,7 @@ class PMBPersyaratanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'store',                
                                     'message'=>["Data Mahasiswa tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
@@ -136,7 +136,7 @@ class PMBPersyaratanController extends Controller {
 
                 if (is_null($persyaratan))
                 {
-                    $now = \Carbon\Carbon::now()->toDateTimeString();        
+                    $now = \Carbon\Carbon::now()->toDateTimeString();   
                     $persyaratan=PMBPersyaratanModel::create([
                                                                 'id'=>Uuid::uuid4()->toString(),
                                                                 'persyaratan_id'=>$request->input('persyaratan_id'),
@@ -194,12 +194,12 @@ class PMBPersyaratanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'destroy',                
                                     'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
             $userid=$persyaratan->user_id;
-            $old_file=$persyaratan->path;            
+            $old_file=$persyaratan->path;       
             $persyaratan->delete();
 
             if ($old_file != 'images/no-image.png')
@@ -230,11 +230,11 @@ class PMBPersyaratanController extends Controller {
                                     'status'=>0,
                                     'pid'=>'update',                
                                     'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
-                                ], 422);         
+                                ], 422);    
         }
         else
         {
-            $persyaratan->verified=1;            
+            $persyaratan->verified=1;       
             $persyaratan->save();
          
             return Response()->json([

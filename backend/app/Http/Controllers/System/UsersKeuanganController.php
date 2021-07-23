@@ -22,7 +22,7 @@ class UsersKeuanganController extends Controller {
         $this->hasPermissionTo('SYSTEM-USERS-KEUANGAN_BROWSE');
         $data = User::where('default_role','keuangan')
                     ->orderBy('username','ASC')
-                    ->get();       
+                    ->get();  
                     
         $role = Role::findByName('keuangan');
         return Response()->json([
@@ -52,7 +52,7 @@ class UsersKeuanganController extends Controller {
         ]);
 
         $user = \DB::transaction(function () use ($request){
-            $now = \Carbon\Carbon::now()->toDateTimeString();        
+            $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'name'=>$request->input('name'),
@@ -65,16 +65,16 @@ class UsersKeuanganController extends Controller {
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
-            ]);            
+            ]);       
             $role='keuangan';   
-            $user->assignRole($role);               
+            $user->assignRole($role);          
             
             $permission=Role::findByName('keuangan')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
             $user_id=$user->id;
-            $daftar_prodi=json_decode($request->input('prodi_id'),true);
+            $daftar_prodi=json_decode($request->input('prodi_id'), true);
             foreach($daftar_prodi as $v)
             {
                 $sql = "
@@ -107,12 +107,12 @@ class UsersKeuanganController extends Controller {
                 \DB::statement($sql); 
             }
 
-            $daftar_roles=json_decode($request->input('role_id'),true);
+            $daftar_roles=json_decode($request->input('role_id'), true);
             foreach($daftar_roles as $v)
             {
                 if ($v=='dosen' || $v=='dosenwali' )
                 {
-                    $user->assignRole($v);               
+                    $user->assignRole($v);          
                     $permission=Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
@@ -185,7 +185,7 @@ class UsersKeuanganController extends Controller {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
-                $user->username = $request->input('username');        
+                $user->username = $request->input('username');   
                 if (!empty(trim($request->input('password')))) {
                     $user->password = Hash::make($request->input('password'));
                 }    
@@ -194,7 +194,7 @@ class UsersKeuanganController extends Controller {
 
                 $user_id=$user->id;
                 \DB::table('usersprodi')->where('user_id',$user_id)->delete();
-                $daftar_prodi=json_decode($request->input('prodi_id'),true);
+                $daftar_prodi=json_decode($request->input('prodi_id'), true);
                 foreach($daftar_prodi as $v)
                 {
                     $sql = "
@@ -226,7 +226,7 @@ class UsersKeuanganController extends Controller {
                     \DB::statement($sql); 
                 }
 
-                $daftar_roles=json_decode($request->input('role_id'),true);                
+                $daftar_roles=json_decode($request->input('role_id'), true);           
                 if (($key= array_search('dosen',$daftar_roles))===false)
                 {
                     $key= array_search('dosenwali',$daftar_roles);
@@ -332,7 +332,7 @@ class UsersKeuanganController extends Controller {
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"User Keuangan ($username) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }

@@ -31,7 +31,7 @@ class NilaiKonversiController  extends Controller
                                             0 AS jumlah_sks
                                         '))
                                         ->where('user_id',$this->getUserid())
-                                        ->get();     
+                                        ->get();
         }
         else
         {
@@ -51,7 +51,7 @@ class NilaiKonversiController  extends Controller
                                             ->where('kjur',$prodi_id)
                                             ->where('tahun',$ta)
                                             ->orderBy('nama_mhs','asc')
-                                            ->get();                    
+                                            ->get();               
             
         }
         $data->transform(function ($item,$key) {    
@@ -71,7 +71,7 @@ class NilaiKonversiController  extends Controller
                                 'pid'=>'fetchdata',  
                                 'mahasiswa'=>$data,                                                                                                   
                                 'message'=>'Fetch data daftar mahasiswa pindahan/ampulan berhasil.'
-                            ], 200);     
+                            ], 200);
     }
     public function matakuliah(Request $request)
     {
@@ -149,8 +149,8 @@ class NilaiKonversiController  extends Controller
             ]);
 
             $nilai_konversi_id=$data_konversi->id;
-            $jumlah_matkul=0;        
-            $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+            $jumlah_matkul=0;   
+            $daftar_nilai=json_decode($request->input('daftar_nilai'), true);
             
             foreach ($daftar_nilai as $v)
             {
@@ -186,7 +186,7 @@ class NilaiKonversiController  extends Controller
                                     'data_konversi'=>$data_konversi['data_konversi'],     
                                     'jumlah_matkul'=>$data_konversi['jumlah_matkul'],     
                                     'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
-                                ], 200);     
+                                ], 200);
     }
     public function update(Request $request,$id)
     {
@@ -225,22 +225,22 @@ class NilaiKonversiController  extends Controller
                 'daftar_nilai'=>'required',            
             ]);
             $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi){
-                $data_konversi->nim_asal=$request->input('nim_asal');     
-                $data_konversi->nama_mhs=$request->input('nama_mhs');     
-                $data_konversi->alamat=$request->input('alamat');     
-                $data_konversi->no_telp=$request->input('no_telp');     
-                $data_konversi->email=$request->input('email');     
-                $data_konversi->kode_jenjang=$request->input('kode_jenjang');     
-                $data_konversi->kode_pt_asal=$request->input('kode_pt_asal');     
+                $data_konversi->nim_asal=$request->input('nim_asal');
+                $data_konversi->nama_mhs=$request->input('nama_mhs');
+                $data_konversi->alamat=$request->input('alamat');
+                $data_konversi->no_telp=$request->input('no_telp');
+                $data_konversi->email=$request->input('email');
+                $data_konversi->kode_jenjang=$request->input('kode_jenjang');
+                $data_konversi->kode_pt_asal=$request->input('kode_pt_asal');
                 $data_konversi->nama_pt_asal=$request->input('nama_pt_asal');
                 $data_konversi->kode_ps_asal=$request->input('kode_ps_asal');
-                $data_konversi->nama_ps_asal=$request->input('nama_ps_asal');                
+                $data_konversi->nama_ps_asal=$request->input('nama_ps_asal');           
                 
                 $data_konversi->save();
 
                 $nilai_konversi_id=$data_konversi->id;
-                $jumlah_matkul=0;        
-                $daftar_nilai=json_decode($request->input('daftar_nilai'),true);
+                $jumlah_matkul=0;   
+                $daftar_nilai=json_decode($request->input('daftar_nilai'), true);
                 
                 \DB::table('pe3_nilai_konversi2')
                         ->where('nilai_konversi_id',$data_konversi->id)
@@ -279,7 +279,7 @@ class NilaiKonversiController  extends Controller
                                         'data_konversi'=>$data_konversi['data_konversi'],     
                                         'jumlah_matkul'=>$data_konversi['jumlah_matkul'],                                        
                                         'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
-                                    ], 200);     
+                                    ], 200);
         }
     }
     public function show(Request $request,$id)
@@ -318,7 +318,7 @@ class NilaiKonversiController  extends Controller
                                 B.n_kual,
                                 B.keterangan
                             '))
-                            ->where('B.nilai_konversi_id',$data_konversi->id);                           
+                            ->where('B.nilai_konversi_id',$data_konversi->id);                      
                             
             $nilai_konversi=\DB::table('pe3_matakuliah AS A')
                                 ->select(\DB::raw('
@@ -457,7 +457,7 @@ class NilaiKonversiController  extends Controller
                                         'status'=>1,
                                         'pid'=>'destroy',                
                                         'message'=>"Data Konversi dengan kode ($id) berhasil dihapus"
-                                    ], 200);         
+                                    ], 200);    
         }
                   
     }   
@@ -506,7 +506,7 @@ class NilaiKonversiController  extends Controller
                                 B.n_kual,
                                 B.keterangan
                             '))
-                            ->where('B.nilai_konversi_id',$data_konversi->id);                           
+                            ->where('B.nilai_konversi_id',$data_konversi->id);                      
                             
             $nilai_konversi=\DB::table('pe3_matakuliah AS A')
                                 ->select(\DB::raw('
