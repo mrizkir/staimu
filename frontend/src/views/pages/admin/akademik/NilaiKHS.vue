@@ -382,7 +382,7 @@
 							this.datatableLoading = true;
 							await this.$ajax
 								.post(
-									"/akademik/nilai/khs/",
+									"/akademik/nilai/khs",
 									{
 										prodi_id: this.prodi_id,
 										ta: this.tahun_akademik,
