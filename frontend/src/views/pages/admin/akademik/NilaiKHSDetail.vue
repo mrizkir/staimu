@@ -130,15 +130,15 @@
 										<td></td>
 										<td>{{ jumlah_am }}</td>
 										<td>{{ jumlah_m }}</td>
-										<td></td>
+										<td colspan="2"></td>
 									</tr>
 									<tr class="grey lighten-4 font-weight-black">
 										<td class="text-right" colspan="3">IPS</td>
-										<td colspan="5">{{ ips }}</td>
+										<td colspan="6">{{ ips }}</td>
 									</tr>
 									<tr class="grey lighten-4 font-weight-black">
 										<td class="text-right" colspan="3">IPK</td>
-										<td colspan="5">{{ ipk }}</td>
+										<td colspan="6">{{ ipk }}</td>
 									</tr>
 								</template>
 								<template v-slot:no-data>
