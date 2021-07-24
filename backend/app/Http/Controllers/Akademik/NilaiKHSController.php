@@ -162,12 +162,14 @@ class NilaiKHSController extends Controller
 				{
 						$daftar_matkul=KRSMatkulModel::select(\DB::raw('
 																						pe3_krsmatkul.id,
+																						pe3_krsmatkul.penyelenggaraan_id,
+																						C.kelas_mhs_id,
 																						A.kmatkul,
 																						A.nmatkul,
 																						A.sks,
 																						A.semester,            
-																						CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
-																						CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
+																						NULL AS nama_dosen_penyelenggaraan,
+																						NULL AS  nama_dosen_kelas,
 																						\'\' AS nama_dosen,
 																						COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
 																						COALESCE(G.n_kual,\'-\') AS HM,
@@ -179,10 +181,7 @@ class NilaiKHSController extends Controller
 																				->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
 																				->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
 																				->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-																				->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')
-																				->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
-																				->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
-																				->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')
+																				->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')																				
 																				->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')
 																				->where('pe3_krsmatkul.krs_id',$krs->id)
 																				->where('pe3_krsmatkul.batal', 0)
@@ -199,14 +198,37 @@ class NilaiKHSController extends Controller
 						$ipk=0;
 						foreach ($daftar_matkul as $key=>$item)
 						{
-								if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+								$nama_dosen = 'N.A';
+								$dosen_kelas = \DB::table('pe3_kelas_mhs_penyelenggaraan AS A')
+									->select(\DB::raw("
+										CONCAT(COALESCE(C.gelar_depan,' '),C.nama_dosen,' ',COALESCE(C.gelar_belakang,'')) AS nama_dosen_kelas
+									"))
+									->join('pe3_penyelenggaraan_dosen AS B','A.penyelenggaraan_dosen_id','B.id')
+									->join('pe3_dosen AS C','C.user_id','B.user_id')
+									->where('A.kelas_mhs_id', $item->kelas_mhs_id)
+									->where('B.penyelenggaraan_id', $item->penyelenggaraan_id)
+									->first();
+
+								if (is_null($dosen_kelas))
 								{
-										$nama_dosen='N.A';
-								}     
+									$dosen_penyelenggaraan = \DB::table('pe3_penyelenggaraan AS A')
+										->select(\DB::raw("
+											CONCAT(COALESCE(B.gelar_depan,' '),B.nama_dosen,' ',COALESCE(B.gelar_belakang,'')) AS nama_dosen_penyelenggaraan
+										"))										
+										->join('pe3_dosen AS B','A.user_id','B.user_id')										
+										->where('A.id', $item->penyelenggaraan_id)
+										->first();
+
+										if (!is_null($dosen_penyelenggaraan))
+										{											
+											$nama_dosen  = $dosen_penyelenggaraan->nama_dosen_penyelenggaraan;
+										}
+								}
 								else
 								{
-										$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
+									$nama_dosen = $dosen_kelas->nama_dosen_kelas;
 								}
+
 								if ($item->HM=='-')
 								{
 										$M='-';
@@ -219,6 +241,8 @@ class NilaiKHSController extends Controller
 								}      
 								$daftar_nilai[]=[
 										'no'=>$key+1,
+										'penyelenggaran_id'=>$item->penyelenggaraan_id,
+										'kelas_mhs_id'=>$item->kelas_mhs_id,
 										'nama_dosen'=>$nama_dosen,
 										'kmatkul'=>$item->kmatkul,
 										'nmatkul'=>$item->nmatkul,
@@ -227,6 +251,7 @@ class NilaiKHSController extends Controller
 										'AM'=>$item->AM,
 										'M'=>$M,
 										'nama_dosen'=>$nama_dosen,
+										'nama_kelas'=>$item->nama_kelas,
 								];
 								$jumlah_sks+=$item->sks;
 								$jumlah_matkul+=1;   
@@ -312,34 +337,34 @@ class NilaiKHSController extends Controller
 					$kaprodi=$prodi->getKAProdi($krs->kjur);
 					if (!is_null($kaprodi))
 					{            
-							$daftar_matkul=KRSMatkulModel::select(\DB::raw('
-																							pe3_krsmatkul.id,
-																							A.kmatkul,
-																							A.nmatkul,
-																							A.sks,
-																							A.semester,            
-																							CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen_penyelenggaraan,
-																							CONCAT(COALESCE(F.gelar_depan,\' \'),F.nama_dosen,\' \',COALESCE(F.gelar_belakang,\'\')) AS nama_dosen_kelas,
-																							\'\' AS nama_dosen,
-																							COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
-																							COALESCE(G.n_kual,\'-\') AS HM,
-																							COALESCE(G.n_mutu,\'-\') AS AM,
-																							\'-\' AS M,
-																							pe3_krsmatkul.created_at,
-																							pe3_krsmatkul.updated_at
-																					'))
-																					->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-																					->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
-																					->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-																					->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')
-																					->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
-																					->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
-																					->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')
-																					->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')
-																					->where('pe3_krsmatkul.krs_id',$krs->id)
-																					->orderBy('semester','asc')
-																					->orderBy('kmatkul','asc')
-																					->get();
+						$daftar_matkul=KRSMatkulModel::select(\DB::raw('
+						pe3_krsmatkul.id,
+						pe3_krsmatkul.penyelenggaraan_id,
+						C.kelas_mhs_id,
+						A.kmatkul,
+						A.nmatkul,
+						A.sks,
+						A.semester,            
+						NULL AS nama_dosen_penyelenggaraan,
+						NULL AS  nama_dosen_kelas,
+						\'\' AS nama_dosen,
+						COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+						COALESCE(G.n_kual,\'-\') AS HM,
+						COALESCE(G.n_mutu,\'-\') AS AM,
+						\'-\' AS M,
+						pe3_krsmatkul.created_at,
+						pe3_krsmatkul.updated_at
+				'))
+				->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
+				->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
+				->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
+				->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')																				
+				->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')
+				->where('pe3_krsmatkul.krs_id',$krs->id)
+				->where('pe3_krsmatkul.batal', 0)
+				->orderBy('semester','asc')
+				->orderBy('kmatkul','asc')
+				->get();
 							
 							$daftar_nilai=[];
 							$jumlah_matkul=0;
@@ -350,14 +375,37 @@ class NilaiKHSController extends Controller
 							$ipk=0;
 							foreach ($daftar_matkul as $key=>$item)
 							{
-									if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
+								$nama_dosen = 'N.A';
+								$dosen_kelas = \DB::table('pe3_kelas_mhs_penyelenggaraan AS A')
+									->select(\DB::raw("
+										CONCAT(COALESCE(C.gelar_depan,' '),C.nama_dosen,' ',COALESCE(C.gelar_belakang,'')) AS nama_dosen_kelas
+										"))
+										->join('pe3_penyelenggaraan_dosen AS B','A.penyelenggaraan_dosen_id','B.id')
+										->join('pe3_dosen AS C','C.user_id','B.user_id')
+										->where('A.kelas_mhs_id', $item->kelas_mhs_id)
+										->where('B.penyelenggaraan_id', $item->penyelenggaraan_id)
+										->first();
+
+									if (is_null($dosen_kelas))
 									{
-											$nama_dosen='N.A';
-									}     
+										$dosen_penyelenggaraan = \DB::table('pe3_penyelenggaraan AS A')
+											->select(\DB::raw("
+												CONCAT(COALESCE(B.gelar_depan,' '),B.nama_dosen,' ',COALESCE(B.gelar_belakang,'')) AS nama_dosen_penyelenggaraan
+											"))										
+											->join('pe3_dosen AS B','A.user_id','B.user_id')										
+											->where('A.id', $item->penyelenggaraan_id)
+											->first();
+
+											if (!is_null($dosen_penyelenggaraan))
+											{											
+												$nama_dosen  = $dosen_penyelenggaraan->nama_dosen_penyelenggaraan;
+											}
+									}
 									else
 									{
-											$nama_dosen=is_null($item->nama_dosen_kelas) ? $item->nama_dosen_penyelenggaraan:$item->nama_dosen_kelas;           
+										$nama_dosen = $dosen_kelas->nama_dosen_kelas;
 									}
+									
 									if ($item->HM=='-')
 									{
 											$M='-';
