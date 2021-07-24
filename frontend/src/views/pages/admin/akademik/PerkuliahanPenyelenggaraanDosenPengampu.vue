@@ -82,7 +82,7 @@
                             DAFTAR DOSEN PENGAMPU
                         </v-card-title>
                         <v-card-text>
-                            <v-data-table                                
+                            <v-data-table                        
                                 :headers="headers"
                                 :items="datatable"
                                 item-key="id"        

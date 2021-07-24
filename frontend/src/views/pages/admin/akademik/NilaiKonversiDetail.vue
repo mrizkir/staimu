@@ -211,7 +211,7 @@
                                         :loading="isLoading"
                                         :search-input.sync="search"
                                         cache-items                                        
-                                        dense                                                                                                                
+                                        dense                                                                                        
                                         item-text="nama_mhs_alias"
                                         item-value="user_id"  
                                         hide-no-data                                 
@@ -273,7 +273,7 @@
             </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
-                    <v-data-table                            
+                    <v-data-table                    
                         :headers="headers"
                         :items="datatable"   
                         item-key="id"  

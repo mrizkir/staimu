@@ -8,7 +8,9 @@
 				KARTUS HASIL STUDI (KHS)
 			</template>
 			<template v-slot:subtitle v-if="Object.keys(datakrs).length">
-				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
+				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
+				{{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} -
+				{{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -18,13 +20,9 @@
 				</v-breadcrumbs>
 			</template>
 			<template v-slot:desc>
-				<v-alert                                        
-					color="cyan"
-					border="left"
-					colored-border
-					type="info"
-					>
-					Halaman untuk melihat daftar nilai matakuliah per tahun akademik, dan semester yang telah dilakukan.
+				<v-alert color="cyan" border="left" colored-border type="info">
+					Halaman untuk melihat daftar nilai matakuliah per tahun akademik, dan
+					semester yang telah dilakukan.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -41,29 +39,31 @@
 									<v-card flat>
 										<v-card-title>ID KRS:</v-card-title>
 										<v-card-subtitle>
-											{{datakrs.id}}
+											{{ datakrs.id }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>SAH :</v-card-title>
 										<v-card-subtitle>
-											<v-chip label outlined color="info">{{datakrs.sah==1?"YA": "TIDAK"}}</v-chip>
+											<v-chip label outlined color="info">
+												{{ datakrs.sah == 1 ? "YA" : "TIDAK" }}
+											</v-chip>
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>NIM:</v-card-title>
 										<v-card-subtitle>
-											{{datakrs.nim}}
+											{{ datakrs.nim }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>CREATED :</v-card-title>
@@ -72,16 +72,16 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>NAMA MAHASISWA:</v-card-title>
 										<v-card-subtitle>
-											{{datakrs.nama_mhs}}
+											{{ datakrs.nama_mhs }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>UPDATED :</v-card-title>
@@ -90,7 +90,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 							</v-row>
 						</v-card-text>
 					</v-card>
@@ -102,19 +102,19 @@
 						<v-card-title>
 							DAFTAR MATAKULIAH
 							<v-spacer></v-spacer>
-							<v-btn 
+							<v-btn
 								color="primary"
-								fab 
+								fab
 								small
 								@click.stop="printpdf"
-								
-								:disabled="btnLoading || !datakrs.hasOwnProperty('id')">
+								:disabled="btnLoading || !datakrs.hasOwnProperty('id')"
+							>
 								<v-icon>mdi-printer</v-icon>
 							</v-btn>
 						</v-card-title>
 						<v-card-text>
-							<v-data-table        
-								dense                        
+							<v-data-table
+								dense
 								:headers="headers"
 								:items="datatable"
 								item-key="id"
@@ -226,7 +226,12 @@
 			headers: [
 				{ text: "NO.", value: "no", sortable: true, width: 70 },
 				{ text: "KODE", value: "kmatkul", sortable: true, width: 100 },
-				{ text: "NAMA MATAKULIAH", value: "nmatkul", sortable: true, width: 300 },
+				{
+					text: "NAMA MATAKULIAH",
+					value: "nmatkul",
+					sortable: true,
+					width: 300,
+				},
 				{ text: "SKS", value: "sks", sortable: false, width: 50 },
 				{ text: "HM", value: "HM", sortable: false, width: 50 },
 				{ text: "AM", value: "AM", sortable: false, width: 50 },

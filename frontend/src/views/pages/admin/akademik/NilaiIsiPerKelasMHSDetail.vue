@@ -94,7 +94,7 @@
 							</template>
 							<template v-slot:item.n_kual="props">
 								<v-select
-									:items="skala_nilai"
+									:items="$store.getters['uiadmin/getSkalaNilai']"
 									v-model="props.item.n_kual"
 									style="width:65px"
 									dense
@@ -185,20 +185,6 @@
 			//formdata
 			form_valid: true,
 			daftar_nilai: [],
-			skala_nilai: [
-				"A",
-				"A-",
-				"A/B",
-				"B+",
-				"B-",
-				"B/C",
-				"C+",
-				"C-",
-				"C/D",
-				"D+",
-				"D",
-				"E",
-			],
 		}),
 		methods: {
 			initialize: async function() {

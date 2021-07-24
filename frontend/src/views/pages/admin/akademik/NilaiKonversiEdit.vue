@@ -118,7 +118,7 @@
                 </v-row>
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">
-                        <v-data-table                            
+                        <v-data-table                    
                             :headers="headers"
                             :items="datatable"
                             :search="search"
@@ -142,21 +142,21 @@
                             <template v-slot:item.kmatkul_asal="props">
                                 <v-text-field
                                     v-model="props.item.kmatkul_asal"
-                                    dense                                                                 
+                                    dense                                         
                                 >
                                 </v-text-field>
                             </template>                                 
                             <template v-slot:item.matkul_asal="props">
                                 <v-text-field
                                     v-model="props.item.matkul_asal"
-                                    dense                                 
+                                    dense         
                                 >
                                 </v-text-field>
                             </template>                                 
                             <template v-slot:item.sks_asal="props">
                                 <v-text-field
                                     v-model="props.item.sks_asal"
-                                    dense                                                             
+                                    dense                                     
                                 >
                                 </v-text-field>
                             </template>                                 

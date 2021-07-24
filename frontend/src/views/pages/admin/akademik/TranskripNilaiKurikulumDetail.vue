@@ -77,8 +77,8 @@
                                 <span>Cetak Transkrip Dua Kolom</span>
                             </v-tooltip> 
                         </v-card-title>
-                        <v-data-table        
-                            dense                        
+                        <v-data-table
+                            dense
                             :headers="headers"
                             :items="datatable"
                             item-key="id"        
@@ -181,8 +181,8 @@
                         </v-col>
                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                     </v-row>
-                    <v-data-table        
-                        dense                        
+                    <v-data-table
+                        dense
                         :headers="history_headers"
                         :items="data_history"
                         item-key="krsmatkul_id"        

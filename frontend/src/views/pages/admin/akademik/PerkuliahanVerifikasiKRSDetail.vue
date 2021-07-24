@@ -42,8 +42,8 @@
                             <v-spacer></v-spacer>         
                         </v-card-title>
                         <v-card-text>
-                            <v-data-table        
-                                dense                        
+                            <v-data-table
+                                dense
                                 :headers="headers"
                                 :items="datatable"
                                 item-key="id"        

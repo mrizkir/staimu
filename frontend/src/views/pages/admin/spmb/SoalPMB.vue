@@ -167,7 +167,7 @@
                                                     outlined />  
                                                 <v-divider class="mt-2"/>
                                                 <v-radio-group v-model="formdata.jawaban_benar">
-                                                    <v-data-table                                                        
+                                                    <v-data-table                                                
                                                         :headers="headers_detail"
                                                         :items="daftar_soal_jawaban"
                                                         :search="search"
@@ -244,7 +244,7 @@
                                             </v-row>
                                             <v-row class="mb-4" no-gutters> 
                                                 <v-col col="12">
-                                                    <v-data-table                                                        
+                                                    <v-data-table                                                
                                                         :headers="headers_detail"
                                                         :items="daftar_soal_jawaban"
                                                         :search="search"

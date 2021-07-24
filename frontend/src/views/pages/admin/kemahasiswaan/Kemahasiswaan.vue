@@ -47,7 +47,7 @@
                                         :loading="isLoading"
                                         :search-input.sync="search"
                                         cache-items                                        
-                                        dense                                                                                                                
+                                        dense                                                                                        
                                         item-text="nama_mhs_alias"
                                         item-value="user_id"  
                                         hide-no-data                                 
