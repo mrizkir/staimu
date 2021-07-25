@@ -505,7 +505,7 @@ class NilaiKHSController extends Controller
 			}
 	}
 	/**
-	 * cetak seluruh transaksi spp per prodi dan ta
+	 * cetak seluruh khs per prodi dan ta
 	 */
 	public function printtoexcel1 (Request $request)
 	{

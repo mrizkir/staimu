@@ -63,12 +63,12 @@ class NilaiMatakuliahController extends Controller
 										pe3_register_mahasiswa.tahun,
 										pe3_register_mahasiswa.idkelas,
 										pe3_register_mahasiswa.tahun,
-										pe3_register_mahasiswa.kjur,                        
+										pe3_register_mahasiswa.kjur,    
 										COALESCE(pe3_nilai_matakuliah.nilai_absen,0.00) AS nilai_absen,
 										COALESCE(pe3_nilai_matakuliah.nilai_tugas_individu,0.00) AS nilai_tugas_individu,
 										COALESCE(pe3_nilai_matakuliah.nilai_uts,0.00) AS nilai_uts,
 										COALESCE(pe3_nilai_matakuliah.nilai_uas,0.00) AS nilai_uas,
-										COALESCE(pe3_nilai_matakuliah.n_kuan,0.00) AS n_kuan,        
+										COALESCE(pe3_nilai_matakuliah.n_kuan,0.00) AS n_kuan,   
 										pe3_nilai_matakuliah.n_kual,
 										pe3_nilai_matakuliah.bydosen,
 										pe3_nilai_matakuliah.created_at,
@@ -84,7 +84,7 @@ class NilaiMatakuliahController extends Controller
 									->get();
 			return Response()->json([
 								'status'=>1,
-								'pid'=>'fetchdata',                                             
+								'pid'=>'fetchdata',                    
 								'peserta'=>$peserta,
 								'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
@@ -167,7 +167,7 @@ class NilaiMatakuliahController extends Controller
 		$request->merge(['daftar_nilai'=>$daftar_nilai]);   
 
 		$this->validate($request, [      
-			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',     
+			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
 			'daftar_nilai'=>'required',
 		]);
 		$jumlah_matkul=0;
@@ -219,7 +219,7 @@ class NilaiMatakuliahController extends Controller
 						'persentase_uts'=>30,
 						'persentase_uas'=>40,
 
-						'nilai_absen'=>$nilai_absen,            
+						'nilai_absen'=>$nilai_absen,  
 						'nilai_tugas_individu'=>$nilai_tugas_individu,
 						'nilai_uts'=>$nilai_uts,
 						'nilai_uas'=>$nilai_uas,
@@ -258,7 +258,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                     
+																'user_id' => $this->getUserid(), 
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
@@ -269,7 +269,7 @@ class NilaiMatakuliahController extends Controller
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'store', 
-									'daftar_nilai'=>$daftar_nilai,     
+									'daftar_nilai'=>$daftar_nilai,
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
@@ -363,7 +363,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                     
+																'user_id' => $this->getUserid(), 
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
@@ -373,7 +373,7 @@ class NilaiMatakuliahController extends Controller
 		return Response()->json([
 			'status'=>1,
 			'pid'=>'store', 
-			'daftar_nilai'=>$daftar_nilai,     
+			'daftar_nilai'=>$daftar_nilai,
 			'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 		], 200);
 	}
@@ -385,7 +385,7 @@ class NilaiMatakuliahController extends Controller
 		$request->merge(['daftar_nilai'=>$daftar_nilai]);
 
 		$this->validate($request, [      
-			'krs_id'=>'required|exists:pe3_krs,id',     
+			'krs_id'=>'required|exists:pe3_krs,id',
 			'daftar_nilai'=>'required',
 		]);
 		$krs_id=$request->input('krs_id');
@@ -467,7 +467,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                     
+																'user_id' => $this->getUserid(), 
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
@@ -477,8 +477,80 @@ class NilaiMatakuliahController extends Controller
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'store', 
-									'daftar_nilai'=>$daftar_nilai,     
+									'daftar_nilai'=>$daftar_nilai,
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
+	}
+	/**
+	 * cetak daftar nilai dosen per kelas
+	 */
+	public function printtoexcelperdosen1(Request $request, $id)
+	{
+		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+
+		if ($this->hasRole('dosen'))
+		{
+			$kelas_mhs=PembagianKelasModel::select(\DB::raw('
+								pe3_kelas_mhs.id,
+								pe3_kelas_mhs.idkelas,
+								pe3_kelas_mhs.hari,
+								\'\' AS nama_hari,
+								pe3_kelas_mhs.jam_masuk,
+								pe3_kelas_mhs.jam_keluar,
+								pe3_kelas_mhs.kmatkul,
+								pe3_kelas_mhs.nmatkul,
+								pe3_kelas_mhs.sks,
+								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+								pe3_dosen.nidn,								
+								pe3_ruangkelas.namaruang,
+								pe3_ruangkelas.kapasitas,	
+								pe3_kelas_mhs.tahun,							
+								pe3_kelas_mhs.idsmt
+							'))
+							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->where('pe3_kelas_mhs.id', $id)
+							->where('pe3_kelas_mhs.user_id', $this->getUserid())
+							->first(); 
+		}
+		else
+		{
+			$kelas_mhs=PembagianKelasModel::select(\DB::raw('
+								pe3_kelas_mhs.id,
+								pe3_kelas_mhs.idkelas,
+								pe3_kelas_mhs.hari,
+								\'\' AS nama_hari,
+								pe3_kelas_mhs.jam_masuk,
+								pe3_kelas_mhs.jam_keluar,
+								pe3_kelas_mhs.kmatkul,
+								pe3_kelas_mhs.nmatkul,
+								pe3_kelas_mhs.sks,
+								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+								pe3_dosen.nidn,								
+								pe3_ruangkelas.namaruang,
+								pe3_ruangkelas.kapasitas,
+								pe3_kelas_mhs.tahun,							
+								pe3_kelas_mhs.idsmt
+							'))
+							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->where('pe3_kelas_mhs.id', $id)
+							->first(); 
+		}
+
+		if (is_null($kelas_mhs))
+		{
+			return Response()->json([
+									'status'=>0,
+									'pid'=>'fetchdata',
+									'message'=>["Kelas Dosen dengan ($id) gagal diperoleh"]
+								], 422);
+		}
+		else
+		{
+			$data_report = $kelas_mhs->toArray();			
+			$report= new \App\Models\Report\ReportNilaiMatakuliahModel($data_report);
+			return $report->printtoexcelperdosen1();
+		}
 	}
 }

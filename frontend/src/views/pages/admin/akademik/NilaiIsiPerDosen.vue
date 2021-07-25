@@ -97,6 +97,17 @@
 							<span v-else>
 								N.A
 							</span>
+							<v-btn
+								small
+								icon
+								:disabled="btnLoading"
+								@click.stop="printtoexcel(item)"
+								v-if="item.jumlah_mhs > 0"								
+							>
+								<v-icon>
+									mdi-printer
+								</v-icon>
+							</v-btn>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
@@ -165,6 +176,7 @@
 			semester_akademik: null,
 
 			btnLoadingTable: false,
+			btnLoading: false,
 			datatableLoading: false,
 			expanded: [],
 			datatable: [],
@@ -228,6 +240,36 @@
 				} else {
 					this.expanded = [item];
 				}
+			},
+			async printtoexcel(item) {
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/akademik/nilai/matakuliah/perdosen/printtoexcel1/" + item.id,
+						{},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data, status }) => {
+						if (status == 200) {
+							const url = window.URL.createObjectURL(new Blob([data]));
+							const link = document.createElement("a");
+							link.href = url;
+							link.setAttribute("download", "daftar_nilai_" + Date.now() + ".xlsx");
+							link.setAttribute("id", "download_laporan");
+							document.body.appendChild(link);
+							link.click();
+							document.body.removeChild(link);							
+						}
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
 		},
 		watch: {

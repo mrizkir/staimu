@@ -169,7 +169,7 @@ class ReportAkademikKHSModel extends ReportModel
     $sheet->setCellValue("I$row",Helper::formatPecahan($total_ipk,$total_mhs));
     
     $styleArray=array(
-    'font' => array('bold' => true)
+        'font' => array('bold' => true)
     );
     $sheet->getStyle("F$row_awal_mhs:I$row")->applyFromArray($styleArray);
 
