@@ -68,7 +68,7 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',                
+                                        'pid'=>'fetchdata',    
                                         'message'=>["User ID ($id) gagal diperoleh"]
                                     ], 422); 
         }
@@ -112,7 +112,7 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'store',    
                                     'message'=>["Data Mahasiswa tidak ditemukan."]
                                 ], 422);    
         }
@@ -120,7 +120,7 @@ class PMBPersyaratanController extends Controller {
         {
             $this->validate($request, [      
                 'persyaratan_pmb_id'=>'required',
-                'persyaratan_id'=>'required|exists:pe3_persyaratan,id',                               
+                'persyaratan_id'=>'required|exists:pe3_persyaratan,id',                   
                 'nama_persyaratan'=>'required',  
                 'foto'=>'required'                        
             ]);
@@ -142,7 +142,7 @@ class PMBPersyaratanController extends Controller {
                                                                 'persyaratan_id'=>$request->input('persyaratan_id'),
                                                                 'user_id'=>$id,
                                                                 'nama_persyaratan'=> $request->input('nama_persyaratan'),
-                                                                'path'=>"storage/images/pmb/$file_name",            
+                                                                'path'=>"storage/images/pmb/$file_name",
                                                                 'created_at'=>$now, 
                                                                 'updated_at'=>$now
                                                             ]); 
@@ -166,7 +166,7 @@ class PMBPersyaratanController extends Controller {
                 return Response()->json([
                                             'status'=>0,
                                             'pid'=>'store',
-                                            'persyaratan'=>$persyaratan,                
+                                            'persyaratan'=>$persyaratan,    
                                             'message'=>"Persyaratan Mahasiswa baru ($name)  berhasil diupload"
                                         ], 200);    
             }
@@ -192,7 +192,7 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
                                 ], 422);    
         }
@@ -228,7 +228,7 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
                                 ], 422);    
         }

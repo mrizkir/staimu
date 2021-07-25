@@ -22,8 +22,8 @@ class TransaksiDulangMHSBaruController extends Controller {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-DULANG-MHS-BARU_BROWSE');
         
         $this->validate($request, [           
-            'ta'=>'required',            
-            'prodi_id'=>'required',            
+            'ta'=>'required',
+            'prodi_id'=>'required',
         ]);
 
         $ta=$request->input('ta');
@@ -48,7 +48,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                         pe3_transaksi.kjur,
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
-                                                        pe3_transaksi.idkelas,                        
+                                                        pe3_transaksi.idkelas,            
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
                                                         pe3_status_transaksi.style,
@@ -85,7 +85,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                         pe3_transaksi.kjur,
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
-                                                        pe3_transaksi.idkelas,                                                                          
+                                                        pe3_transaksi.idkelas,                                                              
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
                                                         pe3_status_transaksi.style,
@@ -116,7 +116,7 @@ class TransaksiDulangMHSBaruController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
@@ -128,7 +128,7 @@ class TransaksiDulangMHSBaruController extends Controller {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-DULANG-MHS-BARU_STORE');
 
         $this->validate($request, [           
-            'no_formulir'=>'required|exists:pe3_formulir_pendaftaran,no_formulir',                             
+            'no_formulir'=>'required|exists:pe3_formulir_pendaftaran,no_formulir',                 
             'ta'=>'required'
         ]);
         
@@ -194,7 +194,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                     'ta'=>$request->input('ta'),
                     'idsmt'=>$mahasiswa->idsmt,
                     'idkelas'=>$mahasiswa->idkelas,
-                    'no_formulir'=>$mahasiswa->no_formulir,                    
+                    'no_formulir'=>$mahasiswa->no_formulir,        
                     'commited'=>0,
                     'total'=>0,
                     'tanggal'=>date('Y-m-d'),
@@ -223,8 +223,8 @@ class TransaksiDulangMHSBaruController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'store',                   
-                                        'transaksi'=>$transaksi,                                                                                                   
+                                        'pid'=>'store',       
+                                        'transaksi'=>$transaksi,
                                         'message'=>'Transaksi Daftar Ulang Mahasiswa Baru berhasil di input.'
                                     ], 200); 
         }
@@ -232,7 +232,7 @@ class TransaksiDulangMHSBaruController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'store',                                                                                                                  
+                'pid'=>'store',               
                 'message'=>[$e->getMessage()]
             ], 422); 
         }        
@@ -271,7 +271,7 @@ class TransaksiDulangMHSBaruController extends Controller {
             $transaksi->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -291,15 +291,15 @@ class TransaksiDulangMHSBaruController extends Controller {
     public function printtoexcel1 (Request $request)
     {
         $this->validate($request, [           
-            'ta'=>'required',            
+            'ta'=>'required',
             'prodi_id'=>'required',
             'nama_prodi'=>'required',
         ]);
 
         $data_report=[
             'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),            
-            'nama_prodi'=>$request->input('nama_prodi'),                        
+            'prodi_id'=>$request->input('prodi_id'),
+            'nama_prodi'=>$request->input('nama_prodi'),            
         ];
 
         $report= new \App\Models\Report\ReportKeuanganDulangMHSBaruModel ($data_report);

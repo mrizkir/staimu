@@ -34,8 +34,8 @@ class ReportSPMBProdiController extends Controller {
         
         $data_report=[
             'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),            
-            'nama_prodi'=>$request->input('nama_prodi'),            
+            'prodi_id'=>$request->input('prodi_id'),
+            'nama_prodi'=>$request->input('nama_prodi'),
         ];
 
         $report= new \App\Models\Report\ReportSPMBModel ($data_report);     

@@ -22,7 +22,7 @@ class DulangController extends Controller
         $this->hasPermissionTo('AKADEMIK-DULANG-MHS_BROWSE');
 
         $this->validate($request, [      
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
         ]);
         
         $nim=$request->input('nim');
@@ -47,7 +47,7 @@ class DulangController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'daftar_dulang'=>$daftar_dulang,                                                                                                   
+                                    'daftar_dulang'=>$daftar_dulang,
                                     'message'=>'daftar dulang mahasiswa yang tidak ada di KRS dengan status aktif berhasil diperoleh'
                                 ], 200);  
     }
@@ -77,7 +77,7 @@ class DulangController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'isdulang'=>$isdulang,                                                                                                   
+                                    'isdulang'=>$isdulang,
                                     'message'=>'Cek dulang mahasiswa'
                                 ], 200);  
     }
@@ -99,17 +99,17 @@ class DulangController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Update biodata mahasiswa dengan dulang id ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [
-                'nama_mhs'=>'required',            
-                'tempat_lahir'=>'required',            
-                'tanggal_lahir'=>'required',            
-                'jk'=>'required',            
+                'nama_mhs'=>'required',
+                'tempat_lahir'=>'required',
+                'tanggal_lahir'=>'required',
+                'jk'=>'required',
                 'nomor_hp'=>'required|unique:users,nomor_hp,'.$dulang->user_id,
                 'email'=>'required|string|email|unique:users,email,'.$dulang->user_id,
                 'nama_ibu_kandung'=>'required',
@@ -122,7 +122,7 @@ class DulangController extends Controller
                 'address1_kecamatan'=>'required',
                 'address1_desa_id'=>'required',
                 'address1_kelurahan'=>'required',
-                'alamat_rumah'=>'required',                
+                'alamat_rumah'=>'required',    
             ]);
 
             $dulang = \DB::transaction(function () use ($request,$dulang){ 
@@ -185,7 +185,7 @@ class DulangController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Daftar Ulang Mahasiswa Baru ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -201,7 +201,7 @@ class DulangController extends Controller
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

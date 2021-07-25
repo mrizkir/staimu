@@ -25,7 +25,7 @@ class KepegawaianDosenController extends Controller {
                         users.id,
                         users.username,
                         users.name,
-                        CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,                        
+                        CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,            
                         pe3_dosen.nidn,
                         pe3_dosen.nipy,
                         pe3_dosen.gelar_depan,
@@ -69,7 +69,7 @@ class KepegawaianDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -84,9 +84,9 @@ class KepegawaianDosenController extends Controller {
                                                     'numeric',
                                                     'unique:pe3_dosen,nipy,'.$user->id.',user_id'
                                                 ],           
-                                        'name'=>'required',            
-                                        'id_jabatan'=>'required',                    
-                                        'name'=>'required',            
+                                        'name'=>'required',
+                                        'id_jabatan'=>'required',        
+                                        'name'=>'required',
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
                                     ]); 

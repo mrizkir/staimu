@@ -37,10 +37,10 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                                 matkul_id,
                                                                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                                 kmatkul,
-                                                                nmatkul,                            
+                                                                nmatkul,                
                                                                 sks,       
                                                                 semester,
-                                                                ta_matkul,                                                                                 
+                                                                ta_matkul,                                                                     
                                                                 0 AS jumlah_dosen,
                                                                 0 AS jumlah_mhs
                                                             '))
@@ -61,10 +61,10 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                                 matkul_id,
                                                                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                                 kmatkul,
-                                                                nmatkul,                            
+                                                                nmatkul,                
                                                                 sks,       
                                                                 semester,
-                                                                ta_matkul,                                                                                 
+                                                                ta_matkul,                                                                     
                                                                 0 AS jumlah_dosen,
                                                                 0 AS jumlah_mhs
                                                             '))
@@ -87,7 +87,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'penyelenggaraan'=>$penyelenggaraan,                                                                                                   
+                                    'penyelenggaraan'=>$penyelenggaraan,
                                     'message'=>'Fetch data penyelenggaraan matakuliah berhasil.'
                                 ], 200); 
     }
@@ -105,7 +105,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             'ta'=>'required',
             'semester_akademik'=>'required',
             'prodi_id'=>'required',   
-            'matkul_selected'=>'required',                   
+            'matkul_selected'=>'required',       
         ]);
         $ta=$request->input('ta');
         $prodi_id=$request->input('prodi_id');
@@ -133,8 +133,8 @@ class PenyelenggaraanMatakuliahController extends Controller
 
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'store',                    
-                                'matkul_selected'=>$matkul_selected,            
+                                'pid'=>'store',        
+                                'matkul_selected'=>$matkul_selected,
                                 'message'=>'Penyelenggaraan matakuliah berhasil ditambahkan.'
                             ], 200);
     }
@@ -147,7 +147,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Penyelenggaraan dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -155,8 +155,8 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'fetchdata',                    
-                                    'penyelenggaraan'=>$penyelenggaraan,            
+                                    'pid'=>'fetchdata',        
+                                    'penyelenggaraan'=>$penyelenggaraan,
                                     'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
                                 ], 200);
         }
@@ -168,8 +168,8 @@ class PenyelenggaraanMatakuliahController extends Controller
     public function members(Request $request)
     {
         $this->validate($request, [            
-            'pid'=>'required|in:belumterdaftar',             
-            'penyelenggaraan'=>'required',             
+            'pid'=>'required|in:belumterdaftar', 
+            'penyelenggaraan'=>'required', 
         ]);
         $penyelenggaraan=json_decode($request->input('penyelenggaraan',false));
         $penyelenggaraan_id=[];
@@ -216,7 +216,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
 
         $this->validate($request, [            
-            'pid'=>'required|in:belumterdaftar,terdaftar,daftarpengampu',             
+            'pid'=>'required|in:belumterdaftar,terdaftar,daftarpengampu', 
         ]);
         
         $data=[];   
@@ -264,14 +264,14 @@ class PenyelenggaraanMatakuliahController extends Controller
             case 'daftarpengampu':
                 $this->validate($request, [            
                     'ta'=>'required',
-                    'semester_akademik'=>'required',                    
+                    'semester_akademik'=>'required',        
                 ]);
 
                 $ta=$request->input('ta');           
                 $semester_akademik=$request->input('semester_akademik');
                 
                 $data=PenyelenggaraanDosenModel::select(\DB::raw('
-                                                DISTINCT(pe3_dosen.user_id) AS user_id,                                                                                                                
+                                                DISTINCT(pe3_dosen.user_id) AS user_id,             
                                                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
                                                 pe3_dosen.nidn
                                             '))
@@ -298,7 +298,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         $this->validate($request, [                                
             'user_id'=>'required|exists:pe3_dosen,user_id',           
             'ta'=>'required',
-            'semester_akademik'=>'required|in:1,2,3',            
+            'semester_akademik'=>'required|in:1,2,3',
         ]);
         
         $ta=$request->input('ta');
@@ -321,8 +321,8 @@ class PenyelenggaraanMatakuliahController extends Controller
         
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'fetchdata',                    
-                                'matakuliah'=>$data,            
+                                'pid'=>'fetchdata',        
+                                'matakuliah'=>$data,
                                 'message'=>"Daftar matakuliah yang di ampu oleh ($user_id) berhasil diperoleh."
                             ], 200);
         
@@ -357,8 +357,8 @@ class PenyelenggaraanMatakuliahController extends Controller
         }
         return Response()->json([
                                 'status'=>1,
-                                'pid'=>'store',                    
-                                'dosen'=>$dosen,            
+                                'pid'=>'store',        
+                                'dosen'=>$dosen,
                                 'message'=>'Dosen pengampu Penyelenggaraan matakuliah ini berhasil ditambahkan.'
                             ], 200);
     }
@@ -373,7 +373,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -403,7 +403,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'update',                
+                                        'pid'=>'update',    
                                         'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
                                     ], 200);    
         }
@@ -424,7 +424,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Penyelenggaraan dengan ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -439,7 +439,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             $penyelenggaraan->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Penyelenggaraan dengan ID ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -461,7 +461,7 @@ class PenyelenggaraanMatakuliahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Dosen Pengampu dengan ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -476,7 +476,7 @@ class PenyelenggaraanMatakuliahController extends Controller
             $dosen->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Penyelenggaraan Dosen dengan ID ($id) berhasil dihapus"
                                     ], 200);    
         }

@@ -17,7 +17,7 @@ class LogDataMhsMigrationController extends Controller {
         $this->hasPermissionTo('SYSTEM-MIGRATION_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',            
+            'ta'=>'required',
         ]);
         
         $ta=$request->input('ta');

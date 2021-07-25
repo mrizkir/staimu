@@ -47,7 +47,7 @@ class UsersAkademikController extends Controller {
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|string|unique:users',
             'username'=>'required|string|unique:users',
-            'password'=>'required',            
+            'password'=>'required',
             'prodi_id'=>'required',
         ]);
         $user = \DB::transaction(function () use ($request){
@@ -58,7 +58,7 @@ class UsersAkademikController extends Controller {
                 'email'=>$request->input('email'),
                 'nomor_hp'=>$request->input('nomor_hp'),
                 'username'=> $request->input('username'),
-                'password'=>Hash::make($request->input('password')),                        
+                'password'=>Hash::make($request->input('password')),            
                 'theme'=>'default',
                 'default_role'=>'akademik',
                 'foto'=> 'storage/images/users/no_photo.png',
@@ -84,18 +84,18 @@ class UsersAkademikController extends Controller {
                         nama_prodi,
                         nama_prodi_alias,
                         kode_jenjang,
-                        nama_jenjang,                        
+                        nama_jenjang,            
                         created_at, 
                         updated_at
                     ) 
                     SELECT
-                        '$user_id',                    
+                        '$user_id',        
                         id,
                         kode_prodi,
                         nama_prodi,
                         nama_prodi_alias,
                         kode_jenjang,
-                        nama_jenjang,                          
+                        nama_jenjang,              
                         NOW() AS created_at,
                         NOW() AS updated_at
                     FROM pe3_prodi                    
@@ -120,7 +120,7 @@ class UsersAkademikController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                            
+                            'nama_dosen'=>$request->input('name'),                
                         ]);
                         if ($v=='dosenwali')
                         {
@@ -166,7 +166,7 @@ class UsersAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -177,7 +177,7 @@ class UsersAkademikController extends Controller {
                                                         'required',
                                                         'unique:users,username,'.$user->id
                                                     ],           
-                                        'name'=>'required',            
+                                        'name'=>'required',
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,   
                                         'prodi_id'=>'required',           
@@ -207,18 +207,18 @@ class UsersAkademikController extends Controller {
                             nama_prodi,
                             nama_prodi_alias,
                             kode_jenjang,
-                            nama_jenjang,                        
+                            nama_jenjang,            
                             created_at, 
                             updated_at
                         ) 
                         SELECT
-                            '$user_id',                    
+                            '$user_id',        
                             id,
                             kode_prodi,
                             nama_prodi,
                             nama_prodi_alias,
                             kode_jenjang,
-                            nama_jenjang,                          
+                            nama_jenjang,              
                             NOW() AS created_at,
                             NOW() AS updated_at
                         FROM pe3_prodi                    
@@ -252,7 +252,7 @@ class UsersAkademikController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                            
+                                'nama_dosen'=>$request->input('name'),                
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -314,7 +314,7 @@ class UsersAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["User ID ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -332,7 +332,7 @@ class UsersAkademikController extends Controller {
         
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"User Akademik ($username) berhasil dihapus"
                                     ], 200);    
         }

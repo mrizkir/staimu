@@ -40,9 +40,9 @@ class DulangMahasiswaLamaController extends Controller
                                     pe3_dulang.nim,
                                     pe3_register_mahasiswa.nirm,
                                     pe3_formulir_pendaftaran.nama_mhs,
-                                    pe3_dulang.idkelas,                                                                      
-                                    pe3_dulang.k_status,                                                                      
-                                    pe3_status_mahasiswa.n_status,                                                                      
+                                    pe3_dulang.idkelas,                                                          
+                                    pe3_dulang.k_status,                                                          
+                                    pe3_status_mahasiswa.n_status,                                                          
                                     pe3_dulang.created_at,      
                                     pe3_dulang.updated_at                                      
                                 '))
@@ -66,9 +66,9 @@ class DulangMahasiswaLamaController extends Controller
                                     pe3_dulang.nim,
                                     pe3_register_mahasiswa.nirm,
                                     pe3_formulir_pendaftaran.nama_mhs,
-                                    pe3_dulang.idkelas,                                                                      
-                                    pe3_dulang.k_status,                                                                      
-                                    pe3_status_mahasiswa.n_status,                                                                      
+                                    pe3_dulang.idkelas,                                                          
+                                    pe3_dulang.k_status,                                                          
+                                    pe3_status_mahasiswa.n_status,                                                          
                                     pe3_dulang.created_at,      
                                     pe3_dulang.updated_at                                      
                                 '))
@@ -86,7 +86,7 @@ class DulangMahasiswaLamaController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                   
+                                    'mahasiswa'=>$data,
                                     'message'=>'Fetch data daftar ulang mahasiswa lama berhasil.'
                                 ], 200);
     }
@@ -106,7 +106,7 @@ class DulangMahasiswaLamaController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Daftar Ulang Mahasiswa Lama ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -131,7 +131,7 @@ class DulangMahasiswaLamaController extends Controller
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

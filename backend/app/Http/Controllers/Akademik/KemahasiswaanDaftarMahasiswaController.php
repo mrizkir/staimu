@@ -53,7 +53,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                   
+                                    'mahasiswa'=>$data,
                                     'message'=>'Fetch data daftar mahasiswa berhasil.'
                                 ], 200);
     }
@@ -74,8 +74,8 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
         
         $data_report=[
             'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),            
-            'nama_prodi'=>$request->input('nama_prodi'),            
+            'prodi_id'=>$request->input('prodi_id'),
+            'nama_prodi'=>$request->input('nama_prodi'),
         ];
 
         $report= new \App\Models\Report\ReportKemahasiswaanModel ($data_report);     

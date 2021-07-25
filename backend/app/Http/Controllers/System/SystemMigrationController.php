@@ -25,7 +25,7 @@ class SystemMigrationController extends Controller {
         $this->hasPermissionTo('SYSTEM-MIGRATION_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',            
+            'ta'=>'required',
         ]);
         
         $ta=$request->input('ta');
@@ -61,17 +61,17 @@ class SystemMigrationController extends Controller {
         $this->validate($request, [
             'nim'=>'required|numeric|unique:pe3_register_mahasiswa,nim',        
             'nirm'=>'required|numeric|unique:pe3_register_mahasiswa,nirm',
-            'nama_mhs'=>'required',            
+            'nama_mhs'=>'required',
             'dosen_id'=>[
                 'required',
                 Rule::exists('pe3_dosen','user_id')->where(function($query){
                     return $query->where('is_dw',1);
                 })
-            ],            
-            'prodi_id'=>'required|numeric',            
+            ],
+            'prodi_id'=>'required|numeric',
             'idkelas'=>'required',
             'tahun_pendaftaran'=>'required',
-            'status_mhs.*'=>'required',                        
+            'status_mhs.*'=>'required',            
         ]);
         
         $user = \DB::transaction(function () use ($request){
@@ -110,7 +110,7 @@ class SystemMigrationController extends Controller {
             $formulir=FormulirPendaftaranModel::create([
                 'user_id'=>$user->id,
                 'no_formulir'=>$no_formulir,
-                'nama_mhs'=>$request->input('nama_mhs'),                
+                'nama_mhs'=>$request->input('nama_mhs'),    
                 'telp_hp'=>$request->input('nomor_hp'),
                 'kjur1'=>$request->input('prodi_id'),
                 'ta'=>$ta,
@@ -222,7 +222,7 @@ class SystemMigrationController extends Controller {
 
         $this->validate($request, [
             'ta_matkul'=>'required|numeric', 
-            'prodi_id'=>'required|numeric',                   
+            'prodi_id'=>'required|numeric',       
         ]);
 
         $ta_matkul=$request->input('ta_matkul');

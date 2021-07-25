@@ -8,7 +8,7 @@ use App\Models\Akademik\PembagianKelasModel;
 use App\Models\Akademik\PembagianKelasPesertaModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
-
+use App\Helpers\HelperAkademik;
 use App\Models\Akademik\NilaiMatakuliahModel;
 
 use Ramsey\Uuid\Uuid;
@@ -37,7 +37,7 @@ class NilaiMatakuliahController extends Controller
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'fetchdata',  
-									'daftar_nilai'=>$daftar_nilai,                                                                                                   
+									'daftar_nilai'=>$daftar_nilai,
 									'message'=>'Fetch data penyelenggaraan matakuliah berhasil.'
 								], 200); 
 	}
@@ -49,7 +49,7 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',                
+									'pid'=>'fetchdata',    
 									'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
 								], 422); 
 		}
@@ -63,7 +63,7 @@ class NilaiMatakuliahController extends Controller
 										pe3_register_mahasiswa.tahun,
 										pe3_register_mahasiswa.idkelas,
 										pe3_register_mahasiswa.tahun,
-										pe3_register_mahasiswa.kjur,                                                                                                                           
+										pe3_register_mahasiswa.kjur,                        
 										COALESCE(pe3_nilai_matakuliah.nilai_absen,0.00) AS nilai_absen,
 										COALESCE(pe3_nilai_matakuliah.nilai_tugas_individu,0.00) AS nilai_tugas_individu,
 										COALESCE(pe3_nilai_matakuliah.nilai_uts,0.00) AS nilai_uts,
@@ -84,8 +84,9 @@ class NilaiMatakuliahController extends Controller
 									->get();
 			return Response()->json([
 								'status'=>1,
-								'pid'=>'fetchdata',                                                         
-								'peserta'=>$peserta,            
+								'pid'=>'fetchdata',                                             
+								'peserta'=>$peserta,
+								'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
@@ -117,7 +118,7 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',                
+									'pid'=>'destroy',    
 									'message'=>["KRS dengan ($id) gagal diperoleh"]
 								], 422); 
 		}
@@ -150,10 +151,11 @@ class NilaiMatakuliahController extends Controller
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'fetchdata',  
-									'krs'=>$krs,                                                                                                   
-									'krsmatkul'=>$daftar_matkul,                                                                                                   
-									'jumlah_matkul'=>$daftar_matkul->count(),                                                                                                   
-									'jumlah_sks'=>$daftar_matkul->sum('sks'),                                                                                                   
+									'krs'=>$krs,
+									'krsmatkul'=>$daftar_matkul,
+									'jumlah_matkul'=>$daftar_matkul->count(),
+									'jumlah_sks'=>$daftar_matkul->sum('sks'),
+									'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 									'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
 								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 	}
@@ -166,7 +168,7 @@ class NilaiMatakuliahController extends Controller
 
 		$this->validate($request, [      
 			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',     
-			'daftar_nilai'=>'required',            
+			'daftar_nilai'=>'required',
 		]);
 		$jumlah_matkul=0;
 		foreach ($daftar_nilai as $v)
@@ -188,7 +190,7 @@ class NilaiMatakuliahController extends Controller
 											pe3_krsmatkul.krs_id,
 											pe3_krs.user_id,
 											pe3_krsmatkul.penyelenggaraan_id,
-											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,            
+											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
 											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
 										'))
 										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
@@ -217,7 +219,7 @@ class NilaiMatakuliahController extends Controller
 						'persentase_uts'=>30,
 						'persentase_uas'=>40,
 
-						'nilai_absen'=>$nilai_absen,                        
+						'nilai_absen'=>$nilai_absen,            
 						'nilai_tugas_individu'=>$nilai_tugas_individu,
 						'nilai_uts'=>$nilai_uts,
 						'nilai_uas'=>$nilai_uas,
@@ -256,7 +258,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                                 
+																'user_id' => $this->getUserid(),                     
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
@@ -280,7 +282,7 @@ class NilaiMatakuliahController extends Controller
 
 		$this->validate($request, [      
 			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-			'daftar_nilai'=>'required',            
+			'daftar_nilai'=>'required',
 		]);
 		$kelas_mhs_id = $request->input('kelas_mhs_id');
 
@@ -300,7 +302,7 @@ class NilaiMatakuliahController extends Controller
 											pe3_krsmatkul.krs_id,
 											pe3_krs.user_id,
 											pe3_krsmatkul.penyelenggaraan_id,
-											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,            
+											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
 											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
 										'))
 										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
@@ -361,7 +363,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                                 
+																'user_id' => $this->getUserid(),                     
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
@@ -384,7 +386,7 @@ class NilaiMatakuliahController extends Controller
 
 		$this->validate($request, [      
 			'krs_id'=>'required|exists:pe3_krs,id',     
-			'daftar_nilai'=>'required',            
+			'daftar_nilai'=>'required',
 		]);
 		$krs_id=$request->input('krs_id');
 		
@@ -405,7 +407,7 @@ class NilaiMatakuliahController extends Controller
 				{
 					$krsmatkul=KRSMatkulModel::select(\DB::raw('
 											pe3_krsmatkul.penyelenggaraan_id,
-											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,            
+											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
 											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
 										'))
 										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
@@ -465,7 +467,7 @@ class NilaiMatakuliahController extends Controller
 					\App\Models\System\ActivityLog::log($request,[
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
-																'user_id' => $this->getUserid(),                                 
+																'user_id' => $this->getUserid(),                     
 																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;

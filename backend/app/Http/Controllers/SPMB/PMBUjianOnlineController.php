@@ -32,7 +32,7 @@ class PMBUjianOnlineController extends Controller {
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',                
+                                        'pid'=>'fetchdata',    
                                         'message'=>["Peserta Ujian dengan ID ($id) gagal diperoleh, mungkin belum mendaftar"]
                                     ], 422); 
         }
@@ -40,7 +40,7 @@ class PMBUjianOnlineController extends Controller {
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',                
+                                        'pid'=>'fetchdata',    
                                         'message'=>['Jadwal Ujian PMB ini sudah dinyatakan selesai, oleh karena itu tidak bisa dilanjutkan']
                                     ], 422);
         }
@@ -71,7 +71,7 @@ class PMBUjianOnlineController extends Controller {
                                     'pid'=>'fetchdata',  
                                     'soal'=>$soal,     
                                     'jawaban'=>$jawaban,
-                                    'peserta'=>$peserta,                                                                                              
+                                    'peserta'=>$peserta,                                                                                  
                                     'message'=>'Fetch data soal pmb berhasil.'
                                 ], 200);
         }        
@@ -99,7 +99,7 @@ class PMBUjianOnlineController extends Controller {
                                                 pe3_jadwal_ujian_pmb.tanggal_akhir_daftar, 
                                                 pe3_jadwal_ujian_pmb.durasi_ujian, 
                                                 pe3_jadwal_ujian_pmb.status_pendaftaran, 
-                                                pe3_jadwal_ujian_pmb.status_ujian,                 
+                                                pe3_jadwal_ujian_pmb.status_ujian,     
                                                 pe3_jadwal_ujian_pmb.ruangkelas_id,
                                                 pe3_ruangkelas.namaruang,
                                                 pe3_jadwal_ujian_pmb.created_at,
@@ -119,7 +119,7 @@ class PMBUjianOnlineController extends Controller {
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
                                     'jadwal_ujian'=>$jadwal_ujian,      
-                                    'jumlah_bank_soal'=>$jumlah_bank_soal,                                                                                             
+                                    'jumlah_bank_soal'=>$jumlah_bank_soal,                                                                                 
                                     'message'=>'Fetch data jadwal ujian pmb berhasil.'
                                 ], 200);
     }
@@ -168,7 +168,7 @@ class PMBUjianOnlineController extends Controller {
         
         $this->validate($request,[
             'user_id'=>'required|exists:users,id',
-            'jadwal_ujian_id'=>'required|exists:pe3_jadwal_ujian_pmb,id',                    
+            'jadwal_ujian_id'=>'required|exists:pe3_jadwal_ujian_pmb,id',        
         ]);
         
         $is_bayar = \DB::table('pe3_transaksi')
@@ -211,7 +211,7 @@ class PMBUjianOnlineController extends Controller {
     public function mulaiujian (Request $request)
     {
         $this->validate($request,[
-            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                   
         ]);
         
         $peserta =PesertaUjianPMBModel::find($request->input('user_id'));   
@@ -233,7 +233,7 @@ class PMBUjianOnlineController extends Controller {
         $this->hasPermissionTo('SPMB-PMB-JADWAL-UJIAN_DESTROY');
 
         $this->validate($request,[
-            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',            
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',
         ]);
 
         \DB::transaction(function () use ($request) {
@@ -249,7 +249,7 @@ class PMBUjianOnlineController extends Controller {
 
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>"Peserta berhasil dihapus dari jadwal ujian ini"
                                 ], 200);  
     
@@ -273,7 +273,7 @@ class PMBUjianOnlineController extends Controller {
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'store',                                                                                                    
+                                        'pid'=>'store', 
                                         'message'=>['Jadwal Ujian PMB ini sudah dinyatakan selesai, oleh karena itu tidak bisa dilanjutkan']
                                     ], 422); 
         } 
@@ -287,7 +287,7 @@ class PMBUjianOnlineController extends Controller {
                                                         ]);
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'store',                                                                                                    
+                                        'pid'=>'store', 
                                         'message'=>'Data Jawaban Ujian berhasil disimpan.'
                                     ], 200); 
         }     
@@ -298,7 +298,7 @@ class PMBUjianOnlineController extends Controller {
     public function selesaiujian (Request $request)
     {
         $this->validate($request,[
-            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                   
         ]);
         $peserta = $this->hitungNilaiUjian($request->input('user_id'));
 
@@ -312,7 +312,7 @@ class PMBUjianOnlineController extends Controller {
     public function recalculate(Request $request)
     {
         $this->validate($request,[
-            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                               
+            'user_id'=>'required|exists:pe3_peserta_ujian_pmb,user_id',                   
         ]);
         
         $peserta = $this->hitungNilaiUjian($request->input('user_id'));

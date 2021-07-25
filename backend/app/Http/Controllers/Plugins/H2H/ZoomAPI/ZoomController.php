@@ -26,7 +26,7 @@ class ZoomController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'zoom'=>$zoom,                                                                                                   
+                                    'zoom'=>$zoom,
                                     'message'=>'Fetch data account zoom berhasil.'
                                 ], 200);
     }
@@ -41,8 +41,8 @@ class ZoomController extends Controller {
         $this->hasPermissionTo('PLUGINS-H2H-ZOOMAPI_STORE');
         $rule=[            
             'email'=>'required|email|unique:plugins_h2h_zoom',
-            'api_key'=>'required|string|unique:plugins_h2h_zoom',            
-            'api_secret'=>'required|string|unique:plugins_h2h_zoom',            
+            'api_key'=>'required|string|unique:plugins_h2h_zoom',
+            'api_secret'=>'required|string|unique:plugins_h2h_zoom',
             'im_token'=>'required|string|unique:plugins_h2h_zoom',    
         ];   
         
@@ -52,8 +52,8 @@ class ZoomController extends Controller {
             'id'=>Uuid::uuid4()->toString(),
             'email'=>$request->input('email'),
             'api_key'=>$request->input('api_key'),
-            'api_secret'=>$request->input('api_secret'),            
-            'im_token'=>$request->input('im_token'),                        
+            'api_secret'=>$request->input('api_secret'),
+            'im_token'=>$request->input('im_token'),            
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
@@ -83,7 +83,7 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["account zoom ($id) gagal di testing"]
                                 ], 422); 
         }
@@ -103,11 +103,11 @@ class ZoomController extends Controller {
                 $jwt = JWT::encode($payload, $api_secret);           
                 $client = new Client ();
                 $response = $client->get(
-                    'https://api.zoom.us/v2/users/'.$zoom->email,                    
+                    'https://api.zoom.us/v2/users/'.$zoom->email,        
                     [
                         'debug' => FALSE,
                         'headers'=>[
-                            'Authorization' => 'Bearer ' . $jwt,                        
+                            'Authorization' => 'Bearer ' . $jwt,            
                             'content-type' => 'application/json'
                         ]
                     ]
@@ -153,7 +153,7 @@ class ZoomController extends Controller {
             {
                 return Response()->json([
                     'status'=>0,
-                    'pid'=>'update',             
+                    'pid'=>'update', 
                     'request'=> \GuzzleHttp\Psr7\Message::toString($e->getRequest()),  
                     'response'=> \GuzzleHttp\Psr7\Message::toString($e->getResponse()),  
                     'message'=>["account zoom ($id) gagal di sync (check response untuk lebih detail)"]
@@ -177,7 +177,7 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["account zoom ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -249,7 +249,7 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["account zoom ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -280,7 +280,7 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Kode account zoom ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -295,7 +295,7 @@ class ZoomController extends Controller {
             $zoom->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Account zoom dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }

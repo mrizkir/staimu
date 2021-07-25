@@ -26,7 +26,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         {
             $this->validate($request, [           
                 'ta'=>'required',
-                'semester_akademik'=>'required|in:1,2,3',            
+                'semester_akademik'=>'required|in:1,2,3',
             ]);
     
             $ta=$request->input('ta');
@@ -49,7 +49,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                        
+                                                        pe3_transaksi.no_formulir,            
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
@@ -131,7 +131,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
@@ -143,7 +143,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-REGISTRASIKRS_STORE');
 
         $this->validate($request, [           
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
             'semester_akademik'=>'required',
             'ta'=>'required'
         ]);
@@ -234,8 +234,8 @@ class TransaksiRegistrasiKRSController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'store',                   
-                                        'transaksi'=>$transaksi,                                                                                                   
+                                        'pid'=>'store',       
+                                        'transaksi'=>$transaksi,
                                         'message'=>'Transaksi Registrasi KRS berhasil di input.'
                                     ], 200); 
         }
@@ -243,7 +243,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'store',                                                                                                                  
+                'pid'=>'store',               
                 'message'=>[$e->getMessage()]
             ], 422); 
         }        
@@ -282,7 +282,7 @@ class TransaksiRegistrasiKRSController extends Controller {
             $transaksi->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -311,10 +311,10 @@ class TransaksiRegistrasiKRSController extends Controller {
 
         $data_report=[
             'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),            
-            'nama_prodi'=>$request->input('nama_prodi'),            
-            'semester_akademik'=>$request->input('semester_akademik'),            
-            'nama_semester'=>$request->input('NAMA_SEMESTER'),            
+            'prodi_id'=>$request->input('prodi_id'),
+            'nama_prodi'=>$request->input('nama_prodi'),
+            'semester_akademik'=>$request->input('semester_akademik'),
+            'nama_semester'=>$request->input('NAMA_SEMESTER'),
         ];
 
         $report= new \App\Models\Report\ReportKeuanganRegistrasiKRSModel ($data_report);

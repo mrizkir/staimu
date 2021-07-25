@@ -79,7 +79,7 @@ class ReportKelulusanController extends Controller {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
 
         $formulir=FormulirPendaftaranModel::select(\DB::raw('   
-                                                            pe3_formulir_pendaftaran.user_id,                       
+                                                            pe3_formulir_pendaftaran.user_id,           
                                                             kjur1,
                                                             CONCAT(pe3_prodi.nama_prodi,\'(\',pe3_prodi.nama_jenjang,\')\') AS nama_prodi
                                                         '))
@@ -90,7 +90,7 @@ class ReportKelulusanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -113,8 +113,8 @@ class ReportKelulusanController extends Controller {
             $data_nilai_ujian=NilaiUjianPMBModel::find($id);                
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                        
-                                        'no_transaksi'=>"$no_transaksi ",                                           
+                                        'pid'=>'fetchdata',            
+                                        'no_transaksi'=>"$no_transaksi ",                               
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
                                         'kjur'=>$formulir->kjur1,        
@@ -142,9 +142,9 @@ class ReportKelulusanController extends Controller {
         
         $data_report=[
             'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),            
+            'prodi_id'=>$request->input('prodi_id'),
             'nama_prodi'=>$request->input('nama_prodi'), 
-            'filter_status'=>$request->input('filter_status'),            
+            'filter_status'=>$request->input('filter_status'),
         ];
 
         $report= new \App\Models\Report\ReportSPMBModel ($data_report);     

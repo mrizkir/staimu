@@ -18,7 +18,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [            
             'username'=>'required',
-            'password'=>'required',                        
+            'password'=>'required',            
         ]);
         $credentials = $request->only('username', 'password');
         $credentials['active']=1;
@@ -76,7 +76,7 @@ class AuthController extends Controller
     {
         //log user logout
         \App\Models\System\ActivityLog::log($request,[
-            'object' => $this->guard()->user(),             
+            'object' => $this->guard()->user(), 
             'object_id' => $this->getUserid(), 
             'user_id' => $this->getUserid(), 
             'message' => 'user '.$this->guard()->user()->username.' berhasil logout'

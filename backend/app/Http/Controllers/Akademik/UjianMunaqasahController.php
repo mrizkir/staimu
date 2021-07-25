@@ -28,13 +28,13 @@ class UjianMunaqasahController extends Controller
         $daftar_ujian=\DB::table('pe3_ujian_munaqasah AS A')
                         ->select(\DB::raw('
                             A.id,
-                            B.nim,            
+                            B.nim,
                             C.nama_mhs,
                             A.judul_skripsi,
                             A.abstrak,
                             B.tahun AS tahun_masuk,
                             CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
-                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                            
+                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                
                             A.pembimbing_1,
                             A.pembimbing_2,
                             A.status,
@@ -54,7 +54,7 @@ class UjianMunaqasahController extends Controller
         else
         {
             $this->validate($request, [
-                'ta'=>'required',                
+                'ta'=>'required',    
                 'prodi_id'=>'required'
             ]);
 
@@ -65,7 +65,7 @@ class UjianMunaqasahController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'daftar_ujian'=>$daftar_ujian,                                                                                                   
+                                    'daftar_ujian'=>$daftar_ujian,
                                     'message'=>'Daftar peserta ujian munaqasah berhasil diperoleh' 
                                 ], 200);  
         
@@ -136,8 +136,8 @@ class UjianMunaqasahController extends Controller
                                 'pid'=>'fetchdata',
                                 'mahasiswa'=>$mahasiswa,
                                 'daftar_persyaratan'=>$daftar_persyaratan,   
-                                'iscomplete'=>$this->iscomplete(),                                                                                                
-                                'isverified'=>$this->isverified(),                                                                                                
+                                'iscomplete'=>$this->iscomplete(),                                                                                    
+                                'isverified'=>$this->isverified(),                                                                                    
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
     }
@@ -149,13 +149,13 @@ class UjianMunaqasahController extends Controller
                         ->select(\DB::raw('
                             A.id,
                             A.user_id,
-                            B.nim,            
+                            B.nim,
                             C.nama_mhs,
                             A.judul_skripsi,
                             A.abstrak,
                             B.tahun AS tahun_masuk,
                             CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
-                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                            
+                            CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                
                             A.pembimbing_1,
                             A.pembimbing_2,
                             A.status,
@@ -184,7 +184,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -210,8 +210,8 @@ class UjianMunaqasahController extends Controller
                                         'ujian'=>$ujian,
                                         'mahasiswa'=>$mahasiswa,
                                         'daftar_persyaratan'=>$daftar_persyaratan, 
-                                        'iscomplete'=>$this->iscomplete(),                                                                                                  
-                                        'isverified'=>$this->isverified(),                                                                                                  
+                                        'iscomplete'=>$this->iscomplete(),                                                                                      
+                                        'isverified'=>$this->isverified(),                                                                                      
                                         'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                                     ], 200);
         }
@@ -235,7 +235,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -259,8 +259,8 @@ class UjianMunaqasahController extends Controller
                                 'pid'=>'fetchdata',
                                 'mahasiswa'=>$mahasiswa,
                                 'daftar_persyaratan'=>$daftar_persyaratan, 
-                                'iscomplete'=>$this->iscomplete(),                                                                                                  
-                                'isverified'=>$this->isverified(),                                                                                                  
+                                'iscomplete'=>$this->iscomplete(),                                                                                      
+                                'isverified'=>$this->isverified(),                                                                                      
                                 'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
                             ], 200);
         }        
@@ -275,7 +275,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'store',    
                                     'message'=>["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
                                 ], 422);    
         }
@@ -297,7 +297,7 @@ class UjianMunaqasahController extends Controller
                 return Response()->json([
                                             'status'=>0,
                                             'pid'=>'store',
-                                            'persyaratan'=>$ujian_munaqasah->file,                
+                                            'persyaratan'=>$ujian_munaqasah->file,    
                                             'message'=>"Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
                                         ], 200);    
             }
@@ -350,7 +350,7 @@ class UjianMunaqasahController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store', 
-                                    'ujian'=>$ujian,                                                                                                                                        
+                                    'ujian'=>$ujian,                                     
                                     'message'=>'Data ujian munaqasah berhasil ditambahkan'
                                 ], 200);  
     }
@@ -376,7 +376,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -386,7 +386,7 @@ class UjianMunaqasahController extends Controller
                 'judul_skripsi'=>'required',     
                 'abstrak'=>'required',     
                 'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
-                'pembimbing_2'=>'required|exists:pe3_dosen,user_id',                 
+                'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
             ]);       
             
             $ujian->judul_skripsi = $request->input('judul_skripsi');
@@ -404,7 +404,7 @@ class UjianMunaqasahController extends Controller
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update', 
-                                        'ujian'=>$ujian,                                                                                                                                        
+                                        'ujian'=>$ujian,                                     
                                         'message'=>'Data ujian munaqasah berhasil diubah'
                                     ], 200);  
         }
@@ -412,7 +412,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal diupdate karean sudah diverifikasi"]
                                 ], 422); 
         }
@@ -439,7 +439,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -467,7 +467,7 @@ class UjianMunaqasahController extends Controller
                 return Response()->json([
                                             'status'=>1,
                                             'pid'=>'update', 
-                                            'ujian'=>$ujian,                                                                                                                                        
+                                            'ujian'=>$ujian,                                     
                                             'message'=>'Data ujian munaqasah berhasil diubah'
                                         ], 200);  
             }
@@ -476,7 +476,7 @@ class UjianMunaqasahController extends Controller
                 return Response()->json([
                                             'status'=>0,
                                             'pid'=>'update', 
-                                            'ujian'=>$ujian,                                                                                                                                        
+                                            'ujian'=>$ujian,                                     
                                             'message'=>'Data ujian munaqasah berhasil diverifikasi karena item persyaratan ada yang belum diperiksa.'
                                         ], 422);  
             }
@@ -495,7 +495,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Data Persyaratan Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -507,7 +507,7 @@ class UjianMunaqasahController extends Controller
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'update', 
-                                        'persyaratan'=>$persyaratan,                                                                                                                                        
+                                        'persyaratan'=>$persyaratan,                                     
                                         'message'=>'Data persyaratan ujian munaqasah berhasil diubah'
                                     ], 200);  
         }
@@ -528,7 +528,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -543,7 +543,7 @@ class UjianMunaqasahController extends Controller
             $ujian->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -551,7 +551,7 @@ class UjianMunaqasahController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus karean sudah diverifikasi"]
                                 ], 422); 
         }

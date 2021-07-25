@@ -57,7 +57,7 @@ class PindahKelasController  extends Controller
     return Response()->json([
                               'status'=>1,
                               'pid'=>'fetchdata',  
-                              'pindahkelas'=>$data,                                                                                                   
+                              'pindahkelas'=>$data,
                               'message'=>'Fetch data mahasiswa yang pindah kelas berhasil diperoleh.'
                             ], 200);
   }
@@ -133,7 +133,7 @@ class PindahKelasController  extends Controller
       return Response()->json([
                               'status'=>1,
                               'pid'=>'store',  
-                              'pindahkelas'=>$pindahkelas,                                                                                                   
+                              'pindahkelas'=>$pindahkelas,
                               'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
                             ], 200);
     }
@@ -141,7 +141,7 @@ class PindahKelasController  extends Controller
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'store',                                                                                                                  
+        'pid'=>'store',               
         'message'=>[$e->getMessage()]
       ], 422); 
     }
@@ -159,7 +159,7 @@ class PindahKelasController  extends Controller
     {
         return Response()->json([
                                 'status'=>0,
-                                'pid'=>'update',                
+                                'pid'=>'update',    
                                 'message'=>["Data Pindah Kelas dengan ($id) gagal diupdate"]
                             ], 422); 
     }
@@ -218,7 +218,7 @@ class PindahKelasController  extends Controller
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'update',  
-                                'pindahkelas'=>$pindahkelas,                                                                                                   
+                                'pindahkelas'=>$pindahkelas,
                                 'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
                               ], 200);    
       }
@@ -226,7 +226,7 @@ class PindahKelasController  extends Controller
       {
         return Response()->json([
           'status'=>0,
-          'pid'=>'update',                                                                                                                  
+          'pid'=>'update',               
           'message'=>[$e->getMessage()]
         ], 422); 
       }     
@@ -242,7 +242,7 @@ class PindahKelasController  extends Controller
     {
         return Response()->json([
                                 'status'=>0,
-                                'pid'=>'destroy',                
+                                'pid'=>'destroy',    
                                 'message'=>["Data Pindah Kelas dengan ($id) gagal dihapus"]
                             ], 422); 
     }
@@ -275,7 +275,7 @@ class PindahKelasController  extends Controller
         });
         return Response()->json([
                                   'status'=>1,
-                                  'pid'=>'destroy',                
+                                  'pid'=>'destroy',    
                                   'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
                               ], 200);    
       }
@@ -283,7 +283,7 @@ class PindahKelasController  extends Controller
       {
         return Response()->json([
           'status'=>0,
-          'pid'=>'destroy',                                                                                                                  
+          'pid'=>'destroy',               
           'message'=>[$e->getMessage()]
         ], 422); 
       }        

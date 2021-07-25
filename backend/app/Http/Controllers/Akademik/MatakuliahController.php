@@ -51,7 +51,7 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'matakuliah'=>$matakuliah,                                                                                                   
+                                    'matakuliah'=>$matakuliah,
                                     'message'=>'Fetch data matakuliah berhasil.'
                                 ], 200);
     }
@@ -77,7 +77,7 @@ class MatakuliahController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["matakuliah dengan ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -121,11 +121,11 @@ class MatakuliahController extends Controller {
                         ->where('kjur',$kjur);
                 })
             ],
-            'sks'=>'required|numeric',            
-            'semester'=>'required|numeric',            
-            'sks_tatap_muka'=>'required|numeric',            
-            'minimal_nilai'=>'required',            
-            'ta'=>'required',            
+            'sks'=>'required|numeric',
+            'semester'=>'required|numeric',
+            'sks_tatap_muka'=>'required|numeric',
+            'minimal_nilai'=>'required',
+            'ta'=>'required',
             'kjur'=>'required',  
         ];
     
@@ -148,20 +148,20 @@ class MatakuliahController extends Controller {
             'nama_group'=>$nama_group,
             'group_alias'=>$group_alias,
             'kmatkul'=>strtoupper(trim($request->input('kmatkul'))),
-            'nmatkul'=>ucwords(trim($request->input('nmatkul'))),            
-            'sks'=>$request->input('sks'),            
-            'idkonsentrasi'=>$request->input('idkonsentrasi'),            
-            'ispilihan'=>$request->input('ispilihan'),            
-            'islintas_prodi'=>$request->input('islintas_prodi'),            
-            'semester'=>$request->input('semester'),            
-            'sks_tatap_muka'=>$request->input('sks_tatap_muka'),            
-            'sks_praktikum'=>$request->input('sks_praktikum'),            
-            'sks_praktik_lapangan'=>$request->input('sks_praktik_lapangan'),            
-            'minimal_nilai'=>$request->input('minimal_nilai'),            
-            'syarat_skripsi'=>$request->input('syarat_skripsi'),            
-            'status'=>$request->input('status'),            
-            'ta'=>$request->input('ta'),            
-            'kjur'=>$request->input('kjur'),            
+            'nmatkul'=>ucwords(trim($request->input('nmatkul'))),
+            'sks'=>$request->input('sks'),
+            'idkonsentrasi'=>$request->input('idkonsentrasi'),
+            'ispilihan'=>$request->input('ispilihan'),
+            'islintas_prodi'=>$request->input('islintas_prodi'),
+            'semester'=>$request->input('semester'),
+            'sks_tatap_muka'=>$request->input('sks_tatap_muka'),
+            'sks_praktikum'=>$request->input('sks_praktikum'),
+            'sks_praktik_lapangan'=>$request->input('sks_praktik_lapangan'),
+            'minimal_nilai'=>$request->input('minimal_nilai'),
+            'syarat_skripsi'=>$request->input('syarat_skripsi'),
+            'status'=>$request->input('status'),
+            'ta'=>$request->input('ta'),
+            'kjur'=>$request->input('kjur'),
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
@@ -276,7 +276,7 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                 'status'=>1,
                                 'pid'=>'store',  
-                                'matakuliah'=>$matakuliah,                                                                                                   
+                                'matakuliah'=>$matakuliah,
                                 'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
                             ], 200);
     }
@@ -296,7 +296,7 @@ class MatakuliahController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["matakuliah dengan id ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -315,17 +315,17 @@ class MatakuliahController extends Controller {
                                                     ],           
                                         
                                         'nmatkul'=>[
-                                                        'required',                        
+                                                        'required',            
                                                         Rule::unique('pe3_matakuliah')->ignore($matakuliah->nmatkul,'nmatkul')->where(function ($query) use ($ta,$kjur) {
                                                             $query->where('ta', $ta)
                                                                 ->where('kjur',$kjur);
                                                         })
                                                     ],           
-                                        'sks'=>'required|numeric',            
-                                        'semester'=>'required|numeric',            
-                                        'sks_tatap_muka'=>'required|numeric',            
-                                        'minimal_nilai'=>'required',            
-                                        'ta'=>'required',            
+                                        'sks'=>'required|numeric',
+                                        'semester'=>'required|numeric',
+                                        'sks_tatap_muka'=>'required|numeric',
+                                        'minimal_nilai'=>'required',
+                                        'ta'=>'required',
                                         'kjur'=>'required',          
                                     ]); 
             
@@ -401,7 +401,7 @@ class MatakuliahController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Kode matakuliah ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -416,7 +416,7 @@ class MatakuliahController extends Controller {
             $matakuliah->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"matakuliah dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -464,7 +464,7 @@ class MatakuliahController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'matakuliah'=>$matakuliah,                                                                                                   
+                                    'matakuliah'=>$matakuliah,
                                     'message'=>'Fetch data matakuliah berhasil.'
                                 ], 200);
     }

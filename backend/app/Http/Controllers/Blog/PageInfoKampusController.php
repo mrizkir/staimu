@@ -64,7 +64,7 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Kode post ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -72,7 +72,7 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'post'=>$post,
                                     'message'=>"Post dengan id ($id) berhasil diperoleh"
                                 ], 200); 
@@ -112,7 +112,7 @@ class PageInfoKampusController extends Controller {
                 'post_title'=>$post_title,
                 'post_content'=>$request->input('post_content'),
                 'post_excerpt'=> '',
-                'post_status'=>'publish',                        
+                'post_status'=>'publish',            
                 'comment_status'=>'closed',
                 'post_name'=> str_replace(' ','-',strtolower($post_title)),
                 'post_type'=> 'post',
@@ -152,7 +152,7 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Kode post ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -160,7 +160,7 @@ class PageInfoKampusController extends Controller {
         {
             $this->validate($request, [
                 'post_title'=>'required',
-                'post_content'=>'required',                
+                'post_content'=>'required',    
             ]);
             $post->post_title = $request->input('post_title');
             $post->post_content = $request->input('post_content');
@@ -168,7 +168,7 @@ class PageInfoKampusController extends Controller {
 
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'post'=>$post,
                                     'message'=>"Post dengan id ($id) berhasil diubah"
                                 ], 200); 
@@ -184,7 +184,7 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Kode post ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -209,7 +209,7 @@ class PageInfoKampusController extends Controller {
             
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"Post dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

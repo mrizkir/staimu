@@ -33,7 +33,7 @@ class KonfirmasiPembayaranController extends Controller {
             $userid=$this->getUserid();
             $daftar_transaksi = TransaksiModel::select(\DB::raw('
                                                     pe3_transaksi.id,
-                                                    pe3_transaksi.user_id,                    
+                                                    pe3_transaksi.user_id,        
                                                     pe3_formulir_pendaftaran.nama_mhs,
                                                     CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                                     pe3_transaksi.no_faktur,
@@ -71,7 +71,7 @@ class KonfirmasiPembayaranController extends Controller {
         {
             $daftar_transaksi = TransaksiModel::select(\DB::raw('
                                                     pe3_transaksi.id,
-                                                    pe3_transaksi.user_id,                    
+                                                    pe3_transaksi.user_id,        
                                                     pe3_formulir_pendaftaran.nama_mhs,
                                                     CONCAT(pe3_transaksi.no_transaksi,\' \') AS no_transaksi,
                                                     pe3_transaksi.no_faktur,
@@ -90,7 +90,7 @@ class KonfirmasiPembayaranController extends Controller {
                                                         WHEN pe3_konfirmasi_pembayaran.verified=1 THEN "VERIFIED"
                                                     END AS status_konfirmasi,
                                                     pe3_transaksi.total,
-                                                    pe3_transaksi.tanggal,                
+                                                    pe3_transaksi.tanggal,    
                                                     pe3_transaksi.created_at,
                                                     pe3_transaksi.updated_at,
                                                     COALESCE(pe3_konfirmasi_pembayaran.created_at,"N.A") AS created_at_konfirm,
@@ -117,7 +117,7 @@ class KonfirmasiPembayaranController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ], 200);
     }  
@@ -148,7 +148,7 @@ class KonfirmasiPembayaranController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Fetch data transaksi dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -157,7 +157,7 @@ class KonfirmasiPembayaranController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'konfirmasi'=>$konfirmasi,                                                                                                   
+                                        'konfirmasi'=>$konfirmasi,
                                         'message'=>'Fetch data detail konfirmasi berhasil.'
                                     ], 200);
         }
@@ -185,8 +185,8 @@ class KonfirmasiPembayaranController extends Controller {
             $file_name=uniqid('img').".".$bukti_bayar->getClientOriginalExtension();
 
             $konfirmasi=KonfirmasiPembayaranModel::updateOrCreate([
-                'transaksi_id'=>$transaksi_id,                
-                'user_id'=>$transaksi->user_id,                
+                'transaksi_id'=>$transaksi_id,    
+                'user_id'=>$transaksi->user_id,    
                 'no_transaksi'=>$transaksi->no_transaksi,
                 'id_channel'=>$request->input('id_channel'),
                 'total_bayar'=>$request->input('total_bayar'),
@@ -194,7 +194,7 @@ class KonfirmasiPembayaranController extends Controller {
                 'nama_rekening_pengirim'=>$request->input('nama_rekening_pengirim'),
                 'nama_bank_pengirim'=>$request->input('nama_bank_pengirim'),
                 'desc'=>$request->input('desc'),
-                'tanggal_bayar'=>$request->input('tanggal_bayar'),                
+                'tanggal_bayar'=>$request->input('tanggal_bayar'),    
                 'bukti_bayar'=>"storage/images/buktibayar/$file_name",  
             ]);
             $bukti_bayar->move($folder,$file_name);
@@ -209,7 +209,7 @@ class KonfirmasiPembayaranController extends Controller {
             return Response()->json([
                                         'status'=>0,
                                         'pid'=>'store',
-                                        'konfirmasi'=>$konfirmasi,                
+                                        'konfirmasi'=>$konfirmasi,    
                                         'message'=>"Konfirmasi pembayaran untuk kode_billing ('.$transaksi->no_transaksi.')   berhasil diupload"
                                     ], 200);  
         }      
@@ -235,7 +235,7 @@ class KonfirmasiPembayaranController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["Update data transaksi dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }

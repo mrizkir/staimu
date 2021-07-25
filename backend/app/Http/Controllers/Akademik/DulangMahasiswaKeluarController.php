@@ -42,7 +42,7 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_register_mahasiswa.nirm,
 				pe3_formulir_pendaftaran.nama_mhs,
 				pe3_dulang.idkelas,
-				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                        
+				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,            
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
@@ -69,7 +69,7 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_formulir_pendaftaran.nama_mhs,
 				pe3_dulang.idkelas,
 				pe3_dulang.k_status,    
-				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                      
+				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,          
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
@@ -88,7 +88,7 @@ class DulangMahasiswaKeluarController extends Controller
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'fetchdata',  
-									'mahasiswa'=>$data,                             
+									'mahasiswa'=>$data,                 
 									'message'=>'Fetch data daftar ulang mahasiswa keluar berhasil.'
 								], 200);
 	}
@@ -139,7 +139,7 @@ class DulangMahasiswaKeluarController extends Controller
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'fetchdata',                                                                                                                  
+				'pid'=>'fetchdata',               
 				'message'=>[$e->getMessage()]
 			], 422); 
 		}  
@@ -231,7 +231,7 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_formulir_pendaftaran.nama_mhs,
 				pe3_dulang.idkelas,
 				pe3_dulang.k_status,    
-				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                      
+				CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,          
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
@@ -245,7 +245,7 @@ class DulangMahasiswaKeluarController extends Controller
 			return Response()->json([
 									'status'=>1,
 									'pid'=>'store',  
-									'mahasiswa'=>$data,                                                                                                   
+									'mahasiswa'=>$data,
 									'message'=>'Status Mahasiswa berhasil di ubah menjadi keluar.'
 								], 200);
 		}
@@ -253,7 +253,7 @@ class DulangMahasiswaKeluarController extends Controller
 		{
 			return Response()->json([
 			'status'=>0,
-			'pid'=>'store',                                                                                                                  
+			'pid'=>'store',               
 			'message'=>[$e->getMessage()]
 			], 422); 
 		}
@@ -274,7 +274,7 @@ class DulangMahasiswaKeluarController extends Controller
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'destroy',                
+				'pid'=>'destroy',    
 				'message'=>["Daftar Ulang Mahasiswa Keluar ($id) gagal dihapus"]
 			], 422); 
 		}
@@ -294,7 +294,7 @@ class DulangMahasiswaKeluarController extends Controller
 			
 			return Response()->json([
 									'status'=>1,
-									'pid'=>'destroy',                
+									'pid'=>'destroy',    
 									'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
 								], 200);    
 		}

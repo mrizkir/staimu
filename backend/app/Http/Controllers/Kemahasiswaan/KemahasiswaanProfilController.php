@@ -38,7 +38,7 @@ class KemahasiswaanProfilController extends Controller {
                                     'status'=>1,
                                     'pid'=>'fetchdata',
                                     'daftar_mhs'=>$daftar_mhs,  
-                                    'jumlah'=>$daftar_mhs->count(),                                                                                                   
+                                    'jumlah'=>$daftar_mhs->count(),
                                     'message'=>'Daftar Mahasiswa berhasil diperoleh.'
                                 ], 200); 
     
@@ -114,7 +114,7 @@ class KemahasiswaanProfilController extends Controller {
                                     'status'=>1,
                                     'pid'=>'fetchdata',
                                     'daftar_mhs'=>$daftar_mhs,  
-                                    'jumlah'=>$daftar_mhs->count(),                                                                                                   
+                                    'jumlah'=>$daftar_mhs->count(),
                                     'message'=>'Daftar Mahasiswa berhasil diperoleh.'
                                 ], 200); 
     

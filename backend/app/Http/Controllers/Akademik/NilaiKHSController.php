@@ -109,7 +109,7 @@ class NilaiKHSController extends Controller
 				return Response()->json([
 																		'status'=>1,
 																		'pid'=>'fetchdata',  
-																		'daftar_khs'=>$daftar_khs,                                                                                                   
+																		'daftar_khs'=>$daftar_khs,
 																		'message'=>'Daftar khs mahasiswa berhasil diperoleh' 
 																], 200);  
 				
@@ -154,7 +154,7 @@ class NilaiKHSController extends Controller
 				{
 						return Response()->json([
 																		'status'=>0,
-																		'pid'=>'destroy',                
+																		'pid'=>'destroy',    
 																		'message'=>["KRS dengan ($id) gagal diperoleh"]
 																], 422); 
 				}
@@ -167,7 +167,7 @@ class NilaiKHSController extends Controller
 																						A.kmatkul,
 																						A.nmatkul,
 																						A.sks,
-																						A.semester,            
+																						A.semester,
 																						NULL AS nama_dosen_penyelenggaraan,
 																						NULL AS  nama_dosen_kelas,
 																						\'\' AS nama_dosen,
@@ -271,14 +271,14 @@ class NilaiKHSController extends Controller
 						return Response()->json([
 																				'status'=>1,
 																				'pid'=>'fetchdata',  
-																				'krs'=>$krs,                                                                                                   
-																				'daftar_nilai'=>$daftar_nilai,                                                                                                   
+																				'krs'=>$krs,
+																				'daftar_nilai'=>$daftar_nilai,
 																				'jumlah_matkul'=>$jumlah_matkul,
-																				'jumlah_sks'=>$jumlah_sks,                                                                                                   
-																				'jumlah_m'=>$jumlah_m,                                                                                                   
-																				'jumlah_am'=>$jumlah_am,                                                                                                   
-																				'ipk'=>$krs->ipk ,                                                                                                   
-																				'ips'=>$ips,                                                                                                   
+																				'jumlah_sks'=>$jumlah_sks,
+																				'jumlah_m'=>$jumlah_m,
+																				'jumlah_am'=>$jumlah_am,
+																				'ipk'=>$krs->ipk ,
+																				'ips'=>$ips,
 																				'message'=>'Fetch data khs dan detail khs mahasiswa berhasil diperoleh' 
 																		],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 				}        
@@ -312,7 +312,7 @@ class NilaiKHSController extends Controller
 											pe3_krs.kjur,
 											pe3_prodi.nama_prodi,
 											pe3_krs.tahun,
-											pe3_krs.idsmt,                        
+											pe3_krs.idsmt,            
 											pe3_krs.tasmt,
 											pe3_krs.sah,
 											pe3_krs.created_at,
@@ -327,7 +327,7 @@ class NilaiKHSController extends Controller
 			{
 					return Response()->json([
 																	'status'=>0,
-																	'pid'=>'destroy',                
+																	'pid'=>'destroy',    
 																	'message'=>["KRS dengan ($id) gagal diperoleh"]
 															], 422); 
 			}
@@ -344,7 +344,7 @@ class NilaiKHSController extends Controller
 						A.kmatkul,
 						A.nmatkul,
 						A.sks,
-						A.semester,            
+						A.semester,
 						NULL AS nama_dosen_penyelenggaraan,
 						NULL AS  nama_dosen_kelas,
 						\'\' AS nama_dosen,
@@ -467,12 +467,12 @@ class NilaiKHSController extends Controller
 																																					'headers'=>$headers,
 																																					'data_krs'=>$krs,
 																																					'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
-																																					'daftar_nilai'=>$daftar_nilai,                                                                                                   
+																																					'daftar_nilai'=>$daftar_nilai,
 																																					'jumlah_matkul'=>$jumlah_matkul,
-																																					'jumlah_sks'=>$jumlah_sks,                                                                                                   
-																																					'jumlah_m'=>$jumlah_m,                                                                                                   
-																																					'jumlah_am'=>$jumlah_am,                                                                                                   
-																																					'ipk'=>$krs->ipk,                                                                                                   
+																																					'jumlah_sks'=>$jumlah_sks,
+																																					'jumlah_m'=>$jumlah_m,
+																																					'jumlah_am'=>$jumlah_am,
+																																					'ipk'=>$krs->ipk,
 																																					'ips'=>$ips, 
 																																					'tanggal'=>\App\Helpers\Helper::tanggal('d F Y'),
 																																					'kaprodi'=>$kaprodi

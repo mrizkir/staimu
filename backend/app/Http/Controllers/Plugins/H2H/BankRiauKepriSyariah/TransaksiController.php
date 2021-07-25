@@ -88,7 +88,7 @@ class TransaksiController extends Controller {
 
         $messages=[
             'kode_billing.required'=>'kode billing diperlukan mohon di isi',
-            'kode_billing.exists'=>'kode billing tidak terdaftar didatabase',            
+            'kode_billing.exists'=>'kode billing tidak terdaftar didatabase',
             'noref.required'=>'Nomor referensi dibutuhkan',
             'noref.numeric'=>'Nomor referensi harus numeric',
             
@@ -176,8 +176,8 @@ class TransaksiController extends Controller {
                     if (is_null($konfirmasi))
                     {
                         $konfirmasi_insert=KonfirmasiPembayaranModel::create([
-                            'transaksi_id'=>$transaksi->id,                
-                            'user_id'=>$this->getUserid(),                
+                            'transaksi_id'=>$transaksi->id,    
+                            'user_id'=>$this->getUserid(),    
                             'no_transaksi'=>$transaksi->no_transaksi,
                             'id_channel'=>4,
                             'total_bayar'=>$transaksi->total,
@@ -185,7 +185,7 @@ class TransaksiController extends Controller {
                             'nama_rekening_pengirim'=>'BANK RIAU KEPRI SYARIAH',
                             'nama_bank_pengirim'=>'BANK RIAU KEPRI SYARIAH',
                             'desc'=>'',
-                            'tanggal_bayar'=>date ('Y-m-d H:m:s'),                
+                            'tanggal_bayar'=>date ('Y-m-d H:m:s'),    
                             'bukti_bayar'=>"storage/images/buktibayar/paid.png",  
                             'verified'=>true
                         ]);                   

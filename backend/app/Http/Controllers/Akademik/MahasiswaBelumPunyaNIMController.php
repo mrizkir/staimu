@@ -55,7 +55,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,                                                                                                   
+                                    'mahasiswa'=>$data,
                                     'message'=>'Fetch data calon mahasiswa baru yang belum punya nim berhasil.'
                                 ], 200);
     }

@@ -26,7 +26,7 @@ class KemahasiswaanStatusCutiController  extends Controller
                 pe3_formulir_pendaftaran.nama_mhs,
                 pe3_register_mahasiswa.idkelas,
                 pe3_register_mahasiswa.k_status,    
-                CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,                      
+                CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,          
                 pe3_register_mahasiswa.created_at,      
                 pe3_register_mahasiswa.updated_at      
             '))            
@@ -46,7 +46,7 @@ class KemahasiswaanStatusCutiController  extends Controller
                     ->select(\DB::raw('
                       id,
                       nama_prodi,
-                      CONCAT(nama_prodi_alias," (",nama_jenjang, ")") AS nama_prodi_alias,                          
+                      CONCAT(nama_prodi_alias," (",nama_jenjang, ")") AS nama_prodi_alias,              
                       COALESCE(total,0) AS  total
                     '))
                     ->leftJoinSub($subquery,'B',function($join){

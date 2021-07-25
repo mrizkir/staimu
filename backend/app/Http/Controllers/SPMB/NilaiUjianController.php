@@ -95,16 +95,16 @@ class NilaiUjianController extends Controller {
                             return $query->whereNotNull('idkelas')
                                         ->where('kjur1',$kjur);
                         })
-                    ],            
+                    ],
             'no_transaksi'=>[
                         'required',
                         Rule::exists('pe3_transaksi')->where(function ($query) {
                             return $query->where('status',1);
                         })
                     ],   
-            'nilai'=>'required|numeric',            
-            'kjur'=>'required',            
-            'ket_lulus'=>'required',            
+            'nilai'=>'required|numeric',
+            'kjur'=>'required',
+            'ket_lulus'=>'required',
         ]);
         $data_nilai = \DB::transaction(function () use ($request){
             $user_id=$request->input('user_id');
@@ -173,7 +173,7 @@ class NilaiUjianController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -221,8 +221,8 @@ class NilaiUjianController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                        
-                                        'no_transaksi'=>"$no_transaksi ",                                           
+                                        'pid'=>'fetchdata',            
+                                        'no_transaksi'=>"$no_transaksi ",                               
                                         'transaksi_status'=>$transaksi_status,
                                         'daftar_prodi'=>$daftar_prodi,
                                         'kjur'=>$formulir->kjur1,        
@@ -249,7 +249,7 @@ class NilaiUjianController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["Nilai ujian dengan ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -262,9 +262,9 @@ class NilaiUjianController extends Controller {
                                 return $query->where('status',1);
                             })
                         ],   
-                'nilai'=>'required|numeric',            
-                'kjur'=>'required',            
-                'ket_lulus'=>'required',            
+                'nilai'=>'required|numeric',
+                'kjur'=>'required',
+                'ket_lulus'=>'required',
             ]);
             $data_nilai = \DB::transaction(function () use ($request,$data_nilai){
                 $ket_lulus=$request->input('ket_lulus');
@@ -317,7 +317,7 @@ class NilaiUjianController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["Nilai Ujian dengan ID ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -335,7 +335,7 @@ class NilaiUjianController extends Controller {
         
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
                                     ], 200);    
         }

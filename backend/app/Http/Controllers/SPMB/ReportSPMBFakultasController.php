@@ -67,8 +67,8 @@ class ReportSPMBFakultasController extends Controller {
         
         $data_report=[
             'TA'=>$request->input('ta'),
-            'fakultas_id'=>$request->input('fakultas_id'),            
-            'nama_fakultas'=>$request->input('nama_fakultas'),            
+            'fakultas_id'=>$request->input('fakultas_id'),
+            'nama_fakultas'=>$request->input('nama_fakultas'),
         ];
 
         $report= new \App\Models\Report\ReportSPMBModel ($data_report);     

@@ -153,7 +153,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,
                                     'message'=>'Fetch data daftar transaksi spp mahasiswa berhasil diperoleh.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
@@ -183,7 +183,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         pe3_transaksi.total,
                                         pe3_transaksi.tanggal,   
                                         COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`, 
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,            
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
@@ -215,7 +215,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         pe3_transaksi.total,
                                         pe3_transaksi.tanggal,   
                                         COALESCE(pe3_transaksi.desc,\'N.A\') AS `desc`,
-                                        pe3_formulir_pendaftaran.ta AS tahun_masuk,             
+                                        pe3_formulir_pendaftaran.ta AS tahun_masuk, 
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
@@ -289,9 +289,9 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',  
-                                        'transaksi'=>$transaksi,                                                                                                   
-                                        'transaksi_detail'=>$transaksi_detail,                                                                                                   
-                                        'item_selected'=>$item_selected,                                                                                                   
+                                        'transaksi'=>$transaksi,
+                                        'transaksi_detail'=>$transaksi_detail,
+                                        'item_selected'=>$item_selected,
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
@@ -299,7 +299,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'fetchdata',                                                                                                                  
+                'pid'=>'fetchdata',               
                 'message'=>[$e->getMessage()]
             ], 422); 
         }      
@@ -310,8 +310,8 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
     public function printtoexcel1 (Request $request)
     {
         $this->validate($request, [           
-            'ta'=>'required',            
-            'semester_akademik'=>'required',            
+            'ta'=>'required',
+            'semester_akademik'=>'required',
             'prodi_id'=>'required',
             'nama_prodi'=>'required',
             'tahun_pendaftaran'=>'required',
@@ -320,9 +320,9 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         $data_report=[
             'ta'=>$request->input('ta'),
             'semester_akademik'=>$request->input('semester_akademik'),
-            'prodi_id'=>$request->input('prodi_id'),            
-            'nama_prodi'=>$request->input('nama_prodi'),                        
-            'tahun_pendaftaran'=>$request->input('tahun_pendaftaran'),                        
+            'prodi_id'=>$request->input('prodi_id'),
+            'nama_prodi'=>$request->input('nama_prodi'),            
+            'tahun_pendaftaran'=>$request->input('tahun_pendaftaran'),            
         ];
 
         $report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);

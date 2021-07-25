@@ -83,7 +83,7 @@ class UsersDosenController extends Controller {
             'email'=>'required|string|email|unique:users',
             'nomor_hp'=>'required|string|unique:users',
             'username'=>'required|string|unique:users',
-            'password'=>'required',                        
+            'password'=>'required',            
         ]);
         $user = \DB::transaction(function () use ($request){
 
@@ -94,9 +94,9 @@ class UsersDosenController extends Controller {
                 'email'=>$request->input('email'),
                 'nomor_hp'=>$request->input('nomor_hp'),
                 'username'=> $request->input('username'),
-                'password'=>Hash::make($request->input('password')),                        
+                'password'=>Hash::make($request->input('password')),            
                 'theme'=>'default',
-                'default_role'=>'dosen',            
+                'default_role'=>'dosen',
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
@@ -159,7 +159,7 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -178,7 +178,7 @@ class UsersDosenController extends Controller {
                                                     'numeric',
                                                     'unique:pe3_dosen,nipy,'.$user->id.',user_id'
                                                 ],           
-                                        'name'=>'required',            
+                                        'name'=>'required',
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
                                     ]); 
@@ -237,7 +237,7 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate karena bukan pada tempatnya"]
                                 ], 422); 
         }
@@ -268,7 +268,7 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -298,7 +298,7 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -313,13 +313,13 @@ class UsersDosenController extends Controller {
                             'numeric',
                             'unique:pe3_dosen,nipy,'.$biodatadiri->user_id.',user_id'
                         ],           
-                'nama_dosen'=>'required',            
-                'tempat_lahir'=>'required',            
-                'tanggal_lahir'=>'required',            
-                'jk'=>'required',                            
+                'nama_dosen'=>'required',
+                'tempat_lahir'=>'required',
+                'tanggal_lahir'=>'required',
+                'jk'=>'required',                
                 'email'=>'required|string|email|unique:users,email,'.$biodatadiri->user_id,
                 'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$biodatadiri->user_id,           
-                'alamat_rumah'=>'required',            
+                'alamat_rumah'=>'required',
             ]); 
 
             $biodatadiri->nidn=$request->input('nidn');      
@@ -382,7 +382,7 @@ class UsersDosenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',                
+                                    'pid'=>'destroy',    
                                     'message'=>["User ID ($id) gagal dihapus"]
                                 ], 422); 
         }
@@ -400,7 +400,7 @@ class UsersDosenController extends Controller {
         
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"User Dosen ($username) berhasil dihapus"
                                     ], 200);    
         }

@@ -62,8 +62,8 @@ class UsersController extends Controller {
                 'username'=> $request->input('username'),
                 'password'=>Hash::make($request->input('password')),
                 'email_verified_at'=>\Carbon\Carbon::now(),
-                'theme'=>'default',            
-                'default_role'=>'superadmin',            
+                'theme'=>'default',
+                'default_role'=>'superadmin',
                 'foto'=> 'storage/images/users/no_photo.png',
                 'created_at'=>$now, 
                 'updated_at'=>$now
@@ -85,7 +85,7 @@ class UsersController extends Controller {
                     {
                         UserDosen::create([
                             'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                            
+                            'nama_dosen'=>$request->input('name'),                
                         ]);
 
                         if ($v=='dosenwali')
@@ -132,7 +132,7 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',                
+                                    'pid'=>'fetchdata',    
                                     'message'=>["User ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -141,8 +141,8 @@ class UsersController extends Controller {
             $roles=$user->getRoleNames();      
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'fetchdata',                
-                                        'roles'=>$roles,                        
+                                        'pid'=>'fetchdata',    
+                                        'roles'=>$roles,            
                                         'message'=>"daftar roles user ($user->username) berhasil diperoleh"
                                     ], 200); 
         }
@@ -164,7 +164,7 @@ class UsersController extends Controller {
     {      
         $this->hasPermissionTo('USER_STOREPERMISSIONS');
         $this->validate($request, [            
-            'role_name'=>'required|exists:roles,name',            
+            'role_name'=>'required|exists:roles,name',
         ]);
         $role_name=$request->input('role_name');   
         switch($role_name)
@@ -371,7 +371,7 @@ class UsersController extends Controller {
         }       
         return Response()->json([
                                     'status'=>1,
-                                    'pid'=>'update',                                                                     
+                                    'pid'=>'update',                                                         
                                     'message'=>"Permission seluruh user role ($role_name) berhasil disinkronisasi."
                                 ], 200); 
     }    
@@ -455,7 +455,7 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
@@ -466,9 +466,9 @@ class UsersController extends Controller {
                                                         'required',
                                                         'unique:users,username,'.$user->id
                                                     ],           
-                                        'name'=>'required',            
+                                        'name'=>'required',
                                         'email'=>'required|string|email|unique:users,email,'.$user->id,
-                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,                   
+                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,       
                                     ]);  
             
             $user = \DB::transaction(function () use ($request,$user){
@@ -507,7 +507,7 @@ class UsersController extends Controller {
                         {
                             UserDosen::create([
                                 'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                            
+                                'nama_dosen'=>$request->input('name'),                
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -566,14 +566,14 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["Password User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [            
-                'password'=>'required',                        
+                'password'=>'required',            
             ]); 
 
             $user->password = Hash::make($request->input('password'));           
@@ -607,7 +607,7 @@ class UsersController extends Controller {
         $id = $user->id;
 
         $this->validate($request, [        
-            'email'=>'required|string|email|unique:users,email,'.$id,                          
+            'email'=>'required|string|email|unique:users,email,'.$id,              
         ]);
         
         $user->email = $request->input('email');
@@ -665,7 +665,7 @@ class UsersController extends Controller {
             return Response()->json([
                                     'status'=>1,
                                     'pid'=>'destroy',  
-                                    'user'=>$user,              
+                                    'user'=>$user,  
                                     'message'=>"User ($username) berhasil dihapus"
                                 ], 200);    
         }
@@ -680,14 +680,14 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'store',    
                                     'message'=>["Data User tidak ditemukan."]
                                 ], 422);    
         }
         else
         {
             $this->validate($request, [        
-                'foto'=>'required',                          
+                'foto'=>'required',              
             ]);
             $username=$user->username;
             $foto = $request->file('foto');
@@ -713,7 +713,7 @@ class UsersController extends Controller {
                 return Response()->json([
                                             'status'=>0,
                                             'pid'=>'store',
-                                            'user'=>$user,                
+                                            'user'=>$user,    
                                             'message'=>"Foto User ($username)  berhasil diupload"
                                         ], 200);    
             }
@@ -737,7 +737,7 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'store',    
                                     'message'=>["Data User tidak ditemukan."]
                                 ], 422);    
         }
@@ -760,7 +760,7 @@ class UsersController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'store',
-                                        'user'=>$user,                
+                                        'user'=>$user,    
                                         'message'=>"Foto User ($username)  berhasil direset"
                                     ], 200); 
         }
@@ -773,7 +773,7 @@ class UsersController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',                
+                                    'pid'=>'store',    
                                     'message'=>["Data User tidak ditemukan."]
                                 ], 422);    
         }
@@ -784,7 +784,7 @@ class UsersController extends Controller {
             return Response()->json([
                                         'status'=>1,
                                         'pid'=>'fetchdata',
-                                        'daftar_prodi'=>$prodi,                
+                                        'daftar_prodi'=>$prodi,    
                                         'message'=>"Daftar Prodi dari username ($username)  berhasil diperoleh"
                                     ], 200); 
         }

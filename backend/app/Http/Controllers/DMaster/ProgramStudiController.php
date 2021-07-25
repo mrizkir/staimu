@@ -192,7 +192,7 @@ class ProgramStudiController extends Controller {
                                                         "N.A"
                                                     ELSE
                                                         CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
-                                                END AS matkul_skripsi,                
+                                                END AS matkul_skripsi,    
                                                 pe3_prodi_detail1.created_at,
                                                 pe3_prodi_detail1.updated_at
                                             '))
@@ -229,7 +229,7 @@ class ProgramStudiController extends Controller {
                                                         "N.A"
                                                     ELSE
                                                         CONCAT("[",pe3_matakuliah.kmatkul,"] ",pe3_matakuliah.nmatkul)
-                                                END AS matkul_skripsi,                
+                                                END AS matkul_skripsi,    
                                                 pe3_prodi_detail1.created_at,
                                                 pe3_prodi_detail1.updated_at
                                             '))
@@ -400,7 +400,7 @@ class ProgramStudiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
-                                    'jumlah_sks'=>$jumlah_sks,                                                                                                                               
+                                    'jumlah_sks'=>$jumlah_sks,                            
                                     'message'=>'Mengubah jumlah sks '.$detail1->jumlah_sks.' berhasil.'
                                 ], 200);  
     }
@@ -428,7 +428,7 @@ class ProgramStudiController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
-                                    'matkul_id'=>$matkul_id,                                                                                                                               
+                                    'matkul_id'=>$matkul_id,                            
                                     'message'=>'Mengubah matakuliah skripsi berhasil dilakukan.'
                                 ], 200);  
     }

@@ -25,7 +25,7 @@ class TransaksiKKNController extends Controller {
         {
             $this->validate($request, [           
                 'ta'=>'required',
-                'semester_akademik'=>'required|in:1,2,3',            
+                'semester_akademik'=>'required|in:1,2,3',
             ]);
     
             $ta=$request->input('ta');
@@ -48,7 +48,7 @@ class TransaksiKKNController extends Controller {
                                                         pe3_transaksi.ta,
                                                         pe3_transaksi.idsmt,
                                                         pe3_transaksi.idkelas,
-                                                        pe3_transaksi.no_formulir,                        
+                                                        pe3_transaksi.no_formulir,            
                                                         COALESCE(pe3_transaksi.nim,\'N.A\') AS nim,
                                                         pe3_transaksi.status,
                                                         pe3_status_transaksi.nama_status,
@@ -130,7 +130,7 @@ class TransaksiKKNController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,                                                                                                   
+                                    'transaksi'=>$daftar_transaksi,
                                     'message'=>'Fetch data daftar transaksi berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
@@ -142,7 +142,7 @@ class TransaksiKKNController extends Controller {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-KKN_STORE');
 
         $this->validate($request, [           
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',                 
+            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
             'semester_akademik'=>'required',
             'ta'=>'required'
         ]);
@@ -233,8 +233,8 @@ class TransaksiKKNController extends Controller {
 
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'store',                   
-                                        'transaksi'=>$transaksi,                                                                                                   
+                                        'pid'=>'store',       
+                                        'transaksi'=>$transaksi,
                                         'message'=>'Transaksi KKN berhasil di input.'
                                     ], 200); 
         }
@@ -242,7 +242,7 @@ class TransaksiKKNController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'store',                                                                                                                  
+                'pid'=>'store',               
                 'message'=>[$e->getMessage()]
             ], 422); 
         }        
@@ -281,7 +281,7 @@ class TransaksiKKNController extends Controller {
             $transaksi->delete();
             return Response()->json([
                                         'status'=>1,
-                                        'pid'=>'destroy',                
+                                        'pid'=>'destroy',    
                                         'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }

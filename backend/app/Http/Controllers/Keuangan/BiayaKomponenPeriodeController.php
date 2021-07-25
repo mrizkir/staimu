@@ -71,7 +71,7 @@ class BiayaKomponenPeriodeController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'fetchdata',  
-                                    'kombi'=>$kombi,                                                                                                   
+                                    'kombi'=>$kombi,
                                     'message'=>'Fetch data biaya komponen periode berhasil.'
                                 ], 200);
     } 
@@ -115,7 +115,7 @@ class BiayaKomponenPeriodeController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'store',  
-                                    'kombi'=>$kombi,                                                                                                   
+                                    'kombi'=>$kombi,
                                     'message'=>'Menyalin data kombi ke data kombi periode berhasil.'
                                 ], 200);
     } 
@@ -147,7 +147,7 @@ class BiayaKomponenPeriodeController extends Controller {
         return Response()->json([
                                     'status'=>1,
                                     'pid'=>'update',     
-                                    'kombi_biaya'=>$kombi_biaya,                                                                                                                               
+                                    'kombi_biaya'=>$kombi_biaya,                            
                                     'message'=>'Mengubah biaya komponen '.$kombi_biaya->nama_kombi.' berhasil.'
                                 ], 200);
     } 

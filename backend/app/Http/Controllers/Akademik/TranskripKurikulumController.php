@@ -144,7 +144,7 @@ class TranskripKurikulumController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',                
+                                    'pid'=>'show',    
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -287,11 +287,11 @@ class TranskripKurikulumController  extends Controller
                                     'pid'=>'fetchdata', 
                                     'mahasiswa'=>$mahasiswa, 
                                     'jumlah_matkul'=>$jumlah_matkul, 
-                                    'nilai_matakuliah'=>$daftar_nilai,              
-                                    'jumlah_sks'=>$jumlah_sks,              
-                                    'jumlah_sks_nilai'=>$jumlah_sks_nilai,              
-                                    'jumlah_am'=>$jumlah_am,              
-                                    'jumlah_m'=>$jumlah_m,              
+                                    'nilai_matakuliah'=>$daftar_nilai,  
+                                    'jumlah_sks'=>$jumlah_sks,  
+                                    'jumlah_sks_nilai'=>$jumlah_sks_nilai,  
+                                    'jumlah_am'=>$jumlah_am,  
+                                    'jumlah_m'=>$jumlah_m,  
                                     'ipk'=>$ipk,
                                     'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
                                 ], 200); 
@@ -304,7 +304,7 @@ class TranskripKurikulumController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',                
+                                    'pid'=>'update',    
                                     'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -316,7 +316,7 @@ class TranskripKurikulumController  extends Controller
             $history=\DB::table('pe3_nilai_matakuliah AS A')
                                     ->select(\DB::raw('
                                         B.id AS krsmatkul_id,
-                                        D.id AS penyelenggaraan_id,                                                
+                                        D.id AS penyelenggaraan_id,                                    
                                         A.n_kual, 
                                         A.n_mutu,
                                         A.n_kuan,
@@ -405,7 +405,7 @@ class TranskripKurikulumController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',                
+                                    'pid'=>'show',    
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
@@ -612,7 +612,7 @@ class TranskripKurikulumController  extends Controller
                                                                     [
                                                                         'headers'=>$headers,
                                                                         'mahasiswa'=>$mahasiswa,
-                                                                        'daftar_nilai'=>$daftar_nilai,                                        
+                                                                        'daftar_nilai'=>$daftar_nilai,                            
                                                                         'jumlah_sks'=>$jumlah_sks_all,
                                                                         'jumlah_am'=>$jumlah_am_all,
                                                                         'jumlah_m'=>$jumlah_m_all,
@@ -673,7 +673,7 @@ class TranskripKurikulumController  extends Controller
                                                     A.user_id,
                                                     A.nama_mhs,
                                                     A.tempat_lahir,
-                                                    A.tanggal_lahir,                                                                
+                                                    A.tanggal_lahir,                                                    
                                                     A.ta,
                                                     pe3_register_mahasiswa.nim,
                                                     pe3_register_mahasiswa.nirm,
@@ -697,7 +697,7 @@ class TranskripKurikulumController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',                
+                                    'pid'=>'show',    
                                     'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
