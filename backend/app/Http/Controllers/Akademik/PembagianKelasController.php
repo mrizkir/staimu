@@ -54,7 +54,7 @@ class PembagianKelasController extends Controller
                         ->where('pe3_kelas_mhs.idsmt',$semester_akademik);
         if ($this->hasRole('dosen'))
         {
-            $pembagiankelas=$pembagiankelas->where('pe3_dosen.user_id',$this->getUserid())
+            $pembagiankelas=$pembagiankelas->where('pe3_dosen.user_id', $this->getUserid())
                                 ->get();
         }
         else
@@ -268,7 +268,7 @@ class PembagianKelasController extends Controller
     public function peserta (Request $request,$id)
     {
 
-        $pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id',$this->getUserid())->find($id):PembagianKelasModel::find($id);
+        $pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id', $this->getUserid())->find($id):PembagianKelasModel::find($id);
 
         if (is_null($pembagian))
         {
@@ -344,7 +344,7 @@ class PembagianKelasController extends Controller
                                     nidn,
                                     nama_dosen
                                 '))
-                                ->where('active',1)
+                                ->where('active', 1)
                                 ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
                                     $query->select('user_id')
                                         ->from('pe3_penyelenggaraan_dosen')

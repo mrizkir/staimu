@@ -53,7 +53,7 @@ class TransaksiController extends Controller {
                                             ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                             ->where('pe3_transaksi.ta',$ta)
-                                            ->where('pe3_transaksi.user_id',$this->getUserid())
+                                            ->where('pe3_transaksi.user_id', $this->getUserid())
                                             ->orderBy('tanggal','DESC')
                                             ->get();
         }
@@ -184,7 +184,7 @@ class TransaksiController extends Controller {
                             ->where('pe3_transaksi.ta',$mhs->tahun)
                             ->where('pe3_transaksi.idsmt',$mhs->idsmt)
                             ->where('pe3_transaksi_detail.bulan',$no_bulan)
-                            ->where('pe3_transaksi.status',1)
+                            ->where('pe3_transaksi.status', 1)
                             ->where('pe3_transaksi_detail.user_id',$user_id)
                             ->first();
 

@@ -232,7 +232,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     nidn,    
                                     nama_dosen
                                 '))       
-                                ->where('active',1)
+                                ->where('active', 1)
                                 ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
                                     $query->select('user_id')
                                         ->from('pe3_penyelenggaraan_dosen')

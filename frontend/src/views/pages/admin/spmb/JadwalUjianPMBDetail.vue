@@ -453,7 +453,7 @@
 					this.status_jadwan_ujian = newStatus;
 				},
 				get() {
-					switch (this.status_jadwan_ujian){
+					switch (this.status_jadwan_ujian) {
 						case 0:
 							return "BELUM MULAI";
 						case 1:

@@ -184,7 +184,7 @@
                         <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
-                                class="warning"                
+                                class="warning"
                                 @click="putuskan"
                             >
                                 Putuskan

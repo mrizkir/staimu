@@ -169,7 +169,7 @@ class UjianMunaqasahController extends Controller
 
         if ($this->hasRole('mahasiswa'))
         {
-            $ujian = $ujian->where('A.user_id',$this->getUserid())
+            $ujian = $ujian->where('A.user_id', $this->getUserid())
                         ->where('A.id',$id)
                         ->first();                                  
             
@@ -568,7 +568,7 @@ class UjianMunaqasahController extends Controller
                     $detail1 = \DB::table('pe3_transaksi') 
                                 ->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                 ->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
-                                ->where('status',1)
+                                ->where('status', 1)
                                 ->where('kombi_id',601)
                                 ->exists();
                     
@@ -579,7 +579,7 @@ class UjianMunaqasahController extends Controller
                         $this->persyaratan_verified[]=true;
                     }
                     else 
-                    {                        
+                    {  
                         $item->keterangan =  "BELUM BAYAR"; 
                         $this->persyaratan_verified[]=false;
                     }          

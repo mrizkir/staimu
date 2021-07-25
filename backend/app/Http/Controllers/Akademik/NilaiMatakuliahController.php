@@ -43,7 +43,7 @@ class NilaiMatakuliahController extends Controller
 	}
 	public function pesertakelas (Request $request,$id)
 	{
-		$pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id',$this->getUserid())->find($id):PembagianKelasModel::find($id);           
+		$pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id', $this->getUserid())->find($id):PembagianKelasModel::find($id);           
 		
 		if (is_null($pembagian))
 		{

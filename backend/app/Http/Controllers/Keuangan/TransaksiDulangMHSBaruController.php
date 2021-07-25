@@ -61,8 +61,8 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)        
-                                                    ->where('pe3_transaksi_detail.user_id',$this->getUserid())
-                                                    ->where('pe3_transaksi_detail.kombi_id',102)        
+                                                    ->where('pe3_transaksi_detail.user_id', $this->getUserid())
+                                                    ->where('pe3_transaksi_detail.kombi_id', 102)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }
@@ -97,7 +97,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
-                                                    ->where('pe3_transaksi_detail.kombi_id',102)        
+                                                    ->where('pe3_transaksi_detail.kombi_id', 102)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC');                                               
 
             if ($request->has('search'))
@@ -143,10 +143,10 @@ class TransaksiDulangMHSBaruController extends Controller {
                                             ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                             ->where('pe3_transaksi.ta',$ta)
                                             ->where('pe3_transaksi.no_formulir',$no_formulir)
-                                            ->where('pe3_transaksi_detail.kombi_id',102)
+                                            ->where('pe3_transaksi_detail.kombi_id', 102)
                                             ->where(function($query) {
                                                 $query->where('pe3_transaksi.status',0)
-                                                    ->orWhere('pe3_transaksi.status',1);
+                                                    ->orWhere('pe3_transaksi.status', 1);
                                             })
                                             ->first();
 
@@ -175,7 +175,7 @@ class TransaksiDulangMHSBaruController extends Controller {
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
                                                     ->where('idkelas',$idkelas)
                                                     ->where('kjur',$kjur)
-                                                    ->where('kombi_id',102)
+                                                    ->where('kombi_id', 102)
                                                     ->value('biaya');
             
             if (!($biaya_kombi > 0))
@@ -243,7 +243,7 @@ class TransaksiDulangMHSBaruController extends Controller {
 
         if ($this->hasRole('mahasiswa'))
         {
-            $transaksi = TransaksiModel::where('user_id',$this->getUserid())
+            $transaksi = TransaksiModel::where('user_id', $this->getUserid())
                                         ->find($id); 
         }
         else

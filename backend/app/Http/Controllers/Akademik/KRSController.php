@@ -100,7 +100,7 @@ class KRSController extends Controller
                                 '))
                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')   
                                 ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id') 
-                                ->where('pe3_register_mahasiswa.dosen_id',$this->getUserid())
+                                ->where('pe3_register_mahasiswa.dosen_id', $this->getUserid())
                                 ->orderBy('nama_mhs','ASC');
                                 
             
@@ -139,7 +139,7 @@ class KRSController extends Controller
                                     pe3_krs.updated_at
                                 '))
                                 ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
-                                ->where('nim',$this->getUsername())
+                                ->where('nim', $this->getUsername())
                                 ->orderBy('tasmt','DESC')
                                 ->get();
 

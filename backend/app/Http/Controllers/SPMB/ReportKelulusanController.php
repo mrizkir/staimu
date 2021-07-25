@@ -56,7 +56,7 @@ class ReportKelulusanController extends Controller {
                     ->where('users.ta',$ta)
                     ->where('kjur1',$prodi_id)
                     ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
-                    ->where('users.active',1)    
+                    ->where('users.active', 1)    
                     ->where('pe3_nilai_ujian_pmb.ket_lulus',$filter_status)
                     ->orderBy('users.name','ASC') 
                     ->get();
@@ -99,7 +99,7 @@ class ReportKelulusanController extends Controller {
             $transaksi_detail=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.no_transaksi,pe3_transaksi.status'))
                                                     ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                                     ->where('pe3_transaksi.user_id',$formulir->user_id)
-                                                    ->where('kombi_id',101)        
+                                                    ->where('kombi_id', 101)        
                                                     ->first(); 
 
             $transaksi_status=0;

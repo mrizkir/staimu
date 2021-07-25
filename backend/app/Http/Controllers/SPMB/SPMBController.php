@@ -68,7 +68,7 @@ class SPMBController extends Controller
 							nama_jenjang,
 							COALESCE(jumlah,0) AS jumlah'
 						))
-						->joinSub($subquery_kelulusan->where('ket_lulus',1),'pe3_nilai_ujian_pmb',function($join){
+						->joinSub($subquery_kelulusan->where('ket_lulus', 1),'pe3_nilai_ujian_pmb',function($join){
 							$join->on('pe3_nilai_ujian_pmb.kjur','=','pe3_prodi.id');
 						})
 						->get();
@@ -103,7 +103,7 @@ class SPMBController extends Controller
 						->leftJoinSub($subquery,'pe3_formulir_pendaftaran',function($join){
 							$join->on('pe3_formulir_pendaftaran.kjur1','=','usersprodi.prodi_id');
 						})
-						->where('user_id',$this->getUserid())
+						->where('user_id', $this->getUserid())
 						->get();
 
 			$subquery_isi_formulir=$subquery->whereNotNull('idkelas');
@@ -118,7 +118,7 @@ class SPMBController extends Controller
 								->leftJoinSub($subquery_isi_formulir,'pe3_formulir_pendaftaran',function($join){
 									$join->on('pe3_formulir_pendaftaran.kjur1','=','usersprodi.id');
 								})
-								->where('user_id',$this->getUserid())
+								->where('user_id', $this->getUserid())
 								->get();
 
 			$subquery_kelulusan=\DB::table('pe3_nilai_ujian_pmb')
@@ -135,10 +135,10 @@ class SPMBController extends Controller
 								nama_jenjang,
 								COALESCE(jumlah,0) AS jumlah'
 							))
-							->joinSub($subquery_kelulusan->where('ket_lulus',1),'pe3_nilai_ujian_pmb',function($join){
+							->joinSub($subquery_kelulusan->where('ket_lulus', 1),'pe3_nilai_ujian_pmb',function($join){
 								$join->on('pe3_nilai_ujian_pmb.kjur','=','usersprodi.id');
 							})
-							->where('user_id',$this->getUserid())
+							->where('user_id', $this->getUserid())
 							->get();
 
 			$daftar_tidak_lulus=\DB::table('usersprodi')
@@ -152,7 +152,7 @@ class SPMBController extends Controller
 							->joinSub($subquery_kelulusan->where('ket_lulus',0),'pe3_nilai_ujian_pmb',function($join){
 								$join->on('pe3_nilai_ujian_pmb.kjur','=','usersprodi.id');
 							})
-							->where('user_id',$this->getUserid())
+							->where('user_id', $this->getUserid())
 							->get();
 
 			$total_registrasi=$daftar_registrasi->sum('jumlah');

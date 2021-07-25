@@ -83,7 +83,7 @@
                             :items="datatable"
                             item-key="id"        
                             :disable-pagination="true"
-                            :hide-default-footer="true"                
+                            :hide-default-footer="true"
                             :loading="datatableLoading"
                             loading-text="Loading... Please wait"> 
                             <template v-slot:item.actions="{ item }">
@@ -187,7 +187,7 @@
                         :items="data_history"
                         item-key="krsmatkul_id"        
                         :disable-pagination="true"
-                        :hide-default-footer="true"                
+                        :hide-default-footer="true"
                         :loading="datatableLoading"
                         show-expand
                         :expanded.sync="expanded"

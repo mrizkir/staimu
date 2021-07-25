@@ -47,7 +47,7 @@
 									item-key="id"
 									show-select                                        
 									:disable-pagination="true"
-									:hide-default-footer="true"                
+									:hide-default-footer="true"
 									:loading="datatableLoading"
 									loading-text="Loading... Please wait">
 									<template v-slot:no-data>

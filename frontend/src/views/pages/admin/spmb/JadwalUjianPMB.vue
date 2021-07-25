@@ -441,7 +441,7 @@
 						});
 			},
 			getStatusJadwanUjian(item) {
-				switch (item.status_ujian){
+				switch (item.status_ujian) {
 						case 0:
 							return "BELUM MULAI";		
 						case 1:

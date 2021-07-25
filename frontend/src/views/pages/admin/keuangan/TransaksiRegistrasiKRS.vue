@@ -99,7 +99,7 @@
 																								<v-select
 																										v-model="formdata.semester_akademik"
 																										:items="daftar_semester"
-																										label="TRANSAKSI UNTUK SEMESTER"                          
+																										label="TRANSAKSI UNTUK SEMESTER"          
 																										:rules="rule_semester"
 																										item-text="text"
 																										item-value="id"

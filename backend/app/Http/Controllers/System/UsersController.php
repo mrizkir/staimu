@@ -219,7 +219,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('pmb')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -233,7 +233,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('akademik')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -247,7 +247,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('programstudi')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -261,7 +261,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('puslahta')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -275,7 +275,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('keuangan')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -289,7 +289,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('perpustakaan')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -303,7 +303,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('lppm')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -317,7 +317,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosen')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -331,7 +331,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosenwali')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -345,7 +345,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('alumni')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)
@@ -359,7 +359,7 @@ class UsersController extends Controller {
                 $permissions=$permission->pluck('name');
                 $data = User::role('orangtuawali')
                         ->select(\DB::raw('users.id'))
-                        ->where('active',1)
+                        ->where('active', 1)
                         ->get();
 
                 foreach ($data as $user)

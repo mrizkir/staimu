@@ -173,8 +173,8 @@ class PMBUjianOnlineController extends Controller {
         
         $is_bayar = \DB::table('pe3_transaksi')
                         ->join('pe3_transaksi_detail','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
-                        ->where('kombi_id',101)
-                        ->where('status',1)
+                        ->where('kombi_id', 101)
+                        ->where('status', 1)
                         ->where('pe3_transaksi_detail.user_id', $request->input('user_id'))
                         ->exists();
         
@@ -267,7 +267,7 @@ class PMBUjianOnlineController extends Controller {
         
         $user_id = $request->input('user_id');
         $isfinish=PesertaUjianPMBModel::where('user_id',$user_id)
-                                        ->where('isfinish',1)
+                                        ->where('isfinish', 1)
                                         ->exists();
         if ($isfinish)
         {
@@ -418,10 +418,10 @@ class PMBUjianOnlineController extends Controller {
     //buat transaksi keuangan daftar ulang 
     private function createTransaksiDulang($formulir)
     {
-        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id',102)->first();           
+        $transaksi_detail=TransaksiDetailModel::where('user_id',$formulir->user_id)->where('kombi_id', 102)->first();           
         if (is_null($transaksi_detail))
         {   
-            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',102)
+            $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id', 102)
                                                                 ->where('kjur',$formulir->kjur1)
                                                                 ->where('idkelas',$formulir->idkelas)
                                                                 ->where('tahun',$formulir->ta)

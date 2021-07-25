@@ -269,7 +269,7 @@ class JadwalUjianPMBController extends Controller {
                 $now = \Carbon\Carbon::now()->toDateTimeString();   
                 \DB::table('pe3_peserta_ujian_pmb')
                     ->where('jadwal_ujian_id', $jadwal_ujian->id)
-                    ->where('isfinish','!=',1)
+                    ->where('isfinish','!=', 1)
                     ->update([
                         'isfinish'=>1,
                         'selesai_ujian'=>$now

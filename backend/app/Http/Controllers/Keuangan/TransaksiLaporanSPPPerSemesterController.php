@@ -190,7 +190,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                     ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
-                                    ->where('pe3_transaksi.user_id',$this->getUserid())
+                                    ->where('pe3_transaksi.user_id', $this->getUserid())
                                     ->find($id);
             }
             else

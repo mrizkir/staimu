@@ -51,7 +51,7 @@ class DulangMahasiswaAktifController extends Controller
             ->where('pe3_dulang.tahun',$ta)   
             ->where('pe3_dulang.idsmt',$idsmt)   
             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
-            ->where('pe3_dulang.user_id',$this->getUserid())
+            ->where('pe3_dulang.user_id', $this->getUserid())
             ->where('pe3_dulang.k_status','A')
             ->orderBy('pe3_dulang.idsmt','desc')
             ->orderBy('nama_mhs','asc')

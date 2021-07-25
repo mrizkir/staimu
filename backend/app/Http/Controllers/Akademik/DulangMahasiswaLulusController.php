@@ -51,7 +51,7 @@ class DulangMahasiswaLulusController extends Controller
 			->where('pe3_dulang.tahun',$ta)   
 			->where('pe3_dulang.idsmt',$idsmt)   
 			->where('pe3_register_mahasiswa.kjur',$prodi_id)
-			->where('pe3_dulang.user_id',$this->getUserid())
+			->where('pe3_dulang.user_id', $this->getUserid())
 			->where('pe3_dulang.k_status','L')
 			->orderBy('pe3_dulang.idsmt','desc')
 			->orderBy('nama_mhs','asc')
@@ -138,7 +138,7 @@ class DulangMahasiswaLulusController extends Controller
 				->join('pe3_penyelenggaraan AS C','A.penyelenggaraan_id','C.id')
 				->where('A.user_id_mhs',$profil->user_id)													
 				->where('B.batal',0)
-				->where('A.n_mutu','>=',18);	
+				->where('A.n_mutu','>=', 18);	
 			}, 'a')->sum('sks');
 
 			if ($total_sks <= 144)
@@ -211,7 +211,7 @@ class DulangMahasiswaLulusController extends Controller
 				->join('pe3_penyelenggaraan AS C','A.penyelenggaraan_id','C.id')
 				->where('A.user_id_mhs',$profil->user_id)													
 				->where('B.batal',0)
-				->where('A.n_mutu','>=',18);	
+				->where('A.n_mutu','>=', 18);	
 			}, 'a')->sum('sks');
 
 			if ($total_sks <= 144)

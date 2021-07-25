@@ -93,7 +93,7 @@ class NilaiKHSController extends Controller
 																		pe3_krs.updated_at
 																'))
 																->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
-																->where('nim',$this->getUsername())
+																->where('nim', $this->getUsername())
 																->orderBy('tasmt','DESC')
 																->get();
 

@@ -128,7 +128,7 @@
                             :headers="headers"
                             :items="item_selected" 
                             :disable-pagination="true"
-                            :hide-default-footer="true"                
+                            :hide-default-footer="true"
                             item-key="no_bulan"   
                             class="elevation-1"
                             :loading="datatableLoading"
@@ -180,7 +180,7 @@
                         :items="enrichedDataTable" 
                         v-model="item_selected"  
                         :disable-pagination="true"
-                        :hide-default-footer="true"                
+                        :hide-default-footer="true"
                         item-key="id"
                         show-select                                             
                         class="elevation-1"

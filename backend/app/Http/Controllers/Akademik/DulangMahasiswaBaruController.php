@@ -44,7 +44,7 @@ class DulangMahasiswaBaruController extends Controller
                             ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
                             ->where('pe3_register_mahasiswa.tahun',$ta)   
                             ->where('pe3_dulang.tahun',$ta)   
-                            ->where('pe3_dulang.idsmt',1)   
+                            ->where('pe3_dulang.idsmt', 1)   
                             ->where('pe3_register_mahasiswa.kjur',$prodi_id)
                             ->orderBy('pe3_dulang.idsmt','desc')
                             ->orderBy('nama_mhs','asc')

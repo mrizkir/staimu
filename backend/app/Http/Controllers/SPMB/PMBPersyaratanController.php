@@ -38,7 +38,7 @@ class PMBPersyaratanController extends Controller {
                     })
                     ->where('users.ta',$ta)
                     ->where('kjur1',$prodi_id)
-                    ->where('users.active',1)
+                    ->where('users.active', 1)
                     ->orderBy('users.name','ASC')
                     ->get();
         

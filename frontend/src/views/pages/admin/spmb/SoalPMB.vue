@@ -422,7 +422,7 @@ export default {
             value => !!value || "Mohon untuk di isi soal !!!",  
         ], 
         rule_gambar: [            
-            value =>  !value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
+            value =>  !!value || value.size < 2000000 || 'File gambar harus kurang dari 2MB.'                
         ],
         rule_jawaban: [
             value => !!value || "Mohon isi jawaban dari soal ini",  

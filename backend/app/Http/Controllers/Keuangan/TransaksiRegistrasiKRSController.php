@@ -64,7 +64,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)
                                                     ->where('pe3_transaksi.idsmt',$idsmt)
-                                                    ->where('pe3_transaksi_detail.user_id',$this->getUserid())
+                                                    ->where('pe3_transaksi_detail.user_id', $this->getUserid())
                                                     ->where('pe3_transaksi_detail.kombi_id',202)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
@@ -164,7 +164,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                                             ->where('pe3_transaksi_detail.kombi_id',202)
                                             ->where(function($query) {
                                                 $query->where('pe3_transaksi.status',0)
-                                                    ->orWhere('pe3_transaksi.status',1);
+                                                    ->orWhere('pe3_transaksi.status', 1);
                                             })
                                             ->first();
 
@@ -254,7 +254,7 @@ class TransaksiRegistrasiKRSController extends Controller {
 
         if ($this->hasRole('mahasiswa'))
         {
-            $transaksi = TransaksiModel::where('user_id',$this->getUserid())
+            $transaksi = TransaksiModel::where('user_id', $this->getUserid())
                                         ->find($id); 
         }
         else

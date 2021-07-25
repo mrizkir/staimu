@@ -111,7 +111,7 @@
 									:items="datatable"
 									item-key="id"        
 									:disable-pagination="true"
-									:hide-default-footer="true"                
+									:hide-default-footer="true"
 									:loading="datatableLoading"
 									loading-text="Loading... Please wait">
 									<template v-slot:item.n_kuan="props">

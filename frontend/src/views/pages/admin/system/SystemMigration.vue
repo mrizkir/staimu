@@ -93,7 +93,7 @@
                             <v-card-text>
                                 <v-data-table 
                                     :loading="datatableLoading"
-                                    loading-text="Loading... Please wait"                
+                                    loading-text="Loading... Please wait"
                                     :disable-pagination="true"
                                     :hide-default-footer="true"
                                     :headers="headers"

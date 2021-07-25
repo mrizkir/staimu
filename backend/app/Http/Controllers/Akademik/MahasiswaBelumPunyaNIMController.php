@@ -43,8 +43,8 @@ class MahasiswaBelumPunyaNIMController extends Controller
                                     ->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                     ->leftJoin('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
-                                    ->where('kombi_id',102)
-                                    ->where('pe3_transaksi.status',1)
+                                    ->where('kombi_id', 102)
+                                    ->where('pe3_transaksi.status', 1)
                                     ->where('pe3_formulir_pendaftaran.kjur1',$prodi_id)
                                     ->where('pe3_formulir_pendaftaran.ta',$ta)
                                     ->whereNull('pe3_register_mahasiswa.nim')
@@ -74,7 +74,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
             'dosen_id'=>[
                 'required',
                 Rule::exists('pe3_dosen','user_id')->where(function($query){
-                    return $query->where('is_dw',1);
+                    return $query->where('is_dw', 1);
                 })
             ]
         ]);
@@ -114,7 +114,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
                                         ->where('pe3_transaksi.ta',$formulir->ta)
                                         ->where('pe3_transaksi.idsmt',$formulir->idsmt)
                                         ->where('pe3_transaksi_detail.bulan',$no_bulan)
-                                        ->where('pe3_transaksi.status',1)
+                                        ->where('pe3_transaksi.status', 1)
                                         ->count();
 
             if ($spp > 0)

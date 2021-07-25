@@ -108,7 +108,7 @@ class PMBController extends Controller {
                                         ->where('users.ta',$ta)
                                         ->where('kjur1',$prodi_id)
                                         ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
-                                        ->where('users.active',1)    
+                                        ->where('users.active', 1)    
                                         ->orderBy('users.name','ASC') 
                                         ->get();
         
@@ -406,7 +406,7 @@ class PMBController extends Controller {
             $transaksi_detail=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                                     ->where('pe3_transaksi_detail.user_id',$formulir->user_id)        
                                                     ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
-                                                    ->where('kombi_id',101)
+                                                    ->where('kombi_id', 101)
                                                     ->first(); 
             $no_transaksi='N.A';
             if (!is_null($transaksi_detail))
@@ -551,11 +551,11 @@ class PMBController extends Controller {
                 $transaksi_detail=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
                                                         ->where('pe3_transaksi_detail.user_id',$formulir->user_id)
                                                         ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
-                                                        ->where('pe3_transaksi_detail.kombi_id',101)
+                                                        ->where('pe3_transaksi_detail.kombi_id', 101)
                                                         ->first();           
                 if (is_null($transaksi_detail))
                 {                  
-                    $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id',101)
+                    $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id', 101)
                                                                         ->where('kjur',$formulir->kjur1)
                                                                         ->where('idkelas',$formulir->idkelas)
                                                                         ->where('tahun',$formulir->ta)

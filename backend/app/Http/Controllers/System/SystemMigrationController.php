@@ -65,7 +65,7 @@ class SystemMigrationController extends Controller {
             'dosen_id'=>[
                 'required',
                 Rule::exists('pe3_dosen','user_id')->where(function($query){
-                    return $query->where('is_dw',1);
+                    return $query->where('is_dw', 1);
                 })
             ],
             'prodi_id'=>'required|numeric',

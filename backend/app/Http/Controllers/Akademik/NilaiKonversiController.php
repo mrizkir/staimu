@@ -30,7 +30,7 @@ class NilaiKonversiController  extends Controller
                                             0 AS jumlah_matkul,
                                             0 AS jumlah_sks
                                         '))
-                                        ->where('user_id',$this->getUserid())
+                                        ->where('user_id', $this->getUserid())
                                         ->get();
         }
         else
@@ -288,7 +288,7 @@ class NilaiKonversiController  extends Controller
 
         if ($this->hasRole('mahasiswa'))
         {
-            $data_konversi=NilaiKonversi1Model::where('user_id',$this->getUserid())
+            $data_konversi=NilaiKonversi1Model::where('user_id', $this->getUserid())
                                         ->first();
         }
         else
@@ -472,7 +472,7 @@ class NilaiKonversiController  extends Controller
                                         ')) 
                                         ->join('pe3_prodi','pe3_nilai_konversi1.kjur','pe3_prodi.id')
                                         ->join('pe3_jenjang_studi','pe3_nilai_konversi1.kode_jenjang','pe3_jenjang_studi.kode_jenjang')
-                                        ->where('user_id',$this->getUserid())
+                                        ->where('user_id', $this->getUserid())
                                         ->first();
         }
         else

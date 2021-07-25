@@ -62,7 +62,7 @@ class TransaksiSPPController extends Controller {
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                                     ->where('pe3_transaksi.ta',$ta)
-                                                    ->where('pe3_transaksi_detail.user_id',$this->getUserid())
+                                                    ->where('pe3_transaksi_detail.user_id', $this->getUserid())
                                                     ->where('pe3_transaksi_detail.kombi_id',201)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
@@ -165,7 +165,7 @@ class TransaksiSPPController extends Controller {
                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
                                     ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
-                                    ->where('pe3_transaksi.user_id',$this->getUserid())
+                                    ->where('pe3_transaksi.user_id', $this->getUserid())
                                     ->find($id);
             }
             else
@@ -391,8 +391,8 @@ class TransaksiSPPController extends Controller {
             $this->validate($request, [      
                 'id'=>[
                         'required',
-                        Rule::exists('pe3_transaksi')->where(function ($query) {                                    
-                            $query->where('user_id',$this->getUserid());
+                        Rule::exists('pe3_transaksi')->where(function ($query) {              
+                            $query->where('user_id', $this->getUserid());
                             $query->where('status',0);
                         })
                     ],
@@ -404,7 +404,7 @@ class TransaksiSPPController extends Controller {
             $this->validate($request, [      
                 'id'=>[
                     'required',
-                    Rule::exists('pe3_transaksi')->where(function ($query) {                                                            
+                    Rule::exists('pe3_transaksi')->where(function ($query) {                                      
                         $query->where('status',0);
                     })
                 ],     
@@ -467,7 +467,7 @@ class TransaksiSPPController extends Controller {
 
         if ($this->hasRole(['mahasiswa','mahasiswabaru']))
         {
-            $detail = TransaksiDetailModel::where('user_id',$this->getUserid())
+            $detail = TransaksiDetailModel::where('user_id', $this->getUserid())
                                             ->find($id); 
         }
         else 
@@ -559,7 +559,7 @@ class TransaksiSPPController extends Controller {
                                                     ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                     ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                     ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
-                                                    ->where('pe3_transaksi_detail.user_id',$this->getUserid())
+                                                    ->where('pe3_transaksi_detail.user_id', $this->getUserid())
                                                     ->where('pe3_transaksi_detail.kombi_id',201)        
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();

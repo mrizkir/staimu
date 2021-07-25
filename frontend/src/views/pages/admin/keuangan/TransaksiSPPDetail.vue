@@ -128,7 +128,7 @@
                             :headers="headers"
                             :items="item_selected" 
                             :disable-pagination="true"
-                            :hide-default-footer="true"                
+                            :hide-default-footer="true"
                             item-key="id"   
                             class="elevation-1"
                             :loading="datatableLoading"

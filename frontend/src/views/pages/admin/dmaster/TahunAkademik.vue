@@ -423,7 +423,7 @@ export default {
                 value => !!value || "Tahun Akademik mohon untuk diisi Misalnya 2020 !!!",
                 value => /^[0-9]+$/.test(value) || 'Tahun Akademik hanya boleh angka', 
                 value => {
-                    if (value && typeof value !== 'undefined' && value.length > 0){
+                    if (value && typeof value !== 'undefined' && value.length > 0) {
                         return value.length == 4 || 'Tahun Akademik hanya boleh 4 karakter';
                     }
                     else

@@ -54,9 +54,9 @@ class PesertaLulusController extends Controller {
                     ->leftJoin('pe3_nilai_ujian_pmb','pe3_formulir_pendaftaran.user_id','pe3_nilai_ujian_pmb.user_id')
                     ->where('users.ta',$ta)
                     ->where('kjur1',$prodi_id)
-                    ->where('pe3_nilai_ujian_pmb.ket_lulus',1)
+                    ->where('pe3_nilai_ujian_pmb.ket_lulus', 1)
                     ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
-                    ->where('users.active',1)    
+                    ->where('users.active', 1)    
                     ->orderBy('users.name','ASC') 
                     ->get();
         
