@@ -501,7 +501,8 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.nmatkul,
 								pe3_kelas_mhs.sks,
 								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
-								pe3_dosen.nidn,								
+								pe3_dosen.nidn,
+								pe3_jabatan_akademik.nama_jabatan,
 								pe3_ruangkelas.namaruang,
 								pe3_ruangkelas.kapasitas,	
 								pe3_kelas_mhs.tahun,							
@@ -509,6 +510,7 @@ class NilaiMatakuliahController extends Controller
 							'))
 							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
 							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->where('pe3_kelas_mhs.user_id', $this->getUserid())
 							->first(); 
@@ -526,7 +528,8 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.nmatkul,
 								pe3_kelas_mhs.sks,
 								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
-								pe3_dosen.nidn,								
+								pe3_dosen.nidn,
+								pe3_jabatan_akademik.nama_jabatan,
 								pe3_ruangkelas.namaruang,
 								pe3_ruangkelas.kapasitas,
 								pe3_kelas_mhs.tahun,							
@@ -534,6 +537,7 @@ class NilaiMatakuliahController extends Controller
 							'))
 							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
 							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->first(); 
 		}

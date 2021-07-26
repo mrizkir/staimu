@@ -84,6 +84,17 @@
 									<v-toolbar-title>DAFTAR PESERTA</v-toolbar-title>
 									<v-divider class="mx-4" inset vertical />
 									<v-spacer></v-spacer>
+									<v-btn
+										small
+										icon
+										:disabled="btnLoading"
+										@click.stop="printtoexcel(item)"
+										v-if="datatable_peserta.length > 0"
+									>
+										<v-icon>
+											mdi-printer
+										</v-icon>
+									</v-btn>
 								</v-toolbar>
 							</template>
 							<template v-slot:item.idkelas="{ item }">
@@ -223,8 +234,7 @@
 
 			btnLoadingTable: false,
 			datatableLoading: false,
-			btnLoading: false,
-			datatable: [],
+			btnLoading: false,			
 			datatable_peserta: [],
 			headers_peserta: [
 				{ text: "NIM", value: "nim", sortable: false, width: 100 },
@@ -397,6 +407,36 @@
 				} else {
 					return false;
 				}
+			},
+			async printtoexcel() {
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/akademik/nilai/matakuliah/perdosen/printtoexcel1/" + this.kelas_mhs_id,
+						{},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data, status }) => {
+						if (status == 200) {
+							const url = window.URL.createObjectURL(new Blob([data]));
+							const link = document.createElement("a");
+							link.href = url;
+							link.setAttribute("download", "daftar_nilai_" + Date.now() + ".xlsx");
+							link.setAttribute("id", "download_laporan");
+							document.body.appendChild(link);
+							link.click();
+							document.body.removeChild(link);							
+						}
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
 		},
 		components: {

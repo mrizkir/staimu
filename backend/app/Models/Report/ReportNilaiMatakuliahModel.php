@@ -163,7 +163,7 @@ class ReportNilaiMatakuliahModel extends ReportModel
         $no+=1;
     }
     $row-=1;
-    $styleArray=array(								
+    $styleArray=array(
         'alignment' => array('horizontal'=>Alignment::HORIZONTAL_CENTER,
                             'vertical'=>Alignment::HORIZONTAL_CENTER),
         'borders' => array('allBorders' => array('borderStyle' =>Border::BORDER_THIN))
@@ -175,6 +175,32 @@ class ReportNilaiMatakuliahModel extends ReportModel
       'alignment' => array('horizontal'=>Alignment::HORIZONTAL_LEFT)
     );																					 
     $sheet->getStyle("C$row_awal:C$row")->applyFromArray($styleArray);
+
+    $row+=2;    
+    $row_awal=$row;
+    $sheet->mergeCells("G$row:I$row");
+    $sheet->setCellValue("G$row",'Tanjungpinang, '. Helper::tanggal('d F Y'));
+    $row+=1;
+    $sheet->mergeCells("B$row:C$row");
+    $sheet->setCellValue("B$row",'Wakil Ketua I');
+    $sheet->mergeCells("G$row:I$row");
+    $sheet->setCellValue("G$row",'Dosen Pengampu');
+    $row+=4;
+    $sheet->mergeCells("B$row:C$row");
+    $sheet->setCellValue("B$row",'Suhardiman. M.Pd.I');
+    $sheet->mergeCells("G$row:I$row");
+    $sheet->setCellValue("G$row",trim($this->dataReport['nama_dosen']));
+    $row+=1;
+    $sheet->mergeCells("B$row:C$row");
+    $sheet->setCellValue("B$row",'Lektor NIDN. 2128087201');
+    $sheet->mergeCells("G$row:I$row");
+    $sheet->setCellValue("G$row",$this->dataReport['nama_jabatan'].' NIDN. '.$this->dataReport['nidn']);
+
+    $styleArray=array(
+      'font' => array('bold' => true),      
+    );
+    $sheet->getStyle("A$row_awal:I$row")->applyFromArray($styleArray);
+    $sheet->getStyle("A$row_awal:I$row")->getAlignment()->setWrapText(true);
 
     $generate_date=date('Y-m-d_H_m_s');
     return $this->download("daftar_nilai_$generate_date.xlsx");
