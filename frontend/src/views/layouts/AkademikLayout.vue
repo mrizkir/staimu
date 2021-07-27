@@ -423,6 +423,7 @@
 							</v-list-item-content>
 						</v-list-item>
 					</div>
+					<v-divider />
 				</v-list-group>
 				<v-list-group
 					group="/akademik/perkuliahan/krs"
@@ -537,6 +538,7 @@
 							</v-list-item-content>
 						</v-list-item>
 					</div>
+					<v-divider />
 				</v-list-group>
 				<v-list-group
 					group="/akademik/perkuliahan/pkrs"
@@ -639,6 +641,7 @@
 							</v-list-item-content>
 						</v-list-item>
 					</div>
+					<v-divider />
 				</v-list-group>
 				<v-list-group
 					group="/akademik/perkuliahan/pembagiankelas"
@@ -722,6 +725,7 @@
 							</v-list-item-content>
 						</v-list-item>
 					</div>
+					<v-divider />
 				</v-list-group>
 				<v-list-item
 					link
@@ -743,6 +747,29 @@
 					</v-list-item-content>
 				</v-list-item>
 				<v-subheader>NILAI</v-subheader>
+				<v-list-item
+					link
+					v-if="
+						CAN_ACCESS('AKADEMIK-NILAI-MATAKULIAH_STORE') &&
+							dashboard == 'puslahta'
+					"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					to="/akademik/nilai/waktupengisian"
+					color="white"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-av-timer</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							WAKTU PENGISIAN
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-list-group
 					group="/akademik/nilai/matakuliah"
 					active-class="yellow"
@@ -832,6 +859,7 @@
 							</v-list-item-content>
 						</v-list-item>
 					</div>
+					<v-divider />
 				</v-list-group>
 				<v-list-item
 					link

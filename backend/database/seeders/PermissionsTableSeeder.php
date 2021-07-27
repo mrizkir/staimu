@@ -296,6 +296,8 @@ class PermissionsTableSeeder extends Seeder
             'AKADEMIK-PERKULIAHAN-PKRS',
             'AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH',
 
+            'AKADEMIK-NILAI-WAKTU-PENGISIAN',
+            'AKADEMIK-NILAI-MATAKULIAH',
             'AKADEMIK-NILAI-MATAKULIAH',
             'AKADEMIK-NILAI-MATAKULIAH-DOSEN',
             'AKADEMIK-NILAI-KONVERSI',

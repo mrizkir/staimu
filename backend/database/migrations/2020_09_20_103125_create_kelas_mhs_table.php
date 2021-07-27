@@ -34,6 +34,8 @@ class CreateKelasMhsTable extends Migration
             $table->tinyinteger('persen_uas')->default(0);
             $table->tinyinteger('persen_absen')->default(0);
             $table->boolean('isi_nilai')->default(false);
+            $table->datetime('waktu_mulai_isi_nilai')->nullable();
+            $table->datetime('waktu_selesai_isi_nilai')->nullable();
 
             $table->tinyinteger('idsmt');
             $table->year('tahun');

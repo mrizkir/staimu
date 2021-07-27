@@ -957,6 +957,16 @@ const routes = [
 	},
 	//akademik - nilai
 	{
+		path: "/akademik/nilai/waktupengisian",
+		name: "AkademikNilaiIsiWaktuPengisian",
+		meta: {
+			title: "AKADEMIK - WAKTU PENGISIAN NILAI",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/NilaiWaktuPengisian.vue"),
+	},
+	{
 		path: "/akademik/nilai/matakuliah/isiperkelasmhs",
 		name: "AkademikNilaiIsiPerKelasMHS",
 		meta: {

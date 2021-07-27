@@ -12,14 +12,14 @@ use App\Models\UserDosen;
 
 use Ramsey\Uuid\Uuid;
 
-class PembagianKelasController extends Controller
+class NilaiWaktuPengisianController extends Controller
 {
 	/**
 	 * daftar pembagian kelas
 	 */
 	public function index(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_BROWSE');
 
 		$this->validate($request, [
 			'ta'=>'required',
@@ -44,6 +44,8 @@ class PembagianKelasController extends Controller
 							pe3_kelas_mhs.ruang_kelas_id,
 							pe3_ruangkelas.namaruang,
 							pe3_ruangkelas.kapasitas,
+							pe3_kelas_mhs.waktu_mulai_isi_nilai,
+							pe3_kelas_mhs.waktu_selesai_isi_nilai,
 							0 AS jumlah_mhs,
 							pe3_kelas_mhs.created_at,
 							pe3_kelas_mhs.updated_at
@@ -62,6 +64,9 @@ class PembagianKelasController extends Controller
 		{
 			$pembagiankelas=$pembagiankelas->get();
 		}
+
+
+
 		$pembagiankelas->transform(function ($item,$key){
 			$item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);
 			$item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();
@@ -79,7 +84,7 @@ class PembagianKelasController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 		$this->validate($request, [
 			'idkelas'=>'required',
@@ -135,7 +140,7 @@ class PembagianKelasController extends Controller
 	}
 	public function show(Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_SHOW');
 
 		$pembagiankelas = PembagianKelasModel::select(\DB::raw('
 													pe3_kelas_mhs.user_id,
@@ -325,7 +330,7 @@ class PembagianKelasController extends Controller
 	}
 	public function pengampu (Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_SHOW');
 
 		$this->validate($request, [
 			'pid'=>'required',
@@ -377,7 +382,7 @@ class PembagianKelasController extends Controller
 	}
 	public function storematakuliah (Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 		$this->validate($request, [
 			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
@@ -427,7 +432,7 @@ class PembagianKelasController extends Controller
 		}
 		else
 		{
-			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE');
+			$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 			$members_selected=json_decode($request->input('members_selected'), true);
 			$request->merge(['members_selected'=>$members_selected]);
@@ -462,7 +467,7 @@ class PembagianKelasController extends Controller
 
 	public function update(Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_UPDATE');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_UPDATE');
 
 		$pembagian = PembagianKelasModel::find($id);
 
@@ -511,7 +516,7 @@ class PembagianKelasController extends Controller
 	 */
 	public function destroy(Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_DESTROY');
 
 		$pembagiankelas = PembagianKelasModel::find($id);
 
@@ -548,7 +553,7 @@ class PembagianKelasController extends Controller
 	 */
 	public function destroymatkul(Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_DESTROY');
 
 		$penyelenggaraan = PembagianKelasPenyelenggaraanModel::select(\DB::raw('
 																pe3_kelas_mhs_penyelenggaraan.id,
@@ -607,7 +612,7 @@ class PembagianKelasController extends Controller
 	 */
 	public function destroypeserta(Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
+		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_DESTROY');
 
 		$peserta = PembagianKelasPesertaModel::find($id);
 

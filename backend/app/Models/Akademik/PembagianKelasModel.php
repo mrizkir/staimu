@@ -43,6 +43,8 @@ class PembagianKelasModel extends Model
         'persen_uas',
         'persen_absen',
         'isi_nilai',
+        'waktu_mulai_isi_nilai',
+        'waktu_selesai_isi_nilai',
 
         'idsmt',
         'tahun',
