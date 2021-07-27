@@ -88,7 +88,7 @@
 										small
 										icon
 										:disabled="btnLoading"
-										@click.stop="printtoexcel(item)"
+										@click.stop="printtoexcel()"
 										v-if="datatable_peserta.length > 0"
 									>
 										<v-icon>
