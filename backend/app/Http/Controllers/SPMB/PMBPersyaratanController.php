@@ -86,7 +86,7 @@ class PMBPersyaratanController extends Controller {
                                         pe3_pmb_persyaratan.verified,
                                         pe3_pmb_persyaratan.created_at,
                                         pe3_pmb_persyaratan.updated_at'))
-                            ->leftJoinSub($subquery,'pe3_pmb_persyaratan',function($join){
+                            ->leftJoinSub($subquery,'pe3_pmb_persyaratan',function($join) {
                                 $join->on('pe3_persyaratan.id','=','pe3_pmb_persyaratan.persyaratan_id');
                             })
                             ->where('pe3_persyaratan.ta',$user->ta)

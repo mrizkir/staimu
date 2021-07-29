@@ -49,7 +49,7 @@ class KemahasiswaanStatusDOController  extends Controller
                       CONCAT(nama_prodi_alias," (",nama_jenjang, ")") AS nama_prodi_alias,              
                       COALESCE(total,0) AS  total
                     '))
-                    ->leftJoinSub($subquery,'B',function($join){
+                    ->leftJoinSub($subquery,'B',function($join) {
                       $join->on('B.kjur','=','A.id');
                     })
                     ->get();

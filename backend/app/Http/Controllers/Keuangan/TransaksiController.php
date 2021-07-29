@@ -277,7 +277,7 @@ class TransaksiController extends Controller {
         }
         else
         {
-            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi){
+            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi) {
                 $konfirmasi->verified=true;
                 $konfirmasi->save();
 

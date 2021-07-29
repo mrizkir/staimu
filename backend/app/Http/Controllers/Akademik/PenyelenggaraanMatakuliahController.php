@@ -78,7 +78,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                                             ->get();
         }
                                                         
-        $penyelenggaraan->transform(function ($item,$key){
+        $penyelenggaraan->transform(function ($item,$key) {
             $item->jumlah_dosen=\DB::table('pe3_penyelenggaraan_dosen')->where('penyelenggaraan_id',$item->id)->count();
             $item->jumlah_mhs=\DB::table('pe3_krsmatkul')->where('penyelenggaraan_id',$item->id)->count();
             return $item;
@@ -193,7 +193,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                         ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.nim','pe3_krsmatkul.nim')
                         ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
                         ->whereIn('penyelenggaraan_id',$penyelenggaraan_id)      
-                        ->whereNotIn('pe3_krsmatkul.id',function($query){
+                        ->whereNotIn('pe3_krsmatkul.id',function($query) {
                             $query->select('krsmatkul_id')
                                 ->from('pe3_kelas_mhs_peserta');                                   
                                 
@@ -233,7 +233,7 @@ class PenyelenggaraanMatakuliahController extends Controller
                                     nama_dosen
                                 '))       
                                 ->where('active', 1)
-                                ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
+                                ->whereNotIn('user_id',function($query) use ($idpenyelenggaraan) {
                                     $query->select('user_id')
                                         ->from('pe3_penyelenggaraan_dosen')
                                         ->where('penyelenggaraan_id',$idpenyelenggaraan);                                   

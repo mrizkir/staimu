@@ -121,7 +121,7 @@ class TransaksiSPPController extends Controller {
                                                     ->get();
             }
         }        
-        $daftar_transaksi->transform(function ($item,$key){
+        $daftar_transaksi->transform(function ($item,$key) {
             $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->bulan) . ' '. $item->tahun;
             return $item;
         });
@@ -411,7 +411,7 @@ class TransaksiSPPController extends Controller {
                 'bulan_selected.*'=>'required',
             ]);
         }
-        $result = \DB::transaction(function () use ($request){
+        $result = \DB::transaction(function () use ($request) {
 
             $transaksi_id=$request->input('id');
             $transaksi=TransaksiModel::find($transaksi_id);
@@ -601,7 +601,7 @@ class TransaksiSPPController extends Controller {
                                                     ->orderBy('pe3_transaksi.tanggal','DESC')
                                                     ->get();
         }
-        $daftar_transaksi->transform(function ($item,$key){
+        $daftar_transaksi->transform(function ($item,$key) {
             $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->bulan);
             return $item;
         });

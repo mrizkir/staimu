@@ -35,7 +35,7 @@ class DulangController extends Controller
                                 '))       
                                 ->where('nim',$nim)
                                 ->where('k_status','A')   
-                                ->whereNotIn('id',function($query) use($nim){
+                                ->whereNotIn('id',function($query) use($nim) {
                                     $query->select('dulang_id')
                                         ->from('pe3_krs')
                                         ->where('nim',$nim);
@@ -125,7 +125,7 @@ class DulangController extends Controller
                 'alamat_rumah'=>'required',    
             ]);
 
-            $dulang = \DB::transaction(function () use ($request,$dulang){ 
+            $dulang = \DB::transaction(function () use ($request,$dulang) { 
                 $formulir=FormulirPendaftaranModel::find($dulang->user_id);      
                 $formulir->nama_mhs=$request->input('nama_mhs');      
                 $formulir->tempat_lahir=$request->input('tempat_lahir');      

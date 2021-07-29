@@ -155,7 +155,7 @@ class PMBController extends Controller {
                                 }
                             ]
         ]);
-        $user = \DB::transaction(function () use ($request){
+        $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();              
             $code=mt_rand(1000,9999);
             $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
@@ -230,7 +230,7 @@ class PMBController extends Controller {
             'username'=>'required|string|unique:users',
             'password'=>'required',            
         ]);
-        $user = \DB::transaction(function () use ($request){
+        $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();              
             $code=mt_rand(1000,9999);
             $ta=$request->input('tahun_pendaftaran');
@@ -317,7 +317,7 @@ class PMBController extends Controller {
                 'tahun_pendaftaran'=>'required|numeric'            
             ]);
             
-            $user = \DB::transaction(function () use ($request,$user){
+            $user = \DB::transaction(function () use ($request,$user) {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');
@@ -513,7 +513,7 @@ class PMBController extends Controller {
                 'idkelas'=>'required',
             ]);
 
-            $data_mhs = \DB::transaction(function () use ($request,$formulir){            
+            $data_mhs = \DB::transaction(function () use ($request,$formulir) {            
                 $formulir->nama_mhs=$request->input('nama_mhs');      
                 $formulir->tempat_lahir=$request->input('tempat_lahir');      
                 $formulir->tanggal_lahir=$request->input('tanggal_lahir');      

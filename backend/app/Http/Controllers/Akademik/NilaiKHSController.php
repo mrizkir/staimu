@@ -97,7 +97,7 @@ class NilaiKHSController extends Controller
 																->orderBy('tasmt','DESC')
 																->get();
 
-						$daftar_khs->transform(function ($item,$key){
+						$daftar_khs->transform(function ($item,$key) {
 								
 								$item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
 								$item->jumlah_sks=\DB::table('pe3_krsmatkul')

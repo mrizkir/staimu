@@ -471,7 +471,7 @@ class TranskripKurikulumController  extends Controller
                                 A.n_kual,
                                 A.n_mutu
                             '))
-                            ->joinSub($subquery,'B',function($join){
+                            ->joinSub($subquery,'B',function($join) {
                                 $join->on('A.id','=','B.id');
                             })
                             ->get();
@@ -866,7 +866,7 @@ class TranskripKurikulumController  extends Controller
                                         A.n_kual,
                                         A.n_mutu
                                     '))
-                                    ->joinSub($subquery,'B',function($join){
+                                    ->joinSub($subquery,'B',function($join) {
                                         $join->on('A.id','=','B.id');
                                     })
                                     ->get();
@@ -982,7 +982,7 @@ class TranskripKurikulumController  extends Controller
                                         A.n_kual,
                                         A.n_mutu
                                     '))
-                                    ->joinSub($subquery,'B',function($join){
+                                    ->joinSub($subquery,'B',function($join) {
                                         $join->on('A.id','=','B.id');
                                     })
                                     ->get();
@@ -1074,7 +1074,7 @@ class TranskripKurikulumController  extends Controller
                 {
                     $tambah_ganjil_row=false;
                     $tambah_genap_row=false;						
-                    if ($row_ganjil < $row_genap){ // berarti tambah row yang ganjil
+                    if ($row_ganjil < $row_genap) { // berarti tambah row yang ganjil
                         $sisa=$row_ganjil + ($row_genap-$row_ganjil);
                         for ($c=$row_ganjil;$c <= $row_genap;$c+=0.5) {
                             $rpt->setXY(0.5,$c);

@@ -192,7 +192,7 @@ class TransaksiUjianMunaqasahController extends Controller {
               throw new Exception ("Komponen Biaya Ujian Munaqasah (601) belum disetting pada TA $tahun");  
           }
 
-          $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
+          $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
               $no_transaksi='601'.date('YmdHms');
               $transaksi=TransaksiModel::create([
                   'id'=>Uuid::uuid4()->toString(),

@@ -131,7 +131,7 @@ class NilaiKonversiController  extends Controller
             'kjur'=>'required|exists:pe3_prodi,id',      
             'daftar_nilai'=>'required',
         ]);
-        $data_konversi=\DB::transaction(function () use ($request){
+        $data_konversi=\DB::transaction(function () use ($request) {
             $data_konversi=NilaiKonversi1Model::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'nim_asal'=>addslashes(trim($request->input('nim_asal'))),     
@@ -224,7 +224,7 @@ class NilaiKonversiController  extends Controller
                 'kjur'=>'required|exists:pe3_prodi,id',      
                 'daftar_nilai'=>'required',
             ]);
-            $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi){
+            $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi) {
                 $data_konversi->nim_asal=$request->input('nim_asal');
                 $data_konversi->nama_mhs=$request->input('nama_mhs');
                 $data_konversi->alamat=$request->input('alamat');
@@ -337,7 +337,7 @@ class NilaiKonversiController  extends Controller
                                     n_kual,
                                     keterangan                                    
                                 '))   
-                                ->leftJoinSub($subquery,'B',function($join){
+                                ->leftJoinSub($subquery,'B',function($join) {
                                     $join->on('B.matkul_id','=','A.id');
                                 })    
                                 ->where('kjur',$data_konversi->kjur)
@@ -362,14 +362,14 @@ class NilaiKonversiController  extends Controller
         $this->validate($request, [     
             'nilai_konversi_id'=>[
                 'required',
-                Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
+                Rule::exists('pe3_nilai_konversi1','id')->where(function($query) {
                     return $query->whereNull('user_id')
                                 ->whereNull('nim');
                 })
             ],
             'user_id'=>[
                 'required',
-                Rule::exists('pe3_register_mahasiswa','user_id')->where(function($query){
+                Rule::exists('pe3_register_mahasiswa','user_id')->where(function($query) {
                     return $query->where('k_status','A');
                                 
                 })
@@ -410,7 +410,7 @@ class NilaiKonversiController  extends Controller
         $this->validate($request, [     
             'nilai_konversi_id'=>[
                 'required',
-                Rule::exists('pe3_nilai_konversi1','id')->where(function($query){
+                Rule::exists('pe3_nilai_konversi1','id')->where(function($query) {
                     return $query->whereNotNull('user_id')
                                 ->whereNotNull('nim');
                 })
@@ -525,7 +525,7 @@ class NilaiKonversiController  extends Controller
                                     n_kual,
                                     keterangan                                    
                                 '))   
-                                ->leftJoinSub($subquery,'B',function($join){
+                                ->leftJoinSub($subquery,'B',function($join) {
                                     $join->on('B.matkul_id','=','A.id');
                                 })    
                                 ->where('kjur',$data_konversi->kjur)

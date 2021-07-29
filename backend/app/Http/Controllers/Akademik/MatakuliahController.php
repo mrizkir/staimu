@@ -450,7 +450,7 @@ class MatakuliahController extends Controller {
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$ta_matkul)   
-                                ->whereNotIn('id',function($query) use($ta_akademik,$prodi_id,$semester_akademik){
+                                ->whereNotIn('id',function($query) use($ta_akademik,$prodi_id,$semester_akademik) {
                                     $query->select('matkul_id')
                                         ->from('pe3_penyelenggaraan')
                                         ->where('kjur',$prodi_id)

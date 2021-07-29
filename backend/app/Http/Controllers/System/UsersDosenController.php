@@ -85,7 +85,7 @@ class UsersDosenController extends Controller {
 			'username'=>'required|string|unique:users',
 			'password'=>'required',            
 		]);
-		$user = \DB::transaction(function () use ($request){
+		$user = \DB::transaction(function () use ($request) {
 
 			$now = \Carbon\Carbon::now()->toDateTimeString();   
 			$user=User::create([
@@ -183,7 +183,7 @@ class UsersDosenController extends Controller {
 										'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
 									]); 
 
-			$user = \DB::transaction(function () use ($request,$user){
+			$user = \DB::transaction(function () use ($request,$user) {
 
 				$user->name = $request->input('name');           
 				$user->email = $request->input('email');

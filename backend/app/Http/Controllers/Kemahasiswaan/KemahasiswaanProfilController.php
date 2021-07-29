@@ -102,7 +102,7 @@ class KemahasiswaanProfilController extends Controller {
                             ->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
                             ->join('users AS C','A.user_id','C.id')
                             ->join('pe3_prodi AS D','A.kjur','D.id')
-                            ->whereNotIn('A.user_id',function($query){
+                            ->whereNotIn('A.user_id',function($query) {
                                 $query->select('user_id')
                                     ->from('pe3_nilai_konversi1');                               
                             })

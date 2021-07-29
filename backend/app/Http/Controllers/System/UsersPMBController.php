@@ -51,7 +51,7 @@ class UsersPMBController extends Controller {
             'prodi_id'=>'required',
         ]);
         
-        $user = \DB::transaction(function () use ($request){
+        $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
@@ -173,7 +173,7 @@ class UsersPMBController extends Controller {
         }
         else
         {
-            $user = \DB::transaction(function () use ($request,$user){
+            $user = \DB::transaction(function () use ($request,$user) {
                 $this->validate($request, [
                                             'username'=>[
                                                             'required',

@@ -143,7 +143,7 @@ class KRSController extends Controller
                                 ->orderBy('tasmt','DESC')
                                 ->get();
 
-            $daftar_krs->transform(function ($item,$key){
+            $daftar_krs->transform(function ($item,$key) {
                 
                 $item->jumlah_matkul=\DB::table('pe3_krsmatkul')->where('krs_id',$item->id)->count();
                 $item->jumlah_sks=\DB::table('pe3_krsmatkul')
@@ -299,7 +299,7 @@ class KRSController extends Controller
                                     ->where('idsmt',$semester_akademik)
                                     ->where('kjur',$prodi_id)
                                     ->where('ta_matkul',$datamhs->tahun)
-                                    ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik){
+                                    ->whereNotIn('id',function($query) use ($nim,$ta,$semester_akademik) {
                                         $query->select('penyelenggaraan_id')
                                             ->from('pe3_krsmatkul')
                                             ->where('nim',$nim)

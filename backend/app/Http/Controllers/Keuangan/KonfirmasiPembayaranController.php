@@ -241,7 +241,7 @@ class KonfirmasiPembayaranController extends Controller {
         }
         else
         {
-            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi){                
+            $konfirmasi = \DB::transaction(function () use ($request,$konfirmasi) {                
                 return $konfirmasi;
             });
             

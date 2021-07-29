@@ -50,7 +50,7 @@ class UsersAkademikController extends Controller {
             'password'=>'required',
             'prodi_id'=>'required',
         ]);
-        $user = \DB::transaction(function () use ($request){
+        $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
@@ -183,7 +183,7 @@ class UsersAkademikController extends Controller {
                                         'prodi_id'=>'required',           
                                     ]); 
             
-            $user = \DB::transaction(function () use ($request,$user){
+            $user = \DB::transaction(function () use ($request,$user) {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
                 $user->nomor_hp = $request->input('nomor_hp');

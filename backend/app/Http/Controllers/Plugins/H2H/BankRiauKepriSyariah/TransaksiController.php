@@ -170,7 +170,7 @@ class TransaksiController extends Controller {
             }
             else
             {
-                $result = \DB::transaction(function () use ($request,$transaksi){
+                $result = \DB::transaction(function () use ($request,$transaksi) {
                     $no_ref=$request->input('noref');
                     $konfirmasi=KonfirmasiPembayaranModel::find($transaksi->id);
                     if (is_null($konfirmasi))

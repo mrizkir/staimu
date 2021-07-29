@@ -84,7 +84,8 @@
 													v-model="formdata.nama_kegiatan" 
 													label="NAMA UJIAN ONLINE"
 													outlined
-													:rules="rule_nama_kegiatan">
+													:rules="rule_nama_kegiatan"
+												>
 												</v-text-field>  
 												Jumlah soal, pastikan lebih kecil atau sama dengan jumlah soal BANK SOAL.                                                                            
 												<v-text-field 

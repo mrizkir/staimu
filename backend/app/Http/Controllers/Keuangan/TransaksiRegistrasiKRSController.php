@@ -193,7 +193,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 throw new Exception ("Komponen Biaya Registrasi KRS (202) belum disetting pada TA $tahun");  
             }
 
-            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
+            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
                 $no_transaksi='202'.date('YmdHms');
                 $transaksi=TransaksiModel::create([
                     'id'=>Uuid::uuid4()->toString(),

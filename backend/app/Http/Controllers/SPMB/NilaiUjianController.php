@@ -106,7 +106,7 @@ class NilaiUjianController extends Controller {
             'kjur'=>'required',
             'ket_lulus'=>'required',
         ]);
-        $data_nilai = \DB::transaction(function () use ($request){
+        $data_nilai = \DB::transaction(function () use ($request) {
             $user_id=$request->input('user_id');
             $ket_lulus=$request->input('ket_lulus');
             $data_nilai=NilaiUjianPMBModel::create([
@@ -266,7 +266,7 @@ class NilaiUjianController extends Controller {
                 'kjur'=>'required',
                 'ket_lulus'=>'required',
             ]);
-            $data_nilai = \DB::transaction(function () use ($request,$data_nilai){
+            $data_nilai = \DB::transaction(function () use ($request,$data_nilai) {
                 $ket_lulus=$request->input('ket_lulus');
                 $data_nilai->nilai=$request->input('nilai');
                 $data_nilai->kjur=$request->input('kjur');

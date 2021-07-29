@@ -91,7 +91,7 @@ class KepegawaianDosenController extends Controller {
                                         'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
                                     ]); 
 
-            $user = \DB::transaction(function () use ($request,$user){
+            $user = \DB::transaction(function () use ($request,$user) {
 
                 $user->name = $request->input('name');           
                 $user->email = $request->input('email');

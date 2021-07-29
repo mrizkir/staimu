@@ -31,21 +31,15 @@ class NilaiWaktuPengisianController extends Controller
 
 		$pembagiankelas=PembagianKelasModel::select(\DB::raw('
 							pe3_kelas_mhs.id,
-							pe3_kelas_mhs.idkelas,
-							pe3_kelas_mhs.hari,
-							\'\' AS nama_hari,
-							pe3_kelas_mhs.jam_masuk,
-							pe3_kelas_mhs.jam_keluar,
 							pe3_kelas_mhs.kmatkul,
 							pe3_kelas_mhs.nmatkul,
 							pe3_kelas_mhs.sks,
 							CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
 							pe3_dosen.nidn,
-							pe3_kelas_mhs.ruang_kelas_id,
-							pe3_ruangkelas.namaruang,
-							pe3_ruangkelas.kapasitas,
 							pe3_kelas_mhs.waktu_mulai_isi_nilai,
 							pe3_kelas_mhs.waktu_selesai_isi_nilai,
+							NULL AS "jam_mulai_isi",
+							NULL AS "jam_selesai_isi",
 							0 AS jumlah_mhs,
 							pe3_kelas_mhs.created_at,
 							pe3_kelas_mhs.updated_at
@@ -67,8 +61,7 @@ class NilaiWaktuPengisianController extends Controller
 
 
 
-		$pembagiankelas->transform(function ($item,$key){
-			$item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);
+		$pembagiankelas->transform(function ($item,$key) {			
 			$item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();
 			return $item;
 		});
@@ -96,7 +89,7 @@ class NilaiWaktuPengisianController extends Controller
 
 		]);
 
-		$pembagiankelas = \DB::transaction(function () use ($request){
+		$pembagiankelas = \DB::transaction(function () use ($request) {
 
 			$uuid=Uuid::uuid4()->toString();
 			$pembagiankelas=PembagianKelasModel::create([
@@ -196,7 +189,7 @@ class NilaiWaktuPengisianController extends Controller
 									->where('kelas_mhs_id',$id)
 									->get();
 
-		$penyelenggaraan->transform(function ($item,$key){
+		$penyelenggaraan->transform(function ($item,$key) {
 			$item->jumlah_mhs=\DB::table('pe3_krsmatkul')
 								->where('penyelenggaraan_id',$item->penyelenggaraan_id)
 								->where('pe3_krsmatkul.batal', 0)
@@ -348,7 +341,7 @@ class NilaiWaktuPengisianController extends Controller
 									nama_dosen
 								'))
 								->where('active', 1)
-								->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
+								->whereNotIn('user_id',function($query) use ($idpenyelenggaraan) {
 									$query->select('user_id')
 										->from('pe3_penyelenggaraan_dosen')
 										->where('penyelenggaraan_id',$idpenyelenggaraan);
@@ -482,17 +475,32 @@ class NilaiWaktuPengisianController extends Controller
 		else
 		{
 			$this->validate($request, [
-				'hari'=>'required|numeric',
-				'jam_masuk'=>'required',
-				'jam_keluar'=>'required',
-				'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',
+				'waktu_mulai_isi_nilai'=>'required',
+				'waktu_selesai_isi_nilai'=>'required',
+				'jam_mulai_isi'=>'required',
+				'jam_selesai_isi'=>'required',
+				'alldosen'=>'required',
 			]);
-			$pembagian->zoom_id=$request->input('zoom_id');
-			$pembagian->hari=$request->input('hari');
-			$pembagian->jam_masuk=$request->input('jam_masuk');
-			$pembagian->jam_keluar=$request->input('jam_keluar');
-			$pembagian->ruang_kelas_id=$request->input('ruang_kelas_id');
-			$pembagian->save();
+
+			$alldosen = $request->input('alldosen');
+			$waktu_mulai = $request->input('waktu_mulai_isi_nilai') .' '. $request->input('jam_mulai_isi');
+			$waktu_selesai = $request->input('waktu_selesai_isi_nilai') .' '. $request->input('jam_selesai_isi');
+			if ($alldosen)
+			{
+				\DB::table('pe3_kelas_mhs')
+					->where('idsmt', $pembagian->idsmt)
+					->where('tahun', $pembagian->tahun)
+					->update([
+						'waktu_mulai_isi_nilai'=>$waktu_mulai,
+						'waktu_selesai_isi_nilai'=>$waktu_selesai,
+					]);
+			}
+			else
+			{				
+				$pembagian->waktu_mulai_isi_nilai=$waktu_mulai;
+				$pembagian->waktu_selesai_isi_nilai=$waktu_selesai;				
+				$pembagian->save();
+			}			
 
 			\App\Models\System\ActivityLog::log($request,[
 																'object' => $pembagian,
@@ -581,7 +589,7 @@ class NilaiWaktuPengisianController extends Controller
 																'message' => 'Menghapus matauliah kelas di mahasiswa dengan id ('.$id.') berhasil'
 															]);
 
-			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan){
+			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan) {
 				$penyelenggaraan_id=$penyelenggaraan->penyelenggaraan_id;
 				\DB::table('pe3_kelas_mhs_peserta')
 						->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')

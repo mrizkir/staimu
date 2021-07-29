@@ -64,7 +64,7 @@ class SystemMigrationController extends Controller {
             'nama_mhs'=>'required',
             'dosen_id'=>[
                 'required',
-                Rule::exists('pe3_dosen','user_id')->where(function($query){
+                Rule::exists('pe3_dosen','user_id')->where(function($query) {
                     return $query->where('is_dw', 1);
                 })
             ],
@@ -74,7 +74,7 @@ class SystemMigrationController extends Controller {
             'status_mhs.*'=>'required',            
         ]);
         
-        $user = \DB::transaction(function () use ($request){
+        $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $uuid=Uuid::uuid4()->toString();
             $no_hp=mt_rand(1000,9999);

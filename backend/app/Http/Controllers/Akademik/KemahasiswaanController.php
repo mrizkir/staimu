@@ -93,7 +93,7 @@ class KemahasiswaanController extends Controller {
                 'alamat_rumah'=>'required',    
             ]);
 
-            $data_mhs = \DB::transaction(function () use ($request,$formulir){            
+            $data_mhs = \DB::transaction(function () use ($request,$formulir) {            
                 $formulir->nama_mhs=$request->input('nama_mhs');      
                 $formulir->tempat_lahir=$request->input('tempat_lahir');      
                 $formulir->tanggal_lahir=$request->input('tanggal_lahir');      

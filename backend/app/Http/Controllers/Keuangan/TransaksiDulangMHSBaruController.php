@@ -183,7 +183,7 @@ class TransaksiDulangMHSBaruController extends Controller {
                 throw new Exception ("Komponen Biaya Daftar Ulang Mahasiswa Baru (102) belum disetting pada TA $tahun Kelas ($idkelas) Prodi ($kjur)");  
             }
 
-            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
+            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
                 $no_transaksi='102'.date('YmdHms');
                 $transaksi=TransaksiModel::create([
                     'id'=>Uuid::uuid4()->toString(),

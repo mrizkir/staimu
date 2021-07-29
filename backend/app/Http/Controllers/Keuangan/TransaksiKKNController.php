@@ -192,7 +192,7 @@ class TransaksiKKNController extends Controller {
                 throw new Exception ("Komponen Biaya KKN (401) belum disetting pada TA $tahun");  
             }
 
-            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi){
+            $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
                 $no_transaksi='401'.date('YmdHms');
                 $transaksi=TransaksiModel::create([
                     'id'=>Uuid::uuid4()->toString(),

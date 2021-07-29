@@ -73,13 +73,13 @@ class MahasiswaBelumPunyaNIMController extends Controller
             'username'=>'required|unique:users,username',
             'dosen_id'=>[
                 'required',
-                Rule::exists('pe3_dosen','user_id')->where(function($query){
+                Rule::exists('pe3_dosen','user_id')->where(function($query) {
                     return $query->where('is_dw', 1);
                 })
             ]
         ]);
         
-        $mahasiswa = \DB::transaction(function () use ($request){
+        $mahasiswa = \DB::transaction(function () use ($request) {
             $no_bulan=9;
             $user_id=$request->input('user_id');
             $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($user_id);

@@ -62,7 +62,7 @@ class PembagianKelasController extends Controller
 		{
 			$pembagiankelas=$pembagiankelas->get();
 		}
-		$pembagiankelas->transform(function ($item,$key){
+		$pembagiankelas->transform(function ($item,$key) {
 			$item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);
 			$item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();
 			return $item;
@@ -91,7 +91,7 @@ class PembagianKelasController extends Controller
 
 		]);
 
-		$pembagiankelas = \DB::transaction(function () use ($request){
+		$pembagiankelas = \DB::transaction(function () use ($request) {
 
 			$uuid=Uuid::uuid4()->toString();
 			$pembagiankelas=PembagianKelasModel::create([
@@ -191,7 +191,7 @@ class PembagianKelasController extends Controller
 									->where('kelas_mhs_id',$id)
 									->get();
 
-		$penyelenggaraan->transform(function ($item,$key){
+		$penyelenggaraan->transform(function ($item,$key) {
 			$item->jumlah_mhs=\DB::table('pe3_krsmatkul')
 								->where('penyelenggaraan_id',$item->penyelenggaraan_id)
 								->where('pe3_krsmatkul.batal', 0)
@@ -343,7 +343,7 @@ class PembagianKelasController extends Controller
 									nama_dosen
 								'))
 								->where('active', 1)
-								->whereNotIn('user_id',function($query) use ($idpenyelenggaraan){
+								->whereNotIn('user_id',function($query) use ($idpenyelenggaraan) {
 									$query->select('user_id')
 										->from('pe3_penyelenggaraan_dosen')
 										->where('penyelenggaraan_id',$idpenyelenggaraan);
@@ -576,7 +576,7 @@ class PembagianKelasController extends Controller
 																'message' => 'Menghapus matauliah kelas di mahasiswa dengan id ('.$id.') berhasil'
 															]);
 
-			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan){
+			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan) {
 				$penyelenggaraan_id=$penyelenggaraan->penyelenggaraan_id;
 				\DB::table('pe3_kelas_mhs_peserta')
 						->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')

@@ -55,7 +55,7 @@ class SoalPMBController extends Controller {
             'semester_pendaftaran'=>'required'
         ]);
 
-        $soal = \DB::transaction(function () use ($request){
+        $soal = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();
             $soal=SoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
