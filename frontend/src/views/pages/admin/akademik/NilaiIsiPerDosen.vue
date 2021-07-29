@@ -83,11 +83,7 @@
 							<v-btn
 								small
 								icon
-								@click.stop="
-									$router.push(
-										'/akademik/nilai/matakuliah/isiperdosen/' + item.id
-									)
-								"
+								@click.stop="isiperdosen(item)"
 								v-if="item.jumlah_mhs > 0"
 							>
 								<v-icon>
@@ -168,6 +164,8 @@
 		},
 		mounted() {
 			this.initialize();
+			this.firstloading = false;
+			this.$refs.filter2.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			firstloading: true,
@@ -230,9 +228,7 @@
 					})
 					.catch(() => {
 						this.datatableLoading = false;
-					});
-				this.firstloading = false;
-				this.$refs.filter2.setFirstTimeLoading(this.firstloading);
+					});				
 			},
 			dataTableRowClicked(item) {
 				if (item === this.expanded[0]) {
@@ -240,6 +236,11 @@
 				} else {
 					this.expanded = [item];
 				}
+			},
+			isiperdosen(item) {
+				this.$router.push(
+					"/akademik/nilai/matakuliah/isiperdosen/" + item.id
+				)
 			},
 			async printtoexcel(item) {
 				this.btnLoading = true;

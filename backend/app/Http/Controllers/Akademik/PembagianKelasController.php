@@ -45,6 +45,8 @@ class PembagianKelasController extends Controller
 							pe3_ruangkelas.namaruang,
 							pe3_ruangkelas.kapasitas,
 							0 AS jumlah_mhs,
+							pe3_kelas_mhs.waktu_mulai_isi_nilai,
+							pe3_kelas_mhs.waktu_selesai_isi_nilai,
 							pe3_kelas_mhs.created_at,
 							pe3_kelas_mhs.updated_at
 						'))
@@ -156,12 +158,15 @@ class PembagianKelasController extends Controller
 													0 AS jumlah_mhs,
 													pe3_kelas_mhs.tahun,
 													pe3_kelas_mhs.idsmt,
+													pe3_kelas_mhs.waktu_mulai_isi_nilai,
+													pe3_kelas_mhs.waktu_selesai_isi_nilai,
 													pe3_kelas_mhs.created_at,
 													pe3_kelas_mhs.updated_at
 												'))
 											->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
 											->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')
 											->find($id);
+											
 		if (is_null($pembagiankelas))
 		{
 			return Response()->json([

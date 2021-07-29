@@ -317,14 +317,21 @@
 							{{ $store.getters["uiadmin/getNamaKelas"](item.idkelas) }}
 						</template>
 						<template v-slot:item.waktu_mulai_isi_nilai="{ item }">
-							{{ $date(item.waktu_mulai_isi_nilai).format("DD/MM/YYYY HH:mm") }}
+							<span v-if="item.waktu_mulai_isi_nilai">
+								{{ $date(item.waktu_mulai_isi_nilai).format("DD/MM/YYYY HH:mm") }}
+							</span>
+							<span v-else>
+								N.A
+							</span>
 						</template>
 						<template v-slot:item.waktu_selesai_isi_nilai="{ item }">
-							{{ $date(item.waktu_selesai_isi_nilai).format("DD/MM/YYYY HH:mm") }}
-						</template>
-						<template v-slot:item.waktu_mulai_isi_nilai="{ item }">
-							{{ $date(item.waktu_mulai_isi_nilai).format("DD/MM/YYYY HH:mm") }}
-						</template>
+							<span v-if="item.waktu_selesai_isi_nilai">
+								{{ $date(item.waktu_selesai_isi_nilai).format("DD/MM/YYYY HH:mm") }}
+							</span>
+							<span v-else>
+								N.A
+							</span>							
+						</template>						
 						<template v-slot:item.actions="{ item }">
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -514,10 +521,12 @@
 			editItem(item) {
 				this.editedIndex = this.datatable.indexOf(item);
 				this.formdata = Object.assign({}, item);
-				this.formdata.waktu_mulai_isi_nilai = this.$date(item.waktu_mulai_isi_nilai).format("YYYY-MM-DD");
-				this.formdata.waktu_selesai_isi_nilai = this.$date(item.waktu_selesai_isi_nilai).format("YYYY-MM-DD");
-				this.formdata.jam_mulai_isi = this.$date(item.waktu_mulai_isi_nilai).format("HH:mm");
-				this.formdata.jam_selesai_isi = this.$date(item.waktu_selesai_isi_nilai).format("HH:mm");
+				if (this.formdata.waktu_mulai_isi_nilai != null && this.formdata.waktu_selesai_isi_nilai != null) {
+					this.formdata.waktu_mulai_isi_nilai = this.$date(item.waktu_mulai_isi_nilai).format("YYYY-MM-DD");
+					this.formdata.waktu_selesai_isi_nilai = this.$date(item.waktu_selesai_isi_nilai).format("YYYY-MM-DD");
+					this.formdata.jam_mulai_isi = this.$date(item.waktu_mulai_isi_nilai).format("HH:mm");
+					this.formdata.jam_selesai_isi = this.$date(item.waktu_selesai_isi_nilai).format("HH:mm");
+				}				
 				this.alldosen = false;
 				this.dialogfrm = true;
 			},
