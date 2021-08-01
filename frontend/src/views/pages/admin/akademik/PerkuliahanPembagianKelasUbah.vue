@@ -32,6 +32,9 @@
 						<v-card class="mb-2">
 							<v-card-title>PILIH DOSEN / PENGAMPU</v-card-title>
 							<v-card-text>
+								<v-alert type="info">
+									Bila nama dosen yang ingin menggantikan tidak ada, silahkan tambahkan di <router-link :to="{ path: '/akademik/perkuliahan/penyelenggaraan/' + penyelenggaraan_id + '/dosenpengampu'}" class="white--text" target="_blank">PENYELENGGARAAN</router-link>. Setelah ditambahkan kemudian kembali ke halaman ini dan refresh.
+								</v-alert>
 								<v-autocomplete
 									label="DOSEN"
 									v-model="dosen_id"
@@ -173,7 +176,7 @@
 									@click.stop="save"
 									:disabled="!form_valid || btnLoading || dosen_id == null"
 								>
-									BUAT
+									SIMPAN
 								</v-btn>
 							</v-card-actions>
 						</v-card>
@@ -188,8 +191,9 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 
 	export default {
-		name: "PerkuliahanPembagianKelasTambah",
+		name: "PerkuliahanPembagianKelasUbah",
 		created() {
+			this.kelas_mhs_id = this.$route.params.kelas_mhs_id;
 			this.breadcrumbs = [
 				{
 					text: "HOME",
@@ -212,7 +216,7 @@
 					href: "/akademik/perkuliahan/pembagiankelas/daftar",
 				},
 				{
-					text: "TAMBAH",
+					text: "UBAH",
 					disabled: true,
 					href: "#",
 				},
@@ -226,6 +230,8 @@
 			this.initialize();
 		},
 		data: () => ({
+			firstloading: true,
+			kelas_mhs_id: null,
 			tahun_akademik: null,
 			semester_akademik: null,
 
@@ -233,7 +239,10 @@
 			//formdata
 			form_valid: true,
 			daftar_dosen: [],
+			old_dosen_id: null,
 			dosen_id: null,
+			penyelenggaraan_id: null,
+			old_penyelenggaraand_dosen_id: [],
 			daftar_zoom: [],
 
 			daftar_sks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -280,7 +289,7 @@
 				hari: "",
 				jam_masuk: "",
 				jam_keluar: "",
-				penyelenggaraan_dosen_id: "",
+				penyelenggaraan_dosen_id: [],
 				ruang_kelas_id: "",
 			},
 			rule_dosen: [
@@ -319,23 +328,26 @@
 		methods: {
 			initialize: async function() {
 				await this.$ajax
-					.post(
-						"/akademik/perkuliahan/penyelenggaraanmatakuliah/pengampu",
-						{
-							ta: this.$store.getters["uiadmin/getTahunAkademik"],
-							semester_akademik: this.$store.getters[
-								"uiadmin/getSemesterAkademik"
-							],
-							pid: "daftarpengampu",
+					.get("/akademik/perkuliahan/pembagiankelas/" + this.kelas_mhs_id, {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
 						},
-						{
-							headers: {
-								Authorization: this.$store.getters["auth/Token"],
-							},
-						}
-					)
+					})
 					.then(({ data }) => {
-						this.daftar_dosen = data.dosen;
+						this.dosen_id = data.pembagiankelas.user_id;
+						this.old_dosen_id = this.dosen_id;
+						this.formdata = data.pembagiankelas;
+						this.daftar_dosen = data.pengampu;
+						this.penyelenggaraan_id =
+							data.penyelenggaraan[0].penyelenggaraan_id;
+
+						let penyelenggaraan_dosen = data.penyelenggaraan;
+						var penyelenggaraan_dosen_id = [];
+						penyelenggaraan_dosen.forEach(element => {
+							penyelenggaraan_dosen_id.push(element.penyelenggaraan_dosen_id);
+						});
+						this.formdata.penyelenggaraan_dosen_id = penyelenggaraan_dosen_id;
+						this.old_penyelenggaraand_dosen_id = penyelenggaraan_dosen_id;
 					});
 
 				await this.$ajax
@@ -357,14 +369,16 @@
 					.then(({ data }) => {
 						this.daftar_zoom = data.zoom;
 					});
+				this.firstloading = false;
 			},
 			save: async function() {
 				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
 					await this.$ajax
 						.post(
-							"/akademik/perkuliahan/pembagiankelas/store",
+							"/akademik/perkuliahan/pembagiankelas/" + this.formdata.id,
 							{
+								_method: "PUT",
 								user_id: this.dosen_id,
 								zoom_id: this.formdata.zoom_id,
 								idkelas: this.formdata.idkelas,
@@ -408,6 +422,7 @@
 							semester_akademik: this.$store.getters[
 								"uiadmin/getSemesterAkademik"
 							],
+							penyelenggaraan_id: this.penyelenggaraan_id,
 						},
 						{
 							headers: {
@@ -417,8 +432,13 @@
 					)
 					.then(({ data }) => {
 						this.daftar_matakuliah = data.matakuliah;
-
 						this.daftar_kelas = this.$store.getters["uiadmin/getDaftarKelas"];
+						if (!this.firstloading) {
+							this.formdata.penyelenggaraan_dosen_id = [];
+							if (this.old_dosen_id == val) {
+								this.formdata.penyelenggaraan_dosen_id = this.old_penyelenggaraand_dosen_id;
+							}
+						}
 					});
 			},
 		},

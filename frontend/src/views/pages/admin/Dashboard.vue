@@ -1,65 +1,92 @@
 <template>
 	<AdminLayout v-if="dashboard">
-		<v-container v-if="dashboard=='mahasiswabaru'">
+		<v-container v-if="dashboard == 'mahasiswabaru'">
 			<DashboardMB />
 		</v-container>
 		<v-container fluid v-else>
 			<v-row>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('BLOG-GROUP')">
-					<v-card 
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('BLOG-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/blog')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							BLOG
 						</v-card-title>
 						<v-card-text>
-							Modul digunakan untuk info kampus, pengumuman, berita, informasi kepada mahasiswa atau pihak lainnya.
+							Modul digunakan untuk info kampus, pengumuman, berita, informasi
+							kepada mahasiswa atau pihak lainnya.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('DMASTER-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('DMASTER-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/dmaster')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							DATA MASTER
 						</v-card-title>
 						<v-card-text>
-							Pengaturan berbagai parameter sebagai referensi dari modul-modul lain dalam sistem.
+							Pengaturan berbagai parameter sebagai referensi dari modul-modul
+							lain dalam sistem.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SPMB-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('SPMB-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/spmb')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							SPMB
 						</v-card-title>
 						<v-card-text>
-							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa Baru (SPMB) tahun {{ tahun_pendaftaran }}.
+							Modul ini digunakan untuk mengelola Seleksi Penerimaan Mahasiswa
+							Baru (SPMB) tahun {{ tahun_pendaftaran }}.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEUANGAN-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('KEUANGAN-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/keuangan')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							KEUANGAN
 						</v-card-title>
@@ -68,14 +95,20 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('AKADEMIK-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('AKADEMIK-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/akademik')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							AKADEMIK
 						</v-card-title>
@@ -84,46 +117,66 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEMAHASISWAAN-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('KEMAHASISWAAN-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/kemahasiswaan')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							KEMAHASISWAAN
 						</v-card-title>
 						<v-card-text>
-							Modul ini digunakan untuk mengelola Kemahasiswaan Perguruan Tinggi.
+							Modul ini digunakan untuk mengelola Kemahasiswaan Perguruan
+							Tinggi.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('KEPEGAWAIAN-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('KEPEGAWAIAN-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/kepegawaian')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							KEPEGAWAIAN
 						</v-card-title>
 						<v-card-text>
-							Modul ini digunakan untuk mengelola kepegawaian seperti dosen atau tenaga pendidik.
+							Modul ini digunakan untuk mengelola kepegawaian seperti dosen atau
+							tenaga pendidik.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/system-users')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							USER SISTEM
 						</v-card-title>
@@ -132,30 +185,43 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-SETTING-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('SYSTEM-SETTING-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/system-setting')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							KONFIGURASI SISTEM
 						</v-card-title>
 						<v-card-text>
-							Modul ini digunakan untuk mengatur berbagai macam konfigurasi sistem.
+							Modul ini digunakan untuk mengatur berbagai macam konfigurasi
+							sistem.
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-				<v-col xs="12" sm="4" md="3" v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')">
-					<v-card 
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+				<v-col
+					xs="12"
+					sm="4"
+					md="3"
+					v-if="$store.getters['auth/can']('SYSTEM-USERS-GROUP')"
+				>
+					<v-card
 						min-height="140"
 						class="clickable green darken-1"
-						color="#385F73" 
+						color="#385F73"
 						@click.native="$router.push('/system-migration')"
-						dark>
+						dark
+					>
 						<v-card-title class="headline">
 							MIGRASI SISTEM
 						</v-card-title>
@@ -164,77 +230,74 @@
 						</v-card-text>
 					</v-card>
 				</v-col>
-				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+				<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 			</v-row>
 		</v-container>
 	</AdminLayout>
 	<AdminLayout v-else>
 		<div class="text-center">
-			<v-progress-circular
-				indeterminate
-				color="green"
-			></v-progress-circular>
+			<v-progress-circular indeterminate color="green"></v-progress-circular>
 		</div>
 	</AdminLayout>
 </template>
 <script>
-import DashboardMB from '@/components/DashboardMahasiswaBaru';
-import AdminLayout from '@/views/layouts/AdminLayout';
-export default {
-	name: 'Dashboard',
-	created()
-	{
-		this.TOKEN = this.$route.params.token;
-		this.tahun_pendaftaran = this.$store.getters['uifront/getTahunPendaftaran']; 
-		this.breadcrumbs = [
-			{
-				text: "HOME",
-				disabled: false,
-				href: "/dashboard/" + this.TOKEN
+	import DashboardMB from "@/components/DashboardMahasiswaBaru";
+	import AdminLayout from "@/views/layouts/AdminLayout";
+	export default {
+		name: "Dashboard",
+		created() {
+			this.TOKEN = this.$route.params.token;
+			this.tahun_pendaftaran = this.$store.getters[
+				"uifront/getTahunPendaftaran"
+			];
+			this.breadcrumbs = [
+				{
+					text: "HOME",
+					disabled: false,
+					href: "/dashboard/" + this.TOKEN,
+				},
+				{
+					text: "DASHBOARD",
+					disabled: true,
+					href: "#",
+				},
+			];
+			this.initialize();
+		},
+		data: () => ({
+			breadcrumbs: [],
+			TOKEN: null,
+			dashboard: null,
+			tahun_pendaftaran: "",
+		}),
+		methods: {
+			initialize: async function() {
+				await this.$ajax
+					.get("/auth/me", {
+						headers: {
+							Authorization: "Bearer " + this.TOKEN,
+						},
+					})
+					.then(({ data }) => {
+						this.dashboard = data.role[0];
+						this.$store.dispatch("uiadmin/changeDashboard", this.dashboard);
+					})
+					.catch(error => {
+						if (error.response.status == 401) {
+							this.$router.push("/login");
+						}
+					});
+				this.$store.dispatch("uiadmin/init", this.$ajax);
 			},
-			{
-				text: 'DASHBOARD',
-				disabled: true,
-				href: "#"
-			}
-		];		
-		this.initialize();
-	}, 
-	data: () => ({
-		breadcrumbs: [],
-		TOKEN: null,
-		dashboard: null, 
-		tahun_pendaftaran: "",
-	}),
-	methods: {
-		initialize: async function()
-		{	            
-			await this.$ajax.get('/auth/me', 
-			{
-				headers: {
-					Authorization: 'Bearer '+this.TOKEN
-				}
-			})
-			.then(({ data }) => {
-				this.dashboard = data.role[0];
-				this.$store.dispatch('uiadmin/changeDashboard',this.dashboard);
-			})
-			.catch(error => {
-				if (error.response.status == 401) {
-					this.$router.push('/login');
-				}
-			}); 
-			this.$store.dispatch('uiadmin/init',this.$ajax);
-		}
-	},
-	components: {
-		AdminLayout, 
-		DashboardMB, 
-	}
-}
+		},
+		components: {
+			AdminLayout,
+			DashboardMB,
+		},
+	};
 </script>
 <style scoped>
-.v-progress-circular {
-	margin: 1rem;
-}
+	.v-progress-circular {
+		margin: 1rem;
+	}
 </style>

@@ -338,7 +338,7 @@ export default {
             await this.$ajax.post('/akademik/matakuliah/penyelenggaraan',
             {
                 prodi_id: this.prodi_id,
-                ta_matkul:val,
+                ta_matkul: val,
                 ta_akademik: this.tahun_akademik,
                 semester_akademik: this.semester_akademik,
            },

@@ -217,7 +217,7 @@ export default {
                     this.isLoading = true 
                     await this.$ajax.post('/kemahasiswaan/profil/search',
                     {
-                        search:val,
+                        search: val,
                    },
                     {
                         headers: {

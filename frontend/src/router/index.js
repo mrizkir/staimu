@@ -909,6 +909,18 @@ const routes = [
 			),
 	},
 	{
+		path: "/akademik/perkuliahan/pembagiankelas/:kelas_mhs_id/ubah",
+		name: "PerkuliahanPembagianKelasUbah",
+		meta: {
+			title: "AKADEMIK - PEMBAGIAN KELAS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import(
+				"../views/pages/admin/akademik/PerkuliahanPembagianKelasUbah.vue"
+			),
+	},
+	{
 		path: "/akademik/perkuliahan/pembagiankelas/:kelas_mhs_id/peserta",
 		name: "PerkuliahanPembagianKelasPeserta",
 		meta: {

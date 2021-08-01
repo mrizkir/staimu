@@ -701,6 +701,28 @@
 						</v-list-item>
 						<v-list-item
 							link
+							v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PKRS_STORE')"
+							:active-class="
+								this.$store.getters['uiadmin/getTheme'](
+									'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+								)
+							"
+							disabled
+							:to="{
+								path: '/akademik/perkuliahan/pembagiankelas/' + paramid + '/ubah',
+							}"
+						>
+							<v-list-item-icon class="mr-2">
+								<v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>
+									UBAH KELAS
+								</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>					
+						<v-list-item
+							link
 							v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')"
 							:active-class="
 								this.$store.getters['uiadmin/getTheme'](
@@ -1066,6 +1088,9 @@
 						id = this.$route.params.krsid;
 						break;
 					case "PerkuliahanPembagianKelasPeserta":
+						id = this.$route.params.kelas_mhs_id;
+						break;
+					case "PerkuliahanPembagianKelasUbah":
 						id = this.$route.params.kelas_mhs_id;
 						break;
 				}

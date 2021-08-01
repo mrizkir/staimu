@@ -90,7 +90,6 @@ class PembagianKelasController extends Controller
 			'jam_keluar'=>'required',
 			'penyelenggaraan_dosen_id'=>'required',
 			'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',
-
 		]);
 
 		$pembagiankelas = \DB::transaction(function () use ($request) {
@@ -110,7 +109,6 @@ class PembagianKelasController extends Controller
 				'ruang_kelas_id'=>$request->input('ruang_kelas_id'),
 				'idsmt'=>$request->input('idsmt'),
 				'tahun'=>$request->input('tahun'),
-
 			]);
 
 			$penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
@@ -182,6 +180,7 @@ class PembagianKelasController extends Controller
 
 			$penyelenggaraan=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
 										pe3_kelas_mhs_penyelenggaraan.id,
+										pe3_penyelenggaraan_dosen.id AS penyelenggaraan_dosen_id,
 										pe3_penyelenggaraan_dosen.penyelenggaraan_id,
 										pe3_matakuliah.kmatkul,
 										pe3_matakuliah.nmatkul,
@@ -195,16 +194,16 @@ class PembagianKelasController extends Controller
 									->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
 									->where('kelas_mhs_id',$id)
 									->get();
+			
+			$penyelenggaraan->transform(function ($item,$key) {				
+				$item->jumlah_mhs=\DB::table('pe3_krsmatkul')
+									->where('penyelenggaraan_id',$item->penyelenggaraan_id)
+									->where('pe3_krsmatkul.batal', 0)
+									->count();
+				return $item;
+			});
 
-		$penyelenggaraan->transform(function ($item,$key) {
-			$item->jumlah_mhs=\DB::table('pe3_krsmatkul')
-								->where('penyelenggaraan_id',$item->penyelenggaraan_id)
-								->where('pe3_krsmatkul.batal', 0)
-								->count();
-			return $item;
-		});
-
-		$peserta=PembagianKelasPesertaModel::select(\DB::raw('
+			$peserta=PembagianKelasPesertaModel::select(\DB::raw('
 										pe3_kelas_mhs_peserta.id,
 										pe3_krs.nim,
 										pe3_formulir_pendaftaran.nama_mhs,
@@ -220,15 +219,29 @@ class PembagianKelasController extends Controller
 									->where('kelas_mhs_id',$id)
 									->where('pe3_krsmatkul.batal', 0)
 									->get();
-
-		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'pembagiankelas'=>$pembagiankelas,
-								'penyelenggaraan'=>$penyelenggaraan,
-								'peserta'=>$peserta,
-								'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
-							], 200);
+			
+			$pengampu = [];
+			if (count($penyelenggaraan) > 0)
+			{
+				$pengampu = \DB::table('pe3_penyelenggaraan_dosen AS A')
+										->select(\DB::raw('
+											B.user_id,
+											CONCAT(COALESCE(B.gelar_depan,\' \'),B.nama_dosen,\' \',COALESCE(B.gelar_belakang,\'\')) AS nama_dosen
+										'))
+										->join('pe3_dosen AS B', 'B.user_id', 'A.user_id')
+										->where('A.penyelenggaraan_id', $penyelenggaraan[0]->penyelenggaraan_id)
+										->orderBy('B.nama_dosen', 'ASC')
+										->get();
+			}
+			return Response()->json([
+									'status'=>1,
+									'pid'=>'fetchdata',
+									'pembagiankelas'=>$pembagiankelas,
+									'penyelenggaraan'=>$penyelenggaraan,
+									'peserta'=>$peserta,
+									'pengampu'=>$pengampu,
+									'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
+								], 200);
 		}
 	}
 	public function matakuliah (Request $request,$id)
@@ -469,9 +482,9 @@ class PembagianKelasController extends Controller
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_UPDATE');
 
-		$pembagian = PembagianKelasModel::find($id);
+		$pembagiankelas = PembagianKelasModel::find($id);
 
-		if (is_null($pembagian))
+		if (is_null($pembagiankelas))
 		{
 			return Response()->json([
 									'status'=>0,
@@ -482,28 +495,54 @@ class PembagianKelasController extends Controller
 		else
 		{
 			$this->validate($request, [
+				'idkelas'=>'required',
 				'hari'=>'required|numeric',
 				'jam_masuk'=>'required',
 				'jam_keluar'=>'required',
+				'penyelenggaraan_dosen_id'=>'required',
 				'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',
 			]);
-			$pembagian->zoom_id=$request->input('zoom_id');
-			$pembagian->hari=$request->input('hari');
-			$pembagian->jam_masuk=$request->input('jam_masuk');
-			$pembagian->jam_keluar=$request->input('jam_keluar');
-			$pembagian->ruang_kelas_id=$request->input('ruang_kelas_id');
-			$pembagian->save();
 
-			\App\Models\System\ActivityLog::log($request,[
-																'object' => $pembagian,
-																'object_id' => $pembagian->id,
-																'user_id' => $this->getUserid(),
-																'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
-															]);
+			$pembagiankelas = \DB::transaction(function () use ($request, $pembagiankelas) {
+				$pembagiankelas->user_id=$request->input('user_id');
+				$pembagiankelas->zoom_id=$request->input('zoom_id');
+				$pembagiankelas->kmatkul=$request->input('kmatkul');
+				$pembagiankelas->nmatkul=$request->input('nmatkul');
+				$pembagiankelas->sks=$request->input('sks');
+				$pembagiankelas->idkelas=$request->input('idkelas');
+				$pembagiankelas->hari=$request->input('hari');
+				$pembagiankelas->jam_masuk=$request->input('jam_masuk');
+				$pembagiankelas->jam_keluar=$request->input('jam_keluar');
+				$pembagiankelas->ruang_kelas_id=$request->input('ruang_kelas_id');
+				$pembagiankelas->save();
+
+				$penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
+
+				\DB::table('pe3_kelas_mhs_penyelenggaraan')
+					->where('kelas_mhs_id', $pembagiankelas->id)
+					->delete();
+				
+				foreach ($penyelenggaraan_dosen as $v)
+				{
+					PembagianKelasPenyelenggaraanModel::create([
+						'id'=>Uuid::uuid4()->toString(),
+						'kelas_mhs_id'=>$pembagiankelas->id,
+						'penyelenggaraan_dosen_id'=>$v
+					]);
+				}
+				\App\Models\System\ActivityLog::log($request,[
+																	'object' => $pembagiankelas,
+																	'object_id' => $pembagiankelas->id,
+																	'user_id' => $this->getUserid(),
+																	'message' => 'Mengupdate pembagian kelas dengan id ('.$pembagiankelas->id.') berhasil'
+																]);
+				return $pembagiankelas;
+			});
 
 			return Response()->json([
 										'status'=>1,
 										'pid'=>'update',
+										'pembagiankelas'=>$pembagiankelas,
 										'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
 									], 200);
 		}
