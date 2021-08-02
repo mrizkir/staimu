@@ -561,13 +561,13 @@
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
 									<strong>ID TRANSAKSI:</strong>{{ item.id }}
-									<strong>created_at:</strong>
+									<strong>CREATED AT:</strong>
 									{{
 										item.created_at_konfirm == "N.A"
 											? "N.A"
 											: $date(item.created_at_konfirm).format("DD/MM/YYYY HH:mm")
 									}}
-									<strong>updated_at:</strong>
+									<strong>UPDATED AT:</strong>
 									{{
 										item.updated_at_konfirm == "N.A"
 											? "N.A"

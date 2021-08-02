@@ -186,9 +186,9 @@
 									<strong>DW:</strong>
 									{{ item.is_dw == false ? "BUKAN" : "YA" }}
 									<strong>Email:</strong>{{ item.email }}
-									<strong>created_at:</strong>
+									<strong>CREATED AT:</strong>
 									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>
+									<strong>UPDATED AT:</strong>
 									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 								</v-col>
 							</td>

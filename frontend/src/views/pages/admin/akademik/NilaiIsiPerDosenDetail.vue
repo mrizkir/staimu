@@ -31,7 +31,7 @@
 					<DataKelasMHS :datakelas="data_kelas_mhs" :url="'/akademik/nilai/matakuliah/isiperdosen'" />
 				</v-col>
 			</v-row>
-			<v-row>
+			<v-row v-if="bolehIsiNilai">
 				<v-col cols="12">
 					<v-alert type="warning">
 						Catatan: Pilihlah (CENTANG) mahasiswa yang akan diisi nilainya.
@@ -184,6 +184,13 @@
 					</v-form>
 				</v-col>
 			</v-row>
+			<v-row v-if="!bolehIsiNilai">
+				<v-col cols="12">
+					<v-alert type="error">
+						Waktu pengisian nilai belum ditentukan atau sudah diluar masa pengisian nilai.
+					</v-alert>
+				</v-col>
+			</v-row>
 		</v-container>
 	</AkademikLayout>
 </template>
@@ -275,6 +282,8 @@
 				persen_uas: 40,
 			},
 			daftar_nilai: [],
+			waktu_mulai_isi_nilai: null,
+			waktu_selesai_isi_nilai: null,
 		}),
 		methods: {
 			initialize: async function() {
@@ -286,7 +295,9 @@
 						},
 					})
 					.then(({ data }) => {
-						this.data_kelas_mhs = data.pembagiankelas;
+						this.data_kelas_mhs = data.pembagiankelas;						
+						this.waktu_mulai_isi_nilai = this.data_kelas_mhs.waktu_mulai_isi_nilai;
+						this.waktu_selesai_isi_nilai = this.data_kelas_mhs.waktu_selesai_isi_nilai;
 					});
 				await this.$ajax
 					.get("/akademik/nilai/matakuliah/pesertakelas/" + this.kelas_mhs_id, {
@@ -437,6 +448,17 @@
 					.catch(() => {
 						this.btnLoading = false;
 					});
+			},
+		},
+		computed: {
+			bolehIsiNilai() {
+				var boolean = true;
+				if (this.waktu_mulai_isi_nilai == null || this.waktu_selesai_isi_nilai == null) {
+					boolean = false;
+				} else {
+					boolean = this.$date(this.$date()).isBetween(this.waktu_mulai_isi_nilai, this.waktu_selesai_isi_nilai, null, '[)');
+				}
+				return boolean;
 			},
 		},
 		components: {

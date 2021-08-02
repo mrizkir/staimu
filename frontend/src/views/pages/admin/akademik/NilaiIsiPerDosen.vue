@@ -50,6 +50,9 @@
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
+					<v-alert type="info">
+						Bila tombol isi nilai TIDAK AKTIF disebabkan oleh waktu pengisian nilai belum ditentukan oleh PUSLAHTA.
+					</v-alert>
 					<v-data-table
 						:headers="headers"
 						:items="datatable"
@@ -84,6 +87,7 @@
 								small
 								icon
 								@click.stop="isiperdosen(item)"
+								:disabled="waktuIsiNilai(item) == 'N.A'"
 								v-if="item.jumlah_mhs > 0"
 							>
 								<v-icon>
@@ -109,9 +113,11 @@
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">
 									<strong>ID:</strong>{{ item.id }}
-									<strong>created_at:</strong>
+									<strong>WAKTU ISI NILAI:</strong>
+									{{ waktuIsiNilai(item) }}
+									<strong>CREATED AT:</strong>
 									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>
+									<strong>UPDATED AT:</strong>
 									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 								</v-col>
 							</td>
@@ -235,6 +241,14 @@
 					this.expanded = [];
 				} else {
 					this.expanded = [item];
+				}
+			},
+			waktuIsiNilai(item) {
+				if (item.waktu_mulai_isi_nilai == null || item.waktu_selesai_isi_nilai == null) {
+					return "N.A";
+				} else {
+					let waktu = this.$date(item.waktu_mulai_isi_nilai).format("DD/MM/YYYY HH:mm") + " - " + this.$date(item.waktu_selesai_isi_nilai).format("DD/MM/YYYY HH:mm");
+					return waktu;
 				}
 			},
 			isiperdosen(item) {

@@ -99,9 +99,9 @@
 								<v-col cols="12">
 									<strong>id:</strong>
 									{{ item.id }}
-									<strong>created_at:</strong>
+									<strong>CREATED AT:</strong>
 									{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-									<strong>updated_at:</strong>
+									<strong>UPDATED AT:</strong>
 									{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
 								</v-col>
 							</td>

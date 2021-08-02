@@ -77,8 +77,8 @@
                             <td :colspan="headers.length" class="text-center">
                                 <v-col cols="12">  
                                     <strong>ID:</strong>{{ item.id_status }} 
-                                    <strong>created_at:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-                                    <strong>updated_at:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
+                                    <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
                                 </v-col>
                             </td>
                         </template>
