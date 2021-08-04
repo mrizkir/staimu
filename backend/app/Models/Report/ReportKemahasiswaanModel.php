@@ -147,6 +147,6 @@ class ReportKemahasiswaanModel extends ReportModel
         $sheet->getStyle("H$row_awal:H$row")->applyFromArray($styleArray);
 
         $generate_date=date('Y-m-d_H_m_s');
-        return $this->download("daftar_mahasiswa_$generate_date.xlsx");
+        return $this->excel("daftar_mahasiswa_$generate_date.xlsx");
     }    
 }

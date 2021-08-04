@@ -28,7 +28,10 @@
 		<v-container fluid v-if="data_kelas_mhs">
 			<v-row>
 				<v-col cols="12">
-					<DataKelasMHS :datakelas="data_kelas_mhs" :url="'/akademik/nilai/matakuliah/isiperdosen'" />
+					<DataKelasMHS
+						:datakelas="data_kelas_mhs"
+						:url="'/akademik/nilai/matakuliah/isiperdosen'"
+					/>
 				</v-col>
 			</v-row>
 			<v-row v-if="bolehIsiNilai">
@@ -38,31 +41,6 @@
 						Untuk meningkatkan performance bila jumlah peserta lebih dari 10;
 						maka disarankan mengisi nilai per 10 mahasiswa.
 					</v-alert>
-				</v-col>
-				<v-col cols="12">
-					<v-expansion-panels focusable>
-						<v-expansion-panel>
-							<v-expansion-panel-header>
-								Range Nilai Huruf
-							</v-expansion-panel-header>
-							<v-expansion-panel-content>
-								A = 95.00-100.00<br />
-								A- = 90.00-94.99<br />
-								A/B = 85.00-89.99<br />
-								(B+) = 80.00-84.99<br />
-								B = 75.00-79.99<br />
-								B- = 70.00-74.99<br />
-								B/C = 65.00-69.99<br />
-								(C+) = 60.00-64.99<br />
-								C = 55.00-59.99<br />
-								C- = 50.00-54.99<br />
-								C/D = 45.00-49.99<br />
-								(D+) = 40.00-44.99<br />
-								D = 35.00-39.99<br />
-								E = 34.99-0<br />
-							</v-expansion-panel-content>
-						</v-expansion-panel>
-					</v-expansion-panels>
 				</v-col>
 				<v-col cols="12">
 					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -90,11 +68,79 @@
 										:disabled="btnLoading"
 										@click.stop="printtoexcel()"
 										v-if="datatable_peserta.length > 0"
+										class="ma-2"
 									>
 										<v-icon>
 											mdi-printer
 										</v-icon>
 									</v-btn>
+									<v-dialog v-model="dialogfrm" max-width="700px" persistent>
+										<template v-slot:activator="{ on: dialog }">
+											<v-tooltip bottom>
+												<template v-slot:activator="{ on: tooltip }">
+													<v-btn
+														color="primary"
+														icon
+														outlined
+														small
+														class="ma-2"
+														@click.stop="showDialogImport()"
+														v-on="{ ...tooltip, ...dialog }"
+														:disabled="btnLoading"
+													>
+														<v-icon>mdi-import</v-icon>
+													</v-btn>
+												</template>
+												<span>Impor Nilai</span>
+											</v-tooltip>
+										</template>
+										<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+											<v-card>
+												<v-card-title>
+													<span class="headline">IMPOR NILAI</span>
+												</v-card-title>
+												<v-card-text>
+													<v-alert type="info">
+														Download
+														<v-btn															
+															color="primary"
+															:disabled="btnLoading"
+															@click.stop="printtemplatenilai"
+														>
+															File
+														</v-btn>
+														, template pengisian nilai yang berisi daftar mahasiswa. 
+													</v-alert>
+													<v-file-input
+														accept=".csv"
+														label="FILE NILAI DALAM (CSV)"
+														:rules="rule_file_nilai"
+														show-size
+														v-model="formdata.file_nilai"
+													>
+													</v-file-input>
+												</v-card-text>
+												<v-card-actions>
+													<v-spacer></v-spacer>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="closedialogfrm"
+													>
+														TUTUP
+													</v-btn>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="save"
+														:disabled="!form_valid || btnLoading"
+													>
+														SIMPAN
+													</v-btn>
+												</v-card-actions>
+											</v-card>
+										</v-form>
+									</v-dialog>
 								</v-toolbar>
 							</template>
 							<template v-slot:item.idkelas="{ item }">
@@ -112,7 +158,7 @@
 									style="width:65px"
 								>
 								</VAngkaNilai>
-							</template>							
+							</template>
 							<template v-slot:item.nilai_tugas_individu="props">
 								<VAngkaNilai
 									@input="updateNKuan(props)"
@@ -183,11 +229,37 @@
 						</v-data-table>
 					</v-form>
 				</v-col>
+				<v-col cols="12">
+					<v-expansion-panels focusable>
+						<v-expansion-panel>
+							<v-expansion-panel-header>
+								Range Nilai Huruf
+							</v-expansion-panel-header>
+							<v-expansion-panel-content>
+								A = 95.00-100.00<br />
+								A- = 90.00-94.99<br />
+								A/B = 85.00-89.99<br />
+								(B+) = 80.00-84.99<br />
+								B = 75.00-79.99<br />
+								B- = 70.00-74.99<br />
+								B/C = 65.00-69.99<br />
+								(C+) = 60.00-64.99<br />
+								C = 55.00-59.99<br />
+								C- = 50.00-54.99<br />
+								C/D = 45.00-49.99<br />
+								(D+) = 40.00-44.99<br />
+								D = 35.00-39.99<br />
+								E = 34.99-0<br />
+							</v-expansion-panel-content>
+						</v-expansion-panel>
+					</v-expansion-panels>
+				</v-col>
 			</v-row>
 			<v-row v-if="!bolehIsiNilai">
 				<v-col cols="12">
 					<v-alert type="error">
-						Waktu pengisian nilai belum ditentukan atau sudah diluar masa pengisian nilai.
+						Waktu pengisian nilai belum ditentukan atau sudah diluar masa
+						pengisian nilai.
 					</v-alert>
 				</v-col>
 			</v-row>
@@ -241,7 +313,7 @@
 
 			btnLoadingTable: false,
 			datatableLoading: false,
-			btnLoading: false,			
+			btnLoading: false,
 			datatable_peserta: [],
 			headers_peserta: [
 				{ text: "NIM", value: "nim", sortable: false, width: 100 },
@@ -275,6 +347,12 @@
 			],
 			//formdata
 			form_valid: true,
+			formdata: {
+				file: null,
+			},			
+			formdefault: {
+				file: null,
+			},			
 			komponen_nilai: {
 				persen_absen: 10,
 				persen_tugas_individu: 20,
@@ -284,6 +362,11 @@
 			daftar_nilai: [],
 			waktu_mulai_isi_nilai: null,
 			waktu_selesai_isi_nilai: null,
+			rule_file_nilai: [
+				value => !!value || "Mohon pilih file nilai !!!",
+			],
+			//dialog import
+			dialogfrm: false,
 		}),
 		methods: {
 			initialize: async function() {
@@ -295,7 +378,7 @@
 						},
 					})
 					.then(({ data }) => {
-						this.data_kelas_mhs = data.pembagiankelas;						
+						this.data_kelas_mhs = data.pembagiankelas;
 						this.waktu_mulai_isi_nilai = this.data_kelas_mhs.waktu_mulai_isi_nilai;
 						this.waktu_selesai_isi_nilai = this.data_kelas_mhs.waktu_selesai_isi_nilai;
 					});
@@ -309,6 +392,9 @@
 						this.datatableLoading = false;
 						this.datatable_peserta = data.peserta;
 					});
+			},
+			showDialogImport() {
+				this.dialogfrm = true;
 			},
 			updateNKuan(props) {
 				var nilai_absen = 0;
@@ -419,11 +505,12 @@
 					return false;
 				}
 			},
-			async printtoexcel() {
+			async printtemplatenilai() {
 				this.btnLoading = true;
 				await this.$ajax
 					.post(
-						"/akademik/nilai/matakuliah/perdosen/printtoexcel1/" + this.kelas_mhs_id,
+						"/akademik/nilai/matakuliah/perdosen/printtemplatenilai/" +
+							this.kelas_mhs_id,
 						{},
 						{
 							headers: {
@@ -437,11 +524,14 @@
 							const url = window.URL.createObjectURL(new Blob([data]));
 							const link = document.createElement("a");
 							link.href = url;
-							link.setAttribute("download", "daftar_nilai_" + Date.now() + ".xlsx");
-							link.setAttribute("id", "download_laporan");
+							link.setAttribute(
+								"download",
+								"template_isi_nilai_" + Date.now() + ".csv"
+							);
+							link.setAttribute("id", "template_isi_nilai");
 							document.body.appendChild(link);
 							link.click();
-							document.body.removeChild(link);							
+							document.body.removeChild(link);
 						}
 						this.btnLoading = false;
 					})
@@ -449,14 +539,62 @@
 						this.btnLoading = false;
 					});
 			},
+			async printtoexcel() {
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/akademik/nilai/matakuliah/perdosen/printtoexcel1/" +
+							this.kelas_mhs_id,
+						{},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data, status }) => {
+						if (status == 200) {
+							const url = window.URL.createObjectURL(new Blob([data]));
+							const link = document.createElement("a");
+							link.href = url;
+							link.setAttribute(
+								"download",
+								"daftar_nilai_" + Date.now() + ".xlsx"
+							);
+							link.setAttribute("id", "download_laporan");
+							document.body.appendChild(link);
+							link.click();
+							document.body.removeChild(link);
+						}
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
+			},
+			closedialogfrm() {
+				this.dialogfrm = false;
+				setTimeout(() => {					
+					this.formdata = Object.assign({}, this.formdefault);					
+				}, 300);
+			},
 		},
 		computed: {
 			bolehIsiNilai() {
 				var boolean = true;
-				if (this.waktu_mulai_isi_nilai == null || this.waktu_selesai_isi_nilai == null) {
+				if (
+					this.waktu_mulai_isi_nilai == null ||
+					this.waktu_selesai_isi_nilai == null
+				) {
 					boolean = false;
 				} else {
-					boolean = this.$date(this.$date()).isBetween(this.waktu_mulai_isi_nilai, this.waktu_selesai_isi_nilai, null, '[)');
+					boolean = this.$date(this.$date()).isBetween(
+						this.waktu_mulai_isi_nilai,
+						this.waktu_selesai_isi_nilai,
+						null,
+						"[)"
+					);
 				}
 				return boolean;
 			},

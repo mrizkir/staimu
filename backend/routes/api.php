@@ -516,7 +516,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/akademik/nilai/matakuliah/perdosen/storeperdosen',['middleware'=>['role:dosen'],'uses'=>'Akademik\NilaiMatakuliahController@storeperdosen','as'=>'nilaimatakuliah.storeperdosen']);
 	$router->get('/akademik/nilai/matakuliah/perkrs/{id}',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@perkrs','as'=>'nilaimatakuliah.perkrs']);
 	$router->post('/akademik/nilai/matakuliah/perkrs/storeperkrs',['middleware'=>['role:puslahta'],'uses'=>'Akademik\NilaiMatakuliahController@storeperkrs','as'=>'nilaimatakuliah.storeperkrs']);
-	//id disini adalah kelas_mhs_id
+	//id disini adalah kelas_mhs_id	
+	$router->post('/akademik/nilai/matakuliah/perdosen/printtemplatenilai/{id}',['middleware'=>['role:puslahta|dosen'],'uses'=>'Akademik\NilaiMatakuliahController@printtemplatenilai','as'=>'nilaimatakuliah.printtemplatenilai']);
 	$router->post('/akademik/nilai/matakuliah/perdosen/printtoexcel1/{id}',['middleware'=>['role:puslahta|dosen'],'uses'=>'Akademik\NilaiMatakuliahController@printtoexcelperdosen1','as'=>'nilaimatakuliah.printtoexcelperdosen1']);
 
 	//khs kartu hasil studi

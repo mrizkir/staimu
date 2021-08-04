@@ -145,6 +145,6 @@ class ReportAkademikTranskripKurikulumModel extends ReportModel
     $sheet->getStyle("F$row_awal_mhs:G$row")->applyFromArray($styleArray);
 
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("transkrip_kurikulum_$generate_date.xlsx");
+    return $this->excel("transkrip_kurikulum_$generate_date.xlsx");
   }      
 }

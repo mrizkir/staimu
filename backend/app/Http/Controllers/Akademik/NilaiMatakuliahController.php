@@ -481,6 +481,79 @@ class NilaiMatakuliahController extends Controller
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
+	public function printtemplatenilai(Request $request, $id)
+	{
+		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+
+		if ($this->hasRole('dosen'))
+		{
+			$kelas_mhs=PembagianKelasModel::select(\DB::raw('
+								pe3_kelas_mhs.id,
+								pe3_kelas_mhs.idkelas,
+								pe3_kelas_mhs.hari,
+								\'\' AS nama_hari,
+								pe3_kelas_mhs.jam_masuk,
+								pe3_kelas_mhs.jam_keluar,
+								pe3_kelas_mhs.kmatkul,
+								pe3_kelas_mhs.nmatkul,
+								pe3_kelas_mhs.sks,
+								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+								pe3_dosen.nidn,
+								pe3_jabatan_akademik.nama_jabatan,
+								pe3_ruangkelas.namaruang,
+								pe3_ruangkelas.kapasitas,	
+								pe3_kelas_mhs.tahun,							
+								pe3_kelas_mhs.idsmt
+							'))
+							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->where('pe3_kelas_mhs.id', $id)
+							->where('pe3_kelas_mhs.user_id', $this->getUserid())
+							->first(); 
+		}
+		else
+		{
+			$kelas_mhs=PembagianKelasModel::select(\DB::raw('
+								pe3_kelas_mhs.id,
+								pe3_kelas_mhs.idkelas,
+								pe3_kelas_mhs.hari,
+								\'\' AS nama_hari,
+								pe3_kelas_mhs.jam_masuk,
+								pe3_kelas_mhs.jam_keluar,
+								pe3_kelas_mhs.kmatkul,
+								pe3_kelas_mhs.nmatkul,
+								pe3_kelas_mhs.sks,
+								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+								pe3_dosen.nidn,
+								pe3_jabatan_akademik.nama_jabatan,
+								pe3_ruangkelas.namaruang,
+								pe3_ruangkelas.kapasitas,
+								pe3_kelas_mhs.tahun,							
+								pe3_kelas_mhs.idsmt
+							'))
+							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
+							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->where('pe3_kelas_mhs.id', $id)
+							->first(); 
+		}
+
+		if (is_null($kelas_mhs))
+		{
+			return Response()->json([
+									'status'=>0,
+									'pid'=>'fetchdata',
+									'message'=>["Kelas Dosen dengan ($id) gagal diperoleh"]
+								], 422);
+		}
+		else
+		{
+			$data_report = $kelas_mhs->toArray();			
+			$report= new \App\Models\Report\ReportNilaiMatakuliahModel($data_report);
+			return $report->printtemplatenilai();
+		}
+	}
 	/**
 	 * cetak daftar nilai dosen per kelas
 	 */

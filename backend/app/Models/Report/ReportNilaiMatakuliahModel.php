@@ -19,13 +19,56 @@ class ReportNilaiMatakuliahModel extends ReportModel
   {
       parent::__construct($dataReport); 
   }    
+  public function printtemplatenilai()  
+  {
+    $kelas_mhs_id = $this->dataReport['id'];
+    $sheet = $this->spreadsheet->getActiveSheet();
+    $row=1;        
+    $sheet->setCellValue("A$row",'NO');
+    $sheet->setCellValue("B$row",'ID');
+    $sheet->setCellValue("C$row",'NIM');    
+    $sheet->setCellValue("D$row",'NAMA MAHASISWA');    
+    $sheet->setCellValue("E$row",'ABSEN');    
+    $sheet->setCellValue("F$row",'TUGAS');    
+    $sheet->setCellValue("G$row",'UTS');
+    $sheet->setCellValue("H$row",'UAS');        
+
+    $data=PembagianKelasPesertaModel::select(\DB::raw('
+										pe3_kelas_mhs_peserta.id,
+										pe3_kelas_mhs_peserta.krsmatkul_id,
+										pe3_krs.nim,
+										pe3_formulir_pendaftaran.nama_mhs									
+									'))
+									->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
+									->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')									
+									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')									
+									->where('pe3_kelas_mhs_peserta.kelas_mhs_id',$kelas_mhs_id)
+									->where('pe3_krsmatkul.batal', 0)
+                  ->orderBy('pe3_formulir_pendaftaran.nama_mhs','asc')
+									->get();
+      
+    $row+=1;
+    $row_awal=$row;
+    $no=1;
+    foreach ($data as $v)
+    {
+        $sheet->setCellValue("A$row",$no);
+        $sheet->setCellValue("B$row",$v->krsmatkul_id);
+        $sheet->setCellValueExplicit("C$row",$v->nim,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+        $sheet->setCellValue("D$row",ucwords(strtolower($v->nama_mhs)));        
+        $row+=1;
+        $no+=1;
+    }
+    $generate_date=date('Y-m-d_H_m_s');
+    return $this->csv("template_nilai_$generate_date.csv");
+  }
   public function printtoexcelperdosen1()  
   {
     $kelas_mhs_id = $this->dataReport['id'];
     $this->spreadsheet->getProperties()->setTitle("DPNA");
     $this->spreadsheet->getProperties()->setSubject("DPNA");
 
-    $sheet = $this->spreadsheet->getActiveSheet();        
+    $sheet = $this->spreadsheet->getActiveSheet();
     $sheet->setTitle ('Daftar Nilai');
 
     $sheet->getParent()->getDefaultStyle()->applyFromArray([
@@ -203,6 +246,6 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $sheet->getStyle("A$row_awal:I$row")->getAlignment()->setWrapText(true);
 
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("daftar_nilai_$generate_date.xlsx");
+    return $this->excel("daftar_nilai_$generate_date.xlsx");
   }
 }

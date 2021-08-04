@@ -192,7 +192,7 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
     $sheet->getStyle("H$row_awal:H$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("registrasi_krs_$generate_date.xlsx");
+    return $this->excel("registrasi_krs_$generate_date.xlsx");
   }   
   /**
    * cetak rekap penerimaan daftar ulang mahasiswa baru setiap prodi
@@ -373,6 +373,6 @@ class ReportKeuanganDulangMHSBaruModel extends ReportModel
     $sheet->getStyle("D$row_awal:D$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("laporan_dulang_mhs_baru_$generate_date.xlsx");
+    return $this->excel("laporan_dulang_mhs_baru_$generate_date.xlsx");
   } 
 }

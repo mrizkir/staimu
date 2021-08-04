@@ -203,7 +203,7 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
     $sheet->getStyle("H$row_awal:H$row")->applyFromArray($styleArray);    
 
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("registrasi_krs_$generate_date.xlsx");
+    return $this->excel("registrasi_krs_$generate_date.xlsx");
   }  
   /**
    * cetak rekap penerimaan spp per bulan setiap prodi
@@ -384,6 +384,6 @@ class ReportKeuanganRegistrasiKRSModel extends ReportModel
     $sheet->getStyle("D$row_awal:D$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->download("registrasi_krs_$generate_date.xlsx");
+    return $this->excel("registrasi_krs_$generate_date.xlsx");
   }  
 }

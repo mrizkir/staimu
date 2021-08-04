@@ -141,7 +141,7 @@ class ReportSPMBModel extends ReportModel
         $sheet->getStyle("G$row_awal:G$row")->applyFromArray($styleArray);
 
         $generate_date=date('Y-m-d_H_m_s');
-        return $this->download("laporan_prodi_$generate_date.xlsx");
+        return $this->excel("laporan_prodi_$generate_date.xlsx");
     }
     public function fakultas()  
     {
@@ -276,7 +276,7 @@ class ReportSPMBModel extends ReportModel
         $sheet->getStyle("G$row_awal:G$row")->applyFromArray($styleArray);
 
         $generate_date=date('Y-m-d_H_m_s');
-        return $this->download("laporan_fakultas_$generate_date.xlsx");
+        return $this->excel("laporan_fakultas_$generate_date.xlsx");
     }
     public function kelulusan()  
     {
@@ -430,6 +430,6 @@ class ReportSPMBModel extends ReportModel
         $sheet->getStyle("G$row_awal:G$row")->applyFromArray($styleArray);
 
         $generate_date=date('Y-m-d_H_m_s');
-        return $this->download("laporan_kelulusan_$generate_date.xlsx");
+        return $this->excel("laporan_kelulusan_$generate_date.xlsx");
     }
 }

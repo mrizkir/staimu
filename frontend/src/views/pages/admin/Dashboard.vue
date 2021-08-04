@@ -234,11 +234,6 @@
 			</v-row>
 		</v-container>
 	</AdminLayout>
-	<AdminLayout v-else>
-		<div class="text-center">
-			<v-progress-circular indeterminate color="green"></v-progress-circular>
-		</div>
-	</AdminLayout>
 </template>
 <script>
 	import DashboardMB from "@/components/DashboardMahasiswaBaru";
@@ -296,8 +291,3 @@
 		},
 	};
 </script>
-<style scoped>
-	.v-progress-circular {
-		margin: 1rem;
-	}
-</style>
