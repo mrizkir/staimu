@@ -119,6 +119,9 @@
 														v-model="formdata.file_nilai"
 													>
 													</v-file-input>
+													<v-alert type="warning">
+														File nilai wajib berdasarkan template yang disediakan oleh sistem.
+													</v-alert>
 												</v-card-text>
 												<v-card-actions>
 													<v-spacer></v-spacer>
@@ -132,7 +135,50 @@
 													<v-btn
 														color="blue darken-1"
 														text
-														@click.stop="save"
+														@click.stop="preview"
+														:disabled="!form_valid || btnLoading"
+													>
+														PREVIEW
+													</v-btn>
+												</v-card-actions>
+											</v-card>
+										</v-form>
+									</v-dialog>
+									<v-dialog v-model="dialogpreview" max-width="700px" persistent>										
+										<v-form ref="frmpreview" v-model="form_valid" lazy-validation>
+											<v-card>
+												<v-card-title>
+													<span class="headline">PREVIEW NILAI</span>
+												</v-card-title>
+												<v-card-text>
+													<v-data-table
+														v-model="daftar_nilai"
+														:headers="headers_peserta"
+														:items="daftar_preview"
+														item-key="krsmatkul_id"
+														show-select
+														:disable-pagination="true"
+														:hide-default-footer="true"
+														class="elevation-1"
+														:loading="datatableLoading"
+														loading-text="Loading... Please wait"
+														dense
+													>
+													</v-data-table>
+												</v-card-text>
+												<v-card-actions>
+													<v-spacer></v-spacer>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="closedialogpreview"
+													>
+														TUTUP
+													</v-btn>
+													<v-btn
+														color="blue darken-1"
+														text
+														@click.stop="saveimpornilai"
 														:disabled="!form_valid || btnLoading"
 													>
 														SIMPAN
@@ -348,10 +394,10 @@
 			//formdata
 			form_valid: true,
 			formdata: {
-				file: null,
+				file_nilai: null,
 			},			
 			formdefault: {
-				file: null,
+				file_nilai: null,
 			},			
 			komponen_nilai: {
 				persen_absen: 10,
@@ -360,6 +406,7 @@
 				persen_uas: 40,
 			},
 			daftar_nilai: [],
+			daftar_preview: [],		
 			waktu_mulai_isi_nilai: null,
 			waktu_selesai_isi_nilai: null,
 			rule_file_nilai: [
@@ -367,6 +414,7 @@
 			],
 			//dialog import
 			dialogfrm: false,
+			dialogpreview: false,
 		}),
 		methods: {
 			initialize: async function() {
@@ -395,6 +443,29 @@
 			},
 			showDialogImport() {
 				this.dialogfrm = true;
+			},
+			preview() {
+				if (this.$refs.frmdata.validate()) {
+					this.btnLoading = true;
+					var data = new FormData();
+					data.append("file_nilai", this.formdata.file_nilai);
+					this.$ajax
+						.post("/akademik/nilai/matakuliah/perdosen/impornilai", data, {
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+								"Content-Type": "multipart/form-data",
+							},
+						})
+						.then(({ data }) => {
+							this.daftar_preview = data.daftar_nilai;
+							this.btnLoading = false;
+							this.closedialogfrm();
+							this.dialogpreview = true;
+						})
+						.catch(() => {
+							this.btnLoading = false;
+						});
+				}
 			},
 			updateNKuan(props) {
 				var nilai_absen = 0;
@@ -462,6 +533,9 @@
 					n_kual = "E";
 				}
 				props.item.n_kual = n_kual;
+			},
+			async saveimpornilai() {
+				console.log(this.daftar_preview);
 			},
 			async save() {
 				this.btnLoadingTable = true;
@@ -576,7 +650,13 @@
 			closedialogfrm() {
 				this.dialogfrm = false;
 				setTimeout(() => {					
-					this.formdata = Object.assign({}, this.formdefault);					
+					this.formdata = Object.assign({}, this.formdefault);
+				}, 300);
+			},
+			closedialogpreview() {
+				this.dialogpreview = false;
+				setTimeout(() => {					
+					this.daftar_preview = null;
 				}, 300);
 			},
 		},

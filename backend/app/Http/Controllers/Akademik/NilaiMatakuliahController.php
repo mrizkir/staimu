@@ -481,6 +481,55 @@ class NilaiMatakuliahController extends Controller
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
+	public function impornilai(Request $request)
+	{
+		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+		$this->validate($request, [
+			'file_nilai'=>'required',
+		]);
+		
+		$file_nilai=$request->file('file_nilai');		
+		$mime_type=$file_nilai->getMimeType();
+		if ($mime_type == 'text/csv' || $mime_type == 'text/plain')
+		{
+			$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			$spreadsheet = $reader->load($file_nilai->getPathName());
+			
+			$daftar_nilai = [];
+			$temp =$spreadsheet->getActiveSheet()->toArray();
+
+			foreach ($temp as $k=>$v)
+			{
+				if ($k > 0)
+				{
+					$daftar_nilai[] = [
+						'no'=>$v[0],
+						'krsmatkul_id'=>$v[1],
+						'nim'=>$v[2],
+						'nama_mhs'=>$v[3],
+						'absen'=>$v[4],
+						'tugas'=>$v[5],
+						'uts'=>$v[6],
+						'uas'=>$v[7],
+					];
+				}
+			} 
+			return Response()->json([
+									'status'=>1,
+									'pid'=>'store', 
+									'daftar_nilai'=>$daftar_nilai,
+									'message'=>"Nilai Mahasiswa berhasil di impor" 
+								], 200);
+		}
+		else
+		{
+			return Response()->json([
+																'status'=>1,
+																'pid'=>'store',
+																'message'=>["Extensi file yang diupload bukan csv tetapi $mime_type."]
+														], 422); 
+		}		
+	}
 	public function printtemplatenilai(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
