@@ -90,6 +90,56 @@ class HelperAkademik {
 			return null;
 		}
 	}
+	public static function getNilaiHuruf ($n_kuan)
+	{
+		if (is_null($n_kuan))
+		{
+			$n_kual = 'N.A';
+		} else if ($n_kuan >= 95)
+		{
+			$n_kual = "A";
+		} else if ($n_kuan >= 90 && $n_kuan < 95)
+		{
+			$n_kual = "A-";
+		} else if ($n_kuan >= 85 && $n_kuan < 90)
+		{
+			$n_kual = "A/B";
+		} else if ($n_kuan >= 80 && $n_kuan < 85)
+		{
+			$n_kual = "B+";
+		} else if ($n_kuan >= 75 && $n_kuan < 80)
+		{
+			$n_kual = "B";
+		} else if ($n_kuan >= 70 && $n_kuan < 75)
+		{
+			$n_kual = "B-";
+		} else if ($n_kuan >= 65 && $n_kuan < 70)
+		{
+			$n_kual = "B/C";
+		} else if ($n_kuan >= 60 && $n_kuan < 65)
+		{
+			$n_kual = "C+";
+		} else if ($n_kuan >= 55 && $n_kuan < 59)
+		{
+			$n_kual = "C";
+		} else if ($n_kuan >= 50 && $n_kuan < 54)
+		{
+			$n_kual = "C-";
+		} else if ($n_kuan >= 45 && $n_kuan < 50)
+		{
+			$n_kual = "C/D";
+		} else if ($n_kuan >= 40 && $n_kuan < 45)
+		{
+			$n_kual = "C/D";
+		} else if ($n_kuan >= 40 && $n_kuan < 45)
+		{
+			$n_kual = "D+";
+		} else if ($n_kuan < 40)
+		{
+			$n_kual = "E";
+		}
+		return $n_kual;
+	}
 	/**
 	* digunakan untuk mem-format persentase
 	*/

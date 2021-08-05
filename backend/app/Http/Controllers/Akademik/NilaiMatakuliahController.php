@@ -191,11 +191,18 @@ class NilaiMatakuliahController extends Controller
 											pe3_krs.user_id,
 											pe3_krsmatkul.penyelenggaraan_id,
 											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
-											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
+											pe3_kelas_mhs_peserta.kelas_mhs_id,
+											COALESCE(pe3_kelas_mhs.persen_absen,0) AS persen_absen,
+											COALESCE(pe3_kelas_mhs.persen_tugas_individu,0) AS persen_tugas_individu,
+											COALESCE(pe3_kelas_mhs.persen_tugas_kelompok,0) AS persen_tugas_kelompok,
+											COALESCE(pe3_kelas_mhs.persen_quiz,0) AS persen_quiz,
+											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
+											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas								
 										'))
 										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')										
 										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
@@ -214,10 +221,12 @@ class NilaiMatakuliahController extends Controller
 						'user_id_updated'=>$this->getUserid(),
 						'krs_id'=>$krsmatkul->krs_id,
 						
-						'persentase_absen'=>10,
-						'persentase_tugas_individu'=>20,
-						'persentase_uts'=>30,
-						'persentase_uas'=>40,
+						'persentase_absen'=>$krsmatkul->persen_absen,
+						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz'=>$krsmatkul->persen_quiz,
+						'persentase_uts'=>$krsmatkul->persen_uts,
+						'persentase_uas'=>$krsmatkul->persen_uas,
 
 						'nilai_absen'=>$nilai_absen,  
 						'nilai_tugas_individu'=>$nilai_tugas_individu,
@@ -303,11 +312,18 @@ class NilaiMatakuliahController extends Controller
 											pe3_krs.user_id,
 											pe3_krsmatkul.penyelenggaraan_id,
 											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
-											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
+											pe3_kelas_mhs_peserta.kelas_mhs_id,
+											COALESCE(pe3_kelas_mhs.persen_absen,0) AS persen_absen,
+											COALESCE(pe3_kelas_mhs.persen_tugas_individu,0) AS persen_tugas_individu,
+											COALESCE(pe3_kelas_mhs.persen_tugas_kelompok,0) AS persen_tugas_kelompok,
+											COALESCE(pe3_kelas_mhs.persen_quiz,0) AS persen_quiz,
+											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
+											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas
 										'))
 										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
 										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
 										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
@@ -326,10 +342,12 @@ class NilaiMatakuliahController extends Controller
 						'user_id_updated'=>$this->getUserid(),
 						'krs_id'=>$krsmatkul->krs_id,
 						
-						'persentase_absen'=>10,
-						'persentase_tugas_individu'=>20,
-						'persentase_uts'=>30,
-						'persentase_uas'=>40,
+						'persentase_absen'=>$krsmatkul->persen_absen,
+						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz'=>$krsmatkul->persen_quiz,
+						'persentase_uts'=>$krsmatkul->persen_uts,
+						'persentase_uas'=>$krsmatkul->persen_uas,
 
 						'nilai_absen'=>0,
 						'nilai_tugas_individu'=>0,
@@ -408,10 +426,17 @@ class NilaiMatakuliahController extends Controller
 					$krsmatkul=KRSMatkulModel::select(\DB::raw('
 											pe3_krsmatkul.penyelenggaraan_id,
 											pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id,
-											pe3_kelas_mhs_peserta.kelas_mhs_id                                            
+											pe3_kelas_mhs_peserta.kelas_mhs_id,
+											COALESCE(pe3_kelas_mhs.persen_absen,0) AS persen_absen,
+											COALESCE(pe3_kelas_mhs.persen_tugas_individu,0) AS persen_tugas_individu,
+											COALESCE(pe3_kelas_mhs.persen_tugas_kelompok,0) AS persen_tugas_kelompok,
+											COALESCE(pe3_kelas_mhs.persen_quiz,0) AS persen_quiz,
+											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
+											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas
 										'))
 										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
 										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
 										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
@@ -430,10 +455,12 @@ class NilaiMatakuliahController extends Controller
 						'user_id_updated'=>$this->getUserid(),
 						'krs_id'=>$krs_id,
 						
-						'persentase_absen'=>10,
-						'persentase_tugas_individu'=>20,
-						'persentase_uts'=>30,
-						'persentase_uas'=>40,
+						'persentase_absen'=>$krsmatkul->persen_absen,
+						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz'=>$krsmatkul->persen_quiz,
+						'persentase_uts'=>$krsmatkul->persen_uts,
+						'persentase_uas'=>$krsmatkul->persen_uas,
 
 						'nilai_absen'=>0,
 						'nilai_tugas_individu'=>0,
@@ -484,9 +511,31 @@ class NilaiMatakuliahController extends Controller
 	public function impornilai(Request $request)
 	{
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
+
 		$this->validate($request, [
+			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
 			'file_nilai'=>'required',
 		]);
+		
+		$kelas_mhs=PembagianKelasModel::select(\DB::raw('
+								pe3_kelas_mhs.id,								
+								pe3_kelas_mhs.kmatkul,
+								pe3_kelas_mhs.nmatkul,
+								pe3_kelas_mhs.sks,
+								CONCAT(COALESCE(pe3_dosen.gelar_depan,\' \'),pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
+								pe3_dosen.nidn,
+								pe3_jabatan_akademik.nama_jabatan,
+								persen_absen,
+								persen_tugas_individu,
+								persen_tugas_kelompok,
+								persen_quiz,
+								persen_uts,
+								persen_uas
+							'))
+							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')							
+							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->where('pe3_kelas_mhs.id', $request->input('kelas_mhs_id'))
+							->first();
 		
 		$file_nilai=$request->file('file_nilai');		
 		$mime_type=$file_nilai->getMimeType();
@@ -502,15 +551,50 @@ class NilaiMatakuliahController extends Controller
 			{
 				if ($k > 0)
 				{
+					$nilai_absen = 0;
+					if (is_null($v[4]) && is_null($v[5]) && is_null($v[6]) && is_null($v[7])) {
+						$n_kuan = null;
+						$n_kual = null;
+					}
+					else
+					{					
+						if (!is_null($v[4]) || $v[4] > 0)
+						{
+							$nilai_absen = \App\Helpers\Helper::formatPecahan($kelas_mhs->persen_absen, 100) * $v[4];
+						}
+						$nilai_tugas_individu = 0;
+						if (!is_null($v[5]) || $v[5] > 0)
+						{
+							$nilai_tugas_individu = \App\Helpers\Helper::formatPecahan($kelas_mhs->persen_tugas_individu, 100) * $v[5];						
+						}
+						$nilai_uts = 0;
+						if (!is_null($v[6]) || $v[6] > 0)
+						{
+							$nilai_uts = \App\Helpers\Helper::formatPecahan($kelas_mhs->persen_uts, 100) * $v[6];						
+						}
+						$nilai_uas = 0;
+						if (!is_null($v[7]) || $v[7] > 0)
+						{
+							$nilai_uas = \App\Helpers\Helper::formatPecahan($kelas_mhs->persen_uas, 100) * $v[7];
+						}
+						$n_kuan = number_format($nilai_absen + $nilai_tugas_individu + $nilai_uts + $nilai_uas,2);
+						$n_kual = \App\Helpers\HelperAkademik::getNilaiHuruf($n_kuan);
+					}
 					$daftar_nilai[] = [
 						'no'=>$v[0],
 						'krsmatkul_id'=>$v[1],
 						'nim'=>$v[2],
 						'nama_mhs'=>$v[3],
-						'absen'=>$v[4],
-						'tugas'=>$v[5],
-						'uts'=>$v[6],
-						'uas'=>$v[7],
+						'nilai_absen'=>$v[4],
+						'nilai_tugas_individu'=>$v[5],
+						'nilai_uts'=>$v[6],
+						'nilai_uas'=>$v[7],
+						// 'nilai_absen'=>$nilai_absen,
+						// 'nilai_tugas_individu'=>$nilai_tugas_individu,
+						// 'nilai_uts'=>$nilai_uts,
+						// 'nilai_uas'=>$nilai_uas,
+						'n_kuan'=>$n_kuan,
+						'n_kual'=>$n_kual,
 					];
 				}
 			} 

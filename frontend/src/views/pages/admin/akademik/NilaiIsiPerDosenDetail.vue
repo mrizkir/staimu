@@ -144,7 +144,7 @@
 											</v-card>
 										</v-form>
 									</v-dialog>
-									<v-dialog v-model="dialogpreview" max-width="700px" persistent>										
+									<v-dialog v-model="dialogpreview" max-width="800px" persistent>										
 										<v-form ref="frmpreview" v-model="form_valid" lazy-validation>
 											<v-card>
 												<v-card-title>
@@ -448,6 +448,7 @@
 				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
 					var data = new FormData();
+					data.append("kelas_mhs_id", this.kelas_mhs_id);
 					data.append("file_nilai", this.formdata.file_nilai);
 					this.$ajax
 						.post("/akademik/nilai/matakuliah/perdosen/impornilai", data, {
