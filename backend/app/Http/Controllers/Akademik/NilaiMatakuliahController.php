@@ -81,6 +81,7 @@ class NilaiMatakuliahController extends Controller
 									->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_kelas_mhs_peserta.krsmatkul_id')
 									->where('pe3_kelas_mhs_peserta.kelas_mhs_id',$id)
 									->where('pe3_krsmatkul.batal', 0)
+									->orderBy('pe3_formulir_pendaftaran.nama_mhs', 'ASC')
 									->get();
 			return Response()->json([
 								'status'=>1,

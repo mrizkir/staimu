@@ -145,14 +145,17 @@
 										</v-form>
 									</v-dialog>
 									<v-dialog v-model="dialogpreview" max-width="800px" persistent>										
-										<v-form ref="frmpreview" v-model="form_valid" lazy-validation>
+										<v-form ref="frmpreview" v-model="form_valid_preview" lazy-validation>
 											<v-card>
 												<v-card-title>
 													<span class="headline">PREVIEW NILAI</span>
 												</v-card-title>
 												<v-card-text>
+													<v-alert type="info">
+														Mohon dicentang mahasiswa yang akan disimpan nilainya.
+													</v-alert>
 													<v-data-table
-														v-model="daftar_nilai"
+														v-model="daftar_nilai_preview"
 														:headers="headers_peserta"
 														:items="daftar_preview"
 														item-key="krsmatkul_id"
@@ -178,8 +181,8 @@
 													<v-btn
 														color="blue darken-1"
 														text
-														@click.stop="saveimpornilai"
-														:disabled="!form_valid || btnLoading"
+														@click.stop="savepreview"
+														:disabled="!form_valid_preview || btnLoading || !daftar_nilai_preview.length > 0"
 													>
 														SIMPAN
 													</v-btn>
@@ -393,6 +396,7 @@
 			],
 			//formdata
 			form_valid: true,
+			form_valid_preview: true,
 			formdata: {
 				file_nilai: null,
 			},			
@@ -406,6 +410,7 @@
 				persen_uas: 40,
 			},
 			daftar_nilai: [],
+			daftar_nilai_preview: [],
 			daftar_preview: [],		
 			waktu_mulai_isi_nilai: null,
 			waktu_selesai_isi_nilai: null,
@@ -464,6 +469,45 @@
 							this.dialogpreview = true;
 						})
 						.catch(() => {
+							this.btnLoading = false;
+						});
+				}
+			},
+			async savepreview() {
+				if (this.$refs.frmpreview.validate()) {
+					this.btnLoadingTable = true;
+					this.btnLoading = true;
+					var daftar_nilai = [];
+
+					this.daftar_nilai_preview.forEach(item => {
+						daftar_nilai.push({
+							krsmatkul_id: item.krsmatkul_id,
+							nilai_absen: item.nilai_absen,
+							nilai_tugas_individu: item.nilai_tugas_individu,
+							nilai_uts: item.nilai_uts,
+							nilai_uas: item.nilai_uas,
+							n_kuan: item.n_kuan,
+							n_kual: item.n_kual,
+						});
+					});
+					await this.$ajax
+						.post(
+							"/akademik/nilai/matakuliah/perdosen/storeperdosen",
+							{
+								kelas_mhs_id: this.kelas_mhs_id,
+								daftar_nilai: JSON.stringify(Object.assign({}, daftar_nilai)),
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.$router.go();
+						})
+						.catch(() => {
+							this.btnLoadingTable = false;
 							this.btnLoading = false;
 						});
 				}
@@ -535,11 +579,9 @@
 				}
 				props.item.n_kual = n_kual;
 			},
-			async saveimpornilai() {
-				console.log(this.daftar_preview);
-			},
 			async save() {
 				this.btnLoadingTable = true;
+				this.btnLoading = true;
 				var daftar_nilai = [];
 
 				this.daftar_nilai.forEach(item => {
@@ -571,6 +613,7 @@
 					})
 					.catch(() => {
 						this.btnLoadingTable = false;
+						this.btnLoading = false;
 					});
 			},
 			isbydosen(bool) {
