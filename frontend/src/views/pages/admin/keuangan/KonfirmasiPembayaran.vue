@@ -483,13 +483,13 @@
 														<v-card-title>CREATED/UPDATED :</v-card-title>
 														<v-card-subtitle>
 															{{
-																$date(data_transaksi.created_at).format(
+																$date(data_konfirmasi.created_at).format(
 																	"DD/MM/YYYY HH:mm"
 																)
 															}}
 															-
 															{{
-																$date(data_transaksi.updated_at).format(
+																$date(data_konfirmasi.updated_at).format(
 																	"DD/MM/YYYY HH:mm"
 																)
 															}}
