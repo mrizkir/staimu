@@ -2,7 +2,7 @@
     <KeuanganLayout :showrightsidebar="false">
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-video-input-component
+                mdi-account-cash
             </template>
             <template v-slot:name>
                 TRANSAKSI SPP

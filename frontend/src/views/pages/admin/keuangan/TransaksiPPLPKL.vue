@@ -2,10 +2,10 @@
 	<KeuanganLayout>
 		<ModuleHeader>
 			<template v-slot:icon>
-				mdi-video-input-component
+				mdi-account-cash
 			</template>
 			<template v-slot:name>
-				TRANSAKSI UJIAN MUNAQASAH
+				TRANSAKSI PPL / PKL
 			</template>
 			<template v-slot:subtitle>
 				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
@@ -21,7 +21,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman ini digunakan untuk melakukan transaksi Ujian Munaqasah.
+					Halaman ini digunakan untuk melakukan transaksi Ujian PPL / PKL.
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -225,15 +225,15 @@
 							</v-icon>
 						</template>
 						<template v-slot:no-data>
-							Data transaksi Ujian Munaqasah belum tersedia
+							Data transaksi Ujian PPL / PKL belum tersedia
 						</template>
 					</v-data-table>
 				</v-col>
 			</v-row>
 		</v-container>
 		<dialog-printout
-			pid="ujianmunaqasah"
-			title="Ujian Munaqasah"
+			pid="pplpkl"
+			title="Ujian PPL / PKL"
 			ref="dialogprint"
 		>
 		</dialog-printout>
@@ -245,7 +245,7 @@
 	import Filter6 from "@/components/sidebar/FilterMode6";
 	import DialogPrintoutKeuangan from "@/components/DialogPrintoutKeuangan";
 	export default {
-		name: "TransaksiPKLPPL",
+		name: "TransaksiPPLPKL",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -260,7 +260,7 @@
 					href: "/keuangan",
 				},
 				{
-					text: "TRANSAKSI PKL/PPL",
+					text: "TRANSAKSI PPL / PKL",
 					disabled: true,
 					href: "#",
 				},
@@ -358,7 +358,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/keuangan/transaksi-ujianmunaqasah",
+						"/keuangan/transaksi-pplpkl",
 						{
 							ta: this.tahun_akademik,
 							semester_akademik: this.semester_akademik,
@@ -396,7 +396,7 @@
 			},
 			viewItem(item) {
 				this.$router.push(
-					"/keuangan/transaksi-ujianmunaqasah/" + item.transaksi_id
+					"/keuangan/transaksi-pplpkl/" + item.transaksi_id
 				);
 			},
 			save: async function() {
@@ -404,7 +404,7 @@
 					this.btnLoading = true;
 					await this.$ajax
 						.post(
-							"/keuangan/transaksi-ujianmunaqasah/store",
+							"/keuangan/transaksi-pplpkl/store",
 							{
 								nim: this.formdata.nim,
 								semester_akademik: this.formdata.semester_akademik,
@@ -440,7 +440,7 @@
 				this.$root.$confirm
 					.open(
 						"Delete",
-						"Apakah Anda ingin menghapus data transaksi ujian munaqasah dengan ID " +
+						"Apakah Anda ingin menghapus data transaksi PPL / PKL dengan ID " +
 							item.id +
 							" ?",
 						{ color: "red", width: "500px" }
@@ -450,7 +450,7 @@
 							this.btnLoading = true;
 							this.$ajax
 								.post(
-									"/keuangan/transaksi-ujianmunaqasah/" + item.transaksi_id,
+									"/keuangan/transaksi-pplpkl/" + item.transaksi_id,
 									{
 										_method: "DELETE",
 									},
@@ -525,7 +525,7 @@
 							this.datatableLoading = true;
 							await this.$ajax
 								.post(
-									"/keuangan/transaksi-ujianmunaqasah",
+									"/keuangan/transaksi-pplpkl",
 									{
 										ta: this.tahun_akademik,
 										semester_akademik: this.semester_akademik,

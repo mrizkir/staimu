@@ -279,6 +279,20 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item
+					link
+					v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-PKL_BROWSE')"
+					to="/keuangan/transaksi-pplpkl"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							PPL / PKL
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-subheader
 					v-if="dashboard != 'mahasiswabaru' && dashboard != 'mahasiswa'"
 				>

@@ -306,6 +306,11 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/keuangan/transaksi-ujianmunaqasah',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@index','as'=>'transaksi-ujianmunaqasah.index']);
 	$router->post('/keuangan/transaksi-ujianmunaqasah/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@store','as'=>'transaksi-ujianmunaqasah.store']);
 	$router->delete('/keuangan/transaksi-ujianmunaqasah/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@destroy','as'=>'transaksi-ujianmunaqasah.destroy']);
+	
+	//keuangan - transaksi ppl / pkl
+	$router->post('/keuangan/transaksi-pplpkl',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiPPLPKLController@index','as'=>'transaksi-pplpkl.index']);
+	$router->post('/keuangan/transaksi-pplpkl/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiPPLPKLController@store','as'=>'transaksi-pplpkl.store']);
+	$router->delete('/keuangan/transaksi-pplpkl/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiPPLPKLController@destroy','as'=>'transaksi-pplpkl.destroy']);
 
 	//keuangan - konfirmasi pembayaran
 	$router->post('/keuangan/konfirmasipembayaran',['middleware'=>['role:superadmin|keuangan|mahasiswa|mahasiswabaru'],'uses'=>'Keuangan\KonfirmasiPembayaranController@index','as'=>'konfirmasipembayaran.index']);

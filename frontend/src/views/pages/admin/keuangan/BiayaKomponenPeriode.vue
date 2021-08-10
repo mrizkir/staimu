@@ -2,7 +2,7 @@
 	<KeuanganLayout :showrightsidebar="dashboard!='mahasiswa'&&dashboard!='mahasiswabaru'">
 		<ModuleHeader>
 			<template v-slot:icon>
-				mdi-video-input-component
+				mdi-triforce
 			</template>
 			<template v-slot:name>
 				BIAYA KOMPONEN PER PERIODE

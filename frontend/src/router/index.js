@@ -510,6 +510,16 @@ const routes = [
 		component: () => import("../views/pages/admin/keuangan/TransaksiKKN.vue"),
 	},
 	{
+		path: "/keuangan/transaksi-kkn/:transaksi_id",
+		name: "KeuanganTransaksiKKNDetail",
+		meta: {
+			title: "KEUANGAN - TRANSAKSI KKN",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiInvoice.vue"),
+	},
+	{
 		path: "/keuangan/transaksi-ujianmunaqasah",
 		name: "KeuanganTransaksiUjianMunaqasah",
 		meta: {
@@ -520,10 +530,30 @@ const routes = [
 			import("../views/pages/admin/keuangan/TransaksiUjianMunaqasah.vue"),
 	},
 	{
-		path: "/keuangan/transaksi-kkn/:transaksi_id",
-		name: "KeuanganTransaksiKKNDetail",
+		path: "/keuangan/transaksi-ujianmunaqasah/:transaksi_id",
+		name: "KeuanganTransaksiUjianMunaqasahDetail",
 		meta: {
-			title: "KEUANGAN - TRANSAKSI KKN",
+			title: "KEUANGAN - TRANSAKSI UJIAN MUNAQASAH",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiInvoice.vue"),
+	},
+	{
+		path: "/keuangan/transaksi-pplpkl",
+		name: "KeuanganTransaksiPPLPKL",
+		meta: {
+			title: "KEUANGAN - TRANSAKSI PPL / PKL",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/keuangan/TransaksiPPLPKL.vue"),
+	},
+	{
+		path: "/keuangan/transaksi-pplpkl/:transaksi_id",
+		name: "KeuanganTransaksiPPLPKLDetail",
+		meta: {
+			title: "KEUANGAN - TRANSAKSI PPL / PKL",
 			requiresAuth: true,
 		},
 		component: () =>

@@ -13,13 +13,13 @@ use Exception;
 
 use Ramsey\Uuid\Uuid;
 
-class TransaksiUjianMunaqasahController extends Controller {  
+class TransaksiPPLPKLController extends Controller {  
   /**
    * daftar komponen biaya
    */
   public function index(Request $request)
   {
-      $this->hasPermissionTo('KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH_BROWSE');
+      $this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_BROWSE');
       
       if ($this->hasRole(['mahasiswa','mahasiswabaru']))
       {
@@ -64,7 +64,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                                   ->where('pe3_transaksi.ta',$ta)
                                                   ->where('pe3_transaksi.idsmt',$idsmt)
                                                   ->where('pe3_transaksi_detail.user_id', $this->getUserid())
-                                                  ->where('pe3_transaksi_detail.kombi_id',601)        
+                                                  ->where('pe3_transaksi_detail.kombi_id',301)        
                                                   ->orderBy('pe3_transaksi.tanggal','DESC')
                                                   ->get();
       }
@@ -110,7 +110,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                                   ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
                                                   ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
                                                   ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
-                                                  ->where('pe3_transaksi_detail.kombi_id',601)        
+                                                  ->where('pe3_transaksi_detail.kombi_id',301)        
                                                   ->orderBy('pe3_transaksi.tanggal','DESC');                                               
 
           if ($request->has('SEARCH'))
@@ -139,7 +139,7 @@ class TransaksiUjianMunaqasahController extends Controller {
    */
   public function store (Request $request)
   {
-      $this->hasPermissionTo('KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH_STORE');
+      $this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_STORE');
 
       $this->validate($request, [           
           'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
@@ -160,7 +160,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                           ->where('pe3_transaksi.ta',$ta)
                                           ->where('pe3_transaksi.idsmt',$semester_akademik)
                                           ->where('pe3_transaksi.nim',$nim)
-                                          ->where('pe3_transaksi_detail.kombi_id',601)
+                                          ->where('pe3_transaksi_detail.kombi_id',301)
                                           ->where(function($query) {
                                               $query->where('pe3_transaksi.status',0)
                                                   ->orWhere('pe3_transaksi.status', 1);
@@ -184,16 +184,16 @@ class TransaksiUjianMunaqasahController extends Controller {
           $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
                                                   ->where('idkelas',$idkelas)
                                                   ->where('kjur',$kjur)
-                                                  ->where('kombi_id',601)
+                                                  ->where('kombi_id',301)
                                                   ->value('biaya');
           
           if (!($biaya_kombi > 0))
           {
-              throw new Exception ("Komponen Biaya Ujian Munaqasah (601) belum disetting pada TA $tahun");  
+              throw new Exception ("Komponen Biaya PPL / PKL (301) belum disetting pada TA $tahun");  
           }
 
           $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
-              $no_transaksi='601'.date('YmdHms');
+              $no_transaksi='301'.date('YmdHms');
               $transaksi=TransaksiModel::create([
                   'id'=>Uuid::uuid4()->toString(),
                   'user_id'=>$mahasiswa->user_id,
@@ -216,15 +216,15 @@ class TransaksiUjianMunaqasahController extends Controller {
                   'user_id'=>$mahasiswa->user_id,
                   'transaksi_id'=>$transaksi->id,
                   'no_transaksi'=>$transaksi->no_transaksi,
-                  'kombi_id'=>601,
-                  'nama_kombi'=>'UJIAN MUNAQASAH',
+                  'kombi_id'=>301,
+                  'nama_kombi'=>'PPL / PKL',
                   'biaya'=>$biaya_kombi,
                   'jumlah'=>1,
                   'sub_total'=>$biaya_kombi    
               ]);
 
               $transaksi->total=$biaya_kombi;
-              $transaksi->desc='UJIAN MUNAQASAH '.$request->input('ta').$request->input('semester_akademik');
+              $transaksi->desc='PPL / PKL '.$request->input('ta').$request->input('semester_akademik');
               $transaksi->save();
 
               return $transaksi;
@@ -235,7 +235,7 @@ class TransaksiUjianMunaqasahController extends Controller {
                                       'status'=>1,
                                       'pid'=>'store',       
                                       'transaksi'=>$transaksi,
-                                      'message'=>'Transaksi Ujian Munaqasah berhasil di input.'
+                                      'message'=>'Transaksi PPL / PKL berhasil di input.'
                                   ], 200); 
       }
       catch (Exception $e)
@@ -249,50 +249,50 @@ class TransaksiUjianMunaqasahController extends Controller {
   }
   public function destroy(Request $request,$id)
   {
-      $this->hasPermissionTo('KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH_DESTROY');
+    $this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_DESTROY');
 
-      if ($this->hasRole('mahasiswa'))
-      {
-          $transaksi = TransaksiModel::where('user_id', $this->getUserid())
-                                      ->find($id); 
-      }
-      else
-      {
-          $transaksi = TransaksiModel::find($id); 
-      }        
+    if ($this->hasRole('mahasiswa'))
+    {
+      $transaksi = TransaksiModel::where('user_id', $this->getUserid())
+                                  ->find($id); 
+    }
+    else
+    {
+      $transaksi = TransaksiModel::find($id); 
+    }        
 
-      if (is_null($transaksi))
-      {
-          return Response()->json([
-                                  'status'=>0,
-                                  'pid'=>'destroy',           
-                                  'transaksi'=>$transaksi,     
-                                  'message'=>["Transaksi ujian munaqasah dengan ($id) gagal dihapus"]
-                              ], 422); 
-      }
-      else if ($transaksi->status==0)
-      {
-          \App\Models\System\ActivityLog::log($request,[
-                                                          'object' => $transaksi, 
-                                                          'object_id' => $transaksi->id, 
-                                                          'user_id' => $this->getUserid(), 
-                                                          'message' => 'Menghapus transaksi ujian munaqasah dengan id ('.$id.') berhasil'
-                                                      ]);
-          $transaksi->delete();
-          return Response()->json([
-                                      'status'=>1,
-                                      'pid'=>'destroy',    
-                                      'message'=>"transaksi ujian munaqasah dengan id ($id) berhasil dihapus"
-                                  ], 200);    
-      }
-      else
-      {
-          return Response()->json([
+    if (is_null($transaksi))
+    {
+      return Response()->json([
+                              'status'=>0,
+                              'pid'=>'destroy',           
+                              'transaksi'=>$transaksi,     
+                              'message'=>["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
+                          ], 422); 
+    }
+    else if ($transaksi->status==0)
+    {
+      \App\Models\System\ActivityLog::log($request,[
+                                                      'object' => $transaksi, 
+                                                      'object_id' => $transaksi->id, 
+                                                      'user_id' => $this->getUserid(), 
+                                                      'message' => 'Menghapus transaksi ppl / pkl dengan id ('.$id.') berhasil'
+                                                  ]);
+      $transaksi->delete();
+      return Response()->json([
                                   'status'=>1,
-                                  'pid'=>'destroy',           
-                                  'transaksi'=>$transaksi,     
-                                  'message'=>["Transaksi ujian munaqasah dengan ($id) gagal dihapus"]
-                              ], 422); 
-      }
+                                  'pid'=>'destroy',    
+                                  'message'=>"transaksi ppl / pkl dengan id ($id) berhasil dihapus"
+                              ], 200);    
+    }
+    else
+    {
+      return Response()->json([
+                              'status'=>1,
+                              'pid'=>'destroy',           
+                              'transaksi'=>$transaksi,     
+                              'message'=>["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
+                          ], 422); 
+    }
   }
 }

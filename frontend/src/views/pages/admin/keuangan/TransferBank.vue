@@ -2,7 +2,7 @@
     <KeuanganLayout>
         <ModuleHeader>
             <template v-slot:icon>
-                mdi-google-classroom
+                mdi-account-cash
             </template>
             <template v-slot:name>
                 TRANSFER BANK
