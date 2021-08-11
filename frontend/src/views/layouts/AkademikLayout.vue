@@ -709,7 +709,8 @@
 							"
 							disabled
 							:to="{
-								path: '/akademik/perkuliahan/pembagiankelas/' + paramid + '/ubah',
+								path:
+									'/akademik/perkuliahan/pembagiankelas/' + paramid + '/ubah',
 							}"
 						>
 							<v-list-item-icon class="mr-2">
@@ -720,7 +721,7 @@
 									UBAH KELAS
 								</v-list-item-title>
 							</v-list-item-content>
-						</v-list-item>					
+						</v-list-item>
 						<v-list-item
 							link
 							v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_STORE')"
@@ -749,6 +750,27 @@
 					</div>
 					<v-divider />
 				</v-list-group>
+				<v-divider />
+				<v-divider />
+				<v-list-item
+					link
+					to="/akademik/perkuliahan/pplpkl"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-network</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							PPL / PKL
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-list-item
 					link
 					to="/akademik/perkuliahan/ujianmunaqasah"

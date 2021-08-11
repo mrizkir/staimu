@@ -38,6 +38,7 @@ class MatakuliahModel extends Model {
         'sks_praktikum',
         'sks_praktik_lapangan',
         'minimal_nilai',
+        'syarat_pplpkl',
         'syarat_skripsi',
         'status',
         'ta',

@@ -962,6 +962,17 @@ const routes = [
 				"../views/pages/admin/akademik/PerkuliahanPembagianKelasPeserta.vue"
 			),
 	},
+	//akademik - perkuliahan - ppl/pkl
+	{
+		path: "/akademik/perkuliahan/pplpkl",
+		name: "PerkuliahanPPLPKL",
+		meta: {
+			title: "AKADEMIK - SYARAT PPL / PKL",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/akademik/PerkuliahanPPLPKL.vue"),
+	},
 	//akademik - perkuliahan - ujian munaqasah
 	{
 		path: "/akademik/perkuliahan/ujianmunaqasah",
