@@ -54,7 +54,7 @@ class MatakuliahController extends Controller {
 									'pid'=>'fetchdata',  
 									'matakuliah'=>$matakuliah,
 									'message'=>'Fetch data matakuliah berhasil.'
-								], 200);
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
 	 * digunakan untuk mendapatkan detail matakuliah
@@ -89,7 +89,7 @@ class MatakuliahController extends Controller {
 									'pid'=>'fetchdata',    
 									'matakuliah'=>$matakuliah,    
 									'message'=>'Data matakuliah dengan id ('.$id.') berhasil diperoleh.'
-								], 200); 
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 
 		}
 	}
@@ -178,7 +178,7 @@ class MatakuliahController extends Controller {
 									'pid'=>'store',    
 									'matakuliah'=>$matakuliah,    
 									'message'=>'Data matakuliah berhasil disimpan.'
-								], 200); 
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 
 	}
 	/**
@@ -283,7 +283,7 @@ class MatakuliahController extends Controller {
 								'pid'=>'store',  
 								'matakuliah'=>$matakuliah,
 								'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
-							], 200);
+							], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -388,7 +388,7 @@ class MatakuliahController extends Controller {
 									'pid'=>'update',
 									'matakuliah'=>$matakuliah,      
 									'message'=>'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
-								], 200); 
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 		}
 	}   
 	/**
@@ -473,6 +473,6 @@ class MatakuliahController extends Controller {
 									'pid'=>'fetchdata',  
 									'matakuliah'=>$matakuliah,
 									'message'=>'Fetch data matakuliah berhasil.'
-								], 200);
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 }
