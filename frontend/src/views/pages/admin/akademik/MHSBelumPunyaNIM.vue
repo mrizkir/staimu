@@ -48,7 +48,7 @@
                 <v-col cols="12">
                     <v-data-table
                         :headers="headers"
-                        :item="datatable"
+                        :items="datatable"
                         :search="search"
                         item-key="user_id"   
                         show-expand
