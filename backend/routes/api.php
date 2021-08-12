@@ -479,6 +479,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->get('/akademik/perkuliahan/pembagiankelas/nilaikomponen/{id}',['uses'=>'Akademik\PembagianKelasController@nilaikomponen','as'=>'pembagiankelas.nilaikomponen']);
 	$router->post('/akademik/perkuliahan/pembagiankelas/storenilai',['middleware'=>['role:dosen'],'uses'=>'Akademik\PembagianKelasController@storenilai','as'=>'pembagiankelas.storenilai']);
 
+	//akademik - perkuliahan - ppl / pkl
+	$router->post('/akademik/perkuliahan/pplpk',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PPLPKLController@index','as'=>'pplpkl.index']);
+
 	//akademik - perkuliahan - ujian munaqasah
 	$router->post('/akademik/perkuliahan/ujianmunaqasah',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@index','as'=>'ujianmunaqasah.index']);
 	//id disini nim

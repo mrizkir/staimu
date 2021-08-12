@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUjianMunaqasahTable extends Migration
+class CreatePplpklTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -14,13 +14,25 @@ class CreateUjianMunaqasahTable extends Migration
 	public function up()
 	{
 		Schema::defaultStringLength(191);
-		Schema::create('pe3_ujian_munaqasah', function (Blueprint $table) {
+		Schema::create('pe3_pplpkl', function (Blueprint $table) {
 			$table->uuid('id')->primary();
 			$table->uuid('user_id');
-			$table->string('judul_skripsi');
-			$table->text('abstrak');
-			$table->uuid('pembimbing_1')->nullable();
-			$table->uuid('pembimbing_2')->nullable();
+      $table->uuid('pembimbing_1')->nullable();
+			
+      $table->string('tempat_pplpkl');
+
+      $table->string('address1_desa_id',10)->nullable(); 
+      $table->string('address1_kelurahan')->nullable(); 
+      $table->string('address1_kecamatan_id',7)->nullable(); 
+      $table->string('address1_kecamatan')->nullable(); 
+      $table->string('address1_kabupaten_id',4)->nullable(); 
+      $table->string('address1_kabupaten')->nullable(); 
+      $table->string('address1_provinsi_id',2)->nullable(); 
+      $table->string('address1_provinsi')->nullable(); 
+      $table->string('alamat_pplpkl')->nullable(); 
+
+			$table->string('size_baju', 5);
+			
 			$table->tinyInteger('status')->default(0);
 			$table->string('keterangan')->nullable();
 
@@ -31,26 +43,18 @@ class CreateUjianMunaqasahTable extends Migration
 			
 			$table->index('user_id');   
 			$table->index('pembimbing_1');
-			$table->index('pembimbing_2');   
-					 
 
 			$table->foreign('user_id')
 				->references('user_id')
 				->on('pe3_register_mahasiswa')
 				->onDelete('cascade')
-				->onUpdate('cascade');         
-
+				->onUpdate('cascade');      
+				
 			$table->foreign('pembimbing_1')
 				->references('user_id')
 				->on('pe3_dosen')
 				->onDelete('set null')
-				->onUpdate('cascade');         
-
-			$table->foreign('pembimbing_2')
-				->references('user_id')
-				->on('pe3_dosen')
-				->onDelete('set null')
-				->onUpdate('cascade');         
+				->onUpdate('cascade');
 
 		});
 	}
@@ -62,6 +66,6 @@ class CreateUjianMunaqasahTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('pe3_persyaratan_ujian_munaqasah');
+		Schema::dropIfExists('pe3_pplpkl');
 	}
 }

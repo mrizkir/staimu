@@ -14,7 +14,7 @@ use App\Models\System\ConfigurationModel;
 
 use Ramsey\Uuid\Uuid;
 
-class UjianMunaqasahController extends Controller
+class PPLPKLController extends Controller
 {
 	private $persyaratan_complete = [];
 	private $persyaratan_verified = [];    
@@ -23,32 +23,30 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
 
-		$daftar_ujian=\DB::table('pe3_ujian_munaqasah AS A')
+		$daftar_pplpkl=\DB::table('pe3_pplpkl AS A')
 						->select(\DB::raw('
 							A.id,
 							B.nim,
 							C.nama_mhs,
-							A.judul_skripsi,
-							A.abstrak,
+							A.tempat_pplpkl,
+							A.alamat_pplpkl,
+							A.size_baju,
 							B.tahun AS tahun_masuk,
-							CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
-							CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                
-							A.pembimbing_1,
-							A.pembimbing_2,
+							CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,							
+							A.pembimbing_1,							
 							A.status,
 							A.created_at,
 							A.updated_at
 						'))
 						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
 						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
-						->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
+						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1');						
 
 		if ($this->hasRole('mahasiswa'))
 		{
-			$daftar_ujian=$daftar_ujian->where('A.user_id', $this->getUserid())
+			$daftar_pplpkl=$daftar_pplpkl->where('A.user_id', $this->getUserid())
 										->get();
 		}
 		else
@@ -58,28 +56,28 @@ class UjianMunaqasahController extends Controller
 				'prodi_id'=>'required'
 			]);
 
-			$daftar_ujian=$daftar_ujian->where('A.ta', $request->input('ta'))
+			$daftar_pplpkl=$daftar_pplpkl->where('A.ta', $request->input('ta'))
 										->where('A.prodi_id', $request->input('prodi_id'))
 										->get();
 		}        
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'fetchdata',  
-									'daftar_ujian'=>$daftar_ujian,
+									'daftar_pplpkl'=>$daftar_pplpkl,
 									'message'=>'Daftar peserta ujian munaqasah berhasil diperoleh' 
 								], 200);  
 		
 	}
 	public function cekpersyaratan(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
 		
 		$this->validate($request, [            
 			'nim'=>'required|exists:pe3_register_mahasiswa,nim',
 		]);
 		$nim = $request->input('nim');   
 		$mahasiswa = RegisterMahasiswaModel::where('nim',$nim)
-											->first();
+      ->first();
 		$user_id = $mahasiswa->user_id;
 
 		$sql = " INSERT INTO 
@@ -143,9 +141,9 @@ class UjianMunaqasahController extends Controller
 	}
 	public function detail (Request $request,$id)
 	{   
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
 
-		$ujian = \DB::table('pe3_ujian_munaqasah AS A')
+		$ujian = \DB::table('pe3_pplpkl AS A')
 						->select(\DB::raw('
 							A.id,
 							A.user_id,
@@ -220,7 +218,7 @@ class UjianMunaqasahController extends Controller
 	}
 	public function show (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -267,7 +265,7 @@ class UjianMunaqasahController extends Controller
 	}  
 	public function upload (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 
 		$ujian_munaqasah = PersyaratanUjianMunaqasahModel::find($id); 
 		
@@ -317,7 +315,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function store (Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 		
 		$this->validate($request, [            
 			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
@@ -359,7 +357,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function update (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
 		
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -422,7 +420,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function verifikasi (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
 		
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -487,7 +485,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function updatepersyaratan (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
 		
 		$persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                  
 		
@@ -520,7 +518,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function destroy(Request $request,$id)
 	{ 
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 
 		$ujian = UjianMunaqasahModel::find($id); 
 		

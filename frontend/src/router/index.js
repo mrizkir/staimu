@@ -967,7 +967,7 @@ const routes = [
 		path: "/akademik/perkuliahan/pplpkl",
 		name: "PerkuliahanPPLPKL",
 		meta: {
-			title: "AKADEMIK - SYARAT PPL / PKL",
+			title: "AKADEMIK - PPL / PKL",
 			requiresAuth: true,
 		},
 		component: () =>

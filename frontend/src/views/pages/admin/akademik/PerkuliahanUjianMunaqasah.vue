@@ -27,7 +27,7 @@
 			<Filter18
 				v-on:changeTahunAkademik="changeTahunAkademik"
 				v-on:changeProdi="changeProdi"
-				ref="Filter18"
+				ref="filter18"
 			/>
 		</template>
 		<v-container fluid>
@@ -301,6 +301,8 @@
 			if (this.$store.getters["uiadmin/getDefaultDashboard"] != "mahasiswa") {
 				this.initialize();
 			}
+			this.firstloading = false;
+			this.$refs.filter18.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			firstloading: true,

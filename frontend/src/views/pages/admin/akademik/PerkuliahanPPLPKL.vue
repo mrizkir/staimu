@@ -19,24 +19,18 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					halaman ini digunakan untuk mengelola PPL / PKL mahasiswa. Penentuan syarat matakuliah PPL / PPL ada di halaman Matakuliah.
+					Halaman ini digunakan untuk mengelola PPL / PKL mahasiswa. Penentuan syarat matakuliah PPL / PPL ada di halaman Matakuliah.
 				</v-alert>
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-			
+			<Filter18
+				v-on:changeTahunAkademik="changeTahunAkademik"
+				v-on:changeProdi="changeProdi"
+				ref="filter18"
+			/>
 		</template>
 		<v-container fluid>
-			<v-row class="mb-4" no-gutters>
-				<v-col cols="12">
-					<v-card>
-						<v-card-title>
-							FILTER
-						</v-card-title>
-						<v-card-text></v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-card>
@@ -70,7 +64,7 @@
 					>
 						<template v-slot:top>
 							<v-toolbar flat color="white">
-								<v-toolbar-title>DATA TABLE</v-toolbar-title>
+								<v-toolbar-title>DAFTAR PESERTA PPL / PKL</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical />
 								<v-spacer></v-spacer>
 								<v-dialog v-model="dialogfrm" max-width="500px" persistent>
@@ -89,7 +83,7 @@
 													<v-icon>mdi-plus</v-icon>
 												</v-btn>
 											</template>
-											<span>Tooltip text</span>
+											<span>Tambah Peserta</span>
 										</v-tooltip>
 									</template>
 									<v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -153,7 +147,7 @@
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>CREATED :</v-card-title>
-												''		<v-card-subtitle>
+														<v-card-subtitle>
 															{{
 																$date(formdata.created_at).format(
 																	"DD/MM/YYYY HH:mm"
@@ -284,6 +278,7 @@
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
+	import Filter18 from "@/components/sidebar/FilterMode18";
 	export default {
 		name: "PAGE",
 		created() {
@@ -294,20 +289,31 @@
 					href: "/dashboard/" + this.$store.getters["auth/AccessToken"],
 				},
 				{
-					text: "PAGE_GROUP",
+					text: "AKADEMIK",
+					disabled: false,
+					href: "/akademik",
+				},
+				{
+					text: "PERKULIAHAN",
 					disabled: false,
 					href: "#",
 				},
 				{
-					text: "PAGE",
+					text: "PPL / PKL",
 					disabled: true,
 					href: "#",
 				},
 			];
+			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
+			this.prodi_id = prodi_id;
+			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
+			
 			this.initialize();
 		},
 		mounted() {
 			this.firstloading = false;
+			this.$refs.filter18.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			firstloading: true,
@@ -320,7 +326,12 @@
 			expanded: [],
 			datatable: [],
 			headers: [
-				{ text: "ID", value: "id" },
+				{ text: "NIM", value: "nim", sortable: true, width: 100 },
+				{ text: "NAMA", value: "nama_mhs", sortable: true, width: 200 },
+				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },
+				{ text: "TEMPAT PPL/PKL", value: "tahun_masuk", sortable: true, width: 170 },
+				{ text: "SIZE BAJU", value: "size_baju", sortable: false, width: 100 },
+				{ text: "PEMBIMBING", value: "dosen_pembimbing_1", sortable: true, width: 170 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			search: "",
@@ -358,16 +369,27 @@
 			],
 		}),
 		methods: {
+			changeTahunAkademik(tahun) {
+				this.tahun_akademik = tahun;
+			},
+			changeProdi(id) {
+				this.prodi_id = id;
+			},
 			initialize: async function() {
 				this.datatableLoading = true;
 				await this.$ajax
-					.get("/path", {
+					.post("/akademik/perkuliahan/pplpk",
+					{
+						prodi_id: this.prodi_id,
+						ta: this.tahun_akademik,
+					},
+					{
 						headers: {
 							Authorization: this.$store.getters["auth/Token"],
 						},
 					})
 					.then(({ data }) => {
-						this.datatable = data.object;
+						this.datatable = data.daftar_pplpkl;
 						this.datatableLoading = false;
 					})
 					.catch(() => {
@@ -499,9 +521,23 @@
 				return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA";
 			},
 		},
+		watch: {
+			tahun_akademik() {
+				if (!this.firstloading) {
+					this.initialize();
+				}
+			},
+			prodi_id(val) {
+				if (!this.firstloading) {
+					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
+					this.initialize();
+				}
+			},
+		},
 		components: {
 			AkademikLayout,
 			ModuleHeader,
+			Filter18,
 		},
 	};
 </script>
