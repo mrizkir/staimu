@@ -193,6 +193,7 @@
 				{ text: "NIRM", value: "nirm", sortable: true, width: 150 },
 				{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },
 				{ text: "KELAS", value: "idkelas", sortable: true, width: 120 },
+				{ text: "TAHUN MASUK", value: "ta", sortable: true, width: 100 },
 				{ text: "STATUS", value: "k_status", sortable: true, width: 120 },
 			],
 			search: "",

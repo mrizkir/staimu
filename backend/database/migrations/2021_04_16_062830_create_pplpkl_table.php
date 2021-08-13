@@ -38,11 +38,14 @@ class CreatePplpklTable extends Migration
 
 			$table->unsignedInteger('prodi_id');   
 			$table->year('ta');
+			$table->tinyinteger('idsmt');
 
 			$table->timestamps();  
 			
 			$table->index('user_id');   
 			$table->index('pembimbing_1');
+			$table->index('ta');
+			$table->index('idsmt');
 
 			$table->foreign('user_id')
 				->references('user_id')

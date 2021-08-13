@@ -275,6 +275,8 @@
 		},
 		mounted() {
 			this.initialize();
+			this.firstloading = false;
+			this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			dashboard: null,
@@ -374,8 +376,6 @@
 						this.datatable = data.transaksi;
 						this.datatableLoading = false;
 					});
-				this.firstloading = false;
-				this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 			},
 			dataTableRowClicked(item) {
 				if (item === this.expanded[0]) {

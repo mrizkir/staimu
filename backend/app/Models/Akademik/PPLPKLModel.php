@@ -43,6 +43,7 @@ class PPLPKLModel extends Model {
 		
 		'prodi_id',
 		'ta',
+		'idsmt',
 	];
 	/**
 	 * enable auto_increment.

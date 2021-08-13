@@ -7,14 +7,28 @@
 		<v-snackbar v-model="snackbar_success" :color="snackbar_color" :top="true">
 			{{ page_message }}<br />
 		</v-snackbar>
-		<v-snackbar v-model="snackbar_error" :color="snackbar_color" :top="true">
+		<v-snackbar v-model="snackbar_error" :color="snackbar_color" :centered="true">
 			{{ page_message }}<br />
 			<div v-for="err in page_form_error_message" v-bind:key="err.name">
-				<strong>{{ err.field }} :</strong>
+				<div class="h3">
+					{{ err.field }} :
+				</div>
 				<div v-for="error in err.error" v-bind:key="error.message">
-					{{ error.message }}
+					<span class="font-weight-bold">{{ error.message }}</span>
 				</div>
 			</div>
+			<template v-slot:action="{ attrs }">
+				<div class="text-center ma-2">
+					<v-btn
+						color="indigo lighten-4"
+						text
+						v-bind="attrs"
+						@click="snackbar_error = false"
+					>
+						Close
+					</v-btn>
+				</div>
+			</template>
 		</v-snackbar>
 		<confirm ref="confirm"></confirm>
 	</v-app>

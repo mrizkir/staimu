@@ -8,7 +8,7 @@
 				PPL / PKL
 			</template>
 			<template v-slot:subtitle>
-				TAHUN AKADEMIK {{ tahun_akademik }} - {{ nama_prodi }}
+				TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,10 +24,11 @@
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-			<Filter18
+			<Filter6
 				v-on:changeTahunAkademik="changeTahunAkademik"
+				v-on:changeSemesterAkademik="changeSemesterAkademik"
 				v-on:changeProdi="changeProdi"
-				ref="filter18"
+				ref="filter6"
 			/>
 		</template>
 		<v-container fluid>
@@ -94,9 +95,10 @@
 											<v-card-text>
 												<v-text-field
 													v-model="formdata.name"
-													label="NAME"
+													label="NIM"
 													outlined
-													:rules="rule_name"
+													:rules="rule_nim"
+													hide-details
 												>
 												</v-text-field>
 											</v-card-text>
@@ -278,9 +280,9 @@
 <script>
 	import AkademikLayout from "@/views/layouts/AkademikLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import Filter18 from "@/components/sidebar/FilterMode18";
+	import Filter6 from "@/components/sidebar/FilterMode6";
 	export default {
-		name: "PAGE",
+		name: "PerkuliahanPPLPKL",
 		created() {
 			this.breadcrumbs = [
 				{
@@ -308,18 +310,19 @@
 			this.prodi_id = prodi_id;
 			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
 			this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
-			
+			this.semester_akademik = this.$store.getters["uiadmin/getSemesterAkademik"];
 			this.initialize();
 		},
 		mounted() {
 			this.firstloading = false;
-			this.$refs.filter18.setFirstTimeLoading(this.firstloading);
+			this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			firstloading: true,
 			prodi_id: null,
 			nama_prodi: null,
 			tahun_akademik: null,
+			semester_akademik: null,
 			
 			btnLoading: false,
 			datatableLoading: false,
@@ -343,34 +346,27 @@
 			//form data
 			form_valid: true,
 			formdata: {
-				id: 0,
-				name: "",
-				created_at: "",
-				updated_at: "",
+				nim: null,				
 			},
 			formdefault: {
-				id: 0,
-				name: "",
-				created_at: "",
-				updated_at: "",
+				nim: null,
 			},
 			editedIndex: -1,
 
 			//form rules
-			rule_user_nomorhp: [
-				value => !!value || "Kode mohon untuk diisi !!!",
+			rule_nim: [
+				value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
 				value =>
-					/^\+[1-9]{1}[0-9]{1,14}$/.test(value) || "Kode hanya boleh angka",
-			],
-			rule_name: [
-				value => !!value || "Mohon untuk di isi name !!!",
-				value =>
-					/^[A-Za-z\s]*$/.test(value) || "Name hanya boleh string dan spasi",
+					/^[0-9]+$/.test(value) ||
+					"Nomor Induk Mahasiswa (NIM) hanya boleh angka",
 			],
 		}),
 		methods: {
 			changeTahunAkademik(tahun) {
 				this.tahun_akademik = tahun;
+			},
+			changeSemesterAkademik(semester) {
+				this.semester_akademik = semester; 
 			},
 			changeProdi(id) {
 				this.prodi_id = id;
@@ -382,6 +378,7 @@
 					{
 						prodi_id: this.prodi_id,
 						ta: this.tahun_akademik,
+						semester_akademik: this.semester_akademik,
 					},
 					{
 						headers: {
@@ -406,7 +403,7 @@
 			viewItem(item) {
 				this.formdata = item;
 				this.dialogdetailitem = true;
-				// this.$ajax.get("/path/"+item.id,{
+				// this.$ajax.get("/akademik/perkuliahan/pplpk/"+item.id,{
 				//     headers: {
 				//         Authorization: this.$store.getters["auth/Token"],
 				//     }
@@ -424,7 +421,7 @@
 					if (this.editedIndex > -1) {
 						await this.$ajax
 							.post(
-								"/path/" + this.formdata.id,
+								"/akademik/perkuliahan/pplpk/" + this.formdata.id,
 								{
 									_method: "PUT",
 									name: this.formdata.name,
@@ -446,7 +443,7 @@
 					} else {
 						await this.$ajax
 							.post(
-								"/path/store",
+								"/akademik/perkuliahan/pplpk/store",
 								{
 									name: this.formdata.name,
 								},
@@ -479,7 +476,7 @@
 							this.btnLoading = true;
 							this.$ajax
 								.post(
-									"/path/" + item.id,
+									"/akademik/perkuliahan/pplpk/" + item.id,
 									{
 										_method: "DELETE",
 									},
@@ -527,6 +524,11 @@
 					this.initialize();
 				}
 			},
+			semester_akademik() {
+				if (!this.firstloading) {
+					this.initialize();
+				}
+			},
 			prodi_id(val) {
 				if (!this.firstloading) {
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
@@ -537,7 +539,7 @@
 		components: {
 			AkademikLayout,
 			ModuleHeader,
-			Filter18,
+			Filter6,
 		},
 	};
 </script>

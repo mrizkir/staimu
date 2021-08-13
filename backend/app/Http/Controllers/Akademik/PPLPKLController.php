@@ -52,11 +52,13 @@ class PPLPKLController extends Controller
 		else
 		{
 			$this->validate($request, [
-				'ta'=>'required',    
+				'ta'=>'required',
+				'semester_akademik'=>'required',
 				'prodi_id'=>'required'
 			]);
 
 			$daftar_pplpkl=$daftar_pplpkl->where('A.ta', $request->input('ta'))
+										->where('A.idsmt', $request->input('semester_akademik'))
 										->where('A.prodi_id', $request->input('prodi_id'))
 										->get();
 		}        
