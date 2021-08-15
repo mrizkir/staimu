@@ -195,18 +195,53 @@ class TransaksiPPLPKLController extends Controller {
 			  throw new Exception ("Komponen Biaya PPL / PKL (301) belum disetting pada TA $tahun");  
 		  }
 
-			$jumlah_syarat = \DB::table('pe3_matakuliah')
+			$syarat_matkul = \DB::table('pe3_matakuliah')
+				->select(\DB::raw('id, kmatkul, nmatkul'))
 				->where('ta', $tahun)
 				->where('kjur', $kjur)
 				->where('syarat_pplpkl', 1)
-				->count();
+				->get();
 
-			if (!($jumlah_syarat > 0))
+			$jumlah_syarat_matkul = $syarat_matkul->count();
+			if (!($jumlah_syarat_matkul > 0))
 			{
 				throw new Exception ("Syarat matakuliah PPL / PKL belum disetting pada halaman Matakuliah TA $tahun");
 			}
+			$daftar_syarat = $syarat_matkul->pluck('id')->toArray();
 
-		  $transaksi = \DB::transaction(function () use ($request,$mahasiswa,$biaya_kombi) {
+			$matkul_lulus = \DB::table('pe3_matakuliah AS A')
+				->select(\DB::raw('A.kmatkul, A.nmatkul, D.n_mutu'))
+				->join('pe3_penyelenggaraan AS B', 'A.id', 'B.matkul_id')
+				->join('pe3_krsmatkul AS C', 'C.penyelenggaraan_id', 'B.id')
+				->join('pe3_nilai_matakuliah AS D', 'D.krsmatkul_id', 'C.id')
+				->whereIn('A.id', $daftar_syarat)
+				->where('A.ta', $tahun)
+				->where('A.kjur', $kjur)
+				->where('A.syarat_pplpkl', 1)
+				->where('C.batal', 0)
+				->where('D.user_id_mhs', $mahasiswa->user_id)
+				->get();
+
+			$jumlah_matkul_lulus = $matkul_lulus->count();
+
+			if (!($jumlah_matkul_lulus > 0))
+			{
+				throw new Exception ("Matakuliah prasyarat PPL / PKL belum dikontrak di KRS atau statusnya dibatalkan");
+			}
+
+			if ($jumlah_matkul_lulus < $jumlah_syarat_matkul) {
+				throw new Exception ("Matakuliah prasyarat PPL / PKL yang lulus ($jumlah_matkul_lulus) harus sama dengan matakuliah syarat PPL / PKL ($jumlah_syarat_matkul)");
+			}
+
+			foreach($matkul_lulus as $v)
+			{
+				if ($v->n_mutu < 16)
+				{
+					throw new Exception ("Nilai Matakuliah Prasyarat PPL / PKL yaitu $v->nmatkul[$v->kmatkul] TIDAK LULUS");
+				}
+			}
+
+		  $transaksi = \DB::transaction(function () use ($request, $mahasiswa, $biaya_kombi) {
 			  $no_transaksi='301'.date('YmdHms');
 			  $transaksi=TransaksiModel::create([
 				  'id'=>Uuid::uuid4()->toString(),
@@ -249,15 +284,38 @@ class TransaksiPPLPKLController extends Controller {
 									  'status'=>1,
 									  'pid'=>'store',       
 									  'transaksi'=>$transaksi,
+										'daftar_syarat'=>$daftar_syarat,
 									  'message'=>'Transaksi PPL / PKL berhasil di input.'
 								  ], 200); 
 	  }
 	  catch (Exception $e)
 	  {
+			if ($jumlah_syarat_matkul > 0)
+			{
+				$persyaratan_matkul='';
+				$i = 0;
+				foreach($syarat_matkul as $v)
+				{
+					if ($i < ($jumlah_syarat_matkul - 1))
+					{
+						$persyaratan_matkul .= ($i + 1) . ". $v->nmatkul [$v->kmatkul], ";
+					}
+					else
+					{
+						$persyaratan_matkul .= ($i + 1) . ". $v->nmatkul [$v->kmatkul]";
+					}
+					$i += 1;
+				}
+			}
+			else 
+			{
+				$persyaratan_matkul = '-';
+			}
 		  return Response()->json([
 			  'status'=>0,
-			  'pid'=>'store',               
-			  'message'=>[$e->getMessage()]
+			  'pid'=>'store',
+			  'message'=>[$e->getMessage()],
+				'matakuliah syarat'=>$persyaratan_matkul,
 		  ], 422); 
 	  }        
   }
