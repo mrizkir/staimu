@@ -25,6 +25,7 @@ class PPLPKLModel extends Model {
 	protected $fillable = [
 		'id',        
 		'user_id',
+		'pembimbing_1',
 		'tempat_pplpkl',
 		'address1_desa_id',
 		'address1_kelurahan',

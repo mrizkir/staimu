@@ -481,6 +481,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 
 	//akademik - perkuliahan - ppl / pkl
 	$router->post('/akademik/perkuliahan/pplpk',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PPLPKLController@index','as'=>'pplpkl.index']);
+	$router->post('/akademik/perkuliahan/pplpk/store',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PPLPKLController@store','as'=>'pplpkl.store']);
+	$router->delete('/akademik/perkuliahan/pplpk/{id}',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\PPLPKLController@destroy','as'=>'pplpkl.destroy']);
 
 	//akademik - perkuliahan - ujian munaqasah
 	$router->post('/akademik/perkuliahan/ujianmunaqasah',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\UjianMunaqasahController@index','as'=>'ujianmunaqasah.index']);

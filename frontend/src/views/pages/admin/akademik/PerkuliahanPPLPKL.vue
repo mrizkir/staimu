@@ -68,25 +68,25 @@
 								<v-toolbar-title>DAFTAR PESERTA PPL / PKL</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical />
 								<v-spacer></v-spacer>
-								<v-dialog v-model="dialogfrm" max-width="500px" persistent>
-									<template v-slot:activator="{ on: dialog }">
-										<v-tooltip bottom>
-											<template v-slot:activator="{ on: tooltip }">
-												<v-btn
-													color="primary"
-													icon
-													outlined
-													small
-													class="ma-2"
-													v-on="{ ...tooltip, ...dialog }"
-													:disabled="false"
-												>
-													<v-icon>mdi-plus</v-icon>
-												</v-btn>
-											</template>
-											<span>Tambah Peserta</span>
-										</v-tooltip>
+								<v-tooltip bottom>
+									<template v-slot:activator="{ on: attrs }">
+										<v-btn
+											color="primary"
+											icon
+											outlined
+											small
+											class="ma-2"
+											v-bind="attrs"
+											v-on="on"
+											:disabled="false"
+											@click.stop="addItem"
+										>
+											<v-icon>mdi-plus</v-icon>
+										</v-btn>
 									</template>
+									<span>Tambah Peserta</span>
+								</v-tooltip>								
+								<v-dialog v-model="dialogfrm" max-width="500px" persistent>									
 									<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 										<v-card>
 											<v-card-title>
@@ -94,13 +94,84 @@
 											</v-card-title>
 											<v-card-text>
 												<v-text-field
-													v-model="formdata.name"
+													v-model="formdata.nim"
 													label="NIM"
 													outlined
-													:rules="rule_nim"
-													hide-details
+													:rules="rule_nim"													
 												>
 												</v-text-field>
+												<v-text-field
+													v-model="formdata.tempat_pplpkl"
+													label="TEMPAT PPL/PKL"
+													outlined
+													:rules="rule_tempat"													
+												>
+												</v-text-field>
+												<v-select
+													label="PROVINSI"
+													:items="daftar_provinsi"
+													v-model="provinsi_id"
+													item-text="nama"
+													item-value="id"
+													return-object
+													:loading="btnLoadingProv"
+													outlined
+												/>
+												<v-select
+													label="KABUPATEN/KOTA"
+													:items="daftar_kabupaten"
+													v-model="kabupaten_id"
+													item-text="nama"
+													item-value="id"
+													return-object
+													:loading="btnLoadingKab"
+													outlined
+												/>
+												<v-select
+													label="KECAMATAN"
+													:items="daftar_kecamatan"
+													v-model="kecamatan_id"
+													item-text="nama"
+													item-value="id" 
+													return-object                           
+													outlined
+												/>
+												<v-select
+													label="DESA/KELURAHAN"
+													:items="daftar_desa"
+													v-model="desa_id"
+													item-text="nama"
+													item-value="id"
+													return-object
+													:rules="rule_desa"
+													outlined
+												/>
+												<v-text-field
+													v-model="formdata.alamat_pplpkl"
+													label="ALAMAT TEMPAT PPL / PKL"
+													:rules="rule_alamat_pplpkl"
+													outlined
+												/>
+												<v-select
+													label="SIZE BAJU"
+													:items="daftar_size_baju"
+													v-model="formdata.size_baju"													
+													outlined
+												/>
+												<v-autocomplete
+													label="DOSEN PEMBIMBING I:"
+													v-model="formdata.pembimbing_1"
+													:items="daftar_dosen"
+													item-text="nama_dosen"
+													item-value="id"
+													:rules="rule_dosen_pembimbing"
+													outlined
+												/>
+												<v-textarea
+													v-model="formdata.keterangan"
+													label="CATATAN:"
+													outlined
+												/>
 											</v-card-text>
 											<v-card-actions>
 												<v-spacer></v-spacer>
@@ -332,7 +403,7 @@
 				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NAMA", value: "nama_mhs", sortable: true, width: 200 },
 				{ text: "ANGK.", value: "tahun_masuk", sortable: true, width: 100 },
-				{ text: "TEMPAT PPL/PKL", value: "tahun_masuk", sortable: true, width: 170 },
+				{ text: "TEMPAT PPL/PKL", value: "tempat_pplpkl", sortable: true, width: 170 },
 				{ text: "SIZE BAJU", value: "size_baju", sortable: false, width: 100 },
 				{ text: "PEMBIMBING", value: "dosen_pembimbing_1", sortable: true, width: 170 },
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
@@ -345,11 +416,40 @@
 
 			//form data
 			form_valid: true,
+			btnLoadingProv: false,
+			btnLoadingKab: false,
+			btnLoadingKec: false,
+			daftar_provinsi: [],
+			provinsi_id: 0,
+
+			daftar_kabupaten: [],
+			kabupaten_id: 0,
+
+			daftar_kecamatan: [],
+			kecamatan_id: 0,
+
+			daftar_desa: [],
+			desa_id: 0,
+
+			daftar_size_baju: ["S", "M", "L", "XL", "XXL", "XXXL"],
+
+			daftar_dosen: [],
+
 			formdata: {
-				nim: null,				
+				nim: null,
+				pembimbing_1: null,
+				tempat_pplpkl: null,
+				alamat_pplpkl: null,
+				size_baju: 'M',
+				keterangan: '',
 			},
 			formdefault: {
 				nim: null,
+				pembimbing_1: null,
+				tempat_pplpkl: null,
+				alamat_pplpkl: null,
+				size_baju: 'M',
+				keterangan: '',
 			},
 			editedIndex: -1,
 
@@ -360,13 +460,25 @@
 					/^[0-9]+$/.test(value) ||
 					"Nomor Induk Mahasiswa (NIM) hanya boleh angka",
 			],
+			rule_tempat: [
+				value => !!value || "Tempat PPL / PKL mohon untuk diisi !!!",
+			],
+			rule_desa: [
+				value => !!value || "Mohon Desa mohon untuk diisi !!!"
+			],
+			rule_alamat_pplpkl: [
+				value => !!value || "Alamat Tempat PPL / PKL mohon untuk diisi !!!"
+			],
+			rule_dosen_pembimbing: [
+				value => !!value || "Mohon untuk di pilih dosen pembimbing ke 1 dan 2 !!!",				
+			],
 		}),
 		methods: {
 			changeTahunAkademik(tahun) {
 				this.tahun_akademik = tahun;
 			},
 			changeSemesterAkademik(semester) {
-				this.semester_akademik = semester; 
+				this.semester_akademik = semester;
 			},
 			changeProdi(id) {
 				this.prodi_id = id;
@@ -374,17 +486,19 @@
 			initialize: async function() {
 				this.datatableLoading = true;
 				await this.$ajax
-					.post("/akademik/perkuliahan/pplpk",
-					{
-						prodi_id: this.prodi_id,
-						ta: this.tahun_akademik,
-						semester_akademik: this.semester_akademik,
-					},
-					{
-						headers: {
-							Authorization: this.$store.getters["auth/Token"],
+					.post(
+						"/akademik/perkuliahan/pplpk",
+						{
+							prodi_id: this.prodi_id,
+							ta: this.tahun_akademik,
+							semester_akademik: this.semester_akademik,
 						},
-					})
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
 					.then(({ data }) => {
 						this.datatable = data.daftar_pplpkl;
 						this.datatableLoading = false;
@@ -399,6 +513,23 @@
 				} else {
 					this.expanded = [item];
 				}
+			},
+			async addItem() {
+				await this.$ajax.get("/datamaster/provinsi").then(({ data }) => {
+					this.daftar_provinsi = data.provinsi;					
+				});
+
+				await this.$ajax
+					.get('/system/usersdosen',{
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.daftar_dosen = data.users;
+						this.dialogfrm = true;						
+					});
+
 			},
 			viewItem(item) {
 				this.formdata = item;
@@ -445,7 +576,22 @@
 							.post(
 								"/akademik/perkuliahan/pplpk/store",
 								{
-									name: this.formdata.name,
+									nim: this.formdata.nim,
+									pembimbing_1: this.formdata.pembimbing_1,
+									tempat_pplpkl: this.formdata.tempat_pplpkl,
+									address1_provinsi_id: this.provinsi_id.id,
+									address1_provinsi: this.provinsi_id.nama,
+									address1_kabupaten_id: this.kabupaten_id.id,
+									address1_kabupaten: this.kabupaten_id.nama,
+									address1_kecamatan_id: this.kecamatan_id.id,
+									address1_kecamatan: this.kecamatan_id.nama,
+									address1_desa_id: this.desa_id.id,
+									address1_kelurahan: this.desa_id.nama,
+									alamat_pplpkl: this.formdata.alamat_pplpkl,
+									size_baju: this.formdata.size_baju,
+									keterangan: this.formdata.keterangan,
+									ta: this.tahun_akademik,
+									idsmt: this.semester_akademik,									
 								},
 								{
 									headers: {
@@ -453,8 +599,8 @@
 									},
 								}
 							)
-							.then(({ data }) => {
-								this.datatable.push(data.object);
+							.then(() => {
+								this.initialize();
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})
@@ -468,8 +614,8 @@
 				this.$root.$confirm
 					.open(
 						"Delete",
-						"Apakah Anda ingin menghapus data dengan ID " + item.id + " ?",
-						{ color: "red" }
+						"Apakah Anda ingin menghapus data PPL / PKL dengan ID " + item.id + " ?",
+						{ color: "red", width: "600px" }
 					)
 					.then(confirm => {
 						if (confirm) {
@@ -515,7 +661,7 @@
 		},
 		computed: {
 			formTitle() {
-				return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA";
+				return this.editedIndex === -1 ? "DAFTAR PPL / PKL" : "UBAH DATA";
 			},
 		},
 		watch: {
@@ -533,6 +679,40 @@
 				if (!this.firstloading) {
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
 					this.initialize();
+				}
+			},
+			provinsi_id(val) {
+				if (val.id != null && val.id != "") {
+					this.btnLoadingProv = true;
+					this.$ajax
+						.get("/datamaster/provinsi/" + val.id + "/kabupaten")
+						.then(({ data }) => {
+							this.daftar_kabupaten = data.kabupaten;
+							this.btnLoadingProv = false;
+						});
+					this.daftar_kecamatan = [];
+				}
+			},
+			kabupaten_id(val) {
+				if (val.id != null && val.id != "") {
+					this.btnLoadingKab = true;
+					this.$ajax
+						.get("/datamaster/kabupaten/" + val.id + "/kecamatan")
+						.then(({ data }) => {
+							this.daftar_kecamatan = data.kecamatan;
+							this.btnLoadingKab = false;
+						});
+				}
+			},
+			kecamatan_id(val) {
+				if (val.id != null && val.id != "") {
+					this.btnLoadingKec = true;
+					this.$ajax
+						.get("/datamaster/kecamatan/" + val.id + "/desa")
+						.then(({ data }) => {
+							this.daftar_desa = data.desa;
+							this.btnLoadingKec = false;
+						});
 				}
 			},
 		},

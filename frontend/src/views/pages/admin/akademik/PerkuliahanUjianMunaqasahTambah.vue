@@ -169,7 +169,7 @@
 															item-value="id"
 															:rules="rule_dosen_pembimbing"
 															outlined
-														/> 
+														/>
 														<v-autocomplete
 															label="DOSEN PEMBIMBING II:"
 															v-model="formdata.pembimbing_2"
@@ -178,7 +178,7 @@
 															item-value="id"
 															:rules="rule_dosen_pembimbing"
 															outlined
-														/> 
+														/>
 													</v-card-text>
 													<v-card-actions>
 														<v-spacer></v-spacer>
@@ -484,7 +484,7 @@
 					.then(({ data }) => {
 						this.daftar_dosen = data.users;
 						this.dialogfrm = true;
-					});			
+					});
 			},
 			closedialogfrm() {
 				this.dialogfrm = false; 

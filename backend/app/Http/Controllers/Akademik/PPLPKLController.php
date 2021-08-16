@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
 use App\Models\Akademik\RegisterMahasiswaModel;
-use App\Models\Akademik\UjianMunaqasahModel;
-use App\Models\Akademik\PersyaratanUjianMunaqasahModel;
+use App\Models\Akademik\PPLPKLModel;
+use App\Models\Akademik\PersyaratanPPLPKLModel;
 use App\Models\DMaster\PersyaratanModel;
 
 use App\Models\System\ConfigurationModel;
@@ -122,7 +122,7 @@ class PPLPKLController extends Controller
 		\DB::statement($sql);
 
 		$daftar_persyaratan = $this->persyaratan(
-			PersyaratanUjianMunaqasahModel::select(\DB::raw('
+			PersyaratanPPLPKLModel::select(\DB::raw('
 												*,
 												"" AS nama_status
 											'))
@@ -185,7 +185,7 @@ class PPLPKLController extends Controller
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -195,7 +195,7 @@ class PPLPKLController extends Controller
 												->find($ujian->user_id);
 
 			$daftar_persyaratan = $this->persyaratan(
-				PersyaratanUjianMunaqasahModel::select(\DB::raw('
+				PersyaratanPPLPKLModel::select(\DB::raw('
 													*,
 													"" AS nama_status
 												'))
@@ -244,7 +244,7 @@ class PPLPKLController extends Controller
 			$user_id = $mahasiswa->user_id;
 			
 			$daftar_persyaratan = $this->persyaratan(
-									PersyaratanUjianMunaqasahModel::select(\DB::raw('
+									PersyaratanPPLPKLModel::select(\DB::raw('
 																		*,
 																		"" AS nama_status
 																	'))
@@ -269,14 +269,14 @@ class PPLPKLController extends Controller
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 
-		$ujian_munaqasah = PersyaratanUjianMunaqasahModel::find($id); 
+		$ujian_munaqasah = PersyaratanPPLPKLModel::find($id); 
 		
 		if (is_null($ujian_munaqasah))
 		{
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'store',    
-									'message'=>["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
+									'message'=>["Data Persyaratan PPL / PKL tidak ditemukan."]
 								], 422);    
 		}
 		else
@@ -298,7 +298,7 @@ class PPLPKLController extends Controller
 											'status'=>0,
 											'pid'=>'store',
 											'persyaratan'=>$ujian_munaqasah->file,    
-											'message'=>"Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
+											'message'=>"Persyaratan PPL / PKL (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
 										], 200);    
 			}
 			else
@@ -320,38 +320,50 @@ class PPLPKLController extends Controller
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 		
 		$this->validate($request, [            
-			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
-			'judul_skripsi'=>'required',     
-			'abstrak'=>'required',     
-			'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
-			'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
+			'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
+			'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
+			'tempat_pplpkl'=>'required',     
+			'address1_desa_id'=>'required',
+			'address1_kelurahan'=>'required',     
+			'address1_kecamatan_id'=>'required',     
+			'address1_kecamatan'=>'required',     
+			'address1_kabupaten_id'=>'required',     
+			'address1_kabupaten'=>'required',     
+			'address1_provinsi_id'=>'required',     
+			'address1_provinsi'=>'required',
+			'alamat_pplpkl'=>'required',     
+			'size_baju'=>'required',
 			'ta'=>'required',     
+			'idsmt'=>'required',    
 		]);
 		
-		$mahasiswa = RegisterMahasiswaModel::find($request->input('user_id'));
+		$mahasiswa = RegisterMahasiswaModel::where('nim', $request->input('nim'))->first();
 
-		$ujian = UjianMunaqasahModel::create([
+		$pplpkl = PPLPKLModel::create([
 			'id'=>Uuid::uuid4()->toString(),
-			'user_id'=>$request->input('user_id'),
-			'judul_skripsi'=>$request->input('judul_skripsi'),
-			'abstrak'=>$request->input('abstrak'),
+			'user_id'=>$mahasiswa->user_id,
 			'pembimbing_1'=>$request->input('pembimbing_1'),
-			'pembimbing_2'=>$request->input('pembimbing_2'),
+			'tempat_pplpkl'=>$request->input('tempat_pplpkl'),
+			'address1_desa_id'=>$request->input('address1_desa_id'),
+			'address1_kelurahan'=>$request->input('address1_kelurahan'),
+			'address1_kecamatan_id'=>$request->input('address1_kecamatan_id'),
+			'address1_kecamatan'=>$request->input('address1_kecamatan'),
+			'address1_kabupaten_id'=>$request->input('address1_kabupaten_id'),
+			'address1_kabupaten'=>$request->input('address1_kabupaten'),
+			'address1_provinsi_id'=>$request->input('address1_provinsi_id'),
+			'address1_provinsi'=>$request->input('address1_provinsi'),
+			'alamat_pplpkl'=>$request->input('alamat_pplpkl'),
+			'size_baju'=>$request->input('size_baju'),
+			'keterangan'=>$request->input('keterangan'),
 			'prodi_id'=>$mahasiswa->kjur,
-			'ta'=>$request->input('ta')
+			'ta'=>$request->input('ta'),
+			'idsmt'=>$request->input('idsmt')
 		]);
-
-		\DB::table('pe3_persyaratan_ujian_munaqasah')
-			->where('user_id', $request->input('user_id'))
-			->update([
-				'ujian_munaqasah_id'=>$ujian->id
-			]);
-
 		return Response()->json([
 									'status'=>1,
 									'pid'=>'store', 
-									'ujian'=>$ujian,                                     
-									'message'=>'Data ujian munaqasah berhasil ditambahkan'
+									'pplpkl'=>$pplpkl,                                     
+									'message'=>'Data PPL / PKL berhasil ditambahkan'
 								], 200);  
 	}
 	/**
@@ -363,13 +375,13 @@ class PPLPKLController extends Controller
 		
 		if ($this->hasRole('mahasiswa'))
 		{
-			$ujian = UjianMunaqasahModel::where('id',$id)
+			$ujian = PPLPKLModel::where('id',$id)
 										->find($id);                                  
 			
 		}
 		else
 		{
-			$ujian = UjianMunaqasahModel::where('id',$id)
+			$ujian = PPLPKLModel::where('id',$id)
 										->find($id);                                  
 		}
 		if (is_null($ujian))
@@ -377,7 +389,7 @@ class PPLPKLController extends Controller
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else if ($ujian->status == 0)
@@ -413,7 +425,7 @@ class PPLPKLController extends Controller
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal diupdate karean sudah diverifikasi"]
+									'message'=>["PPL / PKL dengan ($id) gagal diupdate karean sudah diverifikasi"]
 								], 422); 
 		}
 	}
@@ -426,13 +438,13 @@ class PPLPKLController extends Controller
 		
 		if ($this->hasRole('mahasiswa'))
 		{
-			$ujian = UjianMunaqasahModel::where('id',$id)
+			$ujian = PPLPKLModel::where('id',$id)
 										->find($id);                                  
 			
 		}
 		else
 		{
-			$ujian = UjianMunaqasahModel::where('id',$id)
+			$ujian = PPLPKLModel::where('id',$id)
 										->find($id);                                  
 		}
 		if (is_null($ujian))
@@ -440,7 +452,7 @@ class PPLPKLController extends Controller
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -450,7 +462,7 @@ class PPLPKLController extends Controller
 												->find($ujian->user_id);
 
 			$daftar_persyaratan = $this->persyaratan(
-				PersyaratanUjianMunaqasahModel::select(\DB::raw('
+				PersyaratanPPLPKLModel::select(\DB::raw('
 													*,
 													"" AS nama_status
 												'))
@@ -489,14 +501,14 @@ class PPLPKLController extends Controller
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
 		
-		$persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                  
+		$persyaratan = PersyaratanPPLPKLModel::find($id);                                  
 		
 		if (is_null($persyaratan))
 		{
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'fetchdata',    
-									'message'=>["Data Persyaratan Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'message'=>["Data Persyaratan PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -522,29 +534,30 @@ class PPLPKLController extends Controller
 	{ 
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
 
-		$ujian = UjianMunaqasahModel::find($id); 
+		$pplpkl = PPLPKLModel::find($id); 
 		
-		if (is_null($ujian))
+		if (is_null($pplpkl))
 		{
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus"]
+									'message'=>["PPL / PKL dengan ($id) gagal dihapus"]
 								], 422); 
 		}
-		else if ($ujian->status == 0)
+		else if ($pplpkl->status == 0)
 		{
 			\App\Models\System\ActivityLog::log($request,[
-															'object' => $ujian, 
-															'object_id' => $ujian->id, 
+															'object' => $pplpkl, 
+															'object_id' => $pplpkl->id, 
 															'user_id' => $this->getUserid(), 
-															'message' => 'Menghapus Ujian Munaqasah dengan id ('.$id.') berhasil'
+															'message' => 'Menghapus PPL / PKL dengan id ('.$id.') berhasil'
 														]);
-			$ujian->delete();
+
+			$pplpkl->delete();
 			return Response()->json([
 										'status'=>1,
 										'pid'=>'destroy',    
-										'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
+										'message'=>"PPL / PKL dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
 		else 
@@ -552,7 +565,7 @@ class PPLPKLController extends Controller
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus karean sudah diverifikasi"]
+									'message'=>["PPL / PKL dengan ($id) gagal dihapus karean sudah diverifikasi"]
 								], 422); 
 		}
 				  
