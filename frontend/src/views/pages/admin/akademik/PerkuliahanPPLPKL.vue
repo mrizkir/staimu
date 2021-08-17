@@ -69,7 +69,7 @@
 								<v-divider class="mx-4" inset vertical />
 								<v-spacer></v-spacer>
 								<v-tooltip bottom>
-									<template v-slot:activator="{ on: attrs }">
+									<template v-slot:activator="{ on, attrs }">
 										<v-btn
 											color="primary"
 											icon
@@ -85,7 +85,7 @@
 										</v-btn>
 									</template>
 									<span>Tambah Peserta</span>
-								</v-tooltip>								
+								</v-tooltip>
 								<v-dialog v-model="dialogfrm" max-width="500px" persistent>									
 									<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 										<v-card>
@@ -97,7 +97,8 @@
 													v-model="formdata.nim"
 													label="NIM"
 													outlined
-													:rules="rule_nim"													
+													:rules="rule_nim"
+													:disabled="editedIndex > -1"													
 												>
 												</v-text-field>
 												<v-text-field
@@ -196,7 +197,7 @@
 								</v-dialog>
 								<v-dialog
 									v-model="dialogdetailitem"
-									max-width="500px"
+									max-width="800px"
 									persistent
 								>
 									<v-card>
@@ -219,7 +220,7 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>CREATED :</v-card-title>
+														<v-card-title>DOSEN PEMBIMBING :</v-card-title>
 														<v-card-subtitle>
 															{{
 																$date(formdata.created_at).format(
@@ -237,9 +238,9 @@
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>NAME :</v-card-title>
+														<v-card-title>NIM / NAMA MAHASISWA :</v-card-title>
 														<v-card-subtitle>
-															{{ formdata.name }}
+															{{ formdata.nim }} / {{ formdata.nama_mhs }}
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
@@ -249,8 +250,65 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>UPDATED :</v-card-title>
+														<v-card-title>UKURAN BAJU :</v-card-title>
 														<v-card-subtitle>
+															{{ formdata.size_baju }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+											</v-row>
+											<v-row no-gutters>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>TEMPAT PPL / PKL :</v-card-title>
+														<v-card-subtitle>
+															{{ formdata.tempat_pplpkl }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>STATUS :</v-card-title>
+														<v-card-subtitle>
+															{{ formdata.status }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+											</v-row>
+											<v-row no-gutters>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>ALAMAT PPL / PKL :</v-card-title>
+														<v-card-subtitle>
+															{{ formdata.alamat_pplpkl }}
+														</v-card-subtitle>
+													</v-card>
+												</v-col>
+												<v-responsive
+													width="100%"
+													v-if="$vuetify.breakpoint.xsOnly"
+												/>
+												<v-col xs="12" sm="6" md="6">
+													<v-card flat>
+														<v-card-title>CREATED / UPDATED :</v-card-title>
+														<v-card-subtitle>
+															{{
+																$date(formdata.created_at).format(
+																	"DD/MM/YYYY HH:mm"
+																)
+															}} /
 															{{
 																$date(formdata.updated_at).format(
 																	"DD/MM/YYYY HH:mm"
@@ -279,9 +337,6 @@
 								</v-dialog>
 							</v-toolbar>
 						</template>
-						<template v-slot:item.id="{ item }">
-							{{ item.id }}
-						</template>
 						<template v-slot:item.actions="{ item }">
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -295,7 +350,7 @@
 										mdi-eye
 									</v-icon>
 								</template>
-								<span>Detail Tooltip</span>
+								<span>Detail PPL / PKL</span>
 							</v-tooltip>
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -305,12 +360,12 @@
 										small
 										class="mr-2"
 										@click.stop="editItem(item)"
-										:disabled="true"
+										:disabled="item.status == 1"
 									>
 										mdi-pencil
 									</v-icon>
 								</template>
-								<span>Ubah Tooltip</span>
+								<span>Ubah PPL / PKL</span>
 							</v-tooltip>
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -319,13 +374,13 @@
 										v-on="on"
 										small
 										color="red darken-1"
-										:disabled="btnLoading"
+										:disabled="btnLoading || item.status == 1"
 										@click.stop="deleteItem(item)"
 									>
 										mdi-delete
 									</v-icon>
 								</template>
-								<span>Hapus Tooltip</span>
+								<span>Hapus PPL / PKL</span>
 							</v-tooltip>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
@@ -436,6 +491,7 @@
 			daftar_dosen: [],
 
 			formdata: {
+				id: null,
 				nim: null,
 				pembimbing_1: null,
 				tempat_pplpkl: null,
@@ -444,6 +500,7 @@
 				keterangan: '',
 			},
 			formdefault: {
+				id: null,
 				nim: null,
 				pembimbing_1: null,
 				tempat_pplpkl: null,
@@ -533,18 +590,61 @@
 			},
 			viewItem(item) {
 				this.formdata = item;
-				this.dialogdetailitem = true;
-				// this.$ajax.get("/akademik/perkuliahan/pplpk/"+item.id,{
-				//     headers: {
-				//         Authorization: this.$store.getters["auth/Token"],
-				//     }
-				// 	}).then(({ data }) => {
-				// });
+				this.dialogdetailitem = true;			
 			},
 			editItem(item) {
 				this.editedIndex = this.datatable.indexOf(item);
 				this.formdata = Object.assign({}, item);
 				this.dialogfrm = true;
+
+				this.$ajax.get("/datamaster/provinsi").then(({ data }) => {
+					this.daftar_provinsi = data.provinsi;					
+				});
+
+				this.$ajax
+					.get('/system/usersdosen',{
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {
+						this.daftar_dosen = data.users;
+					});
+
+				this.$ajax
+					.get("/akademik/perkuliahan/pplpk/" + this.formdata.id, {
+						headers: {
+							Authorization: this.$store.getters["auth/Token"],
+						},
+					})
+					.then(({ data }) => {						
+						this.formdata.nim = data.pplpkl.nim;
+						this.formdata.pembimbing_1 = data.pplpkl.pembimbing_1;
+						this.formdata.tempat_pplpkl = data.pplpkl.tempat_pplpkl;
+						this.formdata.alamat_pplpkl = data.pplpkl.alamat_pplpkl;
+						this.formdata.size_baju = data.pplpkl.size_baju;
+						this.formdata.keterangan = data.pplpkl.keterangan;
+
+						this.provinsi_id = {
+							id: "" + data.pplpkl.address1_provinsi_id,
+							nama: "" + data.pplpkl.address1_provinsi
+						};
+						this.kabupaten_id = {
+							id: "" + data.pplpkl.address1_kabupaten_id,
+							nama: "" + data.pplpkl.address1_kabupaten
+						};
+						this.kecamatan_id = {
+							id: "" + data.pplpkl.address1_kecamatan_id,
+							nama: "" + data.pplpkl.address1_kecamatan
+						};
+						this.desa_id = {
+							id: "" + data.pplpkl.address1_desa_id,
+							nama: "" + data.pplpkl.address1_kelurahan
+						};
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});					
 			},
 			save: async function() {
 				if (this.$refs.frmdata.validate()) {
@@ -555,7 +655,19 @@
 								"/akademik/perkuliahan/pplpk/" + this.formdata.id,
 								{
 									_method: "PUT",
-									name: this.formdata.name,
+									pembimbing_1: this.formdata.pembimbing_1,
+									tempat_pplpkl: this.formdata.tempat_pplpkl,
+									address1_provinsi_id: this.provinsi_id.id,
+									address1_provinsi: this.provinsi_id.nama,
+									address1_kabupaten_id: this.kabupaten_id.id,
+									address1_kabupaten: this.kabupaten_id.nama,
+									address1_kecamatan_id: this.kecamatan_id.id,
+									address1_kecamatan: this.kecamatan_id.nama,
+									address1_desa_id: this.desa_id.id,
+									address1_kelurahan: this.desa_id.nama,
+									alamat_pplpkl: this.formdata.alamat_pplpkl,
+									size_baju: this.formdata.size_baju,
+									keterangan: this.formdata.keterangan,
 								},
 								{
 									headers: {
@@ -563,8 +675,8 @@
 									},
 								}
 							)
-							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.object);
+							.then(() => {
+								this.initialize();
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})

@@ -7,12 +7,11 @@ use Illuminate\Http\Request;
 use App\Helpers\Helper;
 use App\Models\Akademik\RegisterMahasiswaModel;
 use App\Models\Akademik\PPLPKLModel;
-use App\Models\Akademik\PersyaratanPPLPKLModel;
-use App\Models\DMaster\PersyaratanModel;
-
-use App\Models\System\ConfigurationModel;
+use App\Models\Keuangan\TransaksiDetailModel;
 
 use Ramsey\Uuid\Uuid;
+
+use Exception;
 
 class PPLPKLController extends Controller
 {
@@ -69,249 +68,50 @@ class PPLPKLController extends Controller
 									'message'=>'Daftar peserta ujian munaqasah berhasil diperoleh' 
 								], 200);  
 		
-	}
-	public function cekpersyaratan(Request $request)
-	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
-		
-		$this->validate($request, [            
-			'nim'=>'required|exists:pe3_register_mahasiswa,nim',
-		]);
-		$nim = $request->input('nim');   
-		$mahasiswa = RegisterMahasiswaModel::where('nim',$nim)
-      ->first();
-		$user_id = $mahasiswa->user_id;
-
-		$sql = " INSERT INTO 
-		pe3_persyaratan_ujian_munaqasah 
-		(
-			id,
-			user_id,
-			persyaratan_id,
-			ujian_munaqasah_id,
-			nama_persyaratan,
-			file,
-			status,
-			keterangan,
-			created_at,
-			updated_at
-		) 
-		SELECT 
-			UUID(),
-			'$user_id',
-			id AS persyaratan_id,
-			NULL,
-			nama_persyaratan,
-			NULL,
-			0,
-			NULL,
-			NOW() AS created_at,
-			NOW() AS updated_at 
-		FROM pe3_persyaratan 
-		WHERE proses='ujian-munaqasah' 
-		AND 
-		id
-		NOT IN (
-			SELECT 
-				persyaratan_id 
-			FROM 
-				pe3_persyaratan_ujian_munaqasah 
-			WHERE user_id='$user_id')
-		";
-		
-		\DB::statement($sql);
-
-		$daftar_persyaratan = $this->persyaratan(
-			PersyaratanPPLPKLModel::select(\DB::raw('
-												*,
-												"" AS nama_status
-											'))
-											->where('user_id',$user_id)
-											->get(),
-			$mahasiswa
-		);
-		
-		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'mahasiswa'=>$mahasiswa,
-								'daftar_persyaratan'=>$daftar_persyaratan,   
-								'iscomplete'=>$this->iscomplete(),                                                                                    
-								'isverified'=>$this->isverified(),                                                                                    
-								'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
-							], 200);
-	}
-	public function detail (Request $request,$id)
-	{   
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
-
-		$ujian = \DB::table('pe3_pplpkl AS A')
-						->select(\DB::raw('
-							A.id,
-							A.user_id,
-							B.nim,
-							C.nama_mhs,
-							A.judul_skripsi,
-							A.abstrak,
-							B.tahun AS tahun_masuk,
-							CONCAT(COALESCE(D.gelar_depan,\' \'),D.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_1,
-							CONCAT(COALESCE(E.gelar_depan,\' \'),E.nama_dosen,\' \',COALESCE(D.gelar_belakang,\'\')) AS dosen_pembimbing_2,                
-							A.pembimbing_1,
-							A.pembimbing_2,
-							A.status,
-							A.created_at,
-							A.updated_at
-						'))
-						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
-						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
-						->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
-
-		if ($this->hasRole('mahasiswa'))
-		{
-			$ujian = $ujian->where('A.user_id', $this->getUserid())
-						->where('A.id',$id)
-						->first();                                  
-			
-		}
-		else
-		{
-			$ujian = $ujian->where('A.id',$id)
-							->first(); 
-		}
-
-		if (is_null($ujian))
-		{
-			return Response()->json([
-									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
-								], 422); 
-		}
-		else
-		{
-			$user_id = $ujian->user_id;
-			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
-												->find($ujian->user_id);
-
-			$daftar_persyaratan = $this->persyaratan(
-				PersyaratanPPLPKLModel::select(\DB::raw('
-													*,
-													"" AS nama_status
-												'))
-												->where('user_id',$user_id)
-												->get(),
-				$mahasiswa
-			);
-
-			return Response()->json([
-										'status'=>1,
-										'pid'=>'fetchdata',
-										'ujian'=>$ujian,
-										'mahasiswa'=>$mahasiswa,
-										'daftar_persyaratan'=>$daftar_persyaratan, 
-										'iscomplete'=>$this->iscomplete(),                                                                                      
-										'isverified'=>$this->isverified(),                                                                                      
-										'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
-									], 200);
-		}
-		
-
-	}
+	}	
 	public function show (Request $request,$id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
 
 		if ($this->hasRole('mahasiswa'))
 		{
-			$mahasiswa = RegisterMahasiswaModel::find($this->getUserid());
+			$pplpkl = PPLPKLModel::select(\DB::raw('
+					pe3_pplpkl.*,
+					pe3_register_mahasiswa.nim
+				'))
+				->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_pplpkl.user_id')
+				->where('pe3_pplpkl.id', $id)
+				->where('pe3_pplpkl.user_id', $this->getUserid())				
+				->first();
 		}
 		else
 		{
-			$mahasiswa = RegisterMahasiswaModel::where('nim',$id)
-												->first();
+			$pplpkl = PPLPKLModel::select(\DB::raw('
+					pe3_pplpkl.*,
+					pe3_register_mahasiswa.nim
+				'))
+				->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_pplpkl.user_id')
+				->where('pe3_pplpkl.id', $id)
+				->first();
 		}
-		if (is_null($mahasiswa))
+		if (is_null($pplpkl))
 		{
 			return Response()->json([
 									'status'=>0,
 									'pid'=>'fetchdata',    
-									'message'=>["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
+									'message'=>["Data PPL / PKL dengan id ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
-		{
-			$user_id = $mahasiswa->user_id;
-			
-			$daftar_persyaratan = $this->persyaratan(
-									PersyaratanPPLPKLModel::select(\DB::raw('
-																		*,
-																		"" AS nama_status
-																	'))
-																	->where('user_id',$user_id)
-																	->get(),
-									$mahasiswa
-								);
-
-			
+		{			
 			return Response()->json([
 								'status'=>1,
 								'pid'=>'fetchdata',
-								'mahasiswa'=>$mahasiswa,
-								'daftar_persyaratan'=>$daftar_persyaratan, 
-								'iscomplete'=>$this->iscomplete(),                                                                                      
-								'isverified'=>$this->isverified(),                                                                                      
-								'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+								'pplpkl'=>$pplpkl,								
+								'message'=>'Daftar PPL / PKL berhasil diperoleh' 
 							], 200);
 		}        
-	}  
-	public function upload (Request $request,$id)
-	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
-
-		$ujian_munaqasah = PersyaratanPPLPKLModel::find($id); 
-		
-		if (is_null($ujian_munaqasah))
-		{
-			return Response()->json([
-									'status'=>0,
-									'pid'=>'store',    
-									'message'=>["Data Persyaratan PPL / PKL tidak ditemukan."]
-								], 422);    
-		}
-		else
-		{
-			$this->validate($request, [    
-				'filepersyaratan'=>'required'                        
-			]);       
-			$foto = $request->file('filepersyaratan');
-			$mime_type=$foto->getMimeType();
-			if ($mime_type=='image/png' || $mime_type=='image/jpeg')
-			{
-				$folder=Helper::public_path('images/ujianmunaqasah/');
-				$file_name="$id.".$foto->getClientOriginalExtension();                           
-				$ujian_munaqasah->file="storage/images/ujianmunaqasah/$file_name";
-				$ujian_munaqasah->keterangan = 'ADA';                       
-				$ujian_munaqasah->save();                       
-				$foto->move($folder,$file_name);           
-				return Response()->json([
-											'status'=>0,
-											'pid'=>'store',
-											'persyaratan'=>$ujian_munaqasah->file,    
-											'message'=>"Persyaratan PPL / PKL (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
-										], 200);    
-			}
-			else
-			{
-				return Response()->json([
-										'status'=>1,
-										'pid'=>'store',
-										'message'=>["Extensi file yang diupload bukan jpg atau png."]
-									], 422);            
-
-			}
-		}
-	}  
+	}
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
 	 */
@@ -336,35 +136,137 @@ class PPLPKLController extends Controller
 			'ta'=>'required',     
 			'idsmt'=>'required',    
 		]);
-		
-		$mahasiswa = RegisterMahasiswaModel::where('nim', $request->input('nim'))->first();
+		$jumlah_syarat_matkul = 0;
+		try 
+	  {
+			$nim=$request->input('nim');
+		  $semester_akademik=$request->input('idsmt');
+		  $ta=$request->input('ta');
+			
+			$mahasiswa = RegisterMahasiswaModel::where('nim', $nim)->first();
+			
+			$transaksi=TransaksiDetailModel::select(\DB::raw('
+											  1
+										  '))
+										  ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
+										  ->where('pe3_transaksi.ta',$ta)
+										  ->where('pe3_transaksi.idsmt',$semester_akademik)
+										  ->where('pe3_transaksi.nim',$nim)
+										  ->where('pe3_transaksi_detail.kombi_id',301)
+											->where('pe3_transaksi.status',1);
 
-		$pplpkl = PPLPKLModel::create([
-			'id'=>Uuid::uuid4()->toString(),
-			'user_id'=>$mahasiswa->user_id,
-			'pembimbing_1'=>$request->input('pembimbing_1'),
-			'tempat_pplpkl'=>$request->input('tempat_pplpkl'),
-			'address1_desa_id'=>$request->input('address1_desa_id'),
-			'address1_kelurahan'=>$request->input('address1_kelurahan'),
-			'address1_kecamatan_id'=>$request->input('address1_kecamatan_id'),
-			'address1_kecamatan'=>$request->input('address1_kecamatan'),
-			'address1_kabupaten_id'=>$request->input('address1_kabupaten_id'),
-			'address1_kabupaten'=>$request->input('address1_kabupaten'),
-			'address1_provinsi_id'=>$request->input('address1_provinsi_id'),
-			'address1_provinsi'=>$request->input('address1_provinsi'),
-			'alamat_pplpkl'=>$request->input('alamat_pplpkl'),
-			'size_baju'=>$request->input('size_baju'),
-			'keterangan'=>$request->input('keterangan'),
-			'prodi_id'=>$mahasiswa->kjur,
-			'ta'=>$request->input('ta'),
-			'idsmt'=>$request->input('idsmt')
-		]);
-		return Response()->json([
+		  if (!$transaksi->exists())
+		  {                
+			  throw new Exception ("Tambah PPL / PKL a.n mahasiswa dengan NIM ($nim) gagal karena belum melakukan transaksi atau membayar transaksi pada $ta semester $semester_akademik.");  
+		  }			
+			
+			$tahun=$mahasiswa->tahun;
+		  $idkelas=$mahasiswa->idkelas;
+		  $kjur=$mahasiswa->kjur;
+
+			$syarat_matkul = \DB::table('pe3_matakuliah')
+				->select(\DB::raw('id, kmatkul, nmatkul'))
+				->where('ta', $tahun)
+				->where('kjur', $kjur)
+				->where('syarat_pplpkl', 1)
+				->get();
+
+			$jumlah_syarat_matkul = $syarat_matkul->count();
+			if (!($jumlah_syarat_matkul > 0))
+			{
+				throw new Exception ("Syarat matakuliah PPL / PKL belum disetting pada halaman Matakuliah TA $tahun");
+			}
+			$daftar_syarat = $syarat_matkul->pluck('id')->toArray();
+
+			$matkul_lulus = \DB::table('pe3_matakuliah AS A')
+				->select(\DB::raw('A.kmatkul, A.nmatkul, D.n_mutu'))
+				->join('pe3_penyelenggaraan AS B', 'A.id', 'B.matkul_id')
+				->join('pe3_krsmatkul AS C', 'C.penyelenggaraan_id', 'B.id')
+				->join('pe3_nilai_matakuliah AS D', 'D.krsmatkul_id', 'C.id')
+				->whereIn('A.id', $daftar_syarat)
+				->where('A.ta', $tahun)
+				->where('A.kjur', $kjur)
+				->where('A.syarat_pplpkl', 1)
+				->where('C.batal', 0)
+				->where('D.user_id_mhs', $mahasiswa->user_id)
+				->get();
+
+			$jumlah_matkul_lulus = $matkul_lulus->count();
+
+			if (!($jumlah_matkul_lulus > 0))
+			{
+				throw new Exception ("Matakuliah prasyarat PPL / PKL belum dikontrak di KRS atau statusnya dibatalkan");
+			}
+
+			if ($jumlah_matkul_lulus < $jumlah_syarat_matkul) {
+				throw new Exception ("Matakuliah prasyarat PPL / PKL yang lulus ($jumlah_matkul_lulus) harus sama dengan matakuliah syarat PPL / PKL ($jumlah_syarat_matkul)");
+			}
+
+			foreach($matkul_lulus as $v)
+			{
+				if ($v->n_mutu < 16)
+				{
+					throw new Exception ("Nilai Matakuliah Prasyarat PPL / PKL yaitu $v->nmatkul[$v->kmatkul] TIDAK LULUS");
+				}
+			}
+			$pplpkl = PPLPKLModel::create([
+				'id'=>Uuid::uuid4()->toString(),
+				'user_id'=>$mahasiswa->user_id,
+				'pembimbing_1'=>$request->input('pembimbing_1'),
+				'tempat_pplpkl'=>$request->input('tempat_pplpkl'),
+				'address1_desa_id'=>$request->input('address1_desa_id'),
+				'address1_kelurahan'=>$request->input('address1_kelurahan'),
+				'address1_kecamatan_id'=>$request->input('address1_kecamatan_id'),
+				'address1_kecamatan'=>$request->input('address1_kecamatan'),
+				'address1_kabupaten_id'=>$request->input('address1_kabupaten_id'),
+				'address1_kabupaten'=>$request->input('address1_kabupaten'),
+				'address1_provinsi_id'=>$request->input('address1_provinsi_id'),
+				'address1_provinsi'=>$request->input('address1_provinsi'),
+				'alamat_pplpkl'=>$request->input('alamat_pplpkl'),
+				'size_baju'=>$request->input('size_baju'),
+				'keterangan'=>$request->input('keterangan'),
+				'prodi_id'=>$mahasiswa->kjur,
+				'ta'=>$ta,
+				'idsmt'=>$semester_akademik,
+			]);
+
+			return Response()->json([
 									'status'=>1,
 									'pid'=>'store', 
 									'pplpkl'=>$pplpkl,                                     
 									'message'=>'Data PPL / PKL berhasil ditambahkan'
 								], 200);  
+		}
+		catch (Exception $e)
+	  {
+			if ($jumlah_syarat_matkul > 0)
+			{
+				$persyaratan_matkul='';
+				$i = 0;
+				foreach($syarat_matkul as $v)
+				{
+					if ($i < ($jumlah_syarat_matkul - 1))
+					{
+						$persyaratan_matkul .= ($i + 1) . ". $v->nmatkul [$v->kmatkul], ";
+					}
+					else
+					{
+						$persyaratan_matkul .= ($i + 1) . ". $v->nmatkul [$v->kmatkul]";
+					}
+					$i += 1;
+				}
+			}
+			else 
+			{
+				$persyaratan_matkul = '-';
+			}
+		  return Response()->json([
+			  'status'=>0,
+			  'pid'=>'store',
+			  'message'=>[$e->getMessage()],
+				'matakuliah syarat'=>$persyaratan_matkul,
+		  ], 422); 
+		}		
 	}
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
@@ -375,16 +277,15 @@ class PPLPKLController extends Controller
 		
 		if ($this->hasRole('mahasiswa'))
 		{
-			$ujian = PPLPKLModel::where('id',$id)
-										->find($id);                                  
+			$pplpkl = PPLPKLModel::where('user_id',$this->getUserid())
+										->find($id);
 			
 		}
 		else
 		{
-			$ujian = PPLPKLModel::where('id',$id)
-										->find($id);                                  
+			$pplpkl = PPLPKLModel::find($id);                                  
 		}
-		if (is_null($ujian))
+		if (is_null($pplpkl))
 		{
 			return Response()->json([
 									'status'=>0,
@@ -392,39 +293,51 @@ class PPLPKLController extends Controller
 									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
-		else if ($ujian->status == 0)
+		else if ($pplpkl->status == 0)
 		{
-			$this->validate($request, [            
-				'judul_skripsi'=>'required',     
-				'abstrak'=>'required',     
-				'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
-				'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
+			$this->validate($request, [
+				'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
+				'tempat_pplpkl'=>'required',     
+				'address1_desa_id'=>'required',
+				'address1_kelurahan'=>'required',     
+				'address1_kecamatan_id'=>'required',     
+				'address1_kecamatan'=>'required',     
+				'address1_kabupaten_id'=>'required',     
+				'address1_kabupaten'=>'required',     
+				'address1_provinsi_id'=>'required',     
+				'address1_provinsi'=>'required',
+				'alamat_pplpkl'=>'required',     
+				'size_baju'=>'required',
 			]);       
 			
-			$ujian->judul_skripsi = $request->input('judul_skripsi');
-			$ujian->abstrak = $request->input('abstrak');
-			$ujian->pembimbing_1 = $request->input('pembimbing_1');
-			$ujian->pembimbing_2 = $request->input('pembimbing_2');
-			$ujian->save();
+			$pplpkl->pembimbing_1 = $request->input('pembimbing_1');
+			$pplpkl->tempat_pplpkl = $request->input('tempat_pplpkl');
+			$pplpkl->address1_desa_id = $request->input('address1_desa_id');
+			$pplpkl->address1_kelurahan = $request->input('address1_kelurahan');
+			$pplpkl->address1_kecamatan_id = $request->input('address1_kecamatan_id');
+			$pplpkl->address1_kecamatan = $request->input('address1_kecamatan');
+			$pplpkl->address1_kabupaten_id = $request->input('address1_kabupaten_id');
+			$pplpkl->address1_kabupaten = $request->input('address1_kabupaten');
+			$pplpkl->address1_provinsi_id = $request->input('address1_provinsi_id');
+			$pplpkl->address1_provinsi = $request->input('address1_provinsi');
+			$pplpkl->alamat_pplpkl = $request->input('alamat_pplpkl');
+			$pplpkl->size_baju = $request->input('size_baju');
+			$pplpkl->keterangan = $request->input('keterangan');
+			$pplpkl->save();
 
-			\DB::table('pe3_persyaratan_ujian_munaqasah')
-				->where('user_id', $ujian->user_id)
-				->update([
-					'ujian_munaqasah_id'=>$ujian->id
-				]);
-
+			
 			return Response()->json([
 										'status'=>1,
 										'pid'=>'update', 
-										'ujian'=>$ujian,                                     
-										'message'=>'Data ujian munaqasah berhasil diubah'
+										'pplpkl'=>$pplpkl,                                     
+										'message'=>'Data PPL / PKL  berhasil diubah'
 									], 200);  
 		}
 		else 
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
+									'pid'=>'update',    
 									'message'=>["PPL / PKL dengan ($id) gagal diupdate karean sudah diverifikasi"]
 								], 422); 
 		}

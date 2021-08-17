@@ -146,7 +146,7 @@ class TransaksiPPLPKLController extends Controller {
 		  'semester_akademik'=>'required',
 		  'ta'=>'required'
 	  ]);
-	  
+	  $jumlah_syarat_matkul = 0;
 	  try 
 	  {
 		  $nim=$request->input('nim');
