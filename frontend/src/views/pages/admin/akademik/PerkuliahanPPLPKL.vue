@@ -98,7 +98,7 @@
 													label="NIM"
 													outlined
 													:rules="rule_nim"
-													:disabled="editedIndex > -1"													
+													:disabled="editedIndex > -1 || dashboard == 'mahasiswa'"													
 												>
 												</v-text-field>
 												<v-text-field
@@ -410,6 +410,7 @@
 	export default {
 		name: "PerkuliahanPPLPKL",
 		created() {
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
 				{
 					text: "HOME",
@@ -444,6 +445,7 @@
 			this.$refs.filter6.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
+			dashboard: null,
 			firstloading: true,
 			prodi_id: null,
 			nama_prodi: null,
@@ -572,6 +574,9 @@
 				}
 			},
 			async addItem() {
+				if (this.dashboard == 'mahasiswa') {
+					this.formdata.nim = this.$store.getters['auth/AttributeUser']('username');
+				}
 				await this.$ajax.get("/datamaster/provinsi").then(({ data }) => {
 					this.daftar_provinsi = data.provinsi;					
 				});

@@ -22,8 +22,6 @@ class PPLPKLController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
-
 		$daftar_pplpkl=\DB::table('pe3_pplpkl AS A')
 						->select(\DB::raw('
 							A.id,
@@ -50,6 +48,8 @@ class PPLPKLController extends Controller
 		}
 		else
 		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
+			
 			$this->validate($request, [
 				'ta'=>'required',
 				'semester_akademik'=>'required',
@@ -71,8 +71,6 @@ class PPLPKLController extends Controller
 	}	
 	public function show (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
-
 		if ($this->hasRole('mahasiswa'))
 		{
 			$pplpkl = PPLPKLModel::select(\DB::raw('
@@ -86,6 +84,8 @@ class PPLPKLController extends Controller
 		}
 		else
 		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_SHOW');
+
 			$pplpkl = PPLPKLModel::select(\DB::raw('
 					pe3_pplpkl.*,
 					pe3_register_mahasiswa.nim
@@ -117,8 +117,11 @@ class PPLPKLController extends Controller
 	 */
 	public function store (Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
-		
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
+		}
+
 		$this->validate($request, [            
 			'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
 			'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
@@ -273,7 +276,10 @@ class PPLPKLController extends Controller
 	 */
 	public function update (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
+		}		
 		
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -343,101 +349,6 @@ class PPLPKLController extends Controller
 		}
 	}
 	/**
-	 * digunakan untul menyimpan ujian munaqasah mahasiswa
-	 */
-	public function verifikasi (Request $request,$id)
-	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
-		
-		if ($this->hasRole('mahasiswa'))
-		{
-			$ujian = PPLPKLModel::where('id',$id)
-										->find($id);                                  
-			
-		}
-		else
-		{
-			$ujian = PPLPKLModel::where('id',$id)
-										->find($id);                                  
-		}
-		if (is_null($ujian))
-		{
-			return Response()->json([
-									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
-								], 422); 
-		}
-		else
-		{
-			$user_id = $ujian->user_id;
-			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
-												->find($ujian->user_id);
-
-			$daftar_persyaratan = $this->persyaratan(
-				PersyaratanPPLPKLModel::select(\DB::raw('
-													*,
-													"" AS nama_status
-												'))
-												->where('user_id',$user_id)
-												->get(),
-				$mahasiswa
-			);
-			
-			if ($this->isverified())
-			{
-				$ujian->status = 1;
-				$ujian->save();
-
-				return Response()->json([
-											'status'=>1,
-											'pid'=>'update', 
-											'ujian'=>$ujian,                                     
-											'message'=>'Data ujian munaqasah berhasil diubah'
-										], 200);  
-			}
-			else
-			{
-				return Response()->json([
-											'status'=>0,
-											'pid'=>'update', 
-											'ujian'=>$ujian,                                     
-											'message'=>'Data ujian munaqasah berhasil diverifikasi karena item persyaratan ada yang belum diperiksa.'
-										], 422);  
-			}
-		}
-	}
-	/**
-	 * digunakan untul menyimpan ujian munaqasah mahasiswa
-	 */
-	public function updatepersyaratan (Request $request,$id)
-	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_UPDATE');
-		
-		$persyaratan = PersyaratanPPLPKLModel::find($id);                                  
-		
-		if (is_null($persyaratan))
-		{
-			return Response()->json([
-									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Persyaratan PPL / PKL dengan ID ($id) gagal diperoleh"]
-								], 422); 
-		}
-		else
-		{
-			$persyaratan->status=1;
-			$persyaratan->save();
-
-			return Response()->json([
-										'status'=>1,
-										'pid'=>'update', 
-										'persyaratan'=>$persyaratan,                                     
-										'message'=>'Data persyaratan ujian munaqasah berhasil diubah'
-									], 200);  
-		}
-	}
-	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
@@ -445,7 +356,10 @@ class PPLPKLController extends Controller
 	 */
 	public function destroy(Request $request,$id)
 	{ 
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_STORE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_DESTROY');
+		}				
 
 		$pplpkl = PPLPKLModel::find($id); 
 		
@@ -482,152 +396,5 @@ class PPLPKLController extends Controller
 								], 422); 
 		}
 				  
-	}
-	private function persyaratan($daftar_persyaratan,$mahasiswa) 
-	{
-		$daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
-			switch($item->persyaratan_id) {
-				case '2021-ujian-munaqasah-1' : //Pembayaran Uang SPP
-					$this->persyaratan_verified[]=$item->status == 1;
-				break;
-				case '2021-ujian-munaqasah-2' : //Pembayaran Uang SKRIPSI
-					$detail1 = \DB::table('pe3_transaksi') 
-								->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
-								->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
-								->where('status', 1)
-								->where('kombi_id',601)
-								->exists();
-					
-					if ($detail1)
-					{
-						$item->keterangan = "SUDAH BAYAR";
-						$this->persyaratan_complete[]=true;
-						$this->persyaratan_verified[]=true;
-					}
-					else 
-					{  
-						$item->keterangan =  "BELUM BAYAR"; 
-						$this->persyaratan_verified[]=false;
-					}          
-				break;
-				case '2021-ujian-munaqasah-4' : //Matakuliah Skripsi terdapat di KRS
-					$detail1 = \DB::table('pe3_prodi_detail1')
-									->where('ta',$mahasiswa->tahun)
-									->where('prodi_id',$mahasiswa->kjur)
-									->first();
-									
-					if (is_null($detail1->matkul_skripsi)) 
-					{
-						$item->keterangan = "MATAKULIAH SKRIPSI BELUM DISET";
-						$this->persyaratan_complete[]=false;
-						$this->persyaratan_verified[]=false;
-					}
-					else 
-					{
-						$this->persyaratan_complete[]=true;
-						$this->persyaratan_verified[]=true;
-						$item->keterangan = \DB::table('pe3_krsmatkul') 
-											->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-											->where('nim', $mahasiswa->nim)   
-											->where('matkul_id',$detail1->matkul_skripsi)
-											->exists() 
-											? "ADA" 
-											: "TIDAK ADA"; 
-											
-					}          
-				break;
-				case '2021-ujian-munaqasah-5' : //Jadwal konsultasi pembimbing                    
-					if (is_null($item->file))
-					{
-						$item->keterangan = 'TIDAK ADA';
-						$this->persyaratan_verified[]=false;
-					}
-					else
-					{
-						$this->persyaratan_verified[]=$item->status == 1;
-					}
-				break;
-				case '2021-ujian-munaqasah-6' : //Scanan STTB / Ijazah Terakhir
-					if (is_null($item->file))
-					{
-						$item->keterangan = 'TIDAK ADA';
-						$this->persyaratan_verified[]=false;
-					}
-					else
-					{
-						$this->persyaratan_verified[]=$item->status == 1;
-					}          
-				break;           
-				case '2021-ujian-munaqasah-7' : //Scanan KTP
-					if (is_null($item->file))
-					{
-						$item->keterangan = 'TIDAK ADA';
-						$this->persyaratan_verified[]=false;
-					}
-					else
-					{
-						$this->persyaratan_verified[]=$item->status == 1;
-					}
-				break;           
-				case '2021-ujian-munaqasah-8' : //Pas Photo 3x4
-					if (is_null($item->file))
-					{
-						$item->keterangan = 'TIDAK ADA';
-						$this->persyaratan_verified[]=false;
-					}
-					else
-					{
-						$this->persyaratan_verified[]=$item->status == 1;
-					}
-				break;           
-				case '2021-ujian-munaqasah-9' : //Sertifikat OSPEK / PBAK
-					if (is_null($item->file))
-					{
-						$item->keterangan = 'TIDAK ADA';
-						$this->persyaratan_verified[]=false;
-					}
-					else
-					{
-						$this->persyaratan_verified[]=$item->status == 1;
-					}
-				break;           
-			}
-			switch($item->status) {
-				case 0:
-					$item->nama_status = 'BELUM DIPERIKSA';
-				break;
-				case 1:
-					$item->nama_status = 'SUDAH DIPERIKSA';
-				break;
-			}
-			return $item;
-		});
-		return $daftar_persyaratan;
-	}       
-	private function iscomplete()
-	{
-		$bool = true;
-		foreach ($this->persyaratan_complete as $v)
-		{
-			if (!$v)
-			{
-				$bool = false;
-				break;
-			}
-		}
-		return $bool;
-	}
-	private function isverified() 
-	{
-		$bool = true;
-		foreach ($this->persyaratan_verified as $v)
-		{
-			if (!$v)
-			{
-				$bool = false;
-				break;
-			}
-		}
-		return $bool;
 	}
 }

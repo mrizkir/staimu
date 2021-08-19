@@ -760,7 +760,7 @@
 							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
 						)
 					"
-					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE')"
+					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE') || dashboard == 'mahasiswa'"
 				>
 					<v-list-item-icon class="mr-2">
 						<v-icon>mdi-account-network</v-icon>
@@ -779,7 +779,7 @@
 							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
 						)
 					"
-					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE')"
+					v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE') || dashboard == 'mahasiswa'"
 				>
 					<v-list-item-icon class="mr-2">
 						<v-icon>mdi-run-fast</v-icon>
@@ -1010,7 +1010,7 @@
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
 					<strong>{{ APP_NAME }} (2021-2021)</strong>
-					dikembangkan oleh TIM ITSTAI Miftahul 'Ulum Tanjungpinang
+					dikembangkan oleh TIM IT STAI Miftahul 'Ulum Tanjungpinang
 					<v-btn icon href="https://github.com/mrizkir/staimu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>
