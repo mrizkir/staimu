@@ -167,11 +167,13 @@
 													item-value="id"
 													:rules="rule_dosen_pembimbing"
 													outlined
+													v-if="false"
 												/>
 												<v-textarea
 													v-model="formdata.keterangan"
 													label="CATATAN:"
 													outlined
+													hide-details
 												/>
 											</v-card-text>
 											<v-card-actions>

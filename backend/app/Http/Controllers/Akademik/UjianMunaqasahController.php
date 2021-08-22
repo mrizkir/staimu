@@ -23,7 +23,10 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		}		
 
 		$daftar_ujian=\DB::table('pe3_ujian_munaqasah AS A')
 						->select(\DB::raw('
@@ -72,7 +75,10 @@ class UjianMunaqasahController extends Controller
 	}
 	public function cekpersyaratan(Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_BROWSE');
+		}
 		
 		$this->validate($request, [            
 			'nim'=>'required|exists:pe3_register_mahasiswa,nim',
@@ -142,8 +148,11 @@ class UjianMunaqasahController extends Controller
 							], 200);
 	}
 	public function detail (Request $request,$id)
-	{   
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+	{
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+		}
 
 		$ujian = \DB::table('pe3_ujian_munaqasah AS A')
 						->select(\DB::raw('
@@ -220,7 +229,10 @@ class UjianMunaqasahController extends Controller
 	}
 	public function show (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_SHOW');
+		}
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -267,7 +279,10 @@ class UjianMunaqasahController extends Controller
 	}  
 	public function upload (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		}		
 
 		$ujian_munaqasah = PersyaratanUjianMunaqasahModel::find($id); 
 		
@@ -317,7 +332,10 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function store (Request $request)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
+		}				
 		
 		$this->validate($request, [            
 			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
@@ -359,7 +377,10 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function update (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		}		
 		
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -487,7 +508,10 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function updatepersyaratan (Request $request,$id)
 	{
-		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		if (!$this->hasRole('mahasiswa'))
+		{
+			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
+		}
 		
 		$persyaratan = PersyaratanUjianMunaqasahModel::find($id);                                  
 		
@@ -520,6 +544,7 @@ class UjianMunaqasahController extends Controller
 	 */
 	public function destroy(Request $request,$id)
 	{ 
+		
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');
 
 		$ujian = UjianMunaqasahModel::find($id); 

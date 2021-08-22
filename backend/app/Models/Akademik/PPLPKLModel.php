@@ -52,4 +52,9 @@ class PPLPKLModel extends Model {
 	 * @var string
 	 */
 	public $incrementing = false;
+
+	public function mahasiswa()
+	{
+		return $this->belongsTo('App\Models\Akademik\RegisterMahasiswaModel','user_id','user_id');
+	}
 }

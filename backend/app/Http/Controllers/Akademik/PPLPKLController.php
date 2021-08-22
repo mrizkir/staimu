@@ -39,7 +39,7 @@ class PPLPKLController extends Controller
 						'))
 						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
 						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1');						
+						->leftJoin('pe3_dosen AS D','D.user_id','A.pembimbing_1');						
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -124,7 +124,7 @@ class PPLPKLController extends Controller
 
 		$this->validate($request, [            
 			'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-			'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
+			// 'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
 			'tempat_pplpkl'=>'required',     
 			'address1_desa_id'=>'required',
 			'address1_kelurahan'=>'required',     
@@ -215,7 +215,7 @@ class PPLPKLController extends Controller
 			$pplpkl = PPLPKLModel::create([
 				'id'=>Uuid::uuid4()->toString(),
 				'user_id'=>$mahasiswa->user_id,
-				'pembimbing_1'=>$request->input('pembimbing_1'),
+				'pembimbing_1'=>$mahasiswa->dosen_id,
 				'tempat_pplpkl'=>$request->input('tempat_pplpkl'),
 				'address1_desa_id'=>$request->input('address1_desa_id'),
 				'address1_kelurahan'=>$request->input('address1_kelurahan'),
