@@ -160,14 +160,14 @@
 													outlined
 												/>
 												<v-autocomplete
-													label="DOSEN PEMBIMBING I:"
+													label="DOSEN PA:"
 													v-model="formdata.pembimbing_1"
 													:items="daftar_dosen"
 													item-text="nama_dosen"
 													item-value="id"
 													:rules="rule_dosen_pembimbing"
 													outlined
-													v-if="false"
+													v-if="editedIndex > -1"
 												/>
 												<v-textarea
 													v-model="formdata.keterangan"

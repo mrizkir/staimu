@@ -204,10 +204,10 @@
 		</AkademikLayout>
 </template>
 <script>
-import AkademikLayout from "@/views/layouts/AkademikLayout";
-import ModuleHeader from "@/components/ModuleHeader";
-import DataKRS from '@/components/DataKRS';
-export default {
+	import AkademikLayout from "@/views/layouts/AkademikLayout";
+	import ModuleHeader from "@/components/ModuleHeader";
+	import DataKRS from '@/components/DataKRS';
+	export default {
 		name: 'PerkuliahanKRSDetail',
 		created() {
 				this.krs_id = this.$route.params.krsid;
@@ -276,126 +276,123 @@ export default {
 				],
 		}),
 		methods: {
-				async fetchKRS()
+			async fetchKRS()
+			{
+				await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,
 				{
-						await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,
-						{
-								headers: {
-										Authorization: this.$store.getters["auth/Token"]
-								}
-						}).then(({ data }) => {
-								this.datakrs=data.krs;
-								this.datatable=data.krsmatkul;
-								if (Object.keys(this.datakrs).length)
-								{
-										let prodi_id = this.datakrs.kjur;
-										this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-										this.tahun_akademik = this.datakrs.tahun;
-										this.semester_akademik = this.datakrs.idsmt;
-								}
-						})
-				},
-				async showPilihKelas(item)
-				{
-						await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+item.penyelenggaraan_id+'/penyelenggaraan',
-						{
-								headers: {
-										Authorization: this.$store.getters["auth/Token"]
-								}
-						}).then(({ data }) => {
-								this.dialogfrm = true;
-								this.datamatkul=item;
-								this.daftar_kelas = data.daftarkelas;
-								this.formdata.kelas_mhs_id=item.kelas_mhs_id;
-						})
-				},
-				save: async function() {
-					if (this.$refs.frmdata.validate()) {
-						this.btnLoading = true;
-						var members_selected = [
-							{
-								id: this.datamatkul.id,
-							},
-						]; 
-						await this.$ajax
-							.post(
-								"/akademik/perkuliahan/pembagiankelas/storepeserta",
-								{
-									kelas_mhs_id: this.formdata.kelas_mhs_id,
-									krsmatkul_id: this.datamatkul.id,
-									members_selected: JSON.stringify(Object.assign({},members_selected)),
-									pid: "krs",
-								},
-								{
-									headers: {
-										Authorization: this.$store.getters["auth/Token"],
-									},
-								}
-							)
-							.then(() => {
-								this.closedialogfrm();
-								this.fetchKRS();
-								this.btnLoading = false;
-							})
-							.catch(() => {
-								this.btnLoading = false;
-							});
+						headers: {
+								Authorization: this.$store.getters["auth/Token"]
 						}
-				},
-				deleteItem(item)
-				{
-						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then(confirm => {
-								if (confirm)
-								{
-										this.btnLoadingTable = true;
-										this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
-												{
-														_method: "DELETE",
-												},
-												{
-														headers: {
-																Authorization: this.$store.getters["auth/Token"]
-														}
-												}
-										).then(() => {
-												const index = this.datatable.indexOf(item);
-												this.datatable.splice(index, 1);
-												this.btnLoadingTable = false;
-										}).catch(() => {
-												this.btnLoadingTable = false;
-										});
-								}
+				}).then(({ data }) => {
+						this.datakrs=data.krs;
+						this.datatable=data.krsmatkul;
+						if (Object.keys(this.datakrs).length)
+						{
+								let prodi_id = this.datakrs.kjur;
+								this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+								this.tahun_akademik = this.datakrs.tahun;
+								this.semester_akademik = this.datakrs.idsmt;
+						}
+				})
+			},
+			async showPilihKelas(item)
+			{
+					await this.$ajax.get('/akademik/perkuliahan/pembagiankelas/'+item.penyelenggaraan_id+'/penyelenggaraan',
+					{
+							headers: {
+									Authorization: this.$store.getters["auth/Token"]
+							}
+					}).then(({ data }) => {
+							this.dialogfrm = true;
+							this.datamatkul=item;
+							this.daftar_kelas = data.daftarkelas;
+							this.formdata.kelas_mhs_id=item.kelas_mhs_id;
+					})
+			},
+			save: async function() {
+				if (this.$refs.frmdata.validate()) {
+					this.btnLoading = true;
+					var members_selected = [
+						{
+							id: this.datamatkul.id,
+						},
+					]; 
+					await this.$ajax
+						.post(
+							"/akademik/perkuliahan/pembagiankelas/storepeserta",
+							{
+								kelas_mhs_id: this.formdata.kelas_mhs_id,
+								krsmatkul_id: this.datamatkul.id,
+								members_selected: JSON.stringify(Object.assign({},members_selected)),
+								pid: "krs",
+							},
+							{
+								headers: {
+									Authorization: this.$store.getters["auth/Token"],
+								},
+							}
+						)
+						.then(() => {
+							this.closedialogfrm();
+							this.fetchKRS();
+							this.btnLoading = false;
+						})
+						.catch(() => {
+							this.btnLoading = false;
 						});
-				},
-				closedialogfrm() {
-						this.dialogfrm = false;
-						setTimeout(() => {
-								this.datamatkul = Object.assign({}, {});
-								this.$refs.frmdata.reset();
-								}, 300
-						);
-				},
+					}
+			},
+			deleteItem(item)
+			{
+					this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus matakuliah ('+item.nmatkul+') ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data yang terkait dengan matkul ini.' }).then(confirm => {
+							if (confirm)
+							{
+									this.btnLoadingTable = true;
+									this.$ajax.post('/akademik/perkuliahan/krs/deletematkul/'+item.id,
+											{
+													_method: "DELETE",
+											},
+											{
+													headers: {
+															Authorization: this.$store.getters["auth/Token"]
+													}
+											}
+									).then(() => {
+											const index = this.datatable.indexOf(item);
+											this.datatable.splice(index, 1);
+											this.btnLoadingTable = false;
+									}).catch(() => {
+											this.btnLoadingTable = false;
+									});
+							}
+					});
+			},
+			closedialogfrm() {
+					this.dialogfrm = false;
+					setTimeout(() => {
+							this.datamatkul = Object.assign({}, {});
+							this.$refs.frmdata.reset();
+							}, 300
+					);
+			},
 		},
 		computed: {
-				totalMatkul()
-				{
-						return this.datatable.length;
-				},
-				totalSKS()
-				{
-						var total = 0;
-						var index;
-						for (index in this.datatable)
-						{
-								total = total + parseInt(this.datatable[index].sks);
-						}
-						return total;
+			totalMatkul() {
+				return this.datatable.length;
+			},
+			totalSKS() {
+				var total = 0;
+				var index;
+				for (index in this.datatable) {
+					total = total + parseInt(this.datatable[index].sks);
 				}
+				return total;
+			}
 		},
 		components: {
-				AkademikLayout,
-				ModuleHeader,
-				DataKRS
+			AkademikLayout,
+			ModuleHeader,
+			DataKRS,
 		},
-}
+	};
 </script>

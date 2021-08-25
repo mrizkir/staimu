@@ -22,16 +22,15 @@
 									v-model="formlogin.username"
 									label="Username"
 									:rules="rule_username"
-									outlined
-									dense
+									outlined																		
 								/>
 								<v-text-field
 									v-model="formlogin.password"
 									label="Password"
 									type="password"
 									:rules="rule_password"
-									outlined
-									dense
+									outlined									
+									hide-details
 								/>
 							</v-card-text>
 							<v-card-actions class="justify-center">
