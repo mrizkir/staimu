@@ -223,6 +223,45 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-group
+					group="/dmaster/kuesioner"
+					active-class="yellow"
+					no-action
+					v-if="CAN_ACCESS('DMASTER-KUESIONER_BROWSE')"
+					color="green"
+				>
+					<template v-slot:activator>
+						<v-list-item-icon class="mr-2">
+							<v-icon>mdi-comment-question</v-icon>
+						</v-list-item-icon>
+						<v-list-item-content>
+							<v-list-item-title>KUESIONER</v-list-item-title>
+						</v-list-item-content>
+					</template>
+					<div>
+						<v-list-item
+							link
+							v-if="CAN_ACCESS('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_BROWSE')"
+							:active-class="
+								this.$store.getters['uiadmin/getTheme'](
+									'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+								)
+							"
+							to="/dmaster/kuesioner/kelompokpertanyaan"
+							color="white"
+						>
+							<v-list-item-icon class="mr-2">
+								<v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title>
+									KELOMPOK PERTANYAAN
+								</v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>						
+					</div>
+					<v-divider />
+				</v-list-group>
 				<v-list-item
 					link
 					v-if="CAN_ACCESS('DMASTER-PERSYARATAN-UJIAN-MUNAQASAH_BROWSE')"

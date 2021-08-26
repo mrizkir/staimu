@@ -215,6 +215,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/dmaster/ProgramStudiMatkulSkripsi.vue"),
 	},
+	{
+		path: "/dmaster/kuesioner/kelompokpertanyaan",
+		name: "DMasterKuesionerKelompokPertanyaaan",
+		meta: {
+			title: "DATA MASTER - KELOMPOK PERTANYAAN",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/dmaster/DMasterKuesionerKelompokPertanyaan.vue"),
+	},
 	//spmb
 	{
 		path: "/spmb",
