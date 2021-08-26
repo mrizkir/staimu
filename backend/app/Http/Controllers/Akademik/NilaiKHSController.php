@@ -348,27 +348,27 @@ class NilaiKHSController extends Controller
 		if (!is_null($kaprodi))
 		{            
 		  $daftar_matkul=KRSMatkulModel::select(\DB::raw('
-		  pe3_krsmatkul.id,
-		  pe3_krsmatkul.penyelenggaraan_id,
-		  C.kelas_mhs_id,
-		  A.kmatkul,
-		  A.nmatkul,
-		  A.sks,
-		  A.semester,
-		  NULL AS nama_dosen_penyelenggaraan,
-		  NULL AS  nama_dosen_kelas,
-		  \'\' AS nama_dosen,
-		  COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
-		  COALESCE(G.n_kual,\'-\') AS HM,
-		  COALESCE(G.n_mutu,\'-\') AS AM,
-		  \'-\' AS M,
-		  pe3_krsmatkul.created_at,
-		  pe3_krsmatkul.updated_at
+				pe3_krsmatkul.id,
+				pe3_krsmatkul.penyelenggaraan_id,
+				C.kelas_mhs_id,
+				A.kmatkul,
+				A.nmatkul,
+				A.sks,
+				A.semester,
+				NULL AS nama_dosen_penyelenggaraan,
+				NULL AS  nama_dosen_kelas,
+				\'\' AS nama_dosen,
+				COALESCE(pe3_kelas_mhs.nmatkul,\'N.A\') AS nama_kelas,
+				COALESCE(G.n_kual,\'-\') AS HM,
+				COALESCE(G.n_mutu,\'-\') AS AM,
+				\'-\' AS M,
+				pe3_krsmatkul.created_at,
+				pe3_krsmatkul.updated_at
 	  '))
 	  ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
 	  ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
 	  ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-	  ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')																				
+	  ->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','C.kelas_mhs_id')
 	  ->leftJoin('pe3_nilai_matakuliah AS G','G.krsmatkul_id','pe3_krsmatkul.id')
 	  ->where('pe3_krsmatkul.krs_id',$krs->id)
 	  ->where('pe3_krsmatkul.batal', 0)
