@@ -501,7 +501,10 @@
 													v-if="$vuetify.breakpoint.xsOnly"
 												/>
 											</v-row>
-											<v-img class="white--text align-end" :src="buktiBayar"></v-img>
+											<v-img
+												class="white--text align-end"
+												:src="buktiBayar"
+											></v-img>
 										</v-card-text>
 										<v-card-actions>
 											<v-spacer></v-spacer>
@@ -538,18 +541,17 @@
 							>
 								mdi-send
 							</v-icon>
-							<v-icon
-								small
-								class="mr-2"
-								:disabled="true"
-								v-else>
+							<v-icon small class="mr-2" :disabled="true" v-else>
 								mdi-send
 							</v-icon>
 							<v-icon
 								small
 								class="mr-2"
 								@click.stop="viewItem(item)"
-								v-if="item.status_konfirmasi == 'VERIFIED' || item.status_konfirmasi == 'UNVERIFIED'"
+								v-if="
+									item.status_konfirmasi == 'VERIFIED' ||
+										item.status_konfirmasi == 'UNVERIFIED'
+								"
 							>
 								mdi-eye
 							</v-icon>
@@ -640,7 +642,7 @@
 	import Filter18 from "@/components/sidebar/FilterMode18";
 	import DialogPrintoutKeuangan from "@/components/DialogPrintoutKeuangan";
 	export default {
-		name: "KonfirmasiPembayFilter18aran",
+		name: "KonfirmasiPembayaran",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [

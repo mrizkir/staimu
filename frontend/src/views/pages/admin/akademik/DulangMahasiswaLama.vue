@@ -214,7 +214,7 @@ export default {
        },
         deleteItem(item)
         {
-            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.' }).then(confirm => {
+            this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus daftar ulang '+item.nama_mhs+' ?', { color: 'red', width: 600,'desc': 'proses ini juga menghapus seluruh data KRS dan Nilai semester ini bila Ada namun KEUANGAN TETAP ADA.' }).then(confirm => {
                 if (confirm)
                 {
                     this.btnLoadingTable = true;

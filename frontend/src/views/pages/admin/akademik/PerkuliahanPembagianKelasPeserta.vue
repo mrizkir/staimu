@@ -467,7 +467,7 @@ export default {
 				},
 				deleteMatkul(item)
 				{
-						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width:600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then(confirm => {
+						this.$root.$confirm.open("Delete", 'Apakah Anda ingin menghapus data matakuliah di kelas ini dengan ID ' + item.id + ' ?', { color: 'red', width: 600,'desc': 'proses ini juga menghapus seluruh mahasiswa yang mengontrak matakuliah di kelas ini.' }).then(confirm => {
 								if (confirm)
 								{
 										this.btnLoading = true;
