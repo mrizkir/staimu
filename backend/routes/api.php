@@ -141,12 +141,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/datamaster/programstudi/updatematkulskripsi',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@updatematkulskripsi','as'=>'programstudi.updatematkulskripsi']);
 	$router->delete('/datamaster/programstudi/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ProgramStudiController@destroy','as'=>'programstudi.destroy']);
 
-	//akademik - kuesioner - kelompok pertanyaan
-	$router->post('/dmaster/kelompokpertanyaan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'kelompokpertanyaan.index']);
-	$router->post('/dmaster/kelompokpertanyaan/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'SPMB\SoalPMBController@store','as'=>'kelompokpertanyaan.store']);
-	$router->get('/dmaster/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'SPMB\SoalPMBController@show','as'=>'kelompokpertanyaan.show']);
-	$router->put('/dmaster/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'SPMB\SoalPMBController@update','as'=>'kelompokpertanyaan.update']);
-	$router->delete('/dmaster/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'SPMB\SoalPMBController@destroy','as'=>'kelompokpertanyaan.destroy']);
+	//data master - kuesioner - kelompok pertanyaan
+	$router->get('/dmaster/kuesioner/kelompokpertanyaan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'DMaster\KelompokPertanyaanController@index','as'=>'kelompokpertanyaan.index']);
+	$router->post('/dmaster/kuesioner/kelompokpertanyaan/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@store','as'=>'kelompokpertanyaan.store']);
+	$router->get('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@show','as'=>'kelompokpertanyaan.show']);
+	$router->put('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@update','as'=>'kelompokpertanyaan.update']);
+	$router->delete('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@destroy','as'=>'kelompokpertanyaan.destroy']);
 
 	//spmb - soal pmb
 	$router->post('/spmb/soalpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'soalpmb.index']);

@@ -30,16 +30,6 @@
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
 					<v-card>
-						<v-card-title>
-							FILTER
-						</v-card-title>
-						<v-card-text></v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
-			<v-row class="mb-4" no-gutters>
-				<v-col cols="12">
-					<v-card>
 						<v-card-text>
 							<v-text-field
 								v-model="search"
@@ -59,7 +49,7 @@
 						:items="datatable"
 						:search="search"
 						item-key="id"
-						sort-by="name"
+						sort-by="urutan"
 						show-expand
 						:expanded.sync="expanded"
 						:single-expand="true"
@@ -70,7 +60,7 @@
 					>
 						<template v-slot:top>
 							<v-toolbar flat color="white">
-								<v-toolbar-title>DATA TABLE</v-toolbar-title>
+								<v-toolbar-title>DAFTAR KELOMPOK PERTANYAAN</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical />
 								<v-spacer></v-spacer>
 								<v-dialog v-model="dialogfrm" max-width="500px" persistent>
@@ -89,7 +79,7 @@
 													<v-icon>mdi-plus</v-icon>
 												</v-btn>
 											</template>
-											<span>Tooltip text</span>
+											<span>Tambah Kelompok Urusan</span>
 										</v-tooltip>
 									</template>
 									<v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -99,10 +89,17 @@
 											</v-card-title>
 											<v-card-text>
 												<v-text-field
-													v-model="formdata.name"
-													label="NAME"
+													v-model="formdata.nama_kelompok"
+													label="NAMA KELOMPOK"
 													outlined
-													:rules="rule_name"
+													:rules="rule_nama_kelompok"
+												>
+												</v-text-field>
+												<v-text-field
+													v-model="formdata.urutan"
+													label="NOMOR URUT"
+													outlined
+													:rules="rule_nomor_urut"
 												>
 												</v-text-field>
 											</v-card-text>
@@ -129,7 +126,7 @@
 								</v-dialog>
 								<v-dialog
 									v-model="dialogdetailitem"
-									max-width="500px"
+									max-width="700px"
 									persistent
 								>
 									<v-card>
@@ -152,13 +149,9 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>CREATED :</v-card-title>
+														<v-card-title>URUTAN :</v-card-title>
 														<v-card-subtitle>
-															{{
-																$date(formdata.created_at).format(
-																	"DD/MM/YYYY HH:mm"
-																)
-															}}
+															{{ formdata.urutan }}
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
@@ -170,9 +163,9 @@
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>NAME :</v-card-title>
+														<v-card-title>NAMA KELOMPOK :</v-card-title>
 														<v-card-subtitle>
-															{{ formdata.name }}
+															{{ formdata.nama_kelompok }}
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
@@ -182,8 +175,13 @@
 												/>
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
-														<v-card-title>UPDATED :</v-card-title>
+														<v-card-title>CREATED/UPDATED :</v-card-title>
 														<v-card-subtitle>
+															{{
+																$date(formdata.created_at).format(
+																	"DD/MM/YYYY HH:mm"
+																)
+															}} ~
 															{{
 																$date(formdata.updated_at).format(
 																	"DD/MM/YYYY HH:mm"
@@ -228,7 +226,7 @@
 										mdi-eye
 									</v-icon>
 								</template>
-								<span>Detail Tooltip</span>
+								<span>Detail Kelompok Pertanyaan</span>
 							</v-tooltip>
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -238,12 +236,11 @@
 										small
 										class="mr-2"
 										@click.stop="editItem(item)"
-										:disabled="true"
 									>
 										mdi-pencil
 									</v-icon>
 								</template>
-								<span>Ubah Tooltip</span>
+								<span>Ubah Kelompok Pertanyaan</span>
 							</v-tooltip>
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -258,7 +255,7 @@
 										mdi-delete
 									</v-icon>
 								</template>
-								<span>Hapus Tooltip</span>
+								<span>Hapus Kelompok Pertanyaan</span>
 							</v-tooltip>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
@@ -285,7 +282,7 @@
 	import AdminLayout from "@/views/layouts/AdminLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
 	export default {
-		name: "PAGE",
+		name: "KelompokPertanyaan",
 		created() {
 			this.breadcrumbs = [
 				{
@@ -321,7 +318,8 @@
 			expanded: [],
 			datatable: [],
 			headers: [
-				{ text: "ID", value: "id" },
+				{ text: "URUSAN", value: "urutan", width: 100 },
+				{ text: "NAMA KELOMPOK", value: "nama_kelompok" },
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			search: "",
@@ -333,30 +331,34 @@
 			//form data
 			form_valid: true,
 			formdata: {
-				id: 0,
-				name: "",
-				created_at: "",
-				updated_at: "",
+				id: null,
+				kategori_id: 1,
+				nama_kelompok: null,
+				urutan: null,
+				created_at: null,
+				updated_at: null,
 			},
 			formdefault: {
-				id: 0,
-				name: "",
-				created_at: "",
-				updated_at: "",
+				id: null,
+				kategori_id: 1,
+				nama_kelompok: null,
+				urutan: null,
+				created_at: null,
+				updated_at: null,
 			},
 			editedIndex: -1,
 
 			//form rules
-			rule_user_nomorhp: [
-				value => !!value || "Kode mohon untuk diisi !!!",
+			rule_nama_kelompok: [
+				value => !!value || "Mohon untuk di isi nama kelompok !!!",
 				value =>
-					/^\+[1-9]{1}[0-9]{1,14}$/.test(value) || "Kode hanya boleh angka",
+					/^[A-Za-z\s]*$/.test(value) || "Nama kelompok hanya boleh string dan spasi",
 			],
-			rule_name: [
-				value => !!value || "Mohon untuk di isi name !!!",
+			rule_nomor_urut: [
+				value => !!value || "Nomor urut mohon untuk diisi !!!",
 				value =>
-					/^[A-Za-z\s]*$/.test(value) || "Name hanya boleh string dan spasi",
-			],
+					/^[0-9]+$/.test(value) || "Nomor urut hanya boleh angka",
+			],			
 		}),
 		methods: {
 			initialize: async function() {
@@ -368,7 +370,7 @@
 						},
 					})
 					.then(({ data }) => {
-						this.datatable = data.object;
+						this.datatable = data.kelompokpertanyaan;
 						this.datatableLoading = false;
 					})
 					.catch(() => {
@@ -406,7 +408,9 @@
 								"/dmaster/kuesioner/kelompokpertanyaan/" + this.formdata.id,
 								{
 									_method: "PUT",
-									name: this.formdata.name,
+									kategori_id: this.formdata.kategori_id,
+									nama_kelompok: this.formdata.nama_kelompok,
+									urutan: this.formdata.urutan,
 								},
 								{
 									headers: {
@@ -415,7 +419,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.object);
+								Object.assign(this.datatable[this.editedIndex], data.kelompokpertanyaan);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})
@@ -427,7 +431,9 @@
 							.post(
 								"/dmaster/kuesioner/kelompokpertanyaan/store",
 								{
-									name: this.formdata.name,
+									kategori_id: this.formdata.kategori_id,
+									nama_kelompok: this.formdata.nama_kelompok,
+									urutan: this.formdata.urutan,
 								},
 								{
 									headers: {
@@ -436,7 +442,7 @@
 								}
 							)
 							.then(({ data }) => {
-								this.datatable.push(data.object);
+								this.datatable.push(data.kelompokpertanyaan);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})
@@ -497,7 +503,7 @@
 		},
 		computed: {
 			formTitle() {
-				return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA";
+				return this.editedIndex === -1 ? "TAMBAH KELOMPOK PERTANYAAN" : "UBAH KELOMPOK PERTANYAAN";
 			},
 		},
 		components: {

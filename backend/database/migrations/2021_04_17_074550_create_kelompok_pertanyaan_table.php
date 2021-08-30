@@ -16,7 +16,7 @@ class CreateKelompokPertanyaanTable extends Migration
 		Schema::defaultStringLength(191);
 		Schema::create('pe3_kelompok_pertanyaan', function (Blueprint $table) {
 			$table->uuid('id');                        
-			$table->uuid('kategori_id');                        
+			$table->tinyInteger('kategori_id');                        
 			$table->string('nama_kelompok');                        
 			$table->tinyinteger('urutan');                        
 			$table->timestamps();

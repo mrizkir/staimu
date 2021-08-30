@@ -223,7 +223,7 @@ const routes = [
 			requiresAuth: true,
 		},
 		component: () =>
-			import("../views/pages/admin/dmaster/DMasterKuesionerKelompokPertanyaan.vue"),
+			import("../views/pages/admin/dmaster/KelompokPertanyaan.vue"),
 	},
 	//spmb
 	{
