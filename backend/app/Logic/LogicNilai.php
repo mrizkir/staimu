@@ -197,7 +197,15 @@ class LogicNilai {
 								->join('pe3_penyelenggaraan AS C1','A1.penyelenggaraan_id','C1.id')
 								->get();		
 		
-		$ipk=\App\Helpers\HelperAkademik::formatIPK($data->sum('n_mutu'),$data->sum('sks'));
-		return $ipk;
+		$total_sks = $data->sum('sks');
+		$n_mutu = $data->sum('n_mutu');
+
+		$ipk=\App\Helpers\HelperAkademik::formatIPK($n_mutu, $total_sks);
+		$data= [
+			'ipk'=>$ipk,
+			'n_mutu'=>$n_mutu,
+			'total_sks'=>$total_sks,
+		];
+		return $data;
 	}
 }

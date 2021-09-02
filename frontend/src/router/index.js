@@ -225,6 +225,16 @@ const routes = [
 		component: () =>
 			import("../views/pages/admin/dmaster/KelompokPertanyaan.vue"),
 	},
+	{
+		path: "/dmaster/kuesioner/daftarpertanyaan",
+		name: "DMasterKuesionerDaftarPertanyaaan",
+		meta: {
+			title: "DATA MASTER - DAFTAR PERTANYAAN",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/dmaster/DaftarPertanyaan.vue"),
+	},
 	//spmb
 	{
 		path: "/spmb",
@@ -1208,6 +1218,16 @@ const routes = [
 		},
 		component: () =>
 			import("../views/pages/admin/kemahasiswaan/KemahasiswaanPindahKelas.vue"),
+	},
+	{
+		path: "/kemahasiswaan/pindahpaksakelas",
+		name: "KemahasiswaanPindahPaksaKelas",
+		meta: {
+			title: "KEMAHASISWAAN - PINDAH PAKSA KELAS",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/kemahasiswaan/KemahasiswaanPindahPaksaKelas.vue"),
 	},
 	{
 		path: "/kemahasiswaan/statusaktif",

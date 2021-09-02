@@ -5,10 +5,10 @@
 				mdi-comment-question
 			</template>
 			<template v-slot:name>
-				KELOMPOK PERTANYAAN
+				DAFTAR PERTANYAAN KUESIONER
 			</template>
 			<template v-slot:subtitle>
-				Kelompok Pertanyaan Kuesioner
+				Daftar Pertanyaan Kuesioner
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -19,7 +19,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Halaman untuk mengelola daftar kelompok pertanyaan dari kuesioner
+					Halaman untuk mengelola daftar pertanyaan dari kuesioner
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -282,7 +282,7 @@
 	import AdminLayout from "@/views/layouts/AdminLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
 	export default {
-		name: "KelompokPertanyaan",
+		name: "DaftarPertanyaan",
 		created() {
 			this.breadcrumbs = [
 				{
@@ -301,7 +301,7 @@
 					href: "#",
 				},
 				{
-					text: "KELOMPOK PERTANYAAN",
+					text: "DAFTAR PERTANYAAN",
 					disabled: true,
 					href: "#",
 				},
@@ -503,7 +503,7 @@
 		},
 		computed: {
 			formTitle() {
-				return this.editedIndex === -1 ? "TAMBAH KELOMPOK PERTANYAAN" : "UBAH KELOMPOK PERTANYAAN";
+				return this.editedIndex === -1 ? "TAMBAH PERTANYAAN KUESIONER" : "UBAH PERTANYAAN KUESIONER";
 			},
 		},
 		components: {

@@ -147,6 +147,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->get('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@show','as'=>'kelompokpertanyaan.show']);
 	$router->put('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@update','as'=>'kelompokpertanyaan.update']);
 	$router->delete('/dmaster/kuesioner/kelompokpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\KelompokPertanyaanController@destroy','as'=>'kelompokpertanyaan.destroy']);
+	
+	//data master - kuesioner - daftar pertanyaan
+	$router->get('/dmaster/kuesioner/daftarpertanyaan',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'DMaster\DaftarPertanyaanController@index','as'=>'daftarpertanyaan.index']);
+	$router->post('/dmaster/kuesioner/daftarpertanyaan/store',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\DaftarPertanyaanController@store','as'=>'daftarpertanyaan.store']);
+	$router->get('/dmaster/kuesioner/daftarpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\DaftarPertanyaanController@show','as'=>'daftarpertanyaan.show']);
+	$router->put('/dmaster/kuesioner/daftarpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\DaftarPertanyaanController@update','as'=>'daftarpertanyaan.update']);
+	$router->delete('/dmaster/kuesioner/daftarpertanyaan/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'DMaster\DaftarPertanyaanController@destroy','as'=>'daftarpertanyaan.destroy']);
 
 	//spmb - soal pmb
 	$router->post('/spmb/soalpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\SoalPMBController@index','as'=>'soalpmb.index']);
@@ -567,6 +574,9 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->put('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@update','as'=>'pindahkelas.update']);
 	$router->delete('/kemahasiswaan/pindahkelas/{id}',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahKelasController@destroy','as'=>'pindahkelas.destroy']);
 	
+	// kemahasiswaan - pindah paksa kelas
+	$router->post('/kemahasiswaan/pindahpaksakelas/save',['middleware'=>['role:superadmin|akademik|programstudi'],'uses'=>'Kemahasiswaan\PindahPaksaKelasController@save','as'=>'pindahpaksakelas.save']);
+
 	// kemahasiswaan - status aktif
 	$router->post('/kemahasiswaan/statusaktif',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\KemahasiswaanStatusAktifController@index','as'=>'statusaktif.index']);    
 	

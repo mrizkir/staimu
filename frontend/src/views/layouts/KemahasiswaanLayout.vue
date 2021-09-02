@@ -157,6 +157,25 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item
+					link
+					to="/kemahasiswaan/pindahpaksakelas"
+					:active-class="
+						this.$store.getters['uiadmin/getTheme'](
+							'V-LIST-ITEM-ACTIVE-CSS-CLASS'
+						)
+					"
+					v-if="CAN_ACCESS('KEMAHASISWAAN-PINDAH-KELAS_BROWSE')"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-arrow-right-bold-box-outline</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							PINDAH PAKSA KELAS
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-subheader
 					v-if="CAN_ACCESS('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE')"
 				>

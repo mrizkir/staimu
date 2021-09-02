@@ -4,51 +4,51 @@ namespace App\Http\Controllers\DMaster;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\DMaster\KelompokPertanyaanModel;
+use App\Models\DMaster\DaftarPertanyaanModel;
 
 use Ramsey\Uuid\Uuid;
 
-class KelompokPertanyaanController extends Controller
+class DaftarPertanyaanController extends Controller
 {  
 	/**
 	 * daftar kelompok pertanyaan
 	 */
 	public function index(Request $request)
 	{
-		$data=KelompokPertanyaanModel::orderBy('urutan','asc')
+		$data=DaftarPertanyaanModel::orderBy('urutan','asc')
 			->get();
 
 		return Response()->json([
-														'status'=>1,
-														'pid'=>'fetchdata',
-														'kelompokpertanyaan'=>$data,
-														'message'=>'Fetch data kelompok pertanyaan berhasil.'
-													], 200);
+      'status'=>1,
+      'pid'=>'fetchdata',
+      'daftarpertanyaan'=>$data,
+      'message'=>'Fetch data kelompok pertanyaan berhasil.'
+    ], 200);
 	}
 	/**
 	 * detail kelompok pertanyaan
 	 */
 	public function show(Request $request,$id)
 	{
-			$kelompokpertanyaan=KelompokPertanyaanModel::find($id);
+    $daftarpertanyaan=DaftarPertanyaanModel::find($id);
 
-			if (is_null($kelompokpertanyaan))
-			{
-					return Response()->json([
-																	'status'=>0,
-																	'pid'=>'fetchdata',
-																	'message'=>["Kode Kelompok Pertanyaan ($id) gagal diperoleh"]
-															], 422); 
-			}
-			else
-			{
-					return Response()->json([
-																	'status'=>1,
-																	'pid'=>'fetchdata',
-																	'kelompokpertanyaan'=>$kelompokpertanyaan,
-																	'message'=>'Fetch data kelompok pertanyaan berhasil.'
-															], 200);
-			}        
+    if (is_null($daftarpertanyaan))
+    {
+      return Response()->json([
+        'status'=>0,
+        'pid'=>'fetchdata',
+        'message'=>["Kode Daftar Pertanyaan ($id) gagal diperoleh"]
+      ], 422); 
+    }
+    else
+    {
+      return Response()->json([
+        'status'=>1,
+        'pid'=>'fetchdata',
+        'kelompokpertanyaan'=>$daftarpertanyaan,
+        'message'=>'Fetch data kelompok pertanyaan berhasil.'
+      ], 200);
+    }        
 	}
 	/**
 	 * Store a newly created resource in storage.
@@ -67,7 +67,7 @@ class KelompokPertanyaanController extends Controller
 		
 		$this->validate($request, $rule);
 					
-		$kelompokpertanyaan=KelompokPertanyaanModel::create([
+		$daftarpertanyaan=DaftarPertanyaanModel::create([
 			'id'=>Uuid::uuid4()->toString(),
 			'kategori_id'=>$request->input('kategori_id'),
 			'nama_kelompok'=>$request->input('nama_kelompok'),
@@ -75,8 +75,8 @@ class KelompokPertanyaanController extends Controller
 		]);                 
 		
 		\App\Models\System\ActivityLog::log($request,[
-			'object' => $kelompokpertanyaan,
-			'object_id'=>$kelompokpertanyaan->id, 
+			'object' => $daftarpertanyaan,
+			'object_id'=>$daftarpertanyaan->id, 
 			'user_id' => $this->getUserid(), 
 			'message' => 'Menambah kelompok pertanyaan baru berhasil'
 		]);
@@ -84,7 +84,7 @@ class KelompokPertanyaanController extends Controller
 		return Response()->json([
 			'status'=>1,
 			'pid'=>'store',
-			'kelompokpertanyaan'=>$kelompokpertanyaan,
+			'kelompokpertanyaan'=>$daftarpertanyaan,
 			'message'=>'Data kelompok pertanyaan berhasil disimpan.'
 		], 200); 
 
@@ -113,13 +113,13 @@ class KelompokPertanyaanController extends Controller
 	{
 		$this->hasPermissionTo('DMASTER-KUISIONER_UPDATE');
 
-		$kelompokpertanyaan = KelompokPertanyaanModel::find($id);
-		if (is_null($kelompokpertanyaan))
+		$daftarpertanyaan = DaftarPertanyaanModel::find($id);
+		if (is_null($daftarpertanyaan))
 		{
 			return Response()->json([
 				'status'=>0,
 				'pid'=>'update',
-				'message'=>["Kode Kelompok Pertanyaan ($id) gagal diupdate"]
+				'message'=>["Kode Daftar Pertanyaan ($id) gagal diupdate"]
 			], 422); 
 		}
 		else
@@ -138,23 +138,23 @@ class KelompokPertanyaanController extends Controller
 				],
 			]); 
 			
-			$kelompokpertanyaan->kategori_id = $request->input('kategori_id');
-			$kelompokpertanyaan->nama_kelompok = $request->input('nama_kelompok');
-			$kelompokpertanyaan->urutan = $request->input('urutan');       			
-			$kelompokpertanyaan->save();
+			$daftarpertanyaan->kategori_id = $request->input('kategori_id');
+			$daftarpertanyaan->nama_kelompok = $request->input('nama_kelompok');
+			$daftarpertanyaan->urutan = $request->input('urutan');       			
+			$daftarpertanyaan->save();
 				
 			\App\Models\System\ActivityLog::log($request,[
-				'object' => $kelompokpertanyaan,
-				'object_id'=>$kelompokpertanyaan->id, 
+				'object' => $daftarpertanyaan,
+				'object_id'=>$daftarpertanyaan->id, 
 				'user_id' => $this->getUserid(), 
-				'message' => 'Mengubah data kelompok pertanyaan ('.$kelompokpertanyaan->id.') berhasil'
+				'message' => 'Mengubah data kelompok pertanyaan ('.$daftarpertanyaan->id.') berhasil'
 			]);
 
 			return Response()->json([
 				'status'=>1,
 				'pid'=>'update',
-				'kelompokpertanyaan'=>$kelompokpertanyaan,
-				'message'=>'Data kelompok pertanyaan '.$kelompokpertanyaan->id.' berhasil diubah.'
+				'kelompokpertanyaan'=>$daftarpertanyaan,
+				'message'=>'Data kelompok pertanyaan '.$daftarpertanyaan->id.' berhasil diubah.'
 			], 200); 
 		}
 	}
@@ -168,9 +168,9 @@ class KelompokPertanyaanController extends Controller
 	{ 
 			$this->hasPermissionTo('DMASTER-KUISIONER_DESTROY');
 
-			$kelompokpertanyaan = KelompokPertanyaanModel::find($id); 
+			$daftarpertanyaan = DaftarPertanyaanModel::find($id); 
 			
-			if (is_null($kelompokpertanyaan))
+			if (is_null($daftarpertanyaan))
 			{
 				return Response()->json([
 					'status'=>0,
@@ -181,16 +181,16 @@ class KelompokPertanyaanController extends Controller
 			else
 			{
 				\App\Models\System\ActivityLog::log($request,[
-					'object' => $kelompokpertanyaan, 
-					'object_id' => $kelompokpertanyaan->id, 
+					'object' => $daftarpertanyaan, 
+					'object_id' => $daftarpertanyaan->id, 
 					'user_id' => $this->getUserid(), 
-					'message' => 'Menghapus Kelompok Pertanyaan ('.$id.') berhasil'
+					'message' => 'Menghapus Daftar Pertanyaan ('.$id.') berhasil'
 				]);
-				$kelompokpertanyaan->delete();
+				$daftarpertanyaan->delete();
 				return Response()->json([
 					'status'=>1,
 					'pid'=>'destroy',
-					'message'=>"Kelompok Pertanyaan dengan kode ($id) berhasil dihapus"
+					'message'=>"Daftar Pertanyaan dengan kode ($id) berhasil dihapus"
 				], 200);    
 			}
 								

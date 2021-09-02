@@ -2,14 +2,11 @@
 	<KemahasiswaanLayout>
 		<ModuleHeader>
 			<template v-slot:icon>
-				mdi-monitor-dashboard
+				mdi-arrow-right-bold-box-outline
 			</template>
 			<template v-slot:name>
-				KEMAHASISWAAN 
-			</template>
-			<template v-slot:subtitle>
-				TAHUN KEMAHASISWAAN {{ tahun_akademik }}
-			</template>
+				PINDAH PAKSA KELAS 
+			</template>			
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
 					<template v-slot:divider>
@@ -24,7 +21,7 @@
 					colored-border
 					type="info"
 					>
-					dashboard untuk memperoleh ringkasan informasi kemahasiswaan perguruan tinggi.
+					Halaman ini digunakan untuk memindahkan kelas dari seorang mahasiswa secara paksa, tanpa mempertimbangkan aspek-aspek lainnya.
 					</v-alert>
 			</template>
 		</ModuleHeader>
@@ -38,7 +35,7 @@
 						<v-list-item three-line>
 							<v-list-item-content>
 								<div class="overline mb-1">
-									PROFIL MAHASISWA (MASUKAN NIM)
+									MASUKAN NIM :
 								</div>
 								<v-list-item-subtitle>
 									<v-autocomplete
@@ -152,12 +149,12 @@ export default {
 		changeTahunAkademik(tahun)
 		{
 			this.tahun_akademik = tahun;
-	   },
+		},
 		initialize: async function()
 		{	            
 			this.firstloading = false; 
 			this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
-	   },
+		},
 		field_alias(atr)
 		{
 			var alias;
@@ -177,11 +174,11 @@ export default {
 				break;
 			}
 			return alias;
-	   },
+		},
 		goProfilMhs()
 		{
 			this.$router.push('/kemahasiswaan/profil/'+this.data_mhs.user_id);
-	   },
+		},
 		clearDataMhs()
 		{
 			this.data_mhs = null;
@@ -197,7 +194,7 @@ export default {
 					value: this.data_mhs[key] || 'n/a',
 				}
 			})
-	   },
+		},
    },
 	watch: {
 		tahun_akademik()
@@ -206,7 +203,7 @@ export default {
 			{
 				this.initialize();
 			} 
-	   },
+		},
 		search (val) 
 		{
 			if (this.isLoading) return;
@@ -218,7 +215,7 @@ export default {
 					await this.$ajax.post('/kemahasiswaan/profil/search',
 					{
 						search: val,
-				   },
+					},
 					{
 						headers: {
 							Authorization: this.$store.getters["auth/Token"]
@@ -231,15 +228,15 @@ export default {
 					}).catch(() => {
 						this.isLoading=false;
 					});
-				   },1000
-				);
+				},1000
+			);
 			}
-	   },
+		},
    },
 	components: {
 		KemahasiswaanLayout,
 		ModuleHeader, 
 		Filter1, 
-   },
+	},
 }
 </script>

@@ -73,6 +73,10 @@
 										<td colspan="6">{{ ips }}</td>
 									</tr>
 									<tr class="grey lighten-4 font-weight-black">
+										<td class="text-right" colspan="3">SKS TOTAL</td>
+										<td colspan="6">{{ jumlah_sks_2 }}</td>
+									</tr>
+									<tr class="grey lighten-4 font-weight-black">
 										<td class="text-right" colspan="3">IPK</td>
 										<td colspan="6">{{ ipk }}</td>
 									</tr>
@@ -188,6 +192,7 @@
 			],
 
 			jumlah_sks: 0,
+			jumlah_sks_2: 0,
 			jumlah_matkul: 0,
 			jumlah_m: 0,
 			jumlah_am: 0,
@@ -216,6 +221,7 @@
 							this.tahun_akademik = this.datakrs.tahun;
 							this.semester_akademik = this.datakrs.idsmt;
 							this.jumlah_sks = data.jumlah_sks;
+							this.jumlah_sks_2 = data.jumlah_sks_2;
 							this.jumlah_matkul = data.jumlah_matkul;
 							this.jumlah_m = data.jumlah_m;
 							this.jumlah_am = data.jumlah_am;
