@@ -277,7 +277,7 @@
 			initialize: async function() {
 				let bentukpt = this.$store.getters["uifront/getBentukPT"];
 				this.$ajax.get("/datamaster/provinsi").then(({ data }) => { 
-					this.daftar_provinsi=data.provinsi;
+					this.daftar_provinsi = data.provinsi;
 				});
 				if (bentukpt == "universitas")
 				{ 
@@ -382,8 +382,8 @@
 			},
 		},
 		watch: {
-			provinsi_id(val) {
-				if (val.id != null && val.id != "") {
+			provinsi_id(val) {				
+				if (val.id != null && val.id != "null" && val.id != "") {
 					this.btnLoadingProv = true;
 					this.$ajax
 						.get("/datamaster/provinsi/" + val.id + "/kabupaten")
@@ -395,7 +395,7 @@
 				}
 			},
 			kabupaten_id(val) {
-				if (val.id != null && val.id != "") {
+				if (val.id != null && val.id != "null" && val.id != "") {
 					this.btnLoadingKab = true;
 					this.$ajax
 						.get("/datamaster/kabupaten/" + val.id + "/kecamatan")
@@ -406,7 +406,7 @@
 				}
 			},
 			kecamatan_id(val) {
-				if (val.id != null && val.id != "") {
+				if (val.id != null && val.id != "null" && val.id != "") {
 					this.btnLoadingKec = true;
 					this.$ajax
 						.get("/datamaster/kecamatan/" + val.id + "/desa")
