@@ -141,7 +141,7 @@ class ReportKelulusanController extends Controller {
         ]);
         
         $data_report=[
-            'TA'=>$request->input('ta'),
+            'ta'=>$request->input('ta'),
             'prodi_id'=>$request->input('prodi_id'),
             'nama_prodi'=>$request->input('nama_prodi'), 
             'filter_status'=>$request->input('filter_status'),

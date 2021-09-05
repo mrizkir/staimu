@@ -17,28 +17,28 @@ use App\Mail\VerifyEmailAddress;
 use Ramsey\Uuid\Uuid;
 
 class ReportSPMBProdiController extends Controller {         
-    /**
-     * cetak ke excel
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function printtoexcel(Request $request)
-    {   
-        $this->hasPermissionTo('SPMB-PMB-LAPORAN-PRODI_BROWSE');
+	/**
+	 * cetak ke excel
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function printtoexcel(Request $request)
+	{   
+		$this->hasPermissionTo('SPMB-PMB-LAPORAN-PRODI_BROWSE');
 
-        $this->validate($request, [           
-            'ta'=>'required',
-            'prodi_id'=>'required',
-            'nama_prodi'=>'required',
-        ]);
-        
-        $data_report=[
-            'TA'=>$request->input('ta'),
-            'prodi_id'=>$request->input('prodi_id'),
-            'nama_prodi'=>$request->input('nama_prodi'),
-        ];
+		$this->validate($request, [           
+			'ta'=>'required',
+			'prodi_id'=>'required',
+			'nama_prodi'=>'required',
+		]);
+		
+		$data_report=[
+			'ta'=>$request->input('ta'),
+			'prodi_id'=>$request->input('prodi_id'),
+			'nama_prodi'=>$request->input('nama_prodi'),
+		];
 
-        $report= new \App\Models\Report\ReportSPMBModel ($data_report);     
-        return $report->prodi();
-    }
+		$report= new \App\Models\Report\ReportSPMBModel ($data_report);     
+		return $report->prodi();
+	}
 }
