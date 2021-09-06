@@ -211,6 +211,11 @@
 					</v-card>
 				</v-form>
 			</v-col>
+			<v-col cols="12" v-if="dashboard == 'mahasiswabaru' && formdata.isdulang == true">
+				<v-alert type="warning">
+					Mahasiswa a.n {{ formdata.nama_mhs }} telah melakukan daftar ulang mahasiswa baru.
+				</v-alert>
+			</v-col>
 		</v-row>
 	</SPMBLayout>
 </template>
@@ -251,8 +256,7 @@
 			btnLoadingKec: false,
 			btnLoadingFakultas: false,
 
-			//form
-			kode_billing: "N.A",
+			//form			
 			form_valid: true,
 
 			menuTanggalLahir: false,
@@ -287,6 +291,7 @@
 				nama_ibu_kandung: "",
 				kjur1: "",
 				idkelas: "",
+				isdulang: false,
 			},
 			rule_nama_mhs: [
 				value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
@@ -393,7 +398,7 @@
 					this.formdata.kjur1 = data.formulir.kjur1;
 					this.formdata.idkelas = data.formulir.idkelas;
 					
-					this.kode_billing=data.no_transaksi;
+					this.formdata.isdulang = data.formulir.isdulang;
 					this.$refs.frmdata.resetValidation();
 				});
 			},

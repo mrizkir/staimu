@@ -429,7 +429,8 @@ class PMBController extends Controller {
 																kjur1,
 																idkelas,
 																users.ta,
-																idsmt
+																idsmt,
+																isdulang
 															'))
 											->join('users','users.id','pe3_formulir_pendaftaran.user_id')
 											->leftJoin('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')
