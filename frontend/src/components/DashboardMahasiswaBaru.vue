@@ -140,7 +140,8 @@
 					<v-card color="green lighten-1">
 						<v-card-title class="title white--text">Daftar Ulang</v-card-title>
 						<v-card-text class="white text--primary">
-							<p>Setelah dinyatakan Lulus dan Melakukan pembayaran biaya Daftar Ulang, Silahkan klik daftar ulang.</p>
+							<p>Setelah dinyatakan Lulus dan Melakukan pembayaran biaya Daftar Ulang, Silahkan klik tombol daftar ulang.</p>
+							<p class="info pa-2 white--text">BAGIAN INI WAJIB DILAKUKAN, BILA TIDAK, BAGIAN AKADEMIK TIDAK BISA SET NOMOR INDUK SAUDARA.</p>
 							<v-btn
 								color="red lighten-2"
 								class="ma-2"
@@ -153,12 +154,15 @@
 								color="green lighten-1"
 								class="mx-0 mr-2"
 								@click.stop="showFormDaftarUlang"
-								:disabled="btnLoading ||  status_ujian == false"
+								:disabled="btnLoading ||  status_ujian == false || peserta.isdulang == true"
 								outlined
 							>
 								Daftar Ulang
 							</v-btn>
 						</v-card-text>
+						<v-card-actions v-if="peserta.isdulang" class="white--text">
+							Selamat saudara telah berhasil daftar ulang
+						</v-card-actions>
 					</v-card>
 				</v-timeline-item>
 			</v-timeline>
@@ -369,7 +373,7 @@
 						}
 					)
 					.then(({ data }) => {
-						console.log(data);
+						this.$router.push("/spmb/formulirdaftarulang/" + data.transaksi.user_id);
 					})
 					.catch(() => {
 						this.btnLoading = false;

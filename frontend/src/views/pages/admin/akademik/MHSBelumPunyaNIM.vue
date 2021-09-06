@@ -323,8 +323,16 @@ export default {
                 }
             }).then(({ data }) => {
                 this.data_mhs = item;
-                this.dialogfrm = true;
+                
                 this.daftar_dw = data.users; 
+            });
+            await this.$ajax.get('/spmb/formulirpendaftaran/' + item.user_id +'/cekdulang', {
+                headers: {
+                    Authorization: this.$store.getters["auth/Token"]
+                }
+            })
+            .then(() => {                
+                this.dialogfrm = true;                
             });
        },
         save() {

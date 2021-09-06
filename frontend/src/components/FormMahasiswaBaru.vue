@@ -230,14 +230,6 @@
 			rule_nama_mhs: [
 				value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
 				value => /^[A-Za-z\s\\,\\.]*$/.test(value) || "Nama Mahasiswa hanya boleh string dan spasi",
-			], 
-			rule_nidn: [
-				value => !!value || "Mohon untuk di isi NIDN !!!", 
-				value => /^[0-9]+$/.test(value) || "NIDN hanya boleh angka", 
-			],
-			rule_nipy: [
-				value => !!value || "Mohon untuk di isi NIP Yayasan !!!", 
-				value => /^[0-9]+$/.test(value) || "NIP Yayasan hanya boleh angka", 
 			],
 			rule_tempat_lahir: [
 				value => !!value || "Tempat Lahir mohon untuk diisi !!!"

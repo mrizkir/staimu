@@ -357,6 +357,16 @@ const routes = [
 		component: () => import("../views/pages/admin/spmb/PassingGrade.vue"),
 	},
 	{
+		path: "/spmb/formulirdaftarulang/:user_id",
+		name: "SPMBFormulirDaftarUlangMHSBaru",
+		meta: {
+			title: "SPMB - FORMULIR DAFTAR ULANG",
+			requiresAuth: true,
+		},
+		component: () =>
+			import("../views/pages/admin/spmb/FormulirDulangMahasiswaBaru.vue"),
+	},
+	{
 		path: "/spmb/laporanfakultas",
 		name: "SPMBReportFakultas",
 		meta: {

@@ -132,59 +132,59 @@
 	export default {
 	name: "FormulirPendaftaran", 
 		created() {
-		this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
-		this.breadcrumbs = [
-			{
-				text: "HOME",
-				disabled: false,
-				href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
-			},
-			{
-				text: "SPMB",
-				disabled: false,
-				href: "/spmb"
-			},
-			{
-				text: "BIODATA",
-				disabled: true,
-				href: "#"
-			}
-		];
-		this.breadcrumbs[1].disabled=(this.dashboard=="mahasiswabaru"||this.dashboard== "mahasiswa");
-		
-		let prodi_id = this.$store.getters["uiadmin/getProdiID"];
-		this.prodi_id = prodi_id;
-		this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
-		this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
-		this.initialize()	 
+			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
+			this.breadcrumbs = [
+				{
+					text: "HOME",
+					disabled: false,
+					href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
+				},
+				{
+					text: "SPMB",
+					disabled: false,
+					href: "/spmb"
+				},
+				{
+					text: "BIODATA",
+					disabled: true,
+					href: "#"
+				}
+			];
+			this.breadcrumbs[1].disabled=(this.dashboard=="mahasiswabaru"||this.dashboard== "mahasiswa");
+			
+			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
+			this.prodi_id = prodi_id;
+			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
+			this.initialize();
 		},
 		data: () => ({
-		firstloading: true,
-		prodi_id: null,
-		tahun_pendaftaran: null,
-		nama_prodi: null,
+			firstloading: true,
+			prodi_id: null,
+			tahun_pendaftaran: null,
+			nama_prodi: null,
 
-		dialogprofilmhsbaru: false,
-		breadcrumbs: [], 
-		dashboard: null,
+			dialogprofilmhsbaru: false,
+			breadcrumbs: [], 
+			dashboard: null,
 
-		btnLoading: false,
-		datatableLoading: false,
-		expanded: [],
-		datatable: [],
-		headers: [
-			{ text: "", value: "foto", width: 70 },
-			{ text: "NO. FORMULIR", value: "no_formulir", width: 140, sortable: true },
-			{ text: "USERNAME", value: "username", width: 150, sortable: true },
-			{ text: "NAMA MAHASISWA", value: "name", width: 350, sortable: true },
-			{ text: "JK", value: "jk", width: 70 },
-			{ text: "NOMOR HP", value: "nomor_hp", width: 100},
-			{ text: "KELAS", value: "nkelas", width: 150, sortable: true },
-			{ text: "AKSI", value: "actions", sortable: false, width: 100 },
-		],
-		search: "",
-		
-		datamhsbaru: {}
+			btnLoading: false,
+			datatableLoading: false,
+			expanded: [],
+			datatable: [],
+			headers: [
+				{ text: "", value: "foto", width: 70 },
+				{ text: "NO. FORMULIR", value: "no_formulir", width: 140, sortable: true },
+				{ text: "USERNAME", value: "username", width: 150, sortable: true },
+				{ text: "NAMA MAHASISWA", value: "name", width: 350, sortable: true },
+				{ text: "JK", value: "jk", width: 70 },
+				{ text: "NOMOR HP", value: "nomor_hp", width: 100},
+				{ text: "KELAS", value: "nkelas", width: 150, sortable: true },
+				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
+			],
+			search: "",
+			
+			datamhsbaru: {},
 		}),
 		methods: {
 		changeTahunPendaftaran(tahun) {
@@ -243,23 +243,23 @@
 	},
 	watch: {
 		tahun_pendaftaran() {
-		if (!this.firstloading) {
-			this.initialize();
-		} 
+			if (!this.firstloading) {
+				this.initialize();
+			} 
 		},
 		prodi_id(val) {
-		if (!this.firstloading) {
-			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
-			this.initialize();
-		} 
+			if (!this.firstloading) {
+				this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
+				this.initialize();
+				} 
+			},
 		},
-	},
-	components: {
-		SPMBLayout,
-		ModuleHeader,
-		FormMhsBaru,
-		ProfilMahasiswaBaru,
-		Filter7,
-	},
+		components: {
+			SPMBLayout,
+			ModuleHeader,
+			FormMhsBaru,
+			ProfilMahasiswaBaru,
+			Filter7,
+		},
 	};
 </script>
