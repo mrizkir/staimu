@@ -172,7 +172,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	//spmb - formulir pendaftaran
 	$router->post('/spmb/formulirpendaftaran',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\PMBController@formulirpendaftaran','as'=>'formulirpendaftaran.index']);
 	$router->get('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru|mahasiswa'],'uses'=>'SPMB\PMBController@show','as'=>'formulirpendaftaran.show']);
-	$router->put('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@update','as'=>'formulirpendaftaran.update']);
+	$router->get('/spmb/formulirpendaftaran/{id}/cekdulang',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@cekdulang','as'=>'formulirpendaftaran.cekdulang']);
+	$router->put('/spmb/formulirpendaftaran/{id}',['middleware'=>['role:superadmin|pmb|mahasiswabaru'],'uses'=>'SPMB\PMBController@update','as'=>'formulirpendaftaran.update']);	
 
 	//spmb - jadwal ujian pmb
 	$router->post('/spmb/jadwalujianpmb',['middleware'=>['role:superadmin|pmb|mahasiswabaru|keuangan'],'uses'=>'SPMB\JadwalUjianPMBController@index','as'=>'jadwalujianpmb.index']);
@@ -259,7 +260,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/keuangan/transaksi/cancel',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);
 	$router->put('/keuangan/transaksi/verifikasi/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\TransaksiController@verifikasi','as'=>'transaksi.verifikasi']);
 	//digunakan untuk mendapatkan transaksi daftar ulang milik user_id mhs baru dengan status sudah bayar
-	$router->post('/keuangan/transaksi/{id}/dulangmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
+	$router->post('/keuangan/transaksi/{id}/dulangmhsbaru',['uses'=>'Keuangan\TransaksiController@dulangmhsbaru','as'=>'transaksi.dulangmhsbaru']);
 	//digunakan untuk mendapatkan spp milik user_id mhs baru dengan status sudah bayar
 	$router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
 	$router->delete('/keuangan/transaksi/{$id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);
@@ -369,7 +370,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/akademik/dulang/mhsbaru',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@index','as'=>'dulangmhsbaru.index']);
 	$router->post('/akademik/dulang/mhsbaru/store',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@store','as'=>'dulangmhsbaru.store']);
 	$router->get('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@show','as'=>'dulangmhsbaru.show']);
-	$router->put('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@update','as'=>'dulangmhsbaru.update']);
+	$router->put('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik|pmb|mahasiswabaru'],'uses'=>'Akademik\DulangMahasiswaBaruController@update','as'=>'dulangmhsbaru.update']);
 	$router->delete('/akademik/dulang/mhsbaru/{id}',['middleware'=>['role:superadmin|akademik'],'uses'=>'Akademik\DulangMahasiswaBaruController@destroy','as'=>'dulangmhsbaru.destroy']);
 
 	//akademik - daftar ulang - mahasiswa lama

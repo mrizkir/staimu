@@ -176,23 +176,23 @@ class TransaksiController extends Controller {
 				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH.');
 			} 
 
-			$dulang=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+			$transaksi=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
 							->where('pe3_transaksi_detail.kombi_id', 102)																					
 							->where('pe3_transaksi.status', 1)
 							->where('pe3_transaksi_detail.user_id',$mhs->user_id)
 							->first();
 
-			if (is_null($dulang))
+			if (is_null($transaksi))
 			{
-				throw new Exception ('Mahasiswa Baru ini belum melakukan pembayaran KRS pada Bulan September');
+				throw new Exception ('Tidak bisa daftar ulang karena belum melakukan pembayaran Daftar Ulang Mahasiswa Baru.');
 			}
 
 			return Response()->json([
 				'status'=>1,
 				'pid'=>'fetchdata',  
-				// 'status_transaksi'=>$dulang->status,  
-				'dulang'=>$dulang,
-				'message'=>'SPP Mahasiswa Baru berhasil DIPEROLEH.'
+				// 'status_transaksi'=>$transaksi->status,  
+				'transaksi'=>$transaksi,
+				'message'=>'Biaya Daftar Ulang Mahasiswa Baru berhasil DIPEROLEH.'
 			], 200);
 			
 		}

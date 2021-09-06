@@ -71,6 +71,7 @@ class FormulirPendaftaranModel extends Model {
         'ta',
         'idsmt',
         'descr',
+        'isdulang',
     ];
     /**
      * enable auto_increment.
