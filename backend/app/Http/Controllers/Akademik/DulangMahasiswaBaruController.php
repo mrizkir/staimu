@@ -112,6 +112,7 @@ class DulangMahasiswaBaruController extends Controller
 				  
 				$formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    				
 				$formulir->nik=$request->input('nik');    				
+				$formulir->ukuran_baju=$request->input('ukuran_baju');    				
 				$formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
 				$formulir->address1_provinsi=$request->input('address1_provinsi');
 				$formulir->address1_kabupaten_id=$request->input('address1_kabupaten_id');

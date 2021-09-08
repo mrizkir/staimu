@@ -26,6 +26,7 @@ class CreateFormulirPendaftaranTable extends Migration
 			
 			$table->enum('idwarga',['WNI','WNA'])->default('WNI');
 			$table->string('nik',60)->nullable(); 
+			$table->enum('ukuran_baju', ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'])->default('M'); 
 			$table->enum('status_pekerjaan',['TIDAK_BEKERJA','BEKERJA'])->default('TIDAK_BEKERJA'); 
 			$table->string('alamat_kantor')->nullable();             
 			$table->string('telp_kantor')->nullable(); 

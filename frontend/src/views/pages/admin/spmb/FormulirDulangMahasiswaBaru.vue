@@ -100,6 +100,12 @@
 								filled
 								:rules="rule_nik"
 							/>
+							<v-select
+								label="UKURAN BAJU"
+								:items="['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']"
+								v-model="formdata.ukuran_baju"								
+								filled
+							/>
 							<v-text-field
 								label="NOMOR HP"
 								v-model="formdata.nomor_hp"
@@ -299,6 +305,7 @@
 				tanggal_lahir: "",
 				jk: "L",
 				nik: "",
+				ukuran_baju: "M",
 				nomor_hp: "",
 				email: "",
 				alamat_rumah: "",
@@ -385,6 +392,7 @@
 						this.formdata.tanggal_lahir = data.formulir.tanggal_lahir;
 						this.formdata.jk = data.formulir.jk;
 						this.formdata.nik = data.formulir.nik;
+						this.formdata.ukuran_baju = data.formulir.ukuran_baju;
 						this.formdata.nomor_hp = "+" + data.formulir.nomor_hp;
 						this.formdata.email = data.formulir.email;
 						this.formdata.nama_ibu_kandung = data.formulir.nama_ibu_kandung;
@@ -460,6 +468,7 @@
 								email: this.formdata.email,
 								nama_ibu_kandung: this.formdata.nama_ibu_kandung,
 								nik: this.formdata.nik,
+								ukuran_baju: this.formdata.ukuran_baju,
 								address1_provinsi_id: this.provinsi_id.id,
 								address1_provinsi: this.provinsi_id.nama,
 								address1_kabupaten_id: this.kabupaten_id.id,

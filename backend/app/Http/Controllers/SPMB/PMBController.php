@@ -416,6 +416,7 @@ class PMBController extends Controller {
 																email,
 																nama_ibu_kandung,
 																nik,
+																ukuran_baju,
 																address1_desa_id,
 																address1_kelurahan,
 																address1_kecamatan_id,

@@ -33,6 +33,7 @@ class FormulirPendaftaranModel extends Model {
         
         'idwarga',
         'nik',
+        'ukuran_baju',
         'status_pekerjaan',
         'alamat_kantor',             
         'telp_kantor', 
