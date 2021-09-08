@@ -486,9 +486,7 @@
 						})
 						.catch(() => {
 							this.btnLoading = false;
-						});
-					this.form_valid = true;
-					this.$refs.frmdata.resetValidation();
+						});										
 				}
 			},
 			isidaftarulang() {

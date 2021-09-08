@@ -196,7 +196,7 @@
 								class="mx-0 mr-2"
 								@click.stop="showFormDaftarUlang"
 								:disabled="
-									btnLoading || islulus == false || isidaftarulang()
+									btnLoading || islulus == true || isidaftarulang()
 								"
 								outlined
 							>
@@ -449,7 +449,7 @@
 			},
 			isidaftarulang() {
 				if (this.peserta) {
-					return this.peserta.isdulang;
+					return this.peserta.isdulang == 1;
 				} else {
 					return false;
 				}
