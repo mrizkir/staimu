@@ -12,7 +12,7 @@ use App\Models\Keuangan\TransaksiDetailModel;
 
 use Ramsey\Uuid\Uuid;
 
-class PesertaLulusController extends Controller {             
+class PesertaDulangController extends Controller {             
 	/**
 	 * digunakan untuk mendapatkan calon mahasiswa baru yang telah mengisi formulir pendaftaran
 	 *
@@ -20,7 +20,7 @@ class PesertaLulusController extends Controller {
 	 */
 	public function index(Request $request)
 	{   
-		$this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_BROWSE']);
+		$this->hasPermissionTo('AKADEMIK-DULANG-BARU_BROWSE');
 
 		$this->validate($request, [           
 			'ta'=>'required',
@@ -46,8 +46,8 @@ class PesertaLulusController extends Controller {
 						pe3_kelas.nkelas,
 						users.active,
 						users.foto,
-						users.created_at,
-						users.updated_at
+						pe3_formulir_pendaftaran.created_at,
+						pe3_formulir_pendaftaran.updated_at
 					'))
 					->join('users','pe3_formulir_pendaftaran.user_id','users.id')
 					->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
@@ -55,6 +55,7 @@ class PesertaLulusController extends Controller {
 					->where('users.ta',$ta)
 					->where('kjur1',$prodi_id)
 					->where('pe3_nilai_ujian_pmb.ket_lulus', 1)
+					->where('pe3_formulir_pendaftaran.isdulang', 1)
 					->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
 					->where('users.active', 1)    
 					->orderBy('users.name','ASC') 
@@ -64,7 +65,7 @@ class PesertaLulusController extends Controller {
 								'status'=>1,
 								'pid'=>'fetchdata',
 								'pmb'=>$data,
-								'message'=>'Fetch data calon mahasiswa baru yang lulus berhasil diperoleh'
+								'message'=>'Fetch data daftar ulang mahasiswa baru berhasil diperoleh'
 							], 200);  
 	}    
 }

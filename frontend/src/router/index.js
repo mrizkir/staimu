@@ -348,6 +348,15 @@ const routes = [
 		component: () => import("../views/pages/admin/spmb/PesertaLulus.vue"),
 	},
 	{
+		path: "/spmb/pesertadulang",
+		name: "SPMBPesertaDulang",
+		meta: {
+			title: "SPMB - PESERTA DAFTAR ULANG",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/spmb/PesertaDulang.vue"),
+	},
+	{
 		path: "/spmb/jadwalujianpmb/passinggrade/:idjadwalujian",
 		name: "SPMBPassingGrade",
 		meta: {

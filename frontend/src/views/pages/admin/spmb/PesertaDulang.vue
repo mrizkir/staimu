@@ -5,7 +5,7 @@
 				mdi-contacts
 			</template>
 			<template v-slot:name>
-				PESERTA YANG LULUS
+				PESERTA YANG DAFTAR ULANG
 			</template>
 			<template v-slot:subtitle v-if="dashboard != 'mahasiswabaru'">
 				TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
@@ -19,7 +19,7 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="orange" border="left" colored-border type="info">
-					Berisi daftar mahasiswa baru yang lulus ujian PMB
+					Berisi daftar mahasiswa baru yang telah melakukan daftar ulang
 				</v-alert>
 			</template>
 		</ModuleHeader>
@@ -57,7 +57,7 @@
 					>
 						<template v-slot:top>
 							<v-toolbar flat color="white">
-								<v-toolbar-title>DAFTAR PESERTA YANG LULUS</v-toolbar-title>
+								<v-toolbar-title>DAFTAR PESERTA YANG DAFTAR ULANG</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical></v-divider>
 							</v-toolbar>
 						</template>
@@ -109,7 +109,7 @@
 	import ModuleHeader from "@/components/ModuleHeader";
 	import Filter7 from "@/components/sidebar/FilterMode7";
 	export default {
-		name: "PesertaLulus",
+		name: "PesertaDulang",
 		created() {
 			this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
 			this.breadcrumbs = [
@@ -124,7 +124,7 @@
 					href: "/spmb",
 				},
 				{
-					text: "PESERTA YANG LULUS",
+					text: "PESERTA DAFTAR ULANG",
 					disabled: true,
 					href: "#",
 				},
@@ -178,7 +178,7 @@
 				this.datatableLoading = true;
 				await this.$ajax
 					.post(
-						"/spmb/pesertalulus",
+						"/spmb/pesertadulang",
 						{
 							ta: this.tahun_pendaftaran,
 							prodi_id: this.prodi_id,
