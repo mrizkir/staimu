@@ -357,6 +357,24 @@ const routes = [
 		component: () => import("../views/pages/admin/spmb/PesertaDulang.vue"),
 	},
 	{
+		path: "/spmb/pesertadulang/:user_id/detail",
+		name: "SPMBPesertaDulangDetail",
+		meta: {
+			title: "SPMB - PESERTA DAFTAR ULANG",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/spmb/PesertaDulangDetail.vue"),
+	},
+	{
+		path: "/spmb/pesertadulang/:user_id/edit",
+		name: "SPMBPesertaDulangEdit",
+		meta: {
+			title: "SPMB - PESERTA DAFTAR ULANG",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/spmb/PesertaDulangEdit.vue"),
+	},
+	{
 		path: "/spmb/jadwalujianpmb/passinggrade/:idjadwalujian",
 		name: "SPMBPassingGrade",
 		meta: {

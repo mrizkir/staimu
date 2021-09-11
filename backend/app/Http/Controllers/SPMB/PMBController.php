@@ -426,15 +426,19 @@ class PMBController extends Controller {
 																address1_provinsi_id,
 																address1_provinsi,        
 																alamat_rumah,
-																pe3_prodi.kode_fakultas,
+																pe3_prodi.kode_prodi,
+																pe3_prodi.nama_prodi,
 																kjur1,
-																idkelas,
+																kjur1,
+																pe3_formulir_pendaftaran.idkelas,
+																pe3_kelas.nkelas,
 																users.ta,
 																idsmt,
 																isdulang
 															'))
 											->join('users','users.id','pe3_formulir_pendaftaran.user_id')
 											->leftJoin('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')
+											->leftJoin('pe3_kelas','pe3_kelas.idkelas','pe3_formulir_pendaftaran.idkelas')
 											->find($id);
 
 		if (is_null($formulir))

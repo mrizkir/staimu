@@ -76,10 +76,35 @@
 						<template v-slot:item.tempat_lahir="{ item }">
 							{{ item.tempat_lahir }} / {{ $date(item.tanggal_lahir).format("DD/MM/YYYY") }}
 						</template>
-						<template v-slot:item.actions>
-							<v-icon small class="mr-2">
-								mdi-eye
-							</v-icon>
+						<template v-slot:item.actions="{ item }">
+							<v-tooltip bottom>
+								<template v-slot:activator="{ on, attrs }">
+									<v-icon
+										v-bind="attrs"
+										v-on="on"
+										small
+										class="mr-2"
+										@click.stop="viewItem(item)"
+									>
+										mdi-eye
+									</v-icon>
+								</template>
+								<span>Detail Peserta</span>
+							</v-tooltip>
+							<v-tooltip bottom>
+								<template v-slot:activator="{ on, attrs }">
+									<v-icon
+										v-bind="attrs"
+										v-on="on"
+										small
+										class="mr-2"
+										@click.stop="editItem(item)"										
+									>
+										mdi-pencil
+									</v-icon>
+								</template>
+								<span>Ubah Dulang</span>
+							</v-tooltip>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
@@ -213,6 +238,12 @@
 				} else {
 					this.expanded = [item];
 				}
+			},
+			viewItem(item) {
+				this.$router.push("/spmb/pesertadulang/" + item.id + "/detail")
+			},
+			editItem(item) {
+				this.$router.push("/spmb/pesertadulang/" + item.id + "/edit")
 			},
 			badgeColor(item) {
 				return item.active == 1 ? "success" : "error";

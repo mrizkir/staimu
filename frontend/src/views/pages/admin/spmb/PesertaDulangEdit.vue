@@ -85,6 +85,18 @@
 									<v-radio label="PEREMPUAN" value="P"></v-radio>
 								</v-radio-group>
 								<v-text-field
+									label="NOMOR INDUK KEPENDUDUKAN (NIK)"
+									v-model="formdata.nik"
+									filled
+									:rules="rule_nik"
+								/>
+								<v-select
+									label="UKURAN BAJU"
+									:items="['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']"
+									v-model="formdata.ukuran_baju"								
+									filled
+								/>
+								<v-text-field
 									label="NOMOR HP"
 									v-model="formdata.nomor_hp"
 									filled
@@ -195,13 +207,12 @@
 						</v-card>
 						<v-card class="mb-4">
 							<v-card-actions>
-								Kode Billing: <strong>{{kode_billing}}</strong>
+								<span v-if="!formdata.isdulang">Mahasiswa ini belum melakukan daftar ulang.</span>
 								<v-spacer></v-spacer>
 								<v-btn 
 									color="blue darken-1" 
 									text 
-									@click.stop="save" 
-									
+									@click.stop="save"									
 									:disabled="!form_valid || btnLoading">SIMPAN</v-btn>
 							</v-card-actions>
 						</v-card>
@@ -215,7 +226,7 @@
 import SPMBLayout from "@/views/layouts/SPMBLayout";
 import ModuleHeader from "@/components/ModuleHeader";
 export default {
-	name: 'FormulirPendaftaranEdit', 
+	name: 'PesertaDulangEdit', 
 	created()
 	{
 		this.user_id = this.$route.params.user_id;
@@ -227,17 +238,17 @@ export default {
 				href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
 			},
 			{
-				text: 'SPMB',
+				text: "SPMB",
 				disabled: false,
-				href: '/spmb'
+				href: "/spmb"
 			},
 			{
-				text: 'BIODATA',
+				text: "DAFTAR ULANG",
 				disabled: false,
-				href: '/spmb/formulirpendaftaran'
+				href: "/spmb/pesertadulang"
 			},
 			{
-				text: 'EDIT',
+				text: "UBAH",
 				disabled: true,
 				href: "#"
 			}
@@ -259,7 +270,7 @@ export default {
 
 		//form
 		user_id: null,
-		kode_billing: 'N.A',
+		kode_billing: "N.A",
 		form_valid: true,
 
 		menuTanggalLahir: false,
@@ -286,7 +297,9 @@ export default {
 			nama_mhs: "",  
 			tempat_lahir: "",
 			tanggal_lahir: "",
-			jk: 'L',
+			jk: "L",
+			nik: "",
+			ukuran_baju: "M",
 			nomor_hp: "",
 			email: "",
 			alamat_rumah: "",
@@ -295,10 +308,16 @@ export default {
 			idkelas: "",
 			isdulang: false,
 		},
+		errorMessage: null,
+
 		rule_nama_mhs: [
 			value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
 			value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-		],  
+		],
+		rule_nik: [
+			value => !!value || "Mohon untuk di isi NIK Mahasiswa !!!",
+			value => /^[0-9]+$/.test(value) || "NIK Mahasiswa hanya boleh angka",
+		],
 		rule_tempat_lahir: [
 			value => !!value || "Tempat Lahir mohon untuk diisi !!!"
 		], 
@@ -368,6 +387,8 @@ export default {
 				this.formdata.tempat_lahir = data.formulir.tempat_lahir;
 				this.formdata.tanggal_lahir = data.formulir.tanggal_lahir;
 				this.formdata.jk = data.formulir.jk;
+				this.formdata.nik = data.formulir.nik;
+				this.formdata.ukuran_baju = data.formulir.ukuran_baju;
 				this.formdata.nomor_hp='+'+data.formulir.nomor_hp;
 				this.formdata.email = data.formulir.email;
 				this.formdata.nama_ibu_kandung = data.formulir.nama_ibu_kandung;
@@ -412,40 +433,48 @@ export default {
 			if (this.$refs.frmdata.validate())
 			{
 				this.btnLoading = true;
-				await this.$ajax.post('/spmb/formulirpendaftaran/'+this.user_id,{
-					_method: "put",
-					nama_mhs: this.formdata.nama_mhs,  
-					tempat_lahir: this.formdata.tempat_lahir,  
-					tanggal_lahir: this.formdata.tanggal_lahir,  
-					jk: this.formdata.jk,  
-					nomor_hp: this.formdata.nomor_hp,  
-					email: this.formdata.email,
-					nama_ibu_kandung: this.formdata.nama_ibu_kandung,
-					address1_provinsi_id: this.provinsi_id.id,
-					address1_provinsi: this.provinsi_id.nama,
-					address1_kabupaten_id: this.kabupaten_id.id,
-					address1_kabupaten: this.kabupaten_id.nama,
-					address1_kecamatan_id: this.kecamatan_id.id,
-					address1_kecamatan: this.kecamatan_id.nama,
-					address1_desa_id: this.desa_id.id,
-					address1_kelurahan: this.desa_id.nama,
-					alamat_rumah: this.formdata.alamat_rumah,
-					kjur1: this.formdata.kjur1,
-					idkelas: this.formdata.idkelas,
-				},
-				{
-					headers: {
-						Authorization: this.$store.getters["auth/Token"]
-					}
-				}
-				).then(({ data }) => {
-					this.kode_billing=data.no_transaksi;
-					this.btnLoading = false;
-				}).catch(() => { 
-					this.btnLoading = false;
-				}); 
-				this.form_valid = true; 
-				this.$refs.frmdata.resetValidation(); 
+				await this.$ajax
+					.post(
+						"/akademik/dulang/mhsbaru/" +
+							this.user_id,
+						{
+							_method: "put",
+							nama_mhs: this.formdata.nama_mhs,
+							tempat_lahir: this.formdata.tempat_lahir,
+							tanggal_lahir: this.formdata.tanggal_lahir,
+							jk: this.formdata.jk,
+							nomor_hp: this.formdata.nomor_hp,
+							email: this.formdata.email,
+							nama_ibu_kandung: this.formdata.nama_ibu_kandung,
+							nik: this.formdata.nik,
+							ukuran_baju: this.formdata.ukuran_baju,
+							address1_provinsi_id: this.provinsi_id.id,
+							address1_provinsi: this.provinsi_id.nama,
+							address1_kabupaten_id: this.kabupaten_id.id,
+							address1_kabupaten: this.kabupaten_id.nama,
+							address1_kecamatan_id: this.kecamatan_id.id,
+							address1_kecamatan: this.kecamatan_id.nama,
+							address1_desa_id: this.desa_id.id,
+							address1_kelurahan: this.desa_id.nama,
+							alamat_rumah: this.formdata.alamat_rumah,
+							kjur1: this.formdata.kjur1,
+							idkelas: this.formdata.idkelas,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+						}
+					)
+					.then(() => {
+						this.btnLoading = false;
+						this.$router.push(
+							"/spmb/pesertadulang"
+						);
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});										
 			}  
 		},
    }, 
