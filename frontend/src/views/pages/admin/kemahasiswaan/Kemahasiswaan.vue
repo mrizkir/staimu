@@ -152,12 +152,12 @@ export default {
 		changeTahunAkademik(tahun)
 		{
 			this.tahun_akademik = tahun;
-	   },
+		},
 		initialize: async function()
 		{	            
 			this.firstloading = false; 
 			this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
-	   },
+		},
 		field_alias(atr)
 		{
 			var alias;
@@ -177,11 +177,11 @@ export default {
 				break;
 			}
 			return alias;
-	   },
+		},
 		goProfilMhs()
 		{
 			this.$router.push('/kemahasiswaan/profil/'+this.data_mhs.user_id);
-	   },
+		},
 		clearDataMhs()
 		{
 			this.data_mhs = null;
@@ -197,7 +197,7 @@ export default {
 					value: this.data_mhs[key] || 'n/a',
 				}
 			})
-	   },
+		},
    },
 	watch: {
 		tahun_akademik()
@@ -206,7 +206,7 @@ export default {
 			{
 				this.initialize();
 			} 
-	   },
+		},
 		search (val) 
 		{
 			if (this.isLoading) return;
@@ -218,7 +218,7 @@ export default {
 					await this.$ajax.post('/kemahasiswaan/profil/search',
 					{
 						search: val,
-				   },
+					},
 					{
 						headers: {
 							Authorization: this.$store.getters["auth/Token"]
@@ -231,10 +231,10 @@ export default {
 					}).catch(() => {
 						this.isLoading=false;
 					});
-				   },1000
+					},1000
 				);
 			}
-	   },
+		},
    },
 	components: {
 		KemahasiswaanLayout,

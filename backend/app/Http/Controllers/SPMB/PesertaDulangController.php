@@ -32,10 +32,14 @@ class PesertaDulangController extends Controller {
 
 		$data = FormulirPendaftaranModel::select(\DB::raw('
 						users.id,
+						pe3_formulir_pendaftaran.nik,
 						pe3_formulir_pendaftaran.no_formulir,
-						users.username,
+						pe3_formulir_pendaftaran.tempat_lahir,
+						pe3_formulir_pendaftaran.tanggal_lahir,
+						pe3_formulir_pendaftaran.ukuran_baju,
 						users.name,
 						users.nomor_hp,
+						pe3_formulir_pendaftaran.alamat_rumah,
 						COALESCE(pe3_nilai_ujian_pmb.nilai,\'N.A\') AS nilai,
 						pe3_nilai_ujian_pmb.ket_lulus,
 						CASE

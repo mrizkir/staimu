@@ -73,6 +73,9 @@
 								</v-avatar>
 							</v-badge>
 						</template>
+						<template v-slot:item.tempat_lahir="{ item }">
+							{{ item.tempat_lahir }} / {{ $date(item.tanggal_lahir).format("DD/MM/YYYY") }}
+						</template>
 						<template v-slot:item.actions>
 							<v-icon small class="mr-2">
 								mdi-eye
@@ -80,6 +83,9 @@
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
+								<v-col cols="12">
+									<strong>Alamat Rumah :</strong> {{ item.alamat_rumah }}, <strong>Nomor HP: </strong>{{ item.nomor_hp }}
+								</v-col>
 								<v-col cols="12">
 									<strong>ID:</strong>{{ item.id }} <strong>created_at:</strong
 									>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
@@ -155,14 +161,19 @@
 				{
 					text: "NO.FORMULIR",
 					value: "no_formulir",
+					width: 150,
+					sortable: true,
+				},
+				{
+					text: "NIK",
+					value: "nik",
 					width: 120,
 					sortable: true,
 				},
-				{ text: "NAMA MAHASISWA", value: "name", width: 350, sortable: true },
-				{ text: "NOMOR HP", value: "nomor_hp", width: 100 },
+				{ text: "NAMA MAHASISWA", value: "name", width: 250, sortable: true },
+				{ text: "TEMPAT & TGL LAHIR", value: "tempat_lahir", width: 150 },				
 				{ text: "KELAS", value: "nkelas", width: 100, sortable: true },
-				{ text: "NILAI", value: "nilai", width: 100, sortable: true },
-				{ text: "STATUS", value: "status", width: 100, sortable: true },
+				{ text: "SIZE BAJU", value: "ukuran_baju", width: 120, sortable: true },				
 				{ text: "AKSI", value: "actions", sortable: false, width: 100 },
 			],
 			search: "",
