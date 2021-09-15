@@ -200,9 +200,11 @@
 								<v-btn 
 									color="blue darken-1" 
 									text 
-									@click.stop="save" 
-									
-									:disabled="!form_valid || btnLoading">SIMPAN</v-btn>
+									@click.stop="save"									
+									:disabled="!form_valid || btnLoading"
+								>
+									SIMPAN
+								</v-btn>
 							</v-card-actions>
 						</v-card>
 					</v-form>

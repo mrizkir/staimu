@@ -312,11 +312,12 @@
 										small
 										class="mr-2"
 										@click.stop="editItem(item)"
+										:disabled="item.forcefully"
 									>
 										mdi-pencil
 									</v-icon>
 								</template>
-								<span>Ubah Tooltip</span>
+								<span>Ubah Pindah Kelas</span>
 							</v-tooltip>
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on, attrs }">
@@ -325,13 +326,13 @@
 										v-on="on"
 										small
 										color="red darken-1"
-										:disabled="btnLoading"
+										:disabled="btnLoading || item.forcefully"
 										@click.stop="deleteItem(item)"
 									>
 										mdi-delete
 									</v-icon>
 								</template>
-								<span>Hapus Tooltip</span>
+								<span>Hapus Pindah Kelas</span>
 							</v-tooltip>
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">

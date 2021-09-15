@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Helpers\HelperAkademik;
 use App\Models\Kemahasiswaan\PindahKelasModel;
+use App\Models\SPMB\FormulirPendaftaranModel;
 use App\Models\Akademik\RegisterMahasiswaModel;
+use App\Models\System\ConfigurationModel;
 
 use Exception;
 use Ramsey\Uuid\Uuid;
@@ -42,6 +44,7 @@ class PindahKelasController  extends Controller
                               pe3_pindah_kelas.idsmt,
                               pe3_pindah_kelas.tahun,
                               pe3_pindah_kelas.descr,
+                              pe3_pindah_kelas.forcefully,
                               pe3_pindah_kelas.created_at,
                               pe3_pindah_kelas.updated_at
                             "))
@@ -107,6 +110,84 @@ class PindahKelasController  extends Controller
         ]);
         $data_mhs->idkelas = $request->input('idkelas_baru');
         $data_mhs->save();
+        return $data;
+      }); 
+      $pindahkelas = PindahKelasModel::select(\DB::raw("
+        pe3_pindah_kelas.id,
+        pe3_pindah_kelas.user_id,
+        pe3_pindah_kelas.nim,
+        pe3_formulir_pendaftaran.nama_mhs,
+        pe3_pindah_kelas.idkelas_lama,
+        A.nkelas AS kelas_lama,
+        pe3_pindah_kelas.idkelas_baru,
+        B.nkelas AS kelas_baru,
+        pe3_pindah_kelas.idsmt,
+        pe3_pindah_kelas.tahun,
+        pe3_pindah_kelas.descr,
+        pe3_pindah_kelas.created_at,
+        pe3_pindah_kelas.updated_at
+      "))
+      ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
+      ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
+      ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+      ->where('pe3_pindah_kelas.id', $data->id)
+      ->first();
+              
+      return Response()->json([
+                              'status'=>1,
+                              'pid'=>'store',  
+                              'pindahkelas'=>$pindahkelas,
+                              'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                            ], 200);
+    }
+    catch (Exception $e)
+    {
+      return Response()->json([
+        'status'=>0,
+        'pid'=>'store',               
+        'message'=>[$e->getMessage()]
+      ], 422); 
+    }
+  }
+  /**
+   * paksa pindah
+   */
+  public function paksa(Request $request)
+  {
+    $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
+
+    $this->validate($request, [
+      'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',
+      'idkelas_baru'=>'required'
+    ]);
+
+    $user_id = $request->input('user_id');    
+    try 
+    {
+      $data_mhs = RegisterMahasiswaModel::find($user_id);
+   
+      $data = \DB::transaction(function () use ($request, $data_mhs) {
+        $config = ConfigurationModel::getCache();
+        $idkelas_baru = $request->input('idkelas_baru');
+        $data = PindahKelasModel::create([
+          'id'=>Uuid::uuid4()->toString(),
+          'user_id'=>$data_mhs->user_id,
+          'nim'=>$data_mhs->nim,
+          'idkelas_lama'=>$data_mhs->idkelas,
+          'idkelas_baru'=>$idkelas_baru,
+          'kjur'=>$data_mhs->kjur,
+          'idsmt'=>$config['DEFAULT_SEMESTER'],
+          'tahun'=>$config['DEFAULT_TA'],
+          'descr'=>'PINDAH SECARA PAKSA',
+          'forcefully'=>true,
+        ]);
+        $data_mhs->idkelas = $request->input('idkelas_baru');
+        $data_mhs->save();
+
+        \DB::table('pe3_transaksi')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
+        \DB::table('pe3_dulang')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
+        \DB::table('pe3_formulir_pendaftaran')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
+        
         return $data;
       }); 
       $pindahkelas = PindahKelasModel::select(\DB::raw("

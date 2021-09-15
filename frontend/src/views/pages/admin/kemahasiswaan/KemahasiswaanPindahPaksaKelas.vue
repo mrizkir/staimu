@@ -35,7 +35,7 @@
 						<v-list-item three-line>
 							<v-list-item-content>
 								<div class="overline mb-1">
-									MASUKAN NIM :
+									MASUKAN NIM / NAMA MAHASISWA:
 								</div>
 								<v-list-item-subtitle>
 									<v-autocomplete
@@ -67,26 +67,41 @@
 						<v-expand-transition>
 							<v-list v-if="data_mhs">
 								<template v-for="(field, i) in fields">
-								<v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias'">
+									<v-list-item :key="i" v-if="field.key!='foto' && field.key!='nama_mhs_alias' && field.key!='idkelas'">
+										<v-list-item-content>
+											<v-list-item-title>
+												{{ field.value }}
+											</v-list-item-title>
+											<v-list-item-subtitle>
+												<strong>{{ field_alias(field.key) }}</strong>
+											</v-list-item-subtitle>
+										</v-list-item-content>
+									</v-list-item>								
+								</template>
+								<v-list-item>
 									<v-list-item-content>
 										<v-list-item-title>
-											{{field.value}}
-										</v-list-item-title>
-										<v-list-item-subtitle>
-											<strong>{{field_alias(field.key)}}</strong>
-										</v-list-item-subtitle>
+											<v-select
+												label="KELAS"
+												v-model="idkelas"
+												:items="daftar_kelas"
+												item-text="nkelas"
+												item-value="idkelas"
+												:rules="rule_kelas"
+												outlined
+											/>
+										</v-list-item-title>										
 									</v-list-item-content>
 								</v-list-item>
-								</template>
 							</v-list>
 						</v-expand-transition>  
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
-								:disabled="!data_mhs"
-								@click="goProfilMhs"
+								:disabled="!data_mhs || old_idkelas == idkelas"
+								@click="pindahkan"
 							>
-								Detail
+								Pindahkan
 								<v-icon right>
 									mdi-forward
 								</v-icon>
@@ -112,127 +127,148 @@ import KemahasiswaanLayout from '@/views/layouts/KemahasiswaanLayout';
 import ModuleHeader from "@/components/ModuleHeader";
 import Filter1 from "@/components/sidebar/FilterMode1";
 export default {
-	name: 'Kemahasiswaan',
-	created()
-	{
+	name: "KemahasiswaanPindahPaksaKelas",
+	created() {
 		this.breadcrumbs = [
 			{
 				text: "HOME",
 				disabled: false,
-				href: "/dashboard/" + this.$store.getters["auth/AccessToken"]
+				href: "/dashboard/" + this.$store.getters["auth/AccessToken"],
 			},
 			{
 				text: 'KEMAHASISWAAN',
 				disabled: true,
-				href: "#"
-			}
+				href: "#",
+			},
 		];
 		this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"]; 
-   },
-	mounted()
-	{
+	},
+	mounted() {
 		this.initialize();
-   },
+	},
 	data: () => ({ 
 		firstloading: true,
 		breadcrumbs: [], 
 		tahun_akademik: 0,
 		
-		//profil mahasiswa        
+		//profil mahasiswa
+		daftar_kelas: [],
+		old_idkelas: null, 
+		idkelas: null,
 		entries: [],
 		isLoading: false,
 		data_mhs: null,
-		search: null
-		
+		search: null,
+
+		rule_kelas: [
+			value => !!value || "Kelas mohon untuk dipilih !!!"
+		],
 	}),
 	methods: {
-		changeTahunAkademik(tahun)
-		{
+		changeTahunAkademik(tahun) {
 			this.tahun_akademik = tahun;
 		},
-		initialize: async function()
-		{	            
+		initialize: async function() {
 			this.firstloading = false; 
 			this.$refs.filter1.setFirstTimeLoading(this.firstloading); 
 		},
-		field_alias(atr)
-		{
+		field_alias(atr) {
 			var alias;
-			switch (atr)
-			{
-				case 'user_id' :
-					alias = 'USER ID';
+			switch (atr) {
+				case "user_id" :
+					alias = "USER ID";
 				break;
-				case 'nim' :
-					alias = 'NIM';
+				case "nim" :
+					alias = "NIM";
 				break;
-				case 'nama_mhs' :
-					alias = 'NAMA MAHASIWA';
+				case "nama_mhs" :
+					alias = "NAMA MAHASIWA";
 				break;
-				case 'nama_prodi' :
-					alias = 'PROGRAM STUDI';
+				case "nama_prodi" :
+					alias = "PROGRAM STUDI";
 				break;
 			}
 			return alias;
 		},
-		goProfilMhs()
-		{
-			this.$router.push('/kemahasiswaan/profil/'+this.data_mhs.user_id);
+		async pindahkan() {
+			this.btnLoading = false;
+			await this.$ajax
+				.post("/kemahasiswaan/pindahkelas/paksa",
+				{
+					user_id: this.data_mhs.user_id,
+					idkelas_baru: this.idkelas,
+				},
+				{
+					headers: {
+						Authorization: this.$store.getters["auth/Token"]
+					}
+				})
+				.then(() => {
+					this.$router.push("/kemahasiswaan/pindahkelas");
+					this.btnLoading = true;					
+				})
+				.catch(() => {
+					this.btnLoading = true;
+				});
 		},
-		clearDataMhs()
-		{
+		clearDataMhs() {
 			this.data_mhs = null;
 			this.$refs.ref_data_mhs.cachedItems=[]; 
 		}
    },
 	computed: {
 		fields() {
-			if (!this.data_mhs) return [];
+			if (!this.data_mhs) return [];			
 			return Object.keys(this.data_mhs).map(key => {
 				return {
 					key,
-					value: this.data_mhs[key] || 'n/a',
+					value: this.data_mhs[key] || "n/a",
 				}
 			})
 		},
-   },
+	},
 	watch: {
-		tahun_akademik()
-		{
-			if (!this.firstloading)
-			{
+		tahun_akademik() {
+			if (!this.firstloading) {
 				this.initialize();
 			} 
 		},
-		search (val) 
-		{
+		search(val) {
 			if (this.isLoading) return;
-			
-			if (val && val !== this.data_mhs && val.length > 1)
-			{
+			if (val && val !== this.data_mhs && val.length > 1) {
 				setTimeout(async () => {
 					this.isLoading = true 
-					await this.$ajax.post('/kemahasiswaan/profil/search',
-					{
-						search: val,
-					},
-					{
-						headers: {
-							Authorization: this.$store.getters["auth/Token"]
-						}
-					}).then(({ data }) => { 
-						const { jumlah, daftar_mhs } = data;
-						this.count = jumlah;
-						this.entries = daftar_mhs;
-						this.isLoading=false;
-					}).catch(() => {
-						this.isLoading=false;
+					await this.$ajax
+						.post("/kemahasiswaan/profil/search",
+						{
+							search: val,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"]
+							}
+						})
+						.then(({ data }) => {
+							const { jumlah, daftar_mhs } = data;
+							this.count = jumlah;
+							this.entries = daftar_mhs;
+							this.isLoading = false;							
+						})
+						.catch(() => {
+							this.isLoading = false;
+						});
+				}, 1000);
+
+				if (this.data_mhs != null) {
+					this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
+						this.daftar_kelas = data.kelas;
+						this.idkelas = this.data_mhs.idkelas;
+						this.old_idkelas = this.idkelas;
 					});
-				},1000
-			);
+				}
 			}
 		},
-   },
+	},
 	components: {
 		KemahasiswaanLayout,
 		ModuleHeader, 
