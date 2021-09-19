@@ -168,7 +168,7 @@
 					text: "NO. FORMULIR",
 					value: "no_formulir",
 					sortable: true,
-					width: 100,
+					width: 150,
 				},
 				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NIRM", value: "nirm", sortable: true, width: 100 },
@@ -180,6 +180,7 @@
 				},
 				{ text: "KELAS", value: "idkelas", sortable: true, width: 120 },
 				{ text: "DOSEN WALI", value: "dosen_wali", sortable: true, width: 200 },
+				{ text: "ANGKATAN", value: "tahun", sortable: true, width: 120 },
 			],
 			search: "",
 

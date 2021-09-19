@@ -11,6 +11,7 @@ use App\Models\Akademik\DulangModel;
 use App\Models\Akademik\KRSModel;
 use App\Models\Akademik\KRSMatkulModel;
 use App\Logic\LogicNilai;
+use App\Helpers\HelperAkademik;
 
 use App\Models\System\ConfigurationModel;
 
@@ -150,6 +151,7 @@ class NilaiKHSController extends Controller
 					  pe3_krs.idsmt,
 					  pe3_krs.tasmt,
 					  pe3_krs.sah,
+						pe3_krs.locked,
 					  pe3_krs.created_at,
 					  pe3_krs.updated_at
 				  '))
@@ -169,6 +171,15 @@ class NilaiKHSController extends Controller
 								  'message'=>["KRS dengan ($id) gagal diperoleh"]
 							  ], 422); 
 	  }
+		elseif($krs->locked == true && $this->hasRole(['mahasiswa', 'mahasiswabaru']))
+		{
+			$keterangan = 'semester ' . HelperAkademik::getSemester($krs->idsmt) . ' T.A ' . $krs->tahun . '/' .($krs->tahun + 1);
+			return Response()->json([
+				'status'=>0,
+				'pid'=>'fetchdata',    
+				'message'=>["Hubungi Bagian Keuangan untuk membuka KHS $keterangan ini"]
+			], 422); 
+		}
 	  else
 	  {
 		  $daftar_matkul=KRSMatkulModel::select(\DB::raw('
@@ -301,7 +312,7 @@ class NilaiKHSController extends Controller
   {
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 
-		$krs=KRSModel::select(\DB::raw('
+		$krs = KRSModel::select(\DB::raw('
 			pe3_krs.id,
 			pe3_krs.user_id,
 			pe3_krs.nim,
@@ -328,6 +339,7 @@ class NilaiKHSController extends Controller
 			pe3_krs.idsmt,            
 			pe3_krs.tasmt,
 			pe3_krs.sah,
+			pe3_krs.locked,
 			pe3_krs.created_at,
 			pe3_krs.updated_at
 		'))
@@ -340,11 +352,20 @@ class NilaiKHSController extends Controller
 	  {
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
+									'pid'=>'fetchdata',    
 									'message'=>["KRS dengan ($id) gagal diperoleh"]
 								], 422); 
 	  }
-	  else
+	  elseif($krs->locked == true && $this->hasRole(['mahasiswa', 'mahasiswabaru']))
+		{
+			$keterangan = 'semester ' . HelperAkademik::getSemester($krs->idsmt) . ' T.A ' . $krs->tahun . '/' .($krs->tahun + 1);
+			return Response()->json([
+				'status'=>0,
+				'pid'=>'fetchdata',    
+				'message'=>["Hubungi Bagian Keuangan untuk membuka KHS $keterangan ini"]
+			], 422); 
+		}
+		else
 	  {
 			$prodi = new ProgramStudiModel();
 			$kaprodi=$prodi->getKAProdi($krs->kjur);
@@ -387,138 +408,138 @@ class NilaiKHSController extends Controller
 				$ips=0;
 				$ipk=0;
 
-			foreach ($daftar_matkul as $key=>$item)
-			{
-				$nama_dosen = 'N.A';
-				$dosen_kelas = \DB::table('pe3_kelas_mhs_penyelenggaraan AS A')
-					->select(\DB::raw("
-						CONCAT(COALESCE(C.gelar_depan,' '),C.nama_dosen,' ',COALESCE(C.gelar_belakang,'')) AS nama_dosen_kelas
-						"))
-						->join('pe3_penyelenggaraan_dosen AS B','A.penyelenggaraan_dosen_id','B.id')
-						->join('pe3_dosen AS C','C.user_id','B.user_id')
-						->where('A.kelas_mhs_id', $item->kelas_mhs_id)
-						->where('B.penyelenggaraan_id', $item->penyelenggaraan_id)
+				foreach ($daftar_matkul as $key=>$item)
+				{
+					$nama_dosen = 'N.A';
+					$dosen_kelas = \DB::table('pe3_kelas_mhs_penyelenggaraan AS A')
+						->select(\DB::raw("
+							CONCAT(COALESCE(C.gelar_depan,' '),C.nama_dosen,' ',COALESCE(C.gelar_belakang,'')) AS nama_dosen_kelas
+							"))
+							->join('pe3_penyelenggaraan_dosen AS B','A.penyelenggaraan_dosen_id','B.id')
+							->join('pe3_dosen AS C','C.user_id','B.user_id')
+							->where('A.kelas_mhs_id', $item->kelas_mhs_id)
+							->where('B.penyelenggaraan_id', $item->penyelenggaraan_id)
+							->first();
+
+					if (is_null($dosen_kelas))
+					{
+						$dosen_penyelenggaraan = \DB::table('pe3_penyelenggaraan AS A')
+						->select(\DB::raw("
+							CONCAT(COALESCE(B.gelar_depan,' '),B.nama_dosen,' ',COALESCE(B.gelar_belakang,'')) AS nama_dosen_penyelenggaraan
+						"))										
+						->join('pe3_dosen AS B','A.user_id','B.user_id')										
+						->where('A.id', $item->penyelenggaraan_id)
 						->first();
 
-				if (is_null($dosen_kelas))
-				{
-					$dosen_penyelenggaraan = \DB::table('pe3_penyelenggaraan AS A')
-					->select(\DB::raw("
-						CONCAT(COALESCE(B.gelar_depan,' '),B.nama_dosen,' ',COALESCE(B.gelar_belakang,'')) AS nama_dosen_penyelenggaraan
-					"))										
-					->join('pe3_dosen AS B','A.user_id','B.user_id')										
-					->where('A.id', $item->penyelenggaraan_id)
-					->first();
-
-					if (!is_null($dosen_penyelenggaraan))
-					{											
-						$nama_dosen  = $dosen_penyelenggaraan->nama_dosen_penyelenggaraan;
+						if (!is_null($dosen_penyelenggaraan))
+						{											
+							$nama_dosen  = $dosen_penyelenggaraan->nama_dosen_penyelenggaraan;
+						}
 					}
-				}
-				else
-				{
-					$nama_dosen = $dosen_kelas->nama_dosen_kelas;
-				}			
-				if ($item->HM=='-')
-				{
-					$M='-';
-					$daftar_nilai[]=[
-						'no'=>$key+1,
-						'nama_dosen'=>$nama_dosen,
-						'kmatkul'=>$item->kmatkul,
-						'nmatkul'=>$item->nmatkul,
-						'sks'=>$item->sks,
-						'HM'=>$item->HM,
-						'AM'=>$item->AM,
-						'M'=>$M,
-						'nama_dosen'=>$nama_dosen,
-					];
-				}
-				else
-				{
-					$M=$item->sks*$item->AM;
-					$jumlah_m+=$M;
-					$jumlah_am+=$item->AM;          
-					$daftar_nilai[]=[
-						'no'=>$key+1,
-						'nama_dosen'=>$nama_dosen,
-						'kmatkul'=>$item->kmatkul,
-						'nmatkul'=>$item->nmatkul,
-						'sks'=>$item->sks,
-						'HM'=>$item->HM,
-						'AM'=>number_format($item->AM,0),
-						'M'=>number_format($M,0),
-						'nama_dosen'=>$nama_dosen,
-					];
-				}          
-				$jumlah_sks+=$item->sks;
-				$jumlah_matkul+=1;           
-		  }      
-		  $ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
+					else
+					{
+						$nama_dosen = $dosen_kelas->nama_dosen_kelas;
+					}			
+					if ($item->HM=='-')
+					{
+						$M='-';
+						$daftar_nilai[]=[
+							'no'=>$key+1,
+							'nama_dosen'=>$nama_dosen,
+							'kmatkul'=>$item->kmatkul,
+							'nmatkul'=>$item->nmatkul,
+							'sks'=>$item->sks,
+							'HM'=>$item->HM,
+							'AM'=>$item->AM,
+							'M'=>$M,
+							'nama_dosen'=>$nama_dosen,
+						];
+					}
+					else
+					{
+						$M=$item->sks*$item->AM;
+						$jumlah_m+=$M;
+						$jumlah_am+=$item->AM;          
+						$daftar_nilai[]=[
+							'no'=>$key+1,
+							'nama_dosen'=>$nama_dosen,
+							'kmatkul'=>$item->kmatkul,
+							'nmatkul'=>$item->nmatkul,
+							'sks'=>$item->sks,
+							'HM'=>$item->HM,
+							'AM'=>number_format($item->AM,0),
+							'M'=>number_format($M,0),
+							'nama_dosen'=>$nama_dosen,
+						];
+					}          
+					$jumlah_sks+=$item->sks;
+					$jumlah_matkul+=1;           
+				}      
+				$ips=\App\Helpers\HelperAkademik::formatIPK($jumlah_m,$jumlah_sks);
 
-		  $krs->jumlah_matkul_1=$jumlah_matkul;
-		  $krs->jumlah_sks_1=$jumlah_sks;
-		  $krs->jumlah_am_1=$jumlah_am;
-		  $krs->jumlah_m_1=$jumlah_m;
+				$krs->jumlah_matkul_1=$jumlah_matkul;
+				$krs->jumlah_sks_1=$jumlah_sks;
+				$krs->jumlah_am_1=$jumlah_am;
+				$krs->jumlah_m_1=$jumlah_m;
 
-		  $krs->ips=$ips;
-		  $nilai = new LogicNilai (RegisterMahasiswaModel::find($krs->user_id));						
-			$data = $nilai->getIPKByLastTASMT($krs->tasmt);
-		  $krs->ipk = $data['ipk'];					
-		  $krs->jumlah_sks_2 = $data['total_sks'];
-		  $krs->save();
+				$krs->ips=$ips;
+				$nilai = new LogicNilai (RegisterMahasiswaModel::find($krs->user_id));						
+				$data = $nilai->getIPKByLastTASMT($krs->tasmt);
+				$krs->ipk = $data['ipk'];					
+				$krs->jumlah_sks_2 = $data['total_sks'];
+				$krs->save();
 
-		  $config = ConfigurationModel::getCache();
-		  $headers=[
-			'HEADER_1'=>$config['HEADER_1'],
-			'HEADER_2'=>$config['HEADER_2'],
-			'HEADER_3'=>$config['HEADER_3'],
-			'HEADER_4'=>$config['HEADER_4'],
-			'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
-			'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
-		  ];
-		  $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
-																  [
-																	'headers'=>$headers,
-																	'data_krs'=>$krs,
-																	'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
-																	'daftar_nilai'=>$daftar_nilai,
-																	'jumlah_matkul'=>$jumlah_matkul,
-																	'jumlah_sks'=>$jumlah_sks,
-																	'jumlah_sks_2'=>$krs->jumlah_sks_2,
-																	'jumlah_m'=>$jumlah_m,
-																	'jumlah_am'=>$jumlah_am,
-																	'ipk'=>$krs->ipk,
-																	'ips'=>$ips, 
-																	'tanggal'=>\App\Helpers\Helper::tanggal('d F Y'),
-																	'kaprodi'=>$kaprodi
-																],
-																[],
-																[
-																  'title' => 'KHS',
-																]);
+				$config = ConfigurationModel::getCache();
+				$headers=[
+				'HEADER_1'=>$config['HEADER_1'],
+				'HEADER_2'=>$config['HEADER_2'],
+				'HEADER_3'=>$config['HEADER_3'],
+				'HEADER_4'=>$config['HEADER_4'],
+				'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+				'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
+				];
+				$pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKHS',
+																		[
+																		'headers'=>$headers,
+																		'data_krs'=>$krs,
+																		'nama_semester'=>\App\Helpers\HelperAkademik::getSemester($krs->idsmt),
+																		'daftar_nilai'=>$daftar_nilai,
+																		'jumlah_matkul'=>$jumlah_matkul,
+																		'jumlah_sks'=>$jumlah_sks,
+																		'jumlah_sks_2'=>$krs->jumlah_sks_2,
+																		'jumlah_m'=>$jumlah_m,
+																		'jumlah_am'=>$jumlah_am,
+																		'ipk'=>$krs->ipk,
+																		'ips'=>$ips, 
+																		'tanggal'=>\App\Helpers\Helper::tanggal('d F Y'),
+																		'kaprodi'=>$kaprodi
+																	],
+																	[],
+																	[
+																		'title' => 'KHS',
+																	]);
 
-		  $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/khs_".$krs->id.'.pdf');
-		  $pdf->save($file_pdf);
+				$file_pdf=\App\Helpers\Helper::public_path("exported/pdf/khs_".$krs->id.'.pdf');
+				$pdf->save($file_pdf);
 
-		  $pdf_file="storage/exported/pdf/khs_".$krs->id.".pdf";
+				$pdf_file="storage/exported/pdf/khs_".$krs->id.".pdf";
 
-		  return Response()->json([
-								  'status'=>1,
-								  'pid'=>'fetchdata',
-								  'krs'=>$krs,
-								  'pdf_file'=>$pdf_file                                    
-							  ], 200);
-	  }
-	  else
-	  {
-		  return Response()->json([
-								  'status'=>0,
-								  'pid'=>'fetchdata',        
-								  'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
-							  ], 422);
-	  }
-	}
+				return Response()->json([
+										'status'=>1,
+										'pid'=>'fetchdata',
+										'krs'=>$krs,
+										'pdf_file'=>$pdf_file                                    
+									], 200);
+			}
+			else
+			{
+				return Response()->json([
+										'status'=>0,
+										'pid'=>'fetchdata',        
+										'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
+									], 422);
+			}
+		}
   }
   /**
    * cetak seluruh khs per prodi dan ta

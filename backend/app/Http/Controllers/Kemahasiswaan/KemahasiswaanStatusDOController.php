@@ -27,6 +27,7 @@ class KemahasiswaanStatusDOController  extends Controller
                 pe3_register_mahasiswa.idkelas,
                 pe3_register_mahasiswa.k_status,    
                 CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',pe3_dosen.nama_dosen,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS dosen_wali,          
+                pe3_register_mahasiswa.tahun,
                 pe3_register_mahasiswa.created_at,      
                 pe3_register_mahasiswa.updated_at      
             '))            

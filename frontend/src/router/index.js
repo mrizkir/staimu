@@ -489,6 +489,15 @@ const routes = [
 		component: () => import("../views/pages/admin/keuangan/Transaksi.vue"),
 	},
 	{
+		path: "/keuangan/bukanilai",
+		name: "KeuanganBukaNilai",
+		meta: {
+			title: "KEUANGAN - BUKA NILAI",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/keuangan/BukaNilai.vue"),
+	},
+	{
 		path: "/keuangan/transaksi-spp",
 		name: "KeuanganTransaksiSPP",
 		meta: {

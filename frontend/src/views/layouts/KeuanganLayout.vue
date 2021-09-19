@@ -208,6 +208,20 @@
 						</v-list-item-title>
 					</v-list-item-content>
 				</v-list-item>
+				<v-list-item
+					link
+					v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')"
+					to="/keuangan/bukanilai"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							BUKA NILAI
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
 				<v-divider />
 				<v-list-item
 					link

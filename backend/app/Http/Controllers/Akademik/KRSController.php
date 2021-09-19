@@ -46,6 +46,7 @@ class KRSController extends Controller
 									pe3_formulir_pendaftaran.ta AS tahun_masuk,
 									0 AS jumlah_matkul,
 									0 AS jumlah_sks,
+									pe3_krs.locked,
 									pe3_krs.created_at,
 									pe3_krs.updated_at
 								'))

@@ -268,6 +268,10 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	$router->post('/keuangan/transaksi/{id}/sppmhsbaru',['uses'=>'Keuangan\TransaksiController@sppmhsbaru','as'=>'transaksi.sppmhsbaru']);
 	$router->delete('/keuangan/transaksi/{$id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiController@cancel','as'=>'transaksi.cancel']);
 
+	//keuangan - buka nilai
+	$router->post('/keuangan/bukanilai',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BukaNilaiController@index','as'=>'bukanilai.index']);
+	$router->put('/keuangan/bukanilai/{id}',['middleware'=>['role:superadmin|keuangan'],'uses'=>'Keuangan\BukaNilaiController@update','as'=>'bukanilai.update']);
+
 	//keuangan - transaksi spp
 	$router->post('/keuangan/transaksi-spp',['middleware'=>['role:superadmin|keuangan|mahasiswabaru|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@index','as'=>'transaksi-spp.index']);
 	$router->get('/keuangan/transaksi-spp/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSPPController@show','as'=>'transaksi-spp.show']);
