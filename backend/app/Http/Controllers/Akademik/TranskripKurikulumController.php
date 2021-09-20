@@ -479,14 +479,13 @@ class TranskripKurikulumController  extends Controller
 											
 				if ($is_mhs)
 				{
-					$nilai = $nilai->where('C.locked', false);
+					$subquery = $subquery->where('C.locked', false);
 				}
 				
-				$nilai = $nilai->where('D.matkul_id', $item->id)
+				$subquery = $subquery->where('D.matkul_id', $item->id)
 					->where('B.batal', 0)
 					->orderBy('n_mutu', 'desc')
-					->limit(1)
-					->get();
+					->limit(1);					
 
 					$nilai=\DB::table('pe3_nilai_matakuliah AS A')
 							->select(\DB::raw('
@@ -892,8 +891,7 @@ class TranskripKurikulumController  extends Controller
 						$subquery = $subquery->where('D.matkul_id', $item->id)
 							->where('B.batal', 0)
 							->orderBy('n_mutu', 'desc')
-							->limit(1)
-							->get();
+							->limit(1);							
 							
 						$nilai=\DB::table('pe3_nilai_matakuliah AS A')
 									->select(\DB::raw('
@@ -998,7 +996,7 @@ class TranskripKurikulumController  extends Controller
 					$smt_ganjil=$i;
 					foreach ($daftar_matkul as $key=>$item)
 					{
-						$subquery=\DB::table('pe3_nilai_matakuliah AS A')
+						$subquery = \DB::table('pe3_nilai_matakuliah AS A')
 									->select(\DB::raw('
 										A.id
 									'))
@@ -1016,8 +1014,7 @@ class TranskripKurikulumController  extends Controller
 						$subquery = $subquery->where('D.matkul_id', $item->id)
 							->where('B.batal', 0)
 							->orderBy('n_mutu', 'desc')
-							->limit(1)
-							->get();
+							->limit(1);							
 
 						$nilai=\DB::table('pe3_nilai_matakuliah AS A')
 									->select(\DB::raw('
@@ -1028,6 +1025,7 @@ class TranskripKurikulumController  extends Controller
 										$join->on('A.id','=','B.id');
 									})
 									->get();
+
 						$rpt->setXY(0.5,$row_ganjil);	                                        				
 						$rpt->Cell(0.7,0.5,$no_semester,1,null,'C');
 						$rpt->Cell(1.5,0.5,$item['kmatkul'],1,null,'C');
