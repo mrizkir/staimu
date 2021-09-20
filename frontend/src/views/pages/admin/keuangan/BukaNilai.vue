@@ -78,20 +78,7 @@
 							<v-toolbar flat color="white">
 								<v-toolbar-title>DAFTAR KRS</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical></v-divider>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="primary"
-									icon
-									outlined
-									small
-									class="ma-2"
-									to="/akademik/perkuliahan/krs/tambah"
-									v-if="
-										$store.getters['auth/can']('AKADEMIK-PERKULIAHAN-KRS_STORE')
-									"
-								>
-									<v-icon>mdi-plus</v-icon>
-								</v-btn>
+								<v-spacer></v-spacer>								
 							</v-toolbar>
 						</template>
 						<template v-slot:item.sah="{ item }">
