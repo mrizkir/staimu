@@ -72,4 +72,28 @@ class PesertaDulangController extends Controller {
 								'message'=>'Fetch data daftar ulang mahasiswa baru berhasil diperoleh'
 							], 200);  
 	}    
+	/**
+	 * cetak ke excel
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function printtoexcel(Request $request)
+	{   
+		$this->hasPermissionTo('AKADEMIK-DULANG-BARU_BROWSE');
+
+		$this->validate($request, [           
+			'ta'=>'required',
+			'prodi_id'=>'required',
+			'nama_prodi'=>'required',			
+		]);
+		
+		$data_report=[
+			'ta'=>$request->input('ta'),
+			'prodi_id'=>$request->input('prodi_id'),
+			'nama_prodi'=>$request->input('nama_prodi'), 			
+		];
+
+		$report= new \App\Models\Report\ReportSPMBModel ($data_report);     
+		return $report->daftarulang();
+	}
 }

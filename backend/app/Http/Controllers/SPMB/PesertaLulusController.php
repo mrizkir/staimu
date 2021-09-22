@@ -66,5 +66,5 @@ class PesertaLulusController extends Controller {
 								'pmb'=>$data,
 								'message'=>'Fetch data calon mahasiswa baru yang lulus berhasil diperoleh'
 							], 200);  
-	}    
+	}
 }
