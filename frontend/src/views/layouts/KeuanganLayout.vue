@@ -210,7 +210,7 @@
 				</v-list-item>
 				<v-list-item
 					link
-					v-if="CAN_ACCESS('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE')"
+					v-if="CAN_ACCESS('KEUANGAN-BUKA-NILAI_BROWSE')"
 					to="/keuangan/bukanilai"
 				>
 					<v-list-item-icon class="mr-2">

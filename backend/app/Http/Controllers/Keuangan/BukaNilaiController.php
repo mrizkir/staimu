@@ -13,7 +13,7 @@ class BukaNilaiController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_BROWSE');
+		$this->hasPermissionTo('KEUANGAN-BUKA-NILAI_BROWSE');
 		$daftar_krs=[];
 	
     $this->validate($request, [
@@ -74,7 +74,7 @@ class BukaNilaiController extends Controller
 	}
 	public function update (Request $request,$id)
 	{
-		$this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE');
+		$this->hasPermissionTo('KEUANGAN-BUKA-NILAI_UPDATE');
 
 		$krs = KRSModel::find($id);
 
