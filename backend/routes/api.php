@@ -216,6 +216,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 
 	//spmb - peserta lulus
 	$router->post('/spmb/pesertalulus',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\PesertaLulusController@index','as'=>'pesertalulus.index']);
+	$router->post('/spmb/pesertalulus/printtoexcel',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\PesertaLulusController@printtoexcel','as'=>'pesertalulus.printtoexcel']);
 	
 	//spmb - peserta dulang
 	$router->post('/spmb/pesertadulang',['middleware'=>['role:superadmin|pmb|keuangan'],'uses'=>'SPMB\PesertaDulangController@index','as'=>'pesertadulang.index']);

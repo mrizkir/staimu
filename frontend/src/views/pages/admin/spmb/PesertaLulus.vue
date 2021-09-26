@@ -59,6 +59,17 @@
 							<v-toolbar flat color="white">
 								<v-toolbar-title>DAFTAR PESERTA YANG LULUS</v-toolbar-title>
 								<v-divider class="mx-4" inset vertical></v-divider>
+								<v-spacer></v-spacer>
+								<v-btn
+									color="primary"
+									icon
+									@click.stop="printtoexcel"
+									:disabled="btnLoading"
+								>
+									<v-icon>
+										mdi-printer
+									</v-icon>
+								</v-btn>
 							</v-toolbar>
 						</template>
 						<template v-slot:item.foto="{ item }">
@@ -208,6 +219,41 @@
 			},
 			badgeIcon(item) {
 				return item.active == 1 ? "mdi-check-bold" : "mdi-close-thick";
+			},
+			printtoexcel: async function() {
+				this.btnLoading = true;
+				await this.$ajax
+					.post(
+						"/spmb/pesertalulus/printtoexcel",
+						{
+							ta: this.tahun_pendaftaran,
+							prodi_id: this.prodi_id,
+							nama_prodi: this.nama_prodi,
+						},
+						{
+							headers: {
+								Authorization: this.$store.getters["auth/Token"],
+							},
+							responseType: "arraybuffer",
+						}
+					)
+					.then(({ data }) => {
+						const url = window.URL.createObjectURL(new Blob([data]));
+						const link = document.createElement("a");
+						link.href = url;
+						link.setAttribute(
+							"download",
+							"laporan_peserta_lulus_" + Date.now() + ".xlsx"
+						);
+						link.setAttribute("id", "download_laporan");
+						document.body.appendChild(link);
+						link.click();
+						document.body.removeChild(link);
+						this.btnLoading = false;
+					})
+					.catch(() => {
+						this.btnLoading = false;
+					});
 			},
 		},
 		watch: {

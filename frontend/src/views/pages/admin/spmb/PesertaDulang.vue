@@ -283,7 +283,7 @@
 						const url = window.URL.createObjectURL(new Blob([data]));
 						const link = document.createElement("a");
 						link.href = url;
-						link.setAttribute("download", "laporan_prodi_" + Date.now() + ".xlsx");
+						link.setAttribute("download", "laporan_peserta_dulang_" + Date.now() + ".xlsx");
 						link.setAttribute("id", "download_laporan");
 						document.body.appendChild(link);
 						link.click();
