@@ -321,6 +321,15 @@ const routes = [
 		component: () => import("../views/pages/admin/spmb/UjianOnline.vue"),
 	},
 	{
+		path: "/spmb/cekjawabanujianonline/:user_id",
+		name: "SPMBCekJawabanUjianOnline",
+		meta: {
+			title: "SPMB - UJIAN ONLINE",
+			requiresAuth: true,
+		},
+		component: () => import("../views/pages/admin/spmb/CekJawabanUjianOnline.vue"),
+	},
+	{
 		path: "/spmb/nilaiujian",
 		name: "SPMBNilaiUjian",
 		meta: {

@@ -26,6 +26,20 @@ class JadwalUjianPMBController extends Controller {
 		$tahun_pendaftaran=$request->input('tahun_pendaftaran');
 		$semester_pendaftaran=$request->input('semester_pendaftaran');
 		
+		\DB::table('pe3_jadwal_ujian_pmb')
+			->whereDate('tanggal_ujian', '<', \DB::raw('CURDATE()'))
+			->where('status_ujian', '!=', 2)
+			->update([
+				'status_ujian'=>2,					
+			]);
+
+		\DB::table('pe3_jadwal_ujian_pmb')
+			->whereDate('tanggal_akhir_daftar', '<', \DB::raw('CURDATE()'))
+			->where('status_pendaftaran', '!=', 1)
+			->update([
+				'status_pendaftaran'=>1,					
+			]);
+			
 		if ($this->hasRole(['mahasiswabaru','mahasiswa']))
 		{
 			$jadwal_ujian=JadwalUjianPMBModel::select(\DB::raw('pe3_jadwal_ujian_pmb.id,
@@ -53,20 +67,6 @@ class JadwalUjianPMBController extends Controller {
 		}
 		else
 		{
-			\DB::table('pe3_jadwal_ujian_pmb')
-				->whereDate('tanggal_ujian', '<', \DB::raw('CURDATE()'))
-				->where('status_ujian', '!=', 2)
-				->update([
-					'status_ujian'=>2,					
-				]);
-
-			\DB::table('pe3_jadwal_ujian_pmb')
-				->whereDate('tanggal_akhir_daftar', '<', \DB::raw('CURDATE()'))
-				->where('status_pendaftaran', '!=', 1)
-				->update([
-					'status_pendaftaran'=>1,					
-				]);
-
 			$jadwal_ujian=JadwalUjianPMBModel::select(\DB::raw('pe3_jadwal_ujian_pmb.id,
 												pe3_jadwal_ujian_pmb.nama_kegiatan, 
 												pe3_jadwal_ujian_pmb.jumlah_soal, 

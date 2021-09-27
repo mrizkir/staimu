@@ -38,7 +38,10 @@
 				</v-row>
 				<v-row v-if="isprosesujian">
 					<v-col cols="12">
-						<v-btn @click.stop="selesaiUjian" color="error">
+						<v-btn @click.stop="cekJawaban" class="green ma-2 white--text">
+							Cek Ulang Jawaban
+						</v-btn>
+						<v-btn @click.stop="selesaiUjian" color="error" class="ma-2">
 							Selesai
 						</v-btn>
 					</v-col>
@@ -114,6 +117,9 @@
 					.catch(() => {
 						this.btnLoading = false;
 					});
+			},
+			cekJawaban() {
+				this.$router.push("/spmb/cekjawabanujianonline/" + this.peserta.user_id);
 			},
 		},
 		components: {
