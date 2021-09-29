@@ -111,7 +111,7 @@ class TransaksiLaporanDulangMHSBaruController extends Controller {
 		]);
 
 		$data_report = [
-			'TA'=>$request->input('ta'),			
+			'ta'=>$request->input('ta'),			
 		];
 
 		$report= new \App\Models\Report\ReportKeuanganDulangMHSBaruModel ($data_report);
