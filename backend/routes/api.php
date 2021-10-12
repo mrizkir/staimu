@@ -579,8 +579,12 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
 	// kemahasiswaan - profil mahasiswa
 	$router->post('/kemahasiswaan/profil/search',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@search','as'=>'profilmhs.search']);
 	$router->post('/kemahasiswaan/profil/bynim',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@bynim','as'=>'profilmhs.bynim']);
+	
+	$router->post('/kemahasiswaan/profil/byuserid',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@byuserid','as'=>'profilmhs.byuserid']);
 	$router->post('/kemahasiswaan/profil/searchnonampulan',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@searchnonampulan','as'=>'profilmhs.searchnonampulan']);
 	$router->post('/kemahasiswaan/profil/resetpassword',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@resetpassword','as'=>'profilmhs.resetpassword']);
+
+	$router->put('/kemahasiswaan/profil/updatebiodata/{id}',['uses'=>'Kemahasiswaan\KemahasiswaanProfilController@updatebiodata','as'=>'profilmhs.updatebiodata']);
 	
 	// kemahasiswaan - pindah kelas
 	$router->post('/kemahasiswaan/pindahkelas',['middleware'=>['role:superadmin|akademik|programstudi|puslahta'],'uses'=>'Kemahasiswaan\PindahKelasController@index','as'=>'pindahkelas.index']);

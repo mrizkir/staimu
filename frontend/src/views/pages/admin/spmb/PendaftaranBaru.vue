@@ -19,7 +19,8 @@
 			</template>
 			<template v-slot:desc>
 				<v-alert color="cyan" border="left" colored-border type="info">
-					Berisi pendaftar baru, silahkan melakukan filter tahun akademik dan program studi. CATATAN: Melakukan perubahan terhadap Prodi, Kelas, dan Tahun Pendaftaran Mahasiswa Baru tidak berpengaruh terhadap Transaksi keuangan yang telah dilakukannya.
+					<p>Berisi pendaftar baru, silahkan melakukan filter tahun akademik dan program studi. CATATAN: Melakukan perubahan terhadap Prodi, Kelas, dan Tahun Pendaftaran Mahasiswa Baru tidak berpengaruh terhadap Transaksi keuangan yang telah dilakukannya.</p>
+					<p>Catatan: Mahasiswa yang telah memiliki NIM tidak muncul di halaman ini.</p>
 				</v-alert>
 			</template>
 		</ModuleHeader>

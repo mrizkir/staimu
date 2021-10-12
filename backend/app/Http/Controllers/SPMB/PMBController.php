@@ -525,7 +525,7 @@ class PMBController extends Controller {
 	 */
 	public function update(Request $request,$id)
 	{
-		$formulir=FormulirPendaftaranModel::find($id);
+		$formulir = FormulirPendaftaranModel::find($id);
 
 		if (is_null($formulir))
 		{
