@@ -130,7 +130,7 @@ h2{
 	</tr>      
 	<tr>
 		<td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>WAKIL KETUA I</td>        
-		<td style="font-weight:bold;font-size:14px;text-align:left">KETUA PROGRAM STUDI<br>{{$data_krs->nama_prodi}}</td>
+		<td style="font-weight:bold;font-size:14px;text-align:left">{{strtoupper($kaprodi->nama_jabatan)}} PROGRAM STUDI<br>{{strtoupper($data_krs->nama_prodi)}}</td>
 	</tr>
 	<tr>
 		<td width="50%" style="text-align:left">

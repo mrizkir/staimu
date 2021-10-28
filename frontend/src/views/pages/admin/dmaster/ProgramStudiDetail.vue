@@ -97,16 +97,39 @@
 			</v-row>
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
-					<v-autocomplete
-						label="KETUA PROGRAM STUDI"
-						v-model="dosen_id"
-						:items="daftar_dosen"
-						item-text="nama_dosen"
-						item-value="id"
-						return-object
-						:disabled="btnLoading"
-						outlined
-					/>
+					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
+						<v-card>
+							<v-card-text>
+								<v-autocomplete
+									label="KETUA PROGRAM STUDI"
+									v-model="dosen_id"
+									:items="daftar_dosen"
+									item-text="nama_dosen"
+									item-value="id"
+									return-object
+									:disabled="btnLoading"
+									outlined
+								/>
+								<v-text-field
+									v-model="nama_jabatan"
+									label="NAMA JABATAN"
+									outlined
+									:rules="rule_nama_jabatan"
+								/>
+							</v-card-text>
+							<v-card-actions>
+								<v-spacer></v-spacer>
+									<v-btn
+										color="blue darken-1"
+										text
+										@click.stop="save"
+										:disabled="!form_valid || btnLoading"
+									>
+										SIMPAN
+									</v-btn>
+							</v-card-actions>
+						</v-card>
+					</v-form>
 				</v-col>
 			</v-row>
 		</v-container>
@@ -155,8 +178,16 @@
 			firstloading: true,
 
 			//form data
+			form_valid: true,
 			daftar_dosen: [],
 			dosen_id: null,
+			nama_jabatan: null,
+			rule_ketua_prodi: [
+				value => !!value || "Mohon Ketua Prodi ini untuk dipilih !!!",
+			],
+			rule_nama_jabatan: [
+				value => !!value || "Mohon Nama Jabatan ini untuk diisi !!!",
+			],
 		}),
 		methods: {
 			async fetchDataProdi() {
@@ -185,6 +216,7 @@
 						this.daftar_dosen = data.users;
 						var config = JSON.parse(this.data_prodi.config);
 						this.dosen_id = config.kaprodi;
+						this.nama_jabatan = this.dosen_id.nama_jabatan;
 						this.btnLoading = false;
 					});
 				this.firstloading = false;
@@ -199,24 +231,17 @@
 				}
 				return message;
 			},
-		},
-		computed: {
-			...mapGetters("auth", {
-				ACCESS_TOKEN: "AccessToken",
-				TOKEN: "Token",
-			}),
-		},
-		watch: {
-			async dosen_id(val) {
-				if (!this.firstloading) {
+			save() {
+				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
-					await this.$ajax
+					this.dosen_id.nama_jabatan = this.nama_jabatan;
+					this.$ajax
 						.post(
 							"/datamaster/programstudi/updateconfig/" + this.data_prodi.id,
 							{
 								_method: "PUT",
 								config: JSON.stringify({
-									kaprodi: val,
+									kaprodi: this.dosen_id,
 								}),
 							},
 							{
@@ -235,6 +260,12 @@
 				}
 			},
 		},
+		computed: {
+			...mapGetters("auth", {
+				ACCESS_TOKEN: "AccessToken",
+				TOKEN: "Token",
+			}),
+		},		
 		components: {
 			DataMasterLayout,
 			ModuleHeader,
