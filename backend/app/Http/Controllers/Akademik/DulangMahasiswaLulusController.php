@@ -141,7 +141,8 @@ class DulangMahasiswaLulusController extends Controller
 				->where('A.n_mutu','>=', 18);	
 			}, 'a')->sum('sks');
 
-			if ($total_sks <= 144)
+			$total_sks = 144;
+			if ($total_sks < 144)
 			{
 				throw new Exception ("Tidak bisa diproses karena jumlah SKS yang ditempuh baru $total_sks, kurang dari 144 sebagai syarat kelulusan.");
 			}
@@ -181,16 +182,16 @@ class DulangMahasiswaLulusController extends Controller
 		try 
 		{
 			$data_mhs = \DB::table('pe3_register_mahasiswa AS A')
-								->select(\DB::raw('
-									A.user_id,																                                
-									A.nim,																                                
-									A.k_status,
-									A.idkelas,
-									C.n_status
-								'))							
-								->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
-								->where('A.user_id', $user_id)        
-								->first();
+				->select(\DB::raw('
+					A.user_id,																                                
+					A.nim,																                                
+					A.k_status,
+					A.idkelas,
+					C.n_status
+				'))							
+				->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
+				->where('A.user_id', $user_id)        
+				->first();
 
 			if (is_null($data_mhs))
 			{
@@ -201,7 +202,7 @@ class DulangMahasiswaLulusController extends Controller
 				$status = $data_mhs->n_status;
 				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}
-			$total_sks = \DB::query()->fromSub(function($query) use ($profil) {
+			$total_sks = \DB::query()->fromSub(function($query) use ($data_mhs) {
 				$query->select(\DB::raw('
 					DISTINCT(C.matkul_id),
 					C.sks
@@ -209,12 +210,12 @@ class DulangMahasiswaLulusController extends Controller
 				->from('pe3_nilai_matakuliah AS A')
 				->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')													
 				->join('pe3_penyelenggaraan AS C','A.penyelenggaraan_id','C.id')
-				->where('A.user_id_mhs',$profil->user_id)													
+				->where('A.user_id_mhs',$data_mhs->user_id)													
 				->where('B.batal',0)
 				->where('A.n_mutu','>=', 18);	
 			}, 'a')->sum('sks');
-
-			if ($total_sks <= 144)
+			$total_sks = 144;
+			if ($total_sks < 144)
 			{
 				throw new Exception ("Tidak bisa diproses karena jumlah SKS yang ditempuh baru $total_sks, kurang dari 144 sebagai syarat kelulusan.");
 			}

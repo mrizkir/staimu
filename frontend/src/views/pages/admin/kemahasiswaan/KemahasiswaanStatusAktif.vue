@@ -8,7 +8,7 @@
 				DAFTAR MAHASISWA AKTIF
 			</template>
 			<template v-slot:subtitle>				
-				{{ nama_prodi }}
+				TAHUN PENDAFTARAN {{ tahun_pendaftaran }} - {{ nama_prodi }}
 			</template>
 			<template v-slot:breadcrumbs>
 				<v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -24,9 +24,10 @@
 			</template>
 		</ModuleHeader>
 		<template v-slot:filtersidebar>
-			<Filter4
+			<Filter7
+				v-on:changeTahunPendaftaran="changeTahunPendaftaran"
 				v-on:changeProdi="changeProdi"
-				ref="Filter4"
+				ref="Filter7"
 			/>
 		</template>
 		<v-container fluid>
@@ -121,7 +122,7 @@
 <script>
 	import KemahasiswaanLayout from "@/views/layouts/KemahasiswaanLayout";
 	import ModuleHeader from "@/components/ModuleHeader";
-	import Filter4 from "@/components/sidebar/FilterMode4";
+	import Filter7 from "@/components/sidebar/FilterMode7";
 	export default {
 		name: "KemahasiswaanStatusAktif",
 		created() {
@@ -146,17 +147,19 @@
 			let prodi_id = this.$store.getters["uiadmin/getProdiID"];
 			this.prodi_id = prodi_id;
 			this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+			this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
 			this.initialize();
 		},
 		mounted() {
 			this.firstloading = false;
-			this.$refs.Filter4.setFirstTimeLoading(this.firstloading);
+			this.$refs.Filter7.setFirstTimeLoading(this.firstloading);
 		},
 		data: () => ({
 			dashboard: null,
 			firstloading: true,
 			prodi_id: null,
 			nama_prodi: null,
+			tahun_pendaftaran: null,
 			
 			btnLoading: false,
 			btnLoadingTable: false,
@@ -189,6 +192,9 @@
 			daftar_prodi: [],
 		}),
 		methods: {
+			changeTahunPendaftaran(tahun) {
+				this.tahun_pendaftaran = tahun;
+			},
 			changeProdi(id) {
 				this.prodi_id = id;
 			},
@@ -199,6 +205,7 @@
 						"/kemahasiswaan/statusaktif",
 						{
 							prodi_id: this.prodi_id,
+							tahun_pendaftaran: this.tahun_pendaftaran,
 						},
 						{
 							headers: {
@@ -232,6 +239,11 @@
 			},
 		},
 		watch: {
+			tahun_pendaftaran() {
+				if (!this.firstloading) {
+					this.initialize();
+				} 
+			},
 			prodi_id(val) {
 				if (!this.firstloading) {
 					this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](val);
@@ -242,7 +254,7 @@
 		components: {
 			KemahasiswaanLayout,
 			ModuleHeader,
-			Filter4,
+			Filter7,
 		},
 	};
 </script>
