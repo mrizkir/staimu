@@ -242,7 +242,7 @@ class ReportKeuanganSPPModel extends ReportModel
     $sheet->getStyle("I$row_awal:I$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->excel("laporan_spp_$generate_date.xlsx");
+    return $this->excel("/laporan_spp_$generate_date.xlsx");
   }    
   /**
    * cetak rekap penerimaan spp per bulan setiap prodi
@@ -423,7 +423,7 @@ class ReportKeuanganSPPModel extends ReportModel
     $sheet->getStyle("D$row_awal:D$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->excel("laporan_spp_$generate_date.xlsx");
+    return $this->excel("/laporan_spp_$generate_date.xlsx");
   }   
   public function printtoexcel3() 
   {
@@ -676,6 +676,6 @@ class ReportKeuanganSPPModel extends ReportModel
     $sheet->getStyle("C$row_awal:C$row")->applyFromArray($styleArray);
   
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->excel("laporan_spp_$generate_date.xlsx");
+    return $this->excel("/laporan_spp_$generate_date.xlsx");
   }     
 }

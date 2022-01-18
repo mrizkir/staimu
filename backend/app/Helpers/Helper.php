@@ -228,8 +228,8 @@ class Helper {
     {
         return rtrim(app()->basePath('storage/app/public/' . $path), '/');
     }
-    public static function exported_path()
+    public static function exported_path($folder='/')
     {
-        return app()->basePath('storage/app/public/exported/');
+        return app()->basePath("storage/app/public/exported$folder");
     }
 }

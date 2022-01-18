@@ -175,6 +175,6 @@ class ReportAkademikKHSModel extends ReportModel
 		$sheet->getStyle("F$row_awal_mhs:I$row")->applyFromArray($styleArray);
 
 		$generate_date=date('Y-m-d_H_m_s');
-		return $this->excel("report_khs_$generate_date.xlsx");
+		return $this->excel("/report_khs_$generate_date.xlsx");
   }      
 }

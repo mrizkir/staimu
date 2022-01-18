@@ -35,7 +35,7 @@ class ReportModel extends Model
 	}
 	public function excel(string $filename)
 	{
-		$pathToFile = Helper::exported_path().$filename;
+		$pathToFile = Helper::exported_path('/excel').$filename;
 		$this->spreadsheet->getProperties()->setCreator('portalekampus');
 		$this->spreadsheet->getProperties()->setLastModifiedBy('portalekampus');         
 		$writer = new Xlsx($this->spreadsheet);
@@ -44,7 +44,7 @@ class ReportModel extends Model
 	}
 	public function csv(string $filename)
 	{
-		$pathToFile = Helper::exported_path().$filename;
+		$pathToFile = Helper::exported_path('/csv').$filename;
 		$this->spreadsheet->getProperties()->setCreator('portalekampus');
 		$this->spreadsheet->getProperties()->setLastModifiedBy('portalekampus');         
 		$writer = new Csv($this->spreadsheet);

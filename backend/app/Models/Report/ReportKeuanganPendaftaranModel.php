@@ -198,6 +198,6 @@ class ReportKeuanganPendaftaranModel extends ReportModel
     $sheet->getStyle("D$row_awal:D$row")->applyFromArray($styleArray);  
     
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->excel("laporan_spp_$generate_date.xlsx");
+    return $this->excel("/laporan_spp_$generate_date.xlsx");
   }    
 }

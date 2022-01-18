@@ -246,6 +246,6 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $sheet->getStyle("A$row_awal:I$row")->getAlignment()->setWrapText(true);
 
     $generate_date=date('Y-m-d_H_m_s');
-    return $this->excel("daftar_nilai_$generate_date.xlsx");
+    return $this->excel("/daftar_nilai_$generate_date.xlsx");
   }
 }
