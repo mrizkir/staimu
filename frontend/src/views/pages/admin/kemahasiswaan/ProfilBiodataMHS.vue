@@ -354,28 +354,31 @@
 							},
 						}
 					)
-					.then(({ data }) => {						
+					.then(({ data }) => {
 						this.formdata = data.profil;
+						console.log(this.formdata);
 						this.data_mhs.nim = this.formdata.nim;
 						this.data_mhs.nama_mhs = this.formdata.nama_mhs;
 						this.formdata.nomor_hp = "+" + this.formdata.nomor_hp;
 
-						this.provinsi_id = {
-							id: "" + this.formdata.address1_provinsi_id,
-							nama: "" + this.formdata.address1_provinsi
-						};
-						this.kabupaten_id = {
-							id: "" + this.formdata.address1_kabupaten_id,
-							nama: "" + this.formdata.address1_kabupaten
-						};
-						this.kecamatan_id = {
-							id: "" + this.formdata.address1_kecamatan_id,
-							nama: "" + this.formdata.address1_kecamatan
-						};
-						this.desa_id = {
-							id: "" + this.formdata.address1_desa_id,
-							nama: "" + this.formdata.address1_kelurahan
-						};
+						if (this.formdata.this.formdata.address1_provinsi_id) {
+							this.provinsi_id = {
+								id: "" + this.formdata.address1_provinsi_id,
+								nama: "" + this.formdata.address1_provinsi
+							};
+							this.kabupaten_id = {
+								id: "" + this.formdata.address1_kabupaten_id,
+								nama: "" + this.formdata.address1_kabupaten
+							};
+							this.kecamatan_id = {
+								id: "" + this.formdata.address1_kecamatan_id,
+								nama: "" + this.formdata.address1_kecamatan
+							};
+							this.desa_id = {
+								id: "" + this.formdata.address1_desa_id,
+								nama: "" + this.formdata.address1_kelurahan
+							};
+						}
 						this.$refs.frmdata.resetValidation();
 					})
 					.catch(() => {
