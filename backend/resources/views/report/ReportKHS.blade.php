@@ -130,7 +130,7 @@ h2{
 	</tr>      
 	<tr>
 		<td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>WAKIL KETUA I</td>        
-		<td style="font-weight:bold;font-size:14px;text-align:left">{{strtoupper(is_null($kaprodi) ? '-' : $kaprodi->nama_jabatan)}} PROGRAM STUDI<br>{{strtoupper($data_krs->nama_prodi)}}</td>
+		<td style="font-weight:bold;font-size:14px;text-align:left">{{strtoupper(is_null($kaprodi->nama_jabatan) ? '-' : $kaprodi->nama_jabatan)}} PROGRAM STUDI<br>{{strtoupper($data_krs->nama_prodi)}}</td>
 	</tr>
 	<tr>
 		<td width="50%" style="text-align:left">
@@ -152,7 +152,7 @@ h2{
 			<br>
 			<span>
 				<strong><u>{{$kaprodi->name}}</u></strong><br>
-				<strong>NIDN/NIDK:</strong> {{is_null($kaprodi) ? '-' : $kaprodi->nidn}} / {{is_null($kaprodi) ? '' : $kaprodi->nipy}}
+				<strong>NIDN/NIDK:</strong> {{is_null($kaprodi->nidn) ? '-' : $kaprodi->nidn}} / {{is_null($kaprodi->nipy) ? '' : $kaprodi->nipy}}
 			</span>                
 		</td>
 	</tr>
