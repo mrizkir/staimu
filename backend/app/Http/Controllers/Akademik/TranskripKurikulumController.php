@@ -1206,10 +1206,10 @@ class TranskripKurikulumController  extends Controller
 
 			$row+=1.1;
 			$rpt->SetXY(10.3,$row);	
-			$rpt->Cell(5,0.5,'Suhardiman, M.Pd.I',0,0,'L');
+			$rpt->Cell(5,0.5,'Muhammad Nur, M.Pd.I',0,0,'L');
 			$row+=0.3;
 			$rpt->SetXY(10.3,$row);	
-			$rpt->Cell(5,0.5,'NIDN: 2128087201 / LEKTOR',0,0,'L');
+			$rpt->Cell(5,0.5,'NIDN: 2119086901 / LEKTOR',0,0,'L');
 
 			$file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');       
 

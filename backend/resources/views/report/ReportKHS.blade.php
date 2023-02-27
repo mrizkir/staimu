@@ -140,7 +140,7 @@ h2{
 			<br>
 			<br>
 			<span>
-				<strong><u>SUHARDIMAN. M.Pd.I</u></strong><br>
+				<strong><u>MUHAMMAD NUR, M.Pd.I</u></strong><br>
 				<strong>LEKTOR NIDN:</strong> 2128087201
 			</span>                
 		</td>        

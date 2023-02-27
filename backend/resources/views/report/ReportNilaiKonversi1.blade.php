@@ -147,8 +147,8 @@ h2, h3{
                 <br>
                 <br>
                 <br>
-                <br><strong><u>SUHARDIMAN, M.Pd.I</u></strong><br>
-                <strong>LEKTOR NIDN:</strong>2128087201
+                <br><strong><u>MUHAMMAD NUR, M.Pd.I</u></strong><br>
+                <strong>LEKTOR NIDN:</strong>2119086901
             </td>                                   
         </tr>        
             

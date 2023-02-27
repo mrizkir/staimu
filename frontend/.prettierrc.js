@@ -4,7 +4,7 @@ module.exports = {
 	printWidth: 80,
 	trailingComma: "es5",
 	tabWidth: 2,
-	useTabs: true,
+	useTabs: false,
 	semi: true,
 	jsxBracketSameLine: true,   
 	indent: [2,"tab"],
