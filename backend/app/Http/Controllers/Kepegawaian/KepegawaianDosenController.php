@@ -108,50 +108,7 @@ class KepegawaianDosenController extends Controller {
 				$user_dosen->nipy = $request->input('nipy');                                                      
 				
 				$user_dosen->save();   
-
-				$data_prodi = \DB::table('pe3_prodi')
-				->get();
-
-				foreach($data_prodi as $prodi)
-				{
-					$config = json_decode($prodi->config);
-					if (!is_null($config->kaprodi))
-					{
-						$dosen_id = $config->kaprodi->id;
-						if($user->id == $dosen_id)
-						{
-							$dosen = User::role('dosen')
-							->select(\DB::raw('
-								users.id,
-								users.username,
-								users.name AS onlyname,
-								CONCAT(COALESCE(pe3_dosen.gelar_depan,\'\'),\'\',users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS name,
-								CONCAT(\'[\',COALESCE(nidn,\'\'),\']\',COALESCE(pe3_dosen.gelar_depan,\' \'),users.name,\' \',COALESCE(pe3_dosen.gelar_belakang,\'\')) AS nama_dosen,
-								pe3_dosen.nidn,
-								pe3_dosen.nipy,
-								users.email,
-								users.nomor_hp,
-								users.foto,
-								users.theme,
-								pe3_dosen.is_dw,
-								users.default_role,
-								users.created_at,
-								users.updated_at
-							'))
-							->join('pe3_dosen','pe3_dosen.user_id','users.id')
-							->where('users.id', $dosen_id)							
-							->first();
-
-							$config->kaprodi = $dosen;
-							
-							\DB::table('pe3_prodi')
-							->where('id', $prodi->id)
-							->update([
-								'config' => json_encode($config),
-							]);	
-						}											
-					}
-				}
+				
 				return $user;
 			});
 			
