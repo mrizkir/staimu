@@ -141,7 +141,7 @@ h2{
 			<br>
 			<span>
 				<strong><u>MUHAMMAD NUR, M.Pd.I</u></strong><br>
-				<strong>LEKTOR NIDN:</strong> 2128087201
+				<strong>LEKTOR NIDN:</strong> 2119086901
 			</span>                
 		</td>        
 		<td width="50%" style="text-align:left">
