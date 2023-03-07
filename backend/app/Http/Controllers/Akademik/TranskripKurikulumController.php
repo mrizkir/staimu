@@ -878,7 +878,7 @@ class TranskripKurikulumController  extends Controller
 				->orderBy('semester','ASC')
 				->orderBy('kmatkul','ASC')    
 				->get();
-				ß
+				
 				if ($i%2==0) 
 				{//genap
 					$smt_genap=$i;
