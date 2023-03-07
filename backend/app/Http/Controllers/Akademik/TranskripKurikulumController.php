@@ -294,18 +294,18 @@ class TranskripKurikulumController  extends Controller
 			}
 			 
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata', 
-									'mahasiswa'=>$mahasiswa, 
-									'jumlah_matkul'=>$jumlah_matkul, 
-									'nilai_matakuliah'=>$daftar_nilai,  
-									'jumlah_sks'=>$jumlah_sks,  
-									'jumlah_sks_nilai'=>$jumlah_sks_nilai,  
-									'jumlah_am'=>$jumlah_am,  
-									'jumlah_m'=>$jumlah_m,  
-									'ipk'=>$ipk,
-									'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
-								], 200); 
+				'status'=>1,
+				'pid'=>'fetchdata', 
+				'mahasiswa'=>$mahasiswa, 
+				'jumlah_matkul'=>$jumlah_matkul, 
+				'nilai_matakuliah'=>$daftar_nilai,  
+				'jumlah_sks'=>$jumlah_sks,  
+				'jumlah_sks_nilai'=>$jumlah_sks_nilai,  
+				'jumlah_am'=>$jumlah_am,  
+				'jumlah_m'=>$jumlah_m,  
+				'ipk'=>$ipk,
+				'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
+			], 200); 
 		}
 	}
 	public function history(Request $request,$id)
@@ -314,10 +314,10 @@ class TranskripKurikulumController  extends Controller
 		if (is_null($matakuliah))
 		{
 			return Response()->json([
-									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
-								], 422); 
+				'status'=>0,
+				'pid'=>'update',    
+				'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
+			], 422); 
 		}
 		else
 		{
@@ -325,35 +325,35 @@ class TranskripKurikulumController  extends Controller
 				'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'
 			]);
 			$history=\DB::table('pe3_nilai_matakuliah AS A')
-									->select(\DB::raw('
-										B.id AS krsmatkul_id,
-										D.id AS penyelenggaraan_id,                                    
-										A.n_kual, 
-										A.n_mutu,
-										A.n_kuan,
-										C.tasmt,
-										D.ta_matkul,
-										E.username,
-										A.created_at,
-										A.updated_at
-									'))
-									->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-									->join('pe3_krs AS C','B.krs_id','C.id')
-									->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
-									->leftJoin('users AS E','E.id','A.user_id_updated')
-									->where('C.user_id',$request->input('user_id'))
-									->where('D.matkul_id',$id)
-									->where('B.batal',0)
-									->orderBy('D.created_at','desc')
-									->get();   
+				->select(\DB::raw('
+					B.id AS krsmatkul_id,
+					D.id AS penyelenggaraan_id,                                    
+					A.n_kual, 
+					A.n_mutu,
+					A.n_kuan,
+					C.tasmt,
+					D.ta_matkul,
+					E.username,
+					A.created_at,
+					A.updated_at
+				'))
+				->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
+				->join('pe3_krs AS C','B.krs_id','C.id')
+				->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+				->leftJoin('users AS E','E.id','A.user_id_updated')
+				->where('C.user_id',$request->input('user_id'))
+				->where('D.matkul_id',$id)
+				->where('B.batal',0)
+				->orderBy('D.created_at','desc')
+				->get();   
 									
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata', 
-									'matakuliah'=>$matakuliah,     
-									'history'=>$history,     
-									'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
-								], 200); 
+				'status'=>1,
+				'pid'=>'fetchdata', 
+				'matakuliah'=>$matakuliah,     
+				'history'=>$history,     
+				'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
+			], 200); 
 		}
 	}
 	public function printpdf1(Request $request,$id)
@@ -363,64 +363,70 @@ class TranskripKurikulumController  extends Controller
 		{
 			$is_mhs = true;
 			$mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-													A.user_id,
-													A.nama_mhs,
-													A.jk,
-													C.email,
-													C.nomor_hp,
-													A.no_formulir,
-													pe3_register_mahasiswa.nim,
-													pe3_register_mahasiswa.nirm,
-													pe3_register_mahasiswa.kjur,
-													B.nama_prodi,
-													D.nkelas,
-													pe3_register_mahasiswa.tahun,
-													E.n_status,
-													pe3_register_mahasiswa.created_at,
-													pe3_register_mahasiswa.updated_at,
-													C.foto
-												'))
-												->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-												->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-												->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-												->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-												->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-												->find($this->getUserid());
+				A.user_id,
+				A.nama_mhs,
+				A.tempat_lahir,
+				A.tanggal_lahir,                                                    
+				A.jk,
+				A.ta,
+				C.email,
+				C.nomor_hp,
+				A.no_formulir,
+				pe3_register_mahasiswa.nim,
+				pe3_register_mahasiswa.nirm,
+				pe3_register_mahasiswa.kjur,
+				B.nama_prodi,
+				D.nkelas,
+				pe3_register_mahasiswa.tahun,
+				E.n_status,
+				pe3_register_mahasiswa.created_at,
+				pe3_register_mahasiswa.updated_at,
+				C.foto
+			'))
+			->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+			->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
+			->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+			->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+			->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+			->find($this->getUserid());
 		}
 		else
 		{
 			$mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-													A.user_id,
-													A.nama_mhs,
-													A.jk,
-													C.email,
-													C.nomor_hp,
-													A.no_formulir,
-													pe3_register_mahasiswa.nim,
-													pe3_register_mahasiswa.nirm,
-													pe3_register_mahasiswa.kjur,
-													B.nama_prodi,
-													D.nkelas,
-													pe3_register_mahasiswa.tahun,
-													E.n_status,
-													pe3_register_mahasiswa.created_at,
-													pe3_register_mahasiswa.updated_at,
-													C.foto
-												'))
-												->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-												->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-												->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-												->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-												->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-												->find($id);
+				A.user_id,
+				A.nama_mhs,
+				A.tempat_lahir,
+				A.tanggal_lahir,  
+				A.jk,                                                  
+				A.ta,
+				C.email,
+				C.nomor_hp,
+				A.no_formulir,
+				pe3_register_mahasiswa.nim,
+				pe3_register_mahasiswa.nirm,
+				pe3_register_mahasiswa.kjur,
+				B.nama_prodi,
+				D.nkelas,
+				pe3_register_mahasiswa.tahun,
+				E.n_status,
+				pe3_register_mahasiswa.created_at,
+				pe3_register_mahasiswa.updated_at,
+				C.foto
+			'))
+			->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+			->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
+			->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+			->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+			->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+			->find($id);
 		}
 		if (is_null($mahasiswa))
 		{
 			return Response()->json([
-									'status'=>0,
-									'pid'=>'show',    
-									'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
-								], 422); 
+				'status'=>0,
+				'pid'=>'show',    
+				'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+			], 422); 
 		}
 		else
 		{
@@ -447,23 +453,23 @@ class TranskripKurikulumController  extends Controller
 				$jumlah_m_smt=0;           
 
 				$daftar_matkul=MatakuliahModel::select(\DB::raw('
-												0 AS no,
-												id,
-												group_alias,    
-												kmatkul,
-												nmatkul,
-												sks,
-												semester,
-												\'-\' AS HM,
-												\'-\' AS AM,
-												\'-\' AS M                                              
-											'))
-											->where('kjur',$mahasiswa->kjur)
-											->where('ta',$mahasiswa->tahun) 
-											->where('semester',$i)  
-											->orderBy('semester','ASC')
-											->orderBy('kmatkul','ASC')    
-											->get();
+					0 AS no,
+					id,
+					group_alias,    
+					kmatkul,
+					nmatkul,
+					sks,
+					semester,
+					\'-\' AS HM,
+					\'-\' AS AM,
+					\'-\' AS M                                              
+				'))
+				->where('kjur',$mahasiswa->kjur)
+				->where('ta',$mahasiswa->tahun) 
+				->where('semester',$i)  
+				->orderBy('semester','ASC')
+				->orderBy('kmatkul','ASC')    
+				->get();
 				$data_nilai_smt=[];
 				foreach ($daftar_matkul as $key=>$item)
 				{
@@ -631,21 +637,21 @@ class TranskripKurikulumController  extends Controller
 				'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
 			];
 			$pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportTranskripKurikulum1',
-																	[
-																		'headers'=>$headers,
-																		'mahasiswa'=>$mahasiswa,
-																		'daftar_nilai'=>$daftar_nilai,                            
-																		'jumlah_sks'=>$jumlah_sks_all,
-																		'jumlah_am'=>$jumlah_am_all,
-																		'jumlah_m'=>$jumlah_m_all,
-																		'jumlah_matkul'=>$jumlah_matkul_all,
-																		'ipk'=>$ipk,
-																		'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
-																	],
-																	[],
-																	[
-																		'title' => 'Transkrip Kurikulum',
-																	]);
+				[
+					'headers'=>$headers,
+					'mahasiswa'=>$mahasiswa,
+					'daftar_nilai'=>$daftar_nilai,                            
+					'jumlah_sks'=>$jumlah_sks_all,
+					'jumlah_am'=>$jumlah_am_all,
+					'jumlah_m'=>$jumlah_m_all,
+					'jumlah_matkul'=>$jumlah_matkul_all,
+					'ipk'=>$ipk,
+					'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
+				],
+				[],
+				[
+					'title' => 'Transkrip Kurikulum',
+				]);
 
 			$file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');
 			$pdf->save($file_pdf);
@@ -653,11 +659,11 @@ class TranskripKurikulumController  extends Controller
 			$pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";
 
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'mahasiswa'=>$mahasiswa,
-									'pdf_file'=>$pdf_file                                    
-								], 200);
+				'status'=>1,
+				'pid'=>'fetchdata',
+				'mahasiswa'=>$mahasiswa,
+				'pdf_file'=>$pdf_file                                    
+			], 200);
 		}
 	}
 	public function printpdf2(Request $request,$id)
@@ -667,55 +673,62 @@ class TranskripKurikulumController  extends Controller
 		{
 			$is_mhs = true;
 			$mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-													A.user_id,
-													A.nama_mhs,
-													A.jk,
-													C.email,
-													C.nomor_hp,
-													A.no_formulir,
-													pe3_register_mahasiswa.nim,
-													pe3_register_mahasiswa.nirm,
-													pe3_register_mahasiswa.kjur,
-													B.nama_prodi,
-													D.nkelas,
-													pe3_register_mahasiswa.tahun,
-													E.n_status,
-													pe3_register_mahasiswa.created_at,
-													pe3_register_mahasiswa.updated_at,
-													C.foto
-												'))
-												->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-												->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-												->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-												->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-												->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-												->find($this->getUserid());
+				A.user_id,
+				A.nama_mhs,
+				A.tempat_lahir,
+				A.tanggal_lahir,                                                    
+				A.jk,
+				A.ta,
+				C.email,
+				C.nomor_hp,
+				A.no_formulir,
+				pe3_register_mahasiswa.nim,
+				pe3_register_mahasiswa.nirm,
+				pe3_register_mahasiswa.kjur,
+				B.nama_prodi,
+				D.nkelas,
+				pe3_register_mahasiswa.tahun,
+				E.n_status,
+				pe3_register_mahasiswa.created_at,
+				pe3_register_mahasiswa.updated_at,
+				C.foto
+			'))
+			->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+			->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
+			->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+			->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+			->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+			->find($this->getUserid());
 		}
 		else
 		{
 			$mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
-													A.user_id,
-													A.nama_mhs,
-													A.tempat_lahir,
-													A.tanggal_lahir,                                                    
-													A.ta,
-													pe3_register_mahasiswa.nim,
-													pe3_register_mahasiswa.nirm,
-													pe3_register_mahasiswa.kjur,
-													B.nama_prodi,
-													D.nkelas,
-													pe3_register_mahasiswa.tahun,
-													E.n_status,
-													pe3_register_mahasiswa.created_at,
-													pe3_register_mahasiswa.updated_at,
-													C.foto
-												'))
-												->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-												->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-												->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-												->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-												->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
-												->find($id);
+				A.user_id,
+				A.nama_mhs,
+				A.tempat_lahir,
+				A.tanggal_lahir,  
+				A.jk,                                                  
+				A.ta,
+				C.email,
+				C.nomor_hp,
+				A.no_formulir,
+				pe3_register_mahasiswa.nim,
+				pe3_register_mahasiswa.nirm,
+				pe3_register_mahasiswa.kjur,
+				B.nama_prodi,
+				D.nkelas,
+				pe3_register_mahasiswa.tahun,
+				E.n_status,
+				pe3_register_mahasiswa.created_at,
+				pe3_register_mahasiswa.updated_at,
+				C.foto
+			'))
+			->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
+			->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
+			->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
+			->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
+			->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+			->find($id);
 		}
 		if (is_null($mahasiswa))
 		{
@@ -851,20 +864,21 @@ class TranskripKurikulumController  extends Controller
 				$no_semester=1;
 				$rpt->SetFont ('helvetica','',6);
 				$daftar_matkul=MatakuliahModel::select(\DB::raw('
-										0 AS no,
-										id,
-										group_alias,    
-										kmatkul,
-										nmatkul,
-										sks,
-										semester                                                                                  
-									'))
-									->where('kjur',$mahasiswa->kjur)
-									->where('ta',$mahasiswa->tahun) 
-									->where('semester',$i)  
-									->orderBy('semester','ASC')
-									->orderBy('kmatkul','ASC')    
-									->get();
+					0 AS no,
+					id,
+					group_alias,    
+					kmatkul,
+					nmatkul,
+					sks,
+					semester                                                                                  
+				'))
+				->where('kjur',$mahasiswa->kjur)
+				->where('ta',$mahasiswa->tahun) 
+				->where('semester',$i)  
+				->orderBy('semester','ASC')
+				->orderBy('kmatkul','ASC')    
+				->get();
+				ß
 				if ($i%2==0) 
 				{//genap
 					$smt_genap=$i;
