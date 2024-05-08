@@ -240,7 +240,7 @@
 				<v-divider></v-divider>
 				<v-card-text class="py-2 black--text text-center">
 					<strong>{{ APP_NAME }} (2021-2021)</strong>
-					dikembangkan oleh TIM ITSTAI Miftahul 'Ulum Tanjungpinang
+					dikembangkan oleh TIM ITIAI Miftahul 'Ulum Tanjungpinang
 					<v-btn icon href="https://github.com/mrizkir/staimu">
 						<v-icon>mdi-github</v-icon>
 					</v-btn>
