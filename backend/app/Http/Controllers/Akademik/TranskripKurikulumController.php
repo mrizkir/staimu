@@ -656,7 +656,7 @@ class TranskripKurikulumController  extends Controller
 			$file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');
 			$pdf->save($file_pdf);
 
-			$pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";
+			$pdf_file="exported/pdf/tk_".$mahasiswa->user_id.".pdf";
 
 			return Response()->json([
 				'status'=>1,
@@ -1227,7 +1227,7 @@ class TranskripKurikulumController  extends Controller
 
 			$file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');       
 
-			$pdf_file="storage/exported/pdf/tk_".$mahasiswa->user_id.".pdf";       
+			$pdf_file="exported/pdf/tk_".$mahasiswa->user_id.".pdf";       
 
 			$pdf->save($file_pdf);       
 

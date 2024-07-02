@@ -558,7 +558,7 @@ class NilaiKonversiController  extends Controller
             $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/kn_".$data_konversi->id.'.pdf');
             $pdf->save($file_pdf);
 
-            $pdf_file="storage/exported/pdf/kn_".$data_konversi->id.".pdf";
+            $pdf_file="exported/pdf/kn_".$data_konversi->id.".pdf";
 
             return Response()->json([
                                     'status'=>1,

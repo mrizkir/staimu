@@ -157,7 +157,7 @@
 										<span class="headline">Print to PDF</span>
 									</v-card-title>
 									<v-card-text>
-										<v-btn color="green" text :href="$api.url + '/' + file_pdf">
+										<v-btn color="green" text :href="$api.storageURL + '/' + file_pdf">
 											Download
 										</v-btn>
 									</v-card-text>
