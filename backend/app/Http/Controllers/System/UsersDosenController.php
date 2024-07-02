@@ -97,7 +97,7 @@ class UsersDosenController extends Controller {
 				'password'=>Hash::make($request->input('password')),            
 				'theme'=>'default',
 				'default_role'=>'dosen',
-				'foto'=> 'storage/images/users/no_photo.png',
+				'foto'=> '/images/users/no_photo.png',
 				'created_at'=>$now, 
 				'updated_at'=>$now
 			]);       

@@ -732,7 +732,7 @@
 					this.dialogpreviewpersyaratan = false;
 				} else {
 					this.slides.push({
-						path: this.$api.url + "/" + item.file,
+						path: this.$api.storageURL + "/" + item.file,
 						nama_persyaratan:item.nama_persyaratan,
 					});
 					this.dialogpreviewpersyaratan = true;

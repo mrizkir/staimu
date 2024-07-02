@@ -857,7 +857,7 @@
 					})
 					.then(({ data }) => {
 						this.data_konfirmasi = data.konfirmasi;
-						this.image_prev = this.$api.url + "/" + data.konfirmasi.bukti_bayar;
+						this.image_prev = this.$api.storageURL + "/" + data.konfirmasi.bukti_bayar;
 						this.dialogdetailitem = true;
 					});
 			},

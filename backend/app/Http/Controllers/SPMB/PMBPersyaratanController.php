@@ -142,7 +142,7 @@ class PMBPersyaratanController extends Controller {
                                                                 'persyaratan_id'=>$request->input('persyaratan_id'),
                                                                 'user_id'=>$id,
                                                                 'nama_persyaratan'=> $request->input('nama_persyaratan'),
-                                                                'path'=>"storage/images/pmb/$file_name",
+                                                                'path'=>"/images/pmb/$file_name",
                                                                 'created_at'=>$now, 
                                                                 'updated_at'=>$now
                                                             ]); 
@@ -151,7 +151,7 @@ class PMBPersyaratanController extends Controller {
                 else
                 {
                     $old_file=$persyaratan->path;
-                    $persyaratan->path="storage/images/pmb/$file_name";
+                    $persyaratan->path="/images/pmb/$file_name";
                     $persyaratan->save();
                     if ($old_file != 'images/no_photo.png')
                     {

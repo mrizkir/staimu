@@ -169,7 +169,7 @@ class PMBController extends Controller {
 				'ta'=>$ta,
 				'email_verified_at'=>'',
 				'theme'=>'default',  
-				'foto'=> 'storage/images/users/no_photo.png',
+				'foto'=> '/images/users/no_photo.png',
 				'code'=>$code,          
 				'active'=>0,          
 				'default_role'=>'mahasiswabaru',          
@@ -247,7 +247,7 @@ class PMBController extends Controller {
 				'code'=>$code,          
 				'active'=>1,         
 				'default_role'=>'mahasiswabaru',
-				'foto'=>'storage/images/users/no_photo.png', 
+				'foto'=>'/images/users/no_photo.png', 
 				'created_at'=>$now, 
 				'updated_at'=>$now
 			]);       

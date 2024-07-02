@@ -195,7 +195,7 @@ class KonfirmasiPembayaranController extends Controller {
                 'nama_bank_pengirim'=>$request->input('nama_bank_pengirim'),
                 'desc'=>$request->input('desc'),
                 'tanggal_bayar'=>$request->input('tanggal_bayar'),    
-                'bukti_bayar'=>"storage/images/buktibayar/$file_name",  
+                'bukti_bayar'=>"/images/buktibayar/$file_name",  
             ]);
             $bukti_bayar->move($folder,$file_name);
 

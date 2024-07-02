@@ -469,7 +469,7 @@
 			photoUser: {
 				get() {
 					if (this.avatar == null) {
-						let photo = this.$api.url + "/" + this.formdata.foto;
+						let photo = this.$api.storageURL + "/" + this.formdata.foto;
 						return photo;
 					} else {
 						return this.avatar;
