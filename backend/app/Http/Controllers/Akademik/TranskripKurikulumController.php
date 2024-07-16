@@ -636,7 +636,7 @@ class TranskripKurikulumController  extends Controller
 				'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
 				'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
 			];
-			$pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportTranskripKurikulum1',
+			$pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportTranskripKurikulum1',
 				[
 					'headers'=>$headers,
 					'mahasiswa'=>$mahasiswa,
