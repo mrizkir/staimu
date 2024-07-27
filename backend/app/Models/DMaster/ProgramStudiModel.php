@@ -23,7 +23,14 @@ class ProgramStudiModel extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'id','kode_prodi', 'nama_prodi', 'nama_prodi_alias', 'kode_fakultas','kode_jenjang','nama_jenjang','config'
+		'id',
+		'kode_prodi',
+		'nama_prodi',
+		'nama_prodi_alias',
+		'kode_fakultas',
+		'kode_jenjang',
+		'nama_jenjang',
+		'config'
 	];
 	/**
 	 * enable auto_increment.
