@@ -111,10 +111,19 @@ class DulangController extends Controller
         'tempat_lahir' => 'required',
         'tanggal_lahir' => 'required',
         'jk' => 'required',
-        'nomor_hp' => 'required|unique:users,nomor_hp,'.$dulang->user->nomor_hp,
-        'email' => 'required|string|email|unique:users,email,'.$dulang->user->email,
+        'nomor_hp' => [
+          'required',
+          Rule::unique('users')->ignore($dulang->user->nomor_hp, 'nomor_hp')->where(function($query) use($dulang) {
+            $query->where('id', '<>', $dulang->user->id);
+          })
+        ],
+        'email' => [
+          'required',
+          Rule::unique('users')->ignore($dulang->user->email, 'email')->where(function($query) use($dulang) {
+            $query->where('id', '<>', $dulang->user->id);
+          })
+        ],        
         'nama_ibu_kandung' => 'required',
-
         'address1_provinsi_id' => 'required',
         'address1_provinsi' => 'required',
         'address1_kabupaten_id' => 'required',
