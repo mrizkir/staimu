@@ -43,49 +43,49 @@ class TransaksiController extends Controller {
 							pe3_transaksi.created_at,
 							pe3_transaksi.updated_at
 						');
-		if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+		if ($this->hasRole(['mahasiswa', 'mahasiswabaru']))
 		{
 			$this->validate($request, [           
-				'ta'=>'required',    
+				'ta' => 'required',    
 			]);
 			$ta=$request->input('ta');      
 
 			$daftar_transaksi = TransaksiModel::select($select)
-											->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-											->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+											->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
 											->where('pe3_transaksi.ta',$ta)
 											->where('pe3_transaksi.user_id', $this->getUserid())
-											->orderBy('tanggal','DESC')
+											->orderBy('tanggal', 'DESC')
 											->get();
 		}
 		elseif ($request->has('user_id') && $request->filled('user_id') )
 		{
 			$this->validate($request, [           
-				'ta'=>'required',    
+				'ta' => 'required',    
 			]);
 			$ta=$request->input('ta');
 			
 			$daftar_transaksi = TransaksiModel::select($select)
-											->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-											->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
+											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+											->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
 											->where('pe3_transaksi.ta',$ta)
 											->where('pe3_transaksi.user_id',$request->input('user_id'))
-											->orderBy('tanggal','DESC')
+											->orderBy('tanggal', 'DESC')
 											->get();
 		}
 		else
 		{
 			$this->validate($request, [           
-				'ta'=>'required',
-				'prodi_id'=>'required',
+				'ta' => 'required',
+				'prodi_id' => 'required',
 			]);
 			$ta=$request->input('ta');
 			$prodi_id=$request->input('prodi_id');
 
 			$daftar_transaksi = TransaksiModel::select($select)
-											->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-											->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-											->orderBy('tanggal','DESC');                                       
+											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+											->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
+											->orderBy('tanggal', 'DESC');                                       
 
 			if ($request->has('search'))
 			{
@@ -101,10 +101,10 @@ class TransaksiController extends Controller {
 		}        
 		
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'transaksi'=>$daftar_transaksi,
-									'message'=>'Fetch data daftar transaksi berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'transaksi' => $daftar_transaksi,
+									'message' => 'Fetch data daftar transaksi berhasil.'
 								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
@@ -137,16 +137,16 @@ class TransaksiController extends Controller {
 										pe3_transaksi.created_at,
 										pe3_transaksi.updated_at                                        
 									'))
-									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-									->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-									->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
+									->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
+									->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+									->join('pe3_kelas', 'pe3_kelas.idkelas', 'pe3_transaksi.idkelas')
 									->where('pe3_transaksi.id',$id)
 									->first();
 
 		if (is_null($transaksi))        {
 			return Response()->json([
 										'status'=>0,
-										'pid'=>'fetchdata',          
+										'pid' => 'fetchdata',          
 										'message'=>"Fetch data transaksi dengan id ($id) gagal diperoleh."
 									], 422); 
 		}
@@ -155,10 +155,10 @@ class TransaksiController extends Controller {
 			$transaksi_detail=TransaksiDetailModel::where('transaksi_id',$id)
 													->get();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'fetchdata',  
-										'transaksi'=>$transaksi,
-										'transaksi_detail'=>$transaksi_detail,
+										'status' => 1,
+										'pid' => 'fetchdata',  
+										'transaksi' => $transaksi,
+										'transaksi_detail' => $transaksi_detail,
 										'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
 									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
@@ -176,7 +176,7 @@ class TransaksiController extends Controller {
 				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH.');
 			} 
 
-			$transaksi=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+			$transaksi=TransaksiDetailModel::join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
 							->where('pe3_transaksi_detail.kombi_id', 102)																					
 							->where('pe3_transaksi.status', 1)
 							->where('pe3_transaksi_detail.user_id',$mhs->user_id)
@@ -188,11 +188,11 @@ class TransaksiController extends Controller {
 			}
 
 			return Response()->json([
-				'status'=>1,
-				'pid'=>'fetchdata',  
-				// 'status_transaksi'=>$transaksi->status,  
-				'transaksi'=>$transaksi,
-				'message'=>'Biaya Daftar Ulang Mahasiswa Baru berhasil DIPEROLEH.'
+				'status' => 1,
+				'pid' => 'fetchdata',  
+				// 'status_transaksi' => $transaksi->status,  
+				'transaksi' => $transaksi,
+				'message' => 'Biaya Daftar Ulang Mahasiswa Baru berhasil DIPEROLEH.'
 			], 200);
 			
 		}
@@ -200,8 +200,8 @@ class TransaksiController extends Controller {
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'update',               
-				'message'=>[$e->getMessage()]
+				'pid' => 'update',               
+				'message' => [$e->getMessage()]
 			], 422); 
 		}
 	}
@@ -211,7 +211,7 @@ class TransaksiController extends Controller {
 	public function sppmhsbaru (Request $request, $id)
 	{
 		$this->validate($request, [                       
-			'jenis_id'=>'required'
+			'jenis_id' => 'required'
 		]);   
 		$jenis_id=$request->input('jenis_id');
 
@@ -225,7 +225,7 @@ class TransaksiController extends Controller {
 
 			$user_id=$mhs->user_id;
 			$no_bulan=9;   
-			$spp=TransaksiDetailModel::join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+			$spp=TransaksiDetailModel::join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
 							->where('pe3_transaksi_detail.kombi_id', 201)
 							->where('pe3_transaksi.ta',$mhs->tahun)
 							->where('pe3_transaksi.idsmt',$mhs->idsmt)
@@ -239,19 +239,19 @@ class TransaksiController extends Controller {
 				throw new Exception ('Mahasiswa Baru ini belum melakukan pembayaran KRS pada Bulan September');
 			}
 			return Response()->json([
-				'status'=>1,
-				'pid'=>'fetchdata',  
-				// 'status_transaksi'=>$spp->status,  
-				'spp'=>$spp,
-				'message'=>'SPP Mahasiswa Baru berhasil DIPEROLEH.'
+				'status' => 1,
+				'pid' => 'fetchdata',  
+				// 'status_transaksi' => $spp->status,  
+				'spp' => $spp,
+				'message' => 'SPP Mahasiswa Baru berhasil DIPEROLEH.'
 			], 200); 
 		}
 		catch (Exception $e)
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'update',               
-				'message'=>[$e->getMessage()]
+				'pid' => 'update',               
+				'message' => [$e->getMessage()]
 			], 422); 
 		}
 	}
@@ -261,7 +261,7 @@ class TransaksiController extends Controller {
 	public function cancel(Request $request)
 	{
 		$this->validate($request, [           
-			'transaksi_id'=>'required|exists:pe3_transaksi,id',
+			'transaksi_id' => 'required|exists:pe3_transaksi,id',
 		]);
 		$transaksi_id=$request->input('transaksi_id');
 		$transaksi=TransaksiModel::find($transaksi_id);
@@ -270,18 +270,18 @@ class TransaksiController extends Controller {
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'update',  
-				'transaksi_id'=>$transaksi_id,
-				'message'=>'Transaksi ini gagal dibatalkan karena status sudah PAID.'
+				'pid' => 'update',  
+				'transaksi_id' => $transaksi_id,
+				'message' => 'Transaksi ini gagal dibatalkan karena status sudah PAID.'
 			], 422);   
 		}
 		else if ($transaksi->status==2)
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'update',  
-				'transaksi_id'=>$transaksi_id,
-				'message'=>'Transaksi ini gagal dibatalkan karena status sudah DIBATALKAN.'
+				'pid' => 'update',  
+				'transaksi_id' => $transaksi_id,
+				'message' => 'Transaksi ini gagal dibatalkan karena status sudah DIBATALKAN.'
 			], 422); 
 		}
 		else if ($transaksi->status==0)
@@ -297,10 +297,10 @@ class TransaksiController extends Controller {
 														]);
 														
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update',  
-										'transaksi_id'=>$transaksi_id,
-										'message'=>'Kode billing dengan ID ('.$transaksi->no_transaksi.') berhasil DIBATALKAN.'
+										'status' => 1,
+										'pid' => 'update',  
+										'transaksi_id' => $transaksi_id,
+										'message' => 'Kode billing dengan ID ('.$transaksi->no_transaksi.') berhasil DIBATALKAN.'
 									], 200); 
 		}
 		
@@ -317,8 +317,8 @@ class TransaksiController extends Controller {
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["Update data transaksi dengan ID ($id) gagal diperoleh"]
+									'pid' => 'update',    
+									'message' => ["Update data transaksi dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -357,14 +357,14 @@ class TransaksiController extends Controller {
 							{
 								\App\Models\Akademik\DulangModel::create([
 																			'id'=>Uuid::uuid4()->toString(),
-																			'user_id'=>$transaksi->user_id,
-																			'nim'=>$transaksi->nim,
-																			'tahun'=>$transaksi->ta,
-																			'idsmt'=>$transaksi->idsmt,
-																			'tasmt'=>$transaksi->ta.$transaksi->idsmt,
-																			'idkelas'=>$transaksi->idkelas,
-																			'status_sebelumnya'=>'A',
-																			'k_status'=>'A',
+																			'user_id' => $transaksi->user_id,
+																			'nim' => $transaksi->nim,
+																			'tahun' => $transaksi->ta,
+																			'idsmt' => $transaksi->idsmt,
+																			'tasmt' => $transaksi->ta.$transaksi->idsmt,
+																			'idkelas' => $transaksi->idkelas,
+																			'status_sebelumnya' => 'A',
+																			'k_status' => 'A',
 																		]);
 							}
 						break;
@@ -381,8 +381,8 @@ class TransaksiController extends Controller {
 			});
 			
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update',          
+										'status' => 1,
+										'pid' => 'update',          
 										'message'=>"Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
 									], 200);   
 		}

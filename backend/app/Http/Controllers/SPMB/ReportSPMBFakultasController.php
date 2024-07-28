@@ -27,27 +27,27 @@ class ReportSPMBFakultasController extends Controller {
         $this->hasPermissionTo('SPMB-PMB-LAPORAN-FAKULTAS_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',
-            'fakultas_id'=>'required'
+            'ta' => 'required',
+            'fakultas_id' => 'required'
         ]);
         
         $ta=$request->input('ta');
         $fakultas_id=$request->input('fakultas_id');
 
-        $data = User::where('default_role','mahasiswabaru')
+        $data = User::where('default_role', 'mahasiswabaru')
                     ->select(\DB::raw('users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,users.created_at,users.updated_at'))
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','users.id')
-                    ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
-                    ->join('pe3_prodi','pe3_prodi.id','pe3_formulir_pendaftaran.kjur1')
+                    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'users.id')
+                    ->join('pe3_kelas', 'pe3_formulir_pendaftaran.idkelas', 'pe3_kelas.idkelas')
+                    ->join('pe3_prodi', 'pe3_prodi.id', 'pe3_formulir_pendaftaran.kjur1')
                     ->where('users.ta',$ta)
                     ->where('kode_fakultas',$fakultas_id)
                     ->get();
         
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'pmb'=>$data,
-                                'message'=>'Fetch data calon mahasiswa baru berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'pmb' => $data,
+                                'message' => 'Fetch data calon mahasiswa baru berhasil diperoleh'
                             ], 200);  
     }      
     /**
@@ -60,15 +60,15 @@ class ReportSPMBFakultasController extends Controller {
         $this->hasPermissionTo('SPMB-PMB-LAPORAN-FAKULTAS_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',
-            'fakultas_id'=>'required',
-            'nama_fakultas'=>'required',
+            'ta' => 'required',
+            'fakultas_id' => 'required',
+            'nama_fakultas' => 'required',
         ]);
         
         $data_report=[
-            'TA'=>$request->input('ta'),
-            'fakultas_id'=>$request->input('fakultas_id'),
-            'nama_fakultas'=>$request->input('nama_fakultas'),
+            'TA' => $request->input('ta'),
+            'fakultas_id' => $request->input('fakultas_id'),
+            'nama_fakultas' => $request->input('nama_fakultas'),
         ];
 
         $report= new \App\Models\Report\ReportSPMBModel ($data_report);     

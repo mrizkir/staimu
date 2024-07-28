@@ -41,16 +41,16 @@ class KepegawaianDosenController extends Controller {
 				users.created_at,
 				users.updated_at
 			'))
-			->join('pe3_dosen','pe3_dosen.user_id','users.id')
-			->join('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')
-			->orderBy('name','ASC')
+			->join('pe3_dosen', 'pe3_dosen.user_id', 'users.id')
+			->join('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')
+			->orderBy('name', 'ASC')
 			->get();                      
 		
 		return Response()->json([
-			'status'=>1,
-			'pid'=>'fetchdata',
-			'dosen'=>$dosen,
-			'message'=>'Fetch data users Dosen berhasil diperoleh'
+			'status' => 1,
+			'pid' => 'fetchdata',
+			'dosen' => $dosen,
+			'message' => 'Fetch data users Dosen berhasil diperoleh'
 		], 200);  
 	}  
 	/**
@@ -69,26 +69,26 @@ class KepegawaianDosenController extends Controller {
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'update',    
-				'message'=>["User ID ($id) gagal diupdate"]
+				'pid' => 'update',    
+				'message' => ["User ID ($id) gagal diupdate"]
 			], 422); 
 		}
 		else
 		{
 			$this->validate($request, [      
-				'nidn'=>[
+				'nidn' => [
 							'numeric',
-							'unique:pe3_dosen,nidn,'.$user->id.',user_id'
+							'unique:pe3_dosen,nidn, '.$user->id.',user_id'
 						],           
-				'nipy'=>[
+				'nipy' => [
 							'numeric',
-							'unique:pe3_dosen,nipy,'.$user->id.',user_id'
+							'unique:pe3_dosen,nipy, '.$user->id.',user_id'
 						],           
-				'name'=>'required',
-				'id_jabatan'=>'required',        
-				'name'=>'required',
-				'email'=>'required|string|email|unique:users,email,'.$user->id,
-				'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,           
+				'name' => 'required',
+				'id_jabatan' => 'required',        
+				'name' => 'required',
+				'email' => 'required|string|email|unique:users,email, '.$user->id,
+				'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,           
 			]); 
 
 			$user = \DB::transaction(function () use ($request, $user) {
@@ -120,10 +120,10 @@ class KepegawaianDosenController extends Controller {
 			]);
 
 			return Response()->json([
-				'status'=>1,
-				'pid'=>'update',
-				'user'=>$user,      
-				'message'=>'Data user Dosen '.$user->name.' berhasil diubah.'
+				'status' => 1,
+				'pid' => 'update',
+				'user' => $user,      
+				'message' => 'Data user Dosen '.$user->name.' berhasil diubah.'
 			], 200); 
 		}        
 	}   

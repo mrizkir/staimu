@@ -27,7 +27,7 @@ class TahunAkademikController extends Controller {
                     '))
                     ->get();
 
-        $ta->transform(function ($item,$key) {                
+        $ta->transform(function ($item, $key) {                
                 $item->awal_ganjil=Helper::checkformattanggal($item->awal_ganjil)?$item->awal_ganjil:null;
                 $item->akhir_ganjil=Helper::checkformattanggal($item->akhir_ganjil)?$item->akhir_ganjil:null;
                 $item->awal_genap=Helper::checkformattanggal($item->awal_genap)?$item->awal_genap:null;
@@ -35,10 +35,10 @@ class TahunAkademikController extends Controller {
                 return $item;
             });
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'ta'=>$ta,
-                                    'message'=>'Fetch data tahun akademik berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'ta' => $ta,
+                                    'message' => 'Fetch data tahun akademik berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
     /**
@@ -51,8 +51,8 @@ class TahunAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Tahun Akademik ($id) gagal diperoleh"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Tahun Akademik ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
@@ -65,7 +65,7 @@ class TahunAkademikController extends Controller {
                 for($i=$awal_ganjil;$i<= 12;$i++)
                 {
                     $daftar_bulan[]=[
-                                        'value'=>$i,
+                                        'value' => $i,
                                         'text'=>\App\Helpers\Helper::getNamaBulan($i)." $tahun"
                                     ];
                 }
@@ -73,7 +73,7 @@ class TahunAkademikController extends Controller {
                 for($i=1;$i<$awal_ganjil;$i++)
                 {
                     $daftar_bulan[]=[
-                                        'value'=>$i,
+                                        'value' => $i,
                                         'text'=>\App\Helpers\Helper::getNamaBulan($i)." $tahun"
                                     ];
                 }
@@ -82,17 +82,17 @@ class TahunAkademikController extends Controller {
             {
                 return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Awal bulan semester ganjil Tahun Akademik ($id) belum disetting"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Awal bulan semester ganjil Tahun Akademik ($id) belum disetting"]
                                 ], 422);
             }
       
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',
-                                        'ta'=>$ta,
-                                        'daftar_bulan'=>$daftar_bulan,
-                                        'message'=>'Fetch data daftar bulan berhasil.'
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',
+                                        'ta' => $ta,
+                                        'daftar_bulan' => $daftar_bulan,
+                                        'message' => 'Fetch data daftar bulan berhasil.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }
@@ -107,12 +107,12 @@ class TahunAkademikController extends Controller {
         $this->hasPermissionTo('DMASTER-TA_STORE');
 
         $rule=[
-            'tahun'=>'required|numeric|unique:pe3_ta,tahun',
-            'tahun_akademik'=>'required|string|unique:pe3_ta,tahun_akademik',
-            'awal_ganjil'=>'required',
-            'akhir_ganjil'=>'required',
-            'awal_genap'=>'required',
-            'akhir_genap'=>'required',
+            'tahun' => 'required|numeric|unique:pe3_ta,tahun',
+            'tahun_akademik' => 'required|string|unique:pe3_ta,tahun_akademik',
+            'awal_ganjil' => 'required',
+            'akhir_ganjil' => 'required',
+            'awal_genap' => 'required',
+            'akhir_genap' => 'required',
         ];
 
         $this->validate($request, $rule);
@@ -120,19 +120,19 @@ class TahunAkademikController extends Controller {
         $awal_pendek=null;
         $akhir_pendek=null;
         $ta=TAModel::create([
-            'tahun'=>$request->input('tahun'),
+            'tahun' => $request->input('tahun'),
             'tahun_akademik'=>strtoupper($request->input('tahun_akademik')),         
-            'awal_ganjil'=>$request->input('awal_ganjil'),
-            'akhir_ganjil'=>$request->input('akhir_ganjil'),
-            'awal_genap'=>$request->input('awal_genap'),
-            'akhir_genap'=>$request->input('akhir_genap'),
-            'awal_pendek'=>$awal_pendek,
-            'akhir_pendek'=>$akhir_pendek,
+            'awal_ganjil' => $request->input('awal_ganjil'),
+            'akhir_ganjil' => $request->input('akhir_ganjil'),
+            'awal_genap' => $request->input('awal_genap'),
+            'akhir_genap' => $request->input('akhir_genap'),
+            'awal_pendek' => $awal_pendek,
+            'akhir_pendek' => $akhir_pendek,
         ]);
 
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $ta,
-                                        'object_id'=>$ta->tahun,
+                                        'object_id' => $ta->tahun,
                                         'user_id' => $this->guard()->user()->id,
                                         'message' => 'Menambah tahun akademik baru berhasil'
                                     ]);
@@ -141,10 +141,10 @@ class TahunAkademikController extends Controller {
         $ta->akhir_pendek = 'N.A';    
            
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'ta'=>$ta,
-                                    'message'=>'Data tahun akademik berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'ta' => $ta,
+                                    'message' => 'Data tahun akademik berhasil disimpan.'
                                 ], 200);
 
     }
@@ -164,28 +164,28 @@ class TahunAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',
-                                    'message'=>["Tahun Akademik ($id) gagal diupdate"]
+                                    'pid' => 'update',
+                                    'message' => ["Tahun Akademik ($id) gagal diupdate"]
                                 ], 422);
         }
         else
         {
             $this->validate($request, [
-                                        'tahun'=>[
+                                        'tahun' => [
                                                     'required',
                                                     'numeric',
-                                                    Rule::unique('pe3_ta')->ignore($ta->tahun,'tahun')
+                                                    Rule::unique('pe3_ta')->ignore($ta->tahun, 'tahun')
                                                 ],
-                                        'tahun_akademik'=>[
+                                        'tahun_akademik' => [
                                                         'required',
                                                         'string',
-                                                        Rule::unique('pe3_ta')->ignore($ta->tahun_akademik,'tahun_akademik')
+                                                        Rule::unique('pe3_ta')->ignore($ta->tahun_akademik, 'tahun_akademik')
                                                     ],
 
-                                        'awal_ganjil'=>'required',
-                                        'akhir_ganjil'=>'required',
-                                        'awal_genap'=>'required',
-                                        'akhir_genap'=>'required',
+                                        'awal_ganjil' => 'required',
+                                        'akhir_ganjil' => 'required',
+                                        'awal_genap' => 'required',
+                                        'akhir_genap' => 'required',
 
                                     ]);
 
@@ -205,7 +205,7 @@ class TahunAkademikController extends Controller {
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $ta,
-                                                        'object_id'=>$ta->tahun,
+                                                        'object_id' => $ta->tahun,
                                                         'user_id' => $this->guard()->user()->tahun,
                                                         'message' => 'Mengubah data tahun akademik ('.$ta->tahun_akademik.') berhasil'
                                                     ]);
@@ -213,10 +213,10 @@ class TahunAkademikController extends Controller {
             $ta->awal_pendek = 'N.A';
             $ta->akhir_pendek = 'N.A';
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'ta'=>$ta,
-                                    'message'=>'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'ta' => $ta,
+                                    'message' => 'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
                                 ], 200);
         }
     }
@@ -236,8 +236,8 @@ class TahunAkademikController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',
-                                    'message'=>["Kode tahun akademik ($id) gagal dihapus"]
+                                    'pid' => 'destroy',
+                                    'message' => ["Kode tahun akademik ($id) gagal dihapus"]
                                 ], 422);
         }
         else
@@ -250,8 +250,8 @@ class TahunAkademikController extends Controller {
                                                         ]);
             $ta->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',
+                                        'status' => 1,
+                                        'pid' => 'destroy',
                                         'message'=>"Tahun Akademik dengan kode ($id) berhasil dihapus"
                                     ], 200);
         }

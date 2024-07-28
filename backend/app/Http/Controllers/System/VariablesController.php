@@ -16,10 +16,10 @@ class VariablesController extends Controller {
     {   
         $this->hasPermissionTo('SYSTEM-SETTING-VARIABLES_BROWSE'); 
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
+                                'status' => 1,
+                                'pid' => 'fetchdata',
                                 'setting'=>ConfigurationModel::getCache(),
-                                'message'=>'Fetch data seluruh setting variabel'
+                                'message' => 'Fetch data seluruh setting variabel'
                             ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 
 
@@ -35,28 +35,28 @@ class VariablesController extends Controller {
     {
         $this->hasPermissionTo('SYSTEM-SETTING-VARIABLES_UPDATE');
         $this->validate($request, [ 
-            'pid'=>'required',                   
-            'setting'=>[
+            'pid' => 'required',                   
+            'setting' => [
                 'required',    
             ],         
         ],[
-            'name.required'=>'Setting mohon untuk di isi',
+            'name.required' => 'Setting mohon untuk di isi',
         ]);   
         $pid = $request->input('pid');
         $config=json_decode($request->input('setting'), true);
         
         foreach($config as $k=>$v)
         {
-            \DB::table('pe3_configuration')->where('config_id',$k)->update(['config_value'=>$v]);
+            \DB::table('pe3_configuration')->where('config_id',$k)->update(['config_value' => $v]);
         }
 
         ConfigurationModel::clear();
         ConfigurationModel::toCache();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',       
-                                    'config'=>$config,                   
+                                    'status' => 1,
+                                    'pid' => 'update',       
+                                    'config' => $config,                   
                                     'message'=>"Data setting $pid berhasil diubah."
                                 ], 200); 
     }
@@ -65,8 +65,8 @@ class VariablesController extends Controller {
         ConfigurationModel::clear();
         ConfigurationModel::toCache();
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',                        
+                                    'status' => 1,
+                                    'pid' => 'update',                        
                                     'message'=>"Cache sudah dikosongkan dan direload ulang setting berhasil."
                                 ], 200); 
     }

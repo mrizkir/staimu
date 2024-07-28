@@ -25,10 +25,10 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
       $this->hasPermissionTo('KEUANGAN-LAPORAN-PENERIMAAN-SPP_BROWSE');    
 
       $this->validate($request, [           
-        'prodi_id'=>'required',
-        'ta'=>'required',
-        'tahun_pendaftaran'=>'required',
-        'semester_akademik'=>'required',
+        'prodi_id' => 'required',
+        'ta' => 'required',
+        'tahun_pendaftaran' => 'required',
+        'semester_akademik' => 'required',
       ]);
       $ta=$request->input('ta');
       $prodi_id=$request->input('prodi_id');
@@ -52,7 +52,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         
         $daftar_transaksi = \DB::table('pe3_register_mahasiswa AS A')
                             ->select(\DB::raw($select))
-                            ->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id');
+                            ->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id');
                             
 
         if ($request->has('search'))
@@ -67,7 +67,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                                 ->get();
         }
                                
-        $daftar_transaksi->transform(function ($item,$key) use ($ta, $daftar_bulan) {
+        $daftar_transaksi->transform(function ($item, $key) use ($ta, $daftar_bulan) {
           $transaksi = \DB::table('pe3_transaksi_detail AS A')  
                             ->select(\DB::raw("
                                 A.user_id,
@@ -82,7 +82,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                 ']'
                               ) AS bulan
                             "))
-                            ->join('pe3_transaksi AS B','A.transaksi_id','B.id')
+                            ->join('pe3_transaksi AS B', 'A.transaksi_id', 'B.id')
                             ->where('A.user_id', $item->user_id)
                             ->where('A.kombi_id', 201)
                             ->where("A.tahun", $ta)
@@ -151,17 +151,17 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
           return $item;
         });
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'transaksi'=>$daftar_transaksi,
-                                    'message'=>'Fetch data daftar transaksi spp mahasiswa berhasil diperoleh.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'transaksi' => $daftar_transaksi,
+                                    'message' => 'Fetch data daftar transaksi spp mahasiswa berhasil diperoleh.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
     public function show (Request $request,$id)
     {
         try 
         {
-            if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+            if ($this->hasRole(['mahasiswa', 'mahasiswabaru']))
             {
                 $transaksi=TransaksiModel::select(\DB::raw('                            
                                         pe3_transaksi.id,
@@ -187,9 +187,9 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
-                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
+                                    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
+                                    ->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+                                    ->join('pe3_kelas', 'pe3_kelas.idkelas', 'pe3_transaksi.idkelas')
                                     ->where('pe3_transaksi.user_id', $this->getUserid())
                                     ->find($id);
             }
@@ -219,9 +219,9 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         pe3_transaksi.created_at,
                                         pe3_transaksi.updated_at
                                     '))
-                                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi.user_id')
-                                    ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
-                                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_transaksi.idkelas')
+                                    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi.user_id')
+                                    ->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
+                                    ->join('pe3_kelas', 'pe3_kelas.idkelas', 'pe3_transaksi.idkelas')
                                     ->find($id);
             }
             if (is_null($transaksi))        
@@ -249,26 +249,26 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             {
                 $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
-                                    'id'=>$i,
-                                    'no_bulan'=>$i,
+                                    'id' => $i,
+                                    'no_bulan' => $i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
-                                    'tahun'=>$transaksi->ta,
-                                    'biaya_kombi'=>$biaya_kombi,
-                                    'isSelectable'=>$status,
-                                    'status'=>$status
+                                    'tahun' => $transaksi->ta,
+                                    'biaya_kombi' => $biaya_kombi,
+                                    'isSelectable' => $status,
+                                    'status' => $status
                                 ];
             }
             for($i=1;$i<$awal_ganjil;$i++)
             {
                 $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
-                                    'id'=>$i,
-                                    'no_bulan'=>$i,
+                                    'id' => $i,
+                                    'no_bulan' => $i,
                                     'nama_bulan'=>\App\Helpers\Helper::getNamaBulan($i),
-                                    'tahun'=>$transaksi->ta+1,
-                                    'biaya_kombi'=>$biaya_kombi,
-                                    'isSelectable'=>$status,
-                                    'status'=>$status
+                                    'tahun' => $transaksi->ta+1,
+                                    'biaya_kombi' => $biaya_kombi,
+                                    'isSelectable' => $status,
+                                    'status' => $status
                                 ];
             }  
             $item_selected = TransaksiDetailModel::select(\DB::raw('
@@ -282,16 +282,16 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                             '))
                             ->where('transaksi_id',$transaksi->id)
                             ->get();
-            $item_selected->transform(function ($item,$key) {                
+            $item_selected->transform(function ($item, $key) {                
                 $item->nama_bulan=\App\Helpers\Helper::getNamaBulan($item->no_bulan);           
                 return $item;
             });
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'transaksi'=>$transaksi,
-                                        'transaksi_detail'=>$transaksi_detail,
-                                        'item_selected'=>$item_selected,
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',  
+                                        'transaksi' => $transaksi,
+                                        'transaksi_detail' => $transaksi_detail,
+                                        'item_selected' => $item_selected,
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
@@ -299,8 +299,8 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'fetchdata',               
-                'message'=>[$e->getMessage()]
+                'pid' => 'fetchdata',               
+                'message' => [$e->getMessage()]
             ], 422); 
         }      
     }    
@@ -310,19 +310,19 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
     public function printtoexcel1 (Request $request)
     {
         $this->validate($request, [           
-            'ta'=>'required',
-            'semester_akademik'=>'required',
-            'prodi_id'=>'required',
-            'nama_prodi'=>'required',
-            'tahun_pendaftaran'=>'required',
+            'ta' => 'required',
+            'semester_akademik' => 'required',
+            'prodi_id' => 'required',
+            'nama_prodi' => 'required',
+            'tahun_pendaftaran' => 'required',
         ]);
 
         $data_report=[
-            'ta'=>$request->input('ta'),
-            'semester_akademik'=>$request->input('semester_akademik'),
-            'prodi_id'=>$request->input('prodi_id'),
-            'nama_prodi'=>$request->input('nama_prodi'),            
-            'tahun_pendaftaran'=>$request->input('tahun_pendaftaran'),            
+            'ta' => $request->input('ta'),
+            'semester_akademik' => $request->input('semester_akademik'),
+            'prodi_id' => $request->input('prodi_id'),
+            'nama_prodi' => $request->input('nama_prodi'),            
+            'tahun_pendaftaran' => $request->input('tahun_pendaftaran'),            
         ];
 
         $report= new \App\Models\Report\ReportKeuanganSPPModel ($data_report);

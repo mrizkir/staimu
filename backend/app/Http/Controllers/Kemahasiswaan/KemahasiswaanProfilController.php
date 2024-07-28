@@ -17,7 +17,7 @@ class KemahasiswaanProfilController extends Controller {
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
 
 		$this->validate($request,[
-			'search'=>'required'        
+			'search' => 'required'        
 		]);
 		
 		$daftar_mhs = \DB::table('pe3_register_mahasiswa AS A')
@@ -30,18 +30,18 @@ class KemahasiswaanProfilController extends Controller {
 								A.idkelas,
 								C.foto
 							'))
-							->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
-							->join('users AS C','A.user_id','C.id')
-							->join('pe3_prodi AS D','A.kjur','D.id')
+							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
+							->join('users AS C', 'A.user_id', 'C.id')
+							->join('pe3_prodi AS D', 'A.kjur', 'D.id')
 							->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
 							->get();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'daftar_mhs'=>$daftar_mhs,  
-									'jumlah'=>$daftar_mhs->count(),
-									'message'=>'Daftar Mahasiswa berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'daftar_mhs' => $daftar_mhs,  
+									'jumlah' => $daftar_mhs->count(),
+									'message' => 'Daftar Mahasiswa berhasil diperoleh.'
 								], 200); 
 	
 	}
@@ -53,7 +53,7 @@ class KemahasiswaanProfilController extends Controller {
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
 
 		$this->validate($request,[
-			'nim'=>'required|numeric'
+			'nim' => 'required|numeric'
 		]);
 		
 		$profil = \DB::table('pe3_register_mahasiswa AS A')
@@ -66,18 +66,18 @@ class KemahasiswaanProfilController extends Controller {
 								E.nkelas,
 								C.foto
 							'))
-							->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
-							->join('users AS C','A.user_id','C.id')
-							->join('pe3_prodi AS D','A.kjur','D.id')
-							->join('pe3_kelas AS E','A.idkelas','E.idkelas')
+							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
+							->join('users AS C', 'A.user_id', 'C.id')
+							->join('pe3_prodi AS D', 'A.kjur', 'D.id')
+							->join('pe3_kelas AS E', 'A.idkelas', 'E.idkelas')
 							->where('A.nim', $request->input('nim'))        
 							->first();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'profil'=>$profil,
-									'message'=>'Profil Mahasiswa berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'profil' => $profil,
+									'message' => 'Profil Mahasiswa berhasil diperoleh.'
 								], 200); 
 	
 	}
@@ -89,7 +89,7 @@ class KemahasiswaanProfilController extends Controller {
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
 
 		$this->validate($request,[
-			'user_id'=>'required'
+			'user_id' => 'required'
 		]);
 		
 		$profil = \DB::table('pe3_register_mahasiswa AS A')
@@ -144,18 +144,18 @@ class KemahasiswaanProfilController extends Controller {
 								A.tahun,								
 								C.foto
 							'))
-							->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
-							->join('users AS C','A.user_id','C.id')
-							->join('pe3_prodi AS D','A.kjur','D.id')
-							->join('pe3_kelas AS E','A.idkelas','E.idkelas')
+							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
+							->join('users AS C', 'A.user_id', 'C.id')
+							->join('pe3_prodi AS D', 'A.kjur', 'D.id')
+							->join('pe3_kelas AS E', 'A.idkelas', 'E.idkelas')
 							->where('A.user_id', $request->input('user_id'))        
 							->first();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'profil'=>$profil,
-									'message'=>'Profil Mahasiswa berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'profil' => $profil,
+									'message' => 'Profil Mahasiswa berhasil diperoleh.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	
 	}
@@ -167,7 +167,7 @@ class KemahasiswaanProfilController extends Controller {
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
 
 		$this->validate($request,[
-			'search'=>'required'        
+			'search' => 'required'        
 		]);
 		
 		$daftar_mhs = \DB::table('pe3_register_mahasiswa AS A')
@@ -179,23 +179,23 @@ class KemahasiswaanProfilController extends Controller {
 								D.nama_prodi,
 								C.foto
 							'))
-							->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
-							->join('users AS C','A.user_id','C.id')
-							->join('pe3_prodi AS D','A.kjur','D.id')
+							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
+							->join('users AS C', 'A.user_id', 'C.id')
+							->join('pe3_prodi AS D', 'A.kjur', 'D.id')
 							->whereNotIn('A.user_id',function($query) {
 								$query->select('user_id')
 									->from('pe3_nilai_konversi1');                               
 							})
-							->where('A.nim','LIKE',$request->input('search').'%')
+							->where('A.nim', 'LIKE',$request->input('search').'%')
 							->orWhere('B.nama_mhs', 'LIKE', '%'.$request->input('search').'%')
 							->get();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'daftar_mhs'=>$daftar_mhs,  
-									'jumlah'=>$daftar_mhs->count(),
-									'message'=>'Daftar Mahasiswa berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'daftar_mhs' => $daftar_mhs,  
+									'jumlah' => $daftar_mhs->count(),
+									'message' => 'Daftar Mahasiswa berhasil diperoleh.'
 								], 200); 
 	
 	}
@@ -207,7 +207,7 @@ class KemahasiswaanProfilController extends Controller {
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_UPDATE');
 
 		$this->validate($request,[
-			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'        
+			'user_id' => 'required|exists:pe3_register_mahasiswa,user_id'        
 		]);
 		
 		$user=User::find($request->input('user_id'));
@@ -216,9 +216,9 @@ class KemahasiswaanProfilController extends Controller {
 		$user->save();
 
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'update',        
-								'message'=>'Reset password Mahasiswa '.$user->name.'berhasil diperoleh.'
+								'status' => 1,
+								'pid' => 'update',        
+								'message' => 'Reset password Mahasiswa '.$user->name.'berhasil diperoleh.'
 							], 200);
 	}
 
@@ -232,32 +232,32 @@ class KemahasiswaanProfilController extends Controller {
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
+									'pid' => 'update',    
+									'message' => ["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
 		{
 		   
 			$this->validate($request, [
-				'nama_mhs'=>'required',
-				'tempat_lahir'=>'required',
-				'tanggal_lahir'=>'required',
-				'jk'=>'required',
-				'nomor_hp'=>'required|unique:users,nomor_hp,'.$formulir->user_id,
-				'email'=>'required|string|email|unique:users,email,'.$formulir->user_id,
-				'nama_ibu_kandung'=>'required',
+				'nama_mhs' => 'required',
+				'tempat_lahir' => 'required',
+				'tanggal_lahir' => 'required',
+				'jk' => 'required',
+				'nomor_hp' => 'required|unique:users,nomor_hp, '.$formulir->user_id,
+				'email' => 'required|string|email|unique:users,email, '.$formulir->user_id,
+				'nama_ibu_kandung' => 'required',
 
-				'address1_provinsi_id'=>'required',
-				'address1_provinsi'=>'required',
-				'address1_kabupaten_id'=>'required',
-				'address1_kabupaten'=>'required',
-				'address1_kecamatan_id'=>'required',
-				'address1_kecamatan'=>'required',
-				'address1_desa_id'=>'required',
-				'address1_kelurahan'=>'required',
-				'alamat_rumah'=>'required',
-				'tahun'=>'required|numeric' 
+				'address1_provinsi_id' => 'required',
+				'address1_provinsi' => 'required',
+				'address1_kabupaten_id' => 'required',
+				'address1_kabupaten' => 'required',
+				'address1_kecamatan_id' => 'required',
+				'address1_kecamatan' => 'required',
+				'address1_desa_id' => 'required',
+				'address1_kelurahan' => 'required',
+				'alamat_rumah' => 'required',
+				'tahun' => 'required|numeric' 
 			]);
 
 			$data_mhs = \DB::transaction(function () use ($request, $formulir) {            
@@ -291,17 +291,17 @@ class KemahasiswaanProfilController extends Controller {
 				\DB::table('pe3_register_mahasiswa')
 					->where('user_id', $formulir->user_id)
 					->update([
-						'tahun'=>$request->input('tahun')
+						'tahun' => $request->input('tahun')
 					]);
 
 				return [
-					'formulir'=>$formulir,					
+					'formulir' => $formulir,					
 				];
 			});
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update',										
-										'message'=>'Biodata Mahasiswa berhasil diubah.'
+										'status' => 1,
+										'pid' => 'update',										
+										'message' => 'Biodata Mahasiswa berhasil diubah.'
 									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}

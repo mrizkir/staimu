@@ -18,10 +18,10 @@ class KomponenBiayaController extends Controller {
         $kombi=KomponenBiayaModel::all();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'kombi'=>$kombi,
-                                    'message'=>'Fetch data komponen biaya berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'kombi' => $kombi,
+                                    'message' => 'Fetch data komponen biaya berhasil.'
                                 ], 200);
     }  
 }

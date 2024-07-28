@@ -19,10 +19,10 @@ class TransferBankController extends Controller {
         $bank=TransferBankModel::all();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'bank'=>$bank,
-                                    'message'=>'Fetch data bank berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'bank' => $bank,
+                                    'message' => 'Fetch data bank berhasil.'
                                 ], 200);
     }
     /**
@@ -36,10 +36,10 @@ class TransferBankController extends Controller {
         $this->hasPermissionTo('KEUANGAN-METODE-TRANSFER-BANK_STORE');
 
         $rule=[            
-            'nama_bank'=>'required',         
-            'nama_cabang'=>'required',         
-            'nomor_rekening'=>'required|numeric|unique:pe3_transfer_bank,nomor_rekening',
-            'pemilik_rekening'=>'required',      
+            'nama_bank' => 'required',         
+            'nama_cabang' => 'required',         
+            'nomor_rekening' => 'required|numeric|unique:pe3_transfer_bank,nomor_rekening',
+            'pemilik_rekening' => 'required',      
         ];
     
         $this->validate($request, $rule);
@@ -48,22 +48,22 @@ class TransferBankController extends Controller {
             'id'=>Uuid::uuid4()->toString(),
             'nama_bank'=>strtoupper($request->input('nama_bank')),            
             'nama_cabang'=>strtoupper($request->input('nama_cabang')),            
-            'nomor_rekening'=>$request->input('nomor_rekening'),            
+            'nomor_rekening' => $request->input('nomor_rekening'),            
             'pemilik_rekening'=>strtoupper($request->input('pemilik_rekening')),            
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $bank,
-                                        'object_id'=>$bank->id, 
+                                        'object_id' => $bank->id, 
                                         'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah bank baru berhasil'
                                     ]);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'bank'=>$bank,    
-                                    'message'=>'Data bank berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'bank' => $bank,    
+                                    'message' => 'Data bank berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -83,22 +83,22 @@ class TransferBankController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Kode Kelas ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["Kode Kelas ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
         {
             
             $this->validate($request, [
-                                        'nama_bank'=>'required',         
-                                        'nama_cabang'=>'required',   
-                                        'nomor_rekening'=>[
+                                        'nama_bank' => 'required',         
+                                        'nama_cabang' => 'required',   
+                                        'nomor_rekening' => [
                                                         'required',            
                                                         'numeric',            
-                                                        Rule::unique('pe3_transfer_bank')->ignore($bank->nomor_rekening,'nomor_rekening')           
+                                                        Rule::unique('pe3_transfer_bank')->ignore($bank->nomor_rekening, 'nomor_rekening')           
                                                     ],     
-                                        'pemilik_rekening'=>'required',   
+                                        'pemilik_rekening' => 'required',   
                                     ]); 
                                    
             $bank->nama_bank = $request->input('nama_bank');
@@ -110,16 +110,16 @@ class TransferBankController extends Controller {
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $bank,
-                                                        'object_id'=>$bank->id, 
+                                                        'object_id' => $bank->id, 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data bank ('.$bank->nama_bank.') berhasil'
                                                     ]);
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'bank'=>$bank,      
-                                    'message'=>'Data bank '.$bank->nama_bank.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'bank' => $bank,      
+                                    'message' => 'Data bank '.$bank->nama_bank.' berhasil diubah.'
                                 ], 200); 
         }
     }    
@@ -139,8 +139,8 @@ class TransferBankController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Kode bank ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Kode bank ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -153,8 +153,8 @@ class TransferBankController extends Controller {
                                                             ]);
             $bank->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

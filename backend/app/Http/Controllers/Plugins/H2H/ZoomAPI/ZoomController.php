@@ -24,10 +24,10 @@ class ZoomController extends Controller {
         $zoom=ZoomModel::all();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'zoom'=>$zoom,
-                                    'message'=>'Fetch data account zoom berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'zoom' => $zoom,
+                                    'message' => 'Fetch data account zoom berhasil.'
                                 ], 200);
     }
     /**
@@ -40,34 +40,34 @@ class ZoomController extends Controller {
     {
         $this->hasPermissionTo('PLUGINS-H2H-ZOOMAPI_STORE');
         $rule=[            
-            'email'=>'required|email|unique:plugins_h2h_zoom',
-            'api_key'=>'required|string|unique:plugins_h2h_zoom',
-            'api_secret'=>'required|string|unique:plugins_h2h_zoom',
-            'im_token'=>'required|string|unique:plugins_h2h_zoom',    
+            'email' => 'required|email|unique:plugins_h2h_zoom',
+            'api_key' => 'required|string|unique:plugins_h2h_zoom',
+            'api_secret' => 'required|string|unique:plugins_h2h_zoom',
+            'im_token' => 'required|string|unique:plugins_h2h_zoom',    
         ];   
         
         $this->validate($request, $rule);
              
         $zoom=ZoomModel::create([
             'id'=>Uuid::uuid4()->toString(),
-            'email'=>$request->input('email'),
-            'api_key'=>$request->input('api_key'),
-            'api_secret'=>$request->input('api_secret'),
-            'im_token'=>$request->input('im_token'),            
+            'email' => $request->input('email'),
+            'api_key' => $request->input('api_key'),
+            'api_secret' => $request->input('api_secret'),
+            'im_token' => $request->input('im_token'),            
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $zoom,
-                                        'object_id'=>$zoom->id, 
+                                        'object_id' => $zoom->id, 
                                         'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah account zoom baru berhasil'
                                     ]);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'zoom'=>$zoom,    
-                                    'message'=>'Data account zoom berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'zoom' => $zoom,    
+                                    'message' => 'Data account zoom berhasil disimpan.'
                                 ], 200); 
 
     }   
@@ -83,8 +83,8 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["account zoom ($id) gagal di testing"]
+                                    'pid' => 'update',    
+                                    'message' => ["account zoom ($id) gagal di testing"]
                                 ], 422); 
         }
         else
@@ -106,7 +106,7 @@ class ZoomController extends Controller {
                     'https://api.zoom.us/v2/users/'.$zoom->email,        
                     [
                         'debug' => FALSE,
-                        'headers'=>[
+                        'headers' => [
                             'Authorization' => 'Bearer ' . $jwt,            
                             'content-type' => 'application/json'
                         ]
@@ -143,20 +143,20 @@ class ZoomController extends Controller {
                     $zoom->save();
                 }
                 return Response()->json([
-                    'status'=>1,
-                    'pid'=>'store',
-                    'zoom'=>$zoom,    
-                    'message'=>'Data account zoom berhasil di synchronize.'
+                    'status' => 1,
+                    'pid' => 'store',
+                    'zoom' => $zoom,    
+                    'message' => 'Data account zoom berhasil di synchronize.'
                 ], 200); 
             }
             catch(\GuzzleHttp\Exception\ClientException $e)
             {
                 return Response()->json([
                     'status'=>0,
-                    'pid'=>'update', 
+                    'pid' => 'update', 
                     'request'=> \GuzzleHttp\Psr7\Message::toString($e->getRequest()),  
                     'response'=> \GuzzleHttp\Psr7\Message::toString($e->getResponse()),  
-                    'message'=>["account zoom ($id) gagal di sync (check response untuk lebih detail)"]
+                    'message' => ["account zoom ($id) gagal di sync (check response untuk lebih detail)"]
                 ], 422);            
             }
         }
@@ -177,8 +177,8 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["account zoom ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["account zoom ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
@@ -186,25 +186,25 @@ class ZoomController extends Controller {
             
             $this->validate($request, [          
                                         
-                                        'email'=>[
+                                        'email' => [
                                                         'required',
                                                         'string',
-                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->email,'email')
+                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->email, 'email')
                                                     ],           
-                                        'api_key'=>[
+                                        'api_key' => [
                                                         'required',
                                                         'string',
-                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->api_key,'api_key')
+                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->api_key, 'api_key')
                                                     ],  
-                                        'api_secret'=>[
+                                        'api_secret' => [
                                                         'required',
                                                         'string',
-                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->api_secret,'api_secret')
+                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->api_secret, 'api_secret')
                                                     ],  
-                                        'im_token'=>[
+                                        'im_token' => [
                                                         'required',
                                                         'string',
-                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->im_token,'im_token')
+                                                        Rule::unique('plugins_h2h_zoom')->ignore($zoom->im_token, 'im_token')
                                                     ],  
                                                     
                                         
@@ -220,16 +220,16 @@ class ZoomController extends Controller {
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $zoom,
-                                                        'object_id'=>$zoom->id, 
+                                                        'object_id' => $zoom->id, 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data account zoom ('.$zoom->email.') berhasil'
                                                     ]);
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'zoom'=>$zoom,      
-                                    'message'=>'Data account zoom '.$zoom->email.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'zoom' => $zoom,      
+                                    'message' => 'Data account zoom '.$zoom->email.' berhasil diubah.'
                                 ], 200); 
         }
     }   
@@ -249,18 +249,18 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["account zoom ($id) gagal diperoleh"]
+                                    'pid' => 'update',    
+                                    'message' => ["account zoom ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'zoom'=>$zoom,      
-                                    'message'=>'Data account zoom '.$zoom->email.' berhasil diperoleh.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'zoom' => $zoom,      
+                                    'message' => 'Data account zoom '.$zoom->email.' berhasil diperoleh.'
                                 ], 200); 
         }
     }   
@@ -280,8 +280,8 @@ class ZoomController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Kode account zoom ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Kode account zoom ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -294,8 +294,8 @@ class ZoomController extends Controller {
                                                             ]);
             $zoom->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Account zoom dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }

@@ -16,10 +16,10 @@ class ChannelPembayaranController extends Controller {
         $channel=ChannelPembayaranModel::All();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'channel'=>$channel,
-                                    'message'=>'Fetch data channel pembayaran berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'channel' => $channel,
+                                    'message' => 'Fetch data channel pembayaran berhasil.'
                                 ], 200);
     }    
 }

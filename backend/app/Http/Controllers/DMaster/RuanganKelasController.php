@@ -19,10 +19,10 @@ class RuanganKelasController extends Controller {
         $ruangan=RuanganKelasModel::all();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'ruangan'=>$ruangan,
-                                    'message'=>'Fetch data ruangan kelas berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'ruangan' => $ruangan,
+                                    'message' => 'Fetch data ruangan kelas berhasil.'
                                 ], 200);
     }
     /**
@@ -36,30 +36,30 @@ class RuanganKelasController extends Controller {
         $this->hasPermissionTo('DMASTER-RUANGAN-KELAS_STORE');
 
         $rule=[            
-            'namaruang'=>'required|string|unique:pe3_ruangkelas,namaruang',
-            'kapasitas'=>'required|numeric',         
+            'namaruang' => 'required|string|unique:pe3_ruangkelas,namaruang',
+            'kapasitas' => 'required|numeric',         
         ];
     
         $this->validate($request, $rule);
              
         $ruangan=RuanganKelasModel::create([
             'id'=>Uuid::uuid4()->toString(),
-            'namaruang'=>$request->input('namaruang'),
+            'namaruang' => $request->input('namaruang'),
             'kapasitas'=>strtoupper($request->input('kapasitas')),            
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $ruangan,
-                                        'object_id'=>$ruangan->id, 
+                                        'object_id' => $ruangan->id, 
                                         'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah ruang kelas baru berhasil'
                                     ]);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'ruangan'=>$ruangan,    
-                                    'message'=>'Data ruang kelas berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'ruangan' => $ruangan,    
+                                    'message' => 'Data ruang kelas berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -79,21 +79,21 @@ class RuanganKelasController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Rung Kelas ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["Rung Kelas ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
         {
             
             $this->validate($request, [
-                                        'namaruang'=>[
+                                        'namaruang' => [
                                                         'required',            
                                                         'string',                
-                                                        Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang,'namaruang')           
+                                                        Rule::unique('pe3_ruangkelas')->ignore($ruangan->namaruang, 'namaruang')           
                                                     ],           
                                         
-                                        'kapasitas'=>[
+                                        'kapasitas' => [
                                                         'required',
                                                         'numeric',                
                                                     ],           
@@ -107,16 +107,16 @@ class RuanganKelasController extends Controller {
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $ruangan,
-                                                        'object_id'=>$ruangan->id, 
+                                                        'object_id' => $ruangan->id, 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'Mengubah data ruang kelas ('.$ruangan->namaruang.') berhasil'
                                                     ]);
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'ruangan'=>$ruangan,      
-                                    'message'=>'Data ruang kelas '.$ruangan->namaruang.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'ruangan' => $ruangan,      
+                                    'message' => 'Data ruang kelas '.$ruangan->namaruang.' berhasil diubah.'
                                 ], 200); 
         }
     }    
@@ -136,8 +136,8 @@ class RuanganKelasController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Ruang kelas dengan id ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Ruang kelas dengan id ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -150,8 +150,8 @@ class RuanganKelasController extends Controller {
                                                             ]);
             $ruangan->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Ruang Kelas dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

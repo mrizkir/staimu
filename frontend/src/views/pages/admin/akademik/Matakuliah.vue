@@ -703,7 +703,7 @@
 				if (this.$refs.frmdata.validate()) {
 					this.btnLoading = true;
 					if (this.editedIndex > -1) {
-						await this.$ajax.post("/akademik/matakuliah/"+this.formdata.id,
+						await this.$ajax.post("/akademik/matakuliah/" + this.formdata.id,
 							{
 								_method: "PUT",
 								id_group: this.formdata.id_group,

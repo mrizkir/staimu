@@ -23,8 +23,8 @@ class PesertaLulusController extends Controller {
 		$this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_BROWSE']);
 
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required'
+			'ta' => 'required',
+			'prodi_id' => 'required'
 		]);
 		
 		$ta=$request->input('ta');
@@ -49,22 +49,22 @@ class PesertaLulusController extends Controller {
 						users.created_at,
 						users.updated_at
 					'))
-					->join('users','pe3_formulir_pendaftaran.user_id','users.id')
-					->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
-					->leftJoin('pe3_nilai_ujian_pmb','pe3_formulir_pendaftaran.user_id','pe3_nilai_ujian_pmb.user_id')
+					->join('users', 'pe3_formulir_pendaftaran.user_id', 'users.id')
+					->join('pe3_kelas', 'pe3_formulir_pendaftaran.idkelas', 'pe3_kelas.idkelas')
+					->leftJoin('pe3_nilai_ujian_pmb', 'pe3_formulir_pendaftaran.user_id', 'pe3_nilai_ujian_pmb.user_id')
 					->where('users.ta',$ta)
 					->where('kjur1',$prodi_id)
 					->where('pe3_nilai_ujian_pmb.ket_lulus', 1)
 					->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
 					->where('users.active', 1)    
-					->orderBy('users.name','ASC') 
+					->orderBy('users.name', 'ASC') 
 					->get();
 		
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'pmb'=>$data,
-								'message'=>'Fetch data calon mahasiswa baru yang lulus berhasil diperoleh'
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'pmb' => $data,
+								'message' => 'Fetch data calon mahasiswa baru yang lulus berhasil diperoleh'
 							], 200);  
 	}
 	/**
@@ -77,15 +77,15 @@ class PesertaLulusController extends Controller {
 		$this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_BROWSE']);
 
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required',
-			'nama_prodi'=>'required',			
+			'ta' => 'required',
+			'prodi_id' => 'required',
+			'nama_prodi' => 'required',			
 		]);
 		
 		$data_report=[
-			'ta'=>$request->input('ta'),
-			'prodi_id'=>$request->input('prodi_id'),
-			'nama_prodi'=>$request->input('nama_prodi'), 			
+			'ta' => $request->input('ta'),
+			'prodi_id' => $request->input('prodi_id'),
+			'nama_prodi' => $request->input('nama_prodi'), 			
 		];
 
 		$report= new \App\Models\Report\ReportSPMBModel ($data_report);     

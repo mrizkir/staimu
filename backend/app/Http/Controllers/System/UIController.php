@@ -25,13 +25,13 @@ class UIController extends Controller {
 		$identitas['nama_pt_alias']=$config['NAMA_PT_ALIAS'];
 		$identitas['bentuk_pt']=$config['BENTUK_PT'];
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'captcha_site_key'=>$captcha_site_key,
-									'tahun_pendaftaran'=>$tahun_pendaftaran,
-									'semester_pendaftaran'=>$semester_pendaftaran,
-									'identitas'=>$identitas,
-									'message'=>'Fetch data ui untuk front berhasil diperoleh'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'captcha_site_key' => $captcha_site_key,
+									'tahun_pendaftaran' => $tahun_pendaftaran,
+									'semester_pendaftaran' => $semester_pendaftaran,
+									'identitas' => $identitas,
+									'message' => 'Fetch data ui untuk front berhasil diperoleh'
 								], 200);
 	}
 	/**
@@ -41,25 +41,25 @@ class UIController extends Controller {
 	{
 		$config = ConfigurationModel::getCache();
 		$theme=[
-			'V-SYSTEM-BAR-CSS-CLASS'=>$config['V-SYSTEM-BAR-CSS-CLASS'],
-			'V-APP-BAR-NAV-ICON-CSS-CLASS'=>$config['V-APP-BAR-NAV-ICON-CSS-CLASS'],
-			'V-NAVIGATION-DRAWER-CSS-CLASS'=>$config['V-NAVIGATION-DRAWER-CSS-CLASS'],
-			'V-LIST-ITEM-BOARD-CSS-CLASS'=>$config['V-LIST-ITEM-BOARD-CSS-CLASS'],
-			'V-LIST-ITEM-BOARD-COLOR'=>$config['V-LIST-ITEM-BOARD-COLOR'],
-			'V-LIST-ITEM-ACTIVE-CSS-CLASS'=>$config['V-LIST-ITEM-ACTIVE-CSS-CLASS'],
+			'V-SYSTEM-BAR-CSS-CLASS' => $config['V-SYSTEM-BAR-CSS-CLASS'],
+			'V-APP-BAR-NAV-ICON-CSS-CLASS' => $config['V-APP-BAR-NAV-ICON-CSS-CLASS'],
+			'V-NAVIGATION-DRAWER-CSS-CLASS' => $config['V-NAVIGATION-DRAWER-CSS-CLASS'],
+			'V-LIST-ITEM-BOARD-CSS-CLASS' => $config['V-LIST-ITEM-BOARD-CSS-CLASS'],
+			'V-LIST-ITEM-BOARD-COLOR' => $config['V-LIST-ITEM-BOARD-COLOR'],
+			'V-LIST-ITEM-ACTIVE-CSS-CLASS' => $config['V-LIST-ITEM-ACTIVE-CSS-CLASS'],
 		];
 		$daftar_semester=[
 							0=>[
-								'id'=>1,
-								'text'=>'GANJIL'
+								'id' => 1,
+								'text' => 'GANJIL'
 							],
 							1=>[
 								'id'=>2,
-								'text'=>'GENAP'
+								'text' => 'GENAP'
 							],
 							2=>[
 								'id'=>3,
-								'text'=>'PENDEK'
+								'text' => 'PENDEK'
 							]
 						];
 		$roles=$this->getRoleNames();
@@ -68,7 +68,7 @@ class UIController extends Controller {
 			if ($this->hasRole('superadmin'))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$daftar_fakultas=FakultasModel::all();
@@ -83,7 +83,7 @@ class UIController extends Controller {
 			elseif($this->hasRole('pmb'))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$userid=$this->getUserid();
@@ -95,7 +95,7 @@ class UIController extends Controller {
 								->whereExists(function ($query) use ($userid) {
 									$query->select(\DB::raw(1))
 										->from('usersprodi')
-										->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+										->join('pe3_prodi', 'pe3_prodi.id', 'usersprodi.prodi_id')
 										->where('user_id',$userid);
 								})
 								->get();
@@ -117,7 +117,7 @@ class UIController extends Controller {
 			elseif ($this->hasRole('puslahta'))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$userid=$this->getUserid();
@@ -129,7 +129,7 @@ class UIController extends Controller {
 								->whereExists(function ($query) use ($userid) {
 									$query->select(\DB::raw(1))
 										->from('usersprodi')
-										->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+										->join('pe3_prodi', 'pe3_prodi.id', 'usersprodi.prodi_id')
 										->where('user_id',$userid);
 								})
 								->get();
@@ -151,7 +151,7 @@ class UIController extends Controller {
 			elseif ($this->hasRole('keuangan'))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$userid=$this->getUserid();
@@ -163,7 +163,7 @@ class UIController extends Controller {
 								->whereExists(function ($query) use ($userid) {
 									$query->select(\DB::raw(1))
 										->from('usersprodi')
-										->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+										->join('pe3_prodi', 'pe3_prodi.id', 'usersprodi.prodi_id')
 										->where('user_id',$userid);
 								})
 								->get();
@@ -187,8 +187,8 @@ class UIController extends Controller {
 				$formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
 
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->where('tahun','>=',$formulir->ta)
-								->orderBy('tahun','asc')
+								->where('tahun', '>=',$formulir->ta)
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$daftar_fakultas=[];
@@ -203,7 +203,7 @@ class UIController extends Controller {
 			elseif ($this->hasRole('mahasiswabaru'))
 			{
 				$formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($this->getUserid());
-				$daftar_ta=TAModel::where('tahun','=',$formulir->ta)
+				$daftar_ta=TAModel::where('tahun', '=',$formulir->ta)
 									->select(\DB::raw('tahun AS value,tahun_akademik AS text'))
 									->get();
 
@@ -216,10 +216,10 @@ class UIController extends Controller {
 				$tahun_pendaftaran = $formulir->ta;
 				$tahun_akademik = $formulir->ta;
 			}
-			elseif ($this->hasRole(['akademik','programstudi']))
+			elseif ($this->hasRole(['akademik', 'programstudi']))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$userid=$this->getUserid();
@@ -229,7 +229,7 @@ class UIController extends Controller {
 							->whereExists(function ($query) use ($userid) {
 								$query->select(\DB::raw(1))
 									->from('usersprodi')
-									->join('pe3_prodi','pe3_prodi.id','usersprodi.prodi_id')
+									->join('pe3_prodi', 'pe3_prodi.id', 'usersprodi.prodi_id')
 									->where('user_id',$userid);
 							})
 							->get();
@@ -240,10 +240,10 @@ class UIController extends Controller {
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
 			}
-			elseif ($this->hasRole(['dosen','dosenwali']))
+			elseif ($this->hasRole(['dosen', 'dosenwali']))
 			{
 				$daftar_ta=TAModel::select(\DB::raw('tahun AS value,tahun_akademik AS text'))
-								->orderBy('tahun','asc')
+								->orderBy('tahun', 'asc')
 								->get();
 
 				$daftar_fakultas=FakultasModel::all();
@@ -263,32 +263,32 @@ class UIController extends Controller {
 													->get();
 			$k_status='A';
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'fetchdata',
-										'roles'=>$this->getRoleNames(),
-										'daftar_ta'=>$daftar_ta,
-										'tahun_pendaftaran'=>$tahun_pendaftaran,
-										'tahun_akademik'=>$tahun_akademik,
-										'daftar_semester'=>$daftar_semester,
+										'status' => 1,
+										'pid' => 'fetchdata',
+										'roles' => $this->getRoleNames(),
+										'daftar_ta' => $daftar_ta,
+										'tahun_pendaftaran' => $tahun_pendaftaran,
+										'tahun_akademik' => $tahun_akademik,
+										'daftar_semester' => $daftar_semester,
 										'semester_akademik' => $config['DEFAULT_SEMESTER'],
-										'daftar_fakultas'=>$daftar_fakultas,
-										'fakultas_id'=>$fakultas_id,
-										'daftar_prodi'=>$daftar_prodi,
-										'prodi_id'=>$prodi_id,
-										'daftar_kelas'=>$daftar_kelas,
-										'idkelas'=>$idkelas,
-										'daftar_status_mhs'=>$daftar_status_mhs,
-										'k_status'=>$k_status,
-										'theme'=>$theme,
-										'message'=>'Fetch data ui untuk admin berhasil diperoleh'
+										'daftar_fakultas' => $daftar_fakultas,
+										'fakultas_id' => $fakultas_id,
+										'daftar_prodi' => $daftar_prodi,
+										'prodi_id' => $prodi_id,
+										'daftar_kelas' => $daftar_kelas,
+										'idkelas' => $idkelas,
+										'daftar_status_mhs' => $daftar_status_mhs,
+										'k_status' => $k_status,
+										'theme' => $theme,
+										'message' => 'Fetch data ui untuk admin berhasil diperoleh'
 									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 		else
 		{
 			return Response()->json([
 										'status'=>0,
-										'pid'=>'fetchdata',
-										'message'=>'Fetch data ui gagal karena roles kosong.'
+										'pid' => 'fetchdata',
+										'message' => 'Fetch data ui gagal karena roles kosong.'
 									], 422);
 		}
 	}

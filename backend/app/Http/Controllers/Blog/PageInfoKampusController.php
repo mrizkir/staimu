@@ -20,15 +20,15 @@ class PageInfoKampusController extends Controller {
                                     blog_post.created_at,
                                     blog_post.updated_at
                                 '))
-                                ->join('users','users.id','blog_post.user_id')
-                                ->orderBy('created_at','desc')
+                                ->join('users', 'users.id', 'blog_post.user_id')
+                                ->orderBy('created_at', 'desc')
                                 ->get();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'post'=>$data,
-                                    'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'post' => $data,
+                                    'message' => 'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
                                 ], 200);
     }
     public function all (Request $request)
@@ -43,15 +43,15 @@ class PageInfoKampusController extends Controller {
                                     blog_post.created_at,
                                     blog_post.updated_at
                                 '))
-                                ->join('users','users.id','blog_post.user_id')
-                                ->orderBy('created_at','desc')
+                                ->join('users', 'users.id', 'blog_post.user_id')
+                                ->orderBy('created_at', 'desc')
                                 ->paginate(10);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'post'=>$data,
-                                    'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'post' => $data,
+                                    'message' => 'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
                                 ], 200);
     }
     public function show (Request $request,$id)
@@ -64,16 +64,16 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Kode post ($id) gagal diperoleh"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Kode post ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'post'=>$post,
+                                    'pid' => 'fetchdata',    
+                                    'post' => $post,
                                     'message'=>"Post dengan id ($id) berhasil diperoleh"
                                 ], 200); 
         }
@@ -83,13 +83,13 @@ class PageInfoKampusController extends Controller {
         $setting = ConfigurationModel::getCache();
 
         $data = [
-            'INFO_KAMPUS_TERM_ID'=>$setting['INFO_KAMPUS_TERM_ID']
+            'INFO_KAMPUS_TERM_ID' => $setting['INFO_KAMPUS_TERM_ID']
         ];
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'config'=>$data,
-                                    'message'=>'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'config' => $data,
+                                    'message' => 'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
                                 ], 200);
     }
     public function store(Request $request)
@@ -97,9 +97,9 @@ class PageInfoKampusController extends Controller {
         $this->hasPermissionTo('BLOG-POST_STORE');
 
         $this->validate($request, [
-            'post_title'=>'required',
-            'post_content'=>'required',
-            'term_id'=>'required',
+            'post_title' => 'required',
+            'post_content' => 'required',
+            'term_id' => 'required',
         ]);
         
         $post = \DB::transaction(function () use ($request) {
@@ -108,27 +108,27 @@ class PageInfoKampusController extends Controller {
             $post_content = $request->input('post_content');
             $post=BlogPostModel::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$this->getUserid(),
-                'post_title'=>$post_title,
-                'post_content'=>$request->input('post_content'),
+                'user_id' => $this->getUserid(),
+                'post_title' => $post_title,
+                'post_content' => $request->input('post_content'),
                 'post_excerpt'=> '',
-                'post_status'=>'publish',            
-                'comment_status'=>'closed',
-                'post_name'=> str_replace(' ','-',strtolower($post_title)),
+                'post_status' => 'publish',            
+                'comment_status' => 'closed',
+                'post_name'=> str_replace(' ', '-',strtolower($post_title)),
                 'post_type'=> 'post',
                 'comment_count'=> 0                
             ]);
 
             \DB::table('blog_term_relationship')
                 ->insert([
-                    'object_id'=>$post->id,
-                    'term_taxonomy_id'=>$request->input('term_id'),
+                    'object_id' => $post->id,
+                    'term_taxonomy_id' => $request->input('term_id'),
                     'term_order'=>0
                 ]);
 
 			\App\Models\System\ActivityLog::log($request,[
 													'object' => $post,
-													'object_id'=>$post->id, 
+													'object_id' => $post->id, 
 													'user_id' => $this->getUserid(), 
 													'message' => "Data post  dengan ". $post->id. " berhasil disimpan."
 												]);
@@ -136,10 +136,10 @@ class PageInfoKampusController extends Controller {
             return $post;
         });
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',    
-                                    'post'=>$post,    
-                                    'message'=>'Data post berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',    
+                                    'post' => $post,    
+                                    'message' => 'Data post berhasil disimpan.'
                                 ], 200);
     }
     public function update (Request $request,$id)
@@ -152,15 +152,15 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Kode post ($id) gagal diperoleh"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Kode post ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [
-                'post_title'=>'required',
-                'post_content'=>'required',    
+                'post_title' => 'required',
+                'post_content' => 'required',    
             ]);
             $post->post_title = $request->input('post_title');
             $post->post_content = $request->input('post_content');
@@ -168,8 +168,8 @@ class PageInfoKampusController extends Controller {
 
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'post'=>$post,
+                                    'pid' => 'update',    
+                                    'post' => $post,
                                     'message'=>"Post dengan id ($id) berhasil diubah"
                                 ], 200); 
         }
@@ -184,8 +184,8 @@ class PageInfoKampusController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Kode post ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Kode post ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -208,8 +208,8 @@ class PageInfoKampusController extends Controller {
 			});
             
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Post dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

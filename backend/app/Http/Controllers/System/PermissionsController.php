@@ -20,7 +20,7 @@ class PermissionsController extends Controller {
         $user=$this->guard()->user();
         if ($user->hasRole('superadmin'))
         {
-            $data = Permission::orderBy('name','ASC')
+            $data = Permission::orderBy('name', 'ASC')
                                 ->get();
         }
         else if ($user->hasRole('akademik'))
@@ -32,10 +32,10 @@ class PermissionsController extends Controller {
             $data = Role::findByName('pmb')->permissions;
         }
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'permissions'=>$data,
-                                'message'=>'Fetch data permissions berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'permissions' => $data,
+                                'message' => 'Fetch data permissions berhasil diperoleh'
                             ], 200);         
     }    
     /**
@@ -49,17 +49,17 @@ class PermissionsController extends Controller {
         $this->hasPermissionTo('SYSTEM-SETTING-PERMISSIONS_STORE');
 
         $this->validate($request, [
-            'name'=>[
+            'name' => [
                         'required',
                         function ($attribute,$value,$fail) {
-                            if(Permission::where('name','like',"%$value%")->exists())
+                            if(Permission::where('name', 'like',"%$value%")->exists())
                             {
                                 $fail('Nama Permission telah tersedia, mohon ganti dengan yang lain');
                             }
                         }
                     ]
         ],[
-            'name.required'=>'Nama permission mohon untuk di isi',
+            'name.required' => 'Nama permission mohon untuk di isi',
         ]
         );   
         $permission = new Permission;   
@@ -67,20 +67,20 @@ class PermissionsController extends Controller {
         $nama = strtoupper($request->input('name'));   
         
         $permission->insert([
-            ['name'=>"{$nama}_BROWSE",'guard_name'=>'api','created_at'=>$now, 'updated_at'=>$now],
-            ['name'=>"{$nama}_SHOW",'guard_name'=>'api','created_at'=>$now, 'updated_at'=>$now],
-            ['name'=>"{$nama}_STORE",'guard_name'=>'api','created_at'=>$now, 'updated_at'=>$now],
-            ['name'=>"{$nama}_UPDATE",'guard_name'=>'api','created_at'=>$now, 'updated_at'=>$now],
-            ['name'=>"{$nama}_DESTROY",'guard_name'=>'api','created_at'=>$now, 'updated_at'=>$now],
+            ['name'=>"{$nama}_BROWSE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name'=>"{$nama}_SHOW", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name'=>"{$nama}_STORE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name'=>"{$nama}_UPDATE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name'=>"{$nama}_DESTROY", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
         ]);
         
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    // 'permission'=>$permission,    
-                                    'message'=>'Data permission berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    // 'permission' => $permission,    
+                                    'message' => 'Data permission berhasil disimpan.'
                                 ], 200); 
     
     }
@@ -99,8 +99,8 @@ class PermissionsController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Permission dengan ID ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Permission dengan ID ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -112,13 +112,13 @@ class PermissionsController extends Controller {
             
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $permission, 
-                                                        'object_id'=>$permission->id, 
+                                                        'object_id' => $permission->id, 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'Menghapus permission ('.$nama_permission.') berhasil'
                                                     ]);                                                            
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Permission ($nama_permission) berhasil dihapus"
                                     ], 200); 
         }

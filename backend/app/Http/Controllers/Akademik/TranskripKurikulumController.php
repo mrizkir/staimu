@@ -31,16 +31,16 @@ class TranskripKurikulumController  extends Controller
                   COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
                   COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                 '))
-                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')        
-                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
+                ->join('pe3_formulir_pendaftaran', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')        
+                ->leftJoin('pe3_rekap_transkrip_kurikulum', 'pe3_rekap_transkrip_kurikulum.user_id', 'pe3_register_mahasiswa.user_id')
                 ->where('pe3_register_mahasiswa.user_id', $this->getUserid())
                 ->get();
     }
     else
     {
       $this->validate($request, [           
-        'ta'=>'required',
-        'prodi_id'=>'required'
+        'ta' => 'required',
+        'prodi_id' => 'required'
       ]);
 
       $ta=$request->input('ta');
@@ -55,9 +55,9 @@ class TranskripKurikulumController  extends Controller
                   COALESCE(pe3_rekap_transkrip_kurikulum.jumlah_sks,0) AS jumlah_sks,
                   COALESCE(pe3_rekap_transkrip_kurikulum.ipk,0.00) AS ipk                               
                 '))
-                ->join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')        
-                ->leftJoin('pe3_rekap_transkrip_kurikulum','pe3_rekap_transkrip_kurikulum.user_id','pe3_register_mahasiswa.user_id')
-                ->orderBy('nama_mhs','asc');
+                ->join('pe3_formulir_pendaftaran', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')        
+                ->leftJoin('pe3_rekap_transkrip_kurikulum', 'pe3_rekap_transkrip_kurikulum.user_id', 'pe3_register_mahasiswa.user_id')
+                ->orderBy('nama_mhs', 'asc');
                 
       if ($request->has('search'))
       {
@@ -74,11 +74,11 @@ class TranskripKurikulumController  extends Controller
     $jumlah_mhs = $data->count();
     $rata2ipk = Helper::formatPecahan($data->sum('ipk'),$jumlah_mhs);
     return Response()->json([
-                    'status'=>1,
-                    'pid'=>'fetchdata',  
-                    'mahasiswa'=>$data,        
-                    'rata2ipk'=>$rata2ipk,
-                    'message'=>'Fetch data daftar mahasiswa berhasil.'
+                    'status' => 1,
+                    'pid' => 'fetchdata',  
+                    'mahasiswa' => $data,        
+                    'rata2ipk' => $rata2ipk,
+                    'message' => 'Fetch data daftar mahasiswa berhasil.'
                   ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }
   public function show(Request $request,$id)
@@ -106,11 +106,11 @@ class TranskripKurikulumController  extends Controller
                           pe3_register_mahasiswa.updated_at,
                           C.foto
                         '))
-                        ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                        ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-                        ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                        ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                        ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                        ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+                        ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+                        ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+                        ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+                        ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
                         ->find($this->getUserid());
     }
     else
@@ -134,11 +134,11 @@ class TranskripKurikulumController  extends Controller
                           pe3_register_mahasiswa.updated_at,
                           C.foto
                         '))
-                        ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-                        ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-                        ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-                        ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-                        ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+                        ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+                        ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+                        ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+                        ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+                        ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
                         ->find($id);
     }
     
@@ -146,8 +146,8 @@ class TranskripKurikulumController  extends Controller
     {
       return Response()->json([
                   'status'=>0,
-                  'pid'=>'show',    
-                  'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+                  'pid' => 'show',    
+                  'message' => ["Mahasiswa dengan ($id) gagal diperoleh"]
                 ], 422); 
     }
     else
@@ -166,8 +166,8 @@ class TranskripKurikulumController  extends Controller
                       '))
                       ->where('kjur',$mahasiswa->kjur)
                       ->where('ta',$mahasiswa->tahun)   
-                      ->orderBy('semester','ASC')
-                      ->orderBy('kmatkul','ASC')    
+                      ->orderBy('semester', 'ASC')
+                      ->orderBy('kmatkul', 'ASC')    
                       ->get();
 
       $jumlah_sks=0;       
@@ -190,7 +190,7 @@ class TranskripKurikulumController  extends Controller
                 A.n_mutu
               '))
               ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
-              ->join('pe3_krs AS C','B.krs_id', 'C.id')
+              ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
               ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
               ->where('C.user_id', $user_id);
 
@@ -251,16 +251,16 @@ class TranskripKurikulumController  extends Controller
           }
         }
         $daftar_nilai[]=[
-          'id'=>$item->id,
-          'no'=>$key+1,
-          'kmatkul'=>$item->kmatkul,
-          'nmatkul'=>$item->nmatkul,
-          'sks'=>$item->sks,
-          'semester'=>$item->semester,
-          'group_alias'=>$item->group_alias,
-          'HM'=>$HM,
-          'AM'=>$AM,
-          'M'=>$M
+          'id' => $item->id,
+          'no' => $key+1,
+          'kmatkul' => $item->kmatkul,
+          'nmatkul' => $item->nmatkul,
+          'sks' => $item->sks,
+          'semester' => $item->semester,
+          'group_alias' => $item->group_alias,
+          'HM' => $HM,
+          'AM' => $AM,
+          'M' => $M
         ];
 
         $jumlah_sks += $item->sks;            
@@ -273,12 +273,12 @@ class TranskripKurikulumController  extends Controller
         {
 
           RekapTranskripKurikulumModel::create([
-            'user_id'=>$user_id,
-            'jumlah_matkul'=>$jumlah_matkul,
-            'jumlah_sks'=>$jumlah_sks_nilai,
-            'jumlah_am'=>$jumlah_am,
-            'jumlah_m'=>$jumlah_m,
-            'ipk'=>$ipk,
+            'user_id' => $user_id,
+            'jumlah_matkul' => $jumlah_matkul,
+            'jumlah_sks' => $jumlah_sks_nilai,
+            'jumlah_am' => $jumlah_am,
+            'jumlah_m' => $jumlah_m,
+            'ipk' => $ipk,
           ]);   
         }
         else
@@ -294,16 +294,16 @@ class TranskripKurikulumController  extends Controller
       }
        
       return Response()->json([
-        'status'=>1,
-        'pid'=>'fetchdata', 
-        'mahasiswa'=>$mahasiswa, 
-        'jumlah_matkul'=>$jumlah_matkul, 
-        'nilai_matakuliah'=>$daftar_nilai,  
-        'jumlah_sks'=>$jumlah_sks,  
-        'jumlah_sks_nilai'=>$jumlah_sks_nilai,  
-        'jumlah_am'=>$jumlah_am,  
-        'jumlah_m'=>$jumlah_m,  
-        'ipk'=>$ipk,
+        'status' => 1,
+        'pid' => 'fetchdata', 
+        'mahasiswa' => $mahasiswa, 
+        'jumlah_matkul' => $jumlah_matkul, 
+        'nilai_matakuliah' => $daftar_nilai,  
+        'jumlah_sks' => $jumlah_sks,  
+        'jumlah_sks_nilai' => $jumlah_sks_nilai,  
+        'jumlah_am' => $jumlah_am,  
+        'jumlah_m' => $jumlah_m,  
+        'ipk' => $ipk,
         'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
       ], 200); 
     }
@@ -315,14 +315,14 @@ class TranskripKurikulumController  extends Controller
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'update',    
-        'message'=>["matakuliah dengan id ($id) gagal diperoleh"]
+        'pid' => 'update',    
+        'message' => ["matakuliah dengan id ($id) gagal diperoleh"]
       ], 422); 
     }
     else
     {
       $this->validate($request, [
-        'user_id'=>'required|exists:pe3_register_mahasiswa,user_id'
+        'user_id' => 'required|exists:pe3_register_mahasiswa,user_id'
       ]);
       $history=\DB::table('pe3_nilai_matakuliah AS A')
         ->select(\DB::raw('
@@ -337,21 +337,21 @@ class TranskripKurikulumController  extends Controller
           A.created_at,
           A.updated_at
         '))
-        ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-        ->join('pe3_krs AS C','B.krs_id','C.id')
-        ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
-        ->leftJoin('users AS E','E.id','A.user_id_updated')
+        ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
+        ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
+        ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
+        ->leftJoin('users AS E', 'E.id', 'A.user_id_updated')
         ->where('C.user_id',$request->input('user_id'))
         ->where('D.matkul_id',$id)
         ->where('B.batal',0)
-        ->orderBy('D.created_at','desc')
+        ->orderBy('D.created_at', 'desc')
         ->get();   
                   
       return Response()->json([
-        'status'=>1,
-        'pid'=>'fetchdata', 
-        'matakuliah'=>$matakuliah,     
-        'history'=>$history,     
+        'status' => 1,
+        'pid' => 'fetchdata', 
+        'matakuliah' => $matakuliah,     
+        'history' => $history,     
         'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
       ], 200); 
     }
@@ -383,11 +383,11 @@ class TranskripKurikulumController  extends Controller
         pe3_register_mahasiswa.updated_at,
         C.foto
       '))
-      ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-      ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-      ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+      ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+      ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+      ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
       ->find($this->getUserid());
     }
     else
@@ -413,19 +413,19 @@ class TranskripKurikulumController  extends Controller
         pe3_register_mahasiswa.updated_at,
         C.foto
       '))
-      ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-      ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-      ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+      ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+      ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+      ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
       ->find($id);
     }
     if (is_null($mahasiswa))
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'show',    
-        'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+        'pid' => 'show',    
+        'message' => ["Mahasiswa dengan ($id) gagal diperoleh"]
       ], 422); 
     }
     else
@@ -467,8 +467,8 @@ class TranskripKurikulumController  extends Controller
         ->where('kjur',$mahasiswa->kjur)
         ->where('ta',$mahasiswa->tahun) 
         ->where('semester',$i)  
-        ->orderBy('semester','ASC')
-        ->orderBy('kmatkul','ASC')    
+        ->orderBy('semester', 'ASC')
+        ->orderBy('kmatkul', 'ASC')    
         ->get();
         $data_nilai_smt=[];
         foreach ($daftar_matkul as $key=>$item)
@@ -477,9 +477,9 @@ class TranskripKurikulumController  extends Controller
                       ->select(\DB::raw('
                         A.id
                       '))
-                      ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-                      ->join('pe3_krs AS C','B.krs_id','C.id')
-                      ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                      ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
+                      ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
+                      ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
                       ->where('C.user_id',$mahasiswa->user_id)
                       ->where('D.matkul_id',$item->id);
                       
@@ -498,8 +498,8 @@ class TranskripKurikulumController  extends Controller
                 A.n_kual,
                 A.n_mutu
               '))
-              ->joinSub($subquery,'B',function($join) {
-                $join->on('A.id','=','B.id');
+              ->joinSub($subquery, 'B',function($join) {
+                $join->on('A.id', '=', 'B.id');
               })
               ->get();
           
@@ -573,16 +573,16 @@ class TranskripKurikulumController  extends Controller
           }
 
           $data_nilai_smt[$key]=[
-            'pid'=>'body',
-            'no'=>$key+1,
-            'kmatkul'=>$item->kmatkul,
-            'nmatkul'=>$item->nmatkul,
-            'sks'=>$item->sks,
-            'semester'=>$item->semester,
-            'group_alias'=>$item->group_alias,
-            'HM'=>$HM,
-            'AM'=>$AM,
-            'M'=>$M
+            'pid' => 'body',
+            'no' => $key+1,
+            'kmatkul' => $item->kmatkul,
+            'nmatkul' => $item->nmatkul,
+            'sks' => $item->sks,
+            'semester' => $item->semester,
+            'group_alias' => $item->group_alias,
+            'HM' => $HM,
+            'AM' => $AM,
+            'M' => $M
           ];
 
           $jumlah_matkul_all+=1;
@@ -591,13 +591,13 @@ class TranskripKurikulumController  extends Controller
         $ipk=\App\Helpers\HelperAkademik::formatIPK($jumlah_m_all,$jumlah_sks_all);
 
         $data_nilai_smt[]=[
-          'pid'=>'footer',
-          'jumlah_sks_smt'=>$jumlah_sks_smt,
-          'jumlah_am_smt'=>$jumlah_am_smt,
-          'jumlah_m_smt'=>$jumlah_m_smt,
-          'jumlah_sks_all'=>$jumlah_sks_all,
-          'ips'=>$ips,
-          'ipk'=>$ipk,
+          'pid' => 'footer',
+          'jumlah_sks_smt' => $jumlah_sks_smt,
+          'jumlah_am_smt' => $jumlah_am_smt,
+          'jumlah_m_smt' => $jumlah_m_smt,
+          'jumlah_sks_all' => $jumlah_sks_all,
+          'ips' => $ips,
+          'ipk' => $ipk,
         ];
         $daftar_nilai[$i]=$data_nilai_smt;           
       }
@@ -607,12 +607,12 @@ class TranskripKurikulumController  extends Controller
         if (is_null($rekap))
         {
           RekapTranskripKurikulumModel::create([
-            'user_id'=>$mahasiswa->user_id,
-            'jumlah_matkul'=>$jumlah_matkul_all,
-            'jumlah_sks'=>$jumlah_sks_all,
-            'jumlah_am'=>$jumlah_am_all,
-            'jumlah_m'=>$jumlah_m_all,
-            'ipk'=>$ipk,
+            'user_id' => $mahasiswa->user_id,
+            'jumlah_matkul' => $jumlah_matkul_all,
+            'jumlah_sks' => $jumlah_sks_all,
+            'jumlah_am' => $jumlah_am_all,
+            'jumlah_m' => $jumlah_m_all,
+            'ipk' => $ipk,
           ]);   
         }
         else
@@ -629,23 +629,23 @@ class TranskripKurikulumController  extends Controller
 
       $config = ConfigurationModel::getCache();
       $headers=[
-        'HEADER_1'=>$config['HEADER_1'],
-        'HEADER_2'=>$config['HEADER_2'],
-        'HEADER_3'=>$config['HEADER_3'],
-        'HEADER_4'=>$config['HEADER_4'],
-        'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+        'HEADER_1' => $config['HEADER_1'],
+        'HEADER_2' => $config['HEADER_2'],
+        'HEADER_3' => $config['HEADER_3'],
+        'HEADER_4' => $config['HEADER_4'],
+        'HEADER_ADDRESS' => $config['HEADER_ADDRESS'],
         'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
       ];
       $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportTranskripKurikulum1',
         [
-          'headers'=>$headers,
-          'mahasiswa'=>$mahasiswa,
-          'daftar_nilai'=>$daftar_nilai,                            
-          'jumlah_sks'=>$jumlah_sks_all,
-          'jumlah_am'=>$jumlah_am_all,
-          'jumlah_m'=>$jumlah_m_all,
-          'jumlah_matkul'=>$jumlah_matkul_all,
-          'ipk'=>$ipk,
+          'headers' => $headers,
+          'mahasiswa' => $mahasiswa,
+          'daftar_nilai' => $daftar_nilai,                            
+          'jumlah_sks' => $jumlah_sks_all,
+          'jumlah_am' => $jumlah_am_all,
+          'jumlah_m' => $jumlah_m_all,
+          'jumlah_matkul' => $jumlah_matkul_all,
+          'ipk' => $ipk,
           'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
         ],
         [],
@@ -659,10 +659,10 @@ class TranskripKurikulumController  extends Controller
       $pdf_file="exported/pdf/tk_".$mahasiswa->user_id.".pdf";
 
       return Response()->json([
-        'status'=>1,
-        'pid'=>'fetchdata',
-        'mahasiswa'=>$mahasiswa,
-        'pdf_file'=>$pdf_file                                    
+        'status' => 1,
+        'pid' => 'fetchdata',
+        'mahasiswa' => $mahasiswa,
+        'pdf_file' => $pdf_file                                    
       ], 200);
     }
   }
@@ -694,11 +694,11 @@ class TranskripKurikulumController  extends Controller
         pe3_register_mahasiswa.updated_at,
         C.foto
       '))
-      ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-      ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-      ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+      ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+      ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+      ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
       ->join('pe3_fakultas AS F', 'B.kode_fakultas', 'F.kode_fakultas')
       ->find($this->getUserid());
     }
@@ -726,11 +726,11 @@ class TranskripKurikulumController  extends Controller
         pe3_register_mahasiswa.updated_at,
         C.foto
       '))
-      ->join('pe3_formulir_pendaftaran AS A','A.user_id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_prodi AS B','B.id','pe3_register_mahasiswa.kjur')
-      ->join('users AS C','C.id','pe3_register_mahasiswa.user_id')
-      ->join('pe3_kelas AS D','D.idkelas','pe3_register_mahasiswa.idkelas')
-      ->join('pe3_status_mahasiswa AS E','E.k_status','pe3_register_mahasiswa.k_status')
+      ->join('pe3_formulir_pendaftaran AS A', 'A.user_id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_prodi AS B', 'B.id', 'pe3_register_mahasiswa.kjur')
+      ->join('users AS C', 'C.id', 'pe3_register_mahasiswa.user_id')
+      ->join('pe3_kelas AS D', 'D.idkelas', 'pe3_register_mahasiswa.idkelas')
+      ->join('pe3_status_mahasiswa AS E', 'E.k_status', 'pe3_register_mahasiswa.k_status')
       ->join('pe3_fakultas AS F', 'B.kode_fakultas', 'F.kode_fakultas')
       ->find($id);
     }
@@ -738,8 +738,8 @@ class TranskripKurikulumController  extends Controller
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'show',    
-        'message'=>["Mahasiswa dengan ($id) gagal diperoleh"]
+        'pid' => 'show',    
+        'message' => ["Mahasiswa dengan ($id) gagal diperoleh"]
       ], 422); 
     }
     else
@@ -750,7 +750,7 @@ class TranskripKurikulumController  extends Controller
                 ->first();
       $daftar_nilai=[];
       
-      $pdf = new \App\Helpers\HelperReport('fpdf','Legal');              
+      $pdf = new \App\Helpers\HelperReport('fpdf', 'Legal');              
       
       $pdf->setHeader();
 
@@ -760,59 +760,59 @@ class TranskripKurikulumController  extends Controller
       $rpt->setSubject('Transkrip Nilai Semester');
 
       $row=$pdf->getCurrentRow();           
-      $rpt->SetFont ('helvetica','B', 12);	
+      $rpt->SetFont ('helvetica', 'B', 12);	
       $rpt->setXY(0.5,$row);			
-      $rpt->Cell(0,0.5,'TRANSKRIP NILAI SEMESTER',0,2,'C');
+      $rpt->Cell(0,0.5, 'TRANSKRIP NILAI SEMESTER',0,2, 'C');
 
       $row+=0.6;
       $rpt->setXY(0.5,$row);	            
       // left
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'NAMA MAHASISWA',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'NAMA MAHASISWA',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nama_mhs,0);
       // right
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'PROGRAM STUDI',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'PROGRAM STUDI',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nama_prodi,0);
 
       $row+=0.5;
       $rpt->setXY(0.5,$row);	            
       // left
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'TEMPAT, TANGGAL LAHIR',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'TEMPAT, TANGGAL LAHIR',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->tempat_lahir.', '.\App\Helpers\Helper::tanggal('d F Y',$mahasiswa->tanggal_lahir),0);
       // right
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'FAKULTAS',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'FAKULTAS',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nama_fakultas,0);
 
       $row+=0.5;
       $rpt->setXY(0.5,$row);	            
       // left
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'NIM',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'NIM',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nim,0);
       // right
-      $rpt->SetFont ('helvetica','B',8);
-      $rpt->Cell(4,0.5,'ANGKATAN',0);
+      $rpt->SetFont ('helvetica', 'B',8);
+      $rpt->Cell(4,0.5, 'ANGKATAN',0);
 
-      $rpt->SetFont ('helvetica','',8);
-      $rpt->Cell(0.3,0.5,':',0);
+      $rpt->SetFont ('helvetica', '',8);
+      $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->ta,0);
 
       if(false)
@@ -820,40 +820,40 @@ class TranskripKurikulumController  extends Controller
         $row+=0.5;
         $rpt->setXY(0.5,$row);	            
         // left
-        $rpt->SetFont ('helvetica','B',8);
-        $rpt->Cell(4,0.5,'NIRM',0);
+        $rpt->SetFont ('helvetica', 'B',8);
+        $rpt->Cell(4,0.5, 'NIRM',0);
   
-        $rpt->SetFont ('helvetica','',8);
-        $rpt->Cell(0.3,0.5,':',0);
+        $rpt->SetFont ('helvetica', '',8);
+        $rpt->Cell(0.3,0.5, ':',0);
         $rpt->Cell(6,0.5,$mahasiswa->nirm,0);
         // right (kosong)
-        $rpt->SetFont ('helvetica','B',8);
-        $rpt->Cell(4,0.5,'',0);
+        $rpt->SetFont ('helvetica', 'B',8);
+        $rpt->Cell(4,0.5, '',0);
   
-        $rpt->SetFont ('helvetica','',8);
-        $rpt->Cell(0.3,0.5,':',0);
-        $rpt->Cell(6,0.5,'',0);
+        $rpt->SetFont ('helvetica', '',8);
+        $rpt->Cell(0.3,0.5, ':',0);
+        $rpt->Cell(6,0.5, '',0);
       }
 
       $row+=0.5;
       $rpt->setXY(0.5,$row);	
-      $rpt->SetFont ('helvetica','B',8);
+      $rpt->SetFont ('helvetica', 'B',8);
       //ganjil                        				
-      $rpt->Cell(0.7,0.5,'NO', 1,null,'C');
-      $rpt->Cell(1.5,0.5,'KODE', 1,null,'C');
-      $rpt->Cell(5,0.5,'MATA KULIAH', 1,null,'C');
-      $rpt->Cell(1,0.5,'SKS', 1,null,'C');
-      $rpt->Cell(1,0.5,'HM', 1,null,'C');
-      $rpt->Cell(1,0.5,'AM', 1,null,'C');
-      $rpt->Cell(0.1,0.5,'');				
+      $rpt->Cell(0.7,0.5, 'NO', 1,null, 'C');
+      $rpt->Cell(1.5,0.5, 'KODE', 1,null, 'C');
+      $rpt->Cell(5,0.5, 'MATA KULIAH', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'SKS', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'HM', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'AM', 1,null, 'C');
+      $rpt->Cell(0.1,0.5, '');				
       //genap                       			
-      $rpt->Cell(0.7,0.5,'NO', 1,null,'C');
-      $rpt->Cell(1.5,0.5,'KODE', 1,null,'C');
-      $rpt->Cell(5,0.5,'MATA KULIAH', 1,null,'C');
-      $rpt->Cell(1,0.5,'SKS', 1,null,'C');
-      $rpt->Cell(1,0.5,'HM', 1,null,'C');
-      $rpt->Cell(1,0.5,'AM', 1,null,'C');
-      $rpt->Cell(0.1,0.5,'');				
+      $rpt->Cell(0.7,0.5, 'NO', 1,null, 'C');
+      $rpt->Cell(1.5,0.5, 'KODE', 1,null, 'C');
+      $rpt->Cell(5,0.5, 'MATA KULIAH', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'SKS', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'HM', 1,null, 'C');
+      $rpt->Cell(1,0.5, 'AM', 1,null, 'C');
+      $rpt->Cell(0.1,0.5, '');				
 
       $totalMatkul=0;
       $totalSks=0;
@@ -869,7 +869,7 @@ class TranskripKurikulumController  extends Controller
       
       for ($i = 1; $i <= 8; $i++) {
         $no_semester=1;
-        $rpt->SetFont ('helvetica','',6);
+        $rpt->SetFont ('helvetica', '',6);
         $daftar_matkul=MatakuliahModel::select(\DB::raw('
           0 AS no,
           id,
@@ -882,8 +882,8 @@ class TranskripKurikulumController  extends Controller
         ->where('kjur',$mahasiswa->kjur)
         ->where('ta',$mahasiswa->tahun) 
         ->where('semester',$i)  
-        ->orderBy('semester','ASC')
-        ->orderBy('kmatkul','ASC')    
+        ->orderBy('semester', 'ASC')
+        ->orderBy('kmatkul', 'ASC')    
         ->get();
         
         if ($i%2==0) 
@@ -898,9 +898,9 @@ class TranskripKurikulumController  extends Controller
                   ->select(\DB::raw('
                     A.id
                   '))
-                  ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-                  ->join('pe3_krs AS C','B.krs_id','C.id')
-                  ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                  ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
+                  ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
+                  ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
                   ->where('C.user_id',$mahasiswa->user_id);
                   
 
@@ -919,16 +919,16 @@ class TranskripKurikulumController  extends Controller
                     A.n_kual,
                     A.n_mutu
                   '))
-                  ->joinSub($subquery,'B',function($join) {
-                    $join->on('A.id','=','B.id');
+                  ->joinSub($subquery, 'B',function($join) {
+                    $join->on('A.id', '=', 'B.id');
                   })
                   ->get();
             
             $rpt->setXY(10.8,$row_genap);	
-            $rpt->Cell(0.7,0.5,$no_semester,1,null,'C');
-            $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null,'C');
+            $rpt->Cell(0.7,0.5,$no_semester,1,null, 'C');
+            $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null, 'C');
             $rpt->Cell(5,0.5,$item['nmatkul'],1,null);
-            $rpt->Cell(1,0.5,$item['sks'],1,null,'C');
+            $rpt->Cell(1,0.5,$item['sks'],1,null, 'C');
             $totalMatkul+=1;
             $genap_total_sks += $item['sks'];
             if (isset($nilai[0]))
@@ -968,8 +968,8 @@ class TranskripKurikulumController  extends Controller
               $totalM+=$M;
               $totalAM+=$AM;
 
-              $rpt->Cell(1,0.5,$HM,1,null,'C');
-              $rpt->Cell(1,0.5,$AM,1,null,'C');
+              $rpt->Cell(1,0.5,$HM,1,null, 'C');
+              $rpt->Cell(1,0.5,$AM,1,null, 'C');
             }
             else if (!is_null($data_konversi))
             {
@@ -989,21 +989,21 @@ class TranskripKurikulumController  extends Controller
                 $totalM+=$M;
                 $totalAM+=$AM;
 
-                $rpt->Cell(1,0.5,$HM,1,null,'C');
-                $rpt->Cell(1,0.5,$AM,1,null,'C');
+                $rpt->Cell(1,0.5,$HM,1,null, 'C');
+                $rpt->Cell(1,0.5,$AM,1,null, 'C');
               }
               else
               {
-                $rpt->Cell(1,0.5,'-', 1,null,'C');
-                $rpt->Cell(1,0.5,'-', 1,null,'C');
+                $rpt->Cell(1,0.5, '-', 1,null, 'C');
+                $rpt->Cell(1,0.5, '-', 1,null, 'C');
               }
             }
             else
             {
-              $rpt->Cell(1,0.5,'-', 1,null,'C');
-              $rpt->Cell(1,0.5,'-', 1,null,'C');
+              $rpt->Cell(1,0.5, '-', 1,null, 'C');
+              $rpt->Cell(1,0.5, '-', 1,null, 'C');
             }
-            $rpt->Cell(0.1,0.5,'');				
+            $rpt->Cell(0.1,0.5, '');				
             $row_genap+=0.5;
             $no_semester++;
           }
@@ -1021,9 +1021,9 @@ class TranskripKurikulumController  extends Controller
                   ->select(\DB::raw('
                     A.id
                   '))
-                  ->join('pe3_krsmatkul AS B','A.krsmatkul_id','B.id')
-                  ->join('pe3_krs AS C','B.krs_id','C.id')
-                  ->join('pe3_penyelenggaraan AS D','A.penyelenggaraan_id','D.id')
+                  ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
+                  ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
+                  ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
                   ->where('C.user_id', $mahasiswa->user_id);									
 
             
@@ -1042,16 +1042,16 @@ class TranskripKurikulumController  extends Controller
                     A.n_kual,
                     A.n_mutu
                   '))
-                  ->joinSub($subquery,'B',function($join) {
-                    $join->on('A.id','=','B.id');
+                  ->joinSub($subquery, 'B',function($join) {
+                    $join->on('A.id', '=', 'B.id');
                   })
                   ->get();
 
             $rpt->setXY(0.5,$row_ganjil);	                                        				
-            $rpt->Cell(0.7,0.5,$no_semester,1,null,'C');
-            $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null,'C');
+            $rpt->Cell(0.7,0.5,$no_semester,1,null, 'C');
+            $rpt->Cell(1.5,0.5,$item['kmatkul'],1,null, 'C');
             $rpt->Cell(5,0.5,$item['nmatkul'],1,null);
-            $rpt->Cell(1,0.5,$item['sks'],1,null,'C');
+            $rpt->Cell(1,0.5,$item['sks'],1,null, 'C');
             $totalMatkul+=1;
             $ganjil_total_sks += $item['sks'];
             if (isset($nilai[0]))
@@ -1090,8 +1090,8 @@ class TranskripKurikulumController  extends Controller
               $totalM+=$M;
               $totalAM+=$AM;
 
-              $rpt->Cell(1,0.5,$HM,1,null,'C');
-              $rpt->Cell(1,0.5,$AM,1,null,'C');
+              $rpt->Cell(1,0.5,$HM,1,null, 'C');
+              $rpt->Cell(1,0.5,$AM,1,null, 'C');
             }
             else if (!is_null($data_konversi))
             {
@@ -1111,21 +1111,21 @@ class TranskripKurikulumController  extends Controller
                 $totalM+=$M;
                 $totalAM+=$AM;
 
-                $rpt->Cell(1,0.5,$HM,1,null,'C');
-                $rpt->Cell(1,0.5,$AM,1,null,'C');
+                $rpt->Cell(1,0.5,$HM,1,null, 'C');
+                $rpt->Cell(1,0.5,$AM,1,null, 'C');
               }
               else
               {
-                $rpt->Cell(1,0.5,'-', 1,null,'C');
-                $rpt->Cell(1,0.5,'-', 1,null,'C');
+                $rpt->Cell(1,0.5, '-', 1,null, 'C');
+                $rpt->Cell(1,0.5, '-', 1,null, 'C');
               }
             }
             else
             {
-              $rpt->Cell(1,0.5,'-', 1,null,'C');
-              $rpt->Cell(1,0.5,'-', 1,null,'C');                       
+              $rpt->Cell(1,0.5, '-', 1,null, 'C');
+              $rpt->Cell(1,0.5, '-', 1,null, 'C');                       
             }                                      
-            $rpt->Cell(0.1,0.5,'');				
+            $rpt->Cell(0.1,0.5, '');				
             $row_ganjil+=0.5;
             $no_semester++;
           }
@@ -1139,98 +1139,98 @@ class TranskripKurikulumController  extends Controller
             $sisa=$row_ganjil + ($row_genap-$row_ganjil);
             for ($c=$row_ganjil;$c <= $row_genap;$c+=0.5) {
               $rpt->setXY(0.5,$c);
-              $rpt->Cell(10.2,0.5,'', 1,0);
+              $rpt->Cell(10.2,0.5, '', 1,0);
             }
             $row_ganjil=$sisa;
           }else{ // berarti tambah row yang genap
             $sisa=$row_genap + ($row_ganjil-$row_genap);						
             for ($c=$row_genap;$c < $row_ganjil;$c+=0.5) {
               $rpt->setXY(10.8,$c);
-              $rpt->Cell(10.2,0.5,'', 1,0);
+              $rpt->Cell(10.2,0.5, '', 1,0);
             }
             $row_genap=$sisa;
           }
-          $rpt->SetFont ('helvetica','B',6);
+          $rpt->SetFont ('helvetica', 'B',6);
           //ganjil
           $rpt->setXY(0.5,$row_ganjil);	                                        				
-          $rpt->Cell(2.2,0.5,'SEMESTER', 1,null,'C');               
-          $rpt->Cell(5,0.5,'Jumlah', 1,null,'L');               
-          $rpt->Cell(1,0.5,$ganjil_total_sks,1,null,'C');               
-          $rpt->Cell(1,0.5,'', 1,null,'C');               
-          $rpt->Cell(1,0.5,$ganjil_total_m,1,null,'C');               
+          $rpt->Cell(2.2,0.5, 'SEMESTER', 1,null, 'C');               
+          $rpt->Cell(5,0.5, 'Jumlah', 1,null, 'L');               
+          $rpt->Cell(1,0.5,$ganjil_total_sks,1,null, 'C');               
+          $rpt->Cell(1,0.5, '', 1,null, 'C');               
+          $rpt->Cell(1,0.5,$ganjil_total_m,1,null, 'C');               
 
           $row_ganjil+=0.5;
           $rpt->setXY(0.5,$row_ganjil);	                                        				
-          $rpt->Cell(2.2,0.5,$smt_ganjil,1,null,'C');               
-          $rpt->Cell(7,0.5,'Indeks Prestasi Semester', 1,null,'L');               
+          $rpt->Cell(2.2,0.5,$smt_ganjil,1,null, 'C');               
+          $rpt->Cell(7,0.5, 'Indeks Prestasi Semester', 1,null, 'L');               
           $ips=\App\Helpers\HelperAkademik::formatIPK($ganjil_total_m,$ganjil_total_sks);                                  				
-          $rpt->Cell(1,0.5,$ips,1,null,'C');
+          $rpt->Cell(1,0.5,$ips,1,null, 'C');
 
           $row_ganjil+=0.5;
           $rpt->setXY(2.7,$row_ganjil);	                        
-          $rpt->Cell(7,0.5,'Indeks Prestasi Kumulatif', 1,null,'L');                 
-          $rpt->Cell(1,0.5,$ipk_ganjil,1,null,'C');
+          $rpt->Cell(7,0.5, 'Indeks Prestasi Kumulatif', 1,null, 'L');                 
+          $rpt->Cell(1,0.5,$ipk_ganjil,1,null, 'C');
 
           $row_ganjil+=0.6;
           
           //genap                    
           $rpt->setXY(10.8,$row_genap);	    
-          $rpt->Cell(2.2,0.5,'SEMESTER', 1,null,'C');                                                   				
-          $rpt->Cell(5,0.5,'Jumlah', 1,null,'L');               
-          $rpt->Cell(1,0.5,$genap_total_sks,1,null,'C');  
-          $rpt->Cell(1,0.5,'', 1,null,'C');               
-          $rpt->Cell(1,0.5,$genap_total_m,1,null,'C');  
+          $rpt->Cell(2.2,0.5, 'SEMESTER', 1,null, 'C');                                                   				
+          $rpt->Cell(5,0.5, 'Jumlah', 1,null, 'L');               
+          $rpt->Cell(1,0.5,$genap_total_sks,1,null, 'C');  
+          $rpt->Cell(1,0.5, '', 1,null, 'C');               
+          $rpt->Cell(1,0.5,$genap_total_m,1,null, 'C');  
 
           $row_genap+=0.5;
           $rpt->setXY(10.8,$row_genap);	      
-          $rpt->Cell(2.2,0.5,$smt_genap,1,null,'C');                             				
-          $rpt->Cell(7,0.5,'Indeks Prestasi Semester', 1,null,'L'); 
+          $rpt->Cell(2.2,0.5,$smt_genap,1,null, 'C');                             				
+          $rpt->Cell(7,0.5, 'Indeks Prestasi Semester', 1,null, 'L'); 
           $ips=\App\Helpers\HelperAkademik::formatIPK($genap_total_m,$genap_total_sks);                                  				
-          $rpt->Cell(1,0.5,$ips,1,null,'C');
+          $rpt->Cell(1,0.5,$ips,1,null, 'C');
                      
           $row_genap+=0.5;
           $rpt->setXY(13,$row_genap);	                                        				
-          $rpt->Cell(7,0.5,'Indeks Prestasi Kumulatif', 1,null,'L');
-          $rpt->Cell(1,0.5,$ipk_genap,1,null,'C');
+          $rpt->Cell(7,0.5, 'Indeks Prestasi Kumulatif', 1,null, 'L');
+          $rpt->Cell(1,0.5,$ipk_genap,1,null, 'C');
           
           $row_genap+=0.6;
         }     
       }
-      $rpt->SetFont ('helvetica','B',6);
+      $rpt->SetFont ('helvetica', 'B',6);
       $row=$row_genap+0.1;
       $rpt->SetXY(4.3,$row);	
-      $rpt->Cell(3,0.5,'Total Kredit Kumulatif',0,0,'L');
-      $rpt->Cell(0.2,0.5,':',0,0,'L');
-      $rpt->SetFont ('helvetica','',6);
-      $rpt->Cell(1,0.5,$totalSks,0,0,'L');
+      $rpt->Cell(3,0.5, 'Total Kredit Kumulatif',0,0, 'L');
+      $rpt->Cell(0.2,0.5, ':',0,0, 'L');
+      $rpt->SetFont ('helvetica', '',6);
+      $rpt->Cell(1,0.5,$totalSks,0,0, 'L');
 
-      $rpt->SetFont ('helvetica','B',6);                               	
-      $rpt->Cell(3,0.5,'Jumlah Nilai Kumulatif',0,0,'L');
-      $rpt->Cell(0.2,0.5,':',0,0,'L');
-      $rpt->SetFont ('helvetica','',6);
-      $rpt->Cell(1,0.5,$totalM,0,0,'L');
+      $rpt->SetFont ('helvetica', 'B',6);                               	
+      $rpt->Cell(3,0.5, 'Jumlah Nilai Kumulatif',0,0, 'L');
+      $rpt->Cell(0.2,0.5, ':',0,0, 'L');
+      $rpt->SetFont ('helvetica', '',6);
+      $rpt->Cell(1,0.5,$totalM,0,0, 'L');
       
-      $rpt->SetFont ('helvetica','B',6);   
-      $rpt->Cell(3,0.5,'Indeks Prestasi Kumulatif',0,0,'L');
-      $rpt->Cell(0.2,0.5,':',0,0,'L');
+      $rpt->SetFont ('helvetica', 'B',6);   
+      $rpt->Cell(3,0.5, 'Indeks Prestasi Kumulatif',0,0, 'L');
+      $rpt->Cell(0.2,0.5, ':',0,0, 'L');
       $ipk=\App\Helpers\HelperAkademik::formatIPK($totalM,$totalSks);
-      $rpt->SetFont ('helvetica','',6);
-      $rpt->Cell(1,0.5,$ipk,0,0,'C');
+      $rpt->SetFont ('helvetica', '',6);
+      $rpt->Cell(1,0.5,$ipk,0,0, 'C');
       
-      $rpt->SetFont ('helvetica','B',6);   
+      $rpt->SetFont ('helvetica', 'B',6);   
       $row+=0.5;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5,'Tanjungpinang, '.\App\Helpers\Helper::tanggal('d F Y'),0,0,'L');
+      $rpt->Cell(5,0.5, 'Tanjungpinang, '.\App\Helpers\Helper::tanggal('d F Y'),0,0, 'L');
       $row+=0.3;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5,'Warek I. Bidang Akademik',0,0,'L');
+      $rpt->Cell(5,0.5, 'Warek I. Bidang Akademik',0,0, 'L');
 
       $row+=1.1;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5,'Muhammad Nur, M.Pd.I',0,0,'L');
+      $rpt->Cell(5,0.5, 'Muhammad Nur, M.Pd.I',0,0, 'L');
       $row+=0.3;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5,'NIDN: 2119086901 / LEKTOR',0,0,'L');
+      $rpt->Cell(5,0.5, 'NIDN: 2119086901 / LEKTOR',0,0, 'L');
 
       $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');       
 
@@ -1243,12 +1243,12 @@ class TranskripKurikulumController  extends Controller
       {
 
         RekapTranskripKurikulumModel::updateOrCreate([
-          'user_id'=>$mahasiswa->user_id,
-          'jumlah_matkul'=>$totalMatkul,
-          'jumlah_sks'=>$totalSks,
-          'jumlah_am'=>$totalAM,
-          'jumlah_m'=>$totalM,
-          'ipk'=>$ipk,
+          'user_id' => $mahasiswa->user_id,
+          'jumlah_matkul' => $totalMatkul,
+          'jumlah_sks' => $totalSks,
+          'jumlah_am' => $totalAM,
+          'jumlah_m' => $totalM,
+          'ipk' => $ipk,
         ]);   
       }
       else
@@ -1262,10 +1262,10 @@ class TranskripKurikulumController  extends Controller
         $rekap->save();
       }
       return Response()->json([
-                  'status'=>1,
-                  'pid'=>'fetchdata',
-                  'mahasiswa'=>$mahasiswa,
-                  'pdf_file'=>$pdf_file                                    
+                  'status' => 1,
+                  'pid' => 'fetchdata',
+                  'mahasiswa' => $mahasiswa,
+                  'pdf_file' => $pdf_file                                    
                 ], 200);
     }
   }
@@ -1277,16 +1277,16 @@ class TranskripKurikulumController  extends Controller
     $this->hasPermissionTo('AKADEMIK-NILAI-TRANSKRIP-KURIKULUM_BROWSE');				
     
     $this->validate($request, [           
-      'ta'=>'required',			
-      'prodi_id'=>'required',
+      'ta' => 'required',			
+      'prodi_id' => 'required',
     ]);
     
     $prodi=ProgramStudiModel::find($request->input('prodi_id'));
     $data_report = [
-      'ta'=>$request->input('ta'),
-      'prodi_id'=>$request->input('prodi_id'),
-      'nama_prodi'=>$prodi->nama_prodi,
-      'nama_prodi'=>$prodi->nama_prodi . " (".$prodi->nama_jenjang.")",
+      'ta' => $request->input('ta'),
+      'prodi_id' => $request->input('prodi_id'),
+      'nama_prodi' => $prodi->nama_prodi,
+      'nama_prodi' => $prodi->nama_prodi . " (".$prodi->nama_jenjang.")",
     ];
     
     $report= new \App\Models\Report\ReportAkademikTranskripKurikulumModel ($data_report);

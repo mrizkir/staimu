@@ -19,8 +19,8 @@ class MatakuliahController extends Controller {
 	public function index(Request $request)
 	{
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required'
+			'ta' => 'required',
+			'prodi_id' => 'required'
 		]);
 		
 		$ta=$request->input('ta');
@@ -41,19 +41,19 @@ class MatakuliahController extends Controller {
 								'))       
 								->where('kjur',$prodi_id)
 								->where('ta',$ta)   
-								->orderBy('semester','ASC')
-								->orderBy('kmatkul','ASC')
+								->orderBy('semester', 'ASC')
+								->orderBy('kmatkul', 'ASC')
 								->get();
 		
-		$matakuliah->transform(function ($item,$key) {                
+		$matakuliah->transform(function ($item, $key) {                
 			$item->jummlah_penyelenggaraan=\DB::table('pe3_penyelenggaraan')->where('matkul_id',$item->id)->count();           
 			return $item;
 		});
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'matakuliah'=>$matakuliah,
-									'message'=>'Fetch data matakuliah berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'matakuliah' => $matakuliah,
+									'message' => 'Fetch data matakuliah berhasil.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
@@ -70,25 +70,25 @@ class MatakuliahController extends Controller {
 											nama_prodi,
 											tahun_akademik
 										'))
-										->join('pe3_prodi','pe3_prodi.id','pe3_matakuliah.kjur')
-										->join('pe3_ta','pe3_ta.tahun','pe3_matakuliah.ta')
+										->join('pe3_prodi', 'pe3_prodi.id', 'pe3_matakuliah.kjur')
+										->join('pe3_ta', 'pe3_ta.tahun', 'pe3_matakuliah.ta')
 										->find($id);
 
 		if (is_null($matakuliah))
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["matakuliah dengan ($id) gagal diupdate"]
+									'pid' => 'update',    
+									'message' => ["matakuliah dengan ($id) gagal diupdate"]
 								], 422); 
 		}
 		else
 		{
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',    
-									'matakuliah'=>$matakuliah,    
-									'message'=>'Data matakuliah dengan id ('.$id.') berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',    
+									'matakuliah' => $matakuliah,    
+									'message' => 'Data matakuliah dengan id ('.$id.') berhasil diperoleh.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 
 		}
@@ -107,27 +107,27 @@ class MatakuliahController extends Controller {
 		$ta=$request->input('ta');
 
 		$rule=[            
-			'id_group'=>'required',
-			'kmatkul'=>[
+			'id_group' => 'required',
+			'kmatkul' => [
 				'required',
 				Rule::unique('pe3_matakuliah')->where(function ($query) use ($ta,$kjur) {
 					$query->where('ta', $ta)
 						->where('kjur',$kjur);
 				})
 			],
-			'nmatkul'=>[
+			'nmatkul' => [
 				'required',
 				Rule::unique('pe3_matakuliah')->where(function ($query) use ($ta,$kjur) {
 					$query->where('ta', $ta)
 						->where('kjur',$kjur);
 				})
 			],
-			'sks'=>'required|numeric',
-			'semester'=>'required|numeric',
-			'sks_tatap_muka'=>'required|numeric',
-			'minimal_nilai'=>'required',
-			'ta'=>'required',
-			'kjur'=>'required',  
+			'sks' => 'required|numeric',
+			'semester' => 'required|numeric',
+			'sks_tatap_muka' => 'required|numeric',
+			'minimal_nilai' => 'required',
+			'ta' => 'required',
+			'kjur' => 'required',  
 		];
 	
 		$this->validate($request, $rule);
@@ -145,39 +145,39 @@ class MatakuliahController extends Controller {
 
 		$matakuliah=MatakuliahModel::create([
 			'id'=>Uuid::uuid4()->toString(),
-			'id_group'=>$id_group,
-			'nama_group'=>$nama_group,
-			'group_alias'=>$group_alias,
+			'id_group' => $id_group,
+			'nama_group' => $nama_group,
+			'group_alias' => $group_alias,
 			'kmatkul'=>strtoupper(trim($request->input('kmatkul'))),
 			'nmatkul'=>ucwords(trim($request->input('nmatkul'))),
-			'sks'=>$request->input('sks'),
-			'idkonsentrasi'=>$request->input('idkonsentrasi'),
-			'ispilihan'=>$request->input('ispilihan'),
-			'islintas_prodi'=>$request->input('islintas_prodi'),
-			'semester'=>$request->input('semester'),
-			'sks_tatap_muka'=>$request->input('sks_tatap_muka'),
-			'sks_praktikum'=>$request->input('sks_praktikum'),
-			'sks_praktik_lapangan'=>$request->input('sks_praktik_lapangan'),
-			'minimal_nilai'=>$request->input('minimal_nilai'),
-			'syarat_pplpkl'=>$request->input('syarat_pplpkl'),
-			'syarat_skripsi'=>$request->input('syarat_skripsi'),
-			'status'=>$request->input('status'),
-			'ta'=>$request->input('ta'),
-			'kjur'=>$request->input('kjur'),
+			'sks' => $request->input('sks'),
+			'idkonsentrasi' => $request->input('idkonsentrasi'),
+			'ispilihan' => $request->input('ispilihan'),
+			'islintas_prodi' => $request->input('islintas_prodi'),
+			'semester' => $request->input('semester'),
+			'sks_tatap_muka' => $request->input('sks_tatap_muka'),
+			'sks_praktikum' => $request->input('sks_praktikum'),
+			'sks_praktik_lapangan' => $request->input('sks_praktik_lapangan'),
+			'minimal_nilai' => $request->input('minimal_nilai'),
+			'syarat_pplpkl' => $request->input('syarat_pplpkl'),
+			'syarat_skripsi' => $request->input('syarat_skripsi'),
+			'status' => $request->input('status'),
+			'ta' => $request->input('ta'),
+			'kjur' => $request->input('kjur'),
 		]);                 
 		
 		\App\Models\System\ActivityLog::log($request,[
 										'object' => $matakuliah,
-										'object_id'=>$matakuliah->id, 
+										'object_id' => $matakuliah->id, 
 										'user_id' => $this->getUserid(), 
 										'message' => 'Menambah matakuliah baru berhasil'
 									]);
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store',    
-									'matakuliah'=>$matakuliah,    
-									'message'=>'Data matakuliah berhasil disimpan.'
+									'status' => 1,
+									'pid' => 'store',    
+									'matakuliah' => $matakuliah,    
+									'message' => 'Data matakuliah berhasil disimpan.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 
 	}
@@ -187,8 +187,8 @@ class MatakuliahController extends Controller {
 	public function salinmatkul (Request $request,$id)
 	{
 		$this->validate($request, [           
-			'dari_tahun_akademik'=>'required',  
-			'prodi_id'=>'required'          
+			'dari_tahun_akademik' => 'required',  
+			'prodi_id' => 'required'          
 		]);
 
 		$dari_tahun_akademik=$request->input('dari_tahun_akademik');
@@ -267,21 +267,21 @@ class MatakuliahController extends Controller {
 								'))       
 								->where('kjur',$prodi_id)
 								->where('ta',$id)   
-								->orderBy('semester','ASC')
-								->orderBy('kmatkul','ASC')
+								->orderBy('semester', 'ASC')
+								->orderBy('kmatkul', 'ASC')
 								->get();
 
 		\App\Models\System\ActivityLog::log($request,[
 													'object' => $matakuliah,
-													'object_id'=>'N.A', 
+													'object_id' => 'N.A', 
 													'user_id' => $this->getUserid(), 
 													'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
 												]);
 													
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'store',  
-								'matakuliah'=>$matakuliah,
+								'status' => 1,
+								'pid' => 'store',  
+								'matakuliah' => $matakuliah,
 								'message' => "Menyalin data matakuliah dari tahun $dari_tahun_akademik ke $id berhasil."
 							], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
@@ -301,8 +301,8 @@ class MatakuliahController extends Controller {
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["matakuliah dengan id ($id) gagal diupdate"]
+									'pid' => 'update',    
+									'message' => ["matakuliah dengan id ($id) gagal diupdate"]
 								], 422); 
 		}
 		else
@@ -310,28 +310,28 @@ class MatakuliahController extends Controller {
 			$kjur=$matakuliah->kjur;
 			$ta=$matakuliah->ta;
 			$this->validate($request, [
-										'id_group'=>'required',
-										'kmatkul'=>[
+										'id_group' => 'required',
+										'kmatkul' => [
 														'required',
-														Rule::unique('pe3_matakuliah')->ignore($matakuliah->kmatkul,'kmatkul')->where(function ($query) use ($ta,$kjur) {
+														Rule::unique('pe3_matakuliah')->ignore($matakuliah->kmatkul, 'kmatkul')->where(function ($query) use ($ta,$kjur) {
 															$query->where('ta', $ta)
 																->where('kjur',$kjur);
 														})
 													],           
 										
-										'nmatkul'=>[
+										'nmatkul' => [
 														'required',            
-														Rule::unique('pe3_matakuliah')->ignore($matakuliah->nmatkul,'nmatkul')->where(function ($query) use ($ta,$kjur) {
+														Rule::unique('pe3_matakuliah')->ignore($matakuliah->nmatkul, 'nmatkul')->where(function ($query) use ($ta,$kjur) {
 															$query->where('ta', $ta)
 																->where('kjur',$kjur);
 														})
 													],           
-										'sks'=>'required|numeric',
-										'semester'=>'required|numeric',
-										'sks_tatap_muka'=>'required|numeric',
-										'minimal_nilai'=>'required',
-										'ta'=>'required',
-										'kjur'=>'required',          
+										'sks' => 'required|numeric',
+										'semester' => 'required|numeric',
+										'sks_tatap_muka' => 'required|numeric',
+										'minimal_nilai' => 'required',
+										'ta' => 'required',
+										'kjur' => 'required',          
 									]); 
 			
 			$id_group=$request->input('id_group');
@@ -370,24 +370,24 @@ class MatakuliahController extends Controller {
 				\DB::table('pe3_penyelenggaraan')
 						->where('matkul_id',$matakuliah->id)
 						->update([
-									'kmatkul'=>$matakuliah->kmatkul,
-									'nmatkul'=>$matakuliah->nmatkul,
-									'sks'=>$matakuliah->sks,
+									'kmatkul' => $matakuliah->kmatkul,
+									'nmatkul' => $matakuliah->nmatkul,
+									'sks' => $matakuliah->sks,
 								]);
 			}
 
 			\App\Models\System\ActivityLog::log($request,[
 														'object' => $matakuliah,
-														'object_id'=>$matakuliah->id, 
+														'object_id' => $matakuliah->id, 
 														'user_id' => $this->getUserid(), 
 														'message' => 'Mengubah data matakuliah ('.$matakuliah->nama_prodi.') berhasil'
 													]);
 
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'update',
-									'matakuliah'=>$matakuliah,      
-									'message'=>'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
+									'status' => 1,
+									'pid' => 'update',
+									'matakuliah' => $matakuliah,      
+									'message' => 'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 		}
 	}   
@@ -407,8 +407,8 @@ class MatakuliahController extends Controller {
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["Kode matakuliah ($id) gagal dihapus"]
+									'pid' => 'destroy',    
+									'message' => ["Kode matakuliah ($id) gagal dihapus"]
 								], 422); 
 		}
 		else
@@ -421,8 +421,8 @@ class MatakuliahController extends Controller {
 														]);
 			$matakuliah->delete();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',    
+										'status' => 1,
+										'pid' => 'destroy',    
 										'message'=>"matakuliah dengan kode ($id) berhasil dihapus"
 									], 200);    
 		}
@@ -431,10 +431,10 @@ class MatakuliahController extends Controller {
 	public function penyelenggaraan (Request $request)
 	{
 		$this->validate($request, [           
-			'ta_matkul'=>'required',
-			'prodi_id'=>'required',
-			'ta_akademik'=>'required',
-			'semester_akademik'=>'required'
+			'ta_matkul' => 'required',
+			'prodi_id' => 'required',
+			'ta_akademik' => 'required',
+			'semester_akademik' => 'required'
 		]);
 		
 		$ta_matkul=$request->input('ta_matkul');
@@ -464,15 +464,15 @@ class MatakuliahController extends Controller {
 										->where('tahun',$ta_akademik)
 										->where('idsmt',$semester_akademik);
 								})
-								->orderBy('semester','ASC')
-								->orderBy('kmatkul','ASC')
+								->orderBy('semester', 'ASC')
+								->orderBy('kmatkul', 'ASC')
 								->get();
 		
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'matakuliah'=>$matakuliah,
-									'message'=>'Fetch data matakuliah berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'matakuliah' => $matakuliah,
+									'message' => 'Fetch data matakuliah berhasil.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 }

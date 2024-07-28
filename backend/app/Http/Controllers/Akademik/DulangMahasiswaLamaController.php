@@ -22,9 +22,9 @@ class DulangMahasiswaLamaController extends Controller
         $this->hasPermissionTo('AKADEMIK-DULANG-LAMA_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',
-            'prodi_id'=>'required',
-            'idsmt'=>'required',
+            'ta' => 'required',
+            'prodi_id' => 'required',
+            'idsmt' => 'required',
         ]);
 
         $ta=$request->input('ta');
@@ -46,15 +46,15 @@ class DulangMahasiswaLamaController extends Controller
                                     pe3_dulang.created_at,      
                                     pe3_dulang.updated_at                                      
                                 '))
-                                ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_dulang.k_status')
+                                ->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+                                ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
+                                ->join('pe3_status_mahasiswa', 'pe3_status_mahasiswa.k_status', 'pe3_dulang.k_status')
                                 ->where('pe3_dulang.tahun',$ta)   
                                 ->where('pe3_dulang.idsmt',$idsmt)   
                                 ->where('pe3_register_mahasiswa.kjur',$prodi_id)
                                 ->where('pe3_dulang.user_id', $this->getUserid())
-                                ->orderBy('pe3_dulang.idsmt','desc')
-                                ->orderBy('nama_mhs','asc')
+                                ->orderBy('pe3_dulang.idsmt', 'desc')
+                                ->orderBy('nama_mhs', 'asc')
                                 ->get();
         }
         else
@@ -72,22 +72,22 @@ class DulangMahasiswaLamaController extends Controller
                                     pe3_dulang.created_at,      
                                     pe3_dulang.updated_at                                      
                                 '))
-                                ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-                                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-                                ->join('pe3_status_mahasiswa','pe3_status_mahasiswa.k_status','pe3_dulang.k_status')
+                                ->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+                                ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
+                                ->join('pe3_status_mahasiswa', 'pe3_status_mahasiswa.k_status', 'pe3_dulang.k_status')
                                 ->where('pe3_dulang.tahun',$ta)   
                                 ->where('pe3_dulang.idsmt',$idsmt)   
                                 ->where('pe3_register_mahasiswa.kjur',$prodi_id)
-                                ->orderBy('pe3_dulang.idsmt','desc')
-                                ->orderBy('nama_mhs','asc')
+                                ->orderBy('pe3_dulang.idsmt', 'desc')
+                                ->orderBy('nama_mhs', 'asc')
                                 ->get();
         }
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'mahasiswa'=>$data,
-                                    'message'=>'Fetch data daftar ulang mahasiswa lama berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'mahasiswa' => $data,
+                                    'message' => 'Fetch data daftar ulang mahasiswa lama berhasil.'
                                 ], 200);
     }
     /**
@@ -106,8 +106,8 @@ class DulangMahasiswaLamaController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Daftar Ulang Mahasiswa Lama ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Daftar Ulang Mahasiswa Lama ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -130,8 +130,8 @@ class DulangMahasiswaLamaController extends Controller
             $dulang->delete();
 
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

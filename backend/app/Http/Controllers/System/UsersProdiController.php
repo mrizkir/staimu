@@ -20,17 +20,17 @@ class UsersProdiController extends Controller {
     public function index(Request $request)
     {           
         $this->hasPermissionTo('SYSTEM-USERS-PROGRAM-STUDI_BROWSE');
-        $data = User::where('default_role','programstudi')
-                    ->orderBy('username','ASC')
+        $data = User::where('default_role', 'programstudi')
+                    ->orderBy('username', 'ASC')
                     ->get();  
                     
         $role = Role::findByName('programstudi');
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'role'=>$role,
-                                'users'=>$data,
-                                'message'=>'Fetch data users PROGRAM STUDI berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'role' => $role,
+                                'users' => $data,
+                                'message' => 'Fetch data users PROGRAM STUDI berhasil diperoleh'
                             ], 200);  
     }    
     /**
@@ -43,27 +43,27 @@ class UsersProdiController extends Controller {
     {
         $this->hasPermissionTo('SYSTEM-USERS-PROGRAM-STUDI_STORE');
         $this->validate($request, [
-            'name'=>'required',
-            'email'=>'required|string|email|unique:users',
-            'nomor_hp'=>'required|string|unique:users',
-            'username'=>'required|string|unique:users',
-            'password'=>'required',
-            'prodi_id'=>'required',
+            'name' => 'required',
+            'email' => 'required|string|email|unique:users',
+            'nomor_hp' => 'required|string|unique:users',
+            'username' => 'required|string|unique:users',
+            'password' => 'required',
+            'prodi_id' => 'required',
         ]);
         $user = \DB::transaction(function () use ($request) {
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'name'=>$request->input('name'),
-                'email'=>$request->input('email'),
-                'nomor_hp'=>$request->input('nomor_hp'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'nomor_hp' => $request->input('nomor_hp'),
                 'username'=> $request->input('username'),
                 'password'=>Hash::make($request->input('password')),            
-                'theme'=>'default',
-                'default_role'=>'programstudi',
+                'theme' => 'default',
+                'default_role' => 'programstudi',
                 'foto'=> '/images/users/no_photo.png',
-                'created_at'=>$now, 
-                'updated_at'=>$now
+                'created_at' => $now, 
+                'updated_at' => $now
             ]);       
             $role='programstudi';   
             $user->assignRole($role);          
@@ -119,8 +119,8 @@ class UsersProdiController extends Controller {
                     if ($v=='dosen')
                     {
                         UserDosen::create([
-                            'user_id'=>$user->id,
-                            'nama_dosen'=>$request->input('name'),                
+                            'user_id' => $user->id,
+                            'nama_dosen' => $request->input('name'),                
                         ]);
                         if ($v=='dosenwali')
                         {
@@ -143,10 +143,10 @@ class UsersProdiController extends Controller {
         });
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'user'=>$user,    
-                                    'message'=>'Data user PROGRAM STUDI berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'user' => $user,    
+                                    'message' => 'Data user PROGRAM STUDI berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -162,18 +162,18 @@ class UsersProdiController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["User ID ($id) gagal diperoleh"]
+                                    'pid' => 'update',    
+                                    'message' => ["User ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'user'=>$user,  
-                                    'role_dosen'=>$user->hasRole('dosen'),    
-                                    'message'=>'Data user '.$user->username.' berhasil diperoleh.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'user' => $user,  
+                                    'role_dosen' => $user->hasRole('dosen'),    
+                                    'message' => 'Data user '.$user->username.' berhasil diperoleh.'
                                 ], 200); 
         }
 
@@ -194,21 +194,21 @@ class UsersProdiController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["User ID ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [
-                                        'username'=>[
+                                        'username' => [
                                                         'required',
-                                                        'unique:users,username,'.$user->id
+                                                        'unique:users,username, '.$user->id
                                                     ],           
-                                        'name'=>'required',
-                                        'email'=>'required|string|email|unique:users,email,'.$user->id,
-                                        'nomor_hp'=>'required|string|unique:users,nomor_hp,'.$user->id,   
-                                        'prodi_id'=>'required',           
+                                        'name' => 'required',
+                                        'email' => 'required|string|email|unique:users,email, '.$user->id,
+                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,   
+                                        'prodi_id' => 'required',           
                                     ]); 
             $user = \DB::transaction(function () use ($request,$user) {
                 $user->name = $request->input('name');
@@ -291,8 +291,8 @@ class UsersProdiController extends Controller {
                         if ($v=='dosen' && is_null($dosen))
                         {
                             UserDosen::create([
-                                'user_id'=>$user->id,
-                                'nama_dosen'=>$request->input('name'),                
+                                'user_id' => $user->id,
+                                'nama_dosen' => $request->input('name'),                
                             ]);
                         }
                         else if ($v=='dosen' && !is_null($dosen))
@@ -331,10 +331,10 @@ class UsersProdiController extends Controller {
             });
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'user'=>$user,      
-                                    'message'=>'Data user PROGRAM STUDI '.$user->username.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'user' => $user,      
+                                    'message' => 'Data user PROGRAM STUDI '.$user->username.' berhasil diubah.'
                                 ], 200); 
         }
     }
@@ -348,15 +348,15 @@ class UsersProdiController extends Controller {
     { 
         $this->hasPermissionTo('SYSTEM-USERS-PROGRAM-STUDI_DESTROY');
 
-        $user = User::where('isdeleted','1')
+        $user = User::where('isdeleted', '1')
                     ->find($id); 
         
         if (is_null($user))
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["User ID ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["User ID ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -372,8 +372,8 @@ class UsersProdiController extends Controller {
                                                             ]);
         
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"User PROGRAM STUDI ($username) berhasil dihapus"
                                     ], 200);    
         }

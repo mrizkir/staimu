@@ -77,7 +77,7 @@ class H2HBRKJWTCheckMiddleware
 			if ($token=='98')
 			{
 				$object->setData([
-					'Result'=>[
+					'Result' => [
 						'status'=>'98',
 						'message'=>'Token tidak terdaftar'
 					]

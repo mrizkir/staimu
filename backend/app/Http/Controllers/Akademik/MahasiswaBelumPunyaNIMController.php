@@ -25,8 +25,8 @@ class MahasiswaBelumPunyaNIMController extends Controller
 		$this->hasPermissionTo('AKADEMIK-DULANG-BARU_BROWSE');
 
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required'
+			'ta' => 'required',
+			'prodi_id' => 'required'
 		]);
 
 		$ta=$request->input('ta');
@@ -40,40 +40,40 @@ class MahasiswaBelumPunyaNIMController extends Controller
 										pe3_formulir_pendaftaran.telp_hp,
 										pe3_formulir_pendaftaran.idkelas                                      
 									'))
-									->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
-									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-									->leftJoin('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+									->join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
+									->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi_detail.user_id')
+									->leftJoin('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')
 									->where('kombi_id', 102)
 									->where('pe3_transaksi.status', 1)
 									->where('pe3_formulir_pendaftaran.kjur1',$prodi_id)
 									->where('pe3_formulir_pendaftaran.ta',$ta)
 									->whereNull('pe3_register_mahasiswa.nim')
-									->orderBy('pe3_formulir_pendaftaran.idkelas','ASC')
-									->orderBy('pe3_formulir_pendaftaran.nama_mhs','ASC')
+									->orderBy('pe3_formulir_pendaftaran.idkelas', 'ASC')
+									->orderBy('pe3_formulir_pendaftaran.nama_mhs', 'ASC')
 									->get();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'mahasiswa'=>$data,
-									'message'=>'Fetch data calon mahasiswa baru yang belum punya nim berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'mahasiswa' => $data,
+									'message' => 'Fetch data calon mahasiswa baru yang belum punya nim berhasil.'
 								], 200);
 	}
 	public function store(Request $request)
 	{
 		$this->hasPermissionTo('AKADEMIK-DULANG-BARU_STORE');
 
-		$request->request->add(['username'=>$request->input('nim')]);
+		$request->request->add(['username' => $request->input('nim')]);
 		$this->validate($request, [                       
-			'user_id'=>[
+			'user_id' => [
 				'required',
 			],
-			'nim'=>'required|numeric|unique:pe3_register_mahasiswa,nim',
-			'nirm'=>'required|numeric|unique:pe3_register_mahasiswa,nirm',
-			'username'=>'required|unique:users,username',
-			'dosen_id'=>[
+			'nim' => 'required|numeric|unique:pe3_register_mahasiswa,nim',
+			'nirm' => 'required|numeric|unique:pe3_register_mahasiswa,nirm',
+			'username' => 'required|unique:users,username',
+			'dosen_id' => [
 				'required',
-				Rule::exists('pe3_dosen','user_id')->where(function($query) {
+				Rule::exists('pe3_dosen', 'user_id')->where(function($query) {
 					return $query->where('is_dw', 1);
 				})
 			]
@@ -85,16 +85,16 @@ class MahasiswaBelumPunyaNIMController extends Controller
 			$formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($user_id);
 
 			$mahasiswa=RegisterMahasiswaModel::create([
-				'user_id'=>$user_id,
-				'dosen_id'=>$request->input('dosen_id'),
+				'user_id' => $user_id,
+				'dosen_id' => $request->input('dosen_id'),
 				'konsentrasi_id'=>null,
-				'nim'=>$request->input('nim'),
-				'nirm'=>$request->input('nirm'),
-				'tahun'=>$formulir->ta,
-				'idsmt'=>$formulir->idsmt,
-				'kjur'=>$formulir->kjur1,
-				'k_status'=>'A',
-				'idkelas'=>$formulir->idkelas,
+				'nim' => $request->input('nim'),
+				'nirm' => $request->input('nirm'),
+				'tahun' => $formulir->ta,
+				'idsmt' => $formulir->idsmt,
+				'kjur' => $formulir->kjur1,
+				'k_status' => 'A',
+				'idkelas' => $formulir->idkelas,
 			]);
 			
 			$user=$formulir->user;
@@ -109,7 +109,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
 			$user->givePermissionTo($permissions);
 			
 			$spp=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.status'))  
-										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+										->join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
 										->where('pe3_transaksi_detail.kombi_id',201)
 										->where('pe3_transaksi.ta',$formulir->ta)
 										->where('pe3_transaksi.idsmt',$formulir->idsmt)
@@ -121,23 +121,23 @@ class MahasiswaBelumPunyaNIMController extends Controller
 			{
 				DulangModel::create([
 					'id'=>Uuid::uuid4()->toString(),
-					'user_id'=>$user_id,
-					'nim'=>$mahasiswa->nim,
-					'tahun'=>$formulir->ta,
-					'idsmt'=>$formulir->idsmt,
-					'tasmt'=>$formulir->ta.$formulir->idsmt,
-					'idkelas'=>$formulir->idkelas,
-					'status_sebelumnya'=>'A',
-					'k_status'=>'A',
+					'user_id' => $user_id,
+					'nim' => $mahasiswa->nim,
+					'tahun' => $formulir->ta,
+					'idsmt' => $formulir->idsmt,
+					'tasmt' => $formulir->ta.$formulir->idsmt,
+					'idkelas' => $formulir->idkelas,
+					'status_sebelumnya' => 'A',
+					'k_status' => 'A',
 				]);
 			}
 			return $mahasiswa;
 		});
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store',      
-									'mahasiswa'=>$mahasiswa,
-									'message'=>'Daftar Ulang Mahasiswa telah berhasil.'
+									'status' => 1,
+									'pid' => 'store',      
+									'mahasiswa' => $mahasiswa,
+									'message' => 'Daftar Ulang Mahasiswa telah berhasil.'
 								], 200);
 	}
 }

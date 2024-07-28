@@ -20,17 +20,17 @@ class PMBPersyaratanController extends Controller {
        $this->hasPermissionTo('SPMB-PMB-PERSYARATAN_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',
-            'prodi_id'=>'required'
+            'ta' => 'required',
+            'prodi_id' => 'required'
         ]);
         
         $ta=$request->input('ta');
         $prodi_id=$request->input('prodi_id');
         
         $jumlah_persyaratan=\DB::table('pe3_persyaratan')->where('ta',$ta)->count();
-        $data = FormulirPendaftaranModel::select(\DB::raw("users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,$jumlah_persyaratan AS jumlah_persyaratan,0 AS persyaratan,'BELUM LENGKAP' AS status,users.created_at,users.updated_at"))
-                    ->join('users','pe3_formulir_pendaftaran.user_id','users.id')
-                    ->join('pe3_kelas','pe3_formulir_pendaftaran.idkelas','pe3_kelas.idkelas')
+        $data = FormulirPendaftaranModel::select(\DB::raw("users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,$jumlah_persyaratan AS jumlah_persyaratan,0 AS persyaratan, 'BELUM LENGKAP' AS status,users.created_at,users.updated_at"))
+                    ->join('users', 'pe3_formulir_pendaftaran.user_id', 'users.id')
+                    ->join('pe3_kelas', 'pe3_formulir_pendaftaran.idkelas', 'pe3_kelas.idkelas')
                     ->whereExists(function ($query) {
                         $query->select(\DB::raw(1))
                               ->from('pe3_pmb_persyaratan')
@@ -39,7 +39,7 @@ class PMBPersyaratanController extends Controller {
                     ->where('users.ta',$ta)
                     ->where('kjur1',$prodi_id)
                     ->where('users.active', 1)
-                    ->orderBy('users.name','ASC')
+                    ->orderBy('users.name', 'ASC')
                     ->get();
         
         
@@ -49,10 +49,10 @@ class PMBPersyaratanController extends Controller {
             $item->status=$item->persyaratan < $jumlah_persyaratan ? 'BELUM LENGKAP':'LENGKAP';
         }
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'persyaratan'=>$data,
-                                'message'=>'Fetch data persyaratancalon mahasiswa baru berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'persyaratan' => $data,
+                                'message' => 'Fetch data persyaratancalon mahasiswa baru berhasil diperoleh'
                             ], 200);  
 
     }
@@ -68,8 +68,8 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',    
-                                        'message'=>["User ID ($id) gagal diperoleh"]
+                                        'pid' => 'fetchdata',    
+                                        'message' => ["User ID ($id) gagal diperoleh"]
                                     ], 422); 
         }
         else
@@ -86,19 +86,19 @@ class PMBPersyaratanController extends Controller {
                                         pe3_pmb_persyaratan.verified,
                                         pe3_pmb_persyaratan.created_at,
                                         pe3_pmb_persyaratan.updated_at'))
-                            ->leftJoinSub($subquery,'pe3_pmb_persyaratan',function($join) {
-                                $join->on('pe3_persyaratan.id','=','pe3_pmb_persyaratan.persyaratan_id');
+                            ->leftJoinSub($subquery, 'pe3_pmb_persyaratan',function($join) {
+                                $join->on('pe3_persyaratan.id', '=', 'pe3_pmb_persyaratan.persyaratan_id');
                             })
                             ->where('pe3_persyaratan.ta',$user->ta)
-                            ->where('pe3_persyaratan.proses','pmb')
-                            ->orderBy('pe3_persyaratan.nama_persyaratan','ASC')
+                            ->where('pe3_persyaratan.proses', 'pmb')
+                            ->orderBy('pe3_persyaratan.nama_persyaratan', 'ASC')
                             ->get();
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'persyaratan'=>$persyaratan,      
-                                    'message'=>'Persyaratan user PMB '.$user->name.' berhasil diperoleh.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'persyaratan' => $persyaratan,      
+                                    'message' => 'Persyaratan user PMB '.$user->name.' berhasil diperoleh.'
                                 ], 200); 
         }
     }
@@ -112,17 +112,17 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',    
-                                    'message'=>["Data Mahasiswa tidak ditemukan."]
+                                    'pid' => 'store',    
+                                    'message' => ["Data Mahasiswa tidak ditemukan."]
                                 ], 422);    
         }
         else
         {
             $this->validate($request, [      
-                'persyaratan_pmb_id'=>'required',
-                'persyaratan_id'=>'required|exists:pe3_persyaratan,id',                   
-                'nama_persyaratan'=>'required',  
-                'foto'=>'required'                        
+                'persyaratan_pmb_id' => 'required',
+                'persyaratan_id' => 'required|exists:pe3_persyaratan,id',                   
+                'nama_persyaratan' => 'required',  
+                'foto' => 'required'                        
             ]);
             $name=$user->name;
             $foto = $request->file('foto');
@@ -139,12 +139,12 @@ class PMBPersyaratanController extends Controller {
                     $now = \Carbon\Carbon::now()->toDateTimeString();   
                     $persyaratan=PMBPersyaratanModel::create([
                                                                 'id'=>Uuid::uuid4()->toString(),
-                                                                'persyaratan_id'=>$request->input('persyaratan_id'),
-                                                                'user_id'=>$id,
+                                                                'persyaratan_id' => $request->input('persyaratan_id'),
+                                                                'user_id' => $id,
                                                                 'nama_persyaratan'=> $request->input('nama_persyaratan'),
                                                                 'path'=>"/images/pmb/$file_name",
-                                                                'created_at'=>$now, 
-                                                                'updated_at'=>$now
+                                                                'created_at' => $now, 
+                                                                'updated_at' => $now
                                                             ]); 
                     
                 }
@@ -155,7 +155,7 @@ class PMBPersyaratanController extends Controller {
                     $persyaratan->save();
                     if ($old_file != 'images/no_photo.png')
                     {
-                        $old_file=str_replace('storage/','',$old_file);
+                        $old_file=str_replace('storage/', '',$old_file);
                         if (is_file(Helper::public_path($old_file)))
                         {
                             unlink(Helper::public_path($old_file));
@@ -165,17 +165,17 @@ class PMBPersyaratanController extends Controller {
                 $foto->move($folder,$file_name);
                 return Response()->json([
                                             'status'=>0,
-                                            'pid'=>'store',
-                                            'persyaratan'=>$persyaratan,    
+                                            'pid' => 'store',
+                                            'persyaratan' => $persyaratan,    
                                             'message'=>"Persyaratan Mahasiswa baru ($name)  berhasil diupload"
                                         ], 200);    
             }
             else
             {
                 return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'store',
-                                        'message'=>["Extensi file yang diupload bukan jpg atau png."]
+                                        'status' => 1,
+                                        'pid' => 'store',
+                                        'message' => ["Extensi file yang diupload bukan jpg atau png."]
                                     ], 422); 
                 
 
@@ -192,8 +192,8 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
                                 ], 422);    
         }
         else
@@ -204,7 +204,7 @@ class PMBPersyaratanController extends Controller {
 
             if ($old_file != 'images/no-image.png')
             {
-                $old_file=str_replace('storage/','',$old_file);
+                $old_file=str_replace('storage/', '',$old_file);
                 if (is_file(Helper::public_path($old_file)))
                 {
                     unlink(Helper::public_path($old_file));
@@ -212,8 +212,8 @@ class PMBPersyaratanController extends Controller {
             }
             
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',        
+                                        'status' => 1,
+                                        'pid' => 'destroy',        
                                         'message'=>"Persyaratan Mahasiswa Baru user id ($userid)  berhasil dihapus"
                                     ], 200);
         }
@@ -228,8 +228,8 @@ class PMBPersyaratanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
+                                    'pid' => 'update',    
+                                    'message' => ["Data Persyaratan Mahasiswa Baru tidak ditemukan."]
                                 ], 422);    
         }
         else
@@ -238,9 +238,9 @@ class PMBPersyaratanController extends Controller {
             $persyaratan->save();
          
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update', 
-                                        'persyaratan'=>$persyaratan,       
+                                        'status' => 1,
+                                        'pid' => 'update', 
+                                        'persyaratan' => $persyaratan,       
                                         'message'=>"Persyaratan Dokumen (".$persyaratan->nama_persyaratan.") berhasil diverifikasi"
                                     ], 200);
         }

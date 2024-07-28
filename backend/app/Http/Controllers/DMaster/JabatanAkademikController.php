@@ -13,14 +13,14 @@ class JabatanAkademikController extends Controller {
      */
     public function index(Request $request)
     {
-        $jabatan_akademik=JabatanAkademikModel::orderBy('id_jabatan','ASC')
+        $jabatan_akademik=JabatanAkademikModel::orderBy('id_jabatan', 'ASC')
                                                 ->get();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'jabatan_akademik'=>$jabatan_akademik,
-                                    'message'=>'Fetch data jabatan akademik berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'jabatan_akademik' => $jabatan_akademik,
+                                    'message' => 'Fetch data jabatan akademik berhasil.'
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }  
 }

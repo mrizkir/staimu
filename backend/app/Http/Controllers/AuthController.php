@@ -17,8 +17,8 @@ class AuthController extends Controller
 	public function login(Request $request)
 	{
 		$this->validate($request, [            
-			'username'=>'required',
-			'password'=>'required',            
+			'username' => 'required',
+			'password' => 'required',            
 		]);
 		$credentials = $request->only('username', 'password');
 		$credentials['active']=1;
@@ -40,7 +40,7 @@ class AuthController extends Controller
 		//log user loggin
 		\App\Models\System\ActivityLog::log($request,[
 														'object' => $this->guard()->user(), 
-														'object_id'=>$this->getUserid(), 
+														'object_id' => $this->getUserid(), 
 														'user_id' => $this->getUserid(), 
 														'message' => 'user '.$credentials['username'].' berhasil login'
 													]);
@@ -64,7 +64,7 @@ class AuthController extends Controller
 		$user['role']=$this->getRoleNames();
 		$user['issuperadmin']=$this->hasRole('superadmin');
 		$user['isdw']=$this->hasRole('dosenwali');
-		$user['permissions']=$this->guard()->user()->permissions->pluck('id','name')->toArray();
+		$user['permissions']=$this->guard()->user()->permissions->pluck('id', 'name')->toArray();
 		return response()->json($user);
 	}    
 	 /**

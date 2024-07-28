@@ -60,7 +60,7 @@ class Controller extends BaseController
         }
         else
         {
-            abort(403,'Forbidden: You have not a privilege to execute this process '.$permission);
+            abort(403, 'Forbidden: You have not a privilege to execute this process '.$permission);
         }        
     }
     /**
@@ -79,7 +79,7 @@ class Controller extends BaseController
         }
         else
         {
-            abort(403,'Forbidden: You have not a privilege to execute this process '.$permission);
+            abort(403, 'Forbidden: You have not a privilege to execute this process '.$permission);
         }        
     }
     /**
@@ -93,10 +93,10 @@ class Controller extends BaseController
         $user = User::find($id);
         $permissions=is_null($user)?[]:$user->permissions;
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'permissions'=>$permissions,    
-                                    'message'=>'Fetch permission role '.$user->username.' berhasil diperoleh.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'permissions' => $permissions,    
+                                    'message' => 'Fetch permission role '.$user->username.' berhasil diperoleh.'
                                 ], 200); 
     }
 }

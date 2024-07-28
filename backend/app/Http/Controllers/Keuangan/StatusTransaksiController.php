@@ -18,10 +18,10 @@ class StatusTransaksiController extends Controller {
         $status_transaksi=StatusTransaksiModel::All();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'status'=>$status_transaksi,
-                                    'message'=>'Fetch data status transaksi berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'status' => $status_transaksi,
+                                    'message' => 'Fetch data status transaksi berhasil.'
                                 ], 200);
     } 
     /**
@@ -32,8 +32,8 @@ class StatusTransaksiController extends Controller {
         $this->hasPermissionTo('KEUANGAN-STATUS-TRANSAKSI_STORE');
         
         $this->validate($request, [           
-            'id_status'=>'required|exists:pe3_status_transaksi,id_status',
-            'style'=>'required'
+            'id_status' => 'required|exists:pe3_status_transaksi,id_status',
+            'style' => 'required'
         ]);
         $id_status=$request->input('id_status');
         $style=$request->input('style');
@@ -43,10 +43,10 @@ class StatusTransaksiController extends Controller {
         $status->save();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',     
-                                    'status'=>$status,                            
-                                    'message'=>'Mengubah status transaksi '.$status->nama_status.' berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'update',     
+                                    'status' => $status,                            
+                                    'message' => 'Mengubah status transaksi '.$status->nama_status.' berhasil.'
                                 ], 200);
     } 
 }

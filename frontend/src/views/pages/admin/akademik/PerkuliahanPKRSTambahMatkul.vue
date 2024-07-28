@@ -154,7 +154,7 @@ export default {
 	methods: {
 		async fetchKRS()
 		{
-			await this.$ajax.get("/akademik/perkuliahan/pkrs/"+this.krs_id,  
+			await this.$ajax.get("/akademik/perkuliahan/pkrs/" + this.krs_id,  
 			{
 				headers: {
 					Authorization: this.$store.getters["auth/Token"]
@@ -218,7 +218,7 @@ export default {
 		},
 		closedialogfrm() {
 			setTimeout(() => { 
-				this.$router.push("/akademik/perkuliahan/pkrs/"+this.krs_id+"/detail");
+				this.$router.push("/akademik/perkuliahan/pkrs/" + this.krs_id+"/detail");
 				}, 300);
 		},
 	},

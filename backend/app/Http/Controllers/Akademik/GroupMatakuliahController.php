@@ -15,10 +15,10 @@ class GroupMatakuliahController extends Controller {
     {
         $group_matakuliah=GroupMatakuliahModel::all();
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'group_matakuliah'=>$group_matakuliah,
-                                    'message'=>'Fetch data group matakuliah berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'group_matakuliah' => $group_matakuliah,
+                                    'message' => 'Fetch data group matakuliah berhasil.'
                                 ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);;
     }
 }

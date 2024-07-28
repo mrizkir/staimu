@@ -23,9 +23,9 @@ class PindahKelasController  extends Controller
     $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_BROWSE');
 
     $this->validate($request, [
-      'ta'=>'required',
-      'semester_akademik'=>'required',
-      'prodi_id'=>'required'
+      'ta' => 'required',
+      'semester_akademik' => 'required',
+      'prodi_id' => 'required'
     ]);
 
     $ta=$request->input('ta');
@@ -48,20 +48,20 @@ class PindahKelasController  extends Controller
                               pe3_pindah_kelas.created_at,
                               pe3_pindah_kelas.updated_at
                             "))
-                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-                            ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-                            ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
-                            ->orderBy('nama_mhs','ASC')
+                            ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_pindah_kelas.user_id')
+                            ->join('pe3_kelas AS A', 'A.idkelas', 'pe3_pindah_kelas.idkelas_lama')
+                            ->join('pe3_kelas AS B', 'B.idkelas', 'pe3_pindah_kelas.idkelas_baru')
+                            ->orderBy('nama_mhs', 'ASC')
                             ->where('pe3_pindah_kelas.kjur', $prodi_id)
                             ->where('pe3_pindah_kelas.tahun', $ta)
                             ->where('pe3_pindah_kelas.idsmt', $semester_akademik)  
                             ->get();
     
     return Response()->json([
-                              'status'=>1,
-                              'pid'=>'fetchdata',  
-                              'pindahkelas'=>$data,
-                              'message'=>'Fetch data mahasiswa yang pindah kelas berhasil diperoleh.'
+                              'status' => 1,
+                              'pid' => 'fetchdata',  
+                              'pindahkelas' => $data,
+                              'message' => 'Fetch data mahasiswa yang pindah kelas berhasil diperoleh.'
                             ], 200);
   }
   
@@ -73,11 +73,11 @@ class PindahKelasController  extends Controller
     $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
 
     $this->validate($request, [
-      'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',
-      'idkelas_lama'=>'required',     
-      'idkelas_baru'=>'required',     
-      'idsmt'=>'required',     
-      'tahun'=>'required',     
+      'user_id' => 'required|exists:pe3_register_mahasiswa,user_id',
+      'idkelas_lama' => 'required',     
+      'idkelas_baru' => 'required',     
+      'idsmt' => 'required',     
+      'tahun' => 'required',     
     ]);
     $user_id = $request->input('user_id');
     $idsmt = $request->input('idsmt');
@@ -98,14 +98,14 @@ class PindahKelasController  extends Controller
       $data = \DB::transaction(function () use ($request,$data_mhs) {
         $data = PindahKelasModel::create([
           'id'=>Uuid::uuid4()->toString(),
-          'user_id'=>$request->input('user_id'),
-          'nim'=>$data_mhs->nim,
-          'idkelas_lama'=>$data_mhs->idkelas,
-          'idkelas_baru'=>$request->input('idkelas_baru'),
-          'kjur'=>$data_mhs->kjur,
-          'idsmt'=>$request->input('idsmt'),
-          'tahun'=>$request->input('tahun'),
-          'descr'=>$request->input('descr'),
+          'user_id' => $request->input('user_id'),
+          'nim' => $data_mhs->nim,
+          'idkelas_lama' => $data_mhs->idkelas,
+          'idkelas_baru' => $request->input('idkelas_baru'),
+          'kjur' => $data_mhs->kjur,
+          'idsmt' => $request->input('idsmt'),
+          'tahun' => $request->input('tahun'),
+          'descr' => $request->input('descr'),
           'forcefull'=>false,
         ]);
         $data_mhs->idkelas = $request->input('idkelas_baru');
@@ -127,25 +127,25 @@ class PindahKelasController  extends Controller
         pe3_pindah_kelas.created_at,
         pe3_pindah_kelas.updated_at
       "))
-      ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-      ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-      ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+      ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_pindah_kelas.user_id')
+      ->join('pe3_kelas AS A', 'A.idkelas', 'pe3_pindah_kelas.idkelas_lama')
+      ->join('pe3_kelas AS B', 'B.idkelas', 'pe3_pindah_kelas.idkelas_baru')
       ->where('pe3_pindah_kelas.id', $data->id)
       ->first();
               
       return Response()->json([
-                              'status'=>1,
-                              'pid'=>'store',  
-                              'pindahkelas'=>$pindahkelas,
-                              'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                              'status' => 1,
+                              'pid' => 'store',  
+                              'pindahkelas' => $pindahkelas,
+                              'message' => 'Mahasiswa yang pindah kelas berhasil dilakukan.'
                             ], 200);
     }
     catch (Exception $e)
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'store',               
-        'message'=>[$e->getMessage()]
+        'pid' => 'store',               
+        'message' => [$e->getMessage()]
       ], 422); 
     }
   }
@@ -157,8 +157,8 @@ class PindahKelasController  extends Controller
     $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
 
     $this->validate($request, [
-      'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',
-      'idkelas_baru'=>'required'
+      'user_id' => 'required|exists:pe3_register_mahasiswa,user_id',
+      'idkelas_baru' => 'required'
     ]);
 
     $user_id = $request->input('user_id');    
@@ -171,22 +171,22 @@ class PindahKelasController  extends Controller
         $idkelas_baru = $request->input('idkelas_baru');
         $data = PindahKelasModel::create([
           'id'=>Uuid::uuid4()->toString(),
-          'user_id'=>$data_mhs->user_id,
-          'nim'=>$data_mhs->nim,
-          'idkelas_lama'=>$data_mhs->idkelas,
-          'idkelas_baru'=>$idkelas_baru,
-          'kjur'=>$data_mhs->kjur,
-          'idsmt'=>$config['DEFAULT_SEMESTER'],
-          'tahun'=>$config['DEFAULT_TA'],
-          'descr'=>'PINDAH SECARA PAKSA',
+          'user_id' => $data_mhs->user_id,
+          'nim' => $data_mhs->nim,
+          'idkelas_lama' => $data_mhs->idkelas,
+          'idkelas_baru' => $idkelas_baru,
+          'kjur' => $data_mhs->kjur,
+          'idsmt' => $config['DEFAULT_SEMESTER'],
+          'tahun' => $config['DEFAULT_TA'],
+          'descr' => 'PINDAH SECARA PAKSA',
           'forcefully'=>true,
         ]);
         $data_mhs->idkelas = $request->input('idkelas_baru');
         $data_mhs->save();
 
-        \DB::table('pe3_transaksi')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
-        \DB::table('pe3_dulang')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
-        \DB::table('pe3_formulir_pendaftaran')->where('user_id', $data_mhs->user_id)->update(['idkelas'=>$idkelas_baru]);
+        \DB::table('pe3_transaksi')->where('user_id', $data_mhs->user_id)->update(['idkelas' => $idkelas_baru]);
+        \DB::table('pe3_dulang')->where('user_id', $data_mhs->user_id)->update(['idkelas' => $idkelas_baru]);
+        \DB::table('pe3_formulir_pendaftaran')->where('user_id', $data_mhs->user_id)->update(['idkelas' => $idkelas_baru]);
         
         return $data;
       }); 
@@ -205,25 +205,25 @@ class PindahKelasController  extends Controller
         pe3_pindah_kelas.created_at,
         pe3_pindah_kelas.updated_at
       "))
-      ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-      ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-      ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+      ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_pindah_kelas.user_id')
+      ->join('pe3_kelas AS A', 'A.idkelas', 'pe3_pindah_kelas.idkelas_lama')
+      ->join('pe3_kelas AS B', 'B.idkelas', 'pe3_pindah_kelas.idkelas_baru')
       ->where('pe3_pindah_kelas.id', $data->id)
       ->first();
               
       return Response()->json([
-                              'status'=>1,
-                              'pid'=>'store',  
-                              'pindahkelas'=>$pindahkelas,
-                              'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                              'status' => 1,
+                              'pid' => 'store',  
+                              'pindahkelas' => $pindahkelas,
+                              'message' => 'Mahasiswa yang pindah kelas berhasil dilakukan.'
                             ], 200);
     }
     catch (Exception $e)
     {
       return Response()->json([
         'status'=>0,
-        'pid'=>'store',               
-        'message'=>[$e->getMessage()]
+        'pid' => 'store',               
+        'message' => [$e->getMessage()]
       ], 422); 
     }
   }
@@ -240,15 +240,15 @@ class PindahKelasController  extends Controller
     {
         return Response()->json([
                                 'status'=>0,
-                                'pid'=>'update',    
-                                'message'=>["Data Pindah Kelas dengan ($id) gagal diupdate"]
+                                'pid' => 'update',    
+                                'message' => ["Data Pindah Kelas dengan ($id) gagal diupdate"]
                             ], 422); 
     }
     else
     {
 
       $this->validate($request, [      
-        'idkelas_baru'=>'required',
+        'idkelas_baru' => 'required',
       ]);
 
       try
@@ -290,25 +290,25 @@ class PindahKelasController  extends Controller
                   pe3_pindah_kelas.created_at,
                   pe3_pindah_kelas.updated_at
                 "))
-                ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pindah_kelas.user_id')
-                ->join('pe3_kelas AS A','A.idkelas','pe3_pindah_kelas.idkelas_lama')
-                ->join('pe3_kelas AS B','B.idkelas','pe3_pindah_kelas.idkelas_baru')
+                ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_pindah_kelas.user_id')
+                ->join('pe3_kelas AS A', 'A.idkelas', 'pe3_pindah_kelas.idkelas_lama')
+                ->join('pe3_kelas AS B', 'B.idkelas', 'pe3_pindah_kelas.idkelas_baru')
                 ->where('pe3_pindah_kelas.id', $data->id)
                 ->first();
                 
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'update',  
-                                'pindahkelas'=>$pindahkelas,
-                                'message'=>'Mahasiswa yang pindah kelas berhasil dilakukan.'
+                                'status' => 1,
+                                'pid' => 'update',  
+                                'pindahkelas' => $pindahkelas,
+                                'message' => 'Mahasiswa yang pindah kelas berhasil dilakukan.'
                               ], 200);    
       }
       catch (Exception $e)
       {
         return Response()->json([
           'status'=>0,
-          'pid'=>'update',               
-          'message'=>[$e->getMessage()]
+          'pid' => 'update',               
+          'message' => [$e->getMessage()]
         ], 422); 
       }     
     }
@@ -323,8 +323,8 @@ class PindahKelasController  extends Controller
     {
         return Response()->json([
                                 'status'=>0,
-                                'pid'=>'destroy',    
-                                'message'=>["Data Pindah Kelas dengan ($id) gagal dihapus"]
+                                'pid' => 'destroy',    
+                                'message' => ["Data Pindah Kelas dengan ($id) gagal dihapus"]
                             ], 422); 
     }
     else
@@ -355,8 +355,8 @@ class PindahKelasController  extends Controller
           ]);
         });
         return Response()->json([
-                                  'status'=>1,
-                                  'pid'=>'destroy',    
+                                  'status' => 1,
+                                  'pid' => 'destroy',    
                                   'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
                               ], 200);    
       }
@@ -364,8 +364,8 @@ class PindahKelasController  extends Controller
       {
         return Response()->json([
           'status'=>0,
-          'pid'=>'destroy',               
-          'message'=>[$e->getMessage()]
+          'pid' => 'destroy',               
+          'message' => [$e->getMessage()]
         ], 422); 
       }        
     }

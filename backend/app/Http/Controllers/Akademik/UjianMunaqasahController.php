@@ -44,10 +44,10 @@ class UjianMunaqasahController extends Controller
 							A.created_at,
 							A.updated_at
 						'))
-						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
-						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
-						->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
+						->join('pe3_register_mahasiswa AS B', 'B.user_id', 'A.user_id')
+						->join('pe3_formulir_pendaftaran AS C', 'C.user_id', 'A.user_id')
+						->join('pe3_dosen AS D', 'D.user_id', 'A.pembimbing_1')
+						->join('pe3_dosen AS E', 'E.user_id', 'A.pembimbing_2');
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -57,8 +57,8 @@ class UjianMunaqasahController extends Controller
 		else
 		{
 			$this->validate($request, [
-				'ta'=>'required',    
-				'prodi_id'=>'required'
+				'ta' => 'required',    
+				'prodi_id' => 'required'
 			]);
 
 			$daftar_ujian=$daftar_ujian->where('A.ta', $request->input('ta'))
@@ -66,10 +66,10 @@ class UjianMunaqasahController extends Controller
 										->get();
 		}        
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'daftar_ujian'=>$daftar_ujian,
-									'message'=>'Daftar peserta ujian munaqasah berhasil diperoleh' 
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'daftar_ujian' => $daftar_ujian,
+									'message' => 'Daftar peserta ujian munaqasah berhasil diperoleh' 
 								], 200);  
 		
 	}
@@ -81,7 +81,7 @@ class UjianMunaqasahController extends Controller
 		}
 		
 		$this->validate($request, [            
-			'nim'=>'required|exists:pe3_register_mahasiswa,nim',
+			'nim' => 'required|exists:pe3_register_mahasiswa,nim',
 		]);
 		$nim = $request->input('nim');   
 		$mahasiswa = RegisterMahasiswaModel::where('nim',$nim)
@@ -138,13 +138,13 @@ class UjianMunaqasahController extends Controller
 		);
 		
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'mahasiswa'=>$mahasiswa,
-								'daftar_persyaratan'=>$daftar_persyaratan,   
-								'iscomplete'=>$this->iscomplete(),                                                                                    
-								'isverified'=>$this->isverified(),                                                                                    
-								'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'mahasiswa' => $mahasiswa,
+								'daftar_persyaratan' => $daftar_persyaratan,   
+								'iscomplete' => $this->iscomplete(),                                                                                    
+								'isverified' => $this->isverified(),                                                                                    
+								'message' => 'Daftar persyaratan mahasiswa berhasil diperoleh' 
 							], 200);
 	}
 	public function detail (Request $request,$id)
@@ -171,10 +171,10 @@ class UjianMunaqasahController extends Controller
 							A.created_at,
 							A.updated_at
 						'))
-						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
-						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->join('pe3_dosen AS D','D.user_id','A.pembimbing_1')
-						->join('pe3_dosen AS E','E.user_id','A.pembimbing_2');
+						->join('pe3_register_mahasiswa AS B', 'B.user_id', 'A.user_id')
+						->join('pe3_formulir_pendaftaran AS C', 'C.user_id', 'A.user_id')
+						->join('pe3_dosen AS D', 'D.user_id', 'A.pembimbing_1')
+						->join('pe3_dosen AS E', 'E.user_id', 'A.pembimbing_2');
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -193,14 +193,14 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
 		{
 			$user_id = $ujian->user_id;
-			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')
 												->find($ujian->user_id);
 
 			$daftar_persyaratan = $this->persyaratan(
@@ -214,14 +214,14 @@ class UjianMunaqasahController extends Controller
 			);
 
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'fetchdata',
-										'ujian'=>$ujian,
-										'mahasiswa'=>$mahasiswa,
-										'daftar_persyaratan'=>$daftar_persyaratan, 
-										'iscomplete'=>$this->iscomplete(),                                                                                      
-										'isverified'=>$this->isverified(),                                                                                      
-										'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+										'status' => 1,
+										'pid' => 'fetchdata',
+										'ujian' => $ujian,
+										'mahasiswa' => $mahasiswa,
+										'daftar_persyaratan' => $daftar_persyaratan, 
+										'iscomplete' => $this->iscomplete(),                                                                                      
+										'isverified' => $this->isverified(),                                                                                      
+										'message' => 'Daftar persyaratan mahasiswa berhasil diperoleh' 
 									], 200);
 		}
 		
@@ -247,8 +247,8 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data Mahasiswa dengan nim ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -267,13 +267,13 @@ class UjianMunaqasahController extends Controller
 
 			
 			return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'mahasiswa'=>$mahasiswa,
-								'daftar_persyaratan'=>$daftar_persyaratan, 
-								'iscomplete'=>$this->iscomplete(),                                                                                      
-								'isverified'=>$this->isverified(),                                                                                      
-								'message'=>'Daftar persyaratan mahasiswa berhasil diperoleh' 
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'mahasiswa' => $mahasiswa,
+								'daftar_persyaratan' => $daftar_persyaratan, 
+								'iscomplete' => $this->iscomplete(),                                                                                      
+								'isverified' => $this->isverified(),                                                                                      
+								'message' => 'Daftar persyaratan mahasiswa berhasil diperoleh' 
 							], 200);
 		}        
 	}  
@@ -290,14 +290,14 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'store',    
-									'message'=>["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
+									'pid' => 'store',    
+									'message' => ["Data Persyaratan Ujian Munaqasah tidak ditemukan."]
 								], 422);    
 		}
 		else
 		{
 			$this->validate($request, [    
-				'filepersyaratan'=>'required'                        
+				'filepersyaratan' => 'required'                        
 			]);       
 			$foto = $request->file('filepersyaratan');
 			$mime_type=$foto->getMimeType();
@@ -311,17 +311,17 @@ class UjianMunaqasahController extends Controller
 				$foto->move($folder,$file_name);           
 				return Response()->json([
 											'status'=>0,
-											'pid'=>'store',
-											'persyaratan'=>$ujian_munaqasah->file,    
+											'pid' => 'store',
+											'persyaratan' => $ujian_munaqasah->file,    
 											'message'=>"Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
 										], 200);    
 			}
 			else
 			{
 				return Response()->json([
-										'status'=>1,
-										'pid'=>'store',
-										'message'=>["Extensi file yang diupload bukan jpg atau png."]
+										'status' => 1,
+										'pid' => 'store',
+										'message' => ["Extensi file yang diupload bukan jpg atau png."]
 									], 422);            
 
 			}
@@ -338,38 +338,38 @@ class UjianMunaqasahController extends Controller
 		}				
 		
 		$this->validate($request, [            
-			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',     
-			'judul_skripsi'=>'required',     
-			'abstrak'=>'required',     
-			'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
-			'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
-			'ta'=>'required',     
+			'user_id' => 'required|exists:pe3_register_mahasiswa,user_id',     
+			'judul_skripsi' => 'required',     
+			'abstrak' => 'required',     
+			'pembimbing_1' => 'required|exists:pe3_dosen,user_id',     
+			'pembimbing_2' => 'required|exists:pe3_dosen,user_id',     
+			'ta' => 'required',     
 		]);
 		
 		$mahasiswa = RegisterMahasiswaModel::find($request->input('user_id'));
 
 		$ujian = UjianMunaqasahModel::create([
 			'id'=>Uuid::uuid4()->toString(),
-			'user_id'=>$request->input('user_id'),
-			'judul_skripsi'=>$request->input('judul_skripsi'),
-			'abstrak'=>$request->input('abstrak'),
-			'pembimbing_1'=>$request->input('pembimbing_1'),
-			'pembimbing_2'=>$request->input('pembimbing_2'),
-			'prodi_id'=>$mahasiswa->kjur,
-			'ta'=>$request->input('ta')
+			'user_id' => $request->input('user_id'),
+			'judul_skripsi' => $request->input('judul_skripsi'),
+			'abstrak' => $request->input('abstrak'),
+			'pembimbing_1' => $request->input('pembimbing_1'),
+			'pembimbing_2' => $request->input('pembimbing_2'),
+			'prodi_id' => $mahasiswa->kjur,
+			'ta' => $request->input('ta')
 		]);
 
 		\DB::table('pe3_persyaratan_ujian_munaqasah')
 			->where('user_id', $request->input('user_id'))
 			->update([
-				'ujian_munaqasah_id'=>$ujian->id
+				'ujian_munaqasah_id' => $ujian->id
 			]);
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store', 
-									'ujian'=>$ujian,                                     
-									'message'=>'Data ujian munaqasah berhasil ditambahkan'
+									'status' => 1,
+									'pid' => 'store', 
+									'ujian' => $ujian,                                     
+									'message' => 'Data ujian munaqasah berhasil ditambahkan'
 								], 200);  
 	}
 	/**
@@ -397,17 +397,17 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else if ($ujian->status == 0)
 		{
 			$this->validate($request, [            
-				'judul_skripsi'=>'required',     
-				'abstrak'=>'required',     
-				'pembimbing_1'=>'required|exists:pe3_dosen,user_id',     
-				'pembimbing_2'=>'required|exists:pe3_dosen,user_id',     
+				'judul_skripsi' => 'required',     
+				'abstrak' => 'required',     
+				'pembimbing_1' => 'required|exists:pe3_dosen,user_id',     
+				'pembimbing_2' => 'required|exists:pe3_dosen,user_id',     
 			]);       
 			
 			$ujian->judul_skripsi = $request->input('judul_skripsi');
@@ -419,22 +419,22 @@ class UjianMunaqasahController extends Controller
 			\DB::table('pe3_persyaratan_ujian_munaqasah')
 				->where('user_id', $ujian->user_id)
 				->update([
-					'ujian_munaqasah_id'=>$ujian->id
+					'ujian_munaqasah_id' => $ujian->id
 				]);
 
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update', 
-										'ujian'=>$ujian,                                     
-										'message'=>'Data ujian munaqasah berhasil diubah'
+										'status' => 1,
+										'pid' => 'update', 
+										'ujian' => $ujian,                                     
+										'message' => 'Data ujian munaqasah berhasil diubah'
 									], 200);  
 		}
 		else 
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal diupdate karean sudah diverifikasi"]
+									'pid' => 'destroy',    
+									'message' => ["Ujian Munaqasah dengan ($id) gagal diupdate karean sudah diverifikasi"]
 								], 422); 
 		}
 	}
@@ -460,14 +460,14 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
 		{
 			$user_id = $ujian->user_id;
-			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran','pe3_register_mahasiswa.user_id','pe3_formulir_pendaftaran.user_id')
+			$mahasiswa = RegisterMahasiswaModel::join('pe3_formulir_pendaftaran', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')
 												->find($ujian->user_id);
 
 			$daftar_persyaratan = $this->persyaratan(
@@ -486,19 +486,19 @@ class UjianMunaqasahController extends Controller
 				$ujian->save();
 
 				return Response()->json([
-											'status'=>1,
-											'pid'=>'update', 
-											'ujian'=>$ujian,                                     
-											'message'=>'Data ujian munaqasah berhasil diubah'
+											'status' => 1,
+											'pid' => 'update', 
+											'ujian' => $ujian,                                     
+											'message' => 'Data ujian munaqasah berhasil diubah'
 										], 200);  
 			}
 			else
 			{
 				return Response()->json([
 											'status'=>0,
-											'pid'=>'update', 
-											'ujian'=>$ujian,                                     
-											'message'=>'Data ujian munaqasah berhasil diverifikasi karena item persyaratan ada yang belum diperiksa.'
+											'pid' => 'update', 
+											'ujian' => $ujian,                                     
+											'message' => 'Data ujian munaqasah berhasil diverifikasi karena item persyaratan ada yang belum diperiksa.'
 										], 422);  
 			}
 		}
@@ -519,8 +519,8 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data Persyaratan Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data Persyaratan Ujian Munaqasah dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -529,10 +529,10 @@ class UjianMunaqasahController extends Controller
 			$persyaratan->save();
 
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update', 
-										'persyaratan'=>$persyaratan,                                     
-										'message'=>'Data persyaratan ujian munaqasah berhasil diubah'
+										'status' => 1,
+										'pid' => 'update', 
+										'persyaratan' => $persyaratan,                                     
+										'message' => 'Data persyaratan ujian munaqasah berhasil diubah'
 									], 200);  
 		}
 	}
@@ -553,8 +553,8 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus"]
+									'pid' => 'destroy',    
+									'message' => ["Ujian Munaqasah dengan ($id) gagal dihapus"]
 								], 422); 
 		}
 		else if ($ujian->status == 0)
@@ -567,8 +567,8 @@ class UjianMunaqasahController extends Controller
 														]);
 			$ujian->delete();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',    
+										'status' => 1,
+										'pid' => 'destroy',    
 										'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
@@ -576,22 +576,22 @@ class UjianMunaqasahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["Ujian Munaqasah dengan ($id) gagal dihapus karean sudah diverifikasi"]
+									'pid' => 'destroy',    
+									'message' => ["Ujian Munaqasah dengan ($id) gagal dihapus karean sudah diverifikasi"]
 								], 422); 
 		}
 				  
 	}
 	private function persyaratan($daftar_persyaratan,$mahasiswa) 
 	{
-		$daftar_persyaratan->transform(function ($item,$key) use ($mahasiswa) {                
+		$daftar_persyaratan->transform(function ($item, $key) use ($mahasiswa) {                
 			switch($item->persyaratan_id) {
 				case '2021-ujian-munaqasah-1' : //Pembayaran Uang SPP
 					$this->persyaratan_verified[]=$item->status == 1;
 				break;
 				case '2021-ujian-munaqasah-2' : //Pembayaran Uang SKRIPSI
 					$detail1 = \DB::table('pe3_transaksi') 
-								->join('pe3_transaksi_detail', 'pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')
+								->join('pe3_transaksi_detail', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
 								->where('pe3_transaksi.user_id', $mahasiswa->user_id)   
 								->where('status', 1)
 								->where('kombi_id',601)
@@ -626,7 +626,7 @@ class UjianMunaqasahController extends Controller
 						$this->persyaratan_complete[]=true;
 						$this->persyaratan_verified[]=true;
 						$item->keterangan = \DB::table('pe3_krsmatkul') 
-											->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
+											->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_krsmatkul.penyelenggaraan_id')
 											->where('nim', $mahasiswa->nim)   
 											->where('matkul_id',$detail1->matkul_skripsi)
 											->exists() 

@@ -25,7 +25,7 @@ class SystemMigrationController extends Controller {
         $this->hasPermissionTo('SYSTEM-MIGRATION_BROWSE');
 
         $this->validate($request, [           
-            'ta'=>'required',
+            'ta' => 'required',
         ]);
         
         $ta=$request->input('ta');
@@ -34,21 +34,21 @@ class SystemMigrationController extends Controller {
         for ($tahun=$ta;$tahun < 2020; $tahun++)
         {
             $daftar_tasmt[]=[
-                'id'=>$tahun.'1',
-                'ta'=>$tahun.'/'.($tahun+1),
-                'semester'=>'GANJIL',
+                'id' => $tahun.'1',
+                'ta' => $tahun.'/'.($tahun+1),
+                'semester' => 'GANJIL',
             ];   
             $daftar_tasmt[]=[
-                'id'=>$tahun.'2',
-                'ta'=>$tahun.'/'.($tahun+1),
-                'semester'=>'GENAP',
+                'id' => $tahun.'2',
+                'ta' => $tahun.'/'.($tahun+1),
+                'semester' => 'GENAP',
             ];   
         }        
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'daftar_tasmt'=>$daftar_tasmt,
-                                'message'=>'Fetch data daftar tahun semester berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'daftar_tasmt' => $daftar_tasmt,
+                                'message' => 'Fetch data daftar tahun semester berhasil diperoleh'
                             ], 200); 
     }
     public function store(Request $request)
@@ -56,22 +56,22 @@ class SystemMigrationController extends Controller {
         $this->hasPermissionTo('SYSTEM-MIGRATION_STORE');
         
         $status_mhs=json_decode($request->input('status_mhs'), true);
-        $request->merge(['status_mhs'=>$status_mhs]);
+        $request->merge(['status_mhs' => $status_mhs]);
 
         $this->validate($request, [
-            'nim'=>'required|numeric|unique:pe3_register_mahasiswa,nim',        
-            'nirm'=>'required|numeric|unique:pe3_register_mahasiswa,nirm',
-            'nama_mhs'=>'required',
-            'dosen_id'=>[
+            'nim' => 'required|numeric|unique:pe3_register_mahasiswa,nim',        
+            'nirm' => 'required|numeric|unique:pe3_register_mahasiswa,nirm',
+            'nama_mhs' => 'required',
+            'dosen_id' => [
                 'required',
-                Rule::exists('pe3_dosen','user_id')->where(function($query) {
+                Rule::exists('pe3_dosen', 'user_id')->where(function($query) {
                     return $query->where('is_dw', 1);
                 })
             ],
-            'prodi_id'=>'required|numeric',
-            'idkelas'=>'required',
-            'tahun_pendaftaran'=>'required',
-            'status_mhs.*'=>'required',            
+            'prodi_id' => 'required|numeric',
+            'idkelas' => 'required',
+            'tahun_pendaftaran' => 'required',
+            'status_mhs.*' => 'required',            
         ]);
         
         $user = \DB::transaction(function () use ($request) {
@@ -81,62 +81,62 @@ class SystemMigrationController extends Controller {
             $ta=$request->input('tahun_pendaftaran');
             $nim=$request->input('nim');
             $user=User::create([
-                'id'=>$uuid,
-                'name'=>$request->input('nama_mhs'),
+                'id' => $uuid,
+                'name' => $request->input('nama_mhs'),
                 'email'=>"$uuid@staimutanjungpinang.ac.id",
                 'username'=> $nim,
                 'password'=>Hash::make('12345678'),
                 'nomor_hp'=>"+62$no_hp",
-                'ta'=>$ta,
-                'email_verified_at'=>'',
-                'theme'=>'default',  
+                'ta' => $ta,
+                'email_verified_at' => '',
+                'theme' => 'default',  
                 'code'=>0,     
-                'default_role'=>'mahasiswa',     
-                'active'=>1,         
-                'foto'=>'/images/users/no_photo.png', 
-                'created_at'=>$now, 
-                'updated_at'=>$now
+                'default_role' => 'mahasiswa',     
+                'active' => 1,         
+                'foto' => '/images/users/no_photo.png', 
+                'created_at' => $now, 
+                'updated_at' => $now
             ]);    
             DataMHSMigrationModel::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$user->id,
-                'nim'=>$nim,
-                'nama_mhs'=>$request->input('nama_mhs'),  
+                'user_id' => $user->id,
+                'nim' => $nim,
+                'nama_mhs' => $request->input('nama_mhs'),  
                 'aktivitas'=>"Input data ke user berhasil dengan username ($nim)",  
-                'tahun'=>$ta,
-                'idsmt'=>1
+                'tahun' => $ta,
+                'idsmt' => 1
             ]);
             $no_formulir='1'.mt_rand();
             $formulir=FormulirPendaftaranModel::create([
-                'user_id'=>$user->id,
-                'no_formulir'=>$no_formulir,
-                'nama_mhs'=>$request->input('nama_mhs'),    
-                'telp_hp'=>$request->input('nomor_hp'),
-                'kjur1'=>$request->input('prodi_id'),
-                'ta'=>$ta,
-                'idsmt'=>1,
-                'idkelas'=>$request->input('idkelas'),
+                'user_id' => $user->id,
+                'no_formulir' => $no_formulir,
+                'nama_mhs' => $request->input('nama_mhs'),    
+                'telp_hp' => $request->input('nomor_hp'),
+                'kjur1' => $request->input('prodi_id'),
+                'ta' => $ta,
+                'idsmt' => 1,
+                'idkelas' => $request->input('idkelas'),
             ]);
             DataMHSMigrationModel::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$user->id,
-                'nim'=>$nim,
-                'nama_mhs'=>$request->input('nama_mhs'),  
+                'user_id' => $user->id,
+                'nim' => $nim,
+                'nama_mhs' => $request->input('nama_mhs'),  
                 'aktivitas'=>"Input data ke formulir pendaftaran berhasil dengan nomor formulir ($no_formulir)",  
-                'tahun'=>$ta,
-                'idsmt'=>1
+                'tahun' => $ta,
+                'idsmt' => 1
             ]);
             $mahasiswa=RegisterMahasiswaModel::create([
-                'user_id'=>$user->id,
-                'dosen_id'=>$request->input('dosen_id'),
+                'user_id' => $user->id,
+                'dosen_id' => $request->input('dosen_id'),
                 'konsentrasi_id'=>null,
-                'nim'=>$nim,
-                'nirm'=>$request->input('nirm'),
-                'tahun'=>$formulir->ta,
-                'idsmt'=>$formulir->idsmt,
-                'kjur'=>$formulir->kjur1,
-                'k_status'=>'A',
-                'idkelas'=>$formulir->idkelas,
+                'nim' => $nim,
+                'nirm' => $request->input('nirm'),
+                'tahun' => $formulir->ta,
+                'idsmt' => $formulir->idsmt,
+                'kjur' => $formulir->kjur1,
+                'k_status' => 'A',
+                'idkelas' => $formulir->idkelas,
             ]);
             
             $role='mahasiswa';   
@@ -146,12 +146,12 @@ class SystemMigrationController extends Controller {
             
             DataMHSMigrationModel::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$user->id,
-                'nim'=>$nim,
-                'nama_mhs'=>$request->input('nama_mhs'),  
+                'user_id' => $user->id,
+                'nim' => $nim,
+                'nama_mhs' => $request->input('nama_mhs'),  
                 'aktivitas'=>"Input data ke register mahasiswa berhasil.",  
-                'tahun'=>$ta,
-                'idsmt'=>1
+                'tahun' => $ta,
+                'idsmt' => 1
             ]);
             $status_mhs=$request->input('status_mhs');       
             $i=0;
@@ -162,46 +162,46 @@ class SystemMigrationController extends Controller {
                     $status_sebelumnya = $i > 0 ? $status_mhs[$i-1]:$status_mhs[$i];
                     DulangModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$user->id,
-                        'nim'=>$mahasiswa->nim,
-                        'tahun'=>$tahun,
-                        'idsmt'=>1,
-                        'tasmt'=>$tahun.'1',
-                        'idkelas'=>$formulir->idkelas,
-                        'status_sebelumnya'=>$status_sebelumnya,
-                        'k_status'=>$status_mhs[$i],
+                        'user_id' => $user->id,
+                        'nim' => $mahasiswa->nim,
+                        'tahun' => $tahun,
+                        'idsmt' => 1,
+                        'tasmt' => $tahun.'1',
+                        'idkelas' => $formulir->idkelas,
+                        'status_sebelumnya' => $status_sebelumnya,
+                        'k_status' => $status_mhs[$i],
                     ]);
                     
                     DataMHSMigrationModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$user->id,
-                        'nim'=>$nim,
-                        'nama_mhs'=>$request->input('nama_mhs'),  
+                        'user_id' => $user->id,
+                        'nim' => $nim,
+                        'nama_mhs' => $request->input('nama_mhs'),  
                         'aktivitas'=>"Input data ke daftar ulang tahun ".$tahun."1 berhasil dengan status ".$status_mhs[$i],  
-                        'tahun'=>$ta,
-                        'idsmt'=>1
+                        'tahun' => $ta,
+                        'idsmt' => 1
                     ]);
                     $i+=1;               
                     DulangModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$user->id,
-                        'nim'=>$mahasiswa->nim,
-                        'tahun'=>$tahun,
+                        'user_id' => $user->id,
+                        'nim' => $mahasiswa->nim,
+                        'tahun' => $tahun,
                         'idsmt'=>2,
-                        'tasmt'=>$tahun.'2',
-                        'idkelas'=>$formulir->idkelas,
-                        'status_sebelumnya'=>$status_mhs[$i-1],
-                        'k_status'=>$status_mhs[$i],
+                        'tasmt' => $tahun.'2',
+                        'idkelas' => $formulir->idkelas,
+                        'status_sebelumnya' => $status_mhs[$i-1],
+                        'k_status' => $status_mhs[$i],
                     ]);
                     
                     DataMHSMigrationModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$user->id,
-                        'nim'=>$nim,
-                        'nama_mhs'=>$request->input('nama_mhs'),  
+                        'user_id' => $user->id,
+                        'nim' => $nim,
+                        'nama_mhs' => $request->input('nama_mhs'),  
                         'aktivitas'=>"Input data ke daftar ulang tahun ".$tahun."2 berhasil dengan status ".$status_mhs[$i],  
-                        'tahun'=>$ta,
-                        'idsmt'=>1
+                        'tahun' => $ta,
+                        'idsmt' => 1
                     ]);
                     $i+=1;
                 }      
@@ -209,10 +209,10 @@ class SystemMigrationController extends Controller {
             return $user;
         });   
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'store',
-                                'user'=>$user,
-                                'message'=>'Proses migrasi mahasiswa ini berhasil dilakukan, silahkan cek dimasing-masing halaman'
+                                'status' => 1,
+                                'pid' => 'store',
+                                'user' => $user,
+                                'message' => 'Proses migrasi mahasiswa ini berhasil dilakukan, silahkan cek dimasing-masing halaman'
                             ], 200);
     }
 
@@ -221,8 +221,8 @@ class SystemMigrationController extends Controller {
         $this->hasPermissionTo('SYSTEM-MIGRATION_STORE');
 
         $this->validate($request, [
-            'ta_matkul'=>'required|numeric', 
-            'prodi_id'=>'required|numeric',       
+            'ta_matkul' => 'required|numeric', 
+            'prodi_id' => 'required|numeric',       
         ]);
 
         $ta_matkul=$request->input('ta_matkul');
@@ -231,8 +231,8 @@ class SystemMigrationController extends Controller {
         $daftar_matkul=\DB::table('pe3_matakuliah')
                         ->where('ta',$ta_matkul)
                         ->where('kjur',$prodi_id) 
-                        // ->where('kmatkul','like','%ESY 3103%')
-                        ->orderBy('semester','asc')
+                        // ->where('kmatkul', 'like', '%ESY 3103%')
+                        ->orderBy('semester', 'asc')
                         ->get();
 
         foreach($daftar_matkul as $v)
@@ -243,11 +243,11 @@ class SystemMigrationController extends Controller {
             
 
             $jumlah_row=\DB::table('pe3_penyelenggaraan')
-                        ->where('nmatkul','like','%'.$v->nmatkul.'%')
-                        ->where('kmatkul','like','%'.$v->kmatkul.'%')
+                        ->where('nmatkul', 'like', '%'.$v->nmatkul.'%')
+                        ->where('kmatkul', 'like', '%'.$v->kmatkul.'%')
                         ->where('kjur',$prodi_id)
                         ->update([
-                            'matkul_id'=>$v->id,
+                            'matkul_id' => $v->id,
                             'ta_matkul'=>2020
                         ]);
                         

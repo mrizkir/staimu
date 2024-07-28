@@ -23,9 +23,9 @@ class NilaiMatakuliahController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_BROWSE');
 
 		$this->validate($request, [
-			'ta'=>'required',
-			'semester_akademik'=>'required',
-			'prodi_id'=>'required'
+			'ta' => 'required',
+			'semester_akademik' => 'required',
+			'prodi_id' => 'required'
 		]);
 
 		$ta=$request->input('ta');
@@ -35,10 +35,10 @@ class NilaiMatakuliahController extends Controller
 		$daftar_nilai=[];
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'daftar_nilai'=>$daftar_nilai,
-									'message'=>'Fetch data penyelenggaraan matakuliah berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'daftar_nilai' => $daftar_nilai,
+									'message' => 'Fetch data penyelenggaraan matakuliah berhasil.'
 								], 200); 
 	}
 	public function pesertakelas (Request $request,$id)
@@ -49,8 +49,8 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -74,19 +74,19 @@ class NilaiMatakuliahController extends Controller
 										pe3_nilai_matakuliah.created_at,
 										pe3_nilai_matakuliah.updated_at
 									'))
-									->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
-									->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-									->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
-									->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_kelas_mhs_peserta.krsmatkul_id')
+									->join('pe3_krsmatkul', 'pe3_krsmatkul.id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
+									->join('pe3_krs', 'pe3_krs.id', 'pe3_krsmatkul.krs_id')
+									->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_krs.user_id')
+									->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_register_mahasiswa.user_id')
+									->leftJoin('pe3_nilai_matakuliah', 'pe3_nilai_matakuliah.krsmatkul_id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
 									->where('pe3_kelas_mhs_peserta.kelas_mhs_id',$id)
 									->where('pe3_krsmatkul.batal', 0)
 									->orderBy('pe3_formulir_pendaftaran.nama_mhs', 'ASC')
 									->get();
 			return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',                    
-								'peserta'=>$peserta,
+								'status' => 1,
+								'pid' => 'fetchdata',                    
+								'peserta' => $peserta,
 								'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
@@ -110,7 +110,7 @@ class NilaiMatakuliahController extends Controller
 						pe3_krs.created_at,
 						pe3_krs.updated_at
 					'))
-					->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
+					->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_krs.user_id')
 					->find($id);
 
 		$daftar_matkul=[];
@@ -119,8 +119,8 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["KRS dengan ($id) gagal diperoleh"]
+									'pid' => 'destroy',    
+									'message' => ["KRS dengan ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
@@ -138,26 +138,26 @@ class NilaiMatakuliahController extends Controller
 											pe3_nilai_matakuliah.created_at,
 											pe3_nilai_matakuliah.updated_at
 										'))
-										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
-										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
+										->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_krsmatkul.penyelenggaraan_id')
+										->leftJoin('pe3_kelas_mhs_peserta', 'pe3_kelas_mhs_peserta.krsmatkul_id', 'pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs', 'pe3_kelas_mhs.id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_nilai_matakuliah', 'pe3_nilai_matakuliah.krsmatkul_id', 'pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.krs_id',$krs->id)
 										->where('pe3_krsmatkul.batal', 0)
-										->orderBy('semester','asc')
-										->orderBy('kmatkul','asc')
+										->orderBy('semester', 'asc')
+										->orderBy('kmatkul', 'asc')
 										->get();
 			
 		}
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'krs'=>$krs,
-									'krsmatkul'=>$daftar_matkul,
-									'jumlah_matkul'=>$daftar_matkul->count(),
-									'jumlah_sks'=>$daftar_matkul->sum('sks'),
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'krs' => $krs,
+									'krsmatkul' => $daftar_matkul,
+									'jumlah_matkul' => $daftar_matkul->count(),
+									'jumlah_sks' => $daftar_matkul->sum('sks'),
 									'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
-									'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
+									'message' => 'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
 								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 	}
 	public function storeperdosen(Request $request)
@@ -165,11 +165,11 @@ class NilaiMatakuliahController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
 
 		$daftar_nilai=json_decode($request->input('daftar_nilai'), true);
-		$request->merge(['daftar_nilai'=>$daftar_nilai]);   
+		$request->merge(['daftar_nilai' => $daftar_nilai]);   
 
 		$this->validate($request, [      
-			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-			'daftar_nilai'=>'required',
+			'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+			'daftar_nilai' => 'required',
 		]);
 		$jumlah_matkul=0;
 		foreach ($daftar_nilai as $v)
@@ -200,12 +200,12 @@ class NilaiMatakuliahController extends Controller
 											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
 											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas								
 										'))
-										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')										
-										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
-										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
+										->join('pe3_krs', 'pe3_krs.id', 'pe3_krsmatkul.krs_id')
+										->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_krsmatkul.penyelenggaraan_id')										
+										->leftJoin('pe3_kelas_mhs_peserta', 'pe3_kelas_mhs_peserta.krsmatkul_id', 'pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs', 'pe3_kelas_mhs.id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_kelas_mhs_penyelenggaraan', 'pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_nilai_matakuliah', 'pe3_nilai_matakuliah.krsmatkul_id', 'pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
 										->where('pe3_krsmatkul.batal', 0)
 										->first();
@@ -213,28 +213,28 @@ class NilaiMatakuliahController extends Controller
 					
 					$nilai=NilaiMatakuliahModel::create([
 						'id'=>Uuid::uuid4()->toString(),
-						'krsmatkul_id'=>$krsmatkul_id,
-						'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
-						'penyelenggaraan_dosen_id'=>$krsmatkul->penyelenggaraan_dosen_id,
-						'kelas_mhs_id'=>$krsmatkul->kelas_mhs_id, 
-						'user_id_mhs'=>$krsmatkul->user_id, 
-						'user_id_created'=>$this->getUserid(), 
-						'user_id_updated'=>$this->getUserid(),
-						'krs_id'=>$krsmatkul->krs_id,
+						'krsmatkul_id' => $krsmatkul_id,
+						'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
+						'penyelenggaraan_dosen_id' => $krsmatkul->penyelenggaraan_dosen_id,
+						'kelas_mhs_id' => $krsmatkul->kelas_mhs_id, 
+						'user_id_mhs' => $krsmatkul->user_id, 
+						'user_id_created' => $this->getUserid(), 
+						'user_id_updated' => $this->getUserid(),
+						'krs_id' => $krsmatkul->krs_id,
 						
-						'persentase_absen'=>$krsmatkul->persen_absen,
-						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
-						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
-						'persentase_quiz'=>$krsmatkul->persen_quiz,
-						'persentase_uts'=>$krsmatkul->persen_uts,
-						'persentase_uas'=>$krsmatkul->persen_uas,
+						'persentase_absen' => $krsmatkul->persen_absen,
+						'persentase_tugas_individu' => $krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok' => $krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz' => $krsmatkul->persen_quiz,
+						'persentase_uts' => $krsmatkul->persen_uts,
+						'persentase_uas' => $krsmatkul->persen_uas,
 
-						'nilai_absen'=>$nilai_absen,  
-						'nilai_tugas_individu'=>$nilai_tugas_individu,
-						'nilai_uts'=>$nilai_uts,
-						'nilai_uas'=>$nilai_uas,
-						'n_kuan'=>$n_kuan,
-						'n_kual'=>$n_kual,
+						'nilai_absen' => $nilai_absen,  
+						'nilai_tugas_individu' => $nilai_tugas_individu,
+						'nilai_uts' => $nilai_uts,
+						'nilai_uas' => $nilai_uas,
+						'n_kuan' => $n_kuan,
+						'n_kual' => $n_kual,
 						'n_mutu'=>\App\Helpers\HelperAkademik::getNilaiMutu($n_kual),
 						'bydosen'=>true,
 						'created_at'=>\Carbon\Carbon::now(),
@@ -277,9 +277,9 @@ class NilaiMatakuliahController extends Controller
 			}
 		}
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store', 
-									'daftar_nilai'=>$daftar_nilai,
+									'status' => 1,
+									'pid' => 'store', 
+									'daftar_nilai' => $daftar_nilai,
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
@@ -288,11 +288,11 @@ class NilaiMatakuliahController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
 
 		$daftar_nilai=json_decode($request->input('daftar_nilai'), true);
-		$request->merge(['daftar_nilai'=>$daftar_nilai]);
+		$request->merge(['daftar_nilai' => $daftar_nilai]);
 
 		$this->validate($request, [      
-			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-			'daftar_nilai'=>'required',
+			'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+			'daftar_nilai' => 'required',
 		]);
 		$kelas_mhs_id = $request->input('kelas_mhs_id');
 
@@ -321,12 +321,12 @@ class NilaiMatakuliahController extends Controller
 											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
 											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas
 										'))
-										->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
-										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
+										->join('pe3_krs', 'pe3_krs.id', 'pe3_krsmatkul.krs_id')
+										->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_krsmatkul.penyelenggaraan_id')
+										->leftJoin('pe3_kelas_mhs_peserta', 'pe3_kelas_mhs_peserta.krsmatkul_id', 'pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs', 'pe3_kelas_mhs.id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_kelas_mhs_penyelenggaraan', 'pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_nilai_matakuliah', 'pe3_nilai_matakuliah.krsmatkul_id', 'pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
 										->where('pe3_krsmatkul.batal', 0)
 										->first();
@@ -334,28 +334,28 @@ class NilaiMatakuliahController extends Controller
 					
 					$nilai=NilaiMatakuliahModel::create([
 						'id'=>Uuid::uuid4()->toString(),
-						'krsmatkul_id'=>$krsmatkul_id,
-						'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
-						'penyelenggaraan_dosen_id'=>$krsmatkul->penyelenggaraan_dosen_id,
-						'kelas_mhs_id'=>$krsmatkul->kelas_mhs_id, 
-						'user_id_mhs'=>$krsmatkul->user_id, 
-						'user_id_created'=>$this->getUserid(), 
-						'user_id_updated'=>$this->getUserid(),
-						'krs_id'=>$krsmatkul->krs_id,
+						'krsmatkul_id' => $krsmatkul_id,
+						'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
+						'penyelenggaraan_dosen_id' => $krsmatkul->penyelenggaraan_dosen_id,
+						'kelas_mhs_id' => $krsmatkul->kelas_mhs_id, 
+						'user_id_mhs' => $krsmatkul->user_id, 
+						'user_id_created' => $this->getUserid(), 
+						'user_id_updated' => $this->getUserid(),
+						'krs_id' => $krsmatkul->krs_id,
 						
-						'persentase_absen'=>$krsmatkul->persen_absen,
-						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
-						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
-						'persentase_quiz'=>$krsmatkul->persen_quiz,
-						'persentase_uts'=>$krsmatkul->persen_uts,
-						'persentase_uas'=>$krsmatkul->persen_uas,
+						'persentase_absen' => $krsmatkul->persen_absen,
+						'persentase_tugas_individu' => $krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok' => $krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz' => $krsmatkul->persen_quiz,
+						'persentase_uts' => $krsmatkul->persen_uts,
+						'persentase_uas' => $krsmatkul->persen_uas,
 
 						'nilai_absen'=>0,
 						'nilai_tugas_individu'=>0,
 						'nilai_uts'=>0,
 						'nilai_uas'=>0,
-						'n_kuan'=>$n_kuan,
-						'n_kual'=>$n_kual,
+						'n_kuan' => $n_kuan,
+						'n_kual' => $n_kual,
 						'n_mutu'=>\App\Helpers\HelperAkademik::getNilaiMutu($n_kual),
 						'created_at'=>\Carbon\Carbon::now(),
 						'updated_at'=>\Carbon\Carbon::now()
@@ -390,9 +390,9 @@ class NilaiMatakuliahController extends Controller
 			}
 		}
 		return Response()->json([
-			'status'=>1,
-			'pid'=>'store', 
-			'daftar_nilai'=>$daftar_nilai,
+			'status' => 1,
+			'pid' => 'store', 
+			'daftar_nilai' => $daftar_nilai,
 			'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 		], 200);
 	}
@@ -401,11 +401,11 @@ class NilaiMatakuliahController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
 		
 		$daftar_nilai=json_decode($request->input('daftar_nilai'), true);
-		$request->merge(['daftar_nilai'=>$daftar_nilai]);
+		$request->merge(['daftar_nilai' => $daftar_nilai]);
 
 		$this->validate($request, [      
-			'krs_id'=>'required|exists:pe3_krs,id',
-			'daftar_nilai'=>'required',
+			'krs_id' => 'required|exists:pe3_krs,id',
+			'daftar_nilai' => 'required',
 		]);
 		$krs_id=$request->input('krs_id');
 		
@@ -435,11 +435,11 @@ class NilaiMatakuliahController extends Controller
 											COALESCE(pe3_kelas_mhs.persen_uts,0) AS persen_uts,
 											COALESCE(pe3_kelas_mhs.persen_uas,0) AS persen_uas
 										'))
-										->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_krsmatkul.penyelenggaraan_id')
-										->leftJoin('pe3_kelas_mhs_peserta','pe3_kelas_mhs_peserta.krsmatkul_id','pe3_krsmatkul.id')
-										->leftJoin('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_kelas_mhs_penyelenggaraan','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id','pe3_kelas_mhs_peserta.kelas_mhs_id')
-										->leftJoin('pe3_nilai_matakuliah','pe3_nilai_matakuliah.krsmatkul_id','pe3_krsmatkul.id')
+										->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_krsmatkul.penyelenggaraan_id')
+										->leftJoin('pe3_kelas_mhs_peserta', 'pe3_kelas_mhs_peserta.krsmatkul_id', 'pe3_krsmatkul.id')
+										->leftJoin('pe3_kelas_mhs', 'pe3_kelas_mhs.id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_kelas_mhs_penyelenggaraan', 'pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id', 'pe3_kelas_mhs_peserta.kelas_mhs_id')
+										->leftJoin('pe3_nilai_matakuliah', 'pe3_nilai_matakuliah.krsmatkul_id', 'pe3_krsmatkul.id')
 										->where('pe3_krsmatkul.id',$krsmatkul_id)  
 										->where('pe3_krsmatkul.batal', 0)
 										->first();
@@ -447,28 +447,28 @@ class NilaiMatakuliahController extends Controller
 					
 					$nilai=NilaiMatakuliahModel::create([
 						'id'=>Uuid::uuid4()->toString(),
-						'krsmatkul_id'=>$krsmatkul_id,
-						'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
-						'penyelenggaraan_dosen_id'=>$krsmatkul->penyelenggaraan_dosen_id,
-						'kelas_mhs_id'=>$krsmatkul->kelas_mhs_id, 
-						'user_id_mhs'=>$krs->user_id, 
-						'user_id_created'=>$this->getUserid(), 
-						'user_id_updated'=>$this->getUserid(),
-						'krs_id'=>$krs_id,
+						'krsmatkul_id' => $krsmatkul_id,
+						'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
+						'penyelenggaraan_dosen_id' => $krsmatkul->penyelenggaraan_dosen_id,
+						'kelas_mhs_id' => $krsmatkul->kelas_mhs_id, 
+						'user_id_mhs' => $krs->user_id, 
+						'user_id_created' => $this->getUserid(), 
+						'user_id_updated' => $this->getUserid(),
+						'krs_id' => $krs_id,
 						
-						'persentase_absen'=>$krsmatkul->persen_absen,
-						'persentase_tugas_individu'=>$krsmatkul->persen_tugas_individu,
-						'persentase_tugas_kelompok'=>$krsmatkul->persen_tugas_kelompok,
-						'persentase_quiz'=>$krsmatkul->persen_quiz,
-						'persentase_uts'=>$krsmatkul->persen_uts,
-						'persentase_uas'=>$krsmatkul->persen_uas,
+						'persentase_absen' => $krsmatkul->persen_absen,
+						'persentase_tugas_individu' => $krsmatkul->persen_tugas_individu,
+						'persentase_tugas_kelompok' => $krsmatkul->persen_tugas_kelompok,
+						'persentase_quiz' => $krsmatkul->persen_quiz,
+						'persentase_uts' => $krsmatkul->persen_uts,
+						'persentase_uas' => $krsmatkul->persen_uas,
 
 						'nilai_absen'=>0,
 						'nilai_tugas_individu'=>0,
 						'nilai_uts'=>0,
 						'nilai_uas'=>0,
-						'n_kuan'=>$n_kuan,
-						'n_kual'=>$n_kual,
+						'n_kuan' => $n_kuan,
+						'n_kual' => $n_kual,
 						'n_mutu'=>\App\Helpers\HelperAkademik::getNilaiMutu($n_kual),
 						'created_at'=>\Carbon\Carbon::now(),
 						'updated_at'=>\Carbon\Carbon::now()
@@ -503,9 +503,9 @@ class NilaiMatakuliahController extends Controller
 			}
 		}       
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store', 
-									'daftar_nilai'=>$daftar_nilai,
+									'status' => 1,
+									'pid' => 'store', 
+									'daftar_nilai' => $daftar_nilai,
 									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
@@ -514,8 +514,8 @@ class NilaiMatakuliahController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-MATAKULIAH_STORE');
 
 		$this->validate($request, [
-			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-			'file_nilai'=>'required',
+			'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+			'file_nilai' => 'required',
 		]);
 		
 		$kelas_mhs=PembagianKelasModel::select(\DB::raw('
@@ -533,8 +533,8 @@ class NilaiMatakuliahController extends Controller
 								persen_uts,
 								persen_uas
 							'))
-							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')							
-							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')							
+							->leftJoin('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $request->input('kelas_mhs_id'))
 							->first();
 		
@@ -582,36 +582,36 @@ class NilaiMatakuliahController extends Controller
 						$n_kual = \App\Helpers\HelperAkademik::getNilaiHuruf($n_kuan);
 					}
 					$daftar_nilai[] = [
-						'no'=>$v[0],
-						'krsmatkul_id'=>$v[1],
-						'nim'=>$v[2],
-						'nama_mhs'=>$v[3],
-						'nilai_absen'=>$v[4],
-						'nilai_tugas_individu'=>$v[5],
-						'nilai_uts'=>$v[6],
-						'nilai_uas'=>$v[7],
-						// 'nilai_absen'=>$nilai_absen,
-						// 'nilai_tugas_individu'=>$nilai_tugas_individu,
-						// 'nilai_uts'=>$nilai_uts,
-						// 'nilai_uas'=>$nilai_uas,
-						'n_kuan'=>$n_kuan,
-						'n_kual'=>$n_kual,
+						'no' => $v[0],
+						'krsmatkul_id' => $v[1],
+						'nim' => $v[2],
+						'nama_mhs' => $v[3],
+						'nilai_absen' => $v[4],
+						'nilai_tugas_individu' => $v[5],
+						'nilai_uts' => $v[6],
+						'nilai_uas' => $v[7],
+						// 'nilai_absen' => $nilai_absen,
+						// 'nilai_tugas_individu' => $nilai_tugas_individu,
+						// 'nilai_uts' => $nilai_uts,
+						// 'nilai_uas' => $nilai_uas,
+						'n_kuan' => $n_kuan,
+						'n_kual' => $n_kual,
 					];
 				}
 			} 
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'store', 
-									'daftar_nilai'=>$daftar_nilai,
+									'status' => 1,
+									'pid' => 'store', 
+									'daftar_nilai' => $daftar_nilai,
 									'message'=>"Nilai Mahasiswa berhasil di impor" 
 								], 200);
 		}
 		else
 		{
 			return Response()->json([
-																'status'=>1,
-																'pid'=>'store',
-																'message'=>["Extensi file yang diupload bukan csv tetapi $mime_type."]
+																'status' => 1,
+																'pid' => 'store',
+																'message' => ["Extensi file yang diupload bukan csv tetapi $mime_type."]
 														], 422); 
 		}		
 	}
@@ -639,9 +639,9 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.tahun,							
 								pe3_kelas_mhs.idsmt
 							'))
-							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
-							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+							->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->where('pe3_kelas_mhs.user_id', $this->getUserid())
 							->first(); 
@@ -666,9 +666,9 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.tahun,							
 								pe3_kelas_mhs.idsmt
 							'))
-							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
-							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+							->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->first(); 
 		}
@@ -677,8 +677,8 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',
-									'message'=>["Kelas Dosen dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',
+									'message' => ["Kelas Dosen dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else
@@ -715,9 +715,9 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.tahun,							
 								pe3_kelas_mhs.idsmt
 							'))
-							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
-							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+							->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->where('pe3_kelas_mhs.user_id', $this->getUserid())
 							->first(); 
@@ -742,9 +742,9 @@ class NilaiMatakuliahController extends Controller
 								pe3_kelas_mhs.tahun,							
 								pe3_kelas_mhs.idsmt
 							'))
-							->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-							->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')   
-							->leftJoin('pe3_jabatan_akademik','pe3_jabatan_akademik.id_jabatan','pe3_dosen.id_jabatan')   
+							->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+							->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')   
+							->leftJoin('pe3_jabatan_akademik', 'pe3_jabatan_akademik.id_jabatan', 'pe3_dosen.id_jabatan')   
 							->where('pe3_kelas_mhs.id', $id)
 							->first(); 
 		}
@@ -753,8 +753,8 @@ class NilaiMatakuliahController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',
-									'message'=>["Kelas Dosen dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',
+									'message' => ["Kelas Dosen dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else

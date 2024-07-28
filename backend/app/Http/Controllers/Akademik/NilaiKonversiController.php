@@ -36,8 +36,8 @@ class NilaiKonversiController  extends Controller
         else
         {
             $this->validate($request, [           
-                'ta'=>'required',
-                'prodi_id'=>'required'
+                'ta' => 'required',
+                'prodi_id' => 'required'
             ]);
 
             $ta=$request->input('ta');
@@ -50,34 +50,34 @@ class NilaiKonversiController  extends Controller
                                             '))
                                             ->where('kjur',$prodi_id)
                                             ->where('tahun',$ta)
-                                            ->orderBy('nama_mhs','asc')
+                                            ->orderBy('nama_mhs', 'asc')
                                             ->get();               
             
         }
-        $data->transform(function ($item,$key) {    
+        $data->transform(function ($item, $key) {    
 
             $item->jumlah_matkul=\DB::table('pe3_nilai_konversi2')
                                     ->where('nilai_konversi_id',$item->id)
                                     ->count();
 
             $item->jumlah_sks=\DB::table('pe3_nilai_konversi2')
-                                    ->join('pe3_matakuliah','pe3_matakuliah.id','pe3_nilai_konversi2.matkul_id')
+                                    ->join('pe3_matakuliah', 'pe3_matakuliah.id', 'pe3_nilai_konversi2.matkul_id')
                                     ->where('nilai_konversi_id',$item->id)
                                     ->sum('sks');
             return $item;
         });
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',  
-                                'mahasiswa'=>$data,
-                                'message'=>'Fetch data daftar mahasiswa pindahan/ampulan berhasil.'
+                                'status' => 1,
+                                'pid' => 'fetchdata',  
+                                'mahasiswa' => $data,
+                                'message' => 'Fetch data daftar mahasiswa pindahan/ampulan berhasil.'
                             ], 200);
     }
     public function matakuliah(Request $request)
     {
         $this->validate($request, [           
-            'ta'=>'required',
-            'prodi_id'=>'required'
+            'ta' => 'required',
+            'prodi_id' => 'required'
         ]);
         
         $ta=$request->input('ta');
@@ -101,15 +101,15 @@ class NilaiKonversiController  extends Controller
                                 '))       
                                 ->where('kjur',$prodi_id)
                                 ->where('ta',$ta)   
-                                ->orderBy('semester','ASC')
-                                ->orderBy('kmatkul','ASC')
+                                ->orderBy('semester', 'ASC')
+                                ->orderBy('kmatkul', 'ASC')
                                 ->get();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'matakuliah'=>$matakuliah,
-                                    'message'=>'Fetch data matakuliah berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'matakuliah' => $matakuliah,
+                                    'message' => 'Fetch data matakuliah berhasil.'
                                 ], 200);    
     }
     public function store(Request $request)
@@ -117,19 +117,19 @@ class NilaiKonversiController  extends Controller
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_STORE');
 
         $this->validate($request, [      
-            'nim_asal'=>'required',     
-            'nama_mhs'=>'required',     
-            'alamat'=>'required',     
-            'no_telp'=>'required',     
-            'email'=>'required|email',     
-            'kode_jenjang'=>'required',     
-            'kode_pt_asal'=>'required',     
-            'nama_pt_asal'=>'required',     
-            'kode_ps_asal'=>'required',     
-            'nama_ps_asal'=>'required',     
-            'tahun'=>'required',     
-            'kjur'=>'required|exists:pe3_prodi,id',      
-            'daftar_nilai'=>'required',
+            'nim_asal' => 'required',     
+            'nama_mhs' => 'required',     
+            'alamat' => 'required',     
+            'no_telp' => 'required',     
+            'email' => 'required|email',     
+            'kode_jenjang' => 'required',     
+            'kode_pt_asal' => 'required',     
+            'nama_pt_asal' => 'required',     
+            'kode_ps_asal' => 'required',     
+            'nama_ps_asal' => 'required',     
+            'tahun' => 'required',     
+            'kjur' => 'required|exists:pe3_prodi,id',      
+            'daftar_nilai' => 'required',
         ]);
         $data_konversi=\DB::transaction(function () use ($request) {
             $data_konversi=NilaiKonversi1Model::create([
@@ -144,8 +144,8 @@ class NilaiKonversiController  extends Controller
                 'nama_pt_asal'=>addslashes(trim($request->input('nama_pt_asal'))),     
                 'kode_ps_asal'=>addslashes(trim($request->input('kode_ps_asal'))),     
                 'nama_ps_asal'=>addslashes(trim($request->input('nama_ps_asal'))),     
-                'tahun'=>$request->input('tahun'),     
-                'kjur'=>$request->input('kjur'),  
+                'tahun' => $request->input('tahun'),     
+                'kjur' => $request->input('kjur'),  
             ]);
 
             $nilai_konversi_id=$data_konversi->id;
@@ -164,27 +164,27 @@ class NilaiKonversiController  extends Controller
                 {
                     $nilai=NilaiKonversi2Model::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'nilai_konversi_id'=>$nilai_konversi_id,
-                        'matkul_id'=>$matkul_id,
-                        'kmatkul_asal'=>$kmatkul_asal,
-                        'matkul_asal'=>$matkul_asal,
-                        'sks_asal'=>$sks_asal,
-                        'n_kual'=>$n_kual,            
+                        'nilai_konversi_id' => $nilai_konversi_id,
+                        'matkul_id' => $matkul_id,
+                        'kmatkul_asal' => $kmatkul_asal,
+                        'matkul_asal' => $matkul_asal,
+                        'sks_asal' => $sks_asal,
+                        'n_kual' => $n_kual,            
                     ]);
                     $jumlah_matkul+=1;
                 }
             } 
             $data=[
-                'data_konversi'=>$data_konversi,
-                'jumlah_matkul'=>$jumlah_matkul,
+                'data_konversi' => $data_konversi,
+                'jumlah_matkul' => $jumlah_matkul,
             ];
             return $data;
         });
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store', 
-                                    'data_konversi'=>$data_konversi['data_konversi'],     
-                                    'jumlah_matkul'=>$data_konversi['jumlah_matkul'],     
+                                    'status' => 1,
+                                    'pid' => 'store', 
+                                    'data_konversi' => $data_konversi['data_konversi'],     
+                                    'jumlah_matkul' => $data_konversi['jumlah_matkul'],     
                                     'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                 ], 200);
     }
@@ -203,26 +203,26 @@ class NilaiKonversiController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Data Konversi dengan ($id) gagal diperoleh"]
+                                    'pid' => 'update',    
+                                    'message' => ["Data Konversi dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [      
-                'nim_asal'=>'required',     
-                'nama_mhs'=>'required',     
-                'alamat'=>'required',     
-                'no_telp'=>'required',     
-                'email'=>'required|email',     
-                'kode_jenjang'=>'required',     
-                'kode_pt_asal'=>'required',     
-                'nama_pt_asal'=>'required',     
-                'kode_ps_asal'=>'required',     
-                'nama_ps_asal'=>'required',     
-                'tahun'=>'required',     
-                'kjur'=>'required|exists:pe3_prodi,id',      
-                'daftar_nilai'=>'required',
+                'nim_asal' => 'required',     
+                'nama_mhs' => 'required',     
+                'alamat' => 'required',     
+                'no_telp' => 'required',     
+                'email' => 'required|email',     
+                'kode_jenjang' => 'required',     
+                'kode_pt_asal' => 'required',     
+                'nama_pt_asal' => 'required',     
+                'kode_ps_asal' => 'required',     
+                'nama_ps_asal' => 'required',     
+                'tahun' => 'required',     
+                'kjur' => 'required|exists:pe3_prodi,id',      
+                'daftar_nilai' => 'required',
             ]);
             $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi) {
                 $data_konversi->nim_asal=$request->input('nim_asal');
@@ -258,26 +258,26 @@ class NilaiKonversiController  extends Controller
                     {
                         $nilai=NilaiKonversi2Model::create([
                             'id'=>Uuid::uuid4()->toString(),
-                            'nilai_konversi_id'=>$nilai_konversi_id,
-                            'matkul_id'=>$matkul_id,
+                            'nilai_konversi_id' => $nilai_konversi_id,
+                            'matkul_id' => $matkul_id,
                             'kmatkul_asal'=>addslashes(trim($kmatkul_asal)),
                             'matkul_asal'=>addslashes(trim($matkul_asal)),
                             'sks_asal'=>addslashes(trim($sks_asal)),
-                            'n_kual'=>$n_kual,            
+                            'n_kual' => $n_kual,            
                         ]);
                         $jumlah_matkul+=1;
                     }
                 } 
                 $data=[
-                    'data_konversi'=>$data_konversi,
-                    'jumlah_matkul'=>$jumlah_matkul,
+                    'data_konversi' => $data_konversi,
+                    'jumlah_matkul' => $jumlah_matkul,
                 ];
             });
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update', 
-                                        'data_konversi'=>$data_konversi['data_konversi'],     
-                                        'jumlah_matkul'=>$data_konversi['jumlah_matkul'],                            
+                                        'status' => 1,
+                                        'pid' => 'update', 
+                                        'data_konversi' => $data_konversi['data_konversi'],     
+                                        'jumlah_matkul' => $data_konversi['jumlah_matkul'],                            
                                         'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                     ], 200);
         }
@@ -303,8 +303,8 @@ class NilaiKonversiController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',    
-                                    'message'=>["Data Konversi dengan ($id) gagal diperoleh"]
+                                    'pid' => 'show',    
+                                    'message' => ["Data Konversi dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
@@ -337,20 +337,20 @@ class NilaiKonversiController  extends Controller
                                     n_kual,
                                     keterangan                                    
                                 '))   
-                                ->leftJoinSub($subquery,'B',function($join) {
-                                    $join->on('B.matkul_id','=','A.id');
+                                ->leftJoinSub($subquery, 'B',function($join) {
+                                    $join->on('B.matkul_id', '=', 'A.id');
                                 })    
                                 ->where('kjur',$data_konversi->kjur)
                                 ->where('ta',$data_konversi->tahun)   
-                                ->orderBy('semester','ASC')
-                                ->orderBy('kmatkul','ASC')
+                                ->orderBy('semester', 'ASC')
+                                ->orderBy('kmatkul', 'ASC')
                                 ->get();
            
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata', 
-                                    'data_konversi'=>$data_konversi, 
-                                    'nilai_konversi'=>$nilai_konversi,      
+                                    'status' => 1,
+                                    'pid' => 'fetchdata', 
+                                    'data_konversi' => $data_konversi, 
+                                    'nilai_konversi' => $nilai_konversi,      
                                     'message'=>"Data Nilai Konversi ($id) berhasil diperoleh"
                                 ], 200); 
         }
@@ -360,17 +360,17 @@ class NilaiKonversiController  extends Controller
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
 
         $this->validate($request, [     
-            'nilai_konversi_id'=>[
+            'nilai_konversi_id' => [
                 'required',
-                Rule::exists('pe3_nilai_konversi1','id')->where(function($query) {
+                Rule::exists('pe3_nilai_konversi1', 'id')->where(function($query) {
                     return $query->whereNull('user_id')
                                 ->whereNull('nim');
                 })
             ],
-            'user_id'=>[
+            'user_id' => [
                 'required',
-                Rule::exists('pe3_register_mahasiswa','user_id')->where(function($query) {
-                    return $query->where('k_status','A');
+                Rule::exists('pe3_register_mahasiswa', 'user_id')->where(function($query) {
+                    return $query->where('k_status', 'A');
                                 
                 })
             ]                         
@@ -386,8 +386,8 @@ class NilaiKonversiController  extends Controller
             $data_konversi->save();
 
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',    
+                                        'status' => 1,
+                                        'pid' => 'update',    
                                         'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
                                     ], 200); 
         }
@@ -395,8 +395,8 @@ class NilaiKonversiController  extends Controller
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'update',    
-                                        'message'=>["Data Konversi tidak bisa dihubungkan dengan nim ini karena beda tahun"]
+                                        'pid' => 'update',    
+                                        'message' => ["Data Konversi tidak bisa dihubungkan dengan nim ini karena beda tahun"]
                                     ], 422); 
             
         }
@@ -408,9 +408,9 @@ class NilaiKonversiController  extends Controller
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
 
         $this->validate($request, [     
-            'nilai_konversi_id'=>[
+            'nilai_konversi_id' => [
                 'required',
-                Rule::exists('pe3_nilai_konversi1','id')->where(function($query) {
+                Rule::exists('pe3_nilai_konversi1', 'id')->where(function($query) {
                     return $query->whereNotNull('user_id')
                                 ->whereNotNull('nim');
                 })
@@ -423,8 +423,8 @@ class NilaiKonversiController  extends Controller
         $data_konversi->save();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',    
+                                    'status' => 1,
+                                    'pid' => 'update',    
                                     'message'=>"Data Konversi dengan berhasil dilepas dengan data mahasiswa"
                                 ], 200); 
         
@@ -440,8 +440,8 @@ class NilaiKonversiController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Data Konversi ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Data Konversi ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -454,8 +454,8 @@ class NilaiKonversiController  extends Controller
                                                         ]);
             $data_konversi->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Data Konversi dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
@@ -470,8 +470,8 @@ class NilaiKonversiController  extends Controller
                                             pe3_prodi.nama_prodi,
                                             pe3_jenjang_studi.nama_jenjang
                                         ')) 
-                                        ->join('pe3_prodi','pe3_nilai_konversi1.kjur','pe3_prodi.id')
-                                        ->join('pe3_jenjang_studi','pe3_nilai_konversi1.kode_jenjang','pe3_jenjang_studi.kode_jenjang')
+                                        ->join('pe3_prodi', 'pe3_nilai_konversi1.kjur', 'pe3_prodi.id')
+                                        ->join('pe3_jenjang_studi', 'pe3_nilai_konversi1.kode_jenjang', 'pe3_jenjang_studi.kode_jenjang')
                                         ->where('user_id', $this->getUserid())
                                         ->first();
         }
@@ -482,8 +482,8 @@ class NilaiKonversiController  extends Controller
                                                     pe3_prodi.nama_prodi,
                                                     pe3_jenjang_studi.nama_jenjang
                                                 '))  
-                                                ->join('pe3_prodi','pe3_nilai_konversi1.kjur','pe3_prodi.id')
-                                                ->join('pe3_jenjang_studi','pe3_nilai_konversi1.kode_jenjang','pe3_jenjang_studi.kode_jenjang')
+                                                ->join('pe3_prodi', 'pe3_nilai_konversi1.kjur', 'pe3_prodi.id')
+                                                ->join('pe3_jenjang_studi', 'pe3_nilai_konversi1.kode_jenjang', 'pe3_jenjang_studi.kode_jenjang')
                                                 ->find($id);
         }
         
@@ -491,8 +491,8 @@ class NilaiKonversiController  extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'show',    
-                                    'message'=>["Data Konversi dengan ($id) gagal diperoleh"]
+                                    'pid' => 'show',    
+                                    'message' => ["Data Konversi dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
@@ -525,29 +525,29 @@ class NilaiKonversiController  extends Controller
                                     n_kual,
                                     keterangan                                    
                                 '))   
-                                ->leftJoinSub($subquery,'B',function($join) {
-                                    $join->on('B.matkul_id','=','A.id');
+                                ->leftJoinSub($subquery, 'B',function($join) {
+                                    $join->on('B.matkul_id', '=', 'A.id');
                                 })    
                                 ->where('kjur',$data_konversi->kjur)
                                 ->where('ta',$data_konversi->tahun)   
-                                ->orderBy('semester','ASC')
-                                ->orderBy('kmatkul','ASC')
+                                ->orderBy('semester', 'ASC')
+                                ->orderBy('kmatkul', 'ASC')
                                 ->get();
 
             $config = ConfigurationModel::getCache();
             $headers=[
-                'HEADER_1'=>$config['HEADER_1'],
-                'HEADER_2'=>$config['HEADER_2'],
-                'HEADER_3'=>$config['HEADER_3'],
-                'HEADER_4'=>$config['HEADER_4'],
-                'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+                'HEADER_1' => $config['HEADER_1'],
+                'HEADER_2' => $config['HEADER_2'],
+                'HEADER_3' => $config['HEADER_3'],
+                'HEADER_4' => $config['HEADER_4'],
+                'HEADER_ADDRESS' => $config['HEADER_ADDRESS'],
                 'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
             ];
             $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportNilaiKonversi1',
                                                                     [
-                                                                        'headers'=>$headers,
-                                                                        'data_konversi'=>$data_konversi,
-                                                                        'daftar_nilai'=>$nilai_konversi,             
+                                                                        'headers' => $headers,
+                                                                        'data_konversi' => $data_konversi,
+                                                                        'daftar_nilai' => $nilai_konversi,             
                                                                         'tanggal'=>\App\Helpers\Helper::tanggal('d F Y',$data_konversi->updated_at)
                                                                     ],
                                                                     [],
@@ -561,10 +561,10 @@ class NilaiKonversiController  extends Controller
             $pdf_file="exported/pdf/kn_".$data_konversi->id.".pdf";
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'data_konversi'=>$data_konversi,
-                                    'pdf_file'=>$pdf_file                                    
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'data_konversi' => $data_konversi,
+                                    'pdf_file' => $pdf_file                                    
                                 ], 200);
         }
     }    

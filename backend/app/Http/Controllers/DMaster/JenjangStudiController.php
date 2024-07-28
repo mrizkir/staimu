@@ -13,14 +13,14 @@ class JenjangStudiController extends Controller {
      */
     public function index(Request $request)
     {
-        $jenjang_studi=JenjangStudiModel::orderBy('kode_jenjang','ASC')
+        $jenjang_studi=JenjangStudiModel::orderBy('kode_jenjang', 'ASC')
                                                 ->get();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'jenjang_studi'=>$jenjang_studi,
-                                    'message'=>'Fetch data jenjang studi berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'jenjang_studi' => $jenjang_studi,
+                                    'message' => 'Fetch data jenjang studi berhasil.'
                                 ], 200);
     }  
 }

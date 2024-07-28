@@ -23,8 +23,8 @@ class DulangMahasiswaBaruController extends Controller
 		$this->hasPermissionTo('AKADEMIK-DULANG-BARU_BROWSE');
 
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required'
+			'ta' => 'required',
+			'prodi_id' => 'required'
 		]);
 
 		$ta=$request->input('ta');
@@ -41,21 +41,21 @@ class DulangMahasiswaBaruController extends Controller
 								pe3_dulang.created_at,      
 								pe3_dulang.updated_at                                      
 							'))
-							->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-							->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
+							->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+							->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
 							->where('pe3_register_mahasiswa.tahun',$ta)   
 							->where('pe3_dulang.tahun',$ta)   
 							->where('pe3_dulang.idsmt', 1)   
 							->where('pe3_register_mahasiswa.kjur',$prodi_id)
-							->orderBy('pe3_dulang.idsmt','desc')
-							->orderBy('nama_mhs','asc')
+							->orderBy('pe3_dulang.idsmt', 'desc')
+							->orderBy('nama_mhs', 'asc')
 							->get();
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'mahasiswa'=>$data,
-									'message'=>'Fetch data daftar ulang mahasiswa baru berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'mahasiswa' => $data,
+									'message' => 'Fetch data daftar ulang mahasiswa baru berhasil.'
 								], 200);
 	}
 	/**
@@ -72,35 +72,35 @@ class DulangMahasiswaBaruController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
+									'pid' => 'update',    
+									'message' => ["Formulir Pendaftaran dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
 		{
 		   
 			$this->validate($request, [
-				'nama_mhs'=>'required',
-				'tempat_lahir'=>'required',
-				'tanggal_lahir'=>'required',
-				'jk'=>'required',
-				'nomor_hp'=>'required|unique:users,nomor_hp,'.$formulir->user_id,
-				'email'=>'required|string|email|unique:users,email,'.$formulir->user_id,
-				'nama_ibu_kandung'=>'required',
-				'nik'=>'required|numeric',
+				'nama_mhs' => 'required',
+				'tempat_lahir' => 'required',
+				'tanggal_lahir' => 'required',
+				'jk' => 'required',
+				'nomor_hp' => 'required|unique:users,nomor_hp, '.$formulir->user_id,
+				'email' => 'required|string|email|unique:users,email, '.$formulir->user_id,
+				'nama_ibu_kandung' => 'required',
+				'nik' => 'required|numeric',
 
-				'address1_provinsi_id'=>'required',
-				'address1_provinsi'=>'required',
-				'address1_kabupaten_id'=>'required',
-				'address1_kabupaten'=>'required',
-				'address1_kecamatan_id'=>'required',
-				'address1_kecamatan'=>'required',
-				'address1_desa_id'=>'required',
-				'address1_kelurahan'=>'required',
-				'alamat_rumah'=>'required',
+				'address1_provinsi_id' => 'required',
+				'address1_provinsi' => 'required',
+				'address1_kabupaten_id' => 'required',
+				'address1_kabupaten' => 'required',
+				'address1_kecamatan_id' => 'required',
+				'address1_kecamatan' => 'required',
+				'address1_desa_id' => 'required',
+				'address1_kelurahan' => 'required',
+				'alamat_rumah' => 'required',
 				
-				'kjur1'=>'required',
-				'idkelas'=>'required',
+				'kjur1' => 'required',
+				'idkelas' => 'required',
 			]);
 
 			$data_mhs = \DB::transaction(function () use ($request,$formulir) {            
@@ -135,14 +135,14 @@ class DulangMahasiswaBaruController extends Controller
 				
 				$formulir=FormulirPendaftaranModel::find($formulir->user_id);
 				return [
-					'formulir'=>$formulir,
+					'formulir' => $formulir,
 				];
 			});
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update',
-										'formulir'=>$formulir,
-										'message'=>'Daftar Ulang Mahasiswa Baru baru berhasil dilakukan.'
+										'status' => 1,
+										'pid' => 'update',
+										'formulir' => $formulir,
+										'message' => 'Daftar Ulang Mahasiswa Baru baru berhasil dilakukan.'
 									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	} 
@@ -161,9 +161,9 @@ class DulangMahasiswaBaruController extends Controller
 		if (is_null($dulang))
 		{
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'destroy',    
-									'message'=>["Daftar Ulang Mahasiswa Baru ($id) gagal dihapus"]
+									'status' => 1,
+									'pid' => 'destroy',    
+									'message' => ["Daftar Ulang Mahasiswa Baru ($id) gagal dihapus"]
 								], 422); 
 		}
 		else
@@ -178,8 +178,8 @@ class DulangMahasiswaBaruController extends Controller
 			$register_mahasiswa->delete();
 			
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',    
+										'status' => 1,
+										'pid' => 'destroy',    
 										'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
 									], 200);    
 		}

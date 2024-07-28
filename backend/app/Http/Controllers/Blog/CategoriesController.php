@@ -17,15 +17,15 @@ class CategoriesController extends Controller {
                             blog_term.created_at,
                             blog_term.updated_at
                         '))
-                        ->join('blog_term_taxonomy','blog_term_taxonomy.term_id','blog_term.id')
-                        ->where('blog_term_taxonomy.taxonomy','category')
+                        ->join('blog_term_taxonomy', 'blog_term_taxonomy.term_id', 'blog_term.id')
+                        ->where('blog_term_taxonomy.taxonomy', 'category')
                         ->get();
 
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'categories'=>$data,
-                                'message'=>'Fetch data categories berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'categories' => $data,
+                                'message' => 'Fetch data categories berhasil diperoleh'
                             ], 200);
     }
 }

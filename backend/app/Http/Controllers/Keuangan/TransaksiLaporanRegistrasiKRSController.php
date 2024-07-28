@@ -17,7 +17,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 			$this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');   				
 					
 			$this->validate($request, [           
-				'ta'=>'required',				
+				'ta' => 'required',				
 			]);
 			$ta=$request->input('ta');
 			
@@ -31,7 +31,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 													nama_prodi
 												'))
 												->get()
-												->pluck('nama_prodi','id');
+												->pluck('nama_prodi', 'id');
 			$sub_total = 0;
 			$total_keseluruhan = 0;
 			foreach ($bulan as $k=>$v) {
@@ -43,7 +43,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 					foreach ($daftar_prodi as $prodi_id=>$nama_prodi)
 					{
 						$jumlah = \DB::table('pe3_transaksi_detail')
-										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
+										->join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')										
 										->whereRaw("YEAR(pe3_transaksi.updated_at)=$ta")
 										->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
 										->where('kombi_id', 202)
@@ -52,9 +52,9 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 										->sum('sub_total');
 						
 						$data_prodi[$prodi_id] = [
-							'prodi_id'=>$prodi_id,						
-							'nama_prodi'=>$nama_prodi,
-							'jumlah'=>$jumlah,
+							'prodi_id' => $prodi_id,						
+							'nama_prodi' => $nama_prodi,
+							'jumlah' => $jumlah,
 						];
 						$sub_total += $jumlah;
 					}					
@@ -65,7 +65,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 					foreach ($daftar_prodi as $prodi_id=>$nama_prodi)
 					{
 						$jumlah = \DB::table('pe3_transaksi_detail')
-										->join('pe3_transaksi','pe3_transaksi.id','pe3_transaksi_detail.transaksi_id')										
+										->join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')										
 										->whereRaw("YEAR(pe3_transaksi.updated_at)=" . ($ta + 1))
 										->whereRaw("MONTH(pe3_transaksi.updated_at)=$k")										
 										->where('kombi_id', 202)
@@ -74,9 +74,9 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 										->sum('sub_total');
 
 						$data_prodi[$prodi_id] = [
-							'prodi_id'=>$prodi_id,
-							'nama_prodi'=>$nama_prodi,
-							'jumlah'=>$jumlah,
+							'prodi_id' => $prodi_id,
+							'nama_prodi' => $nama_prodi,
+							'jumlah' => $jumlah,
 						];
 						$sub_total += $jumlah;
 					}
@@ -84,19 +84,19 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 				}	
 				$total_keseluruhan += $sub_total;			
 				$daftar_transaksi[]=[
-					'no_bulan'=>$k,
-					'nama_bulan'=>$v,
-					'sub_total'=>$sub_total,
-					'data_prodi'=>$data_prodi,
+					'no_bulan' => $k,
+					'nama_bulan' => $v,
+					'sub_total' => $sub_total,
+					'data_prodi' => $data_prodi,
 				];
 			}
 			
 			return Response()->json([
-																	'status'=>1,
-																	'pid'=>'fetchdata',  
-																	'transaksi'=>$daftar_transaksi,
-																	'total_keseluruhan'=>$total_keseluruhan,
-																	'message'=>'Fetch data daftar transaksi berhasil.'
+																	'status' => 1,
+																	'pid' => 'fetchdata',  
+																	'transaksi' => $daftar_transaksi,
+																	'total_keseluruhan' => $total_keseluruhan,
+																	'message' => 'Fetch data daftar transaksi berhasil.'
 															],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
 		}		
 	/**
@@ -107,11 +107,11 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
     $this->hasPermissionTo('KEUANGAN-LAPORAN-REGISTRASI-KRS_BROWSE');
 
 		$this->validate($request, [           
-			'ta'=>'required',			
+			'ta' => 'required',			
 		]);
 
 		$data_report = [
-			'ta'=>$request->input('ta'),			
+			'ta' => $request->input('ta'),			
 		];
 
 		$report= new \App\Models\Report\ReportKeuanganRegistrasiKRSModel ($data_report);

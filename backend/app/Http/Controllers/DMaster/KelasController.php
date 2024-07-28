@@ -17,10 +17,10 @@ class KelasController extends Controller {
         $kelas=KelasModel::all();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'kelas'=>$kelas,
-                                    'message'=>'Fetch data kelas berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'kelas' => $kelas,
+                                    'message' => 'Fetch data kelas berhasil.'
                                 ], 200);
     }
     /**
@@ -34,29 +34,29 @@ class KelasController extends Controller {
         $this->hasPermissionTo('DMASTER-KELAS_STORE');
 
         $rule=[            
-            'idkelas'=>'required|string|max:1|unique:pe3_kelas,idkelas',
-            'nkelas'=>'required|string|unique:pe3_kelas,nkelas',         
+            'idkelas' => 'required|string|max:1|unique:pe3_kelas,idkelas',
+            'nkelas' => 'required|string|unique:pe3_kelas,nkelas',         
         ];
     
         $this->validate($request, $rule);
              
         $kelas=KelasModel::create([
-            'idkelas'=>$request->input('idkelas'),
+            'idkelas' => $request->input('idkelas'),
             'nkelas'=>strtoupper($request->input('nkelas')),            
         ]);                 
         
         \App\Models\System\ActivityLog::log($request,[
                                         'object' => $kelas,
-                                        'object_id'=>$kelas->idkelas, 
+                                        'object_id' => $kelas->idkelas, 
                                         'user_id' => $this->getUserid(), 
                                         'message' => 'Menambah kelas baru berhasil'
                                     ]);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'kelas'=>$kelas,    
-                                    'message'=>'Data kelas berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'kelas' => $kelas,    
+                                    'message' => 'Data kelas berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -76,8 +76,8 @@ class KelasController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Kode Kelas ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["Kode Kelas ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
@@ -86,17 +86,17 @@ class KelasController extends Controller {
             if ($bentuk_pt=='sekolahtinggi')
             {
                 $this->validate($request, [
-                                            'idkelas'=>[
+                                            'idkelas' => [
                                                             'required',            
                                                             'string',
                                                             'max:1',
-                                                            Rule::unique('pe3_kelas')->ignore($kelas->idkelas,'idkelas')           
+                                                            Rule::unique('pe3_kelas')->ignore($kelas->idkelas, 'idkelas')           
                                                         ],           
                                             
-                                            'nkelas'=>[
+                                            'nkelas' => [
                                                             'required',
                                                             'string',
-                                                            Rule::unique('pe3_kelas')->ignore($kelas->nkelas,'nkelas')
+                                                            Rule::unique('pe3_kelas')->ignore($kelas->nkelas, 'nkelas')
                                                         ],           
                                             
                                         ]); 
@@ -104,16 +104,16 @@ class KelasController extends Controller {
             else
             {
                 $this->validate($request, [
-                                            'kode_fakultas'=>[
+                                            'kode_fakultas' => [
                                                 'required',
                                                 'string',
                                                 'max:1',
                                                 'exists:pe3_kelas,idkelas',         
                                             ], 
-                                            'nama_kelas'=>[
+                                            'nama_kelas' => [
                                                 'required',
                                                 'string',
-                                                Rule::unique('pe3_kelas')->ignore($kelas->nkelas,'nkelas')
+                                                Rule::unique('pe3_kelas')->ignore($kelas->nkelas, 'nkelas')
                                             ],           
                                             
                                         ]); 
@@ -125,16 +125,16 @@ class KelasController extends Controller {
 
             \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $kelas,
-                                                        'object_id'=>$kelas->idkelas, 
+                                                        'object_id' => $kelas->idkelas, 
                                                         'user_id' => $this->guard()->user()->idkelas, 
                                                         'message' => 'Mengubah data kelas ('.$kelas->nkelas.') berhasil'
                                                     ]);
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'kelas'=>$kelas,      
-                                    'message'=>'Data kelas '.$kelas->nkelas.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'kelas' => $kelas,      
+                                    'message' => 'Data kelas '.$kelas->nkelas.' berhasil diubah.'
                                 ], 200); 
         }
     }    
@@ -154,8 +154,8 @@ class KelasController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Kode kelas ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Kode kelas ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -168,8 +168,8 @@ class KelasController extends Controller {
                                                             ]);
             $kelas->delete();
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Kelas dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }

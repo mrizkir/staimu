@@ -28,9 +28,9 @@ class PKRSController extends Controller
         $daftar_pkrs=[];  
             
         $this->validate($request, [
-            'ta'=>'required',
-            'semester_akademik'=>'required',
-            'prodi_id'=>'required'
+            'ta' => 'required',
+            'semester_akademik' => 'required',
+            'prodi_id' => 'required'
         ]);
 
         $ta=$request->input('ta');
@@ -52,15 +52,15 @@ class PKRSController extends Controller
                                 pe3_pkrs.created_at,
                                 pe3_pkrs.updated_at
                             '))
-                            ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_pkrs.user_id')
-                            ->join('pe3_penyelenggaraan','pe3_penyelenggaraan.id','pe3_pkrs.penyelenggaraan_id')
-                            ->orderBy('nama_mhs','ASC');
+                            ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_pkrs.user_id')
+                            ->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan.id', 'pe3_pkrs.penyelenggaraan_id')
+                            ->orderBy('nama_mhs', 'ASC');
                             
         
         if ($request->has('search'))
         {
             $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
-                        ->orderBy('tasmt','desc')
+                        ->orderBy('tasmt', 'desc')
                         ->get();
         }  
         else
@@ -70,7 +70,7 @@ class PKRSController extends Controller
                                     ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                     ->get();
         }
-        $daftar_pkrs->transform(function ($item,$key) {                
+        $daftar_pkrs->transform(function ($item, $key) {                
             if ($item->tambah == 1) {
                 $ket = 'TAMBAH';
             } if ($item->hapus == 1) {
@@ -85,10 +85,10 @@ class PKRSController extends Controller
         });    
         
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'daftar_pkrs'=>$daftar_pkrs,
-                                    'message'=>'Daftar perubahan krs mahasiswa berhasil diperoleh' 
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'daftar_pkrs' => $daftar_pkrs,
+                                    'message' => 'Daftar perubahan krs mahasiswa berhasil diperoleh' 
                                 ], 200);  
         
     }
@@ -118,10 +118,10 @@ class PKRSController extends Controller
                         pe3_krs.created_at,
                         pe3_krs.updated_at
                     '))
-                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
-                    ->join('pe3_kelas','pe3_kelas.idkelas','pe3_register_mahasiswa.idkelas')
-                    ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+                    ->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_krs.user_id')
+                    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_krs.user_id')
+                    ->join('pe3_kelas', 'pe3_kelas.idkelas', 'pe3_register_mahasiswa.idkelas')
+                    ->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
                     ->find($id);
 
             if (is_null($krs))
@@ -149,19 +149,19 @@ class PKRSController extends Controller
                                             pe3_krsmatkul.created_at,
                                             pe3_krsmatkul.updated_at
                                         '))
-                                        ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                        ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
-                                        ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id') 
-                                        ->leftJoin('pe3_kelas_mhs AS D','D.id','C.kelas_mhs_id')
-                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
-                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
-                                        ->leftJoin('pe3_dosen AS E','E.user_id','D.user_id')
+                                        ->join('pe3_penyelenggaraan AS A', 'A.id', 'pe3_krsmatkul.penyelenggaraan_id')
+                                        ->leftJoin('pe3_dosen AS B', 'A.user_id', 'B.user_id')
+                                        ->leftJoin('pe3_kelas_mhs_peserta AS C', 'pe3_krsmatkul.id', 'C.krsmatkul_id') 
+                                        ->leftJoin('pe3_kelas_mhs AS D', 'D.id', 'C.kelas_mhs_id')
+                                        // ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D', 'D.kelas_mhs_id', 'C.kelas_mhs_id')
+                                        // ->leftJoin('pe3_penyelenggaraan_dosen AS E', 'E.id', 'D.penyelenggaraan_dosen_id')
+                                        ->leftJoin('pe3_dosen AS E', 'E.user_id', 'D.user_id')
                                         ->where('krs_id',$krs->id)
-                                        ->orderBy('semester','asc')
-                                        ->orderBy('kmatkul','asc')
+                                        ->orderBy('semester', 'asc')
+                                        ->orderBy('kmatkul', 'asc')
                                         ->get();
             
-            $daftar_matkul->transform(function ($item,$key) {            
+            $daftar_matkul->transform(function ($item, $key) {            
                 if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
                 {
                     $item->nama_dosen='N.A';
@@ -177,21 +177,21 @@ class PKRSController extends Controller
             $krs->save();
             
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'krs'=>$krs,
-                                    'krsmatkul'=>$daftar_matkul,
-                                    'jumlah_matkul'=>$krs->jumlah_matkul_1,
-                                    'jumlah_sks'=>$krs->jumlah_sks_1,
-                                    'message'=>'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'krs' => $krs,
+                                    'krsmatkul' => $daftar_matkul,
+                                    'jumlah_matkul' => $krs->jumlah_matkul_1,
+                                    'jumlah_sks' => $krs->jumlah_sks_1,
+                                    'message' => 'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
                                 ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
         }
         catch (Exception $e)
         {
             return Response()->json([
                 'status'=>0,
-                'pid'=>'fetchdata',               
-                'message'=>[$e->getMessage()]
+                'pid' => 'fetchdata',               
+                'message' => [$e->getMessage()]
             ], 422); 
         }       
     }
@@ -200,11 +200,11 @@ class PKRSController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_SHOW');
 
         $this->validate($request, [
-            'nim'=>'required',      
-            'prodi_id'=>'required',     
-            'ta'=>'required',     
-            'semester_akademik'=>'required',     
-            'pid'=>'required',     
+            'nim' => 'required',      
+            'prodi_id' => 'required',     
+            'ta' => 'required',     
+            'semester_akademik' => 'required',     
+            'pid' => 'required',     
         ]);
         
         $prodi_id=$request->input('prodi_id');
@@ -220,8 +220,8 @@ class PKRSController extends Controller
         {
             return Response()->json([
                                         'status'=>0,
-                                        'pid'=>'fetchdata',    
-                                        'message'=>["Data MHS dengan NIM ($nim) gagal diperoleh"]
+                                        'pid' => 'fetchdata',    
+                                        'message' => ["Data MHS dengan NIM ($nim) gagal diperoleh"]
                                     ], 422); 
         }
         else
@@ -245,15 +245,15 @@ class PKRSController extends Controller
                                             ->where('tahun',$ta)
                                             ->where('idsmt',$semester_akademik);                                   
                                     })
-                                    ->orderBy('semester','ASC')          
-                                    ->orderBy('kmatkul','ASC')          
+                                    ->orderBy('semester', 'ASC')          
+                                    ->orderBy('kmatkul', 'ASC')          
                                     ->get();
 
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'penyelenggaraan'=>$penyelenggaraan,                                    
-                                        'message'=>'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',  
+                                        'penyelenggaraan' => $penyelenggaraan,                                    
+                                        'message' => 'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }
@@ -265,8 +265,8 @@ class PKRSController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_STORE');
         
         $this->validate($request, [
-            'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-            'dulang_id'=>'required|exists:pe3_dulang,id',     
+            'nim' => 'required|exists:pe3_register_mahasiswa,nim',     
+            'dulang_id' => 'required|exists:pe3_dulang,id',     
         ]);
         
         $nim=$request->input('nim');
@@ -276,13 +276,13 @@ class PKRSController extends Controller
 
         $krs=KRSModel::create([
             'id'=>Uuid::uuid4()->toString(),
-            'user_id'=>$dulang->user_id,
-            'dulang_id'=>$dulang_id,
-            'nim'=>$nim,
-            'kjur'=>$dulang->register_mahasiswa->kjur, 
-            'idsmt'=>$dulang->idsmt, 
-            'tahun'=>$dulang->tahun, 
-            'tasmt'=>$dulang->tasmt,         
+            'user_id' => $dulang->user_id,
+            'dulang_id' => $dulang_id,
+            'nim' => $nim,
+            'kjur' => $dulang->register_mahasiswa->kjur, 
+            'idsmt' => $dulang->idsmt, 
+            'tahun' => $dulang->tahun, 
+            'tasmt' => $dulang->tasmt,         
             'sah'=>0,        
         ]);
         \App\Models\System\ActivityLog::log($request,[
@@ -292,10 +292,10 @@ class PKRSController extends Controller
                                                     'message'=>"Menyimpan krs mahasiswa berhasil dilakukan."
                                                 ]);
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',  
-                                    'krs'=>$krs,
-                                    'message'=>'menyimpan krs mahasiswa berhasil'
+                                    'status' => 1,
+                                    'pid' => 'store',  
+                                    'krs' => $krs,
+                                    'message' => 'menyimpan krs mahasiswa berhasil'
                                 ], 200);  
     }
     public function storematkul (Request $request)
@@ -303,11 +303,11 @@ class PKRSController extends Controller
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_STORE');
 
         $matkul_selected=json_decode($request->input('matkul_selected'), true);
-        $request->merge(['matkul_selected'=>$matkul_selected]);   
+        $request->merge(['matkul_selected' => $matkul_selected]);   
 
         $this->validate($request, [      
-            'krs_id'=>'required|exists:pe3_krs,id',     
-            'matkul_selected'=>'required',
+            'krs_id' => 'required|exists:pe3_krs,id',     
+            'matkul_selected' => 'required',
         ]);
         $krs_id=$request->input('krs_id');
         
@@ -318,22 +318,22 @@ class PKRSController extends Controller
         {
             $daftar_matkul[]=[
                 'id'=>Uuid::uuid4()->toString(),
-                'krs_id'=>$krs_id,
-                'nim'=>$krs->nim,
-                'penyelenggaraan_id'=>$v['id'],
+                'krs_id' => $krs_id,
+                'nim' => $krs->nim,
+                'penyelenggaraan_id' => $v['id'],
                 'batal'=>0,
-                'kjur'=>$krs->kjur,
-                'idsmt'=>$krs->idsmt,
-                'tahun'=>$krs->tahun,    
+                'kjur' => $krs->kjur,
+                'idsmt' => $krs->idsmt,
+                'tahun' => $krs->tahun,    
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
             ];
             PKRSModel::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'user_id'=>$krs->user_id,
-                'nim'=>$krs->nim,
-                'penyelenggaraan_id'=>$v['id'],
-                'tambah'=>1,
+                'user_id' => $krs->user_id,
+                'nim' => $krs->nim,
+                'penyelenggaraan_id' => $v['id'],
+                'tambah' => 1,
                 'hapus'=>0,
                 'batal'=>0,
                 'sah'=>0,
@@ -341,8 +341,8 @@ class PKRSController extends Controller
         }
         KRSMatkulModel::insert($daftar_matkul);
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',                                      
+                                    'status' => 1,
+                                    'pid' => 'store',                                      
                                     'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
                                 ], 200);  
     }  
@@ -356,14 +356,14 @@ class PKRSController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["PKRS dengan ($id) gagal diverifikasi"]
+                                    'pid' => 'update',    
+                                    'message' => ["PKRS dengan ($id) gagal diverifikasi"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [      
-                'status'=>'required',
+                'status' => 'required',
             ]);
             
             $user = \DB::transaction(function () use ($request, $krsmatkul) {
@@ -383,12 +383,12 @@ class PKRSController extends Controller
                 {
                     PKRSModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$krs->user_id,
-                        'nim'=>$krs->nim,
-                        'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                        'user_id' => $krs->user_id,
+                        'nim' => $krs->nim,
+                        'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
                         'tambah'=>0,
                         'hapus'=>0,
-                        'batal'=>1,
+                        'batal' => 1,
                         'sah'=>0,
                     ]);
                 }
@@ -396,20 +396,20 @@ class PKRSController extends Controller
                 {
                     PKRSModel::create([
                         'id'=>Uuid::uuid4()->toString(),
-                        'user_id'=>$krs->user_id,
-                        'nim'=>$krs->nim,
-                        'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                        'user_id' => $krs->user_id,
+                        'nim' => $krs->nim,
+                        'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
                         'tambah'=>0,
                         'hapus'=>0,
                         'batal'=>0,
-                        'sah'=>1,
+                        'sah' => 1,
                     ]);
                 }
             });       
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update', 
-                                        'krsmatkul'=>$krsmatkul,   
+                                        'status' => 1,
+                                        'pid' => 'update', 
+                                        'krsmatkul' => $krsmatkul,   
                                         'message' => 'Memverifikasi Perubahan KRS dengan id ('.$id.') berhasil'
                                     ], 200);    
         }
@@ -430,8 +430,8 @@ class PKRSController extends Controller
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Matakuliah dalam KRS dengan ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -451,11 +451,11 @@ class PKRSController extends Controller
                 $krs = $krsmatkul->krs;
                 PKRSModel::create([
                     'id'=>Uuid::uuid4()->toString(),
-                    'user_id'=>$krs->user_id,
-                    'nim'=>$krs->nim,
-                    'penyelenggaraan_id'=>$krsmatkul->penyelenggaraan_id,
+                    'user_id' => $krs->user_id,
+                    'nim' => $krs->nim,
+                    'penyelenggaraan_id' => $krsmatkul->penyelenggaraan_id,
                     'tambah'=>0,
-                    'hapus'=>1,
+                    'hapus' => 1,
                     'batal'=>0,
                     'sah'=>0,
                 ]);
@@ -463,8 +463,8 @@ class PKRSController extends Controller
                 $krsmatkul->delete();
             });       
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
                                     ], 200);    
         }
@@ -492,18 +492,18 @@ class PKRSController extends Controller
                         pe3_krs.created_at,
                         pe3_krs.updated_at
                     '))
-                    ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_krs.user_id')
-                    ->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-                    ->join('pe3_prodi','pe3_register_mahasiswa.kjur','pe3_prodi.id')
-                    ->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+                    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_krs.user_id')
+                    ->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_krs.user_id')
+                    ->join('pe3_prodi', 'pe3_register_mahasiswa.kjur', 'pe3_prodi.id')
+                    ->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
                     ->find($id);
 
         if (is_null($krs))
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["KRS dengan ($id) gagal diperoleh"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["KRS dengan ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
@@ -526,18 +526,18 @@ class PKRSController extends Controller
                                                 pe3_krsmatkul.created_at,
                                                 pe3_krsmatkul.updated_at
                                             '))
-                                            ->join('pe3_penyelenggaraan AS A','A.id','pe3_krsmatkul.penyelenggaraan_id')
-                                            ->leftJoin('pe3_dosen AS B','A.user_id','B.user_id')
-                                            ->leftJoin('pe3_kelas_mhs_peserta AS C','pe3_krsmatkul.id','C.krsmatkul_id')
-                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D','D.kelas_mhs_id','C.kelas_mhs_id')
-                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E','E.id','D.penyelenggaraan_dosen_id')
-                                            ->leftJoin('pe3_dosen AS F','F.user_id','E.user_id')
+                                            ->join('pe3_penyelenggaraan AS A', 'A.id', 'pe3_krsmatkul.penyelenggaraan_id')
+                                            ->leftJoin('pe3_dosen AS B', 'A.user_id', 'B.user_id')
+                                            ->leftJoin('pe3_kelas_mhs_peserta AS C', 'pe3_krsmatkul.id', 'C.krsmatkul_id')
+                                            ->leftJoin('pe3_kelas_mhs_penyelenggaraan AS D', 'D.kelas_mhs_id', 'C.kelas_mhs_id')
+                                            ->leftJoin('pe3_penyelenggaraan_dosen AS E', 'E.id', 'D.penyelenggaraan_dosen_id')
+                                            ->leftJoin('pe3_dosen AS F', 'F.user_id', 'E.user_id')
                                             ->where('krs_id',$krs->id)
-                                            ->orderBy('semester','asc')
-                                            ->orderBy('kmatkul','asc')
+                                            ->orderBy('semester', 'asc')
+                                            ->orderBy('kmatkul', 'asc')
                                             ->get();
                 
-                $daftar_matkul->transform(function ($item,$key) {                 
+                $daftar_matkul->transform(function ($item, $key) {                 
                     if (is_null($item->nama_dosen_kelas) && is_null($item->nama_dosen_penyelenggaraan))
                     {
                         $item->nama_dosen='N.A';
@@ -550,20 +550,20 @@ class PKRSController extends Controller
                 });
                 $config = ConfigurationModel::getCache();
                 $headers=[
-                    'HEADER_1'=>$config['HEADER_1'],
-                    'HEADER_2'=>$config['HEADER_2'],
-                    'HEADER_3'=>$config['HEADER_3'],
-                    'HEADER_4'=>$config['HEADER_4'],
-                    'HEADER_ADDRESS'=>$config['HEADER_ADDRESS'],
+                    'HEADER_1' => $config['HEADER_1'],
+                    'HEADER_2' => $config['HEADER_2'],
+                    'HEADER_3' => $config['HEADER_3'],
+                    'HEADER_4' => $config['HEADER_4'],
+                    'HEADER_ADDRESS' => $config['HEADER_ADDRESS'],
                     'HEADER_LOGO'=>\App\Helpers\Helper::public_path("images/logo.png")
                 ];
                 $pdf = \Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::loadView('report.ReportKRS',
                                                                         [
-                                                                            'headers'=>$headers,
-                                                                            'data_krs'=>$krs,
-                                                                            'daftar_matkul'=>$daftar_matkul,                            
-                                                                            'jumlah_sks'=>$daftar_matkul->sum('sks'),
-                                                                            'kaprodi'=>$kaprodi,
+                                                                            'headers' => $headers,
+                                                                            'data_krs' => $krs,
+                                                                            'daftar_matkul' => $daftar_matkul,                            
+                                                                            'jumlah_sks' => $daftar_matkul->sum('sks'),
+                                                                            'kaprodi' => $kaprodi,
                                                                             'tanggal'=>\App\Helpers\Helper::tanggal('d F Y')
                                                                         ],
                                                                         [],
@@ -577,18 +577,18 @@ class PKRSController extends Controller
                 $pdf_file="exported/pdf/krs_".$krs->id.".pdf";
 
                 return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',
-                                        'krs'=>$krs,
-                                        'pdf_file'=>$pdf_file                                    
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',
+                                        'krs' => $krs,
+                                        'pdf_file' => $pdf_file                                    
                                     ], 200);
             }
             else
             {
                 return Response()->json([
                     'status'=>0,
-                    'pid'=>'fetchdata',        
-                    'message'=>'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
+                    'pid' => 'fetchdata',        
+                    'message' => 'Ketua program studi belum disetting di halaman Data Master -> Program Studi'
                 ], 422);
             }
         }        

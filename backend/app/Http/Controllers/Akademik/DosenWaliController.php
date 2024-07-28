@@ -33,18 +33,18 @@ class DosenWaliController extends Controller {
                         users.created_at,
                         users.updated_at
                     '))
-                    ->join('pe3_dosen','pe3_dosen.user_id','users.id')
+                    ->join('pe3_dosen', 'pe3_dosen.user_id', 'users.id')
                     ->where('pe3_dosen.is_dw',true)
-                    ->orderBy('username','ASC')
+                    ->orderBy('username', 'ASC')
                     ->get();  
                     
         $role = Role::findByName('dosen');
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'role'=>$role,
-                                'users'=>$data,
-                                'message'=>'Fetch data dosen wali berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'role' => $role,
+                                'users' => $data,
+                                'message' => 'Fetch data dosen wali berhasil diperoleh'
                             ], 200);  
     }    
     public function show(Request $request,$id)
@@ -57,8 +57,8 @@ class DosenWaliController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["User ID ($id) gagal diupdate"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
@@ -75,20 +75,20 @@ class DosenWaliController extends Controller {
                                     A.created_at,
                                     B.updated_at
                                 '))
-                                ->join('pe3_formulir_pendaftaran AS B','B.user_id','A.user_id')
-                                ->join('users AS C','C.id','A.user_id')
-                                ->join('pe3_prodi AS D','D.id','A.kjur')
-                                ->join('pe3_kelas AS E','E.idkelas','A.idkelas')
+                                ->join('pe3_formulir_pendaftaran AS B', 'B.user_id', 'A.user_id')
+                                ->join('users AS C', 'C.id', 'A.user_id')
+                                ->join('pe3_prodi AS D', 'D.id', 'A.kjur')
+                                ->join('pe3_kelas AS E', 'E.idkelas', 'A.idkelas')
                                 ->where('A.dosen_id',$id)
-                                ->orderBy('B.nama_mhs','ASC')
+                                ->orderBy('B.nama_mhs', 'ASC')
                                 ->get();
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',
-                                    'user'=>$user,      
-                                    'daftar_mahasiswa'=>$daftar_mahasiswa,   
-                                    'message'=>'data dosen wali beserta mahaiswanya berhasil diperoleh'                                                                           
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',
+                                    'user' => $user,      
+                                    'daftar_mahasiswa' => $daftar_mahasiswa,   
+                                    'message' => 'data dosen wali beserta mahaiswanya berhasil diperoleh'                                                                           
                                 ], 200);
         }
     }
@@ -103,28 +103,28 @@ class DosenWaliController extends Controller {
         $this->hasPermissionTo('SYSTEM-USERS-DOSEN-WALI_STORE');
         
         $this->validate($request, [
-            'name'=>'required',
-            'nidn'=>'numeric|unique:pe3_dosen',
-            'nipy'=>'required|string|unique:pe3_dosen',
-            'email'=>'required|string|email|unique:users',
-            'nomor_hp'=>'required|string|unique:users',
-            'username'=>'required|string|unique:users',
-            'password'=>'required',            
+            'name' => 'required',
+            'nidn' => 'numeric|unique:pe3_dosen',
+            'nipy' => 'required|string|unique:pe3_dosen',
+            'email' => 'required|string|email|unique:users',
+            'nomor_hp' => 'required|string|unique:users',
+            'username' => 'required|string|unique:users',
+            'password' => 'required',            
         ]);
         $user = \DB::transaction(function () use ($request) {
 
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $user=User::create([
                 'id'=>Uuid::uuid4()->toString(),
-                'name'=>$request->input('name'),
-                'email'=>$request->input('email'),
-                'nomor_hp'=>$request->input('nomor_hp'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'nomor_hp' => $request->input('nomor_hp'),
                 'username'=> $request->input('username'),
                 'password'=>Hash::make($request->input('password')),            
-                'theme'=>'default',
+                'theme' => 'default',
                 'foto'=> '/images/users/no_photo.png',
-                'created_at'=>$now, 
-                'updated_at'=>$now
+                'created_at' => $now, 
+                'updated_at' => $now
             ]);       
             $role='dosen';   
             $user->assignRole($role);          
@@ -142,11 +142,11 @@ class DosenWaliController extends Controller {
             }
             
             UserDosen::create([
-                'user_id'=>$user->id,
-                'nama_dosen'=>$request->input('name'),
-                'nidn'=>$request->input('nidn'),
-                'nipy'=>$request->input('nipy'),
-                'is_dw'=>$request->input('is_dw'),
+                'user_id' => $user->id,
+                'nama_dosen' => $request->input('name'),
+                'nidn' => $request->input('nidn'),
+                'nipy' => $request->input('nipy'),
+                'is_dw' => $request->input('is_dw'),
             ]);
             
             return $user;
@@ -160,10 +160,10 @@ class DosenWaliController extends Controller {
                                     ]);
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'user'=>$user,    
-                                    'message'=>'Data dosen wali berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'user' => $user,    
+                                    'message' => 'Data dosen wali berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -184,15 +184,15 @@ class DosenWaliController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["User ID ($id) gagal diupdate"]
+                                    'pid' => 'update',    
+                                    'message' => ["User ID ($id) gagal diupdate"]
                                 ], 422); 
         }
         else
         {
             $this->validate($request, [           
-                                        'pid'=>'required',
-                                        'user_id'=>'required|:users,email,'.$user->id,        
+                                        'pid' => 'required',
+                                        'user_id' => 'required|:users,email, '.$user->id,        
                                     ]);        
             $message='no pid';
             switch($request->input('pid'))
@@ -211,10 +211,10 @@ class DosenWaliController extends Controller {
             }
 
             return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'user'=>$user,      
-                                    'message'=>$message,    
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'user' => $user,      
+                                    'message' => $message,    
                                 ], 200); 
         }
     }
@@ -234,8 +234,8 @@ class DosenWaliController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'destroy',    
-                                    'message'=>["Dosen wali dengan ID ($id) gagal dihapus"]
+                                    'pid' => 'destroy',    
+                                    'message' => ["Dosen wali dengan ID ($id) gagal dihapus"]
                                 ], 422); 
         }
         else
@@ -252,8 +252,8 @@ class DosenWaliController extends Controller {
                                                             ]);
         
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'destroy',    
+                                        'status' => 1,
+                                        'pid' => 'destroy',    
                                         'message'=>"Dosen Wali ($username) berhasil dihapus"
                                     ], 200);    
         }

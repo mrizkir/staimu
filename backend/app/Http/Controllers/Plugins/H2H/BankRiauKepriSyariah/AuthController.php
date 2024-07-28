@@ -20,16 +20,16 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [            
-            'username'=>'required',
-            'password'=>'required',            
+            'username' => 'required',
+            'password' => 'required',            
         ]);
         $credentials = $request->only('username', 'password');
         $credentials['active']=1;
 
         if (! $token = $this->guard()->attempt($credentials,['exp' => \Carbon\Carbon::now()->addDays(1)->timestamp])) {
             $result=[
-                'status'=>'11',
-                'message'=>'Username atau Password salah'
+                'status' => '11',
+                'message' => 'Username atau Password salah'
             ];
             return response()->json([
                                     'Result' => $result
@@ -38,7 +38,7 @@ class AuthController extends Controller
         //log user loggin
         \App\Models\System\ActivityLog::log($request,[
                                                         'object' => $this->guard()->user(), 
-                                                        'object_id'=>$this->getUserid(), 
+                                                        'object_id' => $this->getUserid(), 
                                                         'user_id' => $this->getUserid(), 
                                                         'message' => 'user '.$credentials['username'].' berhasil login'
                                                     ]);
@@ -46,9 +46,9 @@ class AuthController extends Controller
         ConfigurationModel::toCache();  
         return response()->json([
                                 'Result' => [
-                                    'status'=>'00',
-                                    'token'=>$token,
-                                    'message'=>'Request berhasil'
+                                    'status' => '00',
+                                    'token' => $token,
+                                    'message' => 'Request berhasil'
                                 ]
                             ], 200);   
     }
@@ -63,11 +63,11 @@ class AuthController extends Controller
         if (is_null($user))
         {
             $result=[
-                'status'=>'98',
-                'message'=>'Token tidak terdaftar'
+                'status' => '98',
+                'message' => 'Token tidak terdaftar'
             ];
             return response()->json([
-                'Result'=>$result
+                'Result' => $result
             ]);
         }
         else

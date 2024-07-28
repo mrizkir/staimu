@@ -14,10 +14,10 @@ class ProvinsiController extends Controller {
     {
         $provinsi=ProvinsiModel::all();
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'provinsi'=>$provinsi,
-                                    'message'=>'Fetch data provinsi berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'provinsi' => $provinsi,
+                                    'message' => 'Fetch data provinsi berhasil.'
                                 ], 200);
     }
     /**
@@ -30,18 +30,18 @@ class ProvinsiController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Fetch data kabupaten berdasarkan id provinsi gagal"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Fetch data kabupaten berdasarkan id provinsi gagal"]
                                 ], 422); 
         }
         else
         {
             $kabupaten = $provinsi->kabupaten;
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'kabupaten'=>$kabupaten,
-                                        'message'=>'Fetch data kabupaten berdasarkan id provinsi berhasil.'
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',  
+                                        'kabupaten' => $kabupaten,
+                                        'message' => 'Fetch data kabupaten berdasarkan id provinsi berhasil.'
                                     ], 200);
 
         }

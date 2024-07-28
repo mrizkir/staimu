@@ -21,11 +21,11 @@ class TransaksiPPLPKLController extends Controller {
   {
 	  $this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_BROWSE');
 	  
-	  if ($this->hasRole(['mahasiswa','mahasiswabaru']))
+	  if ($this->hasRole(['mahasiswa', 'mahasiswabaru']))
 	  {
 		  $this->validate($request, [           
-			  'ta'=>'required',
-			  'semester_akademik'=>'required|in:1,2,3',
+			  'ta' => 'required',
+			  'semester_akademik' => 'required|in:1,2,3',
 		  ]);
   
 		  $ta=$request->input('ta');
@@ -58,22 +58,22 @@ class TransaksiPPLPKLController extends Controller {
 													  pe3_transaksi_detail.created_at,
 													  pe3_transaksi_detail.updated_at
 												  '))
-												  ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
-												  ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-												  ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')
+												  ->join('pe3_transaksi', 'pe3_transaksi_detail.transaksi_id', 'pe3_transaksi.id')
+												  ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi_detail.user_id')
+												  ->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
 												  ->where('pe3_transaksi.ta',$ta)
 												  ->where('pe3_transaksi.idsmt',$idsmt)
 												  ->where('pe3_transaksi_detail.user_id', $this->getUserid())
 												  ->where('pe3_transaksi_detail.kombi_id',301)        
-												  ->orderBy('pe3_transaksi.tanggal','DESC')
+												  ->orderBy('pe3_transaksi.tanggal', 'DESC')
 												  ->get();
 	  }
 	  else
 	  {
 		  $this->validate($request, [           
-			  'ta'=>'required',
-			  'semester_akademik'=>'required|in:1,2,3',
-			  'prodi_id'=>'required',
+			  'ta' => 'required',
+			  'semester_akademik' => 'required|in:1,2,3',
+			  'prodi_id' => 'required',
 		  ]);
   
 		  $ta=$request->input('ta');
@@ -107,11 +107,11 @@ class TransaksiPPLPKLController extends Controller {
 													  pe3_transaksi_detail.created_at,
 													  pe3_transaksi_detail.updated_at
 												  '))
-												  ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
-												  ->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_transaksi_detail.user_id')
-												  ->join('pe3_status_transaksi','pe3_transaksi.status','pe3_status_transaksi.id_status')        
+												  ->join('pe3_transaksi', 'pe3_transaksi_detail.transaksi_id', 'pe3_transaksi.id')
+												  ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_transaksi_detail.user_id')
+												  ->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')        
 												  ->where('pe3_transaksi_detail.kombi_id',301)        
-												  ->orderBy('pe3_transaksi.tanggal','DESC');                                               
+												  ->orderBy('pe3_transaksi.tanggal', 'DESC');                                               
 
 		  if ($request->has('SEARCH'))
 		  {
@@ -128,10 +128,10 @@ class TransaksiPPLPKLController extends Controller {
 	  }        
 	  
 	  return Response()->json([
-								  'status'=>1,
-								  'pid'=>'fetchdata',  
-								  'transaksi'=>$daftar_transaksi,
-								  'message'=>'Fetch data daftar transaksi berhasil.'
+								  'status' => 1,
+								  'pid' => 'fetchdata',  
+								  'transaksi' => $daftar_transaksi,
+								  'message' => 'Fetch data daftar transaksi berhasil.'
 							  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }
   /**
@@ -142,9 +142,9 @@ class TransaksiPPLPKLController extends Controller {
 	  $this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_STORE');
 
 	  $this->validate($request, [           
-		  'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-		  'semester_akademik'=>'required',
-		  'ta'=>'required'
+		  'nim' => 'required|exists:pe3_register_mahasiswa,nim',     
+		  'semester_akademik' => 'required',
+		  'ta' => 'required'
 	  ]);
 	  $jumlah_syarat_matkul = 0;
 	  try 
@@ -156,7 +156,7 @@ class TransaksiPPLPKLController extends Controller {
 		  $transaksi=TransaksiDetailModel::select(\DB::raw('
 											  1
 										  '))
-										  ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
+										  ->join('pe3_transaksi', 'pe3_transaksi_detail.transaksi_id', 'pe3_transaksi.id')
 										  ->where('pe3_transaksi.ta',$ta)
 										  ->where('pe3_transaksi.idsmt',$semester_akademik)
 										  ->where('pe3_transaksi.nim',$nim)
@@ -176,7 +176,7 @@ class TransaksiPPLPKLController extends Controller {
 					pe3_register_mahasiswa.*,
 					pe3_formulir_pendaftaran.no_formulir
 				'))
-				->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
+				->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_register_mahasiswa.user_id')
 				->where('nim', $nim)
 				->first();
 
@@ -245,15 +245,15 @@ class TransaksiPPLPKLController extends Controller {
 			  $no_transaksi='301'.date('YmdHms');
 			  $transaksi=TransaksiModel::create([
 				  'id'=>Uuid::uuid4()->toString(),
-				  'user_id'=>$mahasiswa->user_id,
-				  'no_transaksi'=>$no_transaksi,
-				  'no_faktur'=>'',
-				  'kjur'=>$mahasiswa->kjur,
-				  'ta'=>$request->input('ta'),
-				  'idsmt'=>$request->input('semester_akademik'),
-				  'idkelas'=>$mahasiswa->idkelas,
-				  'no_formulir'=>$mahasiswa->no_formulir,
-				  'nim'=>$mahasiswa->nim,
+				  'user_id' => $mahasiswa->user_id,
+				  'no_transaksi' => $no_transaksi,
+				  'no_faktur' => '',
+				  'kjur' => $mahasiswa->kjur,
+				  'ta' => $request->input('ta'),
+				  'idsmt' => $request->input('semester_akademik'),
+				  'idkelas' => $mahasiswa->idkelas,
+				  'no_formulir' => $mahasiswa->no_formulir,
+				  'nim' => $mahasiswa->nim,
 				  'commited'=>0,
 				  'total'=>0,
 				  'tanggal'=>date('Y-m-d'),
@@ -262,14 +262,14 @@ class TransaksiPPLPKLController extends Controller {
 			  
 			  $transaksi_detail=TransaksiDetailModel::create([
 				  'id'=>Uuid::uuid4()->toString(),
-				  'user_id'=>$mahasiswa->user_id,
-				  'transaksi_id'=>$transaksi->id,
-				  'no_transaksi'=>$transaksi->no_transaksi,
+				  'user_id' => $mahasiswa->user_id,
+				  'transaksi_id' => $transaksi->id,
+				  'no_transaksi' => $transaksi->no_transaksi,
 				  'kombi_id'=>301,
-				  'nama_kombi'=>'PPL / PKL',
-				  'biaya'=>$biaya_kombi,
-				  'jumlah'=>1,
-				  'sub_total'=>$biaya_kombi    
+				  'nama_kombi' => 'PPL / PKL',
+				  'biaya' => $biaya_kombi,
+				  'jumlah' => 1,
+				  'sub_total' => $biaya_kombi    
 			  ]);
 
 			  $transaksi->total=$biaya_kombi;
@@ -281,11 +281,11 @@ class TransaksiPPLPKLController extends Controller {
 		  });
 
 		  return Response()->json([
-									  'status'=>1,
-									  'pid'=>'store',       
-									  'transaksi'=>$transaksi,
-										'daftar_syarat'=>$daftar_syarat,
-									  'message'=>'Transaksi PPL / PKL berhasil di input.'
+									  'status' => 1,
+									  'pid' => 'store',       
+									  'transaksi' => $transaksi,
+										'daftar_syarat' => $daftar_syarat,
+									  'message' => 'Transaksi PPL / PKL berhasil di input.'
 								  ], 200); 
 	  }
 	  catch (Exception $e)
@@ -313,9 +313,9 @@ class TransaksiPPLPKLController extends Controller {
 			}
 		  return Response()->json([
 			  'status'=>0,
-			  'pid'=>'store',
-			  'message'=>[$e->getMessage()],
-				'matakuliah syarat'=>$persyaratan_matkul,
+			  'pid' => 'store',
+			  'message' => [$e->getMessage()],
+				'matakuliah syarat' => $persyaratan_matkul,
 		  ], 422); 
 	  }        
   }
@@ -337,9 +337,9 @@ class TransaksiPPLPKLController extends Controller {
 	{
 	  return Response()->json([
 							  'status'=>0,
-							  'pid'=>'destroy',           
-							  'transaksi'=>$transaksi,     
-							  'message'=>["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
+							  'pid' => 'destroy',           
+							  'transaksi' => $transaksi,     
+							  'message' => ["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
 						  ], 422); 
 	}
 	else if ($transaksi->status==0)
@@ -352,18 +352,18 @@ class TransaksiPPLPKLController extends Controller {
 												  ]);
 	  $transaksi->delete();
 	  return Response()->json([
-								  'status'=>1,
-								  'pid'=>'destroy',    
+								  'status' => 1,
+								  'pid' => 'destroy',    
 								  'message'=>"transaksi ppl / pkl dengan id ($id) berhasil dihapus"
 							  ], 200);    
 	}
 	else
 	{
 	  return Response()->json([
-							  'status'=>1,
-							  'pid'=>'destroy',           
-							  'transaksi'=>$transaksi,     
-							  'message'=>["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
+							  'status' => 1,
+							  'pid' => 'destroy',           
+							  'transaksi' => $transaksi,     
+							  'message' => ["Transaksi ppl / pkl dengan ($id) gagal dihapus"]
 						  ], 422); 
 	}
   }

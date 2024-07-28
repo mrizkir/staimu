@@ -405,7 +405,7 @@
 								this.btnLoading = true;
 								if (this.editedIndex > -1) {
 										await this.$ajax
-											.post("/datamaster/persyaratan/"+this.formdata.id,
+											.post("/datamaster/persyaratan/" + this.formdata.id,
 												{
 														_method: "PUT",
 														nama_persyaratan: this.formdata.nama_persyaratan,
@@ -454,7 +454,7 @@
 						if (this.$refs.frmdialogcopypersyaratan.validate())
 						{
 								this.btnLoading = true;
-								this.$ajax.post("/datamaster/persyaratan/salin/"+this.tahun_pendaftaran,
+								this.$ajax.post("/datamaster/persyaratan/salin/" + this.tahun_pendaftaran,
 										{
 												dari_tahun_pendaftaran: this.dari_tahun_pendaftaran,
 												proses: "pmb",

@@ -22,8 +22,8 @@ class NilaiWaktuPengisianController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_BROWSE');
 
 		$this->validate($request, [
-			'ta'=>'required',
-			'semester_akademik'=>'required',
+			'ta' => 'required',
+			'semester_akademik' => 'required',
 		]);
 
 		$ta=$request->input('ta');
@@ -44,8 +44,8 @@ class NilaiWaktuPengisianController extends Controller
 							pe3_kelas_mhs.created_at,
 							pe3_kelas_mhs.updated_at
 						'))
-						->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-						->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')
+						->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+						->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')
 						->where('pe3_kelas_mhs.tahun',$ta)
 						->where('pe3_kelas_mhs.idsmt',$semester_akademik);
 						
@@ -61,15 +61,15 @@ class NilaiWaktuPengisianController extends Controller
 
 
 
-		$pembagiankelas->transform(function ($item,$key) {			
+		$pembagiankelas->transform(function ($item, $key) {			
 			$item->jumlah_mhs=\DB::table('pe3_kelas_mhs_peserta')->where('kelas_mhs_id',$item->id)->count();
 			return $item;
 		});
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'pembagiankelas'=>$pembagiankelas,
-									'message'=>'Fetch data pembagian kelas berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'pembagiankelas' => $pembagiankelas,
+									'message' => 'Fetch data pembagian kelas berhasil.'
 								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
@@ -80,12 +80,12 @@ class NilaiWaktuPengisianController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 		$this->validate($request, [
-			'idkelas'=>'required',
-			'hari'=>'required|numeric',
-			'jam_masuk'=>'required',
-			'jam_keluar'=>'required',
-			'penyelenggaraan_dosen_id'=>'required',
-			'ruang_kelas_id'=>'required|exists:pe3_ruangkelas,id',
+			'idkelas' => 'required',
+			'hari' => 'required|numeric',
+			'jam_masuk' => 'required',
+			'jam_keluar' => 'required',
+			'penyelenggaraan_dosen_id' => 'required',
+			'ruang_kelas_id' => 'required|exists:pe3_ruangkelas,id',
 
 		]);
 
@@ -93,19 +93,19 @@ class NilaiWaktuPengisianController extends Controller
 
 			$uuid=Uuid::uuid4()->toString();
 			$pembagiankelas=PembagianKelasModel::create([
-				'id'=>$uuid,
-				'user_id'=>$request->input('user_id'),
-				'zoom_id'=>$request->input('zoom_id'),
-				'kmatkul'=>$request->input('kmatkul'),
-				'nmatkul'=>$request->input('nmatkul'),
-				'sks'=>$request->input('sks'),
-				'idkelas'=>$request->input('idkelas'),
-				'hari'=>$request->input('hari'),
-				'jam_masuk'=>$request->input('jam_masuk'),
-				'jam_keluar'=>$request->input('jam_keluar'),
-				'ruang_kelas_id'=>$request->input('ruang_kelas_id'),
-				'idsmt'=>$request->input('idsmt'),
-				'tahun'=>$request->input('tahun'),
+				'id' => $uuid,
+				'user_id' => $request->input('user_id'),
+				'zoom_id' => $request->input('zoom_id'),
+				'kmatkul' => $request->input('kmatkul'),
+				'nmatkul' => $request->input('nmatkul'),
+				'sks' => $request->input('sks'),
+				'idkelas' => $request->input('idkelas'),
+				'hari' => $request->input('hari'),
+				'jam_masuk' => $request->input('jam_masuk'),
+				'jam_keluar' => $request->input('jam_keluar'),
+				'ruang_kelas_id' => $request->input('ruang_kelas_id'),
+				'idsmt' => $request->input('idsmt'),
+				'tahun' => $request->input('tahun'),
 
 			]);
 
@@ -115,8 +115,8 @@ class NilaiWaktuPengisianController extends Controller
 			{
 				PembagianKelasPenyelenggaraanModel::create([
 					'id'=>Uuid::uuid4()->toString(),
-					'kelas_mhs_id'=>$uuid,
-					'penyelenggaraan_dosen_id'=>$v
+					'kelas_mhs_id' => $uuid,
+					'penyelenggaraan_dosen_id' => $v
 				]);
 			}
 
@@ -125,10 +125,10 @@ class NilaiWaktuPengisianController extends Controller
 		});
 
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'store',
-								'pembagiankelas'=>$pembagiankelas,
-								'message'=>'Pembagian Kelas berhasil ditambahkan.'
+								'status' => 1,
+								'pid' => 'store',
+								'pembagiankelas' => $pembagiankelas,
+								'message' => 'Pembagian Kelas berhasil ditambahkan.'
 							], 200);
 	}
 	public function show(Request $request,$id)
@@ -157,15 +157,15 @@ class NilaiWaktuPengisianController extends Controller
 													pe3_kelas_mhs.created_at,
 													pe3_kelas_mhs.updated_at
 												'))
-											->join('pe3_dosen','pe3_kelas_mhs.user_id','pe3_dosen.user_id')
-											->join('pe3_ruangkelas','pe3_ruangkelas.id','pe3_kelas_mhs.ruang_kelas_id')
+											->join('pe3_dosen', 'pe3_kelas_mhs.user_id', 'pe3_dosen.user_id')
+											->join('pe3_ruangkelas', 'pe3_ruangkelas.id', 'pe3_kelas_mhs.ruang_kelas_id')
 											->find($id);
 		if (is_null($pembagiankelas))
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',
-									'message'=>["Pembagian Kelas dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',
+									'message' => ["Pembagian Kelas dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else
@@ -183,13 +183,13 @@ class NilaiWaktuPengisianController extends Controller
 										pe3_matakuliah.kjur,
 										0 AS jumlah_mhs
 									'))
-									->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
-									->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
-									->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
+									->join('pe3_penyelenggaraan_dosen', 'pe3_penyelenggaraan_dosen.id', 'pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
+									->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan_dosen.penyelenggaraan_id', 'pe3_penyelenggaraan.id')
+									->join('pe3_matakuliah', 'pe3_matakuliah.id', 'pe3_penyelenggaraan.matkul_id')
 									->where('kelas_mhs_id',$id)
 									->get();
 
-		$penyelenggaraan->transform(function ($item,$key) {
+		$penyelenggaraan->transform(function ($item, $key) {
 			$item->jumlah_mhs=\DB::table('pe3_krsmatkul')
 								->where('penyelenggaraan_id',$item->penyelenggaraan_id)
 								->where('pe3_krsmatkul.batal', 0)
@@ -206,20 +206,20 @@ class NilaiWaktuPengisianController extends Controller
 										pe3_register_mahasiswa.tahun,
 										pe3_register_mahasiswa.kjur
 									'))
-									->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
-									->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-									->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
+									->join('pe3_krsmatkul', 'pe3_krsmatkul.id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
+									->join('pe3_krs', 'pe3_krs.id', 'pe3_krsmatkul.krs_id')
+									->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_krs.user_id')
+									->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_register_mahasiswa.user_id')
 									->where('kelas_mhs_id',$id)
 									->where('pe3_krsmatkul.batal', 0)
 									->get();
 
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'pembagiankelas'=>$pembagiankelas,
-								'penyelenggaraan'=>$penyelenggaraan,
-								'peserta'=>$peserta,
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'pembagiankelas' => $pembagiankelas,
+								'penyelenggaraan' => $penyelenggaraan,
+								'peserta' => $peserta,
 								'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
 							], 200);
 		}
@@ -232,8 +232,8 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',
-									'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',
+									'message' => ["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else
@@ -248,15 +248,15 @@ class NilaiWaktuPengisianController extends Controller
 										pe3_matakuliah.kjur,
 										0 AS jumlah_mhs
 									'))
-									->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
-									->join('pe3_penyelenggaraan','pe3_penyelenggaraan_dosen.penyelenggaraan_id','pe3_penyelenggaraan.id')
-									->join('pe3_matakuliah','pe3_matakuliah.id','pe3_penyelenggaraan.matkul_id')
+									->join('pe3_penyelenggaraan_dosen', 'pe3_penyelenggaraan_dosen.id', 'pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
+									->join('pe3_penyelenggaraan', 'pe3_penyelenggaraan_dosen.penyelenggaraan_id', 'pe3_penyelenggaraan.id')
+									->join('pe3_matakuliah', 'pe3_matakuliah.id', 'pe3_penyelenggaraan.matkul_id')
 									->where('kelas_mhs_id',$id)
 									->get();
 			return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'penyelenggaraan'=>$penyelenggaraan,
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'penyelenggaraan' => $penyelenggaraan,
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							], 200);
 		}
@@ -270,8 +270,8 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',
-									'message'=>["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',
+									'message' => ["Kelas Mahasiswa dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else
@@ -285,17 +285,17 @@ class NilaiWaktuPengisianController extends Controller
 										pe3_register_mahasiswa.tahun,
 										pe3_register_mahasiswa.kjur
 									'))
-									->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
-									->join('pe3_krs','pe3_krs.id','pe3_krsmatkul.krs_id')
-									->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_krs.user_id')
-									->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_register_mahasiswa.user_id')
+									->join('pe3_krsmatkul', 'pe3_krsmatkul.id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
+									->join('pe3_krs', 'pe3_krs.id', 'pe3_krsmatkul.krs_id')
+									->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_krs.user_id')
+									->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_register_mahasiswa.user_id')
 									->where('kelas_mhs_id',$id)
 									->where('pe3_krsmatkul.batal', 0)
 									->get();
 			return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'peserta'=>$peserta,
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'peserta' => $peserta,
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							], 200);
 		}
@@ -306,8 +306,8 @@ class NilaiWaktuPengisianController extends Controller
 													pe3_kelas_mhs.id,
 													pe3_kelas_mhs.nmatkul
 												'))
-												->join('pe3_kelas_mhs','pe3_kelas_mhs.id','pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id')
-												->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.id','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
+												->join('pe3_kelas_mhs', 'pe3_kelas_mhs.id', 'pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id')
+												->join('pe3_penyelenggaraan_dosen', 'pe3_penyelenggaraan_dosen.id', 'pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id')
 												->where('pe3_penyelenggaraan_dosen.penyelenggaraan_id',$id)
 												->get();
 		if (is_null($daftar_kelas))
@@ -315,10 +315,10 @@ class NilaiWaktuPengisianController extends Controller
 			$daftar_kelas=[];
 		}
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'daftarkelas'=>$daftar_kelas,
-								'message'=>'Fetch daftar kelas berhasil diperoleh'
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'daftarkelas' => $daftar_kelas,
+								'message' => 'Fetch daftar kelas berhasil diperoleh'
 							], 200);
 	}
 	public function pengampu (Request $request)
@@ -326,8 +326,8 @@ class NilaiWaktuPengisianController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_SHOW');
 
 		$this->validate($request, [
-			'pid'=>'required',
-			'idpenyelenggaraan'=>'required|exists:pe3_penyelenggaraan,id'
+			'pid' => 'required',
+			'idpenyelenggaraan' => 'required|exists:pe3_penyelenggaraan,id'
 		]);
 
 		$data=[];
@@ -346,7 +346,7 @@ class NilaiWaktuPengisianController extends Controller
 										->from('pe3_penyelenggaraan_dosen')
 										->where('penyelenggaraan_id',$idpenyelenggaraan);
 								})
-								->orderBy('nama_dosen','ASC')
+								->orderBy('nama_dosen', 'ASC')
 								->get();
 			break;
 			case 'terdaftar':
@@ -360,17 +360,17 @@ class NilaiWaktuPengisianController extends Controller
 									pe3_penyelenggaraan_dosen.created_at,
 									pe3_penyelenggaraan_dosen.updated_at
 								'))
-								->join('pe3_penyelenggaraan_dosen','pe3_penyelenggaraan_dosen.user_id','pe3_dosen.user_id')
+								->join('pe3_penyelenggaraan_dosen', 'pe3_penyelenggaraan_dosen.user_id', 'pe3_dosen.user_id')
 								->where('penyelenggaraan_id',$idpenyelenggaraan)
-								->orderBy('nama_dosen','ASC')
+								->orderBy('nama_dosen', 'ASC')
 								->get();
 			break;
 		}
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'dosen'=>$data,
-								'message'=>'Fetch data Dosen Pengampu berhasil diperoleh'
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'dosen' => $data,
+								'message' => 'Fetch data Dosen Pengampu berhasil diperoleh'
 							], 200);
 	}
 	public function storematakuliah (Request $request)
@@ -378,8 +378,8 @@ class NilaiWaktuPengisianController extends Controller
 		$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 		$this->validate($request, [
-			'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-			'penyelenggaraan_dosen_id'=>'required',
+			'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+			'penyelenggaraan_dosen_id' => 'required',
 		]);
 		$kelas_mhs_id=$request->input('kelas_mhs_id');
 
@@ -389,13 +389,13 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			PembagianKelasPenyelenggaraanModel::create([
 				'id'=>Uuid::uuid4()->toString(),
-				'kelas_mhs_id'=>$kelas_mhs_id,
-				'penyelenggaraan_dosen_id'=>$v
+				'kelas_mhs_id' => $kelas_mhs_id,
+				'penyelenggaraan_dosen_id' => $v
 			]);
 		}
 		return Response()->json([
-								'status'=>1,
-								'pid'=>'store',
+								'status' => 1,
+								'pid' => 'store',
 								'message'=>"Menambahkan daftar matakuliah dengan ID ($kelas_mhs_id)  berhasil ditambahkan."
 							], 200);
 	}
@@ -404,8 +404,8 @@ class NilaiWaktuPengisianController extends Controller
 		if ($this->hasRole('mahasiswa'))
 		{
 			$this->validate($request, [
-				'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-				'krsmatkul_id'=>'required|exists:pe3_krsmatkul,id',
+				'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+				'krsmatkul_id' => 'required|exists:pe3_krsmatkul,id',
 			]);
 			
 			$kelas_mhs_id=$request->input('kelas_mhs_id');
@@ -417,8 +417,8 @@ class NilaiWaktuPengisianController extends Controller
 
 			PembagianKelasPesertaModel::create([
 				'id'=>Uuid::uuid4()->toString(),
-				'kelas_mhs_id'=>$kelas_mhs_id,
-				'krsmatkul_id'=>$krsmatkul_id,
+				'kelas_mhs_id' => $kelas_mhs_id,
+				'krsmatkul_id' => $krsmatkul_id,
 			]);
 			
 			$daftar_members=[];
@@ -428,12 +428,12 @@ class NilaiWaktuPengisianController extends Controller
 			$this->hasPermissionTo('AKADEMIK-NILAI-WAKTU-PENGISIAN_STORE');
 
 			$members_selected=json_decode($request->input('members_selected'), true);
-			$request->merge(['members_selected'=>$members_selected]);
+			$request->merge(['members_selected' => $members_selected]);
 
 			$this->validate($request, [
-				'kelas_mhs_id'=>'required|exists:pe3_kelas_mhs,id',
-				'members_selected'=>'required',
-				'pid'=>'required|in:krs,pembagiankelas'
+				'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
+				'members_selected' => 'required',
+				'pid' => 'required|in:krs,pembagiankelas'
 			]);
 			$kelas_mhs_id=$request->input('kelas_mhs_id');
 
@@ -442,8 +442,8 @@ class NilaiWaktuPengisianController extends Controller
 			{
 				$daftar_members[]=[
 					'id'=>Uuid::uuid4()->toString(),
-					'kelas_mhs_id'=>$kelas_mhs_id,
-					'krsmatkul_id'=>$v['id'],
+					'kelas_mhs_id' => $kelas_mhs_id,
+					'krsmatkul_id' => $v['id'],
 					'created_at'=>\Carbon\Carbon::now(),
 					'updated_at'=>\Carbon\Carbon::now()
 				];
@@ -451,9 +451,9 @@ class NilaiWaktuPengisianController extends Controller
 			PembagianKelasPesertaModel::insert($daftar_members);       
 		}        
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'store',
-									'daftar_members'=>$daftar_members,
+									'status' => 1,
+									'pid' => 'store',
+									'daftar_members' => $daftar_members,
 									'message'=>"Peserta kelas dengan ID ($kelas_mhs_id) berhasil ditambahkan."
 								], 200);
 	}
@@ -468,18 +468,18 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',
-									'message'=>["Dosen Pengampu dengan ($id) gagal diperoleh"]
+									'pid' => 'destroy',
+									'message' => ["Dosen Pengampu dengan ($id) gagal diperoleh"]
 								], 422);
 		}
 		else
 		{
 			$this->validate($request, [
-				'waktu_mulai_isi_nilai'=>'required',
-				'waktu_selesai_isi_nilai'=>'required',
-				'jam_mulai_isi'=>'required',
-				'jam_selesai_isi'=>'required',
-				'alldosen'=>'required',
+				'waktu_mulai_isi_nilai' => 'required',
+				'waktu_selesai_isi_nilai' => 'required',
+				'jam_mulai_isi' => 'required',
+				'jam_selesai_isi' => 'required',
+				'alldosen' => 'required',
 			]);
 
 			$alldosen = $request->input('alldosen');
@@ -491,8 +491,8 @@ class NilaiWaktuPengisianController extends Controller
 					->where('idsmt', $pembagian->idsmt)
 					->where('tahun', $pembagian->tahun)
 					->update([
-						'waktu_mulai_isi_nilai'=>$waktu_mulai,
-						'waktu_selesai_isi_nilai'=>$waktu_selesai,
+						'waktu_mulai_isi_nilai' => $waktu_mulai,
+						'waktu_selesai_isi_nilai' => $waktu_selesai,
 					]);
 			}
 			else
@@ -510,8 +510,8 @@ class NilaiWaktuPengisianController extends Controller
 															]);
 
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update',
+										'status' => 1,
+										'pid' => 'update',
 										'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
 									], 200);
 		}
@@ -532,8 +532,8 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',
-									'message'=>["Kelas dengan ($id) gagal dihapus"]
+									'pid' => 'destroy',
+									'message' => ["Kelas dengan ($id) gagal dihapus"]
 								], 422);
 		}
 		else
@@ -546,8 +546,8 @@ class NilaiWaktuPengisianController extends Controller
 															]);
 			$pembagiankelas->delete();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',
+										'status' => 1,
+										'pid' => 'destroy',
 										'message'=>"Kelas dengan ID ($id) berhasil dihapus"
 									], 200);
 		}
@@ -569,15 +569,15 @@ class NilaiWaktuPengisianController extends Controller
 																pe3_kelas_mhs_penyelenggaraan.kelas_mhs_id,
 																pe3_penyelenggaraan_dosen.penyelenggaraan_id
 															'))
-															->join('pe3_penyelenggaraan_dosen','pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id','pe3_penyelenggaraan_dosen.id')
+															->join('pe3_penyelenggaraan_dosen', 'pe3_kelas_mhs_penyelenggaraan.penyelenggaraan_dosen_id', 'pe3_penyelenggaraan_dosen.id')
 															->find($id);
 
 		if (is_null($penyelenggaraan))
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',
-									'message'=>["Anggota Matakuliah di kelas dengan ($id) gagal dihapus"]
+									'pid' => 'destroy',
+									'message' => ["Anggota Matakuliah di kelas dengan ($id) gagal dihapus"]
 								], 422);
 		}
 		else
@@ -592,7 +592,7 @@ class NilaiWaktuPengisianController extends Controller
 			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan) {
 				$penyelenggaraan_id=$penyelenggaraan->penyelenggaraan_id;
 				\DB::table('pe3_kelas_mhs_peserta')
-						->join('pe3_krsmatkul','pe3_krsmatkul.id','pe3_kelas_mhs_peserta.krsmatkul_id')
+						->join('pe3_krsmatkul', 'pe3_krsmatkul.id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
 						->where('pe3_krsmatkul.penyelenggaraan_id',$penyelenggaraan_id)
 						->delete();
 
@@ -604,9 +604,9 @@ class NilaiWaktuPengisianController extends Controller
 			});
 
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',
-										'penyelenggaraan_id'=>$penyelenggaraan_id,
+										'status' => 1,
+										'pid' => 'destroy',
+										'penyelenggaraan_id' => $penyelenggaraan_id,
 										'message' => 'Menghapus matakuliah di kelas mahasiswa dengan id ('.$id.') berhasil'
 									], 200);
 		}
@@ -628,8 +628,8 @@ class NilaiWaktuPengisianController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',
-									'message'=>["Peserta dengan ($id) gagal dihapus"]
+									'pid' => 'destroy',
+									'message' => ["Peserta dengan ($id) gagal dihapus"]
 								], 422);
 		}
 		else
@@ -642,8 +642,8 @@ class NilaiWaktuPengisianController extends Controller
 															]);
 			$peserta->delete();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',
+										'status' => 1,
+										'pid' => 'destroy',
 										'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
 									], 200);
 		}

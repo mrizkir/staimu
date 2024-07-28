@@ -15,10 +15,10 @@ class KabupatenController extends Controller {
     {
         $kabupaten=KabupatenModel::all();
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'fetchdata',  
-                                    'kabupaten'=>$kabupaten,
-                                    'message'=>'Fetch data kabupaten berhasil.'
+                                    'status' => 1,
+                                    'pid' => 'fetchdata',  
+                                    'kabupaten' => $kabupaten,
+                                    'message' => 'Fetch data kabupaten berhasil.'
                                 ], 200);
     }
     /**
@@ -31,18 +31,18 @@ class KabupatenController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Fetch data kecamatan berdasarkan id kabupaten gagal"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Fetch data kecamatan berdasarkan id kabupaten gagal"]
                                 ], 422); 
         }
         else
         {
             $kecamatan = $kabupaten->kecamatan;
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',  
-                                        'kecamatan'=>$kecamatan,
-                                        'message'=>'Fetch data kecamatan berdasarkan id kabupaten berhasil.'
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',  
+                                        'kecamatan' => $kecamatan,
+                                        'message' => 'Fetch data kecamatan berdasarkan id kabupaten berhasil.'
                                     ], 200);
 
         }

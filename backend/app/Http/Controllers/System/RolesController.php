@@ -20,10 +20,10 @@ class RolesController extends Controller {
         $this->hasPermissionTo('SYSTEM-SETTING-ROLES_DESTROY');
         $data = Role::all();
         return Response()->json([
-                                'status'=>1,
-                                'pid'=>'fetchdata',
-                                'roles'=>$data,
-                                'message'=>'Fetch data stores berhasil diperoleh'
+                                'status' => 1,
+                                'pid' => 'fetchdata',
+                                'roles' => $data,
+                                'message' => 'Fetch data stores berhasil diperoleh'
                             ], 200);    
     }    
     /**
@@ -36,10 +36,10 @@ class RolesController extends Controller {
     {
         $this->hasPermissionTo('SYSTEM-SETTING-ROLES_STORE');
         $this->validate($request, [
-            'name'=>'required|unique:roles',
+            'name' => 'required|unique:roles',
         ],[
-            'name.required'=>'Nama role mohon untuk di isi',
-            'name.unique'=>'Nama role telah ada, mohon untuk diganti dengan yang lain'
+            'name.required' => 'Nama role mohon untuk di isi',
+            'name.unique' => 'Nama role telah ada, mohon untuk diganti dengan yang lain'
         ]
         );
         
@@ -48,10 +48,10 @@ class RolesController extends Controller {
         $role->save();
        
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'role'=>$role,    
-                                    'message'=>'Data role berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'role' => $role,    
+                                    'message' => 'Data role berhasil disimpan.'
                                 ], 200); 
 
     }
@@ -77,9 +77,9 @@ class RolesController extends Controller {
         $role = Role::find($role_id);
         $role->syncPermissions($records);
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'store',
-                                    'message'=>'Permission role '.$role->name.' berhasil disimpan.'
+                                    'status' => 1,
+                                    'pid' => 'store',
+                                    'message' => 'Permission role '.$role->name.' berhasil disimpan.'
                                 ], 200); 
     }
     /**
@@ -111,9 +111,9 @@ class RolesController extends Controller {
         });
        
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'destroy',
-                                    'message'=>'Role '.$role->name.' berhasil di revoke.'
+                                    'status' => 1,
+                                    'pid' => 'destroy',
+                                    'message' => 'Role '.$role->name.' berhasil di revoke.'
                                 ], 200); 
     }
     /**
@@ -130,17 +130,17 @@ class RolesController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Role ID ($id) gagal diperoleh"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Role ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',
-                                        'permissions'=>$role->permissions,    
-                                        'message'=>'Fetch permission role '.$role->name.' berhasil diperoleh.'
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',
+                                        'permissions' => $role->permissions,    
+                                        'message' => 'Fetch permission role '.$role->name.' berhasil diperoleh.'
                                     ], 200); 
         }
     }    
@@ -158,17 +158,17 @@ class RolesController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'fetchdata',    
-                                    'message'=>["Role ID ($id) gagal diperoleh"]
+                                    'pid' => 'fetchdata',    
+                                    'message' => ["Role ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'fetchdata',
-                                        'permissions'=>$role->permissions,    
-                                        'message'=>'Fetch permission role '.$role->name.' berhasil diperoleh.'
+                                        'status' => 1,
+                                        'pid' => 'fetchdata',
+                                        'permissions' => $role->permissions,    
+                                        'message' => 'Fetch permission role '.$role->name.' berhasil diperoleh.'
                                     ], 200); 
         }
     }    
@@ -186,22 +186,22 @@ class RolesController extends Controller {
         $role = Role::find($id);
 
         $this->validate($request, [                                
-            'name'=>[
+            'name' => [
                 'required',
-                Rule::unique('roles')->ignore($role->name,'name')
+                Rule::unique('roles')->ignore($role->name, 'name')
             ],         
         ],[
-            'name.required'=>'Nama role mohon untuk di isi',
+            'name.required' => 'Nama role mohon untuk di isi',
         ]);   
        
         $role->name = $request->input('name');
         $role->save();
 
         return Response()->json([
-                                    'status'=>1,
-                                    'pid'=>'update',
-                                    'role'=>$role,    
-                                    'message'=>'Data role '.$role->name.' berhasil diubah.'
+                                    'status' => 1,
+                                    'pid' => 'update',
+                                    'role' => $role,    
+                                    'message' => 'Data role '.$role->name.' berhasil diubah.'
                                 ], 200); 
     }
 }

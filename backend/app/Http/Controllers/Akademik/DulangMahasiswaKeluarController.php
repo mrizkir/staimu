@@ -23,9 +23,9 @@ class DulangMahasiswaKeluarController extends Controller
 		$this->hasPermissionTo('AKADEMIK-DULANG-KELUAR_BROWSE');
 
 		$this->validate($request, [           
-			'ta'=>'required',
-			'prodi_id'=>'required',
-			'idsmt'=>'required',
+			'ta' => 'required',
+			'prodi_id' => 'required',
+			'idsmt' => 'required',
 		]);
 
 		$ta=$request->input('ta');
@@ -46,16 +46,16 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
-			->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-			->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-			->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+			->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+			->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
+			->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
 			->where('pe3_dulang.tahun',$ta)   
 			->where('pe3_dulang.idsmt',$idsmt)   
 			->where('pe3_register_mahasiswa.kjur',$prodi_id)
 			->where('pe3_dulang.user_id', $this->getUserid())
-			->where('pe3_dulang.k_status','K')
-			->orderBy('pe3_dulang.idsmt','desc')
-			->orderBy('nama_mhs','asc')
+			->where('pe3_dulang.k_status', 'K')
+			->orderBy('pe3_dulang.idsmt', 'desc')
+			->orderBy('nama_mhs', 'asc')
 			->get();
 		}
 		else
@@ -73,23 +73,23 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
-			->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-			->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-			->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+			->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+			->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
+			->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
 			->where('pe3_dulang.tahun',$ta)   
 			->where('pe3_dulang.idsmt',$idsmt)   
 			->where('pe3_register_mahasiswa.kjur',$prodi_id)
-			->where('pe3_dulang.k_status','K')
-			->orderBy('pe3_dulang.idsmt','desc')
-			->orderBy('nama_mhs','asc')
+			->where('pe3_dulang.k_status', 'K')
+			->orderBy('pe3_dulang.idsmt', 'desc')
+			->orderBy('nama_mhs', 'asc')
 			->get();
 		}
 
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'mahasiswa'=>$data,                 
-									'message'=>'Fetch data daftar ulang mahasiswa keluar berhasil.'
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'mahasiswa' => $data,                 
+									'message' => 'Fetch data daftar ulang mahasiswa keluar berhasil.'
 								], 200);
 	}
 	/**
@@ -100,7 +100,7 @@ class DulangMahasiswaKeluarController extends Controller
 		$this->hasPermissionTo('KEMAHASISWAAN-PROFIL-MHS_SHOW');
 
 		$this->validate($request,[
-			'nim'=>'required|numeric'
+			'nim' => 'required|numeric'
 		]);
 		
 		try
@@ -114,8 +114,8 @@ class DulangMahasiswaKeluarController extends Controller
 								A.k_status,
 								C.n_status
 							'))
-							->join('pe3_formulir_pendaftaran AS B','A.user_id','B.user_id')
-							->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
+							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
+							->join('pe3_status_mahasiswa AS C', 'A.k_status', 'C.k_status')
 							->where('A.nim', $nim)        
 							->first();
 
@@ -129,18 +129,18 @@ class DulangMahasiswaKeluarController extends Controller
 				throw new Exception ("Tidak bisa diproses karena status Mahasiswa dengan NIM ($nim) sudah $status ");
 			}			
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',
-									'profil'=>$profil,
-									'message'=>'Profil Mahasiswa berhasil diperoleh.'
+									'status' => 1,
+									'pid' => 'fetchdata',
+									'profil' => $profil,
+									'message' => 'Profil Mahasiswa berhasil diperoleh.'
 								], 200); 
 		}
 		catch (Exception $e)
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'fetchdata',               
-				'message'=>[$e->getMessage()]
+				'pid' => 'fetchdata',               
+				'message' => [$e->getMessage()]
 			], 422); 
 		}  
 	
@@ -153,9 +153,9 @@ class DulangMahasiswaKeluarController extends Controller
 		$this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_STORE');
 
 		$this->validate($request, [
-			'user_id'=>'required|exists:pe3_register_mahasiswa,user_id',	  
-			'idsmt'=>'required',     
-			'tahun'=>'required',     
+			'user_id' => 'required|exists:pe3_register_mahasiswa,user_id',	  
+			'idsmt' => 'required',     
+			'tahun' => 'required',     
 		]);
 		$user_id = $request->input('user_id');
 		$idsmt = $request->input('idsmt');
@@ -170,7 +170,7 @@ class DulangMahasiswaKeluarController extends Controller
 									A.idkelas,
 									C.n_status
 								'))							
-								->join('pe3_status_mahasiswa AS C','A.k_status','C.k_status')
+								->join('pe3_status_mahasiswa AS C', 'A.k_status', 'C.k_status')
 								->where('A.user_id', $user_id)        
 								->first();
 
@@ -194,15 +194,15 @@ class DulangMahasiswaKeluarController extends Controller
 				{
 					$dulang = DulangModel::create([
 						'id'=>Uuid::uuid4()->toString(),
-						'user_id'=>$request->input('user_id'),
-						'nim'=>$data_mhs->nim,		  
-						'idkelas'=>$data_mhs->idkelas,
-						'status_sebelumnya'=>$data_mhs->k_status,
-						'k_status'=>'K',
-						'idsmt'=>$request->input('idsmt'),
-						'tahun'=>$request->input('tahun'),
+						'user_id' => $request->input('user_id'),
+						'nim' => $data_mhs->nim,		  
+						'idkelas' => $data_mhs->idkelas,
+						'status_sebelumnya' => $data_mhs->k_status,
+						'k_status' => 'K',
+						'idsmt' => $request->input('idsmt'),
+						'tahun' => $request->input('tahun'),
 						'update_info'=>0,
-						'descr'=>$request->input('descr'),
+						'descr' => $request->input('descr'),
 					]);
 				}
 				else
@@ -210,14 +210,14 @@ class DulangMahasiswaKeluarController extends Controller
 					\DB::table('pe3_dulang')
 					->where('id', $dulang->id)
 						->update([
-							'status_sebelumnya'=>$dulang->k_status,
-							'k_status'=>'K'
+							'status_sebelumnya' => $dulang->k_status,
+							'k_status' => 'K'
 						]);					
 				}
 				\DB::table('pe3_register_mahasiswa')
 					->where('user_id', $dulang->user_id)
 						->update([						
-							'k_status'=>'K'
+							'k_status' => 'K'
 						]);					
 				return $dulang;
 			}); 
@@ -235,26 +235,26 @@ class DulangMahasiswaKeluarController extends Controller
 				pe3_dulang.created_at,      
 				pe3_dulang.updated_at      
 			'))
-			->join('pe3_register_mahasiswa','pe3_register_mahasiswa.user_id','pe3_dulang.user_id')
-			->join('pe3_formulir_pendaftaran','pe3_formulir_pendaftaran.user_id','pe3_dulang.user_id')
-			->leftJoin('pe3_dosen','pe3_dosen.user_id','pe3_register_mahasiswa.dosen_id')
+			->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'pe3_dulang.user_id')
+			->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'pe3_dulang.user_id')
+			->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
 			->where('pe3_dulang.id',$dulang->id)		
 			->first();
 			
 					
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'store',  
-									'mahasiswa'=>$data,
-									'message'=>'Status Mahasiswa berhasil di ubah menjadi keluar.'
+									'status' => 1,
+									'pid' => 'store',  
+									'mahasiswa' => $data,
+									'message' => 'Status Mahasiswa berhasil di ubah menjadi keluar.'
 								], 200);
 		}
 		catch (Exception $e)
 		{
 			return Response()->json([
 			'status'=>0,
-			'pid'=>'store',               
-			'message'=>[$e->getMessage()]
+			'pid' => 'store',               
+			'message' => [$e->getMessage()]
 			], 422); 
 		}
   }
@@ -274,8 +274,8 @@ class DulangMahasiswaKeluarController extends Controller
 		{
 			return Response()->json([
 				'status'=>0,
-				'pid'=>'destroy',    
-				'message'=>["Daftar Ulang Mahasiswa Keluar ($id) gagal dihapus"]
+				'pid' => 'destroy',    
+				'message' => ["Daftar Ulang Mahasiswa Keluar ($id) gagal dihapus"]
 			], 422); 
 		}
 		else
@@ -293,8 +293,8 @@ class DulangMahasiswaKeluarController extends Controller
 			$dulang->delete();
 			
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'destroy',    
+									'status' => 1,
+									'pid' => 'destroy',    
 									'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
 								], 200);    
 		}

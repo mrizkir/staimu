@@ -37,9 +37,9 @@ class PPLPKLController extends Controller
 							A.created_at,
 							A.updated_at
 						'))
-						->join('pe3_register_mahasiswa AS B','B.user_id','A.user_id')
-						->join('pe3_formulir_pendaftaran AS C','C.user_id','A.user_id')
-						->leftJoin('pe3_dosen AS D','D.user_id','A.pembimbing_1');						
+						->join('pe3_register_mahasiswa AS B', 'B.user_id', 'A.user_id')
+						->join('pe3_formulir_pendaftaran AS C', 'C.user_id', 'A.user_id')
+						->leftJoin('pe3_dosen AS D', 'D.user_id', 'A.pembimbing_1');						
 
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -51,9 +51,9 @@ class PPLPKLController extends Controller
 			$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PPL-PKL_BROWSE');
 			
 			$this->validate($request, [
-				'ta'=>'required',
-				'semester_akademik'=>'required',
-				'prodi_id'=>'required'
+				'ta' => 'required',
+				'semester_akademik' => 'required',
+				'prodi_id' => 'required'
 			]);
 
 			$daftar_pplpkl=$daftar_pplpkl->where('A.ta', $request->input('ta'))
@@ -62,10 +62,10 @@ class PPLPKLController extends Controller
 										->get();
 		}        
 		return Response()->json([
-									'status'=>1,
-									'pid'=>'fetchdata',  
-									'daftar_pplpkl'=>$daftar_pplpkl,
-									'message'=>'Daftar peserta ujian munaqasah berhasil diperoleh' 
+									'status' => 1,
+									'pid' => 'fetchdata',  
+									'daftar_pplpkl' => $daftar_pplpkl,
+									'message' => 'Daftar peserta ujian munaqasah berhasil diperoleh' 
 								], 200);  
 		
 	}	
@@ -98,17 +98,17 @@ class PPLPKLController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data PPL / PKL dengan id ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data PPL / PKL dengan id ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else
 		{			
 			return Response()->json([
-								'status'=>1,
-								'pid'=>'fetchdata',
-								'pplpkl'=>$pplpkl,								
-								'message'=>'Daftar PPL / PKL berhasil diperoleh' 
+								'status' => 1,
+								'pid' => 'fetchdata',
+								'pplpkl' => $pplpkl,								
+								'message' => 'Daftar PPL / PKL berhasil diperoleh' 
 							], 200);
 		}        
 	}
@@ -123,21 +123,21 @@ class PPLPKLController extends Controller
 		}
 
 		$this->validate($request, [            
-			'nim'=>'required|exists:pe3_register_mahasiswa,nim',     
-			// 'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
-			'tempat_pplpkl'=>'required',     
-			'address1_desa_id'=>'required',
-			'address1_kelurahan'=>'required',     
-			'address1_kecamatan_id'=>'required',     
-			'address1_kecamatan'=>'required',     
-			'address1_kabupaten_id'=>'required',     
-			'address1_kabupaten'=>'required',     
-			'address1_provinsi_id'=>'required',     
-			'address1_provinsi'=>'required',
-			'alamat_pplpkl'=>'required',     
-			'size_baju'=>'required',
-			'ta'=>'required',     
-			'idsmt'=>'required',    
+			'nim' => 'required|exists:pe3_register_mahasiswa,nim',     
+			// 'pembimbing_1' => 'required|exists:pe3_dosen,user_id',			  
+			'tempat_pplpkl' => 'required',     
+			'address1_desa_id' => 'required',
+			'address1_kelurahan' => 'required',     
+			'address1_kecamatan_id' => 'required',     
+			'address1_kecamatan' => 'required',     
+			'address1_kabupaten_id' => 'required',     
+			'address1_kabupaten' => 'required',     
+			'address1_provinsi_id' => 'required',     
+			'address1_provinsi' => 'required',
+			'alamat_pplpkl' => 'required',     
+			'size_baju' => 'required',
+			'ta' => 'required',     
+			'idsmt' => 'required',    
 		]);
 		$jumlah_syarat_matkul = 0;
 		try 
@@ -151,7 +151,7 @@ class PPLPKLController extends Controller
 			$transaksi=TransaksiDetailModel::select(\DB::raw('
 											  1
 										  '))
-										  ->join('pe3_transaksi','pe3_transaksi_detail.transaksi_id','pe3_transaksi.id')
+										  ->join('pe3_transaksi', 'pe3_transaksi_detail.transaksi_id', 'pe3_transaksi.id')
 										  ->where('pe3_transaksi.ta',$ta)
 										  ->where('pe3_transaksi.idsmt',$semester_akademik)
 										  ->where('pe3_transaksi.nim',$nim)
@@ -214,30 +214,30 @@ class PPLPKLController extends Controller
 			}
 			$pplpkl = PPLPKLModel::create([
 				'id'=>Uuid::uuid4()->toString(),
-				'user_id'=>$mahasiswa->user_id,
-				'pembimbing_1'=>$mahasiswa->dosen_id,
-				'tempat_pplpkl'=>$request->input('tempat_pplpkl'),
-				'address1_desa_id'=>$request->input('address1_desa_id'),
-				'address1_kelurahan'=>$request->input('address1_kelurahan'),
-				'address1_kecamatan_id'=>$request->input('address1_kecamatan_id'),
-				'address1_kecamatan'=>$request->input('address1_kecamatan'),
-				'address1_kabupaten_id'=>$request->input('address1_kabupaten_id'),
-				'address1_kabupaten'=>$request->input('address1_kabupaten'),
-				'address1_provinsi_id'=>$request->input('address1_provinsi_id'),
-				'address1_provinsi'=>$request->input('address1_provinsi'),
-				'alamat_pplpkl'=>$request->input('alamat_pplpkl'),
-				'size_baju'=>$request->input('size_baju'),
-				'keterangan'=>$request->input('keterangan'),
-				'prodi_id'=>$mahasiswa->kjur,
-				'ta'=>$ta,
-				'idsmt'=>$semester_akademik,
+				'user_id' => $mahasiswa->user_id,
+				'pembimbing_1' => $mahasiswa->dosen_id,
+				'tempat_pplpkl' => $request->input('tempat_pplpkl'),
+				'address1_desa_id' => $request->input('address1_desa_id'),
+				'address1_kelurahan' => $request->input('address1_kelurahan'),
+				'address1_kecamatan_id' => $request->input('address1_kecamatan_id'),
+				'address1_kecamatan' => $request->input('address1_kecamatan'),
+				'address1_kabupaten_id' => $request->input('address1_kabupaten_id'),
+				'address1_kabupaten' => $request->input('address1_kabupaten'),
+				'address1_provinsi_id' => $request->input('address1_provinsi_id'),
+				'address1_provinsi' => $request->input('address1_provinsi'),
+				'alamat_pplpkl' => $request->input('alamat_pplpkl'),
+				'size_baju' => $request->input('size_baju'),
+				'keterangan' => $request->input('keterangan'),
+				'prodi_id' => $mahasiswa->kjur,
+				'ta' => $ta,
+				'idsmt' => $semester_akademik,
 			]);
 
 			return Response()->json([
-									'status'=>1,
-									'pid'=>'store', 
-									'pplpkl'=>$pplpkl,                                     
-									'message'=>'Data PPL / PKL berhasil ditambahkan'
+									'status' => 1,
+									'pid' => 'store', 
+									'pplpkl' => $pplpkl,                                     
+									'message' => 'Data PPL / PKL berhasil ditambahkan'
 								], 200);  
 		}
 		catch (Exception $e)
@@ -265,9 +265,9 @@ class PPLPKLController extends Controller
 			}
 		  return Response()->json([
 			  'status'=>0,
-			  'pid'=>'store',
-			  'message'=>[$e->getMessage()],
-				'matakuliah syarat'=>$persyaratan_matkul,
+			  'pid' => 'store',
+			  'message' => [$e->getMessage()],
+				'matakuliah syarat' => $persyaratan_matkul,
 		  ], 422); 
 		}		
 	}
@@ -295,25 +295,25 @@ class PPLPKLController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'fetchdata',    
-									'message'=>["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
+									'pid' => 'fetchdata',    
+									'message' => ["Data PPL / PKL dengan ID ($id) gagal diperoleh"]
 								], 422); 
 		}
 		else if ($pplpkl->status == 0)
 		{
 			$this->validate($request, [
-				'pembimbing_1'=>'required|exists:pe3_dosen,user_id',			  
-				'tempat_pplpkl'=>'required',     
-				'address1_desa_id'=>'required',
-				'address1_kelurahan'=>'required',     
-				'address1_kecamatan_id'=>'required',     
-				'address1_kecamatan'=>'required',     
-				'address1_kabupaten_id'=>'required',     
-				'address1_kabupaten'=>'required',     
-				'address1_provinsi_id'=>'required',     
-				'address1_provinsi'=>'required',
-				'alamat_pplpkl'=>'required',     
-				'size_baju'=>'required',
+				'pembimbing_1' => 'required|exists:pe3_dosen,user_id',			  
+				'tempat_pplpkl' => 'required',     
+				'address1_desa_id' => 'required',
+				'address1_kelurahan' => 'required',     
+				'address1_kecamatan_id' => 'required',     
+				'address1_kecamatan' => 'required',     
+				'address1_kabupaten_id' => 'required',     
+				'address1_kabupaten' => 'required',     
+				'address1_provinsi_id' => 'required',     
+				'address1_provinsi' => 'required',
+				'alamat_pplpkl' => 'required',     
+				'size_baju' => 'required',
 			]);       
 			
 			$pplpkl->pembimbing_1 = $request->input('pembimbing_1');
@@ -333,18 +333,18 @@ class PPLPKLController extends Controller
 
 			
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'update', 
-										'pplpkl'=>$pplpkl,                                     
-										'message'=>'Data PPL / PKL  berhasil diubah'
+										'status' => 1,
+										'pid' => 'update', 
+										'pplpkl' => $pplpkl,                                     
+										'message' => 'Data PPL / PKL  berhasil diubah'
 									], 200);  
 		}
 		else 
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'update',    
-									'message'=>["PPL / PKL dengan ($id) gagal diupdate karean sudah diverifikasi"]
+									'pid' => 'update',    
+									'message' => ["PPL / PKL dengan ($id) gagal diupdate karean sudah diverifikasi"]
 								], 422); 
 		}
 	}
@@ -367,8 +367,8 @@ class PPLPKLController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["PPL / PKL dengan ($id) gagal dihapus"]
+									'pid' => 'destroy',    
+									'message' => ["PPL / PKL dengan ($id) gagal dihapus"]
 								], 422); 
 		}
 		else if ($pplpkl->status == 0)
@@ -382,8 +382,8 @@ class PPLPKLController extends Controller
 
 			$pplpkl->delete();
 			return Response()->json([
-										'status'=>1,
-										'pid'=>'destroy',    
+										'status' => 1,
+										'pid' => 'destroy',    
 										'message'=>"PPL / PKL dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
@@ -391,8 +391,8 @@ class PPLPKLController extends Controller
 		{
 			return Response()->json([
 									'status'=>0,
-									'pid'=>'destroy',    
-									'message'=>["PPL / PKL dengan ($id) gagal dihapus karean sudah diverifikasi"]
+									'pid' => 'destroy',    
+									'message' => ["PPL / PKL dengan ($id) gagal dihapus karean sudah diverifikasi"]
 								], 422); 
 		}
 				  

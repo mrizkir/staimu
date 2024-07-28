@@ -18,7 +18,7 @@ class KemahasiswaanController extends Controller {
         $this->hasPermissionTo('AKADEMIK-KEMAHASISWAAN-STATUS_UPDATE');
 
         $this->validate($request,[
-            'active'=>'required|numeric'
+            'active' => 'required|numeric'
         ]);
 
         $user = \App\Models\User::find($id); 
@@ -27,8 +27,8 @@ class KemahasiswaanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'store',    
-                                    'message'=>["Data User tidak ditemukan."]
+                                    'pid' => 'store',    
+                                    'message' => ["Data User tidak ditemukan."]
                                 ], 422);    
         }
         else
@@ -44,9 +44,9 @@ class KemahasiswaanController extends Controller {
                                     ]);
 
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',  
-                                        'message'=>'Status Mahasiswa berhasil diubah.'
+                                        'status' => 1,
+                                        'pid' => 'update',  
+                                        'message' => 'Status Mahasiswa berhasil diubah.'
                                     ], 200); 
         }
     }
@@ -66,31 +66,31 @@ class KemahasiswaanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Biodata Mahasiswa dengan User ID ($id) gagal diperoleh"]
+                                    'pid' => 'update',    
+                                    'message' => ["Biodata Mahasiswa dengan User ID ($id) gagal diperoleh"]
                                 ], 422); 
         }
         else
         {
            
             $this->validate($request, [
-                'nama_mhs'=>'required',
-                'tempat_lahir'=>'required',
-                'tanggal_lahir'=>'required',
-                'jk'=>'required',
-                'nomor_hp'=>'required|unique:users,nomor_hp,'.$formulir->user_id,
-                'email'=>'required|string|email|unique:users,email,'.$formulir->user_id,
-                'nama_ibu_kandung'=>'required',
+                'nama_mhs' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required',
+                'jk' => 'required',
+                'nomor_hp' => 'required|unique:users,nomor_hp, '.$formulir->user_id,
+                'email' => 'required|string|email|unique:users,email, '.$formulir->user_id,
+                'nama_ibu_kandung' => 'required',
 
-                'address1_provinsi_id'=>'required',
-                'address1_provinsi'=>'required',
-                'address1_kabupaten_id'=>'required',
-                'address1_kabupaten'=>'required',
-                'address1_kecamatan_id'=>'required',
-                'address1_kecamatan'=>'required',
-                'address1_desa_id'=>'required',
-                'address1_kelurahan'=>'required',
-                'alamat_rumah'=>'required',    
+                'address1_provinsi_id' => 'required',
+                'address1_provinsi' => 'required',
+                'address1_kabupaten_id' => 'required',
+                'address1_kabupaten' => 'required',
+                'address1_kecamatan_id' => 'required',
+                'address1_kecamatan' => 'required',
+                'address1_desa_id' => 'required',
+                'address1_kelurahan' => 'required',
+                'alamat_rumah' => 'required',    
             ]);
 
             $data_mhs = \DB::transaction(function () use ($request,$formulir) {            
@@ -126,10 +126,10 @@ class KemahasiswaanController extends Controller {
                 return $formulir;
             });
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',
-                                        'formulir'=>$data_mhs,       
-                                        'message'=>'Biodata Mahasiswa berhasil diubah.'
+                                        'status' => 1,
+                                        'pid' => 'update',
+                                        'formulir' => $data_mhs,       
+                                        'message' => 'Biodata Mahasiswa berhasil diubah.'
                                     ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }
@@ -146,14 +146,14 @@ class KemahasiswaanController extends Controller {
         {
             return Response()->json([
                                     'status'=>0,
-                                    'pid'=>'update',    
-                                    'message'=>["Data Mahasiswa tidak ditemukan."]
+                                    'pid' => 'update',    
+                                    'message' => ["Data Mahasiswa tidak ditemukan."]
                                 ], 422);    
         }
         else
         {
             $this->validate($request,[
-                'dosen_id'=>'required|exists:pe3_dosen,user_id'
+                'dosen_id' => 'required|exists:pe3_dosen,user_id'
             ]);
 
             $mahasiswa->dosen_id = $request->input('dosen_id');
@@ -167,9 +167,9 @@ class KemahasiswaanController extends Controller {
                                     ]);
 
             return Response()->json([
-                                        'status'=>1,
-                                        'pid'=>'update',  
-                                        'message'=>'Dosen wali Mahasiswa berhasil diubah.'
+                                        'status' => 1,
+                                        'pid' => 'update',  
+                                        'message' => 'Dosen wali Mahasiswa berhasil diubah.'
                                     ], 200); 
         }
     }

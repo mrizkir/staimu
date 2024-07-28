@@ -29,17 +29,17 @@ class KepegawaianController extends Controller {
 				COALESCE(jumlah_dosen,0) AS jumlah_dosen
 			'))
 			->leftJoinSub($subquery, 'pe3_dosen', function($join) {
-				$join->on('pe3_dosen.id_jabatan','=','pe3_jabatan_akademik.id_jabatan');
+				$join->on('pe3_dosen.id_jabatan', '=', 'pe3_jabatan_akademik.id_jabatan');
 			})
 			->orderBy('pe3_jabatan_akademik.id_jabatan', 'ASC')
 			->get();
 		
 		return Response()->json([
-			'status'=>1,
-			'pid'=>'fetchdata',
-			'statistik_dosen'=>$statistik_dosen,
-			'total_dosen'=>$statistik_dosen->sum('jumlah_dosen'),
-			'message'=>'Fetch data kepegawaian berhasil diperoleh',
+			'status' => 1,
+			'pid' => 'fetchdata',
+			'statistik_dosen' => $statistik_dosen,
+			'total_dosen' => $statistik_dosen->sum('jumlah_dosen'),
+			'message' => 'Fetch data kepegawaian berhasil diperoleh',
 		], 200);
 	}
 }
