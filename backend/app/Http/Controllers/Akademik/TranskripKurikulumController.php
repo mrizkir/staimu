@@ -473,15 +473,15 @@ class TranskripKurikulumController  extends Controller
         $data_nilai_smt=[];
         foreach ($daftar_matkul as $key=>$item)
         {
-          $subquery=\DB::table('pe3_nilai_matakuliah AS A')
-                      ->select(\DB::raw('
-                        A.id
-                      '))
-                      ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
-                      ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
-                      ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
-                      ->where('C.user_id',$mahasiswa->user_id)
-                      ->where('D.matkul_id',$item->id);
+          $subquery = \DB::table('pe3_nilai_matakuliah AS A')
+          ->select(\DB::raw('
+            A.id
+          '))
+          ->join('pe3_krsmatkul AS B', 'A.krsmatkul_id', 'B.id')
+          ->join('pe3_krs AS C', 'B.krs_id', 'C.id')
+          ->join('pe3_penyelenggaraan AS D', 'A.penyelenggaraan_id', 'D.id')
+          ->where('C.user_id',$mahasiswa->user_id)
+          ->where('D.matkul_id',$item->id);
                       
         if ($is_mhs)
         {
@@ -764,7 +764,7 @@ class TranskripKurikulumController  extends Controller
       $rpt->setXY(0.5,$row);			
       $rpt->Cell(0,0.5, 'TRANSKRIP NILAI SEMESTER',0,2, 'C');
 
-      $row+=0.6;
+      $row += 0.6;
       $rpt->setXY(0.5,$row);	            
       // left
       $rpt->SetFont ('helvetica', 'B',8);
@@ -781,7 +781,7 @@ class TranskripKurikulumController  extends Controller
       $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nama_prodi,0);
 
-      $row+=0.5;
+      $row += 0.5;
       $rpt->setXY(0.5,$row);	            
       // left
       $rpt->SetFont ('helvetica', 'B',8);
@@ -798,7 +798,7 @@ class TranskripKurikulumController  extends Controller
       $rpt->Cell(0.3,0.5, ':',0);
       $rpt->Cell(6,0.5,$mahasiswa->nama_fakultas,0);
 
-      $row+=0.5;
+      $row += 0.5;
       $rpt->setXY(0.5,$row);	            
       // left
       $rpt->SetFont ('helvetica', 'B',8);
@@ -817,7 +817,7 @@ class TranskripKurikulumController  extends Controller
 
       if(false)
       {	
-        $row+=0.5;
+        $row += 0.5;
         $rpt->setXY(0.5,$row);	            
         // left
         $rpt->SetFont ('helvetica', 'B',8);
@@ -835,7 +835,7 @@ class TranskripKurikulumController  extends Controller
         $rpt->Cell(6,0.5, '',0);
       }
 
-      $row+=0.5;
+      $row += 0.5;
       $rpt->setXY(0.5,$row);	
       $rpt->SetFont ('helvetica', 'B',8);
       //ganjil                        				
@@ -859,7 +859,7 @@ class TranskripKurikulumController  extends Controller
       $totalSks=0;
       $totalAM=0;
       $totalM=0;
-      $row+=0.5;
+      $row += 0.5;
       $row_ganjil=$row;
       $row_genap = $row;
 
@@ -894,7 +894,7 @@ class TranskripKurikulumController  extends Controller
           $genap_total_sks=0;		
           foreach ($daftar_matkul as $key=>$item)
           {
-            $subquery=\DB::table('pe3_nilai_matakuliah AS A')
+            $subquery = \DB::table('pe3_nilai_matakuliah AS A')
                   ->select(\DB::raw('
                     A.id
                   '))
@@ -1218,19 +1218,19 @@ class TranskripKurikulumController  extends Controller
       $rpt->Cell(1,0.5,$ipk,0,0, 'C');
       
       $rpt->SetFont ('helvetica', 'B',6);   
-      $row+=0.5;
+      $row += 0.5;
       $rpt->SetXY(10.3,$row);	
       $rpt->Cell(5,0.5, 'Tanjungpinang, '.\App\Helpers\Helper::tanggal('d F Y'),0,0, 'L');
-      $row+=0.3;
+      $row += 0.3;
       $rpt->SetXY(10.3,$row);	
       $rpt->Cell(5,0.5, 'Warek I. Bidang Akademik',0,0, 'L');
 
       $row+=1.1;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5, 'Muhammad Nur, M.Pd.I',0,0, 'L');
-      $row+=0.3;
+      $rpt->Cell(5,0.5, 'Suhardiman, M.Pd.I',0,0, 'L');
+      $row += 0.3;
       $rpt->SetXY(10.3,$row);	
-      $rpt->Cell(5,0.5, 'NIDN: 2119086901 / LEKTOR',0,0, 'L');
+      $rpt->Cell(5,0.5, 'NIDN: 2128087201 / LEKTOR',0,0, 'L');
 
       $file_pdf=\App\Helpers\Helper::public_path("exported/pdf/tk_".$mahasiswa->user_id.'.pdf');       
 

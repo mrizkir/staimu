@@ -309,7 +309,7 @@ class NilaiKonversiController  extends Controller
         }
         else
         {
-            $subquery=\DB::table('pe3_nilai_konversi2 AS B')
+            $subquery = \DB::table('pe3_nilai_konversi2 AS B')
                             ->select(\DB::raw('
                                 B.matkul_id,
                                 B.sks_asal,
@@ -497,7 +497,7 @@ class NilaiKonversiController  extends Controller
         }
         else
         {
-            $subquery=\DB::table('pe3_nilai_konversi2 AS B')
+            $subquery = \DB::table('pe3_nilai_konversi2 AS B')
                             ->select(\DB::raw('
                                 B.matkul_id,
                                 B.sks_asal,
