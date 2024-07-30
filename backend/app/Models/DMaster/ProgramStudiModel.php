@@ -57,17 +57,8 @@ class ProgramStudiModel extends Model {
   {
     return $this->hasMany('App\Models\SPMB\FormulirPendaftaranModel', 'kjur2', 'id');
   }
-  public function getKAProdi($prodi_id)
-  {
-    $prodi = ProgramStudiModel::find($prodi_id);
-    if (is_null($prodi))
-    {
-      return null;
-    }
-    else
-    {
-      $config = json_decode($prodi->config);            
-      return $config->kaprodi;
-    }        
-  }
+  public function fakultas()
+	{
+		return $this->belongsTo('App\Models\DMaster\FakultasModel', 'kode_fakultas', 'kode_fakultas');
+	}
 }

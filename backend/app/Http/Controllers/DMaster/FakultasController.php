@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\DMaster\FakultasModel;
+use App\Models\UserDosen;
 
 class FakultasController extends Controller {  
     /**
@@ -99,8 +100,22 @@ class FakultasController extends Controller {
                                     
         $fakultas->kode_fakultas = $request->input('kode_fakultas');
         $fakultas->nama_fakultas = $request->input('nama_fakultas');
+
+        $data_ = $request->input('dosen_id');        
+        if(isset($data_['id']))
+        { 
+          $data_dosen = \DB::table('pe3_dosen AS a')
+          ->select(\DB::raw('
+            b.nama_jabatan
+          '))
+          ->join('pe3_jabatan_akademik AS b', 'b.id_jabatan', 'a.id_jabatan')
+          ->where('user_id', $data_['id'])
+          ->first();          
+
+          $data_['jabatan_fungsional'] = $data_dosen->nama_jabatan;
+        }
         $fakultas->config = [
-          'data_dekan' => $request->input('dosen_id'),
+          'data_dekan' => $data_,
           'nama_jabatan' => $request->input('nama_jabatan'),
         ];
         $fakultas->save();

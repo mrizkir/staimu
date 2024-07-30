@@ -508,8 +508,7 @@ class PKRSController extends Controller
         }
         else
         {
-            $prodi = new ProgramStudiModel();
-            $kaprodi=$prodi->getKAProdi($krs->kjur);
+            $kaprodi=\App\Helpers\HelperAkademik::getKAProdi($krs->kjur);
             if (!is_null($kaprodi))
             {            
                 $krs->nama_semester=\App\Helpers\HelperAkademik::getSemester($krs->idsmt);

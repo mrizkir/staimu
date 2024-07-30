@@ -129,7 +129,7 @@ h2{
 		<td><strong>Tanjungpinang, {{$tanggal}}</strong></td>                                   
 	</tr>      
 	<tr>
-		<td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>WAKIL KETUA I</td>        
+		<td style="font-weight:bold;font-size:14px;text-align:left">DIKETAHUI OLEH<br>DEKAN<br>{!! $headers['HEADER_3'] !!}</td>        
 		<td style="font-weight:bold;font-size:14px;text-align:left">{{strtoupper(is_null($kaprodi->nama_jabatan) ? '-' : $kaprodi->nama_jabatan)}} PROGRAM STUDI<br>{{strtoupper($data_krs->nama_prodi)}}</td>
 	</tr>
 	<tr>
@@ -140,8 +140,8 @@ h2{
 			<br>
 			<br>
 			<span>
-				<strong><u>MUHAMMAD NUR, M.Pd.I</u></strong><br>
-				<strong>LEKTOR NIDN:</strong> 2119086901
+				<strong><u>{!! $data_dekan['nama_dekan'] !!}</u></strong><br>
+				<strong>{!! $data_dekan['jabatan_fungsional'] !!} NIDN:</strong> {!! $data_dekan['nidn'] !!}
 			</span>                
 		</td>        
 		<td width="50%" style="text-align:left">
