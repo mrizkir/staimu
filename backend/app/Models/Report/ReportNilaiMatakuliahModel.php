@@ -225,17 +225,17 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $sheet->setCellValue("G$row",'Tanjungpinang, '. Helper::tanggal('d F Y'));
     $row+=1;
     $sheet->mergeCells("B$row:C$row");
-    $sheet->setCellValue("B$row",'Wakil Ketua I');
+    $sheet->setCellValue("B$row",'Warek I. Bidang Akademik');
     $sheet->mergeCells("G$row:I$row");
     $sheet->setCellValue("G$row",'Dosen Pengampu');
     $row+=4;
     $sheet->mergeCells("B$row:C$row");
-    $sheet->setCellValue("B$row",'Muhammad Nur. M.Pd.I');
+    $sheet->setCellValue("B$row",'Suhardiman, M.Pd.I');
     $sheet->mergeCells("G$row:I$row");
     $sheet->setCellValue("G$row",trim($this->dataReport['nama_dosen']));
     $row+=1;
     $sheet->mergeCells("B$row:C$row");
-    $sheet->setCellValue("B$row",'Lektor NIDN. 2119086901');
+    $sheet->setCellValue("B$row",'NIDN: 2128087201 / LEKTOR');
     $sheet->mergeCells("G$row:I$row");
     $sheet->setCellValue("G$row",$this->dataReport['nama_jabatan'].' NIDN. '.$this->dataReport['nidn']);
 
