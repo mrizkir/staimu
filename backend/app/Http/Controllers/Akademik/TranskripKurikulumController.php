@@ -79,7 +79,7 @@ class TranskripKurikulumController  extends Controller
                     'mahasiswa' => $data,        
                     'rata2ipk' => $rata2ipk,
                     'message' => 'Fetch data daftar mahasiswa berhasil.'
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                  ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }
   public function show(Request $request,$id)
   {

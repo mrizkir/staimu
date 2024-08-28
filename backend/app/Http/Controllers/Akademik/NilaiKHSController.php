@@ -305,7 +305,7 @@ class NilaiKHSController extends Controller
                     'ipk' => $krs->ipk ,
                     'ips' => $ips,
                     'message' => 'Fetch data khs dan detail khs mahasiswa berhasil diperoleh' 
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+                  ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
     }        
   }		
   public function printpdf(Request $request,$id)

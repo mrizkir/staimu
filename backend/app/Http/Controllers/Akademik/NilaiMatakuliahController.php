@@ -89,7 +89,7 @@ class NilaiMatakuliahController extends Controller
 								'peserta' => $peserta,
 								'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
-							],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+							], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
 	public function perkrs (Request $request,$id)
@@ -158,7 +158,7 @@ class NilaiMatakuliahController extends Controller
 									'jumlah_sks' => $daftar_matkul->sum('sks'),
 									'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
 									'message' => 'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
-								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
 	}
 	public function storeperdosen(Request $request)
 	{

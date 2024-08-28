@@ -93,33 +93,33 @@ class PMBController extends Controller {
     $prodi_id=$request->input('prodi_id');
 
     $data = FormulirPendaftaranModel::select(\DB::raw('
-                      users.id,
-                      users.name,
-                      users.username,
-                      COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
-                      pe3_formulir_pendaftaran.jk,
-                      users.nomor_hp,
-                      pe3_kelas.nkelas,
-                      users.active,
-                      users.foto,
-                      users.created_at,
-                      users.updated_at
-                    '))
-                    ->join('users', 'pe3_formulir_pendaftaran.user_id', 'users.id')
-                    ->join('pe3_kelas', 'pe3_formulir_pendaftaran.idkelas', 'pe3_kelas.idkelas')
-                    ->where('users.ta',$ta)
-                    ->where('kjur1',$prodi_id)
-                    ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
-                    ->where('users.active', 1)    
-                    ->orderBy('users.name', 'ASC') 
-                    ->get();
+      users.id,
+      users.name,
+      users.username,
+      COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
+      pe3_formulir_pendaftaran.jk,
+      users.nomor_hp,
+      pe3_kelas.nkelas,
+      users.active,
+      users.foto,
+      users.created_at,
+      users.updated_at
+    '))
+    ->join('users', 'pe3_formulir_pendaftaran.user_id', 'users.id')
+    ->join('pe3_kelas', 'pe3_formulir_pendaftaran.idkelas', 'pe3_kelas.idkelas')
+    ->where('users.ta',$ta)
+    ->where('kjur1',$prodi_id)
+    ->whereNotNull('pe3_formulir_pendaftaran.idkelas')   
+    ->where('users.active', 1)    
+    ->orderBy('users.name', 'ASC') 
+    ->get();
     
     return Response()->json([
-                'status' => 1,
-                'pid' => 'fetchdata',
-                'pmb' => $data,
-                'message' => 'Fetch data calon mahasiswa baru berhasil diperoleh'
-              ], 200);  
+      'status' => 1,
+      'pid' => 'fetchdata',
+      'pmb' => $data,
+      'message' => 'Fetch data calon mahasiswa baru berhasil diperoleh'
+    ], 200);  
   }  
   /**
    * Store a newly created resource in storage.
@@ -129,7 +129,9 @@ class PMBController extends Controller {
    */
   public function store(Request $request)
   {
-    $this->validate($request, [
+    $bentuk_pt = ConfigurationModel::getCache('BENTUK_PT');
+    
+    $rules = [
       'name' => 'required',
       'email' => 'required|string|email|unique:users',
       'nomor_hp' => 'required|unique:users',
@@ -156,11 +158,18 @@ class PMBController extends Controller {
           }
         }
       ]
-    ]);
+    ];
+
+    if($bentuk_pt == 'universitas')
+    {
+      $rules['kode_fakultas'] = 'required|exists:pe3_fakultas,kode_fakultas';
+    }
+    $this->validate($request, $rules);
+    
     $user = \DB::transaction(function () use ($request) {
       $now = \Carbon\Carbon::now()->toDateTimeString();              
       $code=mt_rand(1000,9999);
-      $ta=ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
+      $ta = ConfigurationModel::getCache('DEFAULT_TAHUN_PENDAFTARAN');
       $user=User::create([
         'id'=>Uuid::uuid4()->toString(),
         'name' => $request->input('name'),
@@ -301,20 +310,33 @@ class PMBController extends Controller {
     if (is_null($user))
     {
       return Response()->json([
-                  'status'=>0,
-                  'pid' => 'update',    
-                  'message' => ["User ID ($id) gagal diupdate"]
-                ], 422); 
+        'status'=>0,
+        'pid' => 'update',    
+        'message' => ["User ID ($id) gagal diupdate"]
+      ], 422); 
     }
     else
     {
-      $this->validate($request, [
+      $this->validate($request, [        
         'username' => [
           'required',
-          'unique:users,username, '.$user->id
-        ],  
-        'email' => 'required|string|email|unique:users,email, '.$user->id,
-        'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,
+          Rule::unique('users')->ignore($user->username, 'username')->where(function($query) use($user) {
+            $query->where('id', '<>', $user->id);
+          })
+        ],
+        'nomor_hp' => [
+          'required',
+          Rule::unique('users')->ignore($user->nomor_hp, 'nomor_hp')->where(function($query) use($user) {
+            $query->where('id', '<>', $user->id);
+          })
+        ],
+        'email' => [
+          'required',
+          'email',
+          Rule::unique('users')->ignore($user->email, 'email')->where(function($query) use($user) {
+            $query->where('id', '<>', $user->id);
+          })
+        ],        
         'prodi_id' => 'required|numeric|exists:pe3_prodi,id',
         'tahun_pendaftaran' => 'required|numeric'            
       ]);
@@ -352,11 +374,11 @@ class PMBController extends Controller {
     }
 
     return Response()->json([
-                  'status' => 1,
-                  'pid' => 'update',
-                  'pendaftar' => $user,          
-                  'message' => 'Data Mahasiswa baru berhasil diubah.'
-                ], 200); 
+      'status' => 1,
+      'pid' => 'update',
+      'pendaftar' => $user,          
+      'message' => 'Data Mahasiswa baru berhasil diubah.'
+    ], 200); 
 
   }      
   /**
@@ -469,7 +491,7 @@ class PMBController extends Controller {
                     'formulir' => $formulir,        
                     'no_transaksi'=>"$no_transaksi ",
                     'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                  ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
   }
@@ -609,17 +631,18 @@ class PMBController extends Controller {
         //buat transaksi keuangan pmb
         $no_transaksi='N.A';
         $transaksi_detail=TransaksiDetailModel::join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
-                            ->where('pe3_transaksi_detail.user_id',$formulir->user_id)
-                            ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
-                            ->where('pe3_transaksi_detail.kombi_id', 101)
-                            ->first();           
+        ->where('pe3_transaksi_detail.user_id',$formulir->user_id)
+        ->whereRaw('(pe3_transaksi.status=1 OR pe3_transaksi.status=0)')
+        ->where('pe3_transaksi_detail.kombi_id', 101)
+        ->first();         
+
         if (is_null($transaksi_detail))
         {                  
           $kombi=\App\Models\Keuangan\BiayaKomponenPeriodeModel::where('kombi_id', 101)
-                                    ->where('kjur',$formulir->kjur1)
-                                    ->where('idkelas',$formulir->idkelas)
-                                    ->where('tahun',$formulir->ta)
-                                    ->first();
+            ->where('kjur',$formulir->kjur1)
+            ->where('idkelas',$formulir->idkelas)
+            ->where('tahun',$formulir->ta)
+            ->first();
           if (!is_null($kombi))
           {
             $no_transaksi='101'.date('YmdHms');
@@ -666,12 +689,12 @@ class PMBController extends Controller {
         ];
       });
       return Response()->json([
-                    'status' => 1,
-                    'pid' => 'update',
-                    'formulir' => $data_mhs['formulir']. " ",          
-                    'no_transaksi' => $data_mhs['no_transaksi']. " ",          
-                    'message' => 'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+        'status' => 1,
+        'pid' => 'update',
+        'formulir' => $data_mhs['formulir']. " ",          
+        'no_transaksi' => $data_mhs['no_transaksi']. " ",          
+        'message' => 'Formulir Pendaftaran Mahasiswa baru berhasil diubah.'
+      ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
   } 
   /**

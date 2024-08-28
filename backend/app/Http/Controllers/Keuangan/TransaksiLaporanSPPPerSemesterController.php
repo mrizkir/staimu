@@ -155,7 +155,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                     'pid' => 'fetchdata',  
                                     'transaksi' => $daftar_transaksi,
                                     'message' => 'Fetch data daftar transaksi spp mahasiswa berhasil diperoleh.'
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
+                                ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
     public function show (Request $request,$id)
     {
@@ -293,7 +293,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         'transaksi_detail' => $transaksi_detail,
                                         'item_selected' => $item_selected,
                                         'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
-                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
+                                    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
         catch (Exception $e)
         {

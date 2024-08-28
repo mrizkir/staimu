@@ -105,7 +105,7 @@ class TransaksiController extends Controller {
 									'pid' => 'fetchdata',  
 									'transaksi' => $daftar_transaksi,
 									'message' => 'Fetch data daftar transaksi berhasil.'
-								],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 	}
 	/**
 	 * digunakan untuk mendapatkan detail transaksi
@@ -160,7 +160,7 @@ class TransaksiController extends Controller {
 										'transaksi' => $transaksi,
 										'transaksi_detail' => $transaksi_detail,
 										'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
-									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+									], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
 	/**

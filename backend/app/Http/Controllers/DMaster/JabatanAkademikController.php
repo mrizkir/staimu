@@ -21,6 +21,6 @@ class JabatanAkademikController extends Controller {
                                     'pid' => 'fetchdata',  
                                     'jabatan_akademik' => $jabatan_akademik,
                                     'message' => 'Fetch data jabatan akademik berhasil.'
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                                ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }  
 }

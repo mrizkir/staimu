@@ -286,7 +286,7 @@
         this.$ajax.get("/datamaster/kelas").then(({ data }) => { 
           this.daftar_kelas = data.kelas;
         });
-        await this.$ajax.get("/spmb/formulirpendaftaran/"+this.$store.getters["auth/AttributeUser"]("id"), 
+        await this.$ajax.get("/spmb/formulirpendaftaran/" + this.$store.getters["auth/AttributeUser"]("id"), 
           {
             headers: {
               Authorization: this.$store.getters["auth/Token"]

@@ -302,7 +302,7 @@ class KemahasiswaanProfilController extends Controller {
 										'status' => 1,
 										'pid' => 'update',										
 										'message' => 'Biodata Mahasiswa berhasil diubah.'
-									],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+									], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
 }

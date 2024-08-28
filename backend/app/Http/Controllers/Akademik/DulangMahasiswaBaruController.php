@@ -153,7 +153,7 @@ class DulangMahasiswaBaruController extends Controller
                     'pid' => 'update',
                     'formulir' => $formulir,
                     'message' => 'Daftar Ulang Mahasiswa Baru baru berhasil dilakukan.'
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                  ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
   } 
   /**

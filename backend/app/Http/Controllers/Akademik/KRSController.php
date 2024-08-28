@@ -254,7 +254,7 @@ class KRSController extends Controller
         'jumlah_matkul' => $krs->jumlah_matkul_1,
         'jumlah_sks' => $krs->jumlah_sks_1,
         'message' => 'Fetch data krs dan detail krs mahasiswa berhasil diperoleh' 
-      ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
+      ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
     }        
   }
   public function penyelenggaraan (Request $request)
@@ -316,7 +316,7 @@ class KRSController extends Controller
                     'pid' => 'fetchdata',  
                     'penyelenggaraan' => $penyelenggaraan,                                    
                     'message' => 'Fetch data matakuliah yang diselenggarakan dan belum terdaftar di KRS berhasil diperoleh' 
-                  ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                  ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
   }
   /**

@@ -97,7 +97,7 @@ class TransaksiLaporanRegistrasiKRSController extends Controller {
 																	'transaksi' => $daftar_transaksi,
 																	'total_keseluruhan' => $total_keseluruhan,
 																	'message' => 'Fetch data daftar transaksi berhasil.'
-															],200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
+															], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
 		}		
 	/**
 	 * cetak seluruh transaksi spp per prodi dan ta

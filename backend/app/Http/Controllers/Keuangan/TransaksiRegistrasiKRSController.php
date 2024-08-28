@@ -133,7 +133,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                                     'pid' => 'fetchdata',  
                                     'transaksi' => $daftar_transaksi,
                                     'message' => 'Fetch data daftar transaksi berhasil.'
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                                ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
     /**
      * buat transaksi baru

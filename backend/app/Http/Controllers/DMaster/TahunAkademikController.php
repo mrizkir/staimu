@@ -39,7 +39,7 @@ class TahunAkademikController extends Controller {
                                     'pid' => 'fetchdata',
                                     'ta' => $ta,
                                     'message' => 'Fetch data tahun akademik berhasil.'
-                                ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                                ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
     /**
      * digunakan untuk mendapatkan daftar bulan berdasarkan awal semester
@@ -93,7 +93,7 @@ class TahunAkademikController extends Controller {
                                         'ta' => $ta,
                                         'daftar_bulan' => $daftar_bulan,
                                         'message' => 'Fetch data daftar bulan berhasil.'
-                                    ],200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+                                    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
         }
     }
     /**

@@ -59,6 +59,9 @@ class CreateFormulirPendaftaranTable extends Migration
 			$table->enum('status_slta',['NEGERI','SWASTA'])->default('NEGERI'); 
 			$table->string('nomor_ijazah',60)->nullable(); 
 
+			$table->string('kode_fakultas',10)->nullable();                        
+      $table->string('nama_fakultas',50)->nullable();
+			
 			$table->unsignedInteger('kjur1')->nullable(); 
 			$table->unsignedInteger('kjur2')->nullable(); 
 			$table->char('idkelas',1)->nullable(); 

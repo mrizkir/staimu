@@ -66,6 +66,8 @@ class FormulirPendaftaranModel extends Model {
 		'status_slta',
 		'nomor_ijazah',
 
+		'kode_fakultas', 
+		'nama_fakultas', 
 		'kjur1', 
 		'kjur2', 
 		'idkelas',
