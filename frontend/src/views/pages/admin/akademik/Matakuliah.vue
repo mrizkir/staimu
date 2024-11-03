@@ -627,17 +627,13 @@
 						this.datatableLoading = false;
 					});				
 			},
-			dataTableRowClicked(item)
-			{
-				if (item === this.expanded[0])
-				{
-					this.expanded = [];
-				}
-				else
-				{
-					this.expanded = [item];
-				}
-			},
+			dataTableRowClicked(item) {
+        if (item === this.expanded[0]) {
+          this.expanded = [];
+        } else {
+          this.expanded = [item];
+        }
+      },
 			tambahItem: async function()
 			{
 				await this.$ajax.get("/akademik/groupmatakuliah",

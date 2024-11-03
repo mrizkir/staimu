@@ -120,7 +120,7 @@ export default {
                         'pid': 'email',
                         setting: JSON.stringify({
                             910: this.formdata.email_mhs_isvalid,
-                        }),                       
+                        }),
                    },
                     {
                         headers: {
@@ -138,7 +138,7 @@ export default {
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",  
+            TOKEN: "Token",
         }),
    },
     components: {

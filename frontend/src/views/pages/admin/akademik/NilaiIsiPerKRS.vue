@@ -250,7 +250,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datatable = data.daftar_krs;
                 this.datatableLoading = false;
                 this.firstloading = false; 

@@ -340,26 +340,26 @@ export default {
         daftar_prodi: [],
         editedItem: {
             id: 0,
-            username: "",  
-            password: "",  
-            name: "",  
-            email: "",  
-            nomor_hp: "",  
+            username: "",
+            password: "",
+            name: "",
+            email: "",
+            nomor_hp: "",
             prodi_id: [],
-            role_id: ['pmb'],  
-            created_at: "",  
+            role_id: ['pmb'],
+            created_at: "",
             updated_at: "", 
        },
         defaultItem: {
             id: 0,
-            username: "",  
-            password: "",  
-            name: "",  
-            email: "",  
+            username: "",
+            password: "",
+            name: "",
+            email: "",
             nomor_hp: "",
             prodi_id: [], 
             role_id: ['pmb'], 
-            created_at: "",  
+            created_at: "",
             updated_at: "", 
        },
         //form rules        
@@ -484,7 +484,7 @@ export default {
        },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password=''; 
+            item.password= ""; 
             this.editedItem = Object.assign({}, item);
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
             await this.$ajax.get('/system/users/' + item.id + '/prodi',
@@ -645,15 +645,15 @@ export default {
        },
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",  
+            TOKEN: "Token",
         }),
    },
 
     watch: {
-        dialog (val) {
+        dialog(val) {
             val || this.close()
        },
-        dialogEdit (val) {
+        dialogEdit(val) {
             val || this.close()
        },
    }, 

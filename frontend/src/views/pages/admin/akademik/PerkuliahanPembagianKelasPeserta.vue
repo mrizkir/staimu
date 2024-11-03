@@ -325,7 +325,7 @@ export default {
 						{ text: "NIM", value: "nim", sortable: false, width: 100 },
 						{ text: 'NAMA', value: 'nama_mhs', sortable: false },
 						{ text: 'KELAS', value: 'idkelas', sortable: false }, 
-						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },  
+						{ text: 'TAHUN MASUK', value: 'tahun', sortable: false },
 				],
 				search_members: "",
 
@@ -336,7 +336,7 @@ export default {
 				form_valid: true,
 				members_selected: [],
 				formdata: {
-						penyelenggaraan_dosen_id: "",  
+						penyelenggaraan_dosen_id: "",
 				},
 				
 		}),
@@ -394,7 +394,7 @@ export default {
 								headers: {
 										Authorization: this.$store.getters["auth/Token"]
 								}
-						}).then(({ data }) => {         
+						}).then(({ data }) => {
 								this.daftar_matakuliah = data.matakuliah; 
 								this.showdialogmatakuliah=true;
 						})  
@@ -424,7 +424,7 @@ export default {
 								.post(
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
 								{
-									kelas_mhs_id: this.kelas_mhs_id,  
+									kelas_mhs_id: this.kelas_mhs_id,
 									members_selected: JSON.stringify(Object.assign({},this.members_selected)),
 									pid: "pembagiankelas",
 								},
@@ -449,7 +449,7 @@ export default {
 								this.btnLoading = true;
 								await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
 										{
-												kelas_mhs_id: this.kelas_mhs_id,  
+												kelas_mhs_id: this.kelas_mhs_id,
 												penyelenggaraan_dosen_id: JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
 										},
 										{

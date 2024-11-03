@@ -144,12 +144,12 @@ export default {
     methods: {
         async fetchKRS()
         {
-            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,  
+            await this.$ajax.get('/akademik/perkuliahan/krs/'+this.krs_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {  
+            }).then(({ data }) => {
                 this.datakrs=data.krs;
                 this.datatable=data.krsmatkul;
                 if (Object.keys(this.datakrs).length)

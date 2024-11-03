@@ -234,7 +234,7 @@ export default {
         daftar_kelas: [],
         
         formdata: {
-            nama_mhs: "",  
+            nama_mhs: "",
             tempat_lahir: "",
             tanggal_lahir: "",
             jk: 'L',
@@ -350,11 +350,11 @@ export default {
                 this.btnLoading = true;
                 await this.$ajax.post('/kemahasiswaan/biodata/'+this.user_id+'/update',{
                     _method: "put",
-                    nama_mhs: this.formdata.nama_mhs,  
-                    tempat_lahir: this.formdata.tempat_lahir,  
-                    tanggal_lahir: this.formdata.tanggal_lahir,  
-                    jk: this.formdata.jk,  
-                    nomor_hp: this.formdata.nomor_hp,  
+                    nama_mhs: this.formdata.nama_mhs,
+                    tempat_lahir: this.formdata.tempat_lahir,
+                    tanggal_lahir: this.formdata.tanggal_lahir,
+                    jk: this.formdata.jk,
+                    nomor_hp: this.formdata.nomor_hp,
                     email: this.formdata.email,
                     nama_ibu_kandung: this.formdata.nama_ibu_kandung,
                     address1_provinsi_id: this.provinsi_id.id,
@@ -365,7 +365,7 @@ export default {
                     address1_kecamatan: this.kecamatan_id.nama,
                     address1_desa_id: this.desa_id.id,
                     address1_kelurahan: this.desa_id.nama,
-                    alamat_rumah: this.formdata.alamat_rumah,  
+                    alamat_rumah: this.formdata.alamat_rumah,
                },
                 {
                     headers: {

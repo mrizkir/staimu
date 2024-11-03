@@ -348,7 +348,7 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-kkn/store',
                     {
                         nim: this.formdata.nim, 
-                        semester_akademik: this.formdata.semester_akademik,  
+                        semester_akademik: this.formdata.semester_akademik,
                         ta: this.tahun_akademik,
                    },
                     {

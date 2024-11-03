@@ -279,21 +279,21 @@ export default {
         //form data           
         form_valid: true,
         formdata: {
-            id: "",  
-            nama_bank: "",  
-            nama_cabang: "",  
-            nomor_rekening: "",  
-            pemilik_rekening: "",  
-            created_at: "",  
-            updated_at: "",  
+            id: "",
+            nama_bank: "",
+            nama_cabang: "",
+            nomor_rekening: "",
+            pemilik_rekening: "",
+            created_at: "",
+            updated_at: "",
        },
         formdefault: {
-            id: "",  
-            nama_bank: "",  
-            nama_cabang: "",  
-            nomor_rekening: "",  
-            pemilik_rekening: "",  
-            created_at: "",  
+            id: "",
+            nama_bank: "",
+            nama_cabang: "",
+            nomor_rekening: "",
+            pemilik_rekening: "",
+            created_at: "",
             updated_at: "",
        },
         editedIndex: -1,
@@ -446,7 +446,7 @@ export default {
     computed: {
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",  
+            TOKEN: "Token",
         }),
         formTitle() {
             return this.editedIndex === -1 ? "TAMBAH DATA" : "UBAH DATA"

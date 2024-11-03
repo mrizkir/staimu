@@ -140,9 +140,9 @@ export default {
     data: () => ({
         jadwal_ujian_id: null,
         jadwal_ujian: {
-            id: 0,  
+            id: 0,
             nama_kegiatan: "",
-            ta: "",  
+            ta: "",
             idsmt: "",
        },
         breadcrumbs: [], 

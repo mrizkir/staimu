@@ -233,17 +233,17 @@
 				{ text: 'NILAI HURUF', value: 'n_kual', sortable: false, width: 100 },
 			],
 			//formdata
-			form_valid: true,  
+			form_valid: true,
 		}),
 		methods: {
 			async fetchKRS()
 			{
-				await this.$ajax.get('/akademik/nilai/matakuliah/perkrs/'+this.krs_id,  
+				await this.$ajax.get('/akademik/nilai/matakuliah/perkrs/'+this.krs_id,
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
 					}
-				}).then(({ data }) => {  
+				}).then(({ data }) => {
 					this.datakrs=data.krs;
 					this.datatable=data.krsmatkul;
 					if (Object.keys(this.datakrs).length)

@@ -230,7 +230,7 @@ export default {
                 {
                     ta: this.tahun_pendaftaran,
                     fakultas_id: this.fakultas_id,
-                    nama_fakultas: this.nama_fakultas,  
+                    nama_fakultas: this.nama_fakultas,
                },
                 {
                     headers: {

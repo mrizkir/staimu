@@ -316,7 +316,7 @@ export default {
         initialize: async function() 
         {
             this.datatableLoading = true;
-            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,  
+            await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,
             {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]

@@ -17,7 +17,7 @@
 					</template>
 				</v-breadcrumbs>
 			</template>
-			<template v-slot:desc v-if="dashboard=='mahasiswabaru'">
+			<template v-slot:desc v-if="dashboard == 'mahasiswabaru'">
 				<v-alert color="cyan" border="left" colored-border type="info">
 					Halaman ini berisi pengisian formulir pendaftaran, mohon diisi dengan lengkap dan benar.
 				</v-alert>
@@ -28,7 +28,7 @@
 				</v-alert>
 			</template>
 		</ModuleHeader> 
-		<v-container fluid v-if="dashboard=='mahasiswabaru'">
+		<v-container fluid v-if="dashboard == 'mahasiswabaru'">
 			<FormMhsBaru/>
 		</v-container>
 		<v-container fluid v-else>
@@ -198,7 +198,7 @@
 			case "mahasiswabaru":
 
 			break;
-			default :
+			default:
 				this.datatableLoading = true; 
 				await this.$ajax.post("/spmb/formulirpendaftaran",
 				{
@@ -225,10 +225,10 @@
 		}
 		},
 		badgeColor(item) {
-		return item.active == 1 ? "success": "error"
+		return item.active == 1 ? "success" : "error"
 		},
 		badgeIcon(item) {
-		return item.active == 1 ? "mdi-check-bold": "mdi-close-thick"
+		return item.active == 1 ? "mdi-check-bold" : "mdi-close-thick"
 		},
 		viewItem(item) {
 		this.datamhsbaru = item;

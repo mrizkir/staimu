@@ -294,7 +294,7 @@ export default {
 		daftar_kelas: [],
 		
 		formdata: {
-			nama_mhs: "",  
+			nama_mhs: "",
 			tempat_lahir: "",
 			tanggal_lahir: "",
 			jk: "L",

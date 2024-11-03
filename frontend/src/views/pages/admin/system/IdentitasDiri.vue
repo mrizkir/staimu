@@ -159,7 +159,7 @@
                 102: this.formdata.nama_alias_pt,
                 103: this.formdata.bentuk_pt,
                 104: this.formdata.kode_pt,
-              }),                       
+              }),
             },
             {
               headers: {
@@ -177,7 +177,7 @@
     computed: { 
       ...mapGetters("auth", { 
         ACCESS_TOKEN: "AccessToken",
-        TOKEN: "Token",  
+        TOKEN: "Token",
       }),
     },
     components: {

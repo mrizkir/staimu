@@ -153,7 +153,7 @@ export default {
                             703: this.formdata.header_3,
                             704: this.formdata.header_4,
                             705: this.formdata.header_address,
-                        }),                       
+                        }),
                    },
                     {
                         headers: {
@@ -171,7 +171,7 @@ export default {
     computed: { 
         ...mapGetters("auth", { 
             ACCESS_TOKEN: "AccessToken",
-            TOKEN: "Token",  
+            TOKEN: "Token",
         }),
    },
     components: {

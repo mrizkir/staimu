@@ -484,7 +484,7 @@ export default {
        },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password='';
+            item.password= "";
             this.editedItem = Object.assign({}, item);
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
 
@@ -649,10 +649,10 @@ export default {
    },
 
     watch: {
-        dialog (val) {
+        dialog(val) {
             val || this.close()
        },
-        dialogEdit (val) {
+        dialogEdit(val) {
             val || this.close()
        },
    },

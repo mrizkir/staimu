@@ -262,7 +262,7 @@ export default {
                 href: "#"
             }
         ];
-        this.breadcrumbs[1].disabled=(this.dashboard=='mahasiswabaru'||this.dashboard== 'mahasiswa');
+        this.breadcrumbs[1].disabled=(this.dashboard == 'mahasiswabaru'||this.dashboard== 'mahasiswa');
         let prodi_id = this.$store.getters["uiadmin/getProdiID"];
         this.prodi_id = prodi_id;
         this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
@@ -359,7 +359,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => {       
+            }).then(({ data }) => {
                 this.data_transaksi=item; 
                 this.data_transaksi_detail=data.transaksi_detail; 
                 this.dialogdetailitem = true;
@@ -401,7 +401,7 @@ export default {
                     if (this.search.length > 0 && this.filter_ignore)
                     {
                         this.datatableLoading = true; 
-                        await this.$ajax.post('/keuangan/transaksi',  
+                        await this.$ajax.post('/keuangan/transaksi',
                         {
                             prodi_id: this.prodi_id,
                             ta: this.tahun_akademik,

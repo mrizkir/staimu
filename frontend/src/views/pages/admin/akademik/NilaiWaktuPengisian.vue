@@ -541,7 +541,7 @@
 								waktu_selesai_isi_nilai: this.formdata.waktu_selesai_isi_nilai,
 								jam_mulai_isi: this.formdata.jam_mulai_isi,
 								jam_selesai_isi: this.formdata.jam_selesai_isi,								
-								alldosen: this.alldosen,  
+								alldosen: this.alldosen,
 							},
 							{
 								headers: {

@@ -175,7 +175,7 @@ export default {
             nim: "",
             nirm: "",
             nama_mhs: "",
-            dosen_id: "",  
+            dosen_id: "",
             prodi_id: "",
             idkelas: "",
             status_mhs: [],
@@ -264,8 +264,8 @@ export default {
                         dosen_id: this.formdata.dosen_id,
                         prodi_id: this.formdata.prodi_id,
                         idkelas: this.formdata.idkelas,
-                        tahun_pendaftaran: this.tahun_pendaftaran,  
-                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),            
+                        tahun_pendaftaran: this.tahun_pendaftaran,
+                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),
                    },
                     {
                         headers: {

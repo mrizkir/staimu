@@ -260,7 +260,7 @@ export default {
                     {
                         penyelenggaraan_id: this.formdata.idpenyelenggaraan, 
                         dosen_id: this.formdata.dosen_id,
-                        is_ketua: this.formdata.is_ketua,                                 
+                        is_ketua: this.formdata.is_ketua,
                    },
                     {
                         headers: {
@@ -309,8 +309,8 @@ export default {
             await this.$ajax.post('/akademik/perkuliahan/penyelenggaraanmatakuliah/updateketua/'+item.id,
                 {
                     _method: "put",
-                    penyelenggaraan_id:item.penyelenggaraan_id,                                 
-                    is_ketua:item.is_ketua,                                 
+                    penyelenggaraan_id:item.penyelenggaraan_id,
+                    is_ketua:item.is_ketua,
                },
                 {
                     headers: {

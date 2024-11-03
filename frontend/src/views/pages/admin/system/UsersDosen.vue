@@ -362,30 +362,30 @@ export default {
 		editedIndex: -1, 
 		editedItem: {
 			id: 0,
-			username: "",  
-			password: "",  
+			username: "",
+			password: "",
 			onlyname: "", 
 			name: "", 
 			nidn: "", 
 			nipy: "",
-			email: "",  
-			nomor_hp: "",  
+			email: "",
+			nomor_hp: "",
 			is_dw: false, 
-			created_at: "",  
+			created_at: "",
 			updated_at: "", 
 		},
 		defaultItem: {
 			id: 0,
-			username: "",  
-			password: "",  
+			username: "",
+			password: "",
 			onlyname: "",
 			name: "",
 			nidn: "",
 			nipy: "",
-			email: "",  
+			email: "",
 			nomor_hp: "", 
 			is_dw: false,
-			created_at: "",  
+			created_at: "",
 			updated_at: "", 
 		},
 		//form rules        
@@ -466,7 +466,7 @@ export default {
 		},
 		editItem: async function(item) {
 			this.editedIndex = this.daftar_users.indexOf(item)
-			item.password=''; 
+			item.password= ""; 
 			this.editedItem = Object.assign({}, item);
 			this.dialogEdit = true;
 		},
@@ -524,8 +524,8 @@ export default {
 							email: this.editedItem.email,
 							nomor_hp: this.editedItem.nomor_hp,
 							username: this.editedItem.username,
-							password: this.editedItem.password,  
-							is_dw: this.editedItem.is_dw,  
+							password: this.editedItem.password,
+							is_dw: this.editedItem.is_dw,
 						},
 						{
 							headers: {
@@ -599,15 +599,15 @@ export default {
 		},
 		...mapGetters("auth", { 
 			ACCESS_TOKEN: "AccessToken",
-			TOKEN: "Token",  
+			TOKEN: "Token",
 		}),
    },
 
 	watch: {
-		dialog (val) {
+		dialog(val) {
 			val || this.close()
 		},
-		dialogEdit (val) {
+		dialogEdit(val) {
 			val || this.close()
 		},
    }, 

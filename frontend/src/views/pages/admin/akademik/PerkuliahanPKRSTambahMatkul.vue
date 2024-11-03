@@ -154,12 +154,12 @@ export default {
 	methods: {
 		async fetchKRS()
 		{
-			await this.$ajax.get("/akademik/perkuliahan/pkrs/" + this.krs_id,  
+			await this.$ajax.get("/akademik/perkuliahan/pkrs/" + this.krs_id,
 			{
 				headers: {
 					Authorization: this.$store.getters["auth/Token"]
 				}
-			}).then(({ data }) => {  
+			}).then(({ data }) => {
 				this.datakrs=data.krs;
 				if (Object.keys(this.datakrs).length)
 				{
@@ -200,7 +200,7 @@ export default {
 				this.btnLoading = true;
 				await this.$ajax.post("/akademik/perkuliahan/pkrs/storematkul",
 					{
-						krs_id: this.krs_id,  
+						krs_id: this.krs_id,
 						matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
 					},
 					{

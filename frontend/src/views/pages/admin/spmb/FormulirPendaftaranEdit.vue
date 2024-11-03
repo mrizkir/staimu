@@ -285,7 +285,7 @@ export default {
 		daftar_kelas: [],
 		
 		formdata: {
-			nama_mhs: "",  
+			nama_mhs: "",
 			tempat_lahir: "",
 			tanggal_lahir: "",
 			jk: 'L',
@@ -300,7 +300,7 @@ export default {
 		rule_nama_mhs: [
 			value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
 			value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
-		],  
+		],
 		rule_tempat_lahir: [
 			value => !!value || "Tempat Lahir mohon untuk diisi !!!"
 		], 
@@ -416,11 +416,11 @@ export default {
 				this.btnLoading = true;
 				await this.$ajax.post('/spmb/formulirpendaftaran/'+this.user_id,{
 					_method: "put",
-					nama_mhs: this.formdata.nama_mhs,  
-					tempat_lahir: this.formdata.tempat_lahir,  
-					tanggal_lahir: this.formdata.tanggal_lahir,  
-					jk: this.formdata.jk,  
-					nomor_hp: this.formdata.nomor_hp,  
+					nama_mhs: this.formdata.nama_mhs,
+					tempat_lahir: this.formdata.tempat_lahir,
+					tanggal_lahir: this.formdata.tanggal_lahir,
+					jk: this.formdata.jk,
+					nomor_hp: this.formdata.nomor_hp,
 					email: this.formdata.email,
 					nama_ibu_kandung: this.formdata.nama_ibu_kandung,
 					address1_provinsi_id: this.provinsi_id.id,

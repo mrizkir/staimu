@@ -96,7 +96,7 @@
 		},
 		data: () => ({ 
 			firstloading: true,
-			breadcrumbs: [],  
+			breadcrumbs: [],
 			
 			//profil mahasiswa      
 			user_id: null,
@@ -131,7 +131,7 @@
 		methods: {
 			initialize: async function()
 			{	
-				await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,  
+				await this.$ajax.get('/akademik/nilai/transkripkurikulum/'+this.user_id,
 				{
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]

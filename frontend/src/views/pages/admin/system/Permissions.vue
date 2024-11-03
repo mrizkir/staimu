@@ -179,17 +179,17 @@ export default {
         editedIndex: -1,
         editedItem: {
             id: 0,
-            name: "",  
-            guard: "",  
-            created_at: "",  
-            updated_at: "",  
+            name: "",
+            guard: "",
+            created_at: "",
+            updated_at: "",
        },
         defaultItem: {
             id: 0,
-            name: "",  
-            guard: 'api',  
-            created_at: "",  
-            updated_at: "",  
+            name: "",
+            guard: 'api',
+            created_at: "",
+            updated_at: "",
        },
         //form rules        
         rule_permission_name: [
@@ -298,7 +298,7 @@ export default {
         }),
    },
     watch: {
-        dialog (val) {
+        dialog(val) {
             val || this.close()
        },
    },

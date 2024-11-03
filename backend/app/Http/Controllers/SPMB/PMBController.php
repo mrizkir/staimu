@@ -41,39 +41,39 @@ class PMBController extends Controller {
     $prodi_id=$request->input('prodi_id');
 
     $data = User::where('default_role', 'mahasiswabaru')
-          ->select(\DB::raw('
-                  users.id,
-                  users.username,
-                  users.name,
-                  users.email,
-                  users.nomor_hp,
-                  users.active,
-                  users.foto,
-                  COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
-                  pe3_formulir_pendaftaran.kjur1 AS prodi_id,
-                  pe3_formulir_pendaftaran.ta,
-                  users.created_at,
-                  users.updated_at'
-                ))
-          ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'users.id');               
+    ->select(\DB::raw('
+      users.id,
+      users.username,
+      users.name,
+      users.email,
+      users.nomor_hp,
+      users.active,
+      users.foto,
+      COALESCE(pe3_formulir_pendaftaran.no_formulir,\'N.A\') AS no_formulir,
+      pe3_formulir_pendaftaran.kjur1 AS prodi_id,
+      pe3_formulir_pendaftaran.ta,
+      users.created_at,
+      users.updated_at'
+    ))
+    ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'users.id');               
     
     if ($request->has('search'))
     {
-      $data=$data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
-                        ->get();
+      $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+      ->get();
     }  
     else
     {
       $data=$data->where('users.ta',$ta)
-            ->where('kjur1',$prodi_id)
-            ->get();
+      ->where('kjur1',$prodi_id)
+      ->get();
     }
     return Response()->json([
-                'status' => 1,
-                'pid' => 'fetchdata',
-                'pmb' => $data,
-                'message' => 'Fetch data calon mahasiswa baru berhasil diperoleh'
-              ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+      'status' => 1,
+      'pid' => 'fetchdata',
+      'pmb' => $data,
+      'message' => 'Fetch data calon mahasiswa baru berhasil diperoleh'
+    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }    
   /**
    * digunakan untuk mendapatkan calon mahasiswa baru yang telah mengisi formulir pendaftaran
@@ -560,8 +560,7 @@ class PMBController extends Controller {
       ], 422); 
     }
     else
-    {
-       
+    {  
       $this->validate($request, [
         'nama_mhs' => 'required',
         'tempat_lahir' => 'required',
