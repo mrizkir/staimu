@@ -201,6 +201,7 @@ class DulangMahasiswaDOController extends Controller
 						'k_status' => 'D',
 						'idsmt' => $request->input('idsmt'),
 						'tahun' => $request->input('tahun'),
+						'tasmt' => $request->input('tahun').$request->input('idsmt'),
 						'update_info'=>0,
 						'descr' => $request->input('descr'),
 					]);
