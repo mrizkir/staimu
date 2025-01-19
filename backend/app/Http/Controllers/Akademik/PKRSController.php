@@ -33,8 +33,8 @@ class PKRSController extends Controller
             'prodi_id' => 'required'
         ]);
 
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
         $semester_akademik=$request->input('semester_akademik');
 
         $daftar_pkrs = PKRSModel::select(\DB::raw('
@@ -207,8 +207,8 @@ class PKRSController extends Controller
             'pid' => 'required',     
         ]);
         
-        $prodi_id=$request->input('prodi_id');
-        $ta=$request->input('ta');
+        $prodi_id = $request->input('prodi_id');
+        $ta = $request->input('ta');
         $nim=$request->input('nim');
         $semester_akademik=$request->input('semester_akademik');
         
@@ -270,7 +270,7 @@ class PKRSController extends Controller
         ]);
         
         $nim=$request->input('nim');
-        $dulang_id=$request->input('dulang_id');
+        $dulang_id = $request->input('dulang_id');
 
         $dulang = DulangModel::find($dulang_id);
 
@@ -309,7 +309,7 @@ class PKRSController extends Controller
             'krs_id' => 'required|exists:pe3_krs,id',     
             'matkul_selected' => 'required',
         ]);
-        $krs_id=$request->input('krs_id');
+        $krs_id = $request->input('krs_id');
         
         $krs=KRSModel::find($krs_id);
 

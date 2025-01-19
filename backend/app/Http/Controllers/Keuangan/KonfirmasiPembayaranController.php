@@ -23,14 +23,14 @@ class KonfirmasiPembayaranController extends Controller {
             'ta' => 'required',
             'prodi_id' => 'required',
         ]);
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
         
         $daftar_transaksi=[];
 
         if ($this->hasRole(['mahasiswabaru', 'mahasiswa']))
         {
-            $userid=$this->getUserid();
+            $userid = $this->getUserid();
             $daftar_transaksi = TransaksiModel::select(\DB::raw('
                                                     pe3_transaksi.id,
                                                     pe3_transaksi.user_id,        
@@ -175,7 +175,7 @@ class KonfirmasiPembayaranController extends Controller {
             'total_bayar' => 'required|numeric',
             'bukti_bayar' => 'required',
         ]);
-        $transaksi_id=$request->input('transaksi_id');
+        $transaksi_id = $request->input('transaksi_id');
         $transaksi=TransaksiModel::find($transaksi_id);
         $bukti_bayar=$request->file('bukti_bayar');
         $mime_type=$bukti_bayar->getMimeType();

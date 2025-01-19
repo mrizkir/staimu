@@ -28,7 +28,7 @@ class SystemMigrationController extends Controller {
             'ta' => 'required',
         ]);
         
-        $ta=$request->input('ta');
+        $ta = $request->input('ta');
         $daftar_tasmt=[];
         
         for ($tahun=$ta;$tahun < 2020; $tahun++)
@@ -78,7 +78,7 @@ class SystemMigrationController extends Controller {
             $now = \Carbon\Carbon::now()->toDateTimeString();   
             $uuid=Uuid::uuid4()->toString();
             $no_hp=mt_rand(1000,9999);
-            $ta=$request->input('tahun_pendaftaran');
+            $ta = $request->input('tahun_pendaftaran');
             $nim=$request->input('nim');
             $user=User::create([
                 'id' => $uuid,
@@ -226,7 +226,7 @@ class SystemMigrationController extends Controller {
         ]);
 
         $ta_matkul=$request->input('ta_matkul');
-        $prodi_id=$request->input('prodi_id');
+        $prodi_id = $request->input('prodi_id');
 
         $daftar_matkul=\DB::table('pe3_matakuliah')
                         ->where('ta',$ta_matkul)

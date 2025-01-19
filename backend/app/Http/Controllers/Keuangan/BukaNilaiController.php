@@ -22,8 +22,8 @@ class BukaNilaiController extends Controller
       'prodi_id' => 'required'
     ]);
 
-    $ta=$request->input('ta');
-    $prodi_id=$request->input('prodi_id');
+    $ta = $request->input('ta');
+    $prodi_id = $request->input('prodi_id');
     $semester_akademik=$request->input('semester_akademik');
 
     $daftar_krs = KRSModel::select(\DB::raw('

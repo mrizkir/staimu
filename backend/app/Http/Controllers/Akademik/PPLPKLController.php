@@ -144,7 +144,7 @@ class PPLPKLController extends Controller
 	  {
 			$nim=$request->input('nim');
 		  $semester_akademik=$request->input('idsmt');
-		  $ta=$request->input('ta');
+		  $ta = $request->input('ta');
 			
 			$mahasiswa = RegisterMahasiswaModel::where('nim', $nim)->first();
 			

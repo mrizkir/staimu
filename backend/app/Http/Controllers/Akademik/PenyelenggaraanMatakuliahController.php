@@ -25,8 +25,8 @@ class PenyelenggaraanMatakuliahController extends Controller
 			'prodi_id' => 'required'
 		]);
 		
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 		$semester_akademik=$request->input('semester_akademik');
 		
 		if ($this->hasRole('mahasiswa'))
@@ -107,8 +107,8 @@ class PenyelenggaraanMatakuliahController extends Controller
 			'prodi_id' => 'required',   
 			'matkul_selected' => 'required',       
 		]);
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 		$semester_akademik=$request->input('semester_akademik');
 
 		$daftar_matkul=[];
@@ -267,7 +267,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 					'semester_akademik' => 'required',        
 				]);
 
-				$ta=$request->input('ta');           
+				$ta = $request->input('ta');           
 				$semester_akademik=$request->input('semester_akademik');
 				
 				$data=PenyelenggaraanDosenModel::select(\DB::raw('
@@ -301,8 +301,8 @@ class PenyelenggaraanMatakuliahController extends Controller
 			'semester_akademik' => 'required|in:1,2,3',
 		]);
 		
-		$ta=$request->input('ta');
-		$user_id=$request->input('user_id');   
+		$ta = $request->input('ta');
+		$user_id = $request->input('user_id');   
 		$semester_akademik=$request->input('semester_akademik');
 		
 		$data=PenyelenggaraanDosenModel::select(\DB::raw(' 
@@ -360,7 +360,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 		if ($is_ketua)
 		{
 			$penyelenggaraan=$dosen->penyelenggaraan;
-			$penyelenggaraan->user_id=$request->input('dosen_id');
+			$penyelenggaraan->user_id = $request->input('dosen_id');
 			$penyelenggaraan->save();
 		}
 		return Response()->json([
@@ -399,7 +399,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 			$dosen->save();
 
 			$penyelenggaraan=$dosen->penyelenggaraan;
-			$penyelenggaraan->user_id=$dosen->user_id;
+			$penyelenggaraan->user_id = $dosen->user_id;
 			$penyelenggaraan->save();
 			
 			\App\Models\System\ActivityLog::log($request,[

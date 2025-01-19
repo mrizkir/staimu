@@ -28,8 +28,8 @@ class DulangMahasiswaDOController extends Controller
             'idsmt' => 'required',
         ]);
 
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
         $idsmt=$request->input('idsmt');
         
         if ($this->hasRole('mahasiswa'))

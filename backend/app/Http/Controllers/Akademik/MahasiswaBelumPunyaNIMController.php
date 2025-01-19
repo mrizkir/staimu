@@ -29,8 +29,8 @@ class MahasiswaBelumPunyaNIMController extends Controller
 			'prodi_id' => 'required'
 		]);
 
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 
 		
 		$data = TransaksiDetailModel::select(\DB::raw('
@@ -81,7 +81,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
 		
 		$mahasiswa = \DB::transaction(function () use ($request) {
 			$no_bulan=9;
-			$user_id=$request->input('user_id');
+			$user_id = $request->input('user_id');
 			$formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($user_id);
 
 			$mahasiswa=RegisterMahasiswaModel::create([

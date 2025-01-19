@@ -101,13 +101,13 @@ class KemahasiswaanController extends Controller {
                 $formulir->telp_hp=$request->input('nomor_hp');      
                   
                 $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    
-                $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
+                $formulir->address1_provinsi_id = $request->input('address1_provinsi_id');
                 $formulir->address1_provinsi=$request->input('address1_provinsi');
-                $formulir->address1_kabupaten_id=$request->input('address1_kabupaten_id');
+                $formulir->address1_kabupaten_id = $request->input('address1_kabupaten_id');
                 $formulir->address1_kabupaten=$request->input('address1_kabupaten');
-                $formulir->address1_kecamatan_id=$request->input('address1_kecamatan_id');
+                $formulir->address1_kecamatan_id = $request->input('address1_kecamatan_id');
                 $formulir->address1_kecamatan=$request->input('address1_kecamatan');
-                $formulir->address1_desa_id=$request->input('address1_desa_id');
+                $formulir->address1_desa_id = $request->input('address1_desa_id');
                 $formulir->address1_kelurahan=$request->input('address1_kelurahan');
                 $formulir->alamat_rumah=$request->input('alamat_rumah');              
 

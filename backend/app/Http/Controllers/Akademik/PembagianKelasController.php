@@ -26,7 +26,7 @@ class PembagianKelasController extends Controller
 			'semester_akademik' => 'required',
 		]);
 
-		$ta=$request->input('ta');
+		$ta = $request->input('ta');
 		$semester_akademik=$request->input('semester_akademik');
 
 		$pembagiankelas=PembagianKelasModel::select(\DB::raw('
@@ -407,7 +407,7 @@ class PembagianKelasController extends Controller
 			'kelas_mhs_id' => 'required|exists:pe3_kelas_mhs,id',
 			'penyelenggaraan_dosen_id' => 'required',
 		]);
-		$kelas_mhs_id=$request->input('kelas_mhs_id');
+		$kelas_mhs_id = $request->input('kelas_mhs_id');
 
 		$penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
 
@@ -434,8 +434,8 @@ class PembagianKelasController extends Controller
 				'krsmatkul_id' => 'required|exists:pe3_krsmatkul,id',
 			]);
 			
-			$kelas_mhs_id=$request->input('kelas_mhs_id');
-			$krsmatkul_id=$request->input('krsmatkul_id');
+			$kelas_mhs_id = $request->input('kelas_mhs_id');
+			$krsmatkul_id = $request->input('krsmatkul_id');
 
 			\DB::table('pe3_kelas_mhs_peserta')
 					->where('krsmatkul_id',$krsmatkul_id)
@@ -461,7 +461,7 @@ class PembagianKelasController extends Controller
 				'members_selected' => 'required',
 				'pid' => 'required|in:krs,pembagiankelas'
 			]);
-			$kelas_mhs_id=$request->input('kelas_mhs_id');
+			$kelas_mhs_id = $request->input('kelas_mhs_id');
 
 			$daftar_members=[];
 			foreach ($members_selected as $v)
@@ -510,8 +510,8 @@ class PembagianKelasController extends Controller
 			]);
 
 			$pembagiankelas = \DB::transaction(function () use ($request, $pembagiankelas) {
-				$pembagiankelas->user_id=$request->input('user_id');
-				$pembagiankelas->zoom_id=$request->input('zoom_id');
+				$pembagiankelas->user_id = $request->input('user_id');
+				$pembagiankelas->zoom_id = $request->input('zoom_id');
 				$pembagiankelas->kmatkul=$request->input('kmatkul');
 				$pembagiankelas->nmatkul=$request->input('nmatkul');
 				$pembagiankelas->sks=$request->input('sks');
@@ -519,7 +519,7 @@ class PembagianKelasController extends Controller
 				$pembagiankelas->hari=$request->input('hari');
 				$pembagiankelas->jam_masuk=$request->input('jam_masuk');
 				$pembagiankelas->jam_keluar=$request->input('jam_keluar');
-				$pembagiankelas->ruang_kelas_id=$request->input('ruang_kelas_id');
+				$pembagiankelas->ruang_kelas_id = $request->input('ruang_kelas_id');
 				$pembagiankelas->save();
 
 				$penyelenggaraan_dosen=json_decode($request->input('penyelenggaraan_dosen_id'), true);
@@ -627,7 +627,7 @@ class PembagianKelasController extends Controller
 															]);
 
 			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan) {
-				$penyelenggaraan_id=$penyelenggaraan->penyelenggaraan_id;
+				$penyelenggaraan_id = $penyelenggaraan->penyelenggaraan_id;
 				\DB::table('pe3_kelas_mhs_peserta')
 						->join('pe3_krsmatkul', 'pe3_krsmatkul.id', 'pe3_kelas_mhs_peserta.krsmatkul_id')
 						->where('pe3_krsmatkul.penyelenggaraan_id',$penyelenggaraan_id)

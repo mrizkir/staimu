@@ -48,7 +48,7 @@ class TransaksiController extends Controller {
 			$this->validate($request, [           
 				'ta' => 'required',    
 			]);
-			$ta=$request->input('ta');      
+			$ta = $request->input('ta');      
 
 			$daftar_transaksi = TransaksiModel::select($select)
 											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
@@ -63,7 +63,7 @@ class TransaksiController extends Controller {
 			$this->validate($request, [           
 				'ta' => 'required',    
 			]);
-			$ta=$request->input('ta');
+			$ta = $request->input('ta');
 			
 			$daftar_transaksi = TransaksiModel::select($select)
 											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
@@ -79,8 +79,8 @@ class TransaksiController extends Controller {
 				'ta' => 'required',
 				'prodi_id' => 'required',
 			]);
-			$ta=$request->input('ta');
-			$prodi_id=$request->input('prodi_id');
+			$ta = $request->input('ta');
+			$prodi_id = $request->input('prodi_id');
 
 			$daftar_transaksi = TransaksiModel::select($select)
 											->join('pe3_status_transaksi', 'pe3_transaksi.status', 'pe3_status_transaksi.id_status')
@@ -213,7 +213,7 @@ class TransaksiController extends Controller {
 		$this->validate($request, [                       
 			'jenis_id' => 'required'
 		]);   
-		$jenis_id=$request->input('jenis_id');
+		$jenis_id = $request->input('jenis_id');
 
 		try 
 		{
@@ -223,7 +223,7 @@ class TransaksiController extends Controller {
 				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH.');
 			}   
 
-			$user_id=$mhs->user_id;
+			$user_id = $mhs->user_id;
 			$no_bulan=9;   
 			$spp=TransaksiDetailModel::join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
 							->where('pe3_transaksi_detail.kombi_id', 201)
@@ -263,7 +263,7 @@ class TransaksiController extends Controller {
 		$this->validate($request, [           
 			'transaksi_id' => 'required|exists:pe3_transaksi,id',
 		]);
-		$transaksi_id=$request->input('transaksi_id');
+		$transaksi_id = $request->input('transaksi_id');
 		$transaksi=TransaksiModel::find($transaksi_id);
 
 		if ($transaksi->status==1)

@@ -26,8 +26,8 @@ class TransaksiDulangMHSBaruController extends Controller {
             'prodi_id' => 'required',
         ]);
 
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
 
         if ($this->hasRole(['mahasiswa', 'mahasiswabaru']))
         {
@@ -135,7 +135,7 @@ class TransaksiDulangMHSBaruController extends Controller {
         try 
         {
             $no_formulir=$request->input('no_formulir');       
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
             
             $transaksi=TransaksiDetailModel::select(\DB::raw('
                                                 1

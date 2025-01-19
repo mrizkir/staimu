@@ -198,7 +198,7 @@ class DosenWaliController extends Controller {
       switch($request->input('pid'))
       {
         case 'alihkan_mhs' ://digunakan untuk mengalihkan mahasiswa dari dw ini ke dw lain
-          $dw_id=$request->input('user_id');
+          $dw_id = $request->input('user_id');
 
           $message='Mengalihkan mahasiswa data dosen wali ('.$user->nama_dosen.') ini berhasil';
           \App\Models\System\ActivityLog::log($request,[

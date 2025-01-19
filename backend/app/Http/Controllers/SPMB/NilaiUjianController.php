@@ -60,8 +60,8 @@ class NilaiUjianController extends Controller {
                 'prodi_id' => 'required'
             ]);
             
-            $ta=$request->input('ta');
-            $prodi_id=$request->input('prodi_id');
+            $ta = $request->input('ta');
+            $prodi_id = $request->input('prodi_id');
             
             $data=$data->where('users.ta',$ta)
                 ->where('kjur1',$prodi_id)
@@ -107,7 +107,7 @@ class NilaiUjianController extends Controller {
             'ket_lulus' => 'required',
         ]);
         $data_nilai = \DB::transaction(function () use ($request) {
-            $user_id=$request->input('user_id');
+            $user_id = $request->input('user_id');
             $ket_lulus=$request->input('ket_lulus');
             $data_nilai=NilaiUjianPMBModel::create([
                 'user_id' => $user_id,

@@ -115,7 +115,7 @@ class ZoomController extends Controller {
                 $result=json_decode($response->getBody(), true); 
                 if (isset($result['id']))
                 {
-                    $zoom->zoom_id=$result['id'];
+                    $zoom->zoom_id = $result['id'];
                     $zoom->jwt_token=$jwt;
                     $zoom->status=$result['type'];   
                     $desc=$result['status']=='active'?'AKTIF - ':'TIDAK AKTIF - ';

@@ -40,8 +40,8 @@ class NilaiKonversiController  extends Controller
                 'prodi_id' => 'required'
             ]);
 
-            $ta=$request->input('ta');
-            $prodi_id=$request->input('prodi_id');
+            $ta = $request->input('ta');
+            $prodi_id = $request->input('prodi_id');
             
             $data = NilaiKonversi1Model::select(\DB::raw('
                                                 pe3_nilai_konversi1.*,
@@ -80,8 +80,8 @@ class NilaiKonversiController  extends Controller
             'prodi_id' => 'required'
         ]);
         
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
 
         $matakuliah=MatakuliahModel::select(\DB::raw('
                                     id,
@@ -148,13 +148,13 @@ class NilaiKonversiController  extends Controller
                 'kjur' => $request->input('kjur'),  
             ]);
 
-            $nilai_konversi_id=$data_konversi->id;
+            $nilai_konversi_id = $data_konversi->id;
             $jumlah_matkul=0;   
             $daftar_nilai=json_decode($request->input('daftar_nilai'), true);
             
             foreach ($daftar_nilai as $v)
             {
-                $matkul_id=$v['matkul_id'];
+                $matkul_id = $v['matkul_id'];
                 $kmatkul_asal=$v['kmatkul_asal'];
                 $matkul_asal=$v['matkul_asal'];
                 $sks_asal=$v['sks_asal'];
@@ -238,7 +238,7 @@ class NilaiKonversiController  extends Controller
                 
                 $data_konversi->save();
 
-                $nilai_konversi_id=$data_konversi->id;
+                $nilai_konversi_id = $data_konversi->id;
                 $jumlah_matkul=0;   
                 $daftar_nilai=json_decode($request->input('daftar_nilai'), true);
                 
@@ -248,7 +248,7 @@ class NilaiKonversiController  extends Controller
 
                 foreach ($daftar_nilai as $v)
                 {
-                    $matkul_id=$v['matkul_id'];
+                    $matkul_id = $v['matkul_id'];
                     $kmatkul_asal=$v['kmatkul_asal'];
                     $matkul_asal=$v['matkul_asal'];
                     $sks_asal=$v['sks_asal'];
@@ -381,7 +381,7 @@ class NilaiKonversiController  extends Controller
         
         if ($data_konversi->tahun == $mahasiswa->tahun)
         {
-            $data_konversi->user_id=$mahasiswa->user_id;
+            $data_konversi->user_id = $mahasiswa->user_id;
             $data_konversi->nim=$mahasiswa->nim;
             $data_konversi->save();
 

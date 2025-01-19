@@ -72,7 +72,7 @@ class UsersProdiController extends Controller {
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
-            $user_id=$user->id;
+            $user_id = $user->id;
             $daftar_prodi=json_decode($request->input('prodi_id'), true);
             foreach($daftar_prodi as $v)
             {
@@ -235,7 +235,7 @@ class UsersProdiController extends Controller {
                     $permissions=$permission->pluck('name');
                     $user->revokePermissionTo($permissions);
                 }    
-                $user_id=$user->id;
+                $user_id = $user->id;
                 \DB::table('usersprodi')->where('user_id',$user_id)->delete();
                 $daftar_prodi=json_decode($request->input('prodi_id'), true);
                 foreach($daftar_prodi as $v)

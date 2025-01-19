@@ -27,8 +27,8 @@ class PesertaDulangController extends Controller {
 			'prodi_id' => 'required'
 		]);
 		
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 
 		$data = FormulirPendaftaranModel::select(\DB::raw('
 						users.id,

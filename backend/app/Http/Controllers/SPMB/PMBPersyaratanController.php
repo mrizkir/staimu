@@ -24,8 +24,8 @@ class PMBPersyaratanController extends Controller {
       'prodi_id' => 'required'
     ]);
     
-    $ta=$request->input('ta');
-    $prodi_id=$request->input('prodi_id');
+    $ta = $request->input('ta');
+    $prodi_id = $request->input('prodi_id');
     
     $jumlah_persyaratan=\DB::table('pe3_persyaratan')->where('ta',$ta)->count();
     $data = FormulirPendaftaranModel::select(\DB::raw("users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,$jumlah_persyaratan AS jumlah_persyaratan,0 AS persyaratan, 'BELUM LENGKAP' AS status,users.created_at,users.updated_at"))
@@ -198,7 +198,7 @@ class PMBPersyaratanController extends Controller {
     }
     else
     {
-      $userid=$persyaratan->user_id;
+      $userid = $persyaratan->user_id;
       $old_file=$persyaratan->path;       
       $persyaratan->delete();
 

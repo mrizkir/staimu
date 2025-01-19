@@ -43,8 +43,8 @@ class TranskripKurikulumController  extends Controller
         'prodi_id' => 'required'
       ]);
 
-      $ta=$request->input('ta');
-      $prodi_id=$request->input('prodi_id');
+      $ta = $request->input('ta');
+      $prodi_id = $request->input('prodi_id');
       
       $data = RegisterMahasiswaModel::select(\DB::raw('
                   pe3_register_mahasiswa.user_id,
@@ -176,7 +176,7 @@ class TranskripKurikulumController  extends Controller
       $jumlah_m=0;
       $jumlah_matkul=0;
 
-      $user_id=$mahasiswa->user_id;
+      $user_id = $mahasiswa->user_id;
       $data_konversi=\DB::table('pe3_nilai_konversi1')
                 ->where('user_id',$user_id)
                 ->first();
@@ -430,7 +430,7 @@ class TranskripKurikulumController  extends Controller
     }
     else
     {
-      $user_id=$mahasiswa->user_id;
+      $user_id = $mahasiswa->user_id;
       $data_konversi=\DB::table('pe3_nilai_konversi1')
                 ->where('user_id',$user_id)
                 ->first();
@@ -744,7 +744,7 @@ class TranskripKurikulumController  extends Controller
     }
     else
     {
-      $user_id=$mahasiswa->user_id;
+      $user_id = $mahasiswa->user_id;
       $data_konversi=\DB::table('pe3_nilai_konversi1')
                 ->where('user_id',$user_id)
                 ->first();

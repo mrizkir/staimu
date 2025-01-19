@@ -21,7 +21,7 @@ class SPMBController extends Controller
       'ta' => 'required',
     ]);
 
-    $ta=$request->input('ta');
+    $ta = $request->input('ta');
     
     $daftar_registrasi=[];
     $total_registrasi=0;

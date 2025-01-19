@@ -28,8 +28,8 @@ class ReportKelulusanController extends Controller {
 			'filter_status' => 'required'
 		]);
 		
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 		$filter_status=$request->input('filter_status');
 
 		$data = FormulirPendaftaranModel::select(\DB::raw('

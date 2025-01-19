@@ -45,8 +45,8 @@ class BiayaKomponenPeriodeController extends Controller {
                 'prodi_id' => 'required'
             ]);
             
-            $ta=$request->input('ta');
-            $prodi_id=$request->input('prodi_id');
+            $ta = $request->input('ta');
+            $prodi_id = $request->input('prodi_id');
             
             $kombi=BiayaKomponenPeriodeModel::select(\DB::raw('
                                                 pe3_kombi_periode.id,
@@ -86,8 +86,8 @@ class BiayaKomponenPeriodeController extends Controller {
             'ta' => 'required',
             'prodi_id' => 'required'
         ]);
-        $ta=$request->input('ta');
-        $prodi_id=$request->input('prodi_id');
+        $ta = $request->input('ta');
+        $prodi_id = $request->input('prodi_id');
         
         $daftar_kelas=KelasModel::all();
         foreach ($daftar_kelas as $kelas)
@@ -130,7 +130,7 @@ class BiayaKomponenPeriodeController extends Controller {
             'id' => 'required|exists:pe3_kombi_periode,id',
             'biaya' => 'required'
         ]);
-        $id=$request->input('id');
+        $id = $request->input('id');
         $biaya=$request->input('biaya');
         
         $kombi_biaya=BiayaKomponenPeriodeModel::find($id);

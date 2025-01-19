@@ -72,10 +72,10 @@ class UIController extends Controller {
 								->get();
 
 				$daftar_fakultas=FakultasModel::all();
-				$fakultas_id=$config['DEFAULT_FAKULTAS'];
+				$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 				$daftar_prodi=ProgramStudiModel::all();
-				$prodi_id=$config['DEFAULT_PRODI'];
+				$prodi_id = $config['DEFAULT_PRODI'];
 
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -86,7 +86,7 @@ class UIController extends Controller {
 								->orderBy('tahun', 'asc')
 								->get();
 
-				$userid=$this->getUserid();
+				$userid = $this->getUserid();
 				$daftar_prodi=$this->guard()->user()->prodi;
 
 				if ($daftar_prodi->count()>0)
@@ -100,16 +100,16 @@ class UIController extends Controller {
 								})
 								->get();
 
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
-					$prodi_id=$daftar_prodi[0]->id;
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
+					$prodi_id = $daftar_prodi[0]->id;
 				}
 				else
 				{
 					$daftar_fakultas=FakultasModel::all();
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 					$daftar_prodi=ProgramStudiModel::all();
-					$prodi_id=$config['DEFAULT_PRODI'];
+					$prodi_id = $config['DEFAULT_PRODI'];
 				}
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -120,7 +120,7 @@ class UIController extends Controller {
 								->orderBy('tahun', 'asc')
 								->get();
 
-				$userid=$this->getUserid();
+				$userid = $this->getUserid();
 				$daftar_prodi=$this->guard()->user()->prodi;
 
 				if ($daftar_prodi->count()>0)
@@ -134,16 +134,16 @@ class UIController extends Controller {
 								})
 								->get();
 
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
-					$prodi_id=$daftar_prodi[0]->id;
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
+					$prodi_id = $daftar_prodi[0]->id;
 				}
 				else
 				{
 					$daftar_fakultas=FakultasModel::all();
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 					$daftar_prodi=ProgramStudiModel::all();
-					$prodi_id=$config['DEFAULT_PRODI'];
+					$prodi_id = $config['DEFAULT_PRODI'];
 				}
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -154,7 +154,7 @@ class UIController extends Controller {
 								->orderBy('tahun', 'asc')
 								->get();
 
-				$userid=$this->getUserid();
+				$userid = $this->getUserid();
 				$daftar_prodi=$this->guard()->user()->prodi;
 
 				if ($daftar_prodi->count()>0)
@@ -168,16 +168,16 @@ class UIController extends Controller {
 								})
 								->get();
 
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
-					$prodi_id=$daftar_prodi[0]->id;
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
+					$prodi_id = $daftar_prodi[0]->id;
 				}
 				else
 				{
 					$daftar_fakultas=FakultasModel::all();
-					$fakultas_id=$config['DEFAULT_FAKULTAS'];
+					$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 					$daftar_prodi=ProgramStudiModel::all();
-					$prodi_id=$config['DEFAULT_PRODI'];
+					$prodi_id = $config['DEFAULT_PRODI'];
 				}
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -192,10 +192,10 @@ class UIController extends Controller {
 								->get();
 
 				$daftar_fakultas=[];
-				$fakultas_id=$config['DEFAULT_FAKULTAS'];
+				$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 				$daftar_prodi=ProgramStudiModel::where('id',$formulir->kjur1)->get();
-				$prodi_id=$formulir->kjur1;
+				$prodi_id = $formulir->kjur1;
 
 				$tahun_pendaftaran = $formulir->ta;
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -208,10 +208,10 @@ class UIController extends Controller {
 									->get();
 
 				$daftar_fakultas=[];
-				$fakultas_id=$config['DEFAULT_FAKULTAS'];
+				$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 				$daftar_prodi=ProgramStudiModel::where('id',$formulir->kjur1)->get();
-				$prodi_id=$formulir->kjur1;
+				$prodi_id = $formulir->kjur1;
 
 				$tahun_pendaftaran = $formulir->ta;
 				$tahun_akademik = $formulir->ta;
@@ -222,7 +222,7 @@ class UIController extends Controller {
 								->orderBy('tahun', 'asc')
 								->get();
 
-				$userid=$this->getUserid();
+				$userid = $this->getUserid();
 				$daftar_prodi=$this->guard()->user()->prodi;
 
 				$daftar_fakultas=FakultasModel::select(\DB::raw('kode_fakultas,nama_fakultas'))
@@ -234,8 +234,8 @@ class UIController extends Controller {
 							})
 							->get();
 
-				$fakultas_id=$config['DEFAULT_FAKULTAS'];
-				$prodi_id=$daftar_prodi[0]->id;
+				$fakultas_id = $config['DEFAULT_FAKULTAS'];
+				$prodi_id = $daftar_prodi[0]->id;
 
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];
@@ -247,10 +247,10 @@ class UIController extends Controller {
 								->get();
 
 				$daftar_fakultas=FakultasModel::all();
-				$fakultas_id=$config['DEFAULT_FAKULTAS'];
+				$fakultas_id = $config['DEFAULT_FAKULTAS'];
 
 				$daftar_prodi=ProgramStudiModel::all();
-				$prodi_id=$config['DEFAULT_PRODI'];
+				$prodi_id = $config['DEFAULT_PRODI'];
 
 				$tahun_pendaftaran = $config['DEFAULT_TAHUN_PENDAFTARAN'];
 				$tahun_akademik = $config['DEFAULT_TA'];

@@ -67,7 +67,7 @@ class SoalPMBController extends Controller {
                 'created_at' => $now,
                 'updated_at' => $now
             ]);
-            $soal_id=$soal->id;
+            $soal_id = $soal->id;
             JawabanSoalPMBModel::create([
                 'id'=>Uuid::uuid4()->toString(),
                 'soal_id' => $soal_id,

@@ -196,7 +196,7 @@ class PMBUjianOnlineController extends Controller {
 		
 		if ($is_bayar)
 		{
-			$jadwal_ujian_id=$request->input('jadwal_ujian_id');
+			$jadwal_ujian_id = $request->input('jadwal_ujian_id');
 			$no_peserta=\DB::table('pe3_peserta_ujian_pmb')->where('jadwal_ujian_id',$jadwal_ujian_id)->count()+1;
 			$peserta=PesertaUjianPMBModel::create([
 				'user_id' => $request->input('user_id'),
@@ -403,7 +403,7 @@ class PMBUjianOnlineController extends Controller {
 			}
 			else
 			{
-				$nilai_ujian->jadwal_ujian_id=$jadwal_ujian_id;
+				$nilai_ujian->jadwal_ujian_id = $jadwal_ujian_id;
 				$nilai_ujian->jumlah_soal=$jumlah_soal;
 				$nilai_ujian->jawaban_benar=$benar;
 				$nilai_ujian->jawaban_salah=$salah;

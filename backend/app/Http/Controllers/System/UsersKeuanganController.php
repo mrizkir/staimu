@@ -73,7 +73,7 @@ class UsersKeuanganController extends Controller {
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
-            $user_id=$user->id;
+            $user_id = $user->id;
             $daftar_prodi=json_decode($request->input('prodi_id'), true);
             foreach($daftar_prodi as $v)
             {
@@ -192,7 +192,7 @@ class UsersKeuanganController extends Controller {
                 $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();
                 $user->save();
 
-                $user_id=$user->id;
+                $user_id = $user->id;
                 \DB::table('usersprodi')->where('user_id',$user_id)->delete();
                 $daftar_prodi=json_decode($request->input('prodi_id'), true);
                 foreach($daftar_prodi as $v)

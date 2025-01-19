@@ -33,8 +33,8 @@ class KRSController extends Controller
         'prodi_id' => 'required'
       ]);
 
-      $ta=$request->input('ta');
-      $prodi_id=$request->input('prodi_id');
+      $ta = $request->input('ta');
+      $prodi_id = $request->input('prodi_id');
       $semester_akademik=$request->input('semester_akademik');
 
       $daftar_krs = KRSModel::select(\DB::raw('
@@ -83,8 +83,8 @@ class KRSController extends Controller
         'prodi_id' => 'required'
       ]);
 
-      $ta=$request->input('ta');
-      $prodi_id=$request->input('prodi_id');
+      $ta = $request->input('ta');
+      $prodi_id = $request->input('prodi_id');
       $semester_akademik=$request->input('semester_akademik');
 
       $daftar_krs = KRSModel::select(\DB::raw('
@@ -269,8 +269,8 @@ class KRSController extends Controller
       'pid' => 'required',     
     ]);
     
-    $prodi_id=$request->input('prodi_id');
-    $ta=$request->input('ta');
+    $prodi_id = $request->input('prodi_id');
+    $ta = $request->input('ta');
     $nim=$request->input('nim');
     $semester_akademik=$request->input('semester_akademik');
     
@@ -332,7 +332,7 @@ class KRSController extends Controller
     ]);
     
     $nim=$request->input('nim');
-    $dulang_id=$request->input('dulang_id');
+    $dulang_id = $request->input('dulang_id');
 
     $dulang = DulangModel::find($dulang_id);
 
@@ -371,7 +371,7 @@ class KRSController extends Controller
       'krs_id' => 'required|exists:pe3_krs,id',     
       'matkul_selected' => 'required',
     ]);
-    $krs_id=$request->input('krs_id');
+    $krs_id = $request->input('krs_id');
     
     $krs=KRSModel::find($krs_id);
 
@@ -442,7 +442,7 @@ class KRSController extends Controller
     ]);
     
     $nim=$request->input('nim');
-    $ta=$request->input('ta');
+    $ta = $request->input('ta');
     $idsmt=$request->input('idsmt');
 
     $data_krs = KRSModel::where('nim',$nim)

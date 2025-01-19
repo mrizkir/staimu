@@ -19,7 +19,7 @@ class TransaksiLaporanDulangMHSBaruController extends Controller {
 			$this->validate($request, [           
 				'ta' => 'required',				
 			]);
-			$ta=$request->input('ta');
+			$ta = $request->input('ta');
 			
 			$bulan = Helper::getNamaBulanSPP();
 

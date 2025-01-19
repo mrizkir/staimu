@@ -28,8 +28,8 @@ class NilaiMatakuliahController extends Controller
 			'prodi_id' => 'required'
 		]);
 
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 		$semester_akademik=$request->input('semester_akademik');
 		
 		$daftar_nilai=[];
@@ -174,7 +174,7 @@ class NilaiMatakuliahController extends Controller
 		$jumlah_matkul=0;
 		foreach ($daftar_nilai as $v)
 		{
-			$krsmatkul_id=$v['krsmatkul_id'];
+			$krsmatkul_id = $v['krsmatkul_id'];
 			$nilai_absen=(float)$v['nilai_absen'];
 			$nilai_tugas_individu=(float)$v['nilai_tugas_individu'];                   
 			$nilai_uts=(float)$v['nilai_uts'];
@@ -299,7 +299,7 @@ class NilaiMatakuliahController extends Controller
 		$jumlah_matkul=0;
 		foreach ($daftar_nilai as $v)
 		{
-			$krsmatkul_id=$v['krsmatkul_id'];
+			$krsmatkul_id = $v['krsmatkul_id'];
 			$n_kuan=(float)$v['n_kuan'];
 			$n_kual=$v['n_kual'];
 
@@ -407,14 +407,14 @@ class NilaiMatakuliahController extends Controller
 			'krs_id' => 'required|exists:pe3_krs,id',
 			'daftar_nilai' => 'required',
 		]);
-		$krs_id=$request->input('krs_id');
+		$krs_id = $request->input('krs_id');
 		
 		$krs=KRSModel::find($krs_id);
 
 		$jumlah_matkul=0;
 		foreach ($daftar_nilai as $v)
 		{
-			$krsmatkul_id=$v['krsmatkul_id'];
+			$krsmatkul_id = $v['krsmatkul_id'];
 			$n_kuan=(float)$v['n_kuan'];
 			$n_kual=$v['n_kual'];
 

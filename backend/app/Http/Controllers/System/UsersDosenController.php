@@ -359,13 +359,13 @@ class UsersDosenController extends Controller {
 			$biodatadiri->tanggal_lahir=$request->input('tanggal_lahir');      
 			$biodatadiri->jk=$request->input('jk');                 
 			   
-			$biodatadiri->address1_provinsi_id=$request->input('address1_provinsi_id');
+			$biodatadiri->address1_provinsi_id = $request->input('address1_provinsi_id');
 			$biodatadiri->address1_provinsi=$request->input('address1_provinsi');
-			$biodatadiri->address1_kabupaten_id=$request->input('address1_kabupaten_id');
+			$biodatadiri->address1_kabupaten_id = $request->input('address1_kabupaten_id');
 			$biodatadiri->address1_kabupaten=$request->input('address1_kabupaten');
-			$biodatadiri->address1_kecamatan_id=$request->input('address1_kecamatan_id');
+			$biodatadiri->address1_kecamatan_id = $request->input('address1_kecamatan_id');
 			$biodatadiri->address1_kecamatan=$request->input('address1_kecamatan');
-			$biodatadiri->address1_desa_id=$request->input('address1_desa_id');
+			$biodatadiri->address1_desa_id = $request->input('address1_desa_id');
 			$biodatadiri->address1_kelurahan=$request->input('address1_kelurahan');
 			$biodatadiri->alamat_rumah=$request->input('alamat_rumah');   
 

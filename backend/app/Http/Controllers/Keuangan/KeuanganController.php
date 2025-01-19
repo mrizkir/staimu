@@ -19,7 +19,7 @@ class KeuanganController extends Controller {
         $this->validate($request, [           
             'ta' => 'required',
         ]);
-        $ta=$request->input('ta');
+        $ta = $request->input('ta');
         
         if ($this->hasRole('mahasiswa') )
         {
@@ -43,7 +43,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_ganjil_paid=$kombi_ganjil_paid->sum('jumlah');
+        $total_kombi_ganjil_paid = $kombi_ganjil_paid->sum('jumlah');
 
         $kombi_genap_paid=\DB::table('pe3_transaksi_detail')
                             ->select(\DB::raw('kombi_id,nama_kombi,sum(sub_total) AS jumlah'))
@@ -54,7 +54,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_genap_paid=$kombi_genap_paid->sum('jumlah');
+        $total_kombi_genap_paid = $kombi_genap_paid->sum('jumlah');
 
         //unpaid
         $kombi_ganjil_unpaid=\DB::table('pe3_transaksi_detail')
@@ -66,7 +66,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_ganjil_unpaid=$kombi_ganjil_unpaid->sum('jumlah');
+        $total_kombi_ganjil_unpaid = $kombi_ganjil_unpaid->sum('jumlah');
 
         $kombi_genap_unpaid=\DB::table('pe3_transaksi_detail')
                             ->select(\DB::raw('kombi_id,nama_kombi,sum(sub_total) AS jumlah'))
@@ -77,7 +77,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_genap_unpaid=$kombi_genap_unpaid->sum('jumlah');
+        $total_kombi_genap_unpaid = $kombi_genap_unpaid->sum('jumlah');
 
         //cancelled
         $kombi_ganjil_cancelled=\DB::table('pe3_transaksi_detail')
@@ -103,8 +103,8 @@ class KeuanganController extends Controller {
         $total_kombi_genap_cancelled=$kombi_genap_cancelled->sum('jumlah');
         
         //perhitungan total
-        $total_transaction_paid=$total_kombi_ganjil_paid+$total_kombi_genap_paid;
-        $total_transaction_unpaid=$total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
+        $total_transaction_paid = $total_kombi_ganjil_paid+$total_kombi_genap_paid;
+        $total_transaction_unpaid = $total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
         $total_transaction_cancelled=$total_kombi_ganjil_cancelled+$total_kombi_genap_cancelled;
 
         $total_transaction=$total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;
@@ -148,7 +148,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_ganjil_paid=$kombi_ganjil_paid->sum('jumlah');
+        $total_kombi_ganjil_paid = $kombi_ganjil_paid->sum('jumlah');
 
         $kombi_genap_paid=\DB::table('pe3_transaksi_detail')
                             ->select(\DB::raw('kombi_id,nama_kombi,sum(sub_total) AS jumlah'))
@@ -160,7 +160,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_genap_paid=$kombi_genap_paid->sum('jumlah');
+        $total_kombi_genap_paid = $kombi_genap_paid->sum('jumlah');
 
         //unpaid
         $kombi_ganjil_unpaid=\DB::table('pe3_transaksi_detail')
@@ -173,7 +173,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_ganjil_unpaid=$kombi_ganjil_unpaid->sum('jumlah');
+        $total_kombi_ganjil_unpaid = $kombi_ganjil_unpaid->sum('jumlah');
 
         $kombi_genap_unpaid=\DB::table('pe3_transaksi_detail')
                             ->select(\DB::raw('kombi_id,nama_kombi,sum(sub_total) AS jumlah'))
@@ -185,7 +185,7 @@ class KeuanganController extends Controller {
                             ->groupByRaw('kombi_id,nama_kombi')
                             ->orderBy('kombi_id', 'ASC')
                             ->get();
-        $total_kombi_genap_unpaid=$kombi_genap_unpaid->sum('jumlah');
+        $total_kombi_genap_unpaid = $kombi_genap_unpaid->sum('jumlah');
 
         //cancelled
         $kombi_ganjil_cancelled=\DB::table('pe3_transaksi_detail')
@@ -213,8 +213,8 @@ class KeuanganController extends Controller {
         $total_kombi_genap_cancelled=$kombi_genap_cancelled->sum('jumlah');
         
         //perhitungan total
-        $total_transaction_paid=$total_kombi_ganjil_paid+$total_kombi_genap_paid;
-        $total_transaction_unpaid=$total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
+        $total_transaction_paid = $total_kombi_ganjil_paid+$total_kombi_genap_paid;
+        $total_transaction_unpaid = $total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
         $total_transaction_cancelled=$total_kombi_ganjil_cancelled+$total_kombi_genap_cancelled;
 
         $total_transaction=$total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;

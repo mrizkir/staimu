@@ -37,8 +37,8 @@ class PMBController extends Controller {
       'prodi_id' => 'required'
     ]);
     
-    $ta=$request->input('ta');
-    $prodi_id=$request->input('prodi_id');
+    $ta = $request->input('ta');
+    $prodi_id = $request->input('prodi_id');
 
     $data = User::where('default_role', 'mahasiswabaru')
     ->select(\DB::raw('
@@ -89,8 +89,8 @@ class PMBController extends Controller {
       'prodi_id' => 'required'
     ]);
     
-    $ta=$request->input('ta');
-    $prodi_id=$request->input('prodi_id');
+    $ta = $request->input('ta');
+    $prodi_id = $request->input('prodi_id');
 
     $data = FormulirPendaftaranModel::select(\DB::raw('
       users.id,
@@ -244,7 +244,7 @@ class PMBController extends Controller {
     $user = \DB::transaction(function () use ($request) {
       $now = \Carbon\Carbon::now()->toDateTimeString();              
       $code=mt_rand(1000,9999);
-      $ta=$request->input('tahun_pendaftaran');
+      $ta = $request->input('tahun_pendaftaran');
       $user=User::create([
         'id'=>Uuid::uuid4()->toString(),
         'name' => $request->input('name'),
@@ -602,13 +602,13 @@ class PMBController extends Controller {
         $formulir->telp_hp=$request->input('nomor_hp');      
           
         $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    				
-        $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
+        $formulir->address1_provinsi_id = $request->input('address1_provinsi_id');
         $formulir->address1_provinsi=$request->input('address1_provinsi');
-        $formulir->address1_kabupaten_id=$request->input('address1_kabupaten_id');
+        $formulir->address1_kabupaten_id = $request->input('address1_kabupaten_id');
         $formulir->address1_kabupaten=$request->input('address1_kabupaten');
-        $formulir->address1_kecamatan_id=$request->input('address1_kecamatan_id');
+        $formulir->address1_kecamatan_id = $request->input('address1_kecamatan_id');
         $formulir->address1_kecamatan=$request->input('address1_kecamatan');
-        $formulir->address1_desa_id=$request->input('address1_desa_id');
+        $formulir->address1_desa_id = $request->input('address1_desa_id');
         $formulir->address1_kelurahan=$request->input('address1_kelurahan');
         $formulir->alamat_rumah=$request->input('alamat_rumah');    
         $formulir->kjur1=$request->input('kjur1');    

@@ -23,8 +23,8 @@ class MatakuliahController extends Controller {
 			'prodi_id' => 'required'
 		]);
 		
-		$ta=$request->input('ta');
-		$prodi_id=$request->input('prodi_id');
+		$ta = $request->input('ta');
+		$prodi_id = $request->input('prodi_id');
 
 		$matakuliah=MatakuliahModel::select(\DB::raw('
 									id,
@@ -104,7 +104,7 @@ class MatakuliahController extends Controller {
 		$this->hasPermissionTo('AKADEMIK-MATAKULIAH_STORE');
 
 		$kjur=$request->input('kjur');
-		$ta=$request->input('ta');
+		$ta = $request->input('ta');
 
 		$rule=[            
 			'id_group' => 'required',
@@ -192,7 +192,7 @@ class MatakuliahController extends Controller {
 		]);
 
 		$dari_tahun_akademik=$request->input('dari_tahun_akademik');
-		$prodi_id=$request->input('prodi_id');
+		$prodi_id = $request->input('prodi_id');
 		
 		$sql = "INSERT INTO pe3_matakuliah (id,
 											id_group,
@@ -308,7 +308,7 @@ class MatakuliahController extends Controller {
 		else
 		{
 			$kjur=$matakuliah->kjur;
-			$ta=$matakuliah->ta;
+			$ta = $matakuliah->ta;
 			$this->validate($request, [
 										'id_group' => 'required',
 										'kmatkul' => [
@@ -438,7 +438,7 @@ class MatakuliahController extends Controller {
 		]);
 		
 		$ta_matkul=$request->input('ta_matkul');
-		$prodi_id=$request->input('prodi_id');
+		$prodi_id = $request->input('prodi_id');
 		$ta_akademik=$request->input('ta_akademik');
 		$semester_akademik=$request->input('semester_akademik');
 

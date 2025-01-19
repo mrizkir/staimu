@@ -20,7 +20,7 @@ class LogDataMhsMigrationController extends Controller {
             'ta' => 'required',
         ]);
         
-        $ta=$request->input('ta');
+        $ta = $request->input('ta');
         
         $daftar_log=DataMHSMigrationModel::where('tahun',$ta)
                                         ->get();

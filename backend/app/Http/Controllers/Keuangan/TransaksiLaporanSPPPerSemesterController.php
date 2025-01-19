@@ -30,8 +30,8 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
         'tahun_pendaftaran' => 'required',
         'semester_akademik' => 'required',
       ]);
-      $ta=$request->input('ta');
-      $prodi_id=$request->input('prodi_id');
+      $ta = $request->input('ta');
+      $prodi_id = $request->input('prodi_id');
       $tahun_pendaftaran=$request->input('tahun_pendaftaran');
       $semester_akademik=$request->input('semester_akademik');
 

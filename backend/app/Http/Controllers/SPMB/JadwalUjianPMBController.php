@@ -240,7 +240,7 @@ class JadwalUjianPMBController extends Controller {
 			$jadwal_ujian->jam_selesai_ujian=$request->input('jam_selesai_ujian');
 			$jadwal_ujian->tanggal_akhir_daftar=$request->input('tanggal_akhir_daftar');
 			$jadwal_ujian->durasi_ujian=$request->input('durasi_ujian');
-			$jadwal_ujian->ruangkelas_id=$request->input('ruangkelas_id');
+			$jadwal_ujian->ruangkelas_id = $request->input('ruangkelas_id');
 			$jadwal_ujian->save();
 				 
 			return Response()->json([

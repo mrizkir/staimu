@@ -16,7 +16,7 @@ class KemahasiswaanStatusCutiController  extends Controller
     $this->validate($request, [
       'prodi_id' => 'required'
     ]);
-    $prodi_id=$request->input('prodi_id');
+    $prodi_id = $request->input('prodi_id');
 
     $data = RegisterMahasiswaModel::select(\DB::raw('                
                 pe3_register_mahasiswa.user_id,

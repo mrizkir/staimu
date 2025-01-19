@@ -218,7 +218,7 @@ class ProgramStudiController extends Controller
     ]);
     $prodi_id = $request->input('prodi_id');
     $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
-    SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";           
+    SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id = $prodi_id)";           
     
     \DB::statement($sql);
     
@@ -255,7 +255,7 @@ class ProgramStudiController extends Controller
     ]);
     $prodi_id = $request->input('prodi_id');
     $sql = "INSERT INTO pe3_prodi_detail1 (id,matkul_skripsi,jumlah_sks,ta,prodi_id,created_at,updated_at)
-    SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id=$prodi_id)";           
+    SELECT UUID(),null,0,tahun,$prodi_id,NOW() AS created_at,NOW() AS updated_at FROM pe3_ta WHERE tahun NOT IN (SELECT ta FROM pe3_prodi_detail1 WHERE prodi_id = $prodi_id)";           
     
     \DB::statement($sql);
     
@@ -384,7 +384,7 @@ class ProgramStudiController extends Controller
       'id' => 'required|exists:pe3_prodi_detail1,id',
       'jumlah_sks' => 'required'
     ]);
-    $id=$request->input('id');
+    $id = $request->input('id');
     $jumlah_sks=$request->input('jumlah_sks');
     
     $detail1=ProgramStudiDetail1Model::find($id);
@@ -413,8 +413,8 @@ class ProgramStudiController extends Controller
       'id' => 'required|exists:pe3_prodi_detail1,id',
       'matkul_id' => 'required|exists:pe3_matakuliah,id'
     ]);
-    $id=$request->input('id');
-    $matkul_id=$request->input('matkul_id');
+    $id = $request->input('id');
+    $matkul_id = $request->input('matkul_id');
     
     $detail1=ProgramStudiDetail1Model::find($id);   
     $detail1->matkul_skripsi=$matkul_id;

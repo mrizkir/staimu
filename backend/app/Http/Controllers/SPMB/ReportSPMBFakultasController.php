@@ -31,8 +31,8 @@ class ReportSPMBFakultasController extends Controller {
             'fakultas_id' => 'required'
         ]);
         
-        $ta=$request->input('ta');
-        $fakultas_id=$request->input('fakultas_id');
+        $ta = $request->input('ta');
+        $fakultas_id = $request->input('fakultas_id');
 
         $data = User::where('default_role', 'mahasiswabaru')
                     ->select(\DB::raw('users.id,users.name,users.nomor_hp,pe3_kelas.nkelas,users.active,users.foto,users.created_at,users.updated_at'))

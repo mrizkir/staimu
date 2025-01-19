@@ -23,7 +23,7 @@ class PMBPassingGradeController extends Controller
             'jadwal_ujian_id' => 'required|exists:pe3_jadwal_ujian_pmb,id',           
         ]);
 
-        $jadwal_ujian_id=$request->input('jadwal_ujian_id');
+        $jadwal_ujian_id = $request->input('jadwal_ujian_id');
         $jadwal_ujian=JadwalUjianPMBModel::select(\DB::raw('
                                                 id,
                                                 nama_kegiatan,
@@ -57,7 +57,7 @@ class PMBPassingGradeController extends Controller
             'jadwal_ujian_id' => 'required|exists:pe3_jadwal_ujian_pmb,id',           
         ]);
         
-        $jadwal_ujian_id=$request->input('jadwal_ujian_id');
+        $jadwal_ujian_id = $request->input('jadwal_ujian_id');
 
         $sql = "INSERT INTO pe3_passing_grade_pmb (
                     id,
@@ -104,7 +104,7 @@ class PMBPassingGradeController extends Controller
             'nilai' => 'required|numeric',           
         ]);
         
-        $passing_id=$request->input('id');
+        $passing_id = $request->input('id');
 
         $passing=PMBPassingGradeModel::find($passing_id);
         $passing->nilai=$request->input('nilai');   

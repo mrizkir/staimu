@@ -28,8 +28,8 @@ class DulangMahasiswaBaruController extends Controller
       'prodi_id' => 'required'
     ]);
 
-    $ta=$request->input('ta');
-    $prodi_id=$request->input('prodi_id');
+    $ta = $request->input('ta');
+    $prodi_id = $request->input('prodi_id');
     
     $data = DulangModel::select(\DB::raw('
                 pe3_dulang.id,
@@ -123,13 +123,13 @@ class DulangMahasiswaBaruController extends Controller
         $formulir->nama_ibu_kandung=$request->input('nama_ibu_kandung');    				
         $formulir->nik=$request->input('nik');    				
         $formulir->ukuran_baju=$request->input('ukuran_baju');    				
-        $formulir->address1_provinsi_id=$request->input('address1_provinsi_id');
+        $formulir->address1_provinsi_id = $request->input('address1_provinsi_id');
         $formulir->address1_provinsi=$request->input('address1_provinsi');
-        $formulir->address1_kabupaten_id=$request->input('address1_kabupaten_id');
+        $formulir->address1_kabupaten_id = $request->input('address1_kabupaten_id');
         $formulir->address1_kabupaten=$request->input('address1_kabupaten');
-        $formulir->address1_kecamatan_id=$request->input('address1_kecamatan_id');
+        $formulir->address1_kecamatan_id = $request->input('address1_kecamatan_id');
         $formulir->address1_kecamatan=$request->input('address1_kecamatan');
-        $formulir->address1_desa_id=$request->input('address1_desa_id');
+        $formulir->address1_desa_id = $request->input('address1_desa_id');
         $formulir->address1_kelurahan=$request->input('address1_kelurahan');
         $formulir->alamat_rumah=$request->input('alamat_rumah');    
         $formulir->kjur1=$request->input('kjur1');    

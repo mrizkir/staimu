@@ -177,8 +177,8 @@ class UsersController extends Controller {
                     'prodi_id' => 'required'
                 ]);           
 
-                $ta=$request->input('ta');
-                $prodi_id=$request->input('prodi_id');
+                $ta = $request->input('ta');
+                $prodi_id = $request->input('prodi_id');
                 $data = User::where('default_role', 'mahasiswabaru')
                         ->select(\DB::raw('users.id'))
                         ->join('pe3_formulir_pendaftaran', 'pe3_formulir_pendaftaran.user_id', 'users.id')
@@ -199,8 +199,8 @@ class UsersController extends Controller {
                     'ta' => 'required',
                     'prodi_id' => 'required'
                 ]);  
-                $ta=$request->input('ta');
-                $prodi_id=$request->input('prodi_id');
+                $ta = $request->input('ta');
+                $prodi_id = $request->input('prodi_id');
                 $data = User::where('default_role', 'mahasiswa')
                         ->select(\DB::raw('users.id'))
                         ->join('pe3_register_mahasiswa', 'pe3_register_mahasiswa.user_id', 'users.id')

@@ -29,7 +29,7 @@ class TransaksiRegistrasiKRSController extends Controller {
                 'semester_akademik' => 'required|in:1,2,3',
             ]);
     
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
             $idsmt=$request->input('semester_akademik');
 
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
@@ -77,9 +77,9 @@ class TransaksiRegistrasiKRSController extends Controller {
                 'prodi_id' => 'required',
             ]);
     
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
             $idsmt=$request->input('semester_akademik');
-            $prodi_id=$request->input('prodi_id');
+            $prodi_id = $request->input('prodi_id');
             
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
@@ -152,7 +152,7 @@ class TransaksiRegistrasiKRSController extends Controller {
         {
             $nim=$request->input('nim');
             $semester_akademik=$request->input('semester_akademik');
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
             
             $transaksi=TransaksiDetailModel::select(\DB::raw('
                                                 1

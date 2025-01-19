@@ -29,7 +29,7 @@ class TransaksiSPPController extends Controller {
             $this->validate($request, [           
                 'ta' => 'required',
             ]);
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
 
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
@@ -73,8 +73,8 @@ class TransaksiSPPController extends Controller {
                 'ta' => 'required',
                 'prodi_id' => 'required'
             ]);
-            $ta=$request->input('ta');
-            $prodi_id=$request->input('prodi_id');
+            $ta = $request->input('ta');
+            $prodi_id = $request->input('prodi_id');
 
             $daftar_transaksi = TransaksiDetailModel::select(\DB::raw('
                                                         pe3_transaksi_detail.id,
@@ -293,7 +293,7 @@ class TransaksiSPPController extends Controller {
         {
             $nim=$request->input('nim');
             $semester_akademik=$request->input('semester_akademik');
-            $ta=$request->input('ta');
+            $ta = $request->input('ta');
             
             $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                     pe3_formulir_pendaftaran.user_id,
@@ -413,7 +413,7 @@ class TransaksiSPPController extends Controller {
         }
         $result = \DB::transaction(function () use ($request) {
 
-            $transaksi_id=$request->input('id');
+            $transaksi_id = $request->input('id');
             $transaksi=TransaksiModel::find($transaksi_id);
 
             $bulan_selected=$request->input('bulan_selected');
