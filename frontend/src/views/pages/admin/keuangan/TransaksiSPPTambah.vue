@@ -277,7 +277,7 @@ export default {
         btnLoading: false,
         //tables
         datatableLoading: false,
-        datatable: [], 
+        datatable: [],
         headers: [           
             { text: 'NO. BULAN', value: 'no_bulan', width: 120, sortable: false },
             { text: 'BULAN', value: 'nama_bulan', sortable: false }, 
@@ -316,7 +316,7 @@ export default {
                 await this.$ajax.post('/keuangan/transaksi-spp/store',
                     {
                         id: this.transaksi_id,
-                        bulan_selected: JSON.stringify(Object.assign({},this.item_selected)), 
+                        bulan_selected: JSON.stringify(Object.assign({}, this.item_selected)), 
                    },
                     {
                         headers: {
@@ -342,7 +342,7 @@ export default {
                         const index = this.item_selected.indexOf(item);
                         this.item_selected.splice(index, 1);
                         this.btnLoading = false;
-                    }  
+                    }
                     else
                     {
                         this.$ajax.post('/keuangan/transaksi-spp/'+item.id,

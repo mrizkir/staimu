@@ -152,7 +152,7 @@ export default {
         nama_fakultas: null,
 
         dialogprofilmhsbaru: false,
-        breadcrumbs: [], 
+        breadcrumbs: [],
         dashboard: null,
 
         btnLoading: false,
@@ -238,7 +238,7 @@ export default {
                    },
                     responseType: 'arraybuffer'
                 }
-            ).then(({ data }) => { 
+            ).then(({ data }) => {
                 const url = window.URL.createObjectURL(new Blob([data]));
                 const link = document.createElement('a');
                 link.href = url;

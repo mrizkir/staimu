@@ -316,7 +316,7 @@
 			this.nama_semester_pendaftaran = this.$store.getters['uiadmin/getNamaSemester'](this.semester_pendaftaran);
 			this.initialize();
 		},
-		data() { 
+		data() {
 			let tanggal_ujian=this.$date().format("YYYY-MM-DD");
 			return {
 				breadcrumbs: [],
@@ -467,7 +467,7 @@
 					headers: {
 						Authorization: this.$store.getters["auth/Token"]
 					}
-				}).then(({ data }) => { 
+				}).then(({ data }) => {
 					this.daftar_ruangan = data.ruangan;
 					this.btnLoading = false;
 					this.dialogfrm = true;
@@ -483,7 +483,7 @@
 			viewItem(item) {
 				this.$router.push("/spmb/jadwalujianpmb/" + item.id + "/detail");			
 			},			
-			editItem: async function(item) { 
+			editItem: async function(item) {
 				await this.$ajax
 					.get("/datamaster/ruangankelas", 
 						{
@@ -491,7 +491,7 @@
 								Authorization: this.$store.getters["auth/Token"]
 							}
 						})
-						.then(({ data }) => { 
+						.then(({ data }) => {
 							this.daftar_ruangan = data.ruangan;
 							this.btnLoading = false;
 							this.editedIndex = this.datatable.indexOf(item);

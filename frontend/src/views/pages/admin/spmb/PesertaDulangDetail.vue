@@ -213,7 +213,7 @@ export default {
 		this.initialize();
    },
 	data: () => ({
-		breadcrumbs: [], 
+		breadcrumbs: [],
 		dashboard: null,
 
 		tahun_pendaftaran: null,

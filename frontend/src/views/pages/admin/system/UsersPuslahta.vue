@@ -413,7 +413,7 @@ export default {
                 }
             }).then(({ data }) => {
                 this.daftar_users = data.users;
-                this.role_id=data.role.id;
+                this.role_id = data.role.id;
                 this.datatableLoading = false;
             });
 
@@ -460,31 +460,31 @@ export default {
                 }
             }).then(({ data }) => {
                 let roles = data.roles;
-                var daftar_roles=[];
+                var daftar_roles = [];
                 roles.forEach(element => {
                     if (element.name=='puslahta')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: true,
                         });
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: false,
                         });
                     }
                 });
-                this.daftar_roles=daftar_roles;
+                this.daftar_roles = daftar_roles;
                 this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
                 this.dialog = true;
             });
        },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password= "";
+            item.password = "";
             this.editedItem = Object.assign({}, item);
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
 
@@ -508,24 +508,24 @@ export default {
                 }
             }).then(({ data }) => {
                 let roles = data.roles;
-                var daftar_roles=[];
+                var daftar_roles = [];
                 roles.forEach(element => {
                     if (element.name=='puslahta')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: true,
                         });
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: false,
                         });
                     }
                 });
-                this.daftar_roles=daftar_roles;
+                this.daftar_roles = daftar_roles;
             });
 
             this.btnLoading = true;
@@ -535,12 +535,12 @@ export default {
                     Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
-                this.editedItem.role_id=data.roles;
+                this.editedItem.role_id = data.roles;
                 this.btnLoading = false;
                 this.dialogEdit = true;
             });
        },
-        setPermission: async function(item) { 
+        setPermission: async function(item) {
             this.dialogUserPermission = true;
             this.editedItem = item;
        },
@@ -551,7 +551,7 @@ export default {
             setTimeout(() => {
                 this.editedItem = Object.assign({}, this.defaultItem);
                 this.$refs.frmdata.resetValidation(); 
-                this.editedIndex = -1                
+                this.editedIndex = -1;
                }, 300
             );
        },
@@ -573,8 +573,8 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password,
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),
-                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            prodi_id: JSON.stringify(Object.assign({}, this.editedItem.prodi_id)),
+                            role_id: JSON.stringify(Object.assign({}, this.editedItem.role_id)),
                        },
                         {
                             headers: {
@@ -582,7 +582,7 @@ export default {
                             }
                         }
                     ).then(({ data }) => {
-                        Object.assign(this.daftar_users[this.editedIndex], data.user);
+                        Object.assign(this.daftar_users[this.editedIndex],data.user);
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
@@ -596,8 +596,8 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password,
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),
-                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            prodi_id: JSON.stringify(Object.assign({}, this.editedItem.prodi_id)),
+                            role_id: JSON.stringify(Object.assign({}, this.editedItem.role_id)),
                        },
                         {
                             headers: {

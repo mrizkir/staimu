@@ -84,7 +84,7 @@ export default {
 				this.initialize();
 		},
 		data: () => ({
-				breadcrumbs: [], 
+				breadcrumbs: [],
 				btnLoading: false,
 				//form
 				form_valid: true,
@@ -95,7 +95,7 @@ export default {
 				//form rules        
 				rule_term_id: [
 						value => !!value || "Mohon untuk dipilih Kategori untuk Halaman Info Kampus !!!", 
-				], 
+				],
 		}),
 		methods: {
 				initialize: async function()

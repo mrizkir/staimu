@@ -222,7 +222,7 @@
 			//table        
 			datatableLoading: false,
 			expanded: [],
-			datatable: [], 
+			datatable: [],
 			headers: [
 				{ text: 'KODE', value: 'kmatkul', sortable: true, width: 100 },
 				{ text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true, width:260 },

@@ -85,7 +85,7 @@ export default {
         this.initialize();
    },
     data: () => ({
-        breadcrumbs: [], 
+        breadcrumbs: [],
         btnLoading: false, 
         //form
         form_valid: true, 

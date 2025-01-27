@@ -142,7 +142,7 @@ export default {
 		//table        
 		datatableLoading: false,
 		expanded: [],
-		datatable: [], 
+		datatable: [],
 		headers: [
 			{ text: "KODE", value: "kmatkul", sortable: true, width: 120 },
 			{ text: "NAMA MATAKULIAH", value: "nmatkul", sortable: true },
@@ -201,7 +201,7 @@ export default {
 				await this.$ajax.post("/akademik/perkuliahan/pkrs/storematkul",
 					{
 						krs_id: this.krs_id,
-						matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)),
+						matkul_selected: JSON.stringify(Object.assign({}, this.daftar_matkul_selected)),
 					},
 					{
 						headers: {

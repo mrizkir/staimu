@@ -303,8 +303,8 @@ export default {
 				
 				datatable: [],
 				daftar_matakuliah: [],
-				datatable_peserta: [], 
-				datatable_members: [], 
+				datatable_peserta: [],
+				datatable_members: [],
 				headers: [
 						{ text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
 						{ text: 'NAMA', value: 'nmatkul', sortable: false },
@@ -405,7 +405,7 @@ export default {
 						{
 								pid: 'belumterdaftar',
 								kelas_mhs_id: this.kelas_mhs_id,
-								penyelenggaraan: JSON.stringify(Object.assign({},this.datatable))
+								penyelenggaraan: JSON.stringify(Object.assign({}, this.datatable))
 						},
 						{
 								headers: {
@@ -425,7 +425,7 @@ export default {
 								"/akademik/perkuliahan/pembagiankelas/storepeserta",
 								{
 									kelas_mhs_id: this.kelas_mhs_id,
-									members_selected: JSON.stringify(Object.assign({},this.members_selected)),
+									members_selected: JSON.stringify(Object.assign({}, this.members_selected)),
 									pid: "pembagiankelas",
 								},
 								{
@@ -450,7 +450,7 @@ export default {
 								await this.$ajax.post('/akademik/perkuliahan/pembagiankelas/storematakuliah',
 										{
 												kelas_mhs_id: this.kelas_mhs_id,
-												penyelenggaraan_dosen_id: JSON.stringify(Object.assign({},this.formdata.penyelenggaraan_dosen_id)),
+												penyelenggaraan_dosen_id: JSON.stringify(Object.assign({}, this.formdata.penyelenggaraan_dosen_id)),
 										},
 										{
 												headers: {

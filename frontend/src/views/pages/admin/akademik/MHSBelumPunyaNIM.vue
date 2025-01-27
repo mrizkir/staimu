@@ -235,7 +235,7 @@ export default {
     btnLoading: false,
     datatableLoading: false,
     expanded: [],
-    datatable: [], 
+    datatable: [],
     headers: [
       { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 150 },
       { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },
@@ -255,21 +255,21 @@ export default {
     formdata: {
       nim: "",
       nirm: "",
-      dosen_id: ""           
+      dosen_id: "",         
      },
     formdefault: {
       nim: "",
       nirm: "",
-      dosen_id: ""           
+      dosen_id: "",         
      },
     rule_nim: [
       value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
       value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
-    ], 
+    ],
     rule_nirm: [
       value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
       value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
-    ], 
+    ],
     rule_dw: [
       value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
     ],
@@ -356,7 +356,7 @@ export default {
         }); 
       }
      },
-    closedialogfrm() { 
+    closedialogfrm() {
       this.dialogfrm = false; 
       setTimeout(() => {
         this.formdata = Object.assign({}, this.formdefault);

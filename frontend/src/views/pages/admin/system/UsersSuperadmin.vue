@@ -15,13 +15,8 @@
         </v-breadcrumbs>
       </template>
       <template v-slot:desc>
-        <v-alert                                        
-          color="cyan"
-          border="left"  
-          colored-border
-          type="info"
-          >
-           User dengan role Super Admin bertanggungjawab terhadap proses keseluruhan sistem.
+        <v-alert color="cyan" border="left" colored-border type="info">
+          User dengan role Super Admin bertanggungjawab terhadap proses keseluruhan sistem.
         </v-alert>
       </template>
     </ModuleHeader>
@@ -67,8 +62,7 @@
                 ></v-divider>
                 <v-spacer></v-spacer>
                 <v-btn color="primary"
-                  class="mb-2" 
-                  
+                  class="mb-2"
                   :disabled="btnLoading"
                   @click.stop="showDialogTambahUserSuperAdmin">
                   TAMBAH
@@ -81,40 +75,40 @@
                       </v-card-title>
                       <v-card-text> 
                         <v-text-field 
-                          v-model="editedItem.name" 
+                          v-model="editedItem.name"
                           label="NAMA USER"
                           outlined
                           :rules="rule_user_name">
                         </v-text-field>                                                
                         <v-text-field 
-                          v-model="editedItem.email" 
+                          v-model="editedItem.email"
                           label="EMAIL"
                           outlined
                           :rules="rule_user_email">
                         </v-text-field>         
                         <v-text-field 
-                          v-model="editedItem.nomor_hp" 
+                          v-model="editedItem.nomor_hp"
                           label="NOMOR HP"
                           outlined
                           :rules="rule_user_nomorhp">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.username" 
+                          v-model="editedItem.username"
                           label="USERNAME"
                           outlined
                           :rules="rule_user_username">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.password" 
+                          v-model="editedItem.password"
                           label="PASSWORD"
                           :type="'password'"
                           outlined
                           :rules="rule_user_password">
                         </v-text-field>
                         <v-autocomplete 
-                          :items="daftar_roles" 
+                          :items="daftar_roles"
                           v-model="editedItem.role_id"
-                          label="ROLES"     
+                          label="ROLES"    
                           multiple 
                           small-chips
                           outlined>                                 
@@ -124,10 +118,9 @@
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" text @click.stop="close">BATAL</v-btn>
                         <v-btn 
-                          color="blue darken-1" 
+                          color="blue darken-1"
                           text 
-                          @click.stop="save" 
-                          
+                          @click.stop="save"
                           :disabled="!form_valid || btnLoading">
                             SIMPAN
                         </v-btn>
@@ -143,40 +136,40 @@
                       </v-card-title>
                       <v-card-text>                                                 
                         <v-text-field 
-                          v-model="editedItem.name" 
+                          v-model="editedItem.name"
                           label="NAMA USER"
                           outlined
                           :rules="rule_user_name">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.email" 
+                          v-model="editedItem.email"
                           label="EMAIL"
                           outlined
                           :rules="rule_user_email">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.nomor_hp" 
+                          v-model="editedItem.nomor_hp"
                           label="NOMOR HP"
                           outlined
                           :rules="rule_user_nomorhp">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.username" 
+                          v-model="editedItem.username"
                           label="USERNAME"
                           outlined
                           :rules="rule_user_username">
                         </v-text-field>
                         <v-text-field 
-                          v-model="editedItem.password" 
+                          v-model="editedItem.password"
                           label="PASSWORD"
                           :type="'password'"
                           outlined
                           :rules="rule_user_passwordEdit">
                         </v-text-field> 
                         <v-autocomplete 
-                          :items="daftar_roles" 
+                          :items="daftar_roles"
                           v-model="editedItem.role_id"
-                          label="ROLES"     
+                          label="ROLES"    
                           multiple 
                           small-chips
                           outlined>                                 
@@ -186,10 +179,9 @@
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" text @click.stop="close">BATAL</v-btn>
                         <v-btn 
-                          color="blue darken-1" 
-                          text 
-                          @click.stop="save" 
-                          
+                          color="blue darken-1"
+                          text
+                          @click.stop="save"
                           :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
                       </v-card-actions>
                     </v-card>
@@ -201,7 +193,6 @@
               <v-icon
                 small
                 class="mr-2"
-                
                 :disabled="btnLoading"
                 @click.stop="editItem(item)"
               >
@@ -250,22 +241,21 @@
         {
           text: "HOME",
           disabled: false,
-          href: "/dashboard/" + this.ACCESS_TOKEN
+          href: "/dashboard/" + this.ACCESS_TOKEN,
         },
         {
           text: "USER SISTEM",
           disabled: false,
-          href: "/system-users"
+          href: "/system-users",
         },
         {
           text: "USERS SUPER ADMIN",
           disabled: true,
-          href: "#"
+          href: "#",
         }
       ];
       this.initialize();
     },
-    
     data: () => ({ 
       role_id: 0,
       datatableLoading: false,
@@ -315,201 +305,198 @@
       rule_user_name: [
         value => !!value || "Mohon untuk di isi nama User !!!",
         value => /^[A-Za-z\s]*$/.test(value) || "Nama User hanya boleh string dan spasi", 
-      ], 
+      ],
       rule_user_email: [
         value => !!value || "Mohon untuk di isi email User !!!",
         value => /.+@.+\..+/.test(value) || "Format E-mail harus benar",
-      ], 
+      ],
       rule_user_nomorhp: [
         value => !!value || "Nomor HP mohon untuk diisi !!!",
         value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || "Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388",
-      ], 
+      ],
       rule_user_username: [
         value => !!value || "Mohon untuk di isi username User !!!",
         value => /^[A-Za-z_]*$/.test(value) || "Username hanya boleh string dan underscore",
-      ], 
+      ],
       rule_user_password: [
         value => !!value || "Mohon untuk di isi password User !!!",
         value => {
           if (value && typeof value !== "undefined" && value.length > 0) {
             return value.length >= 8 || "Minimial Password 8 karaketer";
-          }
-          else
-          {
+          } else {
             return true;
           }
-        }
-      ], 
+        },
+      ],
       rule_user_passwordEdit: [
         value => {
           if (value && typeof value !== "undefined" && value.length > 0) {
             return value.length >= 8 || "Minimial Password 8 karaketer";
-          }
-          else
-          {
+          } else {
             return true;
           }
-        }
+        },
       ],
     }),
     methods: {
-      initialize: async function() 
-      {
+      initialize: async function() {
         this.datatableLoading = true;
-        await this.$ajax.get("/system/users",{
-          headers: {
-            Authorization: this.TOKEN
-          }
-        }).then(({ data }) => {
-          this.daftar_users = data.users;
-          this.role_id=data.role.id;
-          this.datatableLoading = false;
-        }); 
-        
+        await this.$ajax
+          .get("/system/users", {
+            headers: {
+              Authorization: this.TOKEN,
+            },
+          })
+          .then(({ data }) => {
+            this.daftar_users = data.users;
+            this.role_id = data.role.id;
+            this.datatableLoading = false;
+          });
       },
-      dataTableRowClicked(item)
-      {
-        if (item === this.expanded[0])
-        {
+      dataTableRowClicked(item) {
+        if (item === this.expanded[0]) {
           this.expanded = [];
-        }
-        else
-        {
+        } else {
           this.expanded = [item];
         }
       },
-      showDialogTambahUserSuperAdmin: async function()
-      {
-        await this.$ajax.get("/system/setting/roles",{
-          headers: {
-            Authorization: this.TOKEN
-          }
-        }).then(({ data }) => { 
-          let roles = data.roles;
-          var daftar_roles=[];
-          roles.forEach(element => {
-            if (element.name=="superadmin")
-            {
-              daftar_roles.push({
-                text:element.name,
-                disabled: true,
-              });
-            }
-            else
-            {
-              daftar_roles.push({
-                text:element.name,
-                disabled: false,
-              });
-            }  
+      showDialogTambahUserSuperAdmin: async function() {
+        await this.$ajax
+          .get("/system/setting/roles", {
+            headers: {
+              Authorization: this.TOKEN,
+            },
+          })
+          .then(({ data }) => {
+            let roles = data.roles;
+            var daftar_roles = [];
+            roles.forEach(element => {
+              if (element.name == "superadmin") {
+                daftar_roles.push({
+                  text: element.name,
+                  disabled: true,
+                });
+              } else {
+                daftar_roles.push({
+                  text: element.name,
+                  disabled: false,
+                });
+              }
+            });
+            this.daftar_roles = daftar_roles;
+            this.dialog = true;
           });
-          this.daftar_roles=daftar_roles; 
-          this.dialog = true; 
-        });
-        
       },
       editItem: async function(item) {
-        this.editedIndex = this.daftar_users.indexOf(item)
-        item.password= ""; 
-        this.editedItem = Object.assign({}, item); 
-
-        await this.$ajax.get("/system/setting/roles",{
-          headers: {
-            Authorization: this.TOKEN
-          }
-        })
-        .then(({ data }) => { 
-          let roles = data.roles;
-          var daftar_roles=[];
-          roles.forEach(element => {
-            if (element.name=="superadmin")
-            {
-              daftar_roles.push({
-                text:element.name,
-                disabled: true,
-              });
-            }
-            else
-            {
-              daftar_roles.push({
-                text:element.name,
-                disabled: false,
-              });
-            }  
+        this.editedIndex = this.daftar_users.indexOf(item);
+        item.password = "";
+        this.editedItem = Object.assign({}, item);
+        await this.$ajax
+          .get("/system/setting/roles", {
+            headers: {
+              Authorization: this.TOKEN,
+            },
+          })
+          .then(({ data }) => {
+            let roles = data.roles;
+            var daftar_roles = [];
+            roles.forEach(element => {
+              if (element.name == "superadmin") {
+                daftar_roles.push({
+                  text: element.name,
+                  disabled: true,
+                });
+              } else {
+                daftar_roles.push({
+                  text: element.name,
+                  disabled: false,
+                });
+              }
+            });
+            this.daftar_roles = daftar_roles;
           });
-          this.daftar_roles=daftar_roles;
-        });
 
         this.btnLoading = true;
-        await this.$ajax.get("/system/users/" + item.id + "/roles",
-        {
-          headers: {
-            Authorization: this.TOKEN
-          }
-        })
-        .then(({ data }) => {
-          this.editedItem.role_id=data.roles; 
-          this.btnLoading = false;
-          this.dialogEdit = true;
-        }); 
+        await this.$ajax
+          .get("/system/users/" + item.id + "/roles", {
+            headers: {
+              Authorization: this.TOKEN,
+            },
+          })
+          .then(({ data }) => {
+            this.editedItem.role_id = data.roles;
+            this.btnLoading = false;
+            this.dialogEdit = true;
+          });
       },
-      close() { 
+      close() {
         this.btnLoading = false;
         this.dialog = false;
-        this.dialogEdit = false; 
+        this.dialogEdit = false;
         setTimeout(() => {
-          this.$refs.frmdata.resetValidation(); 
+          this.$refs.frmdata.resetValidation();
           this.editedItem = Object.assign({}, this.defaultItem);
-          this.editedIndex = -1                
+          this.editedIndex = -1;
         }, 300);
       },
       save() {
         if (this.$refs.frmdata.validate()) {
           this.btnLoading = true;
           if (this.editedIndex > -1) {
-            this.$ajax.post("/system/users/"+this.editedItem.id,
-              {
-                _method: "PUT",
-                name: this.editedItem.name,
-                email: this.editedItem.email,
-                nomor_hp: this.editedItem.nomor_hp,
-                username: this.editedItem.username,
-                password: this.editedItem.password,
-                role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
-              },
-              {
-                headers: {
-                  Authorization: this.TOKEN
+            this.$ajax
+              .post(
+                "/system/users/" + this.editedItem.id,
+                {
+                  _method: "PUT",
+                  name: this.editedItem.name,
+                  email: this.editedItem.email,
+                  nomor_hp: this.editedItem.nomor_hp,
+                  username: this.editedItem.username,
+                  password: this.editedItem.password,
+                  role_id: JSON.stringify(
+                    Object.assign({}, this.editedItem.role_id)
+                  ),
+                },
+                {
+                  headers: {
+                    Authorization: this.TOKEN,
+                  },
                 }
-              }
-            ).then(({ data }) => {
-              Object.assign(this.daftar_users[this.editedIndex], data.user);
-              this.close();
-            }).catch(() => {
-              this.btnLoading = false;
-            });
-            
+              )
+              .then(({ data }) => {
+                Object.assign(this.daftar_users[this.editedIndex],data.user);
+                this.close();
+              })
+              .catch(() => {
+                this.btnLoading = false;
+              });
           } else {
-            this.$ajax.post("/system/users/store",
-              {
-                name: this.editedItem.name,
-                email: this.editedItem.email,
-                nomor_hp: this.editedItem.nomor_hp,
-                username: this.editedItem.username,
-                password: this.editedItem.password, 
-                role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
-              },
-              {
-                headers: {
-                  Authorization: this.TOKEN
+            this.$ajax
+              .post(
+                "/system/users/store",
+                {
+                  name: this.editedItem.name,
+                  email: this.editedItem.email,
+                  nomor_hp: this.editedItem.nomor_hp,
+                  username: this.editedItem.username,
+                  password: this.editedItem.password,
+                  role_id: JSON.stringify(
+                    Object.assign({}, this.editedItem.role_id)
+                  ),
+                },
+                {
+                  headers: {
+                    Authorization: this.TOKEN,
+                  },
                 }
-              }
-            ).then(({ data }) => {
-              this.daftar_users.push(data.user);
-              this.close();
-            }).catch(() => {
-              this.btnLoading = false;
-            });
+              )
+              .then(({ data }) => {
+                this.daftar_users.push(data.user);
+                this.close();
+              })
+              .catch(() => {
+                this.btnLoading = false;
+              });
           }
         }
       },

@@ -392,7 +392,7 @@ export default {
 		btnLoading: false,
 		btnLoadingTable: false,
 		datatableLoading: false, 
-		datatable: [], 
+		datatable: [],
 		headers: [            
 			{ text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
 			{ text: 'NAMA', value: 'nmatkul', sortable: false, width: 250 },
@@ -533,7 +533,7 @@ export default {
 					},
 					
 				}
-			).then(({ data }) => { 
+			).then(({ data }) => {
 				this.file_pdf = data.pdf_file;
 				this.dialogprintpdf = true;
 				this.btnLoading = false;
@@ -647,7 +647,7 @@ export default {
 						headers: {
 							Authorization: this.$store.getters["auth/Token"]
 						}
-					}).then(({ data }) => { 
+					}).then(({ data }) => {
 						const { jumlah, daftar_mhs } = data;
 						this.count = jumlah;
 						this.entries = daftar_mhs;

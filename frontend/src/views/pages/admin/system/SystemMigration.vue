@@ -158,7 +158,7 @@ export default {
    },
     data: () => ({
         firstloading: true,
-        breadcrumbs: [], 
+        breadcrumbs: [],
         tahun_pendaftaran: 0,
         
         //form
@@ -166,11 +166,11 @@ export default {
         btnLoading: false,
 
         daftar_prodi: [],
-        daftar_kelas: [], 
+        daftar_kelas: [],
         daftar_dw: [],
 
         daftar_tasmt: [],
-        daftar_status_mhs: [], 
+        daftar_status_mhs: [],
         formdata: {
             nim: "",
             nirm: "",
@@ -183,18 +183,18 @@ export default {
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
-        ], 
+        ],
         rule_nirm: [
             value => !!value || "Nomor Induk Registrasi Masuk (NIRM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Registrasi Masuk (NIRM) hanya boleh angka',
-        ], 
+        ],
         rule_nama_mhs: [
             value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
             value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Mahasiswa hanya boleh string dan spasi',
         ],
         rule_prodi: [
             value => !!value || "Program studi mohon untuk dipilih !!!"
-        ], 
+        ],
         rule_kelas: [
             value => !!value || "Kelas mohon untuk dipilih !!!"
         ],
@@ -223,7 +223,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 this.daftar_dw = data.users; 
             });
 
@@ -236,7 +236,7 @@ export default {
                 headers: {
                     Authorization: this.$store.getters["auth/Token"]
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 this.daftar_tasmt = data.daftar_tasmt; 
                 var dt = this.daftar_tasmt;
                 var i=0;
@@ -265,7 +265,7 @@ export default {
                         prodi_id: this.formdata.prodi_id,
                         idkelas: this.formdata.idkelas,
                         tahun_pendaftaran: this.tahun_pendaftaran,
-                        status_mhs: JSON.stringify(Object.assign({},this.formdata.status_mhs)),
+                        status_mhs: JSON.stringify(Object.assign({}, this.formdata.status_mhs)),
                    },
                     {
                         headers: {

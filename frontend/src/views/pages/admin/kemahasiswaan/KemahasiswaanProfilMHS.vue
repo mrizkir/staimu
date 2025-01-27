@@ -110,7 +110,7 @@
 
       //tables
       datatableLoading: false,
-      datatable: [], 
+      datatable: [],
       headers: [           
         { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
         { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
@@ -120,7 +120,7 @@
         { text: 'TOTAL', value: 'total', width: 100, sortable: true },
         { text: "STATUS", value: "nama_status", width: 50, sortable: true }, 
         { text: "AKSI", value: "actions", sortable: false, width: 50 },
-      ], 
+      ],
       expanded: [],
       search: "", 
       //form data
@@ -136,7 +136,7 @@
           headers: {
             Authorization: this.$store.getters["auth/Token"]
           }
-        }).then(({ data }) => { 
+        }).then(({ data }) => {
           this.datamhs=data.mahasiswa;
           
           this.totalSKS=data.jumlah_sks;

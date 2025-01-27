@@ -165,7 +165,7 @@
 			nama_prodi: null,
 
 			dialogprofilmhsbaru: false,
-			breadcrumbs: [], 
+			breadcrumbs: [],
 			dashboard: null,
 
 			btnLoading: false,

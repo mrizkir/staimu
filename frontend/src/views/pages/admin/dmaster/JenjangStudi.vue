@@ -98,7 +98,7 @@ export default {
         headers: [       
             { text: 'ID', value: 'kode_jenjang', width: 10, sortable: false },
             { text: 'NAMA JENJANG', value: 'nama_jenjang', sortable: false}, 
-        ], 
+        ],
     }),
     methods: {
         initialize: async function()

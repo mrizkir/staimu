@@ -162,7 +162,7 @@
                                 <v-col cols="12">  
                                     <strong>ID:</strong>{{ item.id}}
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
-                                    <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}   
+                                    <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }} 
                                 </v-col>
                             </td>
                         </template>
@@ -239,7 +239,7 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [], 
+        datatable: [],
         headers: [            
             { text: 'NIM', value: 'nim_asal', sortable: true, width: 100 },
             { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250 },
@@ -338,7 +338,7 @@ export default {
                    },
                     
                 }
-            ).then(({ data }) => { 
+            ).then(({ data }) => {
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoading = false;

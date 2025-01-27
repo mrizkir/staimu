@@ -477,7 +477,7 @@
           headers: {
             Authorization: this.$store.getters["auth/Token"]
           }
-        }).then(({ data }) => { 
+        }).then(({ data }) => {
           this.formdata = item;
           this.dialogdetailitem = true; 
           this.daftar_soal_jawaban=data.soal.jawaban;
@@ -497,7 +497,7 @@
             data.soal.jawaban.forEach(element => {
               if (element.status == 1) {
                 jawaban_benar=element.id;
-              }  
+              }
             });
             this.formdata.jawaban_benar=jawaban_benar;
             this.daftar_soal_jawaban=data.soal.jawaban;
@@ -533,7 +533,7 @@
                 }
               )
               .then(({ data }) => {
-                Object.assign(this.datatable[this.editedIndex], data.soal);
+                Object.assign(this.datatable[this.editedIndex],data.soal);
                 this.closedialogeditfrm();
                 this.btnLoading = false;
               })

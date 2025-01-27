@@ -154,7 +154,7 @@ export default {
     btnLoadingTable: false,
     datatableLoading: false,
     expanded: [],
-    datatable: [], 
+    datatable: [],
     headers: [
       { text: 'NO. FORMULIR', value: 'no_formulir', sortable: true, width: 100 },
       { text: "NIM", value: "nim", sortable: true, width: 100 },
@@ -233,7 +233,7 @@ export default {
         } 
       });
      },
-    closedialogfrm() { 
+    closedialogfrm() {
       this.dialogfrm = false; 
       setTimeout(() => {
         this.formdata = Object.assign({}, this.formdefault);

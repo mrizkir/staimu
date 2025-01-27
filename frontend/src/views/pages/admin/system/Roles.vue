@@ -421,7 +421,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.roles);
+								Object.assign(this.datatable[this.editedIndex],data.roles);
 								this.close();
 							})
 							.catch(() => {

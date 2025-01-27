@@ -352,7 +352,7 @@ export default {
 		],
 		expanded: [],
 		search: "",
-		daftar_users: [], 
+		daftar_users: [],
 		
 		//form
 		form_valid: true,
@@ -398,19 +398,19 @@ export default {
 		],
 		rule_nipy: [            
 			value => /^[0-9]+$/.test(value) || 'Nomor Induk Pegawai Yayasan (NIPY) hanya boleh angka', 
-		], 
+		],
 		rule_user_email: [
 			value => !!value || "Mohon untuk di isi email User !!!",
 			value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',
-		], 
+		],
 		rule_user_nomorhp: [
 			value => !!value || "Nomor HP mohon untuk diisi !!!",
 			value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
-		], 
+		],
 		rule_user_username: [
 			value => !!value || "Mohon untuk di isi username User !!!",
 			value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',
-		], 
+		],
 		rule_user_password: [
 			value => !!value || "Mohon untuk di isi password User !!!",
 			value => {
@@ -422,7 +422,7 @@ export default {
 					return true;
 				}
 			}
-		], 
+		],
 		rule_user_passwordEdit: [
 			value => {
 				if (value && typeof value !== 'undefined' && value.length > 0) {
@@ -462,22 +462,22 @@ export default {
 		},
 		showDialogTambahUserDosen: async function()
 		{
-			this.dialog = true; 
+			this.dialog = true;
 		},
 		editItem: async function(item) {
 			this.editedIndex = this.daftar_users.indexOf(item)
-			item.password= ""; 
+			item.password = "";
 			this.editedItem = Object.assign({}, item);
 			this.dialogEdit = true;
 		},
-		close() { 
+		close() {
 			this.btnLoading = false;
 			this.dialog = false;
 			this.dialogEdit = false; 
 			setTimeout(() => {
 				this.$refs.frmdata.resetValidation(); 
 				this.editedItem = Object.assign({}, this.defaultItem)
-				this.editedIndex = -1                
+				this.editedIndex = -1;
 				}, 300
 			);
 		},

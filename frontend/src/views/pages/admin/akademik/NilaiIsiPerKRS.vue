@@ -190,7 +190,7 @@ export default {
         btnLoadingTable: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [], 
+        datatable: [],
         headers: [
             { text: "NIM", value: "nim", sortable: true, width: 100 },
             { text: 'NAMA', value: 'nama_mhs', sortable: true, width: 250 },
@@ -305,7 +305,7 @@ export default {
                    },
                     
                 }
-            ).then(({ data }) => { 
+            ).then(({ data }) => {
                 this.file_pdf = data.pdf_file;
                 this.dialogprintpdf = true;
                 this.btnLoadingTable = false;

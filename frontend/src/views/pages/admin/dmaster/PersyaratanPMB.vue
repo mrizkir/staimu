@@ -382,7 +382,7 @@
 						this.formdata = item; 
 						this.dialogdetailitem = true;
 				},
-				editItem: async function(item) { 
+				editItem: async function(item) {
 						this.editedIndex = this.datatable.indexOf(item);
 						this.formdata = item;
 						this.dialogfrm = true
@@ -513,7 +513,7 @@
 								}, 300
 						);
 				},
-				closedialogsalinpersyaratan() { 
+				closedialogsalinpersyaratan() {
 						this.dialogcopypersyaratan = false; 
 						setTimeout(() => { 
 								this.$refs.frmdialogcopypersyaratan.reset(); 

@@ -107,7 +107,7 @@
       this.initialize();
     },
     data: () => ({
-      breadcrumbs: [], 
+      breadcrumbs: [],
       btnLoading: false, 
       //form
       form_valid: true, 
@@ -120,7 +120,7 @@
       //form rules        
       rule_nama_pt: [
         value => !!value || "Mohon untuk di isi Nama Perguruan Tinggi !!!", 
-      ], 
+      ],
       rule_nama_singkatan_pt: [
         value => !!value || "Mohon untuk di isi Nama Alias Perguruan Tinggi !!!", 
       ],

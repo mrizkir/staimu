@@ -94,7 +94,7 @@ export default {
         rule_ttl_token_expire: [
             value => !!value || "Mohon untuk di isi TTL (Time To Live) expire dari token !!!",
             value => /^[0-9]+$/.test(value) || 'TTL Expire dari token hanya boleh angka',
-        ], 
+        ],
     }),
     methods: {
         initialize: async function()

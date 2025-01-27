@@ -148,7 +148,7 @@ export default {
 	},
 	data: () => ({ 
 		firstloading: true,
-		breadcrumbs: [], 
+		breadcrumbs: [],
 		tahun_akademik: 0,
 		
 		//profil mahasiswa
@@ -260,7 +260,7 @@ export default {
 				}, 1000);
 
 				if (this.data_mhs != null) {
-					this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
+					this.$ajax.get('/datamaster/kelas').then(({ data }) => {
 						this.daftar_kelas = data.kelas;
 						this.idkelas = this.data_mhs.idkelas;
 						this.old_idkelas = this.idkelas;

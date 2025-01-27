@@ -243,13 +243,13 @@
       rule_kapasitas: [
         value => !!value || "Kapasitas Ruangan mohon untuk diisi !!!",
         value => /^[0-9]+$/.test(value) || "Kapasitas Ruangan Kelas hanya boleh angka",
-      ], 
+      ],
     }),
     methods: {
       initialize: async function()
       {
         this.datatableLoading = true;
-        await this.$ajax.get("/datamaster/ruangankelas",{
+        await this.$ajax.get("/datamaster/ruangankelas", {
           headers: {
             Authorization: this.TOKEN
           }
@@ -277,7 +277,7 @@
       },
       editItem(item) {
         this.editedIndex = this.datatable.indexOf(item);
-        this.formdata = Object.assign({}, item); 
+        this.formdata = Object.assign({}, item);
         this.dialogfrm = true
       },
       save: async function() {
@@ -286,7 +286,7 @@
           this.btnLoading = true;
           if (this.editedIndex > -1)
           {
-            await this.$ajax.post("/datamaster/ruangankelas/"+this.formdata.id,
+            await this.$ajax.post("/datamaster/ruangankelas/" + this.formdata.id,
               {
                 _method: "PUT",
                 namaruang: this.formdata.namaruang,
@@ -298,7 +298,7 @@
                 }
               }
             ).then(({ data }) => {
-              Object.assign(this.datatable[this.editedIndex], data.ruangan);
+              Object.assign(this.datatable[this.editedIndex],data.ruangan);
               this.closedialogfrm();
               this.btnLoading = false;
             }).catch(() => {

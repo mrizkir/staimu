@@ -138,7 +138,7 @@
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
 								<v-col cols="12">  
-									<strong>user_id:</strong>{{ item.user_id }}        
+									<strong>user_id:</strong>{{ item.user_id }}      
 								</v-col>
 							</td>
 						</template>
@@ -224,7 +224,7 @@
 			btnLoadingTable: false,
 			datatableLoading: false,
 			expanded: [],
-			datatable: [], 
+			datatable: [],
 			headers: [            
 				{ text: "NIM", value: "nim", sortable: true, width: 100 },
 				{ text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true }, 
@@ -296,7 +296,7 @@
 						},
 						
 					}
-				).then(({ data }) => { 
+				).then(({ data }) => {
 					this.file_pdf = data.pdf_file;
 					this.dialogprintpdf = true;
 					this.btnLoading = false;

@@ -276,7 +276,7 @@ export default {
     ],
     expanded: [],
     search: "",
-    daftar_mahasiswa: [], 
+    daftar_mahasiswa: [],
 
     //form mahasiswa ganti dw
     dialogfrm: false,
@@ -285,10 +285,10 @@ export default {
     daftar_dw: [],
 
     formdata: {
-      dosen_id: ""           
+      dosen_id: "",         
      },
     formdefault: {
-      dosen_id: ""           
+      dosen_id: "",         
      },
 
     rule_dw: [
@@ -361,7 +361,7 @@ export default {
         this.btnLoading = false;
       });
      },
-    closedialogfrm() { 
+    closedialogfrm() {
       this.dialogfrm = false; 
       setTimeout(() => {
         this.formdata = Object.assign({}, this.formdefault);

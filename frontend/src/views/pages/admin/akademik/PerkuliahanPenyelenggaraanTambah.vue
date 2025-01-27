@@ -300,7 +300,7 @@ export default {
         dialogdetailitem: false,
         datatableLoading: false,
         expanded: [],
-        datatable: [], 
+        datatable: [],
         headers: [
             { text: 'KODE', value: 'kmatkul', sortable: true, width: 120 },
             { text: 'NAMA MATAKULIAH', value: 'nmatkul', sortable: true },
@@ -374,7 +374,7 @@ export default {
                         prodi_id: this.prodi_id,
                         ta: this.tahun_akademik,
                         semester_akademik: this.semester_akademik, 
-                        matkul_selected: JSON.stringify(Object.assign({},this.daftar_matkul_selected)), 
+                        matkul_selected: JSON.stringify(Object.assign({}, this.daftar_matkul_selected)), 
                    },
                     {
                         headers: {

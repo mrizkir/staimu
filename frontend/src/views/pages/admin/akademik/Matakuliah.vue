@@ -658,7 +658,7 @@
 				});
 				this.dialogdetailitem = true;
 			},
-			editItem: async function(item) { 
+			editItem: async function(item) {
 				this.editedIndex = this.datatable.indexOf(item);
 				await this.$ajax.get("/akademik/groupmatakuliah",
 				{

@@ -115,7 +115,7 @@ export default {
         breadcrumbs: [],
         datatableLoading: false,
         btnLoading: false,
-        expanded: [], 
+        expanded: [],
         daftar_permissions: [],
         //tables
         headers: [
@@ -134,7 +134,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 this.daftar_permissions = data.permissions;
                 this.datatableLoading = false;
             }); 

@@ -284,7 +284,7 @@ export default {
 
         //tables
         datatableLoading: false,
-        datatable: [], 
+        datatable: [],
         headers: [           
             { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: 'TANGGAL', value: 'tanggal', width: 100, sortable: true },
@@ -295,7 +295,7 @@ export default {
             { text: "STATUS", value: "nama_status", width: 50, sortable: true }, 
             { text: 'KET.', value: 'desc', width: 150, sortable: false }, 
             { text: "AKSI", value: "actions", sortable: false, width: 50 },
-        ], 
+        ],
         expanded: [],
         search: "", 
 

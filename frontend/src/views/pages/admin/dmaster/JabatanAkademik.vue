@@ -98,7 +98,7 @@ export default {
         headers: [       
             { text: 'ID', value: 'id_jabatan', width: 10, sortable: false },
             { text: 'NAMA JABATAN', value: 'nama_jabatan', sortable: false}, 
-        ], 
+        ],
     }),
     methods: {
         initialize: async function()

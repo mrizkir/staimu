@@ -576,7 +576,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.pindahkelas);
+								Object.assign(this.datatable[this.editedIndex],data.pindahkelas);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})

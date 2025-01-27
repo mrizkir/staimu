@@ -302,7 +302,7 @@ export default {
         rule_nama_bank: [
             value => !!value || "Mohon untuk di isi nama bank !!!",
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama bank hanya boleh string dan spasi', 
-        ], 
+        ],
         rule_nama_cabang: [
             value => !!value || "Mohon untuk di isi nama cabang bank !!!",
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama cabang bank hanya boleh string dan spasi', 
@@ -348,7 +348,7 @@ export default {
        }, 
         editItem(item) {
             this.editedIndex = this.datatable.indexOf(item);
-            this.formdata = Object.assign({}, item); 
+            this.formdata = Object.assign({}, item);
             this.dialogfrm = true
        }, 
         save: async function() {
@@ -371,7 +371,7 @@ export default {
                             }
                         }
                     ).then(({ data }) => {
-                        Object.assign(this.datatable[this.editedIndex], data.bank);
+                        Object.assign(this.datatable[this.editedIndex],data.bank);
                         this.closedialogfrm();
                         this.btnLoading = false;
                     }).catch(() => {
@@ -433,7 +433,7 @@ export default {
                }, 300
             );
        },
-        closedialogfrm() { 
+        closedialogfrm() {
             this.dialogfrm = false; 
             setTimeout(() => {
                 this.formdata = Object.assign({}, this.formdefault);

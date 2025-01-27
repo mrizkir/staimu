@@ -374,10 +374,10 @@ export default {
 		rule_email: [
 			value => !!value || "Mohon untuk mengisi Email !!!",
 			v => /.+@.+\..+/.test(v) || 'Format E-mail mohon di isi dengan benar',
-		], 
+		],
 		rule_api_key: [
 			value => !!value || "Mohon untuk mengisi API Key !!!",
-		], 
+		],
 		rule_api_secret: [
 			value => !!value || "Mohon untuk mengisi API Secret !!!",
 		],
@@ -446,7 +446,7 @@ export default {
 							}
 						}
 					).then(({ data }) => {
-						Object.assign(this.datatable[this.editedIndex], data.zoom);
+						Object.assign(this.datatable[this.editedIndex],data.zoom);
 						this.closedialogfrm();
 						this.btnLoading = false;
 					}).catch(() => {

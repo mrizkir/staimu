@@ -247,7 +247,7 @@ export default {
 
         //tables
         datatableLoading: false,
-        datatable: [], 
+        datatable: [],
         headers: [           
             { text: "KODE BILLING", value: "no_transaksi", width: 100, sortable: true },
             { text: "TANGGAL", value: "tanggal", width:90, sortable: true },
@@ -257,7 +257,7 @@ export default {
             { text: "JUMLAH", value: "sub_total", width: 100, sortable: false,align: 'right' },
             { text: "STATUS", value: "nama_status", width: 100, sortable: false }, 
             { text: "AKSI", value: "actions", sortable: false, width: 100 },
-        ], 
+        ],
         expanded: [],
         search: "", 
 
@@ -266,7 +266,7 @@ export default {
 
         //form data   
         form_valid: true, 
-        daftar_semester: [], 
+        daftar_semester: [],
         formdata: {
             nim: "",
             semester_akademik: ""
@@ -278,7 +278,7 @@ export default {
         rule_nim: [
             value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
             value => /^[0-9]+$/.test(value) || 'Nomor Induk Mahasiswa (NIM) hanya boleh angka',
-        ], 
+        ],
         rule_semester: [
             value => !!value || "Mohon dipilih Semester untuk transaksi ini !!!"
         ],

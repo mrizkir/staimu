@@ -346,7 +346,7 @@ export default {
             email: "",
             nomor_hp: "",
             prodi_id: [],
-            role_id: ['akademik'], 
+            role_id: ['akademik'],
             created_at: "",
             updated_at: "", 
        },
@@ -358,7 +358,7 @@ export default {
             email: "",
             nomor_hp: "",
             prodi_id: [],
-            role_id: ['akademik'], 
+            role_id: ['akademik'],
             created_at: "",
             updated_at: "", 
        },
@@ -366,19 +366,19 @@ export default {
         rule_user_name: [
             value => !!value || "Mohon untuk di isi nama User !!!",
             value => /^[A-Za-z\s]*$/.test(value) || 'Nama User hanya boleh string dan spasi', 
-        ], 
+        ],
         rule_user_email: [
             value => !!value || "Mohon untuk di isi email User !!!",
             value => /.+@.+\..+/.test(value) || 'Format E-mail harus benar',
-        ], 
+        ],
         rule_user_nomorhp: [
             value => !!value || "Nomor HP mohon untuk diisi !!!",
             value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
-        ], 
+        ],
         rule_user_username: [
             value => !!value || "Mohon untuk di isi username User !!!",
             value => /^[A-Za-z_]*$/.test(value) || 'Username hanya boleh string dan underscore',
-        ], 
+        ],
         rule_user_password: [
             value => !!value || "Mohon untuk di isi password User !!!",
             value => {
@@ -390,7 +390,7 @@ export default {
                     return true;
                 }
             }
-        ], 
+        ],
         rule_user_passwordEdit: [
             value => {
                 if (value && value.length > 0) {
@@ -413,7 +413,7 @@ export default {
                 }
             }).then(({ data }) => {
                 this.daftar_users = data.users;
-                this.role_id=data.role.id;
+                this.role_id = data.role.id;
                 this.datatableLoading = false;
             }); 
             
@@ -458,33 +458,33 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 let roles = data.roles;
-                var daftar_roles=[];
+                var daftar_roles = [];
                 roles.forEach(element => {
                     if (element.name=='akademik')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: true,
                         });
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: false,
                         });
-                    }  
+                    }
                 });
-                this.daftar_roles=daftar_roles; 
+                this.daftar_roles = daftar_roles;
                 this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
-                this.dialog = true; 
+                this.dialog = true;
             }); 
        },
         editItem: async function(item) {
             this.editedIndex = this.daftar_users.indexOf(item)
-            item.password= ""; 
+            item.password = "";
             this.editedItem = Object.assign({}, item);
             this.daftar_prodi=this.$store.getters['uiadmin/getDaftarProdi'];
             await this.$ajax.get('/system/users/' + item.id + '/prodi',
@@ -493,7 +493,7 @@ export default {
                         Authorization: this.TOKEN
                     }
                 }
-            ).then(({ data }) => { 
+            ).then(({ data }) => {
                 let daftar_prodi = data.daftar_prodi;
                 var prodi=[];
                 daftar_prodi.forEach(element => {
@@ -506,26 +506,26 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 let roles = data.roles;
-                var daftar_roles=[];
+                var daftar_roles = [];
                 roles.forEach(element => {
                     if (element.name=='akademik')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: true,
                         });
                     }
                     else if (element.name=='dosen'||element.name=='dosenwali')
                     {
                         daftar_roles.push({
-                            text:element.name,
+                            text: element.name,
                             disabled: false,
                         });
-                    }  
+                    }
                 });
-                this.daftar_roles=daftar_roles;
+                this.daftar_roles = daftar_roles;
             });
 
             this.btnLoading = true;
@@ -535,7 +535,7 @@ export default {
                     Authorization: this.TOKEN
                 }
             }).then(({ data }) => {
-                this.editedItem.role_id=data.roles; 
+                this.editedItem.role_id = data.roles;
                 this.btnLoading = false;
                 this.dialogEdit = true;
             });
@@ -544,14 +544,14 @@ export default {
             this.editedItem = item; 
             this.dialogUserPermission = true;
        },
-        close() { 
+        close() {
             this.btnLoading = false;
             this.dialog = false;
             this.dialogEdit = false; 
             setTimeout(() => {
                 this.$refs.frmdata.resetValidation(); 
                 this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1                
+                this.editedIndex = -1;
                }, 300
             );
        },
@@ -573,8 +573,8 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password, 
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)),
-                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            prodi_id: JSON.stringify(Object.assign({}, this.editedItem.prodi_id)),
+                            role_id: JSON.stringify(Object.assign({}, this.editedItem.role_id)),
                        },
                         {
                             headers: {
@@ -582,7 +582,7 @@ export default {
                             }
                         }
                     ).then(({ data }) => {
-                        Object.assign(this.daftar_users[this.editedIndex], data.user);
+                        Object.assign(this.daftar_users[this.editedIndex],data.user);
                         this.close();
                     }).catch(() => {
                         this.btnLoading = false;
@@ -596,8 +596,8 @@ export default {
                             nomor_hp: this.editedItem.nomor_hp,
                             username: this.editedItem.username,
                             password: this.editedItem.password,
-                            prodi_id: JSON.stringify(Object.assign({},this.editedItem.prodi_id)), 
-                            role_id: JSON.stringify(Object.assign({},this.editedItem.role_id)),
+                            prodi_id: JSON.stringify(Object.assign({}, this.editedItem.prodi_id)), 
+                            role_id: JSON.stringify(Object.assign({}, this.editedItem.role_id)),
                        },
                         {
                             headers: {

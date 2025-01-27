@@ -227,7 +227,7 @@ export default {
         btnLoading: false,
         btnLoadingTable: false,
         datatableLoading: false, 
-        datatable: [], 
+        datatable: [],
         headers: [            
             { text: 'KODE', value: 'kmatkul', sortable: false, width: 100 },
             { text: 'NAMA', value: 'nmatkul', sortable: false, width: 250 },

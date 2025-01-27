@@ -164,7 +164,7 @@ export default {
         breadcrumbs: [],
         datatableLoading: false,
         btnLoading: false,
-        expanded: [], 
+        expanded: [],
         daftar_permissions: [],
         //tables
         headers: [
@@ -195,7 +195,7 @@ export default {
         rule_permission_name: [
             value => !!value || "Mohon untuk di isi nama Permission !!!",
             value => /^[0-9\\a-zA-Z\\-]+$/.test(value) || 'Nama Permission hanya boleh angka,huruf,dan tanda -', 
-        ], 
+        ],
     }),
     methods: {
         initialize() 
@@ -205,7 +205,7 @@ export default {
                 headers: {
                     Authorization: this.TOKEN
                 }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
                 this.daftar_permissions = data.permissions;
                 this.datatableLoading = false;
             }); 

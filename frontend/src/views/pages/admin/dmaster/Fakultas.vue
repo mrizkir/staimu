@@ -368,7 +368,7 @@
                 }
               )
               .then(({ data }) => {
-                Object.assign(this.datatable[this.editedIndex], data.fakultas);
+                Object.assign(this.datatable[this.editedIndex],data.fakultas);
                 this.closedialogfrm();
                 this.btnLoading = false;
               })

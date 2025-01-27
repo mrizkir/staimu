@@ -294,7 +294,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.kelas);
+								Object.assign(this.datatable[this.editedIndex],data.kelas);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})

@@ -98,7 +98,7 @@ export default {
         headers: [       
             { text: 'ID', value: 'k_status', width: 10, sortable: false },
             { text: 'NAMA STATUS', value: 'n_status', sortable: false}, 
-        ], 
+        ],
     }),
     methods: {
         initialize: async function()

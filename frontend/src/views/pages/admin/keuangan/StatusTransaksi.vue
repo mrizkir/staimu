@@ -130,7 +130,7 @@ export default {
             { text: 'ID', value: 'id_status', width: 10, sortable: false }, 
             { text: 'NAMA STATUS', value: 'nama_status', sortable: false},
             { text: 'STYLE', value: 'style', width: 200, sortable: false }, 
-        ], 
+        ],
         
     }),
     methods: {

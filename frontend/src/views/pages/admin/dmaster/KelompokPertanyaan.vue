@@ -419,7 +419,7 @@
 								}
 							)
 							.then(({ data }) => {
-								Object.assign(this.datatable[this.editedIndex], data.kelompokpertanyaan);
+								Object.assign(this.datatable[this.editedIndex],data.kelompokpertanyaan);
 								this.closedialogfrm();
 								this.btnLoading = false;
 							})

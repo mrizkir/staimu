@@ -256,7 +256,7 @@ export default {
 		this.initialize();
    },
 	data: () => ({
-		breadcrumbs: [], 
+		breadcrumbs: [],
 		dashboard: null,
 
 		tahun_pendaftaran: null,
@@ -290,7 +290,7 @@ export default {
 		daftar_fakultas: [],
 		kode_fakultas: "",
 
-		daftar_prodi: [], 
+		daftar_prodi: [],
 		daftar_kelas: [],
 		
 		formdata: {
@@ -320,14 +320,14 @@ export default {
 		],
 		rule_tempat_lahir: [
 			value => !!value || "Tempat Lahir mohon untuk diisi !!!"
-		], 
+		],
 		rule_tanggal_lahir: [
 			value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
-		], 
+		],
 		rule_nomorhp: [
 			value => !!value || "Nomor HP mohon untuk diisi !!!",
 			value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || 'Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388',
-		], 
+		],
 		rule_email: [
 			value => !!value || "Email mohon untuk diisi !!!",
 			value => /.+@.+\..+/.test(value) || 'Format E-mail mohon di isi dengan benar',
@@ -335,29 +335,29 @@ export default {
 		rule_nama_ibu_kandung: [
 			value => !!value || "Nama Ibu Kandung mohon untuk diisi !!!",
 			value => /^[A-Za-z\s\\,\\.]*$/.test(value) || 'Nama Ibu Kandung hanya boleh string dan spasi',
-		], 
+		],
 		rule_desa: [
 			value => !!value || "Mohon Desa mohon untuk diisi !!!"
-		], 
+		],
 		rule_alamat_rumah: [
 			value => !!value || "Alamat Rumah mohon untuk diisi !!!"
-		], 
+		],
 		rule_fakultas: [
 			value => !!value || "Fakultas mohon untuk dipilih !!!"
-		], 
+		],
 		rule_prodi: [
 			value => !!value || "Program studi mohon untuk dipilih !!!"
-		], 
+		],
 		rule_kelas: [
 			value => !!value || "Kelas mohon untuk dipilih !!!"
-		], 
+		],
 
 	}),
 	methods: {
 		initialize: async function()
 		{	
 			let bentukpt = this.$store.getters['uifront/getBentukPT'];
-			this.$ajax.get('/datamaster/provinsi').then(({ data }) => { 
+			this.$ajax.get('/datamaster/provinsi').then(({ data }) => {
 				this.daftar_provinsi=data.provinsi;
 			}); 
 			if (bentukpt == "universitas")
@@ -372,7 +372,7 @@ export default {
 					this.daftar_prodi = data.prodi;
 				});
 			}
-			this.$ajax.get('/datamaster/kelas').then(({ data }) => { 
+			this.$ajax.get('/datamaster/kelas').then(({ data }) => {
 				this.daftar_kelas = data.kelas;
 			});
 			await this.$ajax.get('/spmb/formulirpendaftaran/'+this.user_id, 
@@ -475,7 +475,7 @@ export default {
 					.catch(() => {
 						this.btnLoading = false;
 					});										
-			}  
+			}
 		},
    }, 
 	watch: {
@@ -484,7 +484,7 @@ export default {
 			if (val.id != null && val.id != '')
 			{
 				this.btnLoadingProv = true;
-				this.$ajax.get('/datamaster/provinsi/'+val.id+'/kabupaten').then(({ data }) => { 
+				this.$ajax.get('/datamaster/provinsi/'+val.id+'/kabupaten').then(({ data }) => {
 					this.daftar_kabupaten = data.kabupaten;
 					this.btnLoadingProv = false;
 				});

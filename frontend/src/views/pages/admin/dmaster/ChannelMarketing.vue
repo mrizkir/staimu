@@ -171,20 +171,20 @@
         {
           text: "HOME",
           disabled: false,
-          href: "/dashboard/" + this.ACCESS_TOKEN
+          href: "/dashboard/" + this.ACCESS_TOKEN,
         },
         {
           text: "DATA MASTER",
           disabled: false,
-          href: "#"
+          href: "#",
         },
         {
           text: "CHANNEL MARKETING",
           disabled: true,
-          href: "#"
-        }
+          href: "#",
+        },
       ];
-      this.initialize()
+      this.initialize();
     },
     data: () => ({
       btnLoading: false,
@@ -192,7 +192,7 @@
       expanded: [],
       datatable: [],
       headers: [        
-        { text: "NAMA CHANNEL", value: "namachannel" },        
+        { text: "NAMA CHANNEL", value: "namachannel" },
         { text: "AKSI", value: "actions", sortable: false, width: 100 },
       ],
       search: "",
@@ -201,7 +201,7 @@
       dialogfrm: false,
       dialogdetailitem: false,
 
-      //form data        
+      //form data
       form_valid: true,
       formdata: {
         id: "",
@@ -216,30 +216,29 @@
       //form rules
       rule_nama_channel: [
         value => !!value || "Mohon untuk di isi nama channel !!!",
-      ],      
+      ],
     }),
     methods: {
       initialize: async function() {
         this.datatableLoading = true;
-        await this.$ajax.get("/datamaster/channelmarketing",{
-          headers: {
-            Authorization: this.TOKEN
-          }
-        }).then(({ data }) => {
-          this.datatable = data.channelmarketing;
-          this.datatableLoading = false;
-        }).catch(() => {
-          this.datatableLoading = false;
-        });
+        await this.$ajax
+          .get("/datamaster/channelmarketing", {
+            headers: {
+              Authorization: this.TOKEN,
+            },
+          })
+          .then(({ data }) => {
+            this.datatable = data.channelmarketing;
+            this.datatableLoading = false;
+          })
+          .catch(() => {
+            this.datatableLoading = false;
+          });
       },
-      dataTableRowClicked(item)
-      {
-        if (item === this.expanded[0])
-        {
+      dataTableRowClicked(item) {
+        if (item === this.expanded[0]) {
           this.expanded = [];
-        }
-        else
-        {
+        } else {
           this.expanded = [item];
         }
       },
@@ -249,57 +248,59 @@
       },
       editItem(item) {
         this.editedIndex = this.datatable.indexOf(item);
-        this.formdata = Object.assign({}, item); 
-        this.dialogfrm = true
+        this.formdata = Object.assign({}, item);
+        this.dialogfrm = true;
       },
       save: async function() {
-        if (this.$refs.frmdata.validate())
-        {
+        if (this.$refs.frmdata.validate()) {
           this.btnLoading = true;
-          if (this.editedIndex > -1)
-          {
-            await this.$ajax.post("/datamaster/channelmarketing/"+this.formdata.id,
-              {
-                _method: "PUT",
-                namachannel: this.formdata.namachannel,
-              },
-              {
-                headers: {
-                  Authorization: this.TOKEN
+          if (this.editedIndex > -1) {
+            await this.$ajax
+              .post("/datamaster/channelmarketing/" + this.formdata.id,
+                {
+                  _method: "PUT",
+                  namachannel: this.formdata.namachannel,
+                },
+                {
+                  headers: {
+                    Authorization: this.TOKEN,
+                  },
                 }
-              }
-            ).then(({ data }) => {
-              Object.assign(this.datatable[this.editedIndex], data.channelmarketing);
-              this.closedialogfrm();
-              this.btnLoading = false;
-            }).catch(() => {
-              this.btnLoading = false;
-            });
-
+              )
+              .then(({ data }) => {
+                Object.assign(this.datatable[this.editedIndex],data.channelmarketing);
+                this.closedialogfrm();
+                this.btnLoading = false;
+              })
+              .catch(() => {
+                this.btnLoading = false;
+              });
           } else {
-            await this.$ajax.post("/datamaster/channelmarketing/store",
-              {
-                namachannel: this.formdata.namachannel,
-              },
-              {
-                headers: {
-                  Authorization: this.TOKEN
+            await this.$ajax
+              .post("/datamaster/channelmarketing/store",
+                {
+                  namachannel: this.formdata.namachannel,
+                },
+                {
+                  headers: {
+                    Authorization: this.TOKEN,
+                  },
                 }
-              }
-            )
-            .then(({ data }) => {
-              this.datatable.push(data.channelmarketing);
-              this.closedialogfrm();
-              this.btnLoading = false;
-            })
-            .catch(() => {
-              this.btnLoading = false;
-            });
+              )
+              .then(({ data }) => {
+                this.datatable.push(data.channelmarketing);
+                this.closedialogfrm();
+                this.btnLoading = false;
+              })
+              .catch(() => {
+                this.btnLoading = false;
+              });
           }
         }
       },
       deleteItem(item) {
-        this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus data dengan ID " + item.id + " ?", { color: "red" }).then(confirm => {
+        this.$root.$confirm
+          .open("Delete", "Apakah Anda ingin menghapus data dengan ID " + item.id + " ?", { color: "red" }).then(confirm => {
             if (confirm) {
               this.btnLoading = true;
                 this.$ajax.post(

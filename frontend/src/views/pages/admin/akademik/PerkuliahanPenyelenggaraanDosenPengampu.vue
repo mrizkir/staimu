@@ -182,7 +182,7 @@ export default {
         //table        
         datatableLoading: false,
         expanded: [],
-        datatable: [], 
+        datatable: [],
         headers: [
             { text: 'NIDN', value: 'nidn', sortable: false, width: 120 },
             { text: 'NAMA DOSEN', value: 'nama_dosen', sortable: false },

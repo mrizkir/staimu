@@ -138,7 +138,7 @@
     },
     data: () => ({ 
       firstloading: true,
-      breadcrumbs: [], 
+      breadcrumbs: [],
       tahun_akademik: 0,
       
       //profil mahasiswa        
@@ -223,7 +223,7 @@
               headers: {
                 Authorization: this.$store.getters["auth/Token"]
               }
-            }).then(({ data }) => { 
+            }).then(({ data }) => {
               const { jumlah, daftar_mhs } = data;
               this.count = jumlah;
               this.entries = daftar_mhs;
