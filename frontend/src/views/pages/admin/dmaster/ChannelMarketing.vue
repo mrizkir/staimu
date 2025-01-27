@@ -5,7 +5,7 @@
         mdi-seat-legroom-extra
       </template>
       <template v-slot:name>
-        RUANG KELAS
+        CHANNEL MARKETING
       </template>
       <template v-slot:breadcrumbs>
         <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -15,13 +15,8 @@
         </v-breadcrumbs>
       </template>
       <template v-slot:desc>
-        <v-alert
-          color="cyan"
-          border="left"
-          colored-border
-          type="info"
-          >
-          Halaman untuk mengelola RUANG KELAS untuk perkuliahan dan kegiatan lainnya.
+        <v-alert color="cyan" border="left" colored-border type="info">
+          Halaman untuk mengelola CHANNEL MARKETING yang digunakan oleh proses PMB dan kegiatan lainnya.
         </v-alert>
       </template>
     </ModuleHeader>
@@ -48,7 +43,7 @@
             :items="datatable"
             :search="search"
             item-key="id"
-            sort-by="namaruang"
+            sort-by="namachannel"
             show-expand
             :expanded.sync="expanded"
             :single-expand="true"
@@ -59,7 +54,7 @@
 
             <template v-slot:top>
               <v-toolbar flat color="white">
-                <v-toolbar-title>DAFTAR RUANG KELAS</v-toolbar-title>
+                <v-toolbar-title>DAFTAR CHANNEL MARKETING</v-toolbar-title>
                 <v-divider
                   class="mx-4"
                   inset
@@ -79,17 +74,11 @@
                       </v-card-title>
                       <v-card-text>
                         <v-text-field
-                          v-model="formdata.namaruang"
-                          label="NAMA RUANG"
+                          v-model="formdata.namachannel"
+                          label="NAMA CHANNEL"
                           outlined
-                          :rules="rule_nama_ruang">
-                        </v-text-field>
-                        <v-text-field
-                          v-model="formdata.kapasitas"
-                          label="KAPASITAS"
-                          outlined
-                          :rules="rule_kapasitas">
-                        </v-text-field>
+                          :rules="rule_nama_channel">
+                        </v-text-field>                        
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -115,21 +104,12 @@
                       <v-row no-gutters>
                         <v-col xs="12" sm="6" md="6">
                           <v-card flat>
-                            <v-card-title>NAMA RUANG:</v-card-title>
+                            <v-card-title>NAMA CHANNEL:</v-card-title>
                             <v-card-subtitle>
-                              {{formdata.namaruang}}
+                              {{formdata.namachannel}}
                             </v-card-subtitle>
                           </v-card>
-                        </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-                        <v-col xs="12" sm="6" md="6">
-                          <v-card flat>
-                            <v-card-title>KAPASITAS :</v-card-title>
-                            <v-card-subtitle>
-                              {{formdata.kapasitas}}
-                            </v-card-subtitle>
-                          </v-card>
-                        </v-col>
+                        </v-col>                        
                         <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
                       </v-row>
                     </v-card-text>
@@ -185,7 +165,7 @@
   import DataMasterLayout from "@/views/layouts/DataMasterLayout";
   import ModuleHeader from "@/components/ModuleHeader";
   export default {
-    name: "RuangKelas",
+    name: "ChannelMarketing",
     created() {
       this.breadcrumbs = [
         {
@@ -199,7 +179,7 @@
           href: "#"
         },
         {
-          text: "RUANG KELAS",
+          text: "CHANNEL MARKETING",
           disabled: true,
           href: "#"
         }
@@ -211,9 +191,8 @@
       datatableLoading: false,
       expanded: [],
       datatable: [],
-      headers: [
-        { text: "NAMA RUANG", value: "namaruang" },
-        { text: "KAPASITAS", value: "kapasitas" },
+      headers: [        
+        { text: "NAMA CHANNEL", value: "namachannel" },        
         { text: "AKSI", value: "actions", sortable: false, width: 100 },
       ],
       search: "",
@@ -226,35 +205,28 @@
       form_valid: true,
       formdata: {
         id: "",
-        namaruang: "",
-        kapasitas: 0,
+        namachannel: "",
       },
       formdefault: {
         id: "",
-        namaruang: "",
-        kapasitas: 0,
+        namachannel: "",
       },
       editedIndex: -1,
 
       //form rules
-      rule_nama_ruang: [
-        value => !!value || "Mohon untuk di isi nama ruang !!!",
-      ],
-      rule_kapasitas: [
-        value => !!value || "Kapasitas Ruangan mohon untuk diisi !!!",
-        value => /^[0-9]+$/.test(value) || "Kapasitas Ruangan Kelas hanya boleh angka",
-      ], 
+      rule_nama_channel: [
+        value => !!value || "Mohon untuk di isi nama channel !!!",
+      ],      
     }),
     methods: {
-      initialize: async function()
-      {
+      initialize: async function() {
         this.datatableLoading = true;
-        await this.$ajax.get("/datamaster/ruangankelas",{
+        await this.$ajax.get("/datamaster/channelmarketing",{
           headers: {
             Authorization: this.TOKEN
           }
         }).then(({ data }) => {
-          this.datatable = data.ruangan;
+          this.datatable = data.channelmarketing;
           this.datatableLoading = false;
         }).catch(() => {
           this.datatableLoading = false;
@@ -286,11 +258,10 @@
           this.btnLoading = true;
           if (this.editedIndex > -1)
           {
-            await this.$ajax.post("/datamaster/ruangankelas/"+this.formdata.id,
+            await this.$ajax.post("/datamaster/channelmarketing/"+this.formdata.id,
               {
                 _method: "PUT",
-                namaruang: this.formdata.namaruang,
-                kapasitas: this.formdata.kapasitas,
+                namachannel: this.formdata.namachannel,
               },
               {
                 headers: {
@@ -298,7 +269,7 @@
                 }
               }
             ).then(({ data }) => {
-              Object.assign(this.datatable[this.editedIndex], data.ruangan);
+              Object.assign(this.datatable[this.editedIndex], data.channelmarketing);
               this.closedialogfrm();
               this.btnLoading = false;
             }).catch(() => {
@@ -306,21 +277,22 @@
             });
 
           } else {
-            await this.$ajax.post("/datamaster/ruangankelas/store",
+            await this.$ajax.post("/datamaster/channelmarketing/store",
               {
-                namaruang: this.formdata.namaruang,
-                kapasitas: this.formdata.kapasitas,
+                namachannel: this.formdata.namachannel,
               },
               {
                 headers: {
                   Authorization: this.TOKEN
                 }
               }
-            ).then(({ data }) => {
-              this.datatable.push(data.ruangan);
+            )
+            .then(({ data }) => {
+              this.datatable.push(data.channelmarketing);
               this.closedialogfrm();
               this.btnLoading = false;
-            }).catch(() => {
+            })
+            .catch(() => {
               this.btnLoading = false;
             });
           }
@@ -331,7 +303,7 @@
             if (confirm) {
               this.btnLoading = true;
                 this.$ajax.post(
-                  "/datamaster/ruangankelas/" + item.id,
+                  "/datamaster/channelmarketing/" + item.id,
                   {
                     _method: "DELETE",
                   },

@@ -138,7 +138,7 @@ class SoalPMBController extends Controller {
                                         'pid' => 'fetchdata',
                                         'soal' => $soal,
                                         'jawaban' => $jawaban,
-                                        'message'=>"Fetch data soal pmb dengan id ($id) berhasil diperoleh."
+                                        'message' => "Fetch data soal pmb dengan id ($id) berhasil diperoleh."
                                     ], 200);
         }
     }
@@ -186,7 +186,7 @@ class SoalPMBController extends Controller {
                                         'status' => 1,
                                         'pid' => 'update',
                                         'soal' => $soal,
-                                        'message'=>"Mengubah data soal pmb dengan id ($id) berhasil."
+                                        'message' => "Mengubah data soal pmb dengan id ($id) berhasil."
                                     ], 200);
         }
     }
@@ -219,13 +219,13 @@ class SoalPMBController extends Controller {
                                                             'object' => $this->guard()->user(),
                                                             'object_id' => $this->guard()->user()->id,
                                                             'soal_id' => $soal->id,
-                                                            'message' => 'Menghapus Soal PMB ('.$nama_soal.') berhasil'
+                                                            'message' => 'Menghapus Soal PMB (' . $nama_soal. ') berhasil'
                                                         ]);
 
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',
-                                        'message'=>"Soal Ujian PMB ($nama_soal) berhasil dihapus"
+                                        'message' => "Soal Ujian PMB ($nama_soal) berhasil dihapus"
                                     ], 200);
         }
 

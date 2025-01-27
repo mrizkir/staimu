@@ -74,7 +74,7 @@ class PageInfoKampusController extends Controller {
                                     'status'=>0,
                                     'pid' => 'fetchdata',    
                                     'post' => $post,
-                                    'message'=>"Post dengan id ($id) berhasil diperoleh"
+                                    'message' => "Post dengan id ($id) berhasil diperoleh"
                                 ], 200); 
         }
     }
@@ -170,7 +170,7 @@ class PageInfoKampusController extends Controller {
                                     'status'=>0,
                                     'pid' => 'update',    
                                     'post' => $post,
-                                    'message'=>"Post dengan id ($id) berhasil diubah"
+                                    'message' => "Post dengan id ($id) berhasil diubah"
                                 ], 200); 
         }
     }
@@ -194,7 +194,7 @@ class PageInfoKampusController extends Controller {
 												'object' => $post, 
 												'object_id' => $post->id, 
 												'user_id' => $this->getUserid(), 
-												'message' => 'Menghapus post dengan id ('.$id.') berhasil'
+												'message' => 'Menghapus post dengan id (' . $id. ') berhasil'
 											]);
 
 			\DB::transaction(function () use ($post) {
@@ -210,7 +210,7 @@ class PageInfoKampusController extends Controller {
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Post dengan kode ($id) berhasil dihapus"
+                                        'message' => "Post dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
                   

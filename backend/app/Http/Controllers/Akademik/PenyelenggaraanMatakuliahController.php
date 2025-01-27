@@ -157,7 +157,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 									'status' => 1,
 									'pid' => 'fetchdata',        
 									'penyelenggaraan' => $penyelenggaraan,
-									'message'=>"Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
+									'message' => "Penyelenggaraan dengan id ($id) matakuliah berhasil diperoleh."
 								], 200);
 		}
 	}
@@ -331,7 +331,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 								'status' => 1,
 								'pid' => 'fetchdata',        
 								'matakuliah' => $data,
-								'message'=>"Daftar matakuliah yang di ampu oleh ($user_id) berhasil diperoleh."
+								'message' => "Daftar matakuliah yang di ampu oleh ($user_id) berhasil diperoleh."
 							], 200);
 		
 	}
@@ -406,13 +406,13 @@ class PenyelenggaraanMatakuliahController extends Controller
 																'object' => $dosen, 
 																'object_id' => $dosen->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+																'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan (' . $idpenyelenggaraan. ') berhasil'
 															]);
 			
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'update',    
-										'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan ('.$idpenyelenggaraan.') berhasil'
+										'message' => 'Mengupdate ketua group dosen pengampu dengan id penyelenggaraan (' . $idpenyelenggaraan. ') berhasil'
 									], 200);    
 		}
 	}
@@ -442,13 +442,13 @@ class PenyelenggaraanMatakuliahController extends Controller
 																'object' => $penyelenggaraan, 
 																'object_id' => $penyelenggaraan->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menghapus penyelenggaraan matakuliah dengan id ('.$id.') berhasil'
+																'message' => 'Menghapus penyelenggaraan matakuliah dengan id (' . $id. ') berhasil'
 															]);
 			$penyelenggaraan->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"Penyelenggaraan dengan ID ($id) berhasil dihapus"
+										'message' => "Penyelenggaraan dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
 				  
@@ -479,13 +479,13 @@ class PenyelenggaraanMatakuliahController extends Controller
 																'object' => $dosen, 
 																'object_id' => $dosen->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menghapus penyelenggaraan dosen dengan id ('.$id.') berhasil'
+																'message' => 'Menghapus penyelenggaraan dosen dengan id (' . $id. ') berhasil'
 															]);
 			$dosen->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"Penyelenggaraan Dosen dengan ID ($id) berhasil dihapus"
+										'message' => "Penyelenggaraan Dosen dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
 				  

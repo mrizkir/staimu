@@ -102,7 +102,7 @@ class TransaksiDulangMHSBaruController extends Controller {
 
             if ($request->has('search'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.no_formulir LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                                                     ->get();
             }  
             else
@@ -266,13 +266,13 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                             'object' => $transaksi, 
                                                             'object_id' => $transaksi->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus transaksi daftar ulang mahasiswa baru dengan id ('.$id.') berhasil'
+                                                            'message' => 'Menghapus transaksi daftar ulang mahasiswa baru dengan id (' . $id. ') berhasil'
                                                         ]);
             $transaksi->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
+                                        'message' => "transaksi registrasi dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }
         else

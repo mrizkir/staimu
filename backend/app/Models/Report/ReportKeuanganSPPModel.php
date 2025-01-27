@@ -149,7 +149,7 @@ class ReportKeuanganSPPModel extends ReportModel
           $sheet->setCellValue("E$row",$v->nama_mhs);
           $sheet->setCellValue("F$row",$v->nkelas);
           $sheet->setCellValue("G$row",$v->nama_status);
-          $sheet->setCellValue("H$row",Helper::getNamaBulan($v->bulan) . ' '.$v->tahun);
+          $sheet->setCellValue("H$row",Helper::getNamaBulan($v->bulan) . ' ' . $v->tahun);
           $sheet->setCellValueExplicit("I$row",Helper::formatUang($v->sub_total),\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);     
           switch($v->status)
           {

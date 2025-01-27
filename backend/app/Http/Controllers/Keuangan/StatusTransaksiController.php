@@ -46,7 +46,7 @@ class StatusTransaksiController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',     
                                     'status' => $status,                            
-                                    'message' => 'Mengubah status transaksi '.$status->nama_status.' berhasil.'
+                                    'message' => 'Mengubah status transaksi ' . $status->nama_status. ' berhasil.'
                                 ], 200);
     } 
 }

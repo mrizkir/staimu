@@ -169,7 +169,7 @@ class JadwalUjianPMBController extends Controller {
 										'status' => 1,
 										'pid' => 'fetchdata',          
 										'jadwal_ujian' => $jadwal_ujian,                                                                                                                                                                                                           
-										'message'=>"Fetch data jadwal ujian pmb dengan id ($id) berhasil diperoleh."
+										'message' => "Fetch data jadwal ujian pmb dengan id ($id) berhasil diperoleh."
 									], 200); 
 		}
 		else
@@ -200,7 +200,7 @@ class JadwalUjianPMBController extends Controller {
 										'pid' => 'fetchdata',          
 										'jadwal_ujian' => $jadwal_ujian,                                                                                                                                                                        
 										'peserta' => $peserta,                                                                                                                                                                        
-										'message'=>"Fetch data jadwal ujian pmb dengan id ($id) berhasil diperoleh."
+										'message' => "Fetch data jadwal ujian pmb dengan id ($id) berhasil diperoleh."
 									], 200);
 		}
 	} 
@@ -247,7 +247,7 @@ class JadwalUjianPMBController extends Controller {
 										'status' => 1,
 										'pid' => 'update',  
 										'jadwal_ujian' => $jadwal_ujian,                                                                                                                                                                                                                 
-										'message'=>"Mengubah data jadwal ujian pmb dengan id ($id) berhasil."                                        
+										'message' => "Mengubah data jadwal ujian pmb dengan id ($id) berhasil."                                        
 									], 200);    
 		}
 	}     
@@ -290,7 +290,7 @@ class JadwalUjianPMBController extends Controller {
 										'status' => 1,
 										'pid' => 'update',  
 										'jadwal_ujian' => $jadwal_ujian,                                                                                                                                                                                                                 
-										'message'=>"ujian pmb dengan id ($id) berhasil dimulai."                                        
+										'message' => "ujian pmb dengan id ($id) berhasil dimulai."                                        
 									], 200);    
 		}
 	}
@@ -324,13 +324,13 @@ class JadwalUjianPMBController extends Controller {
 															'object' => $this->guard()->user(), 
 															'object_id' => $this->guard()->user()->id, 
 															'jadwal_ujian_id' => $jadwal_ujian->id, 
-															'message' => 'Menghapus Jadwal Ujian PMB ('.$nama_kegiatan.') berhasil'
+															'message' => 'Menghapus Jadwal Ujian PMB (' . $nama_kegiatan. ') berhasil'
 														]);
 		
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"Jadwal Ujian PMB ($nama_kegiatan) berhasil dihapus"
+										'message' => "Jadwal Ujian PMB ($nama_kegiatan) berhasil dihapus"
 									], 200);    
 		}
 				  

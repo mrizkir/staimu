@@ -377,14 +377,14 @@ class PPLPKLController extends Controller
 															'object' => $pplpkl, 
 															'object_id' => $pplpkl->id, 
 															'user_id' => $this->getUserid(), 
-															'message' => 'Menghapus PPL / PKL dengan id ('.$id.') berhasil'
+															'message' => 'Menghapus PPL / PKL dengan id (' . $id. ') berhasil'
 														]);
 
 			$pplpkl->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"PPL / PKL dengan ID ($id) berhasil dihapus"
+										'message' => "PPL / PKL dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
 		else 

@@ -313,7 +313,7 @@ class UjianMunaqasahController extends Controller
 											'status'=>0,
 											'pid' => 'store',
 											'persyaratan' => $ujian_munaqasah->file,    
-											'message'=>"Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
+											'message' => "Persyaratan Ujian Munaqasah (". $ujian_munaqasah->nama_persyaratan. ")  berhasil diupload"
 										], 200);    
 			}
 			else
@@ -563,13 +563,13 @@ class UjianMunaqasahController extends Controller
 															'object' => $ujian, 
 															'object_id' => $ujian->id, 
 															'user_id' => $this->getUserid(), 
-															'message' => 'Menghapus Ujian Munaqasah dengan id ('.$id.') berhasil'
+															'message' => 'Menghapus Ujian Munaqasah dengan id (' . $id. ') berhasil'
 														]);
 			$ujian->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"Ujian munaqasah dengan ID ($id) berhasil dihapus"
+										'message' => "Ujian munaqasah dengan ID ($id) berhasil dihapus"
 									], 200);    
 		}
 		else 

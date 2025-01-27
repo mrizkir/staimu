@@ -69,7 +69,7 @@ class ReportAkademikKHSModel extends ReportModel
 		$sheet->setCellValue("A$row",'NO');        
 		$sheet->setCellValue("B$row",'NIM');    
 		$sheet->setCellValue("C$row",'NAMA MAHASISWA');    
-		$sheet->setCellValue("D$row",'ANGK.');    
+		$sheet->setCellValue("D$row",'ANGK. ');    
 		$sheet->setCellValue("E$row",'KELAS');    
 		$sheet->setCellValue("F$row",'JUMLAH MATKUL');
 		$sheet->setCellValue("G$row",'JUMLAH SKS');    

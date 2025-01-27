@@ -648,7 +648,7 @@
 			},
 			async viewItem(item) {
 				this.formdata = item;
-				await this.$ajax.get("/akademik/matakuliah/"+item.id,
+				await this.$ajax.get("/akademik/matakuliah/" + item.id,
 				{
 					headers: {
 						Authorization: this.TOKEN,
@@ -669,7 +669,7 @@
 					this.group_matakuliah=data.group_matakuliah;
 				});
 
-				await this.$ajax.get("/akademik/matakuliah/"+item.id,
+				await this.$ajax.get("/akademik/matakuliah/" + item.id,
 				{
 					headers: {
 						Authorization: this.TOKEN,

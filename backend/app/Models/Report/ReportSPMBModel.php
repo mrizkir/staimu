@@ -254,7 +254,7 @@ class ReportSPMBModel extends ReportModel
 			$sheet->setCellValueExplicit("H$row",$v->telp_hp,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);        
 			$sheet->setCellValue("I$row",$v->telp_rumah);
 			$sheet->setCellValue("J$row",$v->nkelas);
-			$sheet->setCellValue("K$row",$v->nama_prodi.' ('.$v->nama_jenjang.')');
+			$sheet->setCellValue("K$row",$v->nama_prodi. ' (' . $v->nama_jenjang . ')');
 			$sheet->setCellValue("L$row",Helper::tanggal($v->created_at));
 
 			$row+=1;
@@ -345,7 +345,7 @@ class ReportSPMBModel extends ReportModel
 		$sheet->setCellValue("I$row",'TELEPON RUMAH');
 		$sheet->setCellValue("J$row",'KELAS');
 		$sheet->setCellValue("K$row",'NILAI');
-		$sheet->setCellValue("L$row",'KET.');
+		$sheet->setCellValue("L$row",'KET. ');
 		$sheet->setCellValue("M$row",'TGL. DAFTAR');
 
 		$styleArray=array(
@@ -502,7 +502,7 @@ class ReportSPMBModel extends ReportModel
 		$sheet->setCellValue("K$row",'TELEPON RUMAH');
 		$sheet->setCellValue("L$row",'KELAS');
 		$sheet->setCellValue("M$row",'NILAI');
-		$sheet->setCellValue("N$row",'KET.');
+		$sheet->setCellValue("N$row",'KET. ');
 		$sheet->setCellValue("O$row",'TGL. DAFTAR');
 
 		$styleArray=array(
@@ -660,7 +660,7 @@ class ReportSPMBModel extends ReportModel
 		$sheet->setCellValue("I$row",'TELEPON RUMAH');
 		$sheet->setCellValue("J$row",'KELAS');
 		$sheet->setCellValue("K$row",'NILAI');
-		$sheet->setCellValue("L$row",'KET.');
+		$sheet->setCellValue("L$row",'KET. ');
 		$sheet->setCellValue("M$row",'TGL. DAFTAR');
 
 		$styleArray=array(

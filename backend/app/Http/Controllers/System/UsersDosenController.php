@@ -104,14 +104,14 @@ class UsersDosenController extends Controller {
 			$role='dosen';   
 			$user->assignRole($role);          
 			
-			$permission=Role::findByName('dosen')->permissions;
+			$permission = Role::findByName('dosen')->permissions;
 			$permissions=$permission->pluck('name');
 			$user->givePermissionTo($permissions);
 			
 			if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
 			{
 				$user->assignRole('dosenwali'); 
-				$permission=Role::findByName('dosenwali')->permissions;
+				$permission = Role::findByName('dosenwali')->permissions;
 				$permissions=$permission->pluck('name');
 				$user->givePermissionTo($permissions);
 			}
@@ -132,7 +132,7 @@ class UsersDosenController extends Controller {
 										'object' => $this->guard()->user(), 
 										'object_id' => $this->guard()->user()->id, 
 										'user_id' => $this->getUserid(), 
-										'message' => 'Menambah user Dosen ('.$user->username.') berhasil'
+										'message' => 'Menambah user Dosen (' . $user->username. ') berhasil'
 									]);
 
 		return Response()->json([
@@ -168,19 +168,19 @@ class UsersDosenController extends Controller {
 			$this->validate($request, [
 										'username' => [
 														'required',
-														'unique:users,username, '.$user->id
+														'unique:users,username, ' . $user->id
 													],           
 										'nidn' => [
 													'numeric',
-													'unique:pe3_dosen,nidn, '.$user->id.',user_id'
+													'unique:pe3_dosen,nidn, ' . $user->id.',user_id'
 												],           
 										'nipy' => [
 													'numeric',
-													'unique:pe3_dosen,nipy, '.$user->id.',user_id'
+													'unique:pe3_dosen,nipy, ' . $user->id.',user_id'
 												],           
 										'name' => 'required',
-										'email' => 'required|string|email|unique:users,email, '.$user->id,
-										'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,           
+										'email' => 'required|string|email|unique:users,email, ' . $user->id,
+										'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $user->id,           
 									]); 
 
 			$user = \DB::transaction(function () use ($request,$user) {
@@ -204,14 +204,14 @@ class UsersDosenController extends Controller {
 				if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
 				{
 					$user->assignRole('dosenwali'); 
-					$permission=Role::findByName('dosenwali')->permissions;
+					$permission = Role::findByName('dosenwali')->permissions;
 					$permissions=$permission->pluck('name');
 					$user->givePermissionTo($permissions);
 				}
 				else
 				{
 					$user->removeRole('dosenwali');
-					$permission=Role::findByName('dosenwali')->permissions;
+					$permission = Role::findByName('dosenwali')->permissions;
 					$permissions=$permission->pluck('name');
 					$user->revokePermissionTo($permissions);
 				}
@@ -223,14 +223,14 @@ class UsersDosenController extends Controller {
 														'object' => $this->guard()->user(), 
 														'object_id' => $this->guard()->user()->id, 
 														'user_id' => $this->getUserid(), 
-														'message' => 'Mengubah data user Dosen ('.$user->username.') berhasil'
+														'message' => 'Mengubah data user Dosen (' . $user->username. ') berhasil'
 													]);
 
 			return Response()->json([
 									'status' => 1,
 									'pid' => 'update',
 									'user' => $user,      
-									'message' => 'Data user Dosen '.$user->username.' berhasil diubah.'
+									'message' => 'Data user Dosen ' . $user->username. ' berhasil diubah.'
 								], 200); 
 		}
 		else
@@ -296,7 +296,7 @@ class UsersDosenController extends Controller {
 									'status' => 1,
 									'pid' => 'fetchdata',    
 									'biodatadiri' => $biodatadiri,      
-									'message' => 'Data Biodata Diri Dosen '.$biodatadiri->username.' berhasil diperoleh.'
+									'message' => 'Data Biodata Diri Dosen ' . $biodatadiri->username. ' berhasil diperoleh.'
 								], 200); 
 		}
 	}
@@ -334,18 +334,18 @@ class UsersDosenController extends Controller {
 			$this->validate($request, [          
 				'nidn' => [
 							'numeric',
-							'unique:pe3_dosen,nidn, '.$biodatadiri->user_id.',user_id'
+							'unique:pe3_dosen,nidn, ' . $biodatadiri->user_id.',user_id'
 						],           
 				'nipy' => [
 							'numeric',
-							'unique:pe3_dosen,nipy, '.$biodatadiri->user_id.',user_id'
+							'unique:pe3_dosen,nipy, ' . $biodatadiri->user_id.',user_id'
 						],           
 				'nama_dosen' => 'required',
 				'tempat_lahir' => 'required',
 				'tanggal_lahir' => 'required',
 				'jk' => 'required',                
-				'email' => 'required|string|email|unique:users,email, '.$biodatadiri->user_id,
-				'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$biodatadiri->user_id,           
+				'email' => 'required|string|email|unique:users,email, ' . $biodatadiri->user_id,
+				'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $biodatadiri->user_id,           
 				'alamat_rumah' => 'required',
 			]); 
 
@@ -380,7 +380,7 @@ class UsersDosenController extends Controller {
 														'object' => $this->guard()->user(), 
 														'object_id' => $this->guard()->user()->id, 
 														'user_id' => $this->getUserid(), 
-														'message' => 'Mengubah biodata pribadi Dosen ('.$user->username.') berhasil'
+														'message' => 'Mengubah biodata pribadi Dosen (' . $user->username. ') berhasil'
 													]);
 
 			return Response()->json([
@@ -388,7 +388,7 @@ class UsersDosenController extends Controller {
 									'pid' => 'update',
 									'user' => $user,      
 									'biodatadiri' => $biodatadiri,      
-									'message' => 'Biodata diri Dosen '.$user->username.' berhasil diubah.'
+									'message' => 'Biodata diri Dosen ' . $user->username. ' berhasil diubah.'
 								], 200); 
 		}
 	}
@@ -422,13 +422,13 @@ class UsersDosenController extends Controller {
 																'object' => $this->guard()->user(), 
 																'object_id' => $this->guard()->user()->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menghapus user Dosen ('.$username.') berhasil'
+																'message' => 'Menghapus user Dosen (' . $username. ') berhasil'
 															]);
 		
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"User Dosen ($username) berhasil dihapus"
+										'message' => "User Dosen ($username) berhasil dihapus"
 									], 200);    
 		}
 				  

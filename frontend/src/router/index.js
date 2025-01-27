@@ -115,6 +115,17 @@ const routes = [
     component: () => import("../views/pages/admin/dmaster/PersyaratanPMB.vue"),
   },
   {
+    path: "/dmaster/channelmarketing",
+    name: "DMasterChannelMarketing",
+    meta: {
+      title: "DATA MASTER - CHANNEL MARKETING",
+      requiresAuth: true,
+    },
+    component: () =>
+      import("../views/pages/admin/dmaster/ChannelMarketing.vue"),
+  },
+  // dmaster - mahasiswa
+  {
     path: "/dmaster/jabatanakademik",
     name: "DMasterJabatanAkademik",
     meta: {
@@ -327,7 +338,8 @@ const routes = [
       title: "SPMB - UJIAN ONLINE",
       requiresAuth: true,
     },
-    component: () => import("../views/pages/admin/spmb/CekJawabanUjianOnline.vue"),
+    component: () =>
+      import("../views/pages/admin/spmb/CekJawabanUjianOnline.vue"),
   },
   {
     path: "/spmb/nilaiujian",
@@ -372,7 +384,8 @@ const routes = [
       title: "SPMB - PESERTA DAFTAR ULANG",
       requiresAuth: true,
     },
-    component: () => import("../views/pages/admin/spmb/PesertaDulangDetail.vue"),
+    component: () =>
+      import("../views/pages/admin/spmb/PesertaDulangDetail.vue"),
   },
   {
     path: "/spmb/pesertadulang/:user_id/edit",

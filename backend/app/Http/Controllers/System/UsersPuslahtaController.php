@@ -68,7 +68,7 @@ class UsersPuslahtaController extends Controller {
             $role='puslahta';   
             $user->assignRole($role);          
             
-            $permission=Role::findByName('puslahta')->permissions;
+            $permission = Role::findByName('puslahta')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
@@ -112,7 +112,7 @@ class UsersPuslahtaController extends Controller {
                 if ($v=='dosen' || $v=='dosenwali' )
                 {
                     $user->assignRole($v);          
-                    $permission=Role::findByName($v)->permissions;
+                    $permission = Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
@@ -136,7 +136,7 @@ class UsersPuslahtaController extends Controller {
                                             'object' => $this->guard()->user(), 
                                             'object_id' => $this->guard()->user()->id, 
                                             'user_id' => $this->getUserid(), 
-                                            'message' => 'Menambah user PUSLAHTA('.$user->username.') berhasil'
+                                            'message' => 'Menambah user PUSLAHTA(' . $user->username. ') berhasil'
                                         ]);
 
             return $user;
@@ -173,7 +173,7 @@ class UsersPuslahtaController extends Controller {
                                     'pid' => 'fetchdata',
                                     'user' => $user,  
                                     'role_dosen' => $user->hasRole('dosen'),    
-                                    'message' => 'Data user '.$user->username.' berhasil diperoleh.'
+                                    'message' => 'Data user ' . $user->username. ' berhasil diperoleh.'
                                 ], 200); 
         }
 
@@ -203,11 +203,11 @@ class UsersPuslahtaController extends Controller {
             $this->validate($request, [
                                         'username' => [
                                                         'required',
-                                                        'unique:users,username, '.$user->id
+                                                        'unique:users,username, ' . $user->id
                                                     ],           
                                         'name' => 'required',
-                                        'email' => 'required|string|email|unique:users,email, '.$user->id,
-                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,   
+                                        'email' => 'required|string|email|unique:users,email, ' . $user->id,
+                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $user->id,   
                                         'prodi_id' => 'required',           
                                     ]); 
             $user = \DB::transaction(function () use ($request,$user) {
@@ -224,14 +224,14 @@ class UsersPuslahtaController extends Controller {
                 if ($request->input('role_dosen')=='true')
                 {
                     $user->assignRole('dosen'); 
-                    $permission=Role::findByName('dosen')->permissions;
+                    $permission = Role::findByName('dosen')->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
                 }
                 elseif ($user->hasRole('dosen'))
                 {
                     $user->removeRole('dosen');
-                    $permission=Role::findByName('dosen')->permissions;
+                    $permission = Role::findByName('dosen')->permissions;
                     $permissions=$permission->pluck('name');
                     $user->revokePermissionTo($permissions);
                 }    
@@ -284,7 +284,7 @@ class UsersPuslahtaController extends Controller {
                 {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
-                        $permission=Role::findByName($v)->permissions;
+                        $permission = Role::findByName($v)->permissions;
                         $permissions=$permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
@@ -325,7 +325,7 @@ class UsersPuslahtaController extends Controller {
                                                             'object' => $this->guard()->user(), 
                                                             'object_id' => $this->guard()->user()->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Mengubah data user PUSLAHTA ('.$user->username.') berhasil'
+                                                            'message' => 'Mengubah data user PUSLAHTA (' . $user->username. ') berhasil'
                                                         ]);
                 return $user;
             });
@@ -334,7 +334,7 @@ class UsersPuslahtaController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',
                                     'user' => $user,      
-                                    'message' => 'Data user PUSLAHTA '.$user->username.' berhasil diubah.'
+                                    'message' => 'Data user PUSLAHTA ' . $user->username. ' berhasil diubah.'
                                 ], 200); 
         }
     }
@@ -368,13 +368,13 @@ class UsersPuslahtaController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus user PUSLAHTA ('.$username.') berhasil'
+                                                                'message' => 'Menghapus user PUSLAHTA (' . $username. ') berhasil'
                                                             ]);
         
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"User PUSLAHTA ($username) berhasil dihapus"
+                                        'message' => "User PUSLAHTA ($username) berhasil dihapus"
                                     ], 200);    
         }
                   

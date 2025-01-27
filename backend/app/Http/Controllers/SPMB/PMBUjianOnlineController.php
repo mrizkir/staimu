@@ -266,7 +266,7 @@ class PMBUjianOnlineController extends Controller {
 		return Response()->json([
 									'status' => 1,
 									'pid' => 'destroy',    
-									'message'=>"Peserta berhasil dihapus dari jadwal ujian ini"
+									'message' => "Peserta berhasil dihapus dari jadwal ujian ini"
 								], 200);  
 	
 	}

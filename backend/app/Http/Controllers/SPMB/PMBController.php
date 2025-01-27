@@ -59,7 +59,7 @@ class PMBController extends Controller {
     
     if ($request->has('search'))
     {
-      $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+      $data = $data->whereRaw('(users.username LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
       ->get();
     }  
     else
@@ -154,7 +154,7 @@ class PMBController extends Controller {
           $body = json_decode((string)$response->getBody());
           if (!$body->success)
           {
-            $fail('Token Google Captcha, salah !!!.');
+            $fail('Token Google Captcha, salah !!!. ');
           }
         }
       ]
@@ -189,7 +189,7 @@ class PMBController extends Controller {
       ]);       
       $role='mahasiswabaru';   
       $user->assignRole($role);
-      $permission=Role::findByName('mahasiswabaru')->permissions;
+      $permission = Role::findByName('mahasiswabaru')->permissions;
       $user->givePermissionTo($permission->pluck('name'));        
       
       FormulirPendaftaranModel::create([
@@ -264,7 +264,7 @@ class PMBController extends Controller {
       ]);       
       $role='mahasiswabaru';   
       $user->assignRole($role);
-      $permission=Role::findByName('mahasiswabaru')->permissions;
+      $permission = Role::findByName('mahasiswabaru')->permissions;
       $user->givePermissionTo($permission->pluck('name'));        
       
       FormulirPendaftaranModel::create([
@@ -409,7 +409,7 @@ class PMBController extends Controller {
         'status' => 1,
         'pid' => 'fetchdata',  
         'formulir' => $formulir,  
-        'message'=>"Mahasiswa baru a.n {$formulir->nama_mhs} telah melakukan daftar ulang mahasiswa baru"
+        'message' => "Mahasiswa baru a.n {$formulir->nama_mhs} telah melakukan daftar ulang mahasiswa baru"
       ], 200);
     }
     else 
@@ -417,7 +417,7 @@ class PMBController extends Controller {
       return Response()->json([
         'status'=>0,
         'pid' => 'fetchdata',  				  
-        'message'=>"Mahasiswa baru a.n {$formulir->nama_mhs} BELUM melakukan daftar ulang. Minta Mahasiswa baru tersebut, untuk Login dan Isi Formulir Daftar Ulang"
+        'message' => "Mahasiswa baru a.n {$formulir->nama_mhs} BELUM melakukan daftar ulang. Minta Mahasiswa baru tersebut, untuk Login dan Isi Formulir Daftar Ulang"
       ], 422);
     }
   }
@@ -489,8 +489,8 @@ class PMBController extends Controller {
                     'status' => 1,
                     'pid' => 'fetchdata',    
                     'formulir' => $formulir,        
-                    'no_transaksi'=>"$no_transaksi ",
-                    'message'=>"Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
+                    'no_transaksi' => "$no_transaksi ",
+                    'message' => "Formulir Pendaftaran dengan ID ($id) berhasil diperoleh"
                   ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
     }
 
@@ -624,7 +624,7 @@ class PMBController extends Controller {
 
         $role='mahasiswabaru';   
         $user->assignRole($role);
-        $permission=Role::findByName('mahasiswabaru')->permissions;
+        $permission = Role::findByName('mahasiswabaru')->permissions;
         $user->givePermissionTo($permission->pluck('name'));        
         
         //buat transaksi keuangan pmb
@@ -726,13 +726,13 @@ class PMBController extends Controller {
                                 'object' => $this->guard()->user(), 
                                 'object_id' => $this->guard()->user()->id, 
                                 'user_id' => $this->getUserid(), 
-                                'message' => 'Menghapus Mahasiswa Baru ('.$name.') berhasil'
+                                'message' => 'Menghapus Mahasiswa Baru (' . $name. ') berhasil'
                               ]);
     
       return Response()->json([
                     'status' => 1,
                     'pid' => 'destroy',    
-                    'message'=>"Mahasiswa Baru ($name) berhasil dihapus"
+                    'message' => "Mahasiswa Baru ($name) berhasil dihapus"
                   ], 200);    
     }
           
@@ -754,7 +754,7 @@ class PMBController extends Controller {
     return Response()->json([
                 'status' => 1,
                 'pid' => 'resendemail',    
-                'message'=>"Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
+                'message' => "Kirim ulang data dan konfirmasi PMB ($name) berhasil dikirim"
               ], 200);    
   } 
 }

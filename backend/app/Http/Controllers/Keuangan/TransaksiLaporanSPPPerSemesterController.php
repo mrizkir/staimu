@@ -57,7 +57,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
 
         if ($request->has('search'))
         {          
-            $daftar_transaksi=$daftar_transaksi->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+            $daftar_transaksi=$daftar_transaksi->whereRaw('(A.nim LIKE \'' . $request->input('search').'%\' OR B.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                                                 ->get();
         }  
         else
@@ -275,7 +275,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                 id,
                                 bulan AS no_bulan,
                                 \'\' AS nama_bulan,
-                                '.$transaksi->ta.' AS tahun,
+                                ' . $transaksi->ta. ' AS tahun,
                                 biaya AS biaya_kombi,
                                 true AS status,
                                 true AS isSelectable
@@ -292,7 +292,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                         'transaksi' => $transaksi,
                                         'transaksi_detail' => $transaksi_detail,
                                         'item_selected' => $item_selected,
-                                        'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
+                                        'message' => "Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
         catch (Exception $e)

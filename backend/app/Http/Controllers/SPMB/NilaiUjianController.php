@@ -49,7 +49,7 @@ class NilaiUjianController extends Controller {
         
         if ($request->has('search'))
         {
-            $data = $data->whereRaw('(users.username LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+            $data = $data->whereRaw('(users.username LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                         ->get();
             
         }  
@@ -129,7 +129,7 @@ class NilaiUjianController extends Controller {
                                                             'object' => $data_nilai, 
                                                             'object_id' => $data_nilai->user_id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
+                                                            'message' => "Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
                                                         ]);
             if ($ket_lulus==1)
             {        
@@ -146,7 +146,7 @@ class NilaiUjianController extends Controller {
                                     'status' => 1,
                                     'pid' => 'store',
                                     'data_nilai' => $data_nilai,    
-                                    'message'=>"Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
+                                    'message' => "Menyimpan status kelulusan Mahasiswa Baru ($keterangan) berhasil dilakukan."
                                 ], 200); 
 
     }      
@@ -222,13 +222,13 @@ class NilaiUjianController extends Controller {
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'fetchdata',            
-                                        'no_transaksi'=>"$no_transaksi ",                               
+                                        'no_transaksi' => "$no_transaksi ",                               
                                         'transaksi_status' => $transaksi_status,
                                         'daftar_prodi' => $daftar_prodi,
                                         'kjur' => $formulir->kjur1,        
                                         'data_nilai_ujian' => $data_nilai_ujian,  
                                         'formulir' => $formulir,      
-                                        'message'=>"Data nilai dengan ID ($id) berhasil diperoleh"
+                                        'message' => "Data nilai dengan ID ($id) berhasil diperoleh"
                                     ], 200);   
         }
 
@@ -280,7 +280,7 @@ class NilaiUjianController extends Controller {
                                                             'object' => $data_nilai, 
                                                             'object_id' => $data_nilai->user_id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
+                                                            'message' => "Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
                                                         ]);
                 if ($ket_lulus==1)
                 {        
@@ -296,7 +296,7 @@ class NilaiUjianController extends Controller {
                                         'status' => 1,
                                         'pid' => 'store',
                                         'data_nilai' => $data_nilai,
-                                        'message'=>"Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
+                                        'message' => "Mengubah status kelulusan Mahasiswa Baru menjadi ($keterangan) berhasil dilakukan."
                                     ], 200); 
         }
     } 
@@ -330,13 +330,13 @@ class NilaiUjianController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
+                                                                'message' => 'Menghapus Data nilai ujian pmb dengan user id (' . $data_nilai->user_id. ') berhasil'
                                                             ]);
         
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message' => 'Menghapus Data nilai ujian pmb dengan user id ('.$data_nilai->user_id.') berhasil'
+                                        'message' => 'Menghapus Data nilai ujian pmb dengan user id (' . $data_nilai->user_id. ') berhasil'
                                     ], 200);    
         }
                   

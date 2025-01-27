@@ -104,7 +104,7 @@ class MahasiswaBelumPunyaNIMController extends Controller
 			$user->save();
 
 			$user->syncRoles(['mahasiswa']); 
-			$permission=Role::findByName('mahasiswa')->permissions;
+			$permission = Role::findByName('mahasiswa')->permissions;
 			$permissions=$permission->pluck('name');
 			$user->givePermissionTo($permissions);
 			

@@ -115,7 +115,7 @@ class TransaksiKKNController extends Controller {
 
             if ($request->has('SEARCH'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('SEARCH').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('SEARCH').'%\')')        
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \'' . $request->input('SEARCH').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('SEARCH').'%\')')        
                                                     ->get();
             }  
             else
@@ -224,7 +224,7 @@ class TransaksiKKNController extends Controller {
                 ]);
 
                 $transaksi->total=$biaya_kombi;
-                $transaksi->desc='KULIAH KERJA NYATA '.$request->input('ta').$request->input('semester_akademik');
+                $transaksi->desc='KULIAH KERJA NYATA ' . $request->input('ta').$request->input('semester_akademik');
                 $transaksi->save();
 
                 return $transaksi;
@@ -276,13 +276,13 @@ class TransaksiKKNController extends Controller {
                                                             'object' => $transaksi, 
                                                             'object_id' => $transaksi->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus transaksi registrasi krs dengan id ('.$id.') berhasil'
+                                                            'message' => 'Menghapus transaksi registrasi krs dengan id (' . $id. ') berhasil'
                                                         ]);
             $transaksi->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"transaksi registrasi dengan id ($id) berhasil dihapus"
+                                        'message' => "transaksi registrasi dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }
         else

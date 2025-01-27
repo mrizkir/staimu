@@ -59,7 +59,7 @@ class PKRSController extends Controller
         
         if ($request->has('search'))
         {
-            $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+            $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                         ->orderBy('tasmt', 'desc')
                         ->get();
         }  
@@ -289,7 +289,7 @@ class PKRSController extends Controller
                                                     'object' => $krs, 
                                                     'object_id' => $krs->id, 
                                                     'user_id' => $this->getUserid(), 
-                                                    'message'=>"Menyimpan krs mahasiswa berhasil dilakukan."
+                                                    'message' => "Menyimpan krs mahasiswa berhasil dilakukan."
                                                 ]);
         return Response()->json([
                                     'status' => 1,
@@ -343,7 +343,7 @@ class PKRSController extends Controller
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'store',                                      
-                                    'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
+                                    'message'=>(count($daftar_matkul)). ' Matakuliah baru telah berhasil ditambahkan'
                                 ], 200);  
     }  
     public function updatestatus (Request $request,$id)
@@ -372,7 +372,7 @@ class PKRSController extends Controller
                     'object' => $krsmatkul, 
                     'object_id' => $krsmatkul->id, 
                     'user_id' => $this->getUserid(), 
-                    'message' => "Merubah status menjadi $status matakuliah KRS dengan id ('.$krsmatkul->id.') berhasil"
+                    'message' => "Merubah status menjadi $status matakuliah KRS dengan id (' . $krsmatkul->id. ') berhasil"
                 ]);
 
                 $krsmatkul->batal=$status;
@@ -410,7 +410,7 @@ class PKRSController extends Controller
                                         'status' => 1,
                                         'pid' => 'update', 
                                         'krsmatkul' => $krsmatkul,   
-                                        'message' => 'Memverifikasi Perubahan KRS dengan id ('.$id.') berhasil'
+                                        'message' => 'Memverifikasi Perubahan KRS dengan id (' . $id. ') berhasil'
                                     ], 200);    
         }
     }  
@@ -441,7 +441,7 @@ class PKRSController extends Controller
                     'object' => $krsmatkul, 
                     'object_id' => $krsmatkul->id, 
                     'user_id' => $this->getUserid(), 
-                    'message' => 'Menghapus matakuliah KRS dengan id ('.$krsmatkul->id.') berhasil'
+                    'message' => 'Menghapus matakuliah KRS dengan id (' . $krsmatkul->id. ') berhasil'
                 ]);
                 
                 \DB::table("pe3_kelas_mhs_peserta")
@@ -465,7 +465,7 @@ class PKRSController extends Controller
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                                        'message' => 'Menghapus matakuliah KRS dengan id (' . $id. ') berhasil'
                                     ], 200);    
         }
                   

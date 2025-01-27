@@ -49,7 +49,7 @@ class MahasiswaController extends Controller
                                         'status' => 1,
                                         'pid' => 'fetchdata',    
                                         'mahasiswa' => $mahasiswa,    
-                                        'message'=>"Data mahasiswa dengan id ($id) berhasil diperoleh"
+                                        'message' => "Data mahasiswa dengan id ($id) berhasil diperoleh"
                                     ], 200);
         }
     }
@@ -93,7 +93,7 @@ class MahasiswaController extends Controller
                                         'status' => 1,
                                         'pid' => 'fetchdata',    
                                         'mahasiswa' => $mahasiswa,    
-                                        'message'=>"Data mahasiswa dengan id ($id) berhasil diperoleh"
+                                        'message' => "Data mahasiswa dengan id ($id) berhasil diperoleh"
                                     ], 200);
         }
     }

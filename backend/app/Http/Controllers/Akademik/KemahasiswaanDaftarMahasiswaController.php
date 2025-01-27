@@ -40,7 +40,7 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
     
     if ($request->has('search'))
     {
-      $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+      $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
       ->get();
     }  
     else

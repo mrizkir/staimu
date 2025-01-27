@@ -103,7 +103,7 @@ class KonfirmasiPembayaranController extends Controller {
             
             if ($request->has('search'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_transaksi LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \'' . $request->input('search').'%\' OR pe3_transaksi.no_transaksi LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                                                     ->get();
             }  
             else
@@ -195,7 +195,7 @@ class KonfirmasiPembayaranController extends Controller {
                 'nama_bank_pengirim' => $request->input('nama_bank_pengirim'),
                 'desc' => $request->input('desc'),
                 'tanggal_bayar' => $request->input('tanggal_bayar'),    
-                'bukti_bayar'=>"/images/buktibayar/$file_name",  
+                'bukti_bayar' => "/images/buktibayar/$file_name",  
             ]);
             $bukti_bayar->move($folder,$file_name);
 
@@ -210,7 +210,7 @@ class KonfirmasiPembayaranController extends Controller {
                                         'status'=>0,
                                         'pid' => 'store',
                                         'konfirmasi' => $konfirmasi,    
-                                        'message'=>"Konfirmasi pembayaran untuk kode_billing ('.$transaksi->no_transaksi.')   berhasil diupload"
+                                        'message' => "Konfirmasi pembayaran untuk kode_billing (' . $transaksi->no_transaksi. ')   berhasil diupload"
                                     ], 200);  
         }      
         else
@@ -248,7 +248,7 @@ class KonfirmasiPembayaranController extends Controller {
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'update',          
-                                        'message'=>"Mengubah data konfirmasi dengan id ($id) berhasil."                                        
+                                        'message' => "Mengubah data konfirmasi dengan id ($id) berhasil."                                        
                                     ], 200);   
         }
         

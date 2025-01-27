@@ -40,7 +40,7 @@ class AuthController extends Controller
                                                         'object' => $this->guard()->user(), 
                                                         'object_id' => $this->getUserid(), 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'user '.$credentials['username'].' berhasil login'
+                                                        'message' => 'user ' . $credentials['username']. ' berhasil login'
                                                     ]);
 
         ConfigurationModel::toCache();  

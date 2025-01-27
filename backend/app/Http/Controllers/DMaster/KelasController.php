@@ -33,7 +33,7 @@ class KelasController extends Controller {
     {
         $this->hasPermissionTo('DMASTER-KELAS_STORE');
 
-        $rule=[            
+        $rule = [            
             'idkelas' => 'required|string|max:1|unique:pe3_kelas,idkelas',
             'nkelas' => 'required|string|unique:pe3_kelas,nkelas',         
         ];
@@ -127,14 +127,14 @@ class KelasController extends Controller {
                                                         'object' => $kelas,
                                                         'object_id' => $kelas->idkelas, 
                                                         'user_id' => $this->guard()->user()->idkelas, 
-                                                        'message' => 'Mengubah data kelas ('.$kelas->nkelas.') berhasil'
+                                                        'message' => 'Mengubah data kelas (' . $kelas->nkelas. ') berhasil'
                                                     ]);
 
             return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',
                                     'kelas' => $kelas,      
-                                    'message' => 'Data kelas '.$kelas->nkelas.' berhasil diubah.'
+                                    'message' => 'Data kelas ' . $kelas->nkelas. ' berhasil diubah.'
                                 ], 200); 
         }
     }    
@@ -164,13 +164,13 @@ class KelasController extends Controller {
                                                                 'object' => $kelas, 
                                                                 'object_id' => $kelas->idkelas, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Kode Kelas ('.$id.') berhasil'
+                                                                'message' => 'Menghapus Kode Kelas (' . $id. ') berhasil'
                                                             ]);
             $kelas->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Kelas dengan kode ($id) berhasil dihapus"
+                                        'message' => "Kelas dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
                   

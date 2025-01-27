@@ -77,7 +77,7 @@ class UsersController extends Controller {
                 if ($v!='superadmin')
                 {
                     $user->assignRole($v);          
-                    $permission=Role::findByName($v)->permissions;
+                    $permission = Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
@@ -102,7 +102,7 @@ class UsersController extends Controller {
                                             'object' => $this->guard()->user(), 
                                             'object_id' => $this->guard()->user()->id, 
                                             'user_id' => $this->getUserid(), 
-                                            'message' => 'Menambah user ('.$user->username.') berhasil'
+                                            'message' => 'Menambah user (' . $user->username. ') berhasil'
                                         ]);
 
             return $user;
@@ -143,7 +143,7 @@ class UsersController extends Controller {
                                         'status' => 1,
                                         'pid' => 'fetchdata',    
                                         'roles' => $roles,            
-                                        'message'=>"daftar roles user ($user->username) berhasil diperoleh"
+                                        'message' => "daftar roles user ($user->username) berhasil diperoleh"
                                     ], 200); 
         }
     }
@@ -170,7 +170,7 @@ class UsersController extends Controller {
         switch($role_name)
         {
             case 'mahasiswabaru':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $this->validate($request, [           
                     'ta' => 'required',
@@ -193,7 +193,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'mahasiswa':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $this->validate($request, [           
                     'ta' => 'required',
@@ -215,7 +215,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'pmb':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('pmb')
                         ->select(\DB::raw('users.id'))
@@ -229,7 +229,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'akademik':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('akademik')
                         ->select(\DB::raw('users.id'))
@@ -243,7 +243,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'programstudi':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('programstudi')
                         ->select(\DB::raw('users.id'))
@@ -257,7 +257,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'puslahta':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('puslahta')
                         ->select(\DB::raw('users.id'))
@@ -271,7 +271,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'keuangan':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('keuangan')
                         ->select(\DB::raw('users.id'))
@@ -285,7 +285,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'perpustakaan':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('perpustakaan')
                         ->select(\DB::raw('users.id'))
@@ -299,7 +299,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'lppm':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('lppm')
                         ->select(\DB::raw('users.id'))
@@ -313,7 +313,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'dosen':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosen')
                         ->select(\DB::raw('users.id'))
@@ -327,7 +327,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'dosenwali':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('dosenwali')
                         ->select(\DB::raw('users.id'))
@@ -341,7 +341,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'alumni':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('alumni')
                         ->select(\DB::raw('users.id'))
@@ -355,7 +355,7 @@ class UsersController extends Controller {
                 }      
             break;
             case 'orangtuawali':
-                $permission=Role::findByName($role_name)->permissions;
+                $permission = Role::findByName($role_name)->permissions;
                 $permissions=$permission->pluck('name');
                 $data = User::role('orangtuawali')
                         ->select(\DB::raw('users.id'))
@@ -372,7 +372,7 @@ class UsersController extends Controller {
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',                                                         
-                                    'message'=>"Permission seluruh user role ($role_name) berhasil disinkronisasi."
+                                    'message' => "Permission seluruh user role ($role_name) berhasil disinkronisasi."
                                 ], 200); 
     }    
     /**
@@ -401,12 +401,12 @@ class UsersController extends Controller {
                                                         'object' => $this->guard()->user(), 
                                                         'object_id' => $this->guard()->user()->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Mensetting permission user ('.$user->username.') berhasil'
+                                                        'message' => 'Mensetting permission user (' . $user->username. ') berhasil'
                                                     ]);
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'store',
-                                    'message' => 'Permission user '.$user->username.' berhasil disimpan.'
+                                    'message' => 'Permission user ' . $user->username. ' berhasil disimpan.'
                                 ], 200); 
     }
     /**
@@ -431,12 +431,12 @@ class UsersController extends Controller {
                                         'object' => $this->guard()->user(), 
                                         'object_id' => $this->guard()->user()->id, 
                                         'user_id' => $this->getUserid(), 
-                                        'message' => 'Menghilangkan permission('.$name.') user ('.$user->username.') berhasil'
+                                        'message' => 'Menghilangkan permission(' . $name. ') user (' . $user->username. ') berhasil'
                                     ]);
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'destroy',
-                                    'message' => 'Role user '.$user->username.' berhasil di revoke.'
+                                    'message' => 'Role user ' . $user->username. ' berhasil di revoke.'
                                 ], 200); 
     }
     /**
@@ -464,11 +464,11 @@ class UsersController extends Controller {
              $this->validate($request, [
                                         'username' => [
                                                         'required',
-                                                        'unique:users,username, '.$user->id
+                                                        'unique:users,username, ' . $user->id
                                                     ],           
                                         'name' => 'required',
-                                        'email' => 'required|string|email|unique:users,email, '.$user->id,
-                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,       
+                                        'email' => 'required|string|email|unique:users,email, ' . $user->id,
+                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $user->id,       
                                     ]);  
             
             $user = \DB::transaction(function () use ($request,$user) {
@@ -499,7 +499,7 @@ class UsersController extends Controller {
                 {
                     if ($v!='superadmin')
                     {              
-                        $permission=Role::findByName($v)->permissions;
+                        $permission = Role::findByName($v)->permissions;
                         $permissions=$permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
@@ -539,14 +539,14 @@ class UsersController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Mengubah data user ('.$user->username.') berhasil'
+                                                                'message' => 'Mengubah data user (' . $user->username. ') berhasil'
                                                             ]);
 
                 return Response()->json([
                                             'status' => 1,
                                             'pid' => 'update',
                                             'user' => $user,    
-                                            'message' => 'Data user '.$user->username.' berhasil diubah.'
+                                            'message' => 'Data user ' . $user->username. ' berhasil diubah.'
                                         ], 200); 
             });
         }
@@ -583,14 +583,14 @@ class UsersController extends Controller {
                                                             'object' => $this->guard()->user(), 
                                                             'object_id' => $this->getUserid(), 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Mengubah data password user ('.$user->username.') berhasil'
+                                                            'message' => 'Mengubah data password user (' . $user->username. ') berhasil'
                                                         ]);
 
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'update',
                                         'user' => $user,    
-                                        'message' => 'Password user '.$user->username.' berhasil diubah.'
+                                        'message' => 'Password user ' . $user->username. ' berhasil diubah.'
                                     ], 200); 
         }
     }
@@ -607,7 +607,7 @@ class UsersController extends Controller {
         $id = $user->id;
 
         $this->validate($request, [        
-            'email' => 'required|string|email|unique:users,email, '.$id,              
+            'email' => 'required|string|email|unique:users,email, ' . $id,              
         ]);
         
         $user->email = $request->input('email');
@@ -659,14 +659,14 @@ class UsersController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus user ('.$username.') berhasil'
+                                                                'message' => 'Menghapus user (' . $username. ') berhasil'
                                                             ]);
 
             return Response()->json([
                                     'status' => 1,
                                     'pid' => 'destroy',  
                                     'user' => $user,  
-                                    'message'=>"User ($username) berhasil dihapus"
+                                    'message' => "User ($username) berhasil dihapus"
                                 ], 200);    
         }
              
@@ -714,7 +714,7 @@ class UsersController extends Controller {
                                             'status'=>0,
                                             'pid' => 'store',
                                             'user' => $user,    
-                                            'message'=>"Foto User ($username)  berhasil diupload"
+                                            'message' => "Foto User ($username)  berhasil diupload"
                                         ], 200);    
             }
             else
@@ -761,7 +761,7 @@ class UsersController extends Controller {
                                         'status' => 1,
                                         'pid' => 'store',
                                         'user' => $user,    
-                                        'message'=>"Foto User ($username)  berhasil direset"
+                                        'message' => "Foto User ($username)  berhasil direset"
                                     ], 200); 
         }
     }
@@ -785,7 +785,7 @@ class UsersController extends Controller {
                                         'status' => 1,
                                         'pid' => 'fetchdata',
                                         'daftar_prodi' => $prodi,    
-                                        'message'=>"Daftar Prodi dari username ($username)  berhasil diperoleh"
+                                        'message' => "Daftar Prodi dari username ($username)  berhasil diperoleh"
                                     ], 200); 
         }
     }

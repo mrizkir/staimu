@@ -111,7 +111,7 @@ class TransaksiSPPController extends Controller {
                                                     ->orderBy('pe3_transaksi.tanggal', 'DESC');
             if ($request->has('search'))
             {
-                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+                $daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                                                     ->get();
             }  
             else
@@ -250,7 +250,7 @@ class TransaksiSPPController extends Controller {
                                 id,
                                 bulan AS no_bulan,
                                 \'\' AS nama_bulan,
-                                '.$transaksi->ta.' AS tahun,
+                                ' . $transaksi->ta. ' AS tahun,
                                 biaya AS biaya_kombi,
                                 true AS status,
                                 true AS isSelectable
@@ -267,7 +267,7 @@ class TransaksiSPPController extends Controller {
                                         'transaksi' => $transaksi,
                                         'transaksi_detail' => $transaksi_detail,
                                         'item_selected' => $item_selected,
-                                        'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
+                                        'message' => "Fetch data transaksi dengan id ($id) berhasil diperoleh."
                                     ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
         }
         catch (Exception $e)
@@ -317,7 +317,7 @@ class TransaksiSPPController extends Controller {
             }
             if ($mahasiswa->k_status == 'D' || $mahasiswa->k_status == 'K' || $mahasiswa->k_status == 'L')
             {                
-                throw new Exception ("Mahasiswa dengan NIM ($nim) telah ".$mahasiswa->n_status.' jadi tidak bisa membuat transaksi baru');  
+                throw new Exception ("Mahasiswa dengan NIM ($nim) telah ".$mahasiswa->n_status. ' jadi tidak bisa membuat transaksi baru');  
             }
             
             $tahun=$mahasiswa->tahun;
@@ -438,7 +438,7 @@ class TransaksiSPPController extends Controller {
                     'created_at'=>\Carbon\Carbon::now(),
                     'updated_at'=>\Carbon\Carbon::now()
                 ];
-                $nama_bulan.=$v['no_bulan'].' ';
+                $nama_bulan.=$v['no_bulan']. ' ';
                 $total_spp+=$v['biaya_kombi'];
             }
             \DB::table('pe3_transaksi_detail')
@@ -458,7 +458,7 @@ class TransaksiSPPController extends Controller {
                                     'pid' => 'store',                                      
                                     'bulan_selected' => $bulan_selected,                                      
                                     'bulan_spp' => $bulan_spp,                                      
-                                    'message'=>(count($bulan_spp)).' Bulan SPP telah berhasil ditambahkan'
+                                    'message'=>(count($bulan_spp)). ' Bulan SPP telah berhasil ditambahkan'
                                 ], 200);  
     }
     public function destroy (Request $request,$id)
@@ -502,13 +502,13 @@ class TransaksiSPPController extends Controller {
                                                             'object' => $detail, 
                                                             'object_id' => $detail->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
+                                                            'message' => 'Menghapus Transaksi Detail dengan ID (' . $id. ') berhasil'
                                                         ]);
     
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',          
-                                        'message' => 'Menghapus Transaksi Detail dengan ID ('.$id.') berhasil'
+                                        'message' => 'Menghapus Transaksi Detail dengan ID (' . $id. ') berhasil'
                                     ], 200);    
         }
     }
@@ -609,7 +609,7 @@ class TransaksiSPPController extends Controller {
             'status' => 1,
             'pid' => 'fetchdata',  
             'transaksi' => $daftar_transaksi,
-            'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
+            'message' => "Fetch data transaksi dengan id ($id) berhasil diperoleh."
         ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
     }
     /**

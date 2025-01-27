@@ -40,7 +40,7 @@ class KemahasiswaanController extends Controller {
                                         'object' => $this->guard()->user(), 
                                         'object_id' => $this->guard()->user()->id, 
                                         'user_id' => $this->getUserid(), 
-                                        'message' => 'Merubah status Mahasiswa baru menjadi active A.N ('.$user->username.') berhasil dilakukan'
+                                        'message' => 'Merubah status Mahasiswa baru menjadi active A.N (' . $user->username. ') berhasil dilakukan'
                                     ]);
 
             return Response()->json([
@@ -78,8 +78,8 @@ class KemahasiswaanController extends Controller {
                 'tempat_lahir' => 'required',
                 'tanggal_lahir' => 'required',
                 'jk' => 'required',
-                'nomor_hp' => 'required|unique:users,nomor_hp, '.$formulir->user_id,
-                'email' => 'required|string|email|unique:users,email, '.$formulir->user_id,
+                'nomor_hp' => 'required|unique:users,nomor_hp, ' . $formulir->user_id,
+                'email' => 'required|string|email|unique:users,email, ' . $formulir->user_id,
                 'nama_ibu_kandung' => 'required',
 
                 'address1_provinsi_id' => 'required',
@@ -120,7 +120,7 @@ class KemahasiswaanController extends Controller {
                 $user->save();    
 
                 \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-                $permission=Role::findByName('mahasiswa')->permissions;
+                $permission = Role::findByName('mahasiswa')->permissions;
                 $user->givePermissionTo($permission->pluck('name'));        
                 
                 return $formulir;

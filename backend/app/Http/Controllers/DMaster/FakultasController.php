@@ -124,14 +124,14 @@ class FakultasController extends Controller {
           'object' => $fakultas,
           'object_id' => $fakultas->kode_fakultas, 
           'user_id' => $this->getUserid(), 
-          'message' => 'Mengubah data fakultas ('.$fakultas->nama_fakultas.') berhasil'
+          'message' => 'Mengubah data fakultas (' . $fakultas->nama_fakultas. ') berhasil'
         ]);
 
         return Response()->json([
           'status' => 1,
           'pid' => 'update',
           'fakultas' => $fakultas,      
-          'message' => 'Data fakultas '.$fakultas->username.' berhasil diubah.'
+          'message' => 'Data fakultas ' . $fakultas->username. ' berhasil diubah.'
         ], 200); 
       }
     }
@@ -194,7 +194,7 @@ class FakultasController extends Controller {
           'object' => $fakultas, 
           'object_id' => $fakultas->kode_fakultas, 
           'user_id' => $this->getUserid(), 
-          'message' => 'Menghapus Kode Fakultas ('.$id.') berhasil'
+          'message' => 'Menghapus Kode Fakultas (' . $id. ') berhasil'
         ]);
 
         $fakultas->delete();
@@ -202,7 +202,7 @@ class FakultasController extends Controller {
         return Response()->json([
           'status' => 1,
           'pid' => 'destroy',    
-          'message'=>"Fakultas dengan kode ($id) berhasil dihapus"
+          'message' => "Fakultas dengan kode ($id) berhasil dihapus"
         ], 200);    
       }
                   

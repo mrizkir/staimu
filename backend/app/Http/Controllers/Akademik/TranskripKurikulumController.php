@@ -61,7 +61,7 @@ class TranskripKurikulumController  extends Controller
                 
       if ($request->has('search'))
       {
-        $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')
+        $data=$data->whereRaw('(pe3_register_mahasiswa.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')
               ->get();
       }  
       else
@@ -304,7 +304,7 @@ class TranskripKurikulumController  extends Controller
         'jumlah_am' => $jumlah_am,  
         'jumlah_m' => $jumlah_m,  
         'ipk' => $ipk,
-        'message'=>"Transkrip Nilai ($id) berhasil diperoleh"
+        'message' => "Transkrip Nilai ($id) berhasil diperoleh"
       ], 200); 
     }
   }
@@ -352,7 +352,7 @@ class TranskripKurikulumController  extends Controller
         'pid' => 'fetchdata', 
         'matakuliah' => $matakuliah,     
         'history' => $history,     
-        'message'=>"History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
+        'message' => "History Nilai (".$matakuliah->nmatkul.") berhasil diperoleh"
       ], 200); 
     }
   }

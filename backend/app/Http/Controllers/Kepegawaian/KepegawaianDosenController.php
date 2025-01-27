@@ -133,14 +133,14 @@ class KepegawaianDosenController extends Controller {
         'object' => $this->guard()->user(), 
         'object_id' => $this->guard()->user()->id, 
         'user_id' => $this->getUserid(), 
-        'message' => 'Mengubah data user Dosen ('.$user->name.') berhasil'
+        'message' => 'Mengubah data user Dosen (' . $user->name. ') berhasil'
       ]);
 
       return Response()->json([
         'status' => 1,
         'pid' => 'update',
         'user' => $user,      
-        'message' => 'Data user Dosen '.$user->name.' berhasil diubah.'
+        'message' => 'Data user Dosen ' . $user->name. ' berhasil diubah.'
       ], 200); 
     }        
   }   

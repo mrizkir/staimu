@@ -89,7 +89,7 @@ class TransaksiController extends Controller {
 
 			if ($request->has('search'))
 			{
-				$daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \''.$request->input('search').'%\' OR pe3_transaksi.no_formulir LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+				$daftar_transaksi=$daftar_transaksi->whereRaw('(pe3_transaksi.nim LIKE \'' . $request->input('search').'%\' OR pe3_transaksi.no_formulir LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
 													->get();
 			}  
 			else
@@ -147,7 +147,7 @@ class TransaksiController extends Controller {
 			return Response()->json([
 										'status'=>0,
 										'pid' => 'fetchdata',          
-										'message'=>"Fetch data transaksi dengan id ($id) gagal diperoleh."
+										'message' => "Fetch data transaksi dengan id ($id) gagal diperoleh."
 									], 422); 
 		}
 		else
@@ -159,7 +159,7 @@ class TransaksiController extends Controller {
 										'pid' => 'fetchdata',  
 										'transaksi' => $transaksi,
 										'transaksi_detail' => $transaksi_detail,
-										'message'=>"Fetch data transaksi dengan id ($id) berhasil diperoleh."
+										'message' => "Fetch data transaksi dengan id ($id) berhasil diperoleh."
 									], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
@@ -173,7 +173,7 @@ class TransaksiController extends Controller {
 			$mhs = FormulirPendaftaranModel::find($id);
 			if (is_null($mhs))
 			{
-				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH.');
+				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH. ');
 			} 
 
 			$transaksi=TransaksiDetailModel::join('pe3_transaksi', 'pe3_transaksi.id', 'pe3_transaksi_detail.transaksi_id')
@@ -184,7 +184,7 @@ class TransaksiController extends Controller {
 
 			if (is_null($transaksi))
 			{
-				throw new Exception ('Tidak bisa daftar ulang karena belum melakukan pembayaran Daftar Ulang Mahasiswa Baru.');
+				throw new Exception ('Tidak bisa daftar ulang karena belum melakukan pembayaran Daftar Ulang Mahasiswa Baru. ');
 			}
 
 			return Response()->json([
@@ -220,7 +220,7 @@ class TransaksiController extends Controller {
 			$mhs=$jenis_id == 'nim' ? RegisterMahasiswaModel::where('nim', $id)->first() : RegisterMahasiswaModel::find($id);
 			if (is_null($mhs))
 			{
-				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH.');
+				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH. ');
 			}   
 
 			$user_id = $mhs->user_id;
@@ -293,14 +293,14 @@ class TransaksiController extends Controller {
 															'object' => $transaksi, 
 															'object_id' => $transaksi->id, 
 															'user_id' => $this->getUserid(), 
-															'message' => 'Melakukan pembatalan terhadap transaksi dengan id ('.$transaksi_id.') telah berhasil dilakukan.'
+															'message' => 'Melakukan pembatalan terhadap transaksi dengan id (' . $transaksi_id. ') telah berhasil dilakukan.'
 														]);
 														
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'update',  
 										'transaksi_id' => $transaksi_id,
-										'message' => 'Kode billing dengan ID ('.$transaksi->no_transaksi.') berhasil DIBATALKAN.'
+										'message' => 'Kode billing dengan ID (' . $transaksi->no_transaksi. ') berhasil DIBATALKAN.'
 									], 200); 
 		}
 		
@@ -383,7 +383,7 @@ class TransaksiController extends Controller {
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'update',          
-										'message'=>"Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
+										'message' => "Mengubah data status konfirmasi dengan id ($id) berhasil."                                        
 									], 200);   
 		}
 		

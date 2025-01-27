@@ -142,13 +142,13 @@ class BiayaKomponenPeriodeController extends Controller {
                                                         'object' => $kombi_biaya,
                                                         'object_id' => $kombi_biaya->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Mengubah besaran biaya Rp. '.Helper::formatUang($old_biaya).' menjadi '.Helper::formatUang($biaya).' komponen ('.$kombi_biaya->nama_kombi.') berhasil dilakukan'
+                                                        'message' => 'Mengubah besaran biaya Rp. '.Helper::formatUang($old_biaya). ' menjadi '.Helper::formatUang($biaya). ' komponen (' . $kombi_biaya->nama_kombi. ') berhasil dilakukan'
                                                     ]);
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',     
                                     'kombi_biaya' => $kombi_biaya,                            
-                                    'message' => 'Mengubah biaya komponen '.$kombi_biaya->nama_kombi.' berhasil.'
+                                    'message' => 'Mengubah biaya komponen ' . $kombi_biaya->nama_kombi. ' berhasil.'
                                 ], 200);
     } 
 }

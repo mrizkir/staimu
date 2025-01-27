@@ -69,7 +69,7 @@ class UsersPMBController extends Controller {
             $role='pmb';   
             $user->assignRole($role);          
             
-            $permission=Role::findByName('pmb')->permissions;
+            $permission = Role::findByName('pmb')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
@@ -113,7 +113,7 @@ class UsersPMBController extends Controller {
                 if ($v=='dosen' || $v=='dosenwali' )
                 {
                     $user->assignRole($v);          
-                    $permission=Role::findByName($v)->permissions;
+                    $permission = Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
@@ -137,7 +137,7 @@ class UsersPMBController extends Controller {
                                             'object' => $this->guard()->user(), 
                                             'object_id' => $this->guard()->user()->id, 
                                             'user_id' => $this->getUserid(), 
-                                            'message' => 'Menambah user PMB('.$user->username.') berhasil'
+                                            'message' => 'Menambah user PMB(' . $user->username. ') berhasil'
                                         ]);
 
             return $user;
@@ -177,11 +177,11 @@ class UsersPMBController extends Controller {
                 $this->validate($request, [
                                             'username' => [
                                                             'required',
-                                                            'unique:users,username, '.$user->id
+                                                            'unique:users,username, ' . $user->id
                                                         ],           
                                             'name' => 'required',
-                                            'email' => 'required|string|email|unique:users,email, '.$user->id,
-                                            'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,   
+                                            'email' => 'required|string|email|unique:users,email, ' . $user->id,
+                                            'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $user->id,   
                                             'prodi_id' => 'required',           
                                         ]); 
                                         
@@ -245,7 +245,7 @@ class UsersPMBController extends Controller {
                 {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
-                        $permission=Role::findByName($v)->permissions;
+                        $permission = Role::findByName($v)->permissions;
                         $permissions=$permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
@@ -286,7 +286,7 @@ class UsersPMBController extends Controller {
                                                             'object' => $this->guard()->user(), 
                                                             'object_id' => $this->guard()->user()->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Mengubah data user PMB ('.$user->username.') berhasil'
+                                                            'message' => 'Mengubah data user PMB (' . $user->username. ') berhasil'
                                                         ]);
 
                 return $user;
@@ -297,7 +297,7 @@ class UsersPMBController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',
                                     'user' => $user,      
-                                    'message' => 'Data user PMB '.$user->username.' berhasil diubah.'
+                                    'message' => 'Data user PMB ' . $user->username. ' berhasil diubah.'
                                 ], 200); 
         }
     }
@@ -331,13 +331,13 @@ class UsersPMBController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus user PMB ('.$username.') berhasil'
+                                                                'message' => 'Menghapus user PMB (' . $username. ') berhasil'
                                                             ]);
         
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"User PMB ($username) berhasil dihapus"
+                                        'message' => "User PMB ($username) berhasil dihapus"
                                     ], 200);    
         }
                   

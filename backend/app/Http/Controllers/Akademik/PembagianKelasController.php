@@ -246,7 +246,7 @@ class PembagianKelasController extends Controller
 									'penyelenggaraan' => $penyelenggaraan,
 									'peserta' => $peserta,
 									'pengampu' => $pengampu,
-									'message'=>"Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
+									'message' => "Pembagian kelas dengan id ($id) matakuliah berhasil diperoleh."
 								], 200);
 		}
 	}
@@ -283,7 +283,7 @@ class PembagianKelasController extends Controller
 								'status' => 1,
 								'pid' => 'fetchdata',
 								'penyelenggaraan' => $penyelenggaraan,
-								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
+								'message' => "Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							], 200);
 		}
 	}
@@ -322,7 +322,7 @@ class PembagianKelasController extends Controller
 								'status' => 1,
 								'pid' => 'fetchdata',
 								'peserta' => $peserta,
-								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
+								'message' => "Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							], 200);
 		}
 	}
@@ -422,7 +422,7 @@ class PembagianKelasController extends Controller
 		return Response()->json([
 								'status' => 1,
 								'pid' => 'store',
-								'message'=>"Menambahkan daftar matakuliah dengan ID ($kelas_mhs_id)  berhasil ditambahkan."
+								'message' => "Menambahkan daftar matakuliah dengan ID ($kelas_mhs_id)  berhasil ditambahkan."
 							], 200);
 	}
 	public function storepeserta (Request $request)
@@ -480,7 +480,7 @@ class PembagianKelasController extends Controller
 									'status' => 1,
 									'pid' => 'store',
 									'daftar_members' => $daftar_members,
-									'message'=>"Peserta kelas dengan ID ($kelas_mhs_id) berhasil ditambahkan."
+									'message' => "Peserta kelas dengan ID ($kelas_mhs_id) berhasil ditambahkan."
 								], 200);
 	}
 
@@ -540,7 +540,7 @@ class PembagianKelasController extends Controller
 																	'object' => $pembagiankelas,
 																	'object_id' => $pembagiankelas->id,
 																	'user_id' => $this->getUserid(),
-																	'message' => 'Mengupdate pembagian kelas dengan id ('.$pembagiankelas->id.') berhasil'
+																	'message' => 'Mengupdate pembagian kelas dengan id (' . $pembagiankelas->id. ') berhasil'
 																]);
 				return $pembagiankelas;
 			});
@@ -549,7 +549,7 @@ class PembagianKelasController extends Controller
 										'status' => 1,
 										'pid' => 'update',
 										'pembagiankelas' => $pembagiankelas,
-										'message' => 'Mengupdate pembagian kelas dengan id ('.$id.') berhasil'
+										'message' => 'Mengupdate pembagian kelas dengan id (' . $id. ') berhasil'
 									], 200);
 		}
 	}
@@ -579,13 +579,13 @@ class PembagianKelasController extends Controller
 																'object' => $pembagiankelas,
 																'object_id' => $pembagiankelas->id,
 																'user_id' => $this->getUserid(),
-																'message' => 'Menghapus pembagian kelas dengan id ('.$id.') berhasil'
+																'message' => 'Menghapus pembagian kelas dengan id (' . $id. ') berhasil'
 															]);
 			$pembagiankelas->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',
-										'message'=>"Kelas dengan ID ($id) berhasil dihapus"
+										'message' => "Kelas dengan ID ($id) berhasil dihapus"
 									], 200);
 		}
 
@@ -623,7 +623,7 @@ class PembagianKelasController extends Controller
 																'object' => $penyelenggaraan,
 																'object_id' => $penyelenggaraan->id,
 																'user_id' => $this->getUserid(),
-																'message' => 'Menghapus matauliah kelas di mahasiswa dengan id ('.$id.') berhasil'
+																'message' => 'Menghapus matauliah kelas di mahasiswa dengan id (' . $id. ') berhasil'
 															]);
 
 			$penyelenggaraan_id = \DB::transaction(function () use ($penyelenggaraan) {
@@ -644,7 +644,7 @@ class PembagianKelasController extends Controller
 										'status' => 1,
 										'pid' => 'destroy',
 										'penyelenggaraan_id' => $penyelenggaraan_id,
-										'message' => 'Menghapus matakuliah di kelas mahasiswa dengan id ('.$id.') berhasil'
+										'message' => 'Menghapus matakuliah di kelas mahasiswa dengan id (' . $id. ') berhasil'
 									], 200);
 		}
 
@@ -675,13 +675,13 @@ class PembagianKelasController extends Controller
 																'object' => $peserta,
 																'object_id' => $peserta->id,
 																'user_id' => $this->getUserid(),
-																'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
+																'message' => 'Menghapus peserta kelas mahasiswa dengan id (' . $id. ') berhasil'
 															]);
 			$peserta->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',
-										'message' => 'Menghapus peserta kelas mahasiswa dengan id ('.$id.') berhasil'
+										'message' => 'Menghapus peserta kelas mahasiswa dengan id (' . $id. ') berhasil'
 									], 200);
 		}
 

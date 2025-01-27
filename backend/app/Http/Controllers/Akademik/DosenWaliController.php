@@ -129,14 +129,14 @@ class DosenWaliController extends Controller {
       $role='dosen';   
       $user->assignRole($role);          
       
-      $permission=Role::findByName('dosen')->permissions;
+      $permission = Role::findByName('dosen')->permissions;
       $permissions=$permission->pluck('name');
       $user->givePermissionTo($permissions);
       
       if ($request->input('is_dw')=='true')
       {
         $user->assignRole('dosenwali'); 
-        $permission=Role::findByName('dosenwali')->permissions;
+        $permission = Role::findByName('dosenwali')->permissions;
         $permissions=$permission->pluck('name');
         $user->givePermissionTo($permissions);
       }
@@ -156,7 +156,7 @@ class DosenWaliController extends Controller {
                     'object' => $this->guard()->user(), 
                     'object_id' => $this->guard()->user()->id, 
                     'user_id' => $this->getUserid(), 
-                    'message' => 'Menambah dosen wali ('.$user->username.') berhasil'
+                    'message' => 'Menambah dosen wali (' . $user->username. ') berhasil'
                   ]);
 
     return Response()->json([
@@ -192,7 +192,7 @@ class DosenWaliController extends Controller {
     {
       $this->validate($request, [           
                     'pid' => 'required',
-                    'user_id' => 'required|:users,email, '.$user->id,        
+                    'user_id' => 'required|:users,email, ' . $user->id,        
                   ]);        
       $message='no pid';
       switch($request->input('pid'))
@@ -200,7 +200,7 @@ class DosenWaliController extends Controller {
         case 'alihkan_mhs' ://digunakan untuk mengalihkan mahasiswa dari dw ini ke dw lain
           $dw_id = $request->input('user_id');
 
-          $message='Mengalihkan mahasiswa data dosen wali ('.$user->nama_dosen.') ini berhasil';
+          $message='Mengalihkan mahasiswa data dosen wali (' . $user->nama_dosen. ') ini berhasil';
           \App\Models\System\ActivityLog::log($request,[
                                   'object' => $this->guard()->user(), 
                                   'object_id' => $dw_id, 
@@ -248,13 +248,13 @@ class DosenWaliController extends Controller {
                                 'object' => $this->guard()->user(), 
                                 'object_id' => $this->guard()->user()->id, 
                                 'user_id' => $this->getUserid(), 
-                                'message' => 'Menghapus dosen wali ('.$username.') berhasil'
+                                'message' => 'Menghapus dosen wali (' . $username. ') berhasil'
                               ]);
     
       return Response()->json([
                     'status' => 1,
                     'pid' => 'destroy',    
-                    'message'=>"Dosen Wali ($username) berhasil dihapus"
+                    'message' => "Dosen Wali ($username) berhasil dihapus"
                   ], 200);    
     }
           

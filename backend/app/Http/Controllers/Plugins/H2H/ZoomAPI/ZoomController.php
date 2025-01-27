@@ -39,7 +39,7 @@ class ZoomController extends Controller {
     public function store(Request $request)
     {
         $this->hasPermissionTo('PLUGINS-H2H-ZOOMAPI_STORE');
-        $rule=[            
+        $rule = [            
             'email' => 'required|email|unique:plugins_h2h_zoom',
             'api_key' => 'required|string|unique:plugins_h2h_zoom',
             'api_secret' => 'required|string|unique:plugins_h2h_zoom',
@@ -103,7 +103,7 @@ class ZoomController extends Controller {
                 $jwt = JWT::encode($payload, $api_secret);           
                 $client = new Client ();
                 $response = $client->get(
-                    'https://api.zoom.us/v2/users/'.$zoom->email,        
+                    'https://api.zoom.us/v2/users/' . $zoom->email,        
                     [
                         'debug' => FALSE,
                         'headers' => [
@@ -222,14 +222,14 @@ class ZoomController extends Controller {
                                                         'object' => $zoom,
                                                         'object_id' => $zoom->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Mengubah data account zoom ('.$zoom->email.') berhasil'
+                                                        'message' => 'Mengubah data account zoom (' . $zoom->email. ') berhasil'
                                                     ]);
 
             return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',
                                     'zoom' => $zoom,      
-                                    'message' => 'Data account zoom '.$zoom->email.' berhasil diubah.'
+                                    'message' => 'Data account zoom ' . $zoom->email. ' berhasil diubah.'
                                 ], 200); 
         }
     }   
@@ -260,7 +260,7 @@ class ZoomController extends Controller {
                                     'status' => 1,
                                     'pid' => 'fetchdata',
                                     'zoom' => $zoom,      
-                                    'message' => 'Data account zoom '.$zoom->email.' berhasil diperoleh.'
+                                    'message' => 'Data account zoom ' . $zoom->email. ' berhasil diperoleh.'
                                 ], 200); 
         }
     }   
@@ -290,13 +290,13 @@ class ZoomController extends Controller {
                                                                 'object' => $zoom, 
                                                                 'object_id' => $zoom->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus account zoom ('.$id.') berhasil'
+                                                                'message' => 'Menghapus account zoom (' . $id. ') berhasil'
                                                             ]);
             $zoom->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Account zoom dengan id ($id) berhasil dihapus"
+                                        'message' => "Account zoom dengan id ($id) berhasil dihapus"
                                     ], 200);    
         }
                   

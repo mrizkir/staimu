@@ -98,7 +98,7 @@ class PMBPersyaratanController extends Controller {
         'status' => 1,
         'pid' => 'fetchdata',
         'persyaratan' => $persyaratan,      
-        'message' => 'Persyaratan user PMB '.$user->name.' berhasil diperoleh.'
+        'message' => 'Persyaratan user PMB ' . $user->name. ' berhasil diperoleh.'
       ], 200); 
     }
   }
@@ -142,7 +142,7 @@ class PMBPersyaratanController extends Controller {
             'persyaratan_id' => $request->input('persyaratan_id'),
             'user_id' => $id,
             'nama_persyaratan'=> $request->input('nama_persyaratan'),
-            'path'=>"/images/pmb/$file_name",
+            'path' => "/images/pmb/$file_name",
             'created_at' => $now, 
             'updated_at' => $now
           ]); 
@@ -167,7 +167,7 @@ class PMBPersyaratanController extends Controller {
           'status'=>0,
           'pid' => 'store',
           'persyaratan' => $persyaratan,    
-          'message'=>"Persyaratan Mahasiswa baru ($name)  berhasil diupload"
+          'message' => "Persyaratan Mahasiswa baru ($name)  berhasil diupload"
         ], 200);    
       }
       else
@@ -214,7 +214,7 @@ class PMBPersyaratanController extends Controller {
       return Response()->json([
         'status' => 1,
         'pid' => 'destroy',        
-        'message'=>"Persyaratan Mahasiswa Baru user id ($userid)  berhasil dihapus"
+        'message' => "Persyaratan Mahasiswa Baru user id ($userid)  berhasil dihapus"
       ], 200);
     }
   }
@@ -241,7 +241,7 @@ class PMBPersyaratanController extends Controller {
                     'status' => 1,
                     'pid' => 'update', 
                     'persyaratan' => $persyaratan,       
-                    'message'=>"Persyaratan Dokumen (".$persyaratan->nama_persyaratan.") berhasil diverifikasi"
+                    'message' => "Persyaratan Dokumen (".$persyaratan->nama_persyaratan.") berhasil diverifikasi"
                   ], 200);
     }
   }

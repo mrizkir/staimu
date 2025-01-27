@@ -92,11 +92,11 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $row+=2;
     $sheet->mergeCells("A$row:B$row");				                
     $sheet->setCellValue("A$row",'NIDN');
-    $sheet->setCellValue("C$row",': '.$this->dataReport['nidn']);
+    $sheet->setCellValue("C$row",': ' . $this->dataReport['nidn']);
 
     $sheet->mergeCells("D$row:F$row");
     $sheet->setCellValue("D$row",'KODE');
-    $sheet->setCellValue("G$row",': '.$this->dataReport['kmatkul']);
+    $sheet->setCellValue("G$row",': ' . $this->dataReport['kmatkul']);
     
     $row+=1;
     $sheet->mergeCells("A$row:B$row");				                
@@ -105,17 +105,17 @@ class ReportNilaiMatakuliahModel extends ReportModel
 
     $sheet->mergeCells("D$row:F$row");
     $sheet->setCellValue("D$row",'MATAKULIAH / KELAS');
-    $sheet->setCellValue("G$row",': '.$this->dataReport['nmatkul']);
+    $sheet->setCellValue("G$row",': ' . $this->dataReport['nmatkul']);
     
     $row+=1;
     $sheet->mergeCells("A$row:B$row");				                
     $sheet->setCellValue("A$row",'TAHUN AKADEMIK');
     $tahun_akademik = $this->dataReport['tahun'] . '/' . ($this->dataReport['tahun'] + 1);
-    $sheet->setCellValue("C$row",': '.$tahun_akademik);
+    $sheet->setCellValue("C$row",': ' . $tahun_akademik);
 
     $sheet->mergeCells("D$row:F$row");
     $sheet->setCellValue("D$row",'SKS');
-    $sheet->setCellValue("G$row",': '.$this->dataReport['sks']);
+    $sheet->setCellValue("G$row",': ' . $this->dataReport['sks']);
     
     $row+=1;
     $sheet->mergeCells("A$row:B$row");				                
@@ -129,11 +129,11 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $row+=1;
     $sheet->mergeCells("A$row:B$row");				                
     $sheet->setCellValue("A$row",'RUANG');
-    $sheet->setCellValue("C$row",': '.$this->dataReport['namaruang']);
+    $sheet->setCellValue("C$row",': ' . $this->dataReport['namaruang']);
 
     $sheet->mergeCells("D$row:F$row");
     $sheet->setCellValue("D$row",'WAKTU');
-    $sheet->setCellValue("G$row",': '.$this->dataReport['jam_masuk'].' - '.$this->dataReport['jam_keluar']);
+    $sheet->setCellValue("G$row",': ' . $this->dataReport['jam_masuk']. ' - ' . $this->dataReport['jam_keluar']);
 
     $sheet->getColumnDimension('A')->setWidth(7);
     $sheet->getColumnDimension('B')->setWidth(12);
@@ -237,7 +237,7 @@ class ReportNilaiMatakuliahModel extends ReportModel
     $sheet->mergeCells("B$row:C$row");
     $sheet->setCellValue("B$row",'NIDN: 2128087201 / LEKTOR');
     $sheet->mergeCells("G$row:I$row");
-    $sheet->setCellValue("G$row",$this->dataReport['nama_jabatan'].' NIDN. '.$this->dataReport['nidn']);
+    $sheet->setCellValue("G$row",$this->dataReport['nama_jabatan']. ' NIDN. ' . $this->dataReport['nidn']);
 
     $styleArray=array(
       'font' => array('bold' => true),      

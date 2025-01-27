@@ -285,7 +285,7 @@ class DulangMahasiswaKeluarController extends Controller
 				'object' => $dulang, 
 				'object_id' => $dulang->id, 
 				'user_id' => $this->getUserid(), 
-				'message' => 'Menghapus daftar ulang mahasiswa keluar dengan id ('.$dulang->id.') berhasil'
+				'message' => 'Menghapus daftar ulang mahasiswa keluar dengan id (' . $dulang->id. ') berhasil'
 			]);        
 			$register_mahasiswa=$dulang->register_mahasiswa;
 			$register_mahasiswa->k_status = $dulang->status_sebelumnya;
@@ -296,7 +296,7 @@ class DulangMahasiswaKeluarController extends Controller
 			return Response()->json([
 									'status' => 1,
 									'pid' => 'destroy',    
-									'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
+									'message' => "Daftar Ulang dengan kode ($id) berhasil dihapus"
 								], 200);    
 		}
 				  

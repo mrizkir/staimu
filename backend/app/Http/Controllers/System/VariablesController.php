@@ -60,7 +60,7 @@ class VariablesController extends Controller
       'status' => 1,
       'pid' => 'update',       
       'config' => $config,                   
-      'message'=>"Data setting $pid berhasil diubah."
+      'message' => "Data setting $pid berhasil diubah."
     ], 200); 
   }
   public function clear(Request $request)
@@ -70,7 +70,7 @@ class VariablesController extends Controller
     return Response()->json([
       'status' => 1,
       'pid' => 'update',                        
-      'message'=>"Cache sudah dikosongkan dan direload ulang setting berhasil."
+      'message' => "Cache sudah dikosongkan dan direload ulang setting berhasil."
     ], 200); 
   }
 }

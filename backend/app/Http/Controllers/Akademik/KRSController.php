@@ -56,7 +56,7 @@ class KRSController extends Controller
       
       if ($request->has('search'))
       {
-        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
           ->orderBy('tasmt', 'desc')
           ->get();
       }  
@@ -107,7 +107,7 @@ class KRSController extends Controller
       
       if ($request->has('search'))
       {
-        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
           ->get();
       }  
       else
@@ -351,7 +351,7 @@ class KRSController extends Controller
                           'object' => $krs, 
                           'object_id' => $krs->id, 
                           'user_id' => $this->getUserid(), 
-                          'message'=>"Menyimpan krs mahasiswa berhasil dilakukan."
+                          'message' => "Menyimpan krs mahasiswa berhasil dilakukan."
                         ]);
     return Response()->json([
                   'status' => 1,
@@ -395,7 +395,7 @@ class KRSController extends Controller
     return Response()->json([
                   'status' => 1,
                   'pid' => 'store',                                      
-                  'message'=>(count($daftar_matkul)).' Matakuliah baru telah berhasil ditambahkan'
+                  'message'=>(count($daftar_matkul)). ' Matakuliah baru telah berhasil ditambahkan'
                 ], 200);  
   }
   public function verifikasi (Request $request,$id)
@@ -418,7 +418,7 @@ class KRSController extends Controller
                                 'object' => $krs, 
                                 'object_id' => $krs->id, 
                                 'user_id' => $this->getUserid(), 
-                                'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
+                                'message' => 'Memverifikasi KRS dengan id (' . $id. ') berhasil'
                               ]);
       $krs->sah=1;
       $krs->save();
@@ -427,7 +427,7 @@ class KRSController extends Controller
                     'status' => 1,
                     'pid' => 'update', 
                     'krs' => $krs,   
-                    'message' => 'Memverifikasi KRS dengan id ('.$id.') berhasil'
+                    'message' => 'Memverifikasi KRS dengan id (' . $id. ') berhasil'
                   ], 200);    
     }
   }
@@ -487,13 +487,13 @@ class KRSController extends Controller
                                 'object' => $krs, 
                                 'object_id' => $krs->id, 
                                 'user_id' => $this->getUserid(), 
-                                'message' => 'Menghapus KRS dengan id ('.$id.') berhasil'
+                                'message' => 'Menghapus KRS dengan id (' . $id. ') berhasil'
                               ]);
       $krs->delete();
       return Response()->json([
                     'status' => 1,
                     'pid' => 'destroy',    
-                    'message'=>"KRS dengan ID ($id) berhasil dihapus"
+                    'message' => "KRS dengan ID ($id) berhasil dihapus"
                   ], 200);    
     }
           
@@ -524,13 +524,13 @@ class KRSController extends Controller
                               'object' => $krsmatkul, 
                               'object_id' => $krsmatkul->id, 
                               'user_id' => $this->getUserid(), 
-                              'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                              'message' => 'Menghapus matakuliah KRS dengan id (' . $id. ') berhasil'
                             ]);
       $krsmatkul->delete();
       return Response()->json([
                     'status' => 1,
                     'pid' => 'destroy',    
-                    'message' => 'Menghapus matakuliah KRS dengan id ('.$id.') berhasil'
+                    'message' => 'Menghapus matakuliah KRS dengan id (' . $id. ') berhasil'
                   ], 200);    
     }
           

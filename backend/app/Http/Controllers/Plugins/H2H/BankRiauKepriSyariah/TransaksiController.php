@@ -50,7 +50,7 @@ class TransaksiController extends Controller {
     if (is_null($transaksi))        {
       return Response()->json(['Result' => [
                       'status' => '14',        
-                      'message'=>"request KODE_BILLING ($kode_billing) tidak sesuai"
+                      'message' => "request KODE_BILLING ($kode_billing) tidak sesuai"
                     ]
                   ], 200); 
     }
@@ -58,7 +58,7 @@ class TransaksiController extends Controller {
     {
       return Response()->json(['Result' => [
                     'status' => '88',        
-                    'message'=>"Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
+                    'message' => "Tagihan sudah dibayarkan tanggal: ".$transaksi->updated_at_konfirm
                   ]
                 ], 200); 
     }
@@ -66,13 +66,13 @@ class TransaksiController extends Controller {
       {
         return Response()->json(['Result' => [
                       'status' => '88',        
-                      'message'=>"status kode billing ini dibatalkan"
+                      'message' => "status kode billing ini dibatalkan"
                     ]
                   ], 200); 
       }
     else
     {     
-      $transaksi->periode=\App\Helpers\HelperAkademik::getSemester($transaksi->idsmt).' '.$transaksi->ta;
+      $transaksi->periode=\App\Helpers\HelperAkademik::getSemester($transaksi->idsmt). ' ' . $transaksi->ta;
       return response()->json([
         'Result' => [
           'status'=>true,
@@ -110,7 +110,7 @@ class TransaksiController extends Controller {
     {
       return Response()->json(['Result' => [
           'status' => '11',        
-          'message'=>"Format request tidak sesuai",
+          'message' => "Format request tidak sesuai",
           'errors' => $validator->customMessages
         ]
       ], 200); 
@@ -147,7 +147,7 @@ class TransaksiController extends Controller {
       {
         return Response()->json(['Result' => [
                         'status' => '88',        
-                        'message'=>"Tagihan sudah dibayarkan tanggal: ".\App\Helpers\Helper::tanggal('d/m/Y H:i:s',$transaksi->updated_at_konfirm),
+                        'message' => "Tagihan sudah dibayarkan tanggal: ".\App\Helpers\Helper::tanggal('d/m/Y H:i:s',$transaksi->updated_at_konfirm),
                         'noref' => $transaksi->no_faktur
                       ]
                     ], 200); 
@@ -156,7 +156,7 @@ class TransaksiController extends Controller {
       {
         return Response()->json(['Result' => [
                         'status' => '88',        
-                        'message'=>"status kode billing ini dibatalkan"
+                        'message' => "status kode billing ini dibatalkan"
                       ]
                     ], 200); 
       }
@@ -164,7 +164,7 @@ class TransaksiController extends Controller {
       {     
         return Response()->json(['Result' => [
                       'status' => '11',        
-                      'message' => 'Nilai nominal salah ('.\App\Helpers\Helper::formatUang($request->input('amount')).') karena  tidak sama dengan dengan transaksi '.\App\Helpers\Helper::formatUang($transaksi->total)
+                      'message' => 'Nilai nominal salah ('.\App\Helpers\Helper::formatUang($request->input('amount')). ') karena  tidak sama dengan dengan transaksi '.\App\Helpers\Helper::formatUang($transaksi->total)
                     ]
                   ], 200); 
       }
@@ -186,7 +186,7 @@ class TransaksiController extends Controller {
               'nama_bank_pengirim' => 'BANK RIAU KEPRI SYARIAH',
               'desc' => '',
               'tanggal_bayar'=>date ('Y-m-d H:m:s'),    
-              'bukti_bayar'=>"/images/buktibayar/paid.png",  
+              'bukti_bayar' => "/images/buktibayar/paid.png",  
               'verified'=>true
             ]);                   
             $transaksi=$konfirmasi_insert->transaksi;                   

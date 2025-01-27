@@ -69,7 +69,7 @@ class ProgramStudiController extends Controller
     $bentuk_pt=ConfigurationModel::getCache('BENTUK_PT');
     if ($bentuk_pt=='sekolahtinggi')
     {
-      $rule=[            
+      $rule = [            
         'kode_prodi' => 'required|numeric|unique:pe3_prodi',
         'nama_prodi' => 'required|string|unique:pe3_prodi',
         'nama_prodi_alias' => 'required|string|unique:pe3_prodi',
@@ -80,7 +80,7 @@ class ProgramStudiController extends Controller
     }
     else
     {
-      $rule=[            
+      $rule = [            
         'kode_prodi' => 'required|numeric',
         'kode_fakultas' => 'required|exists:pe3_fakultas,kode_fakultas',
         'nama_prodi' => 'required|string|unique:pe3_prodi',
@@ -159,7 +159,7 @@ class ProgramStudiController extends Controller
         'status' => 1,
         'pid' => 'update',
         'prodi' => $prodi,
-        'message' => 'Konfigurasi program studi '.$prodi->nama_prodi.' berhasil disimpan.'
+        'message' => 'Konfigurasi program studi ' . $prodi->nama_prodi. ' berhasil disimpan.'
       ], 200);
     }
   }
@@ -365,14 +365,14 @@ class ProgramStudiController extends Controller
         'object' => $prodi,
         'object_id' => $prodi->id, 
         'user_id' => $this->getUserid(), 
-        'message' => 'Mengubah data program studi ('.$prodi->nama_prodi.') berhasil'
+        'message' => 'Mengubah data program studi (' . $prodi->nama_prodi. ') berhasil'
       ]);
 
       return Response()->json([
         'status' => 1,
         'pid' => 'update',
         'prodi' => $prodi,
-        'message' => 'Data program studi '.$prodi->nama_prodi.' berhasil diubah.'
+        'message' => 'Data program studi ' . $prodi->nama_prodi. ' berhasil diubah.'
       ], 200); 
     }
   }
@@ -396,13 +396,13 @@ class ProgramStudiController extends Controller
                             'object' => $detail1,
                             'object_id' => $detail1->id, 
                             'user_id' => $this->getUserid(), 
-                            'message' => 'Mengubah jumlah sks '.$old_sks.' menjadi '.$jumlah_sks.' berhasil dilakukan'
+                            'message' => 'Mengubah jumlah sks ' . $old_sks. ' menjadi ' . $jumlah_sks. ' berhasil dilakukan'
                           ]);
     return Response()->json([
                   'status' => 1,
                   'pid' => 'update',     
                   'jumlah_sks' => $jumlah_sks,                            
-                  'message' => 'Mengubah jumlah sks '.$detail1->jumlah_sks.' berhasil.'
+                  'message' => 'Mengubah jumlah sks ' . $detail1->jumlah_sks. ' berhasil.'
                 ], 200);  
   }
   public function updatematkulskripsi(Request $request)
@@ -502,7 +502,7 @@ class ProgramStudiController extends Controller
         'object' => $prodi, 
         'object_id' => $prodi->kode_prodi, 
         'user_id' => $this->getUserid(), 
-        'message' => 'Menghapus Kode Program Studi ('.$id.') berhasil'
+        'message' => 'Menghapus Kode Program Studi (' . $id. ') berhasil'
       ]);
 
       $prodi->delete();
@@ -510,7 +510,7 @@ class ProgramStudiController extends Controller
       return Response()->json([
         'status' => 1,
         'pid' => 'destroy',
-        'message'=>"Program Studi dengan kode ($id) berhasil dihapus"
+        'message' => "Program Studi dengan kode ($id) berhasil dihapus"
       ], 200);    
     }
           

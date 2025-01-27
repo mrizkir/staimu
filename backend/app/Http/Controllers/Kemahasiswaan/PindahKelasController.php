@@ -351,13 +351,13 @@ class PindahKelasController  extends Controller
             'object' => $pindahkelas, 
             'object_id' => $pindahkelas->id, 
             'user_id' => $this->getUserid(), 
-            'message' => 'Menghapus Pindah Kelas dengan id ('.$pindahkelas->id.') berhasil'
+            'message' => 'Menghapus Pindah Kelas dengan id (' . $pindahkelas->id. ') berhasil'
           ]);
         });
         return Response()->json([
                                   'status' => 1,
                                   'pid' => 'destroy',    
-                                  'message'=>"Data Pindah Kelas dengan ID ($id) berhasil dihapus"
+                                  'message' => "Data Pindah Kelas dengan ID ($id) berhasil dihapus"
                               ], 200);    
       }
       catch (Exception $e)

@@ -88,7 +88,7 @@ class NilaiMatakuliahController extends Controller
 								'pid' => 'fetchdata',                    
 								'peserta' => $peserta,
 								'skala_nilai'=>HelperAkademik::getSkalaPenilaian(),
-								'message'=>"Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
+								'message' => "Daftar Peserta MHS dari Kelas MHS dengan id ($id) berhasil diperoleh."
 							], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
@@ -245,7 +245,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menyimpan Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Menyimpan Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}
@@ -269,7 +269,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf (' . $n_kual_lama. ') dan Nilai Angka ' . $n_kuan_lama. ' menjadi Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}
@@ -280,7 +280,7 @@ class NilaiMatakuliahController extends Controller
 									'status' => 1,
 									'pid' => 'store', 
 									'daftar_nilai' => $daftar_nilai,
-									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+									'message' => "Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
 	public function storeperkelas(Request $request)
@@ -364,7 +364,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menyimpan Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Menyimpan Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}      
@@ -383,7 +383,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf (' . $n_kual_lama. ') dan Nilai Angka ' . $n_kuan_lama. ' menjadi Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}
@@ -393,7 +393,7 @@ class NilaiMatakuliahController extends Controller
 			'status' => 1,
 			'pid' => 'store', 
 			'daftar_nilai' => $daftar_nilai,
-			'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+			'message' => "Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 		], 200);
 	}
 	public function storeperkrs(Request $request)
@@ -477,7 +477,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Menyimpan Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Menyimpan Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}      
@@ -496,7 +496,7 @@ class NilaiMatakuliahController extends Controller
 																'object' => $nilai, 
 																'object_id' => $nilai->id, 
 																'user_id' => $this->getUserid(), 
-																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf ('.$n_kual_lama.') dan Nilai Angka '.$n_kuan_lama.' menjadi Nilai Huruf ('.$nilai->n_kual.') dan Nilai Angka '.$nilai->n_kuan.' untuk Matakuliah dengan krsmatkul_id ('.$nilai->id.') berhasil dilakukan'
+																'message' => 'Mengubah Nilai Matakuliah yang lama dengan nilai huruf (' . $n_kual_lama. ') dan Nilai Angka ' . $n_kuan_lama. ' menjadi Nilai Huruf (' . $nilai->n_kual. ') dan Nilai Angka ' . $nilai->n_kuan. ' untuk Matakuliah dengan krsmatkul_id (' . $nilai->id. ') berhasil dilakukan'
 															]);
 					$jumlah_matkul+=1;
 				}
@@ -506,7 +506,7 @@ class NilaiMatakuliahController extends Controller
 									'status' => 1,
 									'pid' => 'store', 
 									'daftar_nilai' => $daftar_nilai,
-									'message'=>"Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
+									'message' => "Nilai ($jumlah_matkul) matakuliah telah tersimpan dengan berhasil" 
 								], 200);
 	}
 	public function impornilai(Request $request)
@@ -603,7 +603,7 @@ class NilaiMatakuliahController extends Controller
 									'status' => 1,
 									'pid' => 'store', 
 									'daftar_nilai' => $daftar_nilai,
-									'message'=>"Nilai Mahasiswa berhasil di impor" 
+									'message' => "Nilai Mahasiswa berhasil di impor" 
 								], 200);
 		}
 		else

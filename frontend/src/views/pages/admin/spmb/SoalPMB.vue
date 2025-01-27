@@ -473,7 +473,7 @@
         }
       },
       viewItem: async function(item) {
-        await this.$ajax.get("/spmb/soalpmb/"+item.id,{
+        await this.$ajax.get("/spmb/soalpmb/" + item.id,{
           headers: {
             Authorization: this.$store.getters["auth/Token"]
           }
@@ -484,7 +484,7 @@
         }); 
       },
       editItem: async function(item) {
-        await this.$ajax.get("/spmb/soalpmb/"+item.id,{
+        await this.$ajax.get("/spmb/soalpmb/" + item.id,{
             headers: {
               Authorization: this.$store.getters["auth/Token"]
             }

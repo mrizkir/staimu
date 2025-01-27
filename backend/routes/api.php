@@ -103,6 +103,13 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
   $router->put('/datamaster/ruangankelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@update','as'=>'ruangankelas.update']);
   $router->delete('/datamaster/ruangankelas/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\RuanganKelasController@destroy','as'=>'ruangankelas.destroy']);
 
+  //data master - channel marketing pmb
+  $router->get('/datamaster/channelmarketing',['middleware'=>['role:superadmin|pmb'],'uses'=>'DMaster\ChannelMarketingController@index','as'=>'channel-marketing.index']);
+  $router->post('/datamaster/channelmarketing/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ChannelMarketingController@store','as'=>'channel-marketing.store']);
+  $router->get('/datamaster/channelmarketing/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ChannelMarketingController@show','as'=>'channel-marketing.show']);
+  $router->put('/datamaster/channelmarketing/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ChannelMarketingController@update','as'=>'channel-marketing.update']);
+  $router->delete('/datamaster/channelmarketing/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\ChannelMarketingController@destroy','as'=>'channel-marketing.destroy']);
+
   //data master - persyaratan
   $router->post('/datamaster/persyaratan/store',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@store','as'=>'persyaratan.store']);
   $router->put('/datamaster/persyaratan/{id}',['middleware'=>['role:superadmin'],'uses'=>'DMaster\PersyaratanController@update','as'=>'persyaratan.update']);

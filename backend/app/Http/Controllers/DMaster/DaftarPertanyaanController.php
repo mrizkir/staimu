@@ -59,7 +59,7 @@ class DaftarPertanyaanController extends Controller
 	public function store(Request $request)
 	{
 		$this->hasPermissionTo('DMASTER-KUISIONER_STORE');			
-		$rule=[            
+		$rule = [            
 			'kategori_id' => 'required|numeric',
 			'nama_kelompok' => 'required',
 			'urutan' => 'required|numeric',					
@@ -147,14 +147,14 @@ class DaftarPertanyaanController extends Controller
 				'object' => $daftarpertanyaan,
 				'object_id' => $daftarpertanyaan->id, 
 				'user_id' => $this->getUserid(), 
-				'message' => 'Mengubah data kelompok pertanyaan ('.$daftarpertanyaan->id.') berhasil'
+				'message' => 'Mengubah data kelompok pertanyaan (' . $daftarpertanyaan->id. ') berhasil'
 			]);
 
 			return Response()->json([
 				'status' => 1,
 				'pid' => 'update',
 				'kelompokpertanyaan' => $daftarpertanyaan,
-				'message' => 'Data kelompok pertanyaan '.$daftarpertanyaan->id.' berhasil diubah.'
+				'message' => 'Data kelompok pertanyaan ' . $daftarpertanyaan->id. ' berhasil diubah.'
 			], 200); 
 		}
 	}
@@ -184,13 +184,13 @@ class DaftarPertanyaanController extends Controller
 					'object' => $daftarpertanyaan, 
 					'object_id' => $daftarpertanyaan->id, 
 					'user_id' => $this->getUserid(), 
-					'message' => 'Menghapus Daftar Pertanyaan ('.$id.') berhasil'
+					'message' => 'Menghapus Daftar Pertanyaan (' . $id. ') berhasil'
 				]);
 				$daftarpertanyaan->delete();
 				return Response()->json([
 					'status' => 1,
 					'pid' => 'destroy',
-					'message'=>"Daftar Pertanyaan dengan kode ($id) berhasil dihapus"
+					'message' => "Daftar Pertanyaan dengan kode ($id) berhasil dihapus"
 				], 200);    
 			}
 								

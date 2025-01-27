@@ -42,7 +42,7 @@ class AuthController extends Controller
 														'object' => $this->guard()->user(), 
 														'object_id' => $this->getUserid(), 
 														'user_id' => $this->getUserid(), 
-														'message' => 'user '.$credentials['username'].' berhasil login'
+														'message' => 'user ' . $credentials['username']. ' berhasil login'
 													]);
 
 		ConfigurationModel::toCache();
@@ -79,7 +79,7 @@ class AuthController extends Controller
 			'object' => $this->guard()->user(), 
 			'object_id' => $this->getUserid(), 
 			'user_id' => $this->getUserid(), 
-			'message' => 'user '.$this->guard()->user()->username.' berhasil logout'
+			'message' => 'user ' . $this->guard()->user()->username. ' berhasil logout'
 		],1);
 
 		$this->guard()->logout();

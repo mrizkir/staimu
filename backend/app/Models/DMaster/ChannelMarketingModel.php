@@ -4,13 +4,13 @@ namespace App\Models\DMaster;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RuanganKelasModel extends Model {    
+class ChannelMarketingModel extends Model {    
 	/**
 	 * nama tabel model ini.
 	 *
 	 * @var string
 	 */
-	protected $table = 'pe3_ruangkelas';
+	protected $table = 'pe3_channel_marketing';
 	/**
 	 * primary key tabel ini.
 	 *
@@ -23,7 +23,8 @@ class RuanganKelasModel extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'id', 'namaruang', 'kapasitas'
+		'id', 
+    'namachannel',     
 	];
 	/**
 	 * enable auto_increment.
@@ -36,5 +37,5 @@ class RuanganKelasModel extends Model {
 	 *
 	 * @var string
 	 */
-	public $timestamps = false;
+	public $timestamps = true;
 }

@@ -35,7 +35,7 @@ class TransferBankController extends Controller {
     {
         $this->hasPermissionTo('KEUANGAN-METODE-TRANSFER-BANK_STORE');
 
-        $rule=[            
+        $rule = [            
             'nama_bank' => 'required',         
             'nama_cabang' => 'required',         
             'nomor_rekening' => 'required|numeric|unique:pe3_transfer_bank,nomor_rekening',
@@ -112,14 +112,14 @@ class TransferBankController extends Controller {
                                                         'object' => $bank,
                                                         'object_id' => $bank->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Mengubah data bank ('.$bank->nama_bank.') berhasil'
+                                                        'message' => 'Mengubah data bank (' . $bank->nama_bank. ') berhasil'
                                                     ]);
 
             return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',
                                     'bank' => $bank,      
-                                    'message' => 'Data bank '.$bank->nama_bank.' berhasil diubah.'
+                                    'message' => 'Data bank ' . $bank->nama_bank. ' berhasil diubah.'
                                 ], 200); 
         }
     }    
@@ -149,13 +149,13 @@ class TransferBankController extends Controller {
                                                                 'object' => $bank, 
                                                                 'object_id' => $bank->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus Kode Kelas ('.$id.') berhasil'
+                                                                'message' => 'Menghapus Kode Kelas (' . $id. ') berhasil'
                                                             ]);
             $bank->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Kelas dengan kode ($id) berhasil dihapus"
+                                        'message' => "Kelas dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
                   

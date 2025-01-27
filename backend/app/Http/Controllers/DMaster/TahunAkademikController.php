@@ -106,7 +106,7 @@ class TahunAkademikController extends Controller {
     {
         $this->hasPermissionTo('DMASTER-TA_STORE');
 
-        $rule=[
+        $rule = [
             'tahun' => 'required|numeric|unique:pe3_ta,tahun',
             'tahun_akademik' => 'required|string|unique:pe3_ta,tahun_akademik',
             'awal_ganjil' => 'required',
@@ -207,7 +207,7 @@ class TahunAkademikController extends Controller {
                                                         'object' => $ta,
                                                         'object_id' => $ta->tahun,
                                                         'user_id' => $this->guard()->user()->tahun,
-                                                        'message' => 'Mengubah data tahun akademik ('.$ta->tahun_akademik.') berhasil'
+                                                        'message' => 'Mengubah data tahun akademik (' . $ta->tahun_akademik. ') berhasil'
                                                     ]);
             
             $ta->awal_pendek = 'N.A';
@@ -216,7 +216,7 @@ class TahunAkademikController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',
                                     'ta' => $ta,
-                                    'message' => 'Data tahun akademik '.$ta->tahun_akademik.' berhasil diubah.'
+                                    'message' => 'Data tahun akademik ' . $ta->tahun_akademik. ' berhasil diubah.'
                                 ], 200);
         }
     }
@@ -246,13 +246,13 @@ class TahunAkademikController extends Controller {
                                                             'object' => $ta,
                                                             'object_id' => $ta->tahun,
                                                             'user_id' => $this->guard()->user()->id,
-                                                            'message' => 'Menghapus Tahun Akademik ('.$id.') berhasil'
+                                                            'message' => 'Menghapus Tahun Akademik (' . $id. ') berhasil'
                                                         ]);
             $ta->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',
-                                        'message'=>"Tahun Akademik dengan kode ($id) berhasil dihapus"
+                                        'message' => "Tahun Akademik dengan kode ($id) berhasil dihapus"
                                     ], 200);
         }
 

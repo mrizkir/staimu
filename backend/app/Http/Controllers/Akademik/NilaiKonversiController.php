@@ -185,7 +185,7 @@ class NilaiKonversiController  extends Controller
                                     'pid' => 'store', 
                                     'data_konversi' => $data_konversi['data_konversi'],     
                                     'jumlah_matkul' => $data_konversi['jumlah_matkul'],     
-                                    'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
+                                    'message' => "Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                 ], 200);
     }
     public function update(Request $request,$id)
@@ -278,7 +278,7 @@ class NilaiKonversiController  extends Controller
                                         'pid' => 'update', 
                                         'data_konversi' => $data_konversi['data_konversi'],     
                                         'jumlah_matkul' => $data_konversi['jumlah_matkul'],                            
-                                        'message'=>"Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
+                                        'message' => "Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                     ], 200);
         }
     }
@@ -351,7 +351,7 @@ class NilaiKonversiController  extends Controller
                                     'pid' => 'fetchdata', 
                                     'data_konversi' => $data_konversi, 
                                     'nilai_konversi' => $nilai_konversi,      
-                                    'message'=>"Data Nilai Konversi ($id) berhasil diperoleh"
+                                    'message' => "Data Nilai Konversi ($id) berhasil diperoleh"
                                 ], 200); 
         }
     }
@@ -388,7 +388,7 @@ class NilaiKonversiController  extends Controller
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'update',    
-                                        'message'=>"Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
+                                        'message' => "Data Konversi dengan berhasil dipasangkan dengan data mahasiswa"
                                     ], 200); 
         }
         else
@@ -425,7 +425,7 @@ class NilaiKonversiController  extends Controller
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'update',    
-                                    'message'=>"Data Konversi dengan berhasil dilepas dengan data mahasiswa"
+                                    'message' => "Data Konversi dengan berhasil dilepas dengan data mahasiswa"
                                 ], 200); 
         
      
@@ -450,13 +450,13 @@ class NilaiKonversiController  extends Controller
                                                             'object' => $data_konversi, 
                                                             'object_id' => $data_konversi->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Menghapus data konversi dengan id ('.$id.') berhasil'
+                                                            'message' => 'Menghapus data konversi dengan id (' . $id. ') berhasil'
                                                         ]);
             $data_konversi->delete();
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Data Konversi dengan kode ($id) berhasil dihapus"
+                                        'message' => "Data Konversi dengan kode ($id) berhasil dihapus"
                                     ], 200);    
         }
                   

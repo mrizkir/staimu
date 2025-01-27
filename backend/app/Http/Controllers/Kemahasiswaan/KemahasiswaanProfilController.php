@@ -33,7 +33,7 @@ class KemahasiswaanProfilController extends Controller {
 							->join('pe3_formulir_pendaftaran AS B', 'A.user_id', 'B.user_id')
 							->join('users AS C', 'A.user_id', 'C.id')
 							->join('pe3_prodi AS D', 'A.kjur', 'D.id')
-							->whereRaw('(A.nim LIKE \''.$request->input('search').'%\' OR B.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+							->whereRaw('(A.nim LIKE \'' . $request->input('search').'%\' OR B.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
 							->get();
 
 		return Response()->json([
@@ -187,7 +187,7 @@ class KemahasiswaanProfilController extends Controller {
 									->from('pe3_nilai_konversi1');                               
 							})
 							->where('A.nim', 'LIKE',$request->input('search').'%')
-							->orWhere('B.nama_mhs', 'LIKE', '%'.$request->input('search').'%')
+							->orWhere('B.nama_mhs', 'LIKE', '%' . $request->input('search').'%')
 							->get();
 
 		return Response()->json([
@@ -218,7 +218,7 @@ class KemahasiswaanProfilController extends Controller {
 		return Response()->json([
 								'status' => 1,
 								'pid' => 'update',        
-								'message' => 'Reset password Mahasiswa '.$user->name.'berhasil diperoleh.'
+								'message' => 'Reset password Mahasiswa ' . $user->name.'berhasil diperoleh.'
 							], 200);
 	}
 
@@ -244,8 +244,8 @@ class KemahasiswaanProfilController extends Controller {
 				'tempat_lahir' => 'required',
 				'tanggal_lahir' => 'required',
 				'jk' => 'required',
-				'nomor_hp' => 'required|unique:users,nomor_hp, '.$formulir->user_id,
-				'email' => 'required|string|email|unique:users,email, '.$formulir->user_id,
+				'nomor_hp' => 'required|unique:users,nomor_hp, ' . $formulir->user_id,
+				'email' => 'required|string|email|unique:users,email, ' . $formulir->user_id,
 				'nama_ibu_kandung' => 'required',
 
 				'address1_provinsi_id' => 'required',

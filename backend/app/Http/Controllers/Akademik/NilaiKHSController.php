@@ -58,7 +58,7 @@ class NilaiKHSController extends Controller
 
       if ($request->has('search'))
       {
-        $daftar_khs=$daftar_khs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+        $daftar_khs=$daftar_khs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
               ->orderBy('tasmt', 'desc')
               ->get();
       }  

@@ -67,11 +67,11 @@ class PermissionsController extends Controller {
         $nama = strtoupper($request->input('name'));   
         
         $permission->insert([
-            ['name'=>"{$nama}_BROWSE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
-            ['name'=>"{$nama}_SHOW", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
-            ['name'=>"{$nama}_STORE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
-            ['name'=>"{$nama}_UPDATE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
-            ['name'=>"{$nama}_DESTROY", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "{$nama}_BROWSE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "{$nama}_SHOW", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "{$nama}_STORE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "{$nama}_UPDATE", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "{$nama}_DESTROY", 'guard_name' => 'api', 'created_at' => $now, 'updated_at' => $now],
         ]);
         
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
@@ -114,12 +114,12 @@ class PermissionsController extends Controller {
                                                         'object' => $permission, 
                                                         'object_id' => $permission->id, 
                                                         'user_id' => $this->getUserid(), 
-                                                        'message' => 'Menghapus permission ('.$nama_permission.') berhasil'
+                                                        'message' => 'Menghapus permission (' . $nama_permission. ') berhasil'
                                                     ]);                                                            
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"Permission ($nama_permission) berhasil dihapus"
+                                        'message' => "Permission ($nama_permission) berhasil dihapus"
                                     ], 200); 
         }
     }

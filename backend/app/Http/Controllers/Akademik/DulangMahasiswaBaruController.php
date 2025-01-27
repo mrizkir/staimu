@@ -182,7 +182,7 @@ class DulangMahasiswaBaruController extends Controller
                                 'object' => $dulang, 
                                 'object_id' => $dulang->id, 
                                 'user_id' => $this->getUserid(), 
-                                'message' => 'Menghapus daftar ulang mahasiswa baru dengan id ('.$dulang->user_id.') berhasil'
+                                'message' => 'Menghapus daftar ulang mahasiswa baru dengan id (' . $dulang->user_id. ') berhasil'
                               ]);
       $register_mahasiswa=$dulang->register_mahasiswa;
       $register_mahasiswa->delete();
@@ -190,7 +190,7 @@ class DulangMahasiswaBaruController extends Controller
       return Response()->json([
                     'status' => 1,
                     'pid' => 'destroy',    
-                    'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
+                    'message' => "Daftar Ulang dengan kode ($id) berhasil dihapus"
                   ], 200);    
     }
           

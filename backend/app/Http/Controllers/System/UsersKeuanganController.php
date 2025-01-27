@@ -69,7 +69,7 @@ class UsersKeuanganController extends Controller {
             $role='keuangan';   
             $user->assignRole($role);          
             
-            $permission=Role::findByName('keuangan')->permissions;
+            $permission = Role::findByName('keuangan')->permissions;
             $permissions=$permission->pluck('name');
             $user->givePermissionTo($permissions);
 
@@ -113,7 +113,7 @@ class UsersKeuanganController extends Controller {
                 if ($v=='dosen' || $v=='dosenwali' )
                 {
                     $user->assignRole($v);          
-                    $permission=Role::findByName($v)->permissions;
+                    $permission = Role::findByName($v)->permissions;
                     $permissions=$permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
@@ -136,7 +136,7 @@ class UsersKeuanganController extends Controller {
                                             'object' => $this->guard()->user(), 
                                             'object_id' => $this->guard()->user()->id, 
                                             'user_id' => $this->getUserid(), 
-                                            'message' => 'Menambah user Keuangan('.$user->username.') berhasil'
+                                            'message' => 'Menambah user Keuangan(' . $user->username. ') berhasil'
                                         ]);
 
             return $user;
@@ -174,11 +174,11 @@ class UsersKeuanganController extends Controller {
             $this->validate($request, [
                                         'username' => [
                                                         'required',
-                                                        'unique:users,username, '.$user->id
+                                                        'unique:users,username, ' . $user->id
                                                     ],           
                                         'name' => 'required',
-                                        'email' => 'required|string|email|unique:users,email, '.$user->id,
-                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, '.$user->id,   
+                                        'email' => 'required|string|email|unique:users,email, ' . $user->id,
+                                        'nomor_hp' => 'required|string|unique:users,nomor_hp, ' . $user->id,   
                                         'prodi_id' => 'required',           
                                     ]); 
             $user = \DB::transaction(function () use ($request,$user) {
@@ -242,7 +242,7 @@ class UsersKeuanganController extends Controller {
                 {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
-                        $permission=Role::findByName($v)->permissions;
+                        $permission = Role::findByName($v)->permissions;
                         $permissions=$permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
@@ -283,7 +283,7 @@ class UsersKeuanganController extends Controller {
                                                             'object' => $this->guard()->user(), 
                                                             'object_id' => $this->guard()->user()->id, 
                                                             'user_id' => $this->getUserid(), 
-                                                            'message' => 'Mengubah data user Keuangan ('.$user->username.') berhasil'
+                                                            'message' => 'Mengubah data user Keuangan (' . $user->username. ') berhasil'
                                                         ]);
                 return $user;
             });
@@ -291,7 +291,7 @@ class UsersKeuanganController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',
                                     'user' => $user,      
-                                    'message' => 'Data user Keuangan '.$user->username.' berhasil diubah.'
+                                    'message' => 'Data user Keuangan ' . $user->username. ' berhasil diubah.'
                                 ], 200); 
         }
     }
@@ -325,13 +325,13 @@ class UsersKeuanganController extends Controller {
                                                                 'object' => $this->guard()->user(), 
                                                                 'object_id' => $this->guard()->user()->id, 
                                                                 'user_id' => $this->getUserid(), 
-                                                                'message' => 'Menghapus user Keuangan ('.$username.') berhasil'
+                                                                'message' => 'Menghapus user Keuangan (' . $username. ') berhasil'
                                                             ]);
         
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'destroy',    
-                                        'message'=>"User Keuangan ($username) berhasil dihapus"
+                                        'message' => "User Keuangan ($username) berhasil dihapus"
                                     ], 200);    
         }
                   

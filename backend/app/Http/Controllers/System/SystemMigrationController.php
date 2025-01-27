@@ -83,10 +83,10 @@ class SystemMigrationController extends Controller {
             $user=User::create([
                 'id' => $uuid,
                 'name' => $request->input('nama_mhs'),
-                'email'=>"$uuid@staimutanjungpinang.ac.id",
+                'email' => "$uuid@staimutanjungpinang.ac.id",
                 'username'=> $nim,
                 'password'=>Hash::make('12345678'),
-                'nomor_hp'=>"+62$no_hp",
+                'nomor_hp' => "+62$no_hp",
                 'ta' => $ta,
                 'email_verified_at' => '',
                 'theme' => 'default',  
@@ -102,7 +102,7 @@ class SystemMigrationController extends Controller {
                 'user_id' => $user->id,
                 'nim' => $nim,
                 'nama_mhs' => $request->input('nama_mhs'),  
-                'aktivitas'=>"Input data ke user berhasil dengan username ($nim)",  
+                'aktivitas' => "Input data ke user berhasil dengan username ($nim)",  
                 'tahun' => $ta,
                 'idsmt' => 1
             ]);
@@ -122,7 +122,7 @@ class SystemMigrationController extends Controller {
                 'user_id' => $user->id,
                 'nim' => $nim,
                 'nama_mhs' => $request->input('nama_mhs'),  
-                'aktivitas'=>"Input data ke formulir pendaftaran berhasil dengan nomor formulir ($no_formulir)",  
+                'aktivitas' => "Input data ke formulir pendaftaran berhasil dengan nomor formulir ($no_formulir)",  
                 'tahun' => $ta,
                 'idsmt' => 1
             ]);
@@ -141,7 +141,7 @@ class SystemMigrationController extends Controller {
             
             $role='mahasiswa';   
             $user->assignRole($role);
-            $permission=Role::findByName('mahasiswa')->permissions;
+            $permission = Role::findByName('mahasiswa')->permissions;
             $user->givePermissionTo($permission->pluck('name'));       
             
             DataMHSMigrationModel::create([
@@ -149,7 +149,7 @@ class SystemMigrationController extends Controller {
                 'user_id' => $user->id,
                 'nim' => $nim,
                 'nama_mhs' => $request->input('nama_mhs'),  
-                'aktivitas'=>"Input data ke register mahasiswa berhasil.",  
+                'aktivitas' => "Input data ke register mahasiswa berhasil.",  
                 'tahun' => $ta,
                 'idsmt' => 1
             ]);
@@ -177,7 +177,7 @@ class SystemMigrationController extends Controller {
                         'user_id' => $user->id,
                         'nim' => $nim,
                         'nama_mhs' => $request->input('nama_mhs'),  
-                        'aktivitas'=>"Input data ke daftar ulang tahun ".$tahun."1 berhasil dengan status ".$status_mhs[$i],  
+                        'aktivitas' => "Input data ke daftar ulang tahun ".$tahun."1 berhasil dengan status ".$status_mhs[$i],  
                         'tahun' => $ta,
                         'idsmt' => 1
                     ]);
@@ -199,7 +199,7 @@ class SystemMigrationController extends Controller {
                         'user_id' => $user->id,
                         'nim' => $nim,
                         'nama_mhs' => $request->input('nama_mhs'),  
-                        'aktivitas'=>"Input data ke daftar ulang tahun ".$tahun."2 berhasil dengan status ".$status_mhs[$i],  
+                        'aktivitas' => "Input data ke daftar ulang tahun ".$tahun."2 berhasil dengan status ".$status_mhs[$i],  
                         'tahun' => $ta,
                         'idsmt' => 1
                     ]);
@@ -243,8 +243,8 @@ class SystemMigrationController extends Controller {
             
 
             $jumlah_row=\DB::table('pe3_penyelenggaraan')
-                        ->where('nmatkul', 'like', '%'.$v->nmatkul.'%')
-                        ->where('kmatkul', 'like', '%'.$v->kmatkul.'%')
+                        ->where('nmatkul', 'like', '%' . $v->nmatkul.'%')
+                        ->where('kmatkul', 'like', '%' . $v->kmatkul.'%')
                         ->where('kjur',$prodi_id)
                         ->update([
                             'matkul_id' => $v->id,

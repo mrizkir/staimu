@@ -132,6 +132,20 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          link
+          v-if="CAN_ACCESS('DMASTER-CHANNEL-MARKETING_BROWSE')"
+          to="/dmaster/channelmarketing"
+        >
+          <v-list-item-icon class="mr-2">
+            <v-icon>mdi-format-list-checks</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>
+              CHANNEL MARKETING
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-subheader>MAHASISWA</v-subheader>
         <v-list-item link to="/dmaster/statusmahasiswa">
           <v-list-item-icon class="mr-2">

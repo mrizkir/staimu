@@ -163,7 +163,7 @@ class DulangController extends Controller
         $user->save();    
 
         \DB::table('model_has_permissions')->where('model_id',$user->id)->delete();
-        $permission=Role::findByName('mahasiswa')->permissions;
+        $permission = Role::findByName('mahasiswa')->permissions;
         $user->givePermissionTo($permission->pluck('name'));        
         
         $dulang->update_info = 1;
@@ -206,14 +206,14 @@ class DulangController extends Controller
         'object' => $matakuliah, 
         'object_id' => $matakuliah->id, 
         'user_id' => $this->getUserid(), 
-        'message' => 'Menghapus daftar ulang mahasiswa baru dengan id ('.$dulang->user_id.') berhasil'
+        'message' => 'Menghapus daftar ulang mahasiswa baru dengan id (' . $dulang->user_id. ') berhasil'
       ]);
       $dulang->delete();
       
       return Response()->json([
         'status' => 1,
         'pid' => 'destroy',    
-        'message'=>"Daftar Ulang dengan kode ($id) berhasil dihapus"
+        'message' => "Daftar Ulang dengan kode ($id) berhasil dihapus"
       ], 200);    
     }
           

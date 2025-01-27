@@ -284,7 +284,7 @@
 			},
 			viewItem(item)
 			{
-				this.$router.push("/akademik/nilai/transkripkurikulum/"+item.user_id);
+				this.$router.push("/akademik/nilai/transkripkurikulum/" + item.user_id);
 			},
 			async printpdf2(item)
 			{

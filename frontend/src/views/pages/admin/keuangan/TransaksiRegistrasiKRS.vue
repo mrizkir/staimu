@@ -338,7 +338,7 @@
 					},
 					viewItem(item)
 					{
-							this.$router.push("/keuangan/transaksi-registrasikrs/"+item.transaksi_id);
+							this.$router.push("/keuangan/transaksi-registrasikrs/" + item.transaksi_id);
 					},
 					save: async function() {
 							if (this.$refs.frmdata.validate())
@@ -409,7 +409,7 @@
 									if (confirm)
 									{
 											this.btnLoading = true;
-											this.$ajax.post("/keuangan/transaksi-registrasikrs/"+item.transaksi_id,
+											this.$ajax.post("/keuangan/transaksi-registrasikrs/" + item.transaksi_id,
 													{
 															_method: "DELETE",
 													},

@@ -88,7 +88,7 @@ class MatakuliahController extends Controller {
 									'status' => 1,
 									'pid' => 'fetchdata',    
 									'matakuliah' => $matakuliah,    
-									'message' => 'Data matakuliah dengan id ('.$id.') berhasil diperoleh.'
+									'message' => 'Data matakuliah dengan id (' . $id. ') berhasil diperoleh.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 
 		}
@@ -106,7 +106,7 @@ class MatakuliahController extends Controller {
 		$kjur=$request->input('kjur');
 		$ta = $request->input('ta');
 
-		$rule=[            
+		$rule = [            
 			'id_group' => 'required',
 			'kmatkul' => [
 				'required',
@@ -380,14 +380,14 @@ class MatakuliahController extends Controller {
 														'object' => $matakuliah,
 														'object_id' => $matakuliah->id, 
 														'user_id' => $this->getUserid(), 
-														'message' => 'Mengubah data matakuliah ('.$matakuliah->nama_prodi.') berhasil'
+														'message' => 'Mengubah data matakuliah (' . $matakuliah->nama_prodi. ') berhasil'
 													]);
 
 			return Response()->json([
 									'status' => 1,
 									'pid' => 'update',
 									'matakuliah' => $matakuliah,      
-									'message' => 'Data matakuliah '.$matakuliah->username.' berhasil diubah.'
+									'message' => 'Data matakuliah ' . $matakuliah->username. ' berhasil diubah.'
 								], 200)->setEncodingOptions(JSON_NUMERIC_CHECK); 
 		}
 	}   
@@ -417,13 +417,13 @@ class MatakuliahController extends Controller {
 															'object' => $matakuliah, 
 															'object_id' => $matakuliah->id, 
 															'user_id' => $this->getUserid(), 
-															'message' => 'Menghapus matakuliah dengan id ('.$id.') berhasil'
+															'message' => 'Menghapus matakuliah dengan id (' . $id. ') berhasil'
 														]);
 			$matakuliah->delete();
 			return Response()->json([
 										'status' => 1,
 										'pid' => 'destroy',    
-										'message'=>"matakuliah dengan kode ($id) berhasil dihapus"
+										'message' => "matakuliah dengan kode ($id) berhasil dihapus"
 									], 200);    
 		}
 				  

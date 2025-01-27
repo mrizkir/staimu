@@ -79,7 +79,7 @@ class RolesController extends Controller {
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'store',
-                                    'message' => 'Permission role '.$role->name.' berhasil disimpan.'
+                                    'message' => 'Permission role ' . $role->name. ' berhasil disimpan.'
                                 ], 200); 
     }
     /**
@@ -104,7 +104,7 @@ class RolesController extends Controller {
                 'object' => $this->guard()->user(), 
                 'object_id' => $this->guard()->user()->id, 
                 'user_id' => $this->getUserid(), 
-                'message' => 'Menghilangkan permission('.$name.') role ('.$role->name.') berhasil'
+                'message' => 'Menghilangkan permission(' . $name. ') role (' . $role->name. ') berhasil'
             ]);
 
             return $role;
@@ -113,7 +113,7 @@ class RolesController extends Controller {
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'destroy',
-                                    'message' => 'Role '.$role->name.' berhasil di revoke.'
+                                    'message' => 'Role ' . $role->name. ' berhasil di revoke.'
                                 ], 200); 
     }
     /**
@@ -140,7 +140,7 @@ class RolesController extends Controller {
                                         'status' => 1,
                                         'pid' => 'fetchdata',
                                         'permissions' => $role->permissions,    
-                                        'message' => 'Fetch permission role '.$role->name.' berhasil diperoleh.'
+                                        'message' => 'Fetch permission role ' . $role->name. ' berhasil diperoleh.'
                                     ], 200); 
         }
     }    
@@ -168,7 +168,7 @@ class RolesController extends Controller {
                                         'status' => 1,
                                         'pid' => 'fetchdata',
                                         'permissions' => $role->permissions,    
-                                        'message' => 'Fetch permission role '.$role->name.' berhasil diperoleh.'
+                                        'message' => 'Fetch permission role ' . $role->name. ' berhasil diperoleh.'
                                     ], 200); 
         }
     }    
@@ -201,7 +201,7 @@ class RolesController extends Controller {
                                     'status' => 1,
                                     'pid' => 'update',
                                     'role' => $role,    
-                                    'message' => 'Data role '.$role->name.' berhasil diubah.'
+                                    'message' => 'Data role ' . $role->name. ' berhasil diubah.'
                                 ], 200); 
     }
 }

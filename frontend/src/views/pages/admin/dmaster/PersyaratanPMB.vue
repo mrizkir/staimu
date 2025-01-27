@@ -474,10 +474,10 @@
 						}
 				},
 				deleteItem(item) {
-						this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus persyaratan "+item.nama_persyaratan+" ?", { color: "red" }).then(confirm => {
+						this.$root.$confirm.open("Delete", "Apakah Anda ingin menghapus persyaratan " + item.nama_persyaratan+" ?", { color: "red" }).then(confirm => {
 								if (confirm) {
 										this.btnLoading = true;
-										this.$ajax.post("/datamaster/persyaratan/"+item.id,
+										this.$ajax.post("/datamaster/persyaratan/" + item.id,
 												{
 														_method: "DELETE",
 												},

@@ -387,7 +387,7 @@
 			viewItem(item) {
 				this.formdata = item;
 				this.dialogdetailitem = true;
-				// this.$ajax.get("/dmaster/kuesioner/kelompokpertanyaan/"+item.id,{
+				// this.$ajax.get("/dmaster/kuesioner/kelompokpertanyaan/" + item.id,{
 				//     headers: {
 				//         Authorization: this.$store.getters["auth/Token"],
 				//     }

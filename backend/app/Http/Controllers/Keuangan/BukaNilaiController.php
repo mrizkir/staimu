@@ -45,7 +45,7 @@ class BukaNilaiController extends Controller
     
     if ($request->has('search'))
     {
-      $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \''.$request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%'.$request->input('search').'%\')')        
+      $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
             ->orderBy('tasmt', 'desc')
             ->get();
     }  
