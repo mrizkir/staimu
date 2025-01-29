@@ -50,7 +50,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>KODE BILLING :</v-card-title>
@@ -59,7 +59,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NIM / NO.FORMULIR:</v-card-title>
@@ -68,7 +68,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -77,7 +77,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
@@ -87,7 +87,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
@@ -97,7 +97,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>TOTAL:</v-card-title>
@@ -106,7 +106,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                 <v-col xs="12" sm="6" md="6">
                                     <v-card flat>
                                         <v-card-title>CREATED / UPDATED :</v-card-title>
@@ -115,7 +115,7 @@
                                         </v-card-subtitle>
                                     </v-card>
                                 </v-col>
-                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                             </v-row>
                         </v-card-text>
                     </v-card>
@@ -123,7 +123,7 @@
             </v-row>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
-                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>  
+                    <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                         <v-data-table
                             :headers="headers"
                             :items="item_selected" 
@@ -142,13 +142,13 @@
                                         vertical
                                     ></v-divider>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length > 0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>             
+                                    <v-btn color="primary" class="mb-2" @click.stop="save" :disabled="!(item_selected.length > 0) || (data_transaksi.status == 1 || data_transaksi.status==2)">SIMPAN</v-btn>
                                 </v-toolbar>
                             </template>
-                            <template v-slot:item.biaya_kombi="{ item }">  
+                            <template v-slot:item.biaya_kombi="{ item }">
                                 {{item.biaya_kombi|formatUang}}
                             </template>
-                            <template v-slot:item.actions="{ item }">  
+                            <template v-slot:item.actions="{ item }">
                                 <v-icon
                                     small
                                     
@@ -226,7 +226,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data transaksi SPP belum tersedia
-                        </template>  
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>

@@ -74,7 +74,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>                
+                                <v-spacer></v-spacer>
                             </v-toolbar>
                             <v-dialog v-model="dialogprintpdf" max-width="500px" persistent>
                                 <v-card>
@@ -126,7 +126,7 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>              
+                            </v-btn>
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -144,11 +144,11 @@
                                     </v-btn> 
                                 </template>
                                 <span>Verifikasi KRS</span>
-                            </v-tooltip>  
+                            </v-tooltip>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">  
+                                <v-col cols="12">
                                     <strong>krs_id:</strong>{{ item.id }} 
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

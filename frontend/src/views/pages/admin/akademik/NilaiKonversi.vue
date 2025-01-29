@@ -81,7 +81,7 @@
                                     to="/akademik/nilai/konversi/tambah"
                                     v-if="$store.getters['auth/can']('AKADEMIK-NILAI-KONVERSI_STORE')">
                                         <v-icon>mdi-plus</v-icon>
-                                </v-btn>  
+                                </v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.nim="{ item }">
@@ -121,7 +121,7 @@
                                     </v-btn> 
                                 </template>
                                 <span>Ubah Konversi Nilai</span>
-                            </v-tooltip>  
+                            </v-tooltip>
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -155,11 +155,11 @@
                                     </v-btn> 
                                 </template>
                                 <span>Hapus Konversi Nilai</span>
-                            </v-tooltip>  
+                            </v-tooltip>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">  
+                                <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id}}
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }} 

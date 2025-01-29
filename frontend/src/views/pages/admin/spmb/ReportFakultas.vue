@@ -67,7 +67,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>  
+                                <v-spacer></v-spacer>
                                 <v-btn 
                                     color="primary" 
                                     icon
@@ -77,7 +77,7 @@
                                     <v-icon>
                                         mdi-printer
                                     </v-icon>
-                                </v-btn>   
+                                </v-btn>
                             </v-toolbar>
                         </template>
                         <template v-slot:item.foto="{ item }">

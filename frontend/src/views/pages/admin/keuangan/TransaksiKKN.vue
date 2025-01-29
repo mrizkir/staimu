@@ -183,11 +183,11 @@
                                 @click.stop="deleteItem(item)"
                                 v-if="item.status == 0">
                                 mdi-delete
-                            </v-icon>  
+                            </v-icon>
                         </template>
                         <template v-slot:no-data>
                             Data transaksi KKN belum tersedia
-                        </template>  
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>

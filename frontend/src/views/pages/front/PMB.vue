@@ -7,31 +7,31 @@
             PENDAFTARAN MAHASISWA BARU
           </h1>
           <h4 class="text-center title font-weight-black primary--text">
-            TAHUN AKADEMIK {{tahunPendaftaran|formatTA}}
+            TAHUN AKADEMIK {{ tahunPendaftaran | formatTA }}
           </h4>
           <v-form ref="frmpendaftaran" v-model="form_valid" lazy-validation>
             <v-card outlined>
               <v-card-text>
-                <v-text-field 
+                <v-text-field
                   v-model="formdata.name"
                   label="NAMA LENGKAP"
                   :rules="rule_name"
-                  outlined 
+                  outlined
                   dense
                 />
                 <v-text-field
                   v-model="formdata.nomor_hp"
                   label="NOMOR HP (ex: +628123456789)"
                   :rules="rule_nomorhp"
-                  outlined 
+                  outlined
                   dense
                 />
-                <v-text-field 
+                <v-text-field
                   v-model="formdata.email"
                   label="EMAIL"
                   :rules="rule_email"
-                  outlined 
-                  dense 
+                  outlined
+                  dense
                 />
                 <v-select
                   v-model="kode_fakultas"
@@ -53,37 +53,42 @@
                   :rules="rule_prodi"
                   outlined
                 />
-                <v-text-field 
+                <v-text-field
                   v-model="formdata.username"
                   label="USERNAME"
                   :rules="rule_username"
-                  outlined 
+                  outlined
                   dense
                 />
-                <v-text-field 
+                <v-text-field
                   v-model="formdata.password"
                   label="PASSWORD"
                   type="password"
                   :rules="rule_password"
-                  outlined 
+                  outlined
                   dense
-                /> 
-                <v-alert color="error" class="mb-0" text v-if="formdata.captcha_response.length<=0">
-                  Mohon dicentang Google Captcha    
+                />
+                <v-alert
+                  color="error"
+                  class="mb-0"
+                  text
+                  v-if="formdata.captcha_response.length <= 0"
+                >
+                  Mohon dicentang Google Captcha
                 </v-alert>
-              </v-card-text> 
+              </v-card-text>
               <v-card-actions class="justify-center">
-                <vue-recaptcha 
+                <vue-recaptcha
                   ref="recaptcha"
                   :sitekey="sitekey"
                   @verify="onVerify"
                   @expired="onExpired"
                   :loadRecaptchaScript="true"
                 >
-                </vue-recaptcha>                    
-              </v-card-actions> 
+                </vue-recaptcha>
+              </v-card-actions>
               <v-card-actions class="justify-center">
-                <v-btn 
+                <v-btn
                   color="primary"
                   @click="save"
                   :disabled="btnLoading"
@@ -94,7 +99,11 @@
               </v-card-actions>
             </v-card>
           </v-form>
-          <v-dialog v-model="dialogkonfirmasiemail" max-width="500px" persistent>
+          <v-dialog
+            v-model="dialogkonfirmasiemail"
+            max-width="500px"
+            persistent
+          >
             <v-form ref="frmkonfirmasi" v-model="form_valid" lazy-validation>
               <v-card>
                 <v-card-title>
@@ -102,9 +111,11 @@
                 </v-card-title>
                 <v-card-text>
                   <v-alert type="success">
-                    Proses pendaftaran berhasil, silahkan cek email Anda ({{formkonfirmasi.email}}) untuk mendapatkan kode aktivasi atau hubungi panitia PMB jika kode tidak masuk ke email.
+                    Proses pendaftaran berhasil, silahkan cek email Anda (
+                    {{ formkonfirmasi.email }}) untuk mendapatkan kode aktivasi 
+                    atau hubungi panitia PMB jika kode tidak masuk ke email.
                   </v-alert>
-                  <v-text-field 
+                  <v-text-field
                     v-model="formkonfirmasi.code"
                     label="CODE"
                     outlined
@@ -113,8 +124,14 @@
                   </v-text-field>
                 </v-card-text>
                 <v-card-actions>
-                  <v-spacer></v-spacer>  
-                  <v-btn color="blue darken-1" text @click.stop="closedialogfrm">KELUAR</v-btn>  
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click.stop="closedialogfrm"
+                  >
+                    KELUAR
+                  </v-btn>
                   <v-btn
                     color="blue darken-1"
                     text
@@ -173,34 +190,30 @@
       },
       rule_name: [
         value => !!value || "Nama Mahasiswa mohon untuk diisi !!!",
-        value => /^[A-Za-z\s\\,\\.]*$/.test(value) || "Nama Mahasiswa hanya boleh string dan spasi",
+        value =>
+          /^[A-Za-z\s\\,\\.]*$/.test(value) ||
+          "Nama Mahasiswa hanya boleh string dan spasi",
       ],
       rule_nomorhp: [
         value => !!value || "Nomor HP mohon untuk diisi !!!",
-        value => /^\+[1-9]{1}[0-9]{1,14}$/.test(value) || "Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388",
+        value =>
+          /^\+[1-9]{1}[0-9]{1,14}$/.test(value) ||
+          "Nomor HP hanya boleh angka dan gunakan kode negara didepan seperti +6281214553388",
       ],
       rule_email: [
         value => !!value || "Email mohon untuk diisi !!!",
         v => /.+@.+\..+/.test(v) || "Format E-mail mohon di isi dengan benar",
       ],
-      rule_fakultas: [
-        value => !!value || "Fakultas mohon untuk dipilih !!!"
-      ],
-      rule_prodi: [
-        value => !!value || "Program studi mohon untuk dipilih !!!"
-      ],
+      rule_fakultas: [value => !!value || "Fakultas mohon untuk dipilih !!!"],
+      rule_prodi: [value => !!value || "Program studi mohon untuk dipilih !!!"],
       rule_username: [
         value => !!value || "Username mohon untuk diisi !!!",
         value =>
-          /^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(value) || 
+          /^[a-zA-Z0-9.\-_$@*!]{3,30}$/.test(value) ||
           "Username tidak boleh ada spasi, koma, maksimal minimal 3 maksimal 30",
       ],
-      rule_password: [
-        value => !!value || "Password mohon untuk diisi !!!"
-      ],
-      rule_code: [
-        value => /^[0-9]+$/.test(value) || "Code hanya boleh angka",
-      ],
+      rule_password: [value => !!value || "Password mohon untuk diisi !!!"],
+      rule_code: [value => /^[0-9]+$/.test(value) || "Code hanya boleh angka"],
     }),
     methods: {
       initialize: async function() {
@@ -223,6 +236,7 @@
               email: this.formdata.email,
               nomor_hp: this.formdata.nomor_hp,
               username: this.formdata.username,
+              kode_fakultas: this.kode_fakultas,
               prodi_id: this.prodi_id,
               password: this.formdata.password,
               captcha_response: this.formdata.captcha_response,

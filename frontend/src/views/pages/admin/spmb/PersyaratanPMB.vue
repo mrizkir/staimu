@@ -29,7 +29,7 @@
       </template>
     </ModuleHeader>
     <v-container fluid v-if="dashboard == 'mahasiswabaru'">
-      <FormPersyaratan :user_id="$store.getters['auth/AttributeUser']('id')" v-if="showcomponentpersyaratan"/>
+      <FormPersyaratan :user_id="$store.getters['auth/AttributeUser']('id')" v-if="showcomponentpersyaratan" />
     </v-container>
     <v-container fluid v-else>
       <v-row class="mb-4" no-gutters>
@@ -69,7 +69,7 @@
                 <v-divider class="mx-4" inset vertical></v-divider>
                 <v-spacer></v-spacer>
                 <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">
-                  <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />  
+                  <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" v-if="dialogprofilmhsbaru" />
                 </v-dialog>
               </v-toolbar>
             </template>

@@ -78,7 +78,7 @@
                           label="NAMA CHANNEL"
                           outlined
                           :rules="rule_nama_channel">
-                        </v-text-field>                        
+                        </v-text-field>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
@@ -109,8 +109,8 @@
                               {{formdata.namachannel}}
                             </v-card-subtitle>
                           </v-card>
-                        </v-col>                        
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        </v-col>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                       </v-row>
                     </v-card-text>
                     <v-card-actions>

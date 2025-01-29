@@ -54,7 +54,7 @@
                                 <v-switch
                                     v-model="formdata.is_ketua"
                                     label="SEBAGAI KETUA GROUP DOSEN PENGAMPU">
-                                </v-switch>                               
+                                </v-switch>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
@@ -96,7 +96,7 @@
                                         v-model="item.is_ketua"
                                         :label="item.is_ketua == 1?'YA': 'TIDAK'"
                                         @change="updateketua(item)">
-                                    </v-switch>  
+                                    </v-switch>
                                 </template>
                                 <template v-slot:item.actions="{ item }">
                                     <v-btn

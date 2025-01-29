@@ -82,7 +82,7 @@
                 </v-list-item>
                 </template>
               </v-list>
-            </v-expand-transition>  
+            </v-expand-transition>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
@@ -207,7 +207,7 @@
           this.initialize();
         } 
       },
-      search (val) 
+      search(val) 
       {
         if (this.isLoading) return;
         

@@ -111,7 +111,7 @@
 												</template>
 												<template v-slot:expanded-item="{ headers, item }">
 														<td :colspan="headers.length" class="text-center">
-																<v-col cols="12">  
+																<v-col cols="12">
 																		<strong>id:</strong>{{ item.id }} 
 																		<strong>matkul_id:</strong>{{ item.matkul_id }} 
 																		<strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}

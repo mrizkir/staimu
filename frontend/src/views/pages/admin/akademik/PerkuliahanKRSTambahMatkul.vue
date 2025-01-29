@@ -36,7 +36,7 @@
 			</v-row>
 			<v-row>
 				<v-col cols="12"> 
-					<v-form ref="frmdata" v-model="form_valid" lazy-validation>  
+					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 						<v-card>
 							<v-card-title>
 								DAFTAR PENYELENGGARAAN MATAKULIAH

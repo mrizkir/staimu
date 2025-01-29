@@ -28,9 +28,9 @@
                 </v-alert>
             </template>
         </ModuleHeader>
-        <v-container fluid>  
+        <v-container fluid>
             <v-row> 
-                <v-col cols="12">  
+                <v-col cols="12">
                     <ProfilMahasiswa :datamhs="data_mhs" url="/akademik/nilai/transkripkurikulum" />
                 </v-col>
             </v-row>
@@ -39,7 +39,7 @@
                     <v-card>
                         <v-card-title>
                             DAFTAR NILAI TRANSKRIP
-                            <v-spacer></v-spacer>    
+                            <v-spacer></v-spacer>
                             <v-tooltip bottom> 
                                 <template v-slot:activator="{ on, attrs }"> 
                                     <v-btn 
@@ -105,7 +105,7 @@
                                     </template>
                                     <span>Histori Nilai</span>
                                 </v-tooltip> 
-                            </template>                           
+                            </template>
                             <template v-slot:body.append v-if="datatable.length > 0">
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right" colspan="3">JUMLAH</td>
@@ -115,7 +115,7 @@
                                     <td>{{totalAM}}</td>
                                     <td>{{totalSKS}}</td>
                                     <td>{{totalM}}</td> 
-                                    <td></td>  
+                                    <td></td>
                                 </tr>
                                 <tr class="grey lighten-4 font-weight-black">
                                     <td class="text-right" colspan="3">IPK SEMENTARA</td>
@@ -170,7 +170,7 @@
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         <v-col xs="12" sm="6" md="6">
                             <v-card flat>
                                 <v-card-title>NAMA MATAKULIAH :</v-card-title>
@@ -179,7 +179,7 @@
                                 </v-card-subtitle>
                             </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                     </v-row>
                     <v-data-table
                         dense

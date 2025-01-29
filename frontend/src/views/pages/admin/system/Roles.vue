@@ -19,7 +19,7 @@
 					Masing-masing user bisa memiliki beberapa role, minimal 1 role untuk bisa menggunakan sistem. Setiap role memiliki permission.
 				</v-alert>
 			</template>
-		</ModuleHeader>  
+		</ModuleHeader>
 		<v-container fluid>
 			<v-row class="mb-4" no-gutters>
 				<v-col xs="12" sm="12" md="12">

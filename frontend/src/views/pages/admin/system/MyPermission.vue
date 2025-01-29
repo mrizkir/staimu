@@ -65,7 +65,7 @@
                                     inset
                                     vertical
                                 ></v-divider>
-                                <v-spacer></v-spacer>              
+                                <v-spacer></v-spacer>
                             </v-toolbar>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">

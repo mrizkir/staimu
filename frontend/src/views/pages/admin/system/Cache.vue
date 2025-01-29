@@ -36,7 +36,7 @@
                                     label="TTL EXPIRE TOKEN (MENIT)"
                                     outlined
                                     :rules="rule_ttl_token_expire">
-                                </v-text-field>    
+                                </v-text-field>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>

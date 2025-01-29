@@ -90,7 +90,7 @@
 													outlined
 													:rules="rule_group_matakuliah"
 													v-if="(group_matakuliah && group_matakuliah.length > 0)">
-												</v-select>  
+												</v-select>
 												<v-text-field 
 													v-model="formdata.kmatkul" 
 													label="KODE MATAKULIAH"
@@ -220,7 +220,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>SKS :</v-card-title>
@@ -229,7 +229,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -240,7 +240,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>SKS TATAP MUKA :</v-card-title>
@@ -249,7 +249,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -260,7 +260,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>SKS PRAKTIKUM :</v-card-title>
@@ -269,7 +269,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -280,7 +280,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>SKS PRAKTIK LAPANGAN :</v-card-title>
@@ -289,7 +289,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -300,7 +300,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>SYARAT PPL/PKL / SKRIPSI :</v-card-title>
@@ -310,7 +310,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -321,7 +321,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>STATUS :</v-card-title>
@@ -330,7 +330,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 										</v-card-text>
 										<v-card-actions>
@@ -359,7 +359,7 @@
 													:items="daftar_ta"    
 													label="TAHUN AKADEMIK"
 													:rules="rule_dari_tahun_akademik"
-													outlined/>  
+													outlined/>
 											</v-card-text>
 											<v-card-actions>
 												<v-spacer></v-spacer>
@@ -402,7 +402,7 @@
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
-								<v-col cols="12">  
+								<v-col cols="12">
 									<strong>ID:</strong>{{ item.id }}
 									<strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 									<strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

@@ -83,7 +83,7 @@
                                     item-text="name"
                                     item-value="id"
                                     :rules="rule_dw"
-                                    outlined/>  
+                                    outlined/>
                             </v-card-text> 
                         </v-card> 
                         <v-card class="mb-4">
@@ -100,7 +100,7 @@
                                     item-key="id"
                                     :items="daftar_tasmt"
                                     dense> 
-                                    <template v-slot:item.k_status="{ item }">                     
+                                    <template v-slot:item.k_status="{ item }">
                                         <v-select       
                                             v-model="formdata.status_mhs[daftar_tasmt.indexOf(item)]"          
                                             :items="daftar_status_mhs"

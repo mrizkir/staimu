@@ -49,13 +49,13 @@
 							<v-row>
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>ID KONVERSI:</v-card-title>  
+										<v-card-title>ID KONVERSI:</v-card-title>
 										<v-card-subtitle>
 											{{data_konversi.id}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
 										<v-card-title>TAHUN MATAKULIAH :</v-card-title>
@@ -64,18 +64,18 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 							</v-row>
 							<v-row>
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>NIM ASAL / NIM SISTEM:</v-card-title>  
+										<v-card-title>NIM ASAL / NIM SISTEM:</v-card-title>
 										<v-card-subtitle>
 											{{data_konversi.nim_asal}} / {{data_konversi.nim==null?'N.A':data_konversi.nim}} 
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
 										<v-card-title>NAMA P.T ASAL:</v-card-title>
@@ -84,67 +84,67 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 							</v-row>
 							<v-row>
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>NAMA MAHASISWA:</v-card-title>  
+										<v-card-title>NAMA MAHASISWA:</v-card-title>
 										<v-card-subtitle>
 											{{data_konversi.nama_mhs}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>PROGRAM STUDI ASAL:</v-card-title>  
+										<v-card-title>PROGRAM STUDI ASAL:</v-card-title>
 										<v-card-subtitle>
 											[{{data_konversi.kode_ps_asal}}] / {{data_konversi.nama_ps_asal}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 							</v-row>
 							<v-row>
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>ALAMAT:</v-card-title>  
+										<v-card-title>ALAMAT:</v-card-title>
 										<v-card-subtitle>
 											{{data_konversi.alamat}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>JUMLAH YANG TERKONVERSI:</v-card-title>  
+										<v-card-title>JUMLAH YANG TERKONVERSI:</v-card-title>
 										<v-card-subtitle>
 											Matakuliah : {{totalMatkul}} / SKS: {{totalSKS}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 							</v-row>
 							<v-row>
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>NO. TELEPON:</v-card-title>  
+										<v-card-title>NO. TELEPON:</v-card-title>
 										<v-card-subtitle>
 											{{data_konversi.no_telp}}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 								<v-col xs="12" sm="12" md="6">
 									<v-card flat>
-										<v-card-title>CREATED/UPDATED:</v-card-title>  
+										<v-card-title>CREATED/UPDATED:</v-card-title>
 										<v-card-subtitle>
 											{{ $date(data_konversi.created_at).format("DD/MM/YYYY HH:mm") }} / {{ $date(data_konversi.updated_at).format("DD/MM/YYYY HH:mm") }}
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
 							</v-row> 
 						</v-card-text>
 					</v-card>
@@ -246,7 +246,7 @@
 								</v-list-item>
 								</template>
 							</v-list>
-						</v-expand-transition>  
+						</v-expand-transition>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
@@ -290,21 +290,21 @@
 									inset
 									vertical
 								></v-divider>
-								<v-spacer></v-spacer>  
+								<v-spacer></v-spacer>
 							</v-toolbar>
 						</template> 
 						<template v-slot:item.kmatkul_asal="{ item }">
 							{{item.kmatkul_asal==null ? 'N.A':item.kmatkul_asal}}
-						</template>                                 
+						</template>
 						<template v-slot:item.matkul_asal="{ item }">
 							{{item.matkul_asal==null ? 'N.A':item.matkul_asal}}
-						</template>                                 
+						</template>
 						<template v-slot:item.sks_asal="{ item }">
 							{{item.sks_asal==null ? 'N.A':item.sks_asal}}
-						</template>                   
+						</template>
 						<template v-slot:item.n_kual="{ item }">
 							{{item.n_kual==null ? 'N.A':item.n_kual}}
-						</template>                                                                    
+						</template>
 						<template v-slot:no-data>
 							Data belum tersedia
 						</template>
@@ -631,7 +631,7 @@ export default {
 		},
    },
 	watch: {
-		search (val) 
+		search(val) 
 		{
 			if (this.isLoading) return;
 			

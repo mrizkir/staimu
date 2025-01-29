@@ -69,7 +69,7 @@
 									<v-icon>
 										mdi-printer
 									</v-icon>
-								</v-btn>   
+								</v-btn>
 							</v-toolbar>
 						</template>
 						<template v-slot:item.foto="{ item }">

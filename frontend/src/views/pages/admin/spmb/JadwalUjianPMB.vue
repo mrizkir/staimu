@@ -22,7 +22,7 @@
 					Berisi daftar dan pengelolaan jadwal ujian PMB.
 				</v-alert>
 			</template>
-		</ModuleHeader>  
+		</ModuleHeader>
 		<v-container fluid> 
 			<v-row class="mb-4" no-gutters>
 				<v-col cols="12">
@@ -86,14 +86,14 @@
 													outlined
 													:rules="rule_nama_kegiatan"
 												>
-												</v-text-field>  
+												</v-text-field>
 												Jumlah soal, pastikan lebih kecil atau sama dengan jumlah soal BANK SOAL.                                                                            
 												<v-text-field 
 													v-model="formdata.jumlah_soal" 
 													label="JUMLAH SOAL"
 													outlined
 													:rules="rule_jumlah_soal">
-												</v-text-field>  
+												</v-text-field>
 												<v-menu
 													ref="menuTanggalAkhirPendaftaran"
 													v-model="menuTanggalAkhirPendaftaran"

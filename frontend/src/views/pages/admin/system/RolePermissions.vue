@@ -18,7 +18,7 @@
 											</v-card-subtitle>
 										</v-card>
 									</v-col>
-									<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+									<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 									<v-col xs="12" sm="6" md="6">
 										<v-card flat>
 											<v-card-title>TANGGAL BUAT :</v-card-title>
@@ -27,7 +27,7 @@
 											</v-card-subtitle>
 										</v-card>
 									</v-col>
-									<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+									<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 						</v-row>
 						<v-row no-gutters>
 							<v-col xs="12" sm="6" md="6">
@@ -38,7 +38,7 @@
 									</v-card-subtitle>
 								</v-card>
 							</v-col>
-							<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+							<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 							<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>TANGGAL UBAH :</v-card-title>
@@ -47,7 +47,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 							</v-row>
 						</v-card-text>
 						</v-card>
@@ -80,7 +80,7 @@
 							show-select
 							class="elevation-1"
 						>
-							<template v-slot:item.actions="{ item }">  
+							<template v-slot:item.actions="{ item }">
 								<v-tooltip color="info" bottom>
 									<template v-slot:activator="{on,attrs}">
 										<v-btn 
@@ -94,9 +94,9 @@
 											<v-icon small>
 												mdi-delete
 											</v-icon>
-										</v-btn>                           
+										</v-btn>
 									</template>
-									<span>Hapus Permission dari Role ini</span>  
+									<span>Hapus Permission dari Role ini</span>
 								</v-tooltip>
 							</template>
 						</v-data-table>

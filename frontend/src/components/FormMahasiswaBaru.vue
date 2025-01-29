@@ -160,6 +160,32 @@
               :rules="rule_kelas"
               filled
             />
+            <v-select
+              label="INFORMASI DARI MANA"
+              v-model="formdata.idkelas"
+              :items="daftar_channel_marketing"
+              item-text="nkelas"
+              item-value="idkelas"
+              :rules="rule_channel_marketing"
+              :disabled="formdata.isdulang"
+              filled
+            />
+            <v-select
+              label="REKOMENDASI DARI"
+              v-model="formdata.idkelas"
+              :items="daftar_kelas"
+              item-text="nkelas"
+              item-value="idkelas"
+              :rules="rule_kelas"
+              :disabled="formdata.isdulang"
+              filled
+            />
+            <v-text-field
+              label="NAMA PEMBERI REKOMENDASI"  
+              v-model="formdata.nama_mhs"  
+              :rules="rule_nama_mhs"
+              filled
+            />
           </v-card-text>
         </v-card>
         <v-card class="mb-4">
@@ -214,6 +240,7 @@
 
       daftar_prodi: [], 
       daftar_kelas: [],
+      daftar_channel_marketing: [],
       
       formdata: {
         nama_mhs: "",
@@ -286,48 +313,59 @@
         this.$ajax.get("/datamaster/kelas").then(({ data }) => { 
           this.daftar_kelas = data.kelas;
         });
-        await this.$ajax.get("/spmb/formulirpendaftaran/" + this.$store.getters["auth/AttributeUser"]("id"), 
+
+        this.$ajax.get("/datamaster/channelmarketing", 
           {
             headers: {
               Authorization: this.$store.getters["auth/Token"]
             }
           },
-          
         )
-          .then(({ data }) => {
-            this.formdata.nama_mhs = data.formulir.nama_mhs;
-            this.formdata.tempat_lahir = data.formulir.tempat_lahir;
-            this.formdata.tanggal_lahir = data.formulir.tanggal_lahir;
-            this.formdata.jk = data.formulir.jk;
-            this.formdata.nomor_hp="+"+data.formulir.nomor_hp;
-            this.formdata.email = data.formulir.email;
-            this.formdata.nama_ibu_kandung = data.formulir.nama_ibu_kandung;
-            
-            this.provinsi_id = {
-              id: "" + data.formulir.address1_provinsi_id,
-              nama: "" + data.formulir.address1_provinsi
-            };
-            this.kabupaten_id = {
-              id: "" + data.formulir.address1_kabupaten_id,
-              nama: "" + data.formulir.address1_kabupaten
-            };
-            this.kecamatan_id = {
-              id: "" + data.formulir.address1_kecamatan_id,
-              nama: "" + data.formulir.address1_kecamatan
-            };
-            this.desa_id = {
-              id: "" + data.formulir.address1_desa_id,
-              nama: "" + data.formulir.address1_kelurahan
-            };
-            this.formdata.alamat_rumah = data.formulir.alamat_rumah;
-            if (bentukpt == "universitas" && data.formulir.kode_fakultas != null) {
-              this.kode_fakultas = data.formulir.kode_fakultas;
+        .then(({ data }) => { 
+          this.daftar_channel_marketing = data.kelas;
+        });
+
+        await this.$ajax.get("/spmb/formulirpendaftaran/" + this.$store.getters["auth/AttributeUser"]("id"), 
+          {
+            headers: {
+              Authorization: this.$store.getters["auth/Token"]
             }
-            this.formdata.kjur1 = data.formulir.kjur1;
-            this.formdata.idkelas = data.formulir.idkelas;
-            this.kode_billing = data.no_transaksi;
-            this.$refs.frmdata.resetValidation();
-          });
+          },          
+        )
+        .then(({ data }) => {
+          this.formdata.nama_mhs = data.formulir.nama_mhs;
+          this.formdata.tempat_lahir = data.formulir.tempat_lahir;
+          this.formdata.tanggal_lahir = data.formulir.tanggal_lahir;
+          this.formdata.jk = data.formulir.jk;
+          this.formdata.nomor_hp="+"+data.formulir.nomor_hp;
+          this.formdata.email = data.formulir.email;
+          this.formdata.nama_ibu_kandung = data.formulir.nama_ibu_kandung;
+          
+          this.provinsi_id = {
+            id: "" + data.formulir.address1_provinsi_id,
+            nama: "" + data.formulir.address1_provinsi
+          };
+          this.kabupaten_id = {
+            id: "" + data.formulir.address1_kabupaten_id,
+            nama: "" + data.formulir.address1_kabupaten
+          };
+          this.kecamatan_id = {
+            id: "" + data.formulir.address1_kecamatan_id,
+            nama: "" + data.formulir.address1_kecamatan
+          };
+          this.desa_id = {
+            id: "" + data.formulir.address1_desa_id,
+            nama: "" + data.formulir.address1_kelurahan
+          };
+          this.formdata.alamat_rumah = data.formulir.alamat_rumah;
+          if (bentukpt == "universitas" && data.formulir.kode_fakultas != null) {
+            this.kode_fakultas = data.formulir.kode_fakultas;
+          }
+          this.formdata.kjur1 = data.formulir.kjur1;
+          this.formdata.idkelas = data.formulir.idkelas;
+          this.kode_billing = data.no_transaksi;
+          this.$refs.frmdata.resetValidation();
+        });
       },
       save: async function() {
         if (this.$refs.frmdata.validate()) {

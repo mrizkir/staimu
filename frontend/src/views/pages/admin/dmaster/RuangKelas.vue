@@ -121,7 +121,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         <v-col xs="12" sm="6" md="6">
                           <v-card flat>
                             <v-card-title>KAPASITAS :</v-card-title>
@@ -130,7 +130,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                       </v-row>
                     </v-card-text>
                     <v-card-actions>

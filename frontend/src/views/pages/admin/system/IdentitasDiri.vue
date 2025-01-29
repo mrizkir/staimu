@@ -25,7 +25,7 @@
           </v-alert>
       </template>
     </ModuleHeader> 
-    <v-container fluid>  
+    <v-container fluid>
       <v-row class="mb-4" no-gutters>
         <v-col cols="12">
           <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -39,7 +39,7 @@
                   label="NAMA PERGURUAN TINGGI"
                   outlined
                   :rules="rule_nama_pt">
-                </v-text-field>                                                
+                </v-text-field>
                 <v-text-field 
                   v-model="formdata.nama_alias_pt" 
                   label="NAMA SINGKATAN PERGURUAN TINGGI"
@@ -56,7 +56,7 @@
                   label="KODE PERGURUAN TINGGI (SESUAI FORLAP)"
                   outlined
                   :rules="rule_kode_pt">
-                </v-text-field>                                                
+                </v-text-field>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>

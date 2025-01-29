@@ -110,11 +110,11 @@
                                 <v-icon>
                                     mdi-eye
                                 </v-icon>
-                            </v-btn>    
+                            </v-btn>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">  
+                                <v-col cols="12">
                                     <strong>krs_id:</strong>{{ item.id }} 
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

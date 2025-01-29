@@ -87,7 +87,7 @@
                           mdi-close-thick
                         </v-icon>
                       </v-toolbar>
-                      <v-card-text>  
+                      <v-card-text>
                         <v-row no-gutters>
                           <v-col xs="12" sm="6" md="6">
                             <v-card flat>
@@ -97,7 +97,7 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                           <v-col xs="12" sm="6" md="6">
                             <v-card flat>
                               <v-card-title>KELAS :</v-card-title>
@@ -106,7 +106,7 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         </v-row> 
                         <v-row no-gutters>
                           <v-col xs="12" sm="6" md="6">
@@ -117,7 +117,7 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                           <v-col xs="12" sm="6" md="6">
                             <v-card flat>
                               <v-card-title>PROGRAM STUDI :</v-card-title>
@@ -126,7 +126,7 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         </v-row> 
                         <v-row no-gutters>
                           <v-col xs="12" sm="6" md="6">
@@ -137,7 +137,7 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                           <v-col xs="12" sm="6" md="6">
                             <v-card flat>
                               <v-card-title>TAHUN PENDAFTARAN :</v-card-title>
@@ -146,10 +146,10 @@
                               </v-card-subtitle>
                             </v-card>
                           </v-col>
-                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                          <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         </v-row> 
                         <v-row no-gutters>
-                          <v-col xs="12">  
+                          <v-col xs="12">
                             <v-select
                               label="DOSEN WALI :"
                               v-model="formdata.dosen_id"
@@ -204,7 +204,7 @@
             </template>
             <template v-slot:item.foto="{ item }"> 
               <v-avatar size="30">
-                <v-img :src="$api.url + '/' + item.foto" /> 
+                <v-img :src="$api.url + '/' + item.foto" />
               </v-avatar>
             </template>
             <template v-slot:expanded-item="{ headers, item }">

@@ -52,7 +52,7 @@
                                 ></v-divider>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
-                        </template>  
+                        </template>
                         <template v-slot:item.style="props">
                             <v-edit-dialog
                                 :return-value.sync="props.item.style"
@@ -61,7 +61,7 @@
                                 @cancel="cancelItem"
                                 @open="openItem"
                                 @close="closeItem"> 
-                                    <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>  
+                                    <v-chip :color="props.item.style" dark>{{props.item.style}}</v-chip>
                                     <template v-slot:input>
                                         <div class="mt-4 title">Update Style</div> 
                                         <v-text-field 
@@ -72,10 +72,10 @@
                                         </v-text-field>
                                     </template>
                             </v-edit-dialog>
-                        </template>  
+                        </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">  
+                                <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id_status }} 
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

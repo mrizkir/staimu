@@ -25,7 +25,7 @@
           </v-alert>
       </template>
     </ModuleHeader> 
-    <v-container fluid>  
+    <v-container fluid>
       <v-row class="mb-4" no-gutters>
         <v-col cols="12">
           <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -41,9 +41,9 @@
                       :items="daftar_ta"
                       label="TAHUN AKADEMIK"
                       outlined
-                      :rules="rule_default_ta"/>
+                      :rules="rule_default_ta" />
                   </v-col>
-                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                   <v-col xs="12" sm="12" md="4">
                     <v-select
                       v-model="formdata.default_semester" 
@@ -52,18 +52,18 @@
                       item-value="id"
                       label="SEMESTER AKADEMIK"
                       outlined
-                      :rules="rule_default_semester"/>
+                      :rules="rule_default_semester" />
                   </v-col>
-                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                   <v-col xs="12" sm="12" md="4">
                     <v-select
                       v-model="formdata.tahun_pendaftaran" 
                       :items="daftar_ta"
                       label="TAHUN PENDAFTARAN"
                       outlined
-                      :rules="rule_tahun_pendaftaran"/>
+                      :rules="rule_tahun_pendaftaran" />
                   </v-col>
-                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                  <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                 </v-row>
               </v-card-text>
               <v-card-actions>

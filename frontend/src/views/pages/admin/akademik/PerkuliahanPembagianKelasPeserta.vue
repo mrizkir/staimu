@@ -81,7 +81,7 @@
 												<template v-slot:item.kjur="{ item }">
 														{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">   
+												<template v-slot:item.actions="{ item }">
 														<v-btn
 																small
 																icon
@@ -92,7 +92,7 @@
 																		mdi-delete
 																</v-icon>
 														</v-btn>
-												</template>            
+												</template>
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>
@@ -100,7 +100,7 @@
 								</v-col>
 						</v-row>
 						<v-row>
-								<v-col cols="12">  
+								<v-col cols="12">
 										<v-dialog v-model="showdialogmatakuliah" max-width="800px" persistent>
 												<v-form ref="frmdatamatkul" v-model="form_valid" lazy-validation>
 														<v-card>
@@ -135,7 +135,7 @@
 																</v-card-actions>
 														</v-card>
 												</v-form>
-										</v-dialog>  
+										</v-dialog>
 										<v-dialog v-model="showdialogpeserta" max-width="800px" persistent>
 												<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 														<v-card>
@@ -185,7 +185,7 @@
 																</v-card-actions>
 														</v-card>
 												</v-form>
-										</v-dialog>  
+										</v-dialog>
 										<v-data-table
 												:headers="headers_peserta"
 												:items="datatable_peserta"   
@@ -230,7 +230,7 @@
 												<template v-slot:item.kjur="{ item }">
 													{{$store.getters["uiadmin/getProdiName"](item.kjur)}}
 												</template>
-												<template v-slot:item.actions="{ item }">   
+												<template v-slot:item.actions="{ item }">
 														<v-btn
 																small
 																icon
@@ -241,7 +241,7 @@
 																		mdi-delete
 																</v-icon>
 														</v-btn>
-												</template>            
+												</template>
 												<template v-slot:no-data>
 														Data belum tersedia
 												</template>

@@ -80,7 +80,7 @@
                       <v-card-title>
                         <span class="headline">{{ formTitle }}</span>
                       </v-card-title>
-                      <v-card-text>  
+                      <v-card-text>
                         <v-alert 
                           class="warning">
                           SOAL mohon jangan diberi nomor soal.
@@ -90,41 +90,41 @@
                           label="SOAL" 
                           :rules="rule_soal"
                           type="text"
-                          outlined />  
-                        <v-divider class="mt-2"/>
-                        <h3 class="headline mt-2">Jawaban Ke-1:</h3>  
+                          outlined />
+                        <v-divider class="mt-2" />
+                        <h3 class="headline mt-2">Jawaban Ke-1:</h3>
                         <v-text-field
                           label="ISI JAWABAN"  
                           v-model="formdata.jawaban1"  
                           :rules="rule_jawaban"
                           outlined
-                        />  
-                        <v-divider class="mt-2"/>
-                        <h3 class="headline mt-2">Jawaban Ke-2:</h3>  
+                        />
+                        <v-divider class="mt-2" />
+                        <h3 class="headline mt-2">Jawaban Ke-2:</h3>
                         <v-text-field
                           label="ISI JAWABAN"  
                           v-model="formdata.jawaban2"  
                           :rules="rule_jawaban"
                           outlined
-                        />  
-                        <v-divider class="mt-2"/>
-                        <h3 class="headline mt-2">Jawaban Ke-3:</h3>  
+                        />
+                        <v-divider class="mt-2" />
+                        <h3 class="headline mt-2">Jawaban Ke-3:</h3>
                         <v-text-field
                           label="ISI JAWABAN"  
                           v-model="formdata.jawaban3"  
                           :rules="rule_jawaban"
                           outlined
-                        />  
-                        <v-divider class="mt-2"/>
-                        <h3 class="headline mt-2">Jawaban Ke-4:</h3>  
+                        />
+                        <v-divider class="mt-2" />
+                        <h3 class="headline mt-2">Jawaban Ke-4:</h3>
                         <v-text-field
                           label="ISI JAWABAN"  
                           v-model="formdata.jawaban4"  
                           :rules="rule_jawaban"
                           outlined
-                        />  
-                        <v-divider class="mt-2"/>
-                        <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>  
+                        />
+                        <v-divider class="mt-2" />
+                        <h3 class="headline mt-2 blue--text lighten-4">Jawaban Benar:</h3>
                         <v-select
                           v-model="formdata.jawaban_benar"
                           :items="daftar_jawaban"  
@@ -164,8 +164,8 @@
                           label="SOAL" 
                           :rules="rule_soal"
                           type="text"
-                          outlined />  
-                        <v-divider class="mt-2"/>
+                          outlined />
+                        <v-divider class="mt-2" />
                         <v-radio-group v-model="formdata.jawaban_benar">
                           <v-data-table                                                
                             :headers="headers_detail"
@@ -211,7 +211,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         <v-col xs="12" sm="6" md="6">
                           <v-card flat>
                             <v-card-title>CREATED :</v-card-title>
@@ -220,7 +220,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                       </v-row>
                       <v-row class="mb-4" no-gutters>
                         <v-col xs="12" sm="6" md="6">
@@ -231,7 +231,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                         <v-col xs="12" sm="6" md="6">
                           <v-card flat>
                             <v-card-title>UPDATED :</v-card-title>
@@ -240,7 +240,7 @@
                             </v-card-subtitle>
                           </v-card>
                         </v-col>
-                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                       </v-row>
                       <v-row class="mb-4" no-gutters> 
                         <v-col col="12">
@@ -422,7 +422,7 @@
         value => !!value || "Mohon untuk di isi soal !!!",
       ],
       rule_gambar: [            
-        value =>  !!value || value.size < 2000000 || "File gambar harus kurang dari 2MB."                
+        value =>!!value || value.size < 2000000 || "File gambar harus kurang dari 2MB."                
       ],
       rule_jawaban: [
         value => !!value || "Mohon isi jawaban dari soal ini", 

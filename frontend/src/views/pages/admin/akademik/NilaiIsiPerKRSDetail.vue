@@ -45,7 +45,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>SAH :</v-card-title>
@@ -54,7 +54,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>NIM:</v-card-title>
@@ -63,7 +63,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>JUMLAH MATKUL / SKS :</v-card-title>
@@ -72,7 +72,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>NAMA MAHASISWA:</v-card-title>
@@ -81,7 +81,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 								<v-col xs="12" sm="6" md="6">
 									<v-card flat>
 										<v-card-title>CREATED / UPDATED :</v-card-title>
@@ -90,7 +90,7 @@
 										</v-card-subtitle>
 									</v-card>
 								</v-col>
-								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 							</v-row>
 						</v-card-text>
 					</v-card>
@@ -98,7 +98,7 @@
 			</v-row>
 			<v-row>
 				<v-col cols="12"> 
-					<v-form ref="frmdata" v-model="form_valid" lazy-validation>  
+					<v-form ref="frmdata" v-model="form_valid" lazy-validation>
 						<v-card>
 							<v-card-title>
 								DAFTAR MATAKULIAH

@@ -137,7 +137,7 @@
 						</template>
 						<template v-slot:expanded-item="{ headers, item }">
 							<td :colspan="headers.length" class="text-center">
-								<v-col cols="12">  
+								<v-col cols="12">
 									<strong>user_id:</strong>{{ item.user_id }}      
 								</v-col>
 							</td>

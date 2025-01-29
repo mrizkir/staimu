@@ -85,7 +85,7 @@
 																						<v-card-title>
 																								<span class="headline">{{ formTitle }}</span>
 																						</v-card-title>
-																						<v-card-text>    
+																						<v-card-text>
 																								<v-text-field 
 																										v-model="formdata.nama_persyaratan" 
 																										label="NAMA PERSYARATAN"
@@ -123,7 +123,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
 																												<v-card-title>TAHUN PENDAFTARAN :</v-card-title>
@@ -132,7 +132,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
@@ -143,7 +143,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
 																												<v-card-title>CREATED :</v-card-title>
@@ -152,7 +152,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 																						</v-row>
 																						<v-row no-gutters>
 																								<v-col xs="12" sm="6" md="6">
@@ -163,7 +163,7 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 																								<v-col xs="12" sm="6" md="6">
 																										<v-card flat>
 																												<v-card-title>UPDATED :</v-card-title>
@@ -172,8 +172,8 @@
 																												</v-card-subtitle>
 																										</v-card>
 																								</v-col>
-																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
-																						</v-row>                                               
+																								<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+																						</v-row>
 																				</v-card-text>
 																				<v-card-actions>
 																						<v-spacer></v-spacer>
@@ -198,7 +198,7 @@
 																										:items="daftar_ta"    
 																										label="TAHUN PENDAFTARAN"
 																										:rules="rule_dari_tahun_pendaftaran"
-																										outlined/>  
+																										outlined/>
 																						</v-card-text>
 																						<v-card-actions>
 																								<v-spacer></v-spacer>
@@ -241,7 +241,7 @@
 												</template>
 												<template v-slot:expanded-item="{ headers, item }">
 														<td :colspan="headers.length" class="text-center">
-																<v-col cols="12">  
+																<v-col cols="12">
 																		<strong>ID:</strong>{{ item.id }} 
 																		<strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
 																		<strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

@@ -17,7 +17,7 @@
 					</template>
 				</v-breadcrumbs>
 			</template>
-		</ModuleHeader>  
+		</ModuleHeader>
 		<v-container fluid v-if="formdata.user_id">
       <v-row class="mb-4" no-gutters>
 				<v-col cols="12">

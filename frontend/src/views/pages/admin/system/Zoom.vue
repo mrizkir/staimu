@@ -145,7 +145,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>ZOOM ID :</v-card-title>
@@ -154,7 +154,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -165,7 +165,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>API KEY :</v-card-title>
@@ -174,7 +174,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -185,7 +185,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>IM TOKEN :</v-card-title>
@@ -194,7 +194,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -205,7 +205,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>STATUS :</v-card-title>
@@ -214,7 +214,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 											<v-row no-gutters>
 												<v-col xs="12" sm="6" md="6">
@@ -225,7 +225,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 												<v-col xs="12" sm="6" md="6">
 													<v-card flat>
 														<v-card-title>CREATED / UPDATED :</v-card-title>
@@ -234,7 +234,7 @@
 														</v-card-subtitle>
 													</v-card>
 												</v-col>
-												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+												<v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
 											</v-row>
 										</v-card-text>
 										<v-card-actions>

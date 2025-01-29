@@ -77,9 +77,9 @@
                   <v-icon>
                     mdi-printer
                   </v-icon>
-                </v-btn>   
+                </v-btn>
                 <v-dialog v-model="dialogprofilmhsbaru" :fullscreen="true">
-                  <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />  
+                  <ProfilMahasiswaBaru :item="datamhsbaru" v-on:closeProfilMahasiswaBaru="closeProfilMahasiswaBaru" />
                 </v-dialog>
               </v-toolbar>
             </template>
@@ -109,7 +109,7 @@
                   <strong>ID:</strong>{{ item.id }}
                   <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                   <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
-                </v-col>  
+                </v-col>
               </td>
             </template>
             <template v-slot:no-data>

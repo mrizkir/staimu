@@ -29,7 +29,7 @@
 			</template>
 		</ModuleHeader> 
 		<v-container fluid v-if="dashboard == 'mahasiswabaru'">
-			<FormMhsBaru/>
+			<FormMhsBaru />
 		</v-container>
 		<v-container fluid v-else>
 			<v-row class="mb-4" no-gutters>

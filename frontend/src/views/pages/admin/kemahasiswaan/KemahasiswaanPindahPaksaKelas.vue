@@ -94,7 +94,7 @@
 									</v-list-item-content>
 								</v-list-item>
 							</v-list>
-						</v-expand-transition>  
+						</v-expand-transition>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn

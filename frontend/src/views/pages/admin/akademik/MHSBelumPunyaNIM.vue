@@ -27,7 +27,7 @@
           Halaman untuk melihat daftar calon mahasiswa yang sudah melakukan pembayaran daftar ulang tetapi belum memiliki NIM.
         </v-alert>
       </template>
-    </ModuleHeader>  
+    </ModuleHeader>
     <v-container fluid> 
       <v-row class="mb-4" no-gutters>
         <v-col cols="12">
@@ -115,7 +115,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-form ref="frmdata" v-model="form_valid" lazy-validation>
-                            <v-card>             
+                            <v-card>
                               <v-card-text>
                                 <v-text-field 
                                   v-model="formdata.nim"
@@ -171,7 +171,7 @@
             </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length" class="text-center">
-                <v-col cols="12">  
+                <v-col cols="12">
                   <strong>userid:</strong>{{ item.user_id }} 
                   <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                   <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}

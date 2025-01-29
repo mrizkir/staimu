@@ -416,7 +416,7 @@ export default {
                 });
             }
        },
-        kode_fakultas (val)
+        kode_fakultas(val)
         {
             this.btnLoadingFakultas = true;
             this.$ajax.get('/datamaster/fakultas/'+val+'/programstudi').then(({ data }) => {

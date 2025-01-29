@@ -79,13 +79,13 @@
                           label="NAMA USER"
                           outlined
                           :rules="rule_user_name">
-                        </v-text-field>                                                
+                        </v-text-field>
                         <v-text-field 
                           v-model="editedItem.email"
                           label="EMAIL"
                           outlined
                           :rules="rule_user_email">
-                        </v-text-field>         
+                        </v-text-field>
                         <v-text-field 
                           v-model="editedItem.nomor_hp"
                           label="NOMOR HP"
@@ -111,7 +111,7 @@
                           label="ROLES"    
                           multiple 
                           small-chips
-                          outlined>                                 
+                          outlined>
                         </v-autocomplete>
                       </v-card-text>
                       <v-card-actions>
@@ -134,7 +134,7 @@
                       <v-card-title>
                         <span class="headline">{{ formTitle }}</span>
                       </v-card-title>
-                      <v-card-text>                                                 
+                      <v-card-text>
                         <v-text-field 
                           v-model="editedItem.name"
                           label="NAMA USER"
@@ -172,7 +172,7 @@
                           label="ROLES"    
                           multiple 
                           small-chips
-                          outlined>                                 
+                          outlined>
                         </v-autocomplete>
                       </v-card-text>
                       <v-card-actions>
@@ -209,7 +209,7 @@
             </template>
             <template v-slot:item.foto="{ item }"> 
               <v-avatar size="30">
-                <v-img :src="$api.url + '/' + item.foto" /> 
+                <v-img :src="$api.url + '/' + item.foto" />
               </v-avatar>
             </template>
             <template v-slot:expanded-item="{ headers, item }">

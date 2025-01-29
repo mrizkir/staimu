@@ -17,10 +17,10 @@
           </template>
         </v-breadcrumbs>
       </template>
-    </ModuleHeader>  
+    </ModuleHeader>
     <v-container fluid v-if="datamhs.hasOwnProperty('user_id')">
       <v-row> 
-        <v-col cols="12">  
+        <v-col cols="12">
           <ProfilMahasiswa :datamhs="datamhs" url="/kemahasiswaan" />
         </v-col>
       </v-row>
@@ -41,7 +41,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
+        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
         <v-col xs="12" sm="6" md="3">
           <v-card                         
             class="green darken-1"
@@ -58,8 +58,8 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/> 
-      </v-row>      
+        <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+      </v-row>
     </v-container>
   </ProfilMahasiswaLayout>
 </template>

@@ -96,13 +96,13 @@
                                                     label="NAMA USER"
                                                     outlined
                                                     :rules="rule_user_name">
-                                                </v-text-field>                                                
+                                                </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.email" 
                                                     label="EMAIL"
                                                     outlined
                                                     :rules="rule_user_email">
-                                                </v-text-field>         
+                                                </v-text-field>
                                                 <v-text-field 
                                                     v-model="editedItem.nomor_hp" 
                                                     label="NOMOR HP"
@@ -130,7 +130,7 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                 
+                                                    outlined>
                                                 </v-autocomplete> 
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
@@ -138,7 +138,7 @@
                                                     label="ROLES"     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                 
+                                                    outlined>
                                                 </v-autocomplete>
                                             </v-card-text>
                                             <v-card-actions>
@@ -165,7 +165,7 @@
                                             <v-card-subtitle>
                                                 Bila program studi, tidak dipilih artinya user ini dapat mengakses seluruh data pmb
                                             </v-card-subtitle>
-                                            <v-card-text>                                                 
+                                            <v-card-text>
                                                 <v-text-field 
                                                     v-model="editedItem.name" 
                                                     label="NAMA USER"
@@ -205,7 +205,7 @@
                                                     item-value="id"
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                 
+                                                    outlined>
                                                 </v-autocomplete> 
                                                 <v-autocomplete 
                                                     :items="daftar_roles" 
@@ -213,8 +213,8 @@
                                                     label="ROLES"     
                                                     multiple 
                                                     small-chips
-                                                    outlined>                                 
-                                                </v-autocomplete>                                        
+                                                    outlined>
+                                                </v-autocomplete> 
                                             </v-card-text>
                                             <v-card-actions>
                                                 <v-spacer></v-spacer>
@@ -229,7 +229,7 @@
                                         </v-card>
                                     </v-form>
                                 </v-dialog>
-                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>      
+                                <v-dialog v-if="dialogUserPermission" v-model="dialogUserPermission" max-width="800px" persistent>
                                     <UserPermissions :user="editedItem" v-on:closeUserPermissions="closeUserPermissions" role_default="pmb" />
                                 </v-dialog>
                             </v-toolbar>
@@ -264,7 +264,7 @@
                         </template>
                         <template v-slot:item.foto="{ item }"> 
                             <v-avatar size="30">
-                                <v-img :src="$api.url + '/' + item.foto" /> 
+                                <v-img :src="$api.url + '/' + item.foto" />
                             </v-avatar>
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">

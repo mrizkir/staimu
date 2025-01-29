@@ -91,7 +91,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>KODE BILLING :</v-card-title>
@@ -100,7 +100,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -111,7 +111,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TOTAL :</v-card-title>
@@ -120,7 +120,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -131,7 +131,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>STATUS :</v-card-title>
@@ -140,8 +140,8 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
-                                            </v-row>  
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
+                                            </v-row>
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-data-table
@@ -189,7 +189,7 @@
                         </template>
                         <template v-slot:expanded-item="{ headers, item }">
                             <td :colspan="headers.length" class="text-center">
-                                <v-col cols="12">  
+                                <v-col cols="12">
                                     <strong>ID:</strong>{{ item.id }} 
                                     <strong>CREATED AT:</strong>{{ $date(item.created_at).format("DD/MM/YYYY HH:mm") }}
                                     <strong>UPDATED AT:</strong>{{ $date(item.updated_at).format("DD/MM/YYYY HH:mm") }}
@@ -198,7 +198,7 @@
                         </template>
                         <template v-slot:no-data>
                             Data belum tersedia
-                        </template>  
+                        </template>
                         <template v-slot:body.append v-if="datatable.length > 0">
                             <tr class="grey lighten-4 font-weight-black">
                                 <td class="text-right" colspan="6">TOTAL TRANSAKSI PAID</td>
@@ -228,7 +228,7 @@
                                 <td></td>
                                 <td></td>
                             </tr> 
-                        </template>  
+                        </template>
                     </v-data-table>
                 </v-col>
             </v-row>

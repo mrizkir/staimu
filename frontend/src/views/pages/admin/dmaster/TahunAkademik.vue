@@ -88,7 +88,7 @@
                                                             class="mr-1">
                                                         </v-text-field>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                     <v-col xs="12" sm="6" md="6">
                                                         <v-text-field
                                                             v-model="formdata.tahun_akademik"
@@ -97,7 +97,7 @@
                                                             :rules="rule_tahun_akademik">
                                                         </v-text-field>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 </v-row>
                                                 <v-row no-gutters>
                                                     <v-col xs="12" sm="12" md="12">
@@ -135,7 +135,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 </v-row>
                                                 <v-row no-gutters>
                                                     <v-col xs="12" sm="12" md="12">
@@ -173,7 +173,7 @@
                                                             </v-date-picker>
                                                         </v-menu>
                                                     </v-col>
-                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>  
+                                                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 </v-row>
                                             </v-card-text>
                                             <v-card-actions>
@@ -206,7 +206,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>TAHUN AKADEMIK :</v-card-title>
@@ -215,7 +215,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -226,7 +226,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>AKHIR GANJIL :</v-card-title>
@@ -235,7 +235,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -246,7 +246,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>AKHIR GENAP :</v-card-title>
@@ -255,7 +255,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                             <v-row no-gutters>
                                                 <v-col xs="12" sm="6" md="6">
@@ -266,7 +266,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                                 <v-col xs="12" sm="6" md="6">
                                                     <v-card flat>
                                                         <v-card-title>AKHIR PENDEK :</v-card-title>
@@ -275,7 +275,7 @@
                                                         </v-card-subtitle>
                                                     </v-card>
                                                 </v-col>
-                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly"/>
+                                                <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly" />
                                             </v-row>
                                         </v-card-text>
                                         <v-card-actions>

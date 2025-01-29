@@ -18,82 +18,82 @@
                 <v-row>
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>USER ID:</v-card-title>  
+                            <v-card-title>USER ID:</v-card-title>
                             <v-card-subtitle>
                                 {{user.id}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>NOMOR HP:</v-card-title>  
+                            <v-card-title>NOMOR HP:</v-card-title>
                             <v-card-subtitle>
                                 {{user.nomor_hp}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                 </v-row>
                 <v-row>
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>USERNAME:</v-card-title>  
+                            <v-card-title>USERNAME:</v-card-title>
                             <v-card-subtitle>
                                 {{user.username}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>THEME:</v-card-title>  
+                            <v-card-title>THEME:</v-card-title>
                             <v-card-subtitle>
                                 {{user.theme}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                 </v-row>
                 <v-row>
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>NAMA:</v-card-title>  
+                            <v-card-title>NAMA:</v-card-title>
                             <v-card-subtitle>
                                 {{user.name}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>ROLE:</v-card-title>  
+                            <v-card-title>ROLE:</v-card-title>
                             <v-card-subtitle>
                                 {{role_user}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                 </v-row>
                 <v-row>
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>EMAIL:</v-card-title>  
+                            <v-card-title>EMAIL:</v-card-title>
                             <v-card-subtitle>
                                 {{user.email}}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                     <v-col xs="12" sm="12" md="6">
                         <v-card flat class="mb-2">
-                            <v-card-title>CREATED/UPDATED:</v-card-title>  
+                            <v-card-title>CREATED/UPDATED:</v-card-title>
                             <v-card-subtitle>
                                 {{ $date(user.created_at).format("DD/MM/YYYY HH:mm") }} ~ {{ $date(user.updated_at).format("DD/MM/YYYY HH:mm") }}
                             </v-card-subtitle>
                         </v-card>
                     </v-col>
-                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly"/>
+                    <v-responsive width="100%" v-if="$vuetify.breakpoint.xsOnly || $vuetify.breakpoint.smOnly" />
                 </v-row>
                 <v-row class="mb-4" no-gutters>
                     <v-col cols="12">

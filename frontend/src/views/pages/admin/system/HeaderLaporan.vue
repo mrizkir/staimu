@@ -25,7 +25,7 @@
                     </v-alert>
             </template>
         </ModuleHeader> 
-        <v-container fluid>  
+        <v-container fluid>
             <v-row class="mb-4" no-gutters>
                 <v-col cols="12">
                     <v-form ref="frmdata" v-model="form_valid" lazy-validation>
@@ -36,7 +36,7 @@
                                     v-model="formdata.header_1" 
                                     label="HEADER 1"
                                     outlined>
-                                </v-text-field>                                                                                                                        
+                                </v-text-field>
                                 <v-text-field 
                                     v-model="formdata.header_2" 
                                     label="HEADER 2"
