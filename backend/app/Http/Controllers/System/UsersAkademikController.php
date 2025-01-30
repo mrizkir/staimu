@@ -65,11 +65,11 @@ class UsersAkademikController extends Controller {
                 'created_at' => $now, 
                 'updated_at' => $now
             ]);       
-            $role='akademik';   
+            $role = 'akademik';   
             $user->assignRole($role);          
             
             $permission = Role::findByName('akademik')->permissions;
-            $permissions=$permission->pluck('name');
+            $permissions = $permission->pluck('name');
             $user->givePermissionTo($permissions);    
 
             $user_id = $user->id;
@@ -113,7 +113,7 @@ class UsersAkademikController extends Controller {
                 {
                     $user->assignRole($v);          
                     $permission = Role::findByName($v)->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
                     if ($v=='dosen')
@@ -245,7 +245,7 @@ class UsersAkademikController extends Controller {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
                         $permission = Role::findByName($v)->permissions;
-                        $permissions=$permission->pluck('name');
+                        $permissions = $permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
                         if ($v=='dosen' && is_null($dosen))
@@ -303,7 +303,7 @@ class UsersAkademikController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('SYSTEM-USERS-AKADEMIK_DESTROY');
 

@@ -18,15 +18,15 @@ class PersyaratanController extends Controller {
             'proses' => 'required|in:pmb,ujian-munaqasah',
         ]);
         
-        $proses=$request->input('proses');
+        $proses = $request->input('proses');
         $ta = $request->input('ta');
         
         $persyaratan=PersyaratanModel::where('proses',$proses);
 
         if ($persyaratan=='pmb') {            
-            $persyaratan=$persyaratan->where('ta',$ta);       
+            $persyaratan = $persyaratan->where('ta',$ta);       
         }
-        $persyaratan=$persyaratan->get();
+        $persyaratan = $persyaratan->get();
 
         return Response()->json([
                                 'status' => 1,
@@ -77,7 +77,7 @@ class PersyaratanController extends Controller {
     /**
      * salin persyaratan dari tahun ke tahun lainnya
      */
-    public function salin(Request $request,$id)
+    public function salin(Request $request, $id)
     {
         $this->hasPermissionTo('DMASTER-PERSYARATAN-PMB_UPDATE');
         
@@ -86,8 +86,8 @@ class PersyaratanController extends Controller {
             'proses' => 'required',         
         ]);
 
-        $dari_tahun_pendaftaran=$request->input('dari_tahun_pendaftaran');
-        $proses=$request->input('proses');
+        $dari_tahun_pendaftaran = $request->input('dari_tahun_pendaftaran');
+        $proses = $request->input('proses');
         
         \DB::table('pe3_persyaratan')
             ->where('ta',$id)
@@ -135,7 +135,7 @@ class PersyaratanController extends Controller {
     /**
      * daftar persyaratan dari sebuah proses 
      */
-    public function proses(Request $request,$id)
+    public function proses(Request $request, $id)
     {
         //id == proses id misalnya PMB, SKRIPSI, atau yang lainnya.
         switch($id)
@@ -201,7 +201,7 @@ class PersyaratanController extends Controller {
             $this->validate($request, [           
                                         'nama_persyaratan' => 'required',        
                                     ]);
-            $persyaratan->nama_persyaratan=$request->input('nama_persyaratan');
+            $persyaratan->nama_persyaratan = $request->input('nama_persyaratan');
             $proses = $persyaratan->proses;
             $persyaratan->save();
 
@@ -219,7 +219,7 @@ class PersyaratanController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('DMASTER-PERSYARATAN-PMB_DESTROY');
 

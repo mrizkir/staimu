@@ -85,7 +85,7 @@ class DulangController extends Controller
   /**
    * digunakan untuk merubaha biodata mahasiwa dan mengeset sudah update info
    */
-  public function updatebiodata(Request $request,$id) {
+  public function updatebiodata(Request $request, $id) {
 
     if ($this->hasRole('mahasiswa')) 
     {
@@ -137,9 +137,9 @@ class DulangController extends Controller
 
       $dulang = \DB::transaction(function () use ($request,$dulang) { 
         $formulir=FormulirPendaftaranModel::find($dulang->user_id);      
-        $formulir->nama_mhs=$request->input('nama_mhs');      
-        $formulir->tempat_lahir=$request->input('tempat_lahir');      
-        $formulir->tanggal_lahir=$request->input('tanggal_lahir');      
+        $formulir->nama_mhs = $request->input('nama_mhs');      
+        $formulir->tempat_lahir = $request->input('tempat_lahir');      
+        $formulir->tanggal_lahir = $request->input('tanggal_lahir');      
         $formulir->jk=$request->input('jk');      
         $formulir->telp_hp=$request->input('nomor_hp');      
           
@@ -147,16 +147,16 @@ class DulangController extends Controller
         $formulir->address1_provinsi_id = $request->input('address1_provinsi_id');
         $formulir->address1_provinsi=$request->input('address1_provinsi');
         $formulir->address1_kabupaten_id = $request->input('address1_kabupaten_id');
-        $formulir->address1_kabupaten=$request->input('address1_kabupaten');
+        $formulir->address1_kabupaten = $request->input('address1_kabupaten');
         $formulir->address1_kecamatan_id = $request->input('address1_kecamatan_id');
-        $formulir->address1_kecamatan=$request->input('address1_kecamatan');
+        $formulir->address1_kecamatan = $request->input('address1_kecamatan');
         $formulir->address1_desa_id = $request->input('address1_desa_id');
-        $formulir->address1_kelurahan=$request->input('address1_kelurahan');
-        $formulir->alamat_rumah=$request->input('alamat_rumah');              
+        $formulir->address1_kelurahan = $request->input('address1_kelurahan');
+        $formulir->alamat_rumah = $request->input('alamat_rumah');              
 
         $formulir->save();
 
-        $user=$formulir->User;
+        $user = $formulir->User;
         $user->name = $request->input('nama_mhs');
         $user->email = $request->input('email');
         $user->nomor_hp = $request->input('nomor_hp');
@@ -186,7 +186,7 @@ class DulangController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   { 
     $this->hasPermissionTo('AKADEMIK-DULANG-MHS_DESTROY');
 

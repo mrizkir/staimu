@@ -23,7 +23,7 @@ class ProvinsiController extends Controller {
     /**
      * daftar kabupaten
      */
-    public function kabupaten(Request $request,$id)
+    public function kabupaten(Request $request, $id)
     {
         $provinsi=ProvinsiModel::find($id);
         if (is_null($provinsi))

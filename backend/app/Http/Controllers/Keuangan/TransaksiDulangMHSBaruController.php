@@ -134,7 +134,7 @@ class TransaksiDulangMHSBaruController extends Controller {
         
         try 
         {
-            $no_formulir=$request->input('no_formulir');       
+            $no_formulir = $request->input('no_formulir');       
             $ta = $request->input('ta');
             
             $transaksi=TransaksiDetailModel::select(\DB::raw('
@@ -167,9 +167,9 @@ class TransaksiDulangMHSBaruController extends Controller {
                                                 ->first();
                                                 
 
-            $tahun=$mahasiswa->ta;
-            $idkelas=$mahasiswa->idkelas;
-            $kjur=$mahasiswa->kjur1;
+            $tahun = $mahasiswa->ta;
+            $idkelas = $mahasiswa->idkelas;
+            $kjur = $mahasiswa->kjur1;
             $idsmt=$mahasiswa->idsmt;
             
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
@@ -237,7 +237,7 @@ class TransaksiDulangMHSBaruController extends Controller {
             ], 422); 
         }        
     }
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-DULANG-MHS-BARU_DESTROY');
 

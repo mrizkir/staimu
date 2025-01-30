@@ -8,15 +8,15 @@
           </v-card-title>
           <v-card-text>
             <v-text-field
-              label="NAMA LENGKAP"  
-              v-model="formdata.nama_mhs"  
+              label="NAMA LENGKAP"
+              v-model="formdata.nama_mhs"
               :rules="rule_nama_mhs"
               filled
             />
             <v-text-field
               label="TEMPAT LAHIR"
               v-model="formdata.tempat_lahir"
-              :rules="rule_tempat_lahir" 
+              :rules="rule_tempat_lahir"
               filled
             />
             <v-menu
@@ -104,7 +104,7 @@
               :items="daftar_kecamatan"
               v-model="kecamatan_id"
               item-text="nama"
-              item-value="id" 
+              item-value="id"
               return-object                           
               filled
             />
@@ -162,28 +162,24 @@
             />
             <v-select
               label="INFORMASI DARI MANA"
-              v-model="formdata.idkelas"
+              v-model="formdata.id_channel_marketing"
               :items="daftar_channel_marketing"
-              item-text="nkelas"
-              item-value="idkelas"
-              :rules="rule_channel_marketing"
+              item-text="namachannel"
+              item-value="id"
               :disabled="formdata.isdulang"
               filled
             />
             <v-select
               label="REKOMENDASI DARI"
-              v-model="formdata.idkelas"
-              :items="daftar_kelas"
-              item-text="nkelas"
-              item-value="idkelas"
-              :rules="rule_kelas"
+              v-model="formdata.id_rekomendasi_dari"
+              :items="daftar_rekomendasi_dari"              
               :disabled="formdata.isdulang"
               filled
             />
             <v-text-field
-              label="NAMA PEMBERI REKOMENDASI"  
-              v-model="formdata.nama_mhs"  
-              :rules="rule_nama_mhs"
+              label="NAMA PEMBERI REKOMENDASI"
+              v-model="formdata.nama_pemberi_rekomendasi"
+              :disabled="formdata.isdulang"
               filled
             />
           </v-card-text>
@@ -193,11 +189,13 @@
             Kode Billing: <strong>{{kode_billing}}</strong>
             <v-spacer></v-spacer>
             <v-btn 
-              color="blue darken-1" 
+              color="blue darken-1"
               text 
-              @click.stop="save" 
-              
-              :disabled="!form_valid || btnLoading">SIMPAN</v-btn>
+              @click.stop="save"
+              :disabled="!form_valid || btnLoading"
+            >
+              SIMPAN
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -241,6 +239,7 @@
       daftar_prodi: [], 
       daftar_kelas: [],
       daftar_channel_marketing: [],
+      daftar_rekomendasi_dari: [],
       
       formdata: {
         nama_mhs: "",
@@ -251,6 +250,9 @@
         email: "",
         alamat_rumah: "",
         nama_ibu_kandung: "",
+        id_channel_marketing: null,
+        id_rekomendasi_dari: null,
+        nama_pemberi_rekomendasi: null,
         kjur1: "",
         idkelas: "",
       },
@@ -259,10 +261,10 @@
         value => /^[A-Za-z\s\\,\\.]*$/.test(value) || "Nama Mahasiswa hanya boleh string dan spasi",
       ],
       rule_tempat_lahir: [
-        value => !!value || "Tempat Lahir mohon untuk diisi !!!"
+        value => !!value || "Tempat Lahir mohon untuk diisi !!!",
       ], 
       rule_tanggal_lahir: [
-        value => !!value || "Tanggal Lahir mohon untuk diisi !!!"
+        value => !!value || "Tanggal Lahir mohon untuk diisi !!!",
       ], 
       rule_nomorhp: [
         value => !!value || "Nomor HP mohon untuk diisi !!!",
@@ -277,19 +279,19 @@
         value => /^[A-Za-z\s\\,\\.]*$/.test(value) || "Nama Ibu Kandung hanya boleh string dan spasi",
       ], 
       rule_desa: [
-        value => !!value || "Mohon Desa mohon untuk diisi !!!"
+        value => !!value || "Mohon Desa mohon untuk diisi !!!",
       ], 
       rule_alamat_rumah: [
-        value => !!value || "Alamat Rumah mohon untuk diisi !!!"
+        value => !!value || "Alamat Rumah mohon untuk diisi !!!",
       ], 
       rule_fakultas: [
-        value => !!value || "Fakultas mohon untuk dipilih !!!"
+        value => !!value || "Fakultas mohon untuk dipilih !!!",
       ], 
       rule_prodi: [
-        value => !!value || "Program studi mohon untuk dipilih !!!"
+        value => !!value || "Program studi mohon untuk dipilih !!!",
       ], 
       rule_kelas: [
-        value => !!value || "Kelas mohon untuk dipilih !!!"
+        value => !!value || "Kelas mohon untuk dipilih !!!",
       ], 
     }),
     methods: {
@@ -298,14 +300,11 @@
         this.$ajax.get("/datamaster/provinsi").then(({ data }) => { 
           this.daftar_provinsi = data.provinsi;
         });
-        if (bentukpt == "universitas")
-        { 
+        if (bentukpt == "universitas") { 
           await this.$ajax.get("/datamaster/fakultas").then(({ data }) => {
             this.daftar_fakultas = data.fakultas;
           });
-        }
-        else
-        {
+        } else {
           await this.$ajax.get("/datamaster/programstudi").then(({ data }) => {
             this.daftar_prodi = data.prodi;
           });
@@ -317,14 +316,32 @@
         this.$ajax.get("/datamaster/channelmarketing", 
           {
             headers: {
-              Authorization: this.$store.getters["auth/Token"]
+              Authorization: this.$store.getters["auth/Token"],
             }
           },
         )
         .then(({ data }) => { 
-          this.daftar_channel_marketing = data.kelas;
+          this.daftar_channel_marketing = data.channelmarketing;
         });
 
+        this.daftar_rekomendasi_dari = [
+          {
+            value: 1,
+            text: "SENDIRI"
+          },
+          {
+            value: 2,
+            text: "MAHASISWA"
+          },
+          {
+            value: 3,
+            text: "DOSEN"
+          },
+          {
+            value: 4,
+            text: "ALUMNI"
+          },
+        ];
         await this.$ajax.get("/spmb/formulirpendaftaran/" + this.$store.getters["auth/AttributeUser"]("id"), 
           {
             headers: {
@@ -358,9 +375,15 @@
             nama: "" + data.formulir.address1_kelurahan
           };
           this.formdata.alamat_rumah = data.formulir.alamat_rumah;
+          
+          this.formdata.id_channel_marketing = data.formulir.id_channel_marketing;
+          this.formdata.id_rekomendasi_dari = data.formulir.id_rekomendasi_dari;
+          this.formdata.nama_pemberi_rekomendasi = data.formulir.nama_pemberi_rekomendasi;
+
           if (bentukpt == "universitas" && data.formulir.kode_fakultas != null) {
             this.kode_fakultas = data.formulir.kode_fakultas;
           }
+
           this.formdata.kjur1 = data.formulir.kjur1;
           this.formdata.idkelas = data.formulir.idkelas;
           this.kode_billing = data.no_transaksi;
@@ -394,6 +417,9 @@
                 alamat_rumah: this.formdata.alamat_rumah,
                 kjur1: this.formdata.kjur1,
                 idkelas: this.formdata.idkelas,
+                id_channel_marketing: this.formdata.id_channel_marketing,
+                id_rekomendasi_dari: this.formdata.id_rekomendasi_dari,
+                nama_pemberi_rekomendasi: this.formdata.nama_pemberi_rekomendasi,                
               },
               {
                 headers: {

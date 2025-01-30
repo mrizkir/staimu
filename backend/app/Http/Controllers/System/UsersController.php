@@ -68,7 +68,7 @@ class UsersController extends Controller {
                 'created_at' => $now, 
                 'updated_at' => $now
             ]);       
-            $role='superadmin';   
+            $role = 'superadmin';   
             $user->assignRole($role);          
             
             $daftar_roles=json_decode($request->input('role_id'), true);
@@ -78,7 +78,7 @@ class UsersController extends Controller {
                 {
                     $user->assignRole($v);          
                     $permission = Role::findByName($v)->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
                     if ($v=='dosen')
@@ -118,14 +118,14 @@ class UsersController extends Controller {
     /**
      * digunakan untuk mendapatkan detail user
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         
     }
     /**
      * digunakan untuk mendapatkan role user
      */
-    public function roles(Request $request,$id)
+    public function roles(Request $request, $id)
     {
         $user = User::find($id);
         if (is_null($user))
@@ -138,7 +138,7 @@ class UsersController extends Controller {
         }
         else
         {
-            $roles=$user->getRoleNames();      
+            $roles = $user->getRoleNames();      
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'fetchdata',    
@@ -150,7 +150,7 @@ class UsersController extends Controller {
     /**
      * digunakan untuk mendapatkan permission dari user
      */
-    public function mypermission (Request $request,$id)
+    public function mypermission (Request $request, $id)
     {
         return $this->userpermissions($this->getUserid());
     }
@@ -171,7 +171,7 @@ class UsersController extends Controller {
         {
             case 'mahasiswabaru':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $this->validate($request, [           
                     'ta' => 'required',
                     'prodi_id' => 'required'
@@ -194,7 +194,7 @@ class UsersController extends Controller {
             break;
             case 'mahasiswa':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $this->validate($request, [           
                     'ta' => 'required',
                     'prodi_id' => 'required'
@@ -216,7 +216,7 @@ class UsersController extends Controller {
             break;
             case 'pmb':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('pmb')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -230,7 +230,7 @@ class UsersController extends Controller {
             break;
             case 'akademik':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('akademik')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -244,7 +244,7 @@ class UsersController extends Controller {
             break;
             case 'programstudi':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('programstudi')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -258,7 +258,7 @@ class UsersController extends Controller {
             break;
             case 'puslahta':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('puslahta')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -272,7 +272,7 @@ class UsersController extends Controller {
             break;
             case 'keuangan':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('keuangan')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -286,7 +286,7 @@ class UsersController extends Controller {
             break;
             case 'perpustakaan':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('perpustakaan')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -300,7 +300,7 @@ class UsersController extends Controller {
             break;
             case 'lppm':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('lppm')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -314,7 +314,7 @@ class UsersController extends Controller {
             break;
             case 'dosen':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('dosen')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -328,7 +328,7 @@ class UsersController extends Controller {
             break;
             case 'dosenwali':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('dosenwali')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -342,7 +342,7 @@ class UsersController extends Controller {
             break;
             case 'alumni':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('alumni')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -356,7 +356,7 @@ class UsersController extends Controller {
             break;
             case 'orangtuawali':
                 $permission = Role::findByName($role_name)->permissions;
-                $permissions=$permission->pluck('name');
+                $permissions = $permission->pluck('name');
                 $data = User::role('orangtuawali')
                         ->select(\DB::raw('users.id'))
                         ->where('active', 1)
@@ -500,7 +500,7 @@ class UsersController extends Controller {
                     if ($v!='superadmin')
                     {              
                         $permission = Role::findByName($v)->permissions;
-                        $permissions=$permission->pluck('name');
+                        $permissions = $permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
                         if ($v=='dosen' && is_null($dosen))
@@ -635,7 +635,7 @@ class UsersController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('SYSTEM-USERS-SUPERADMIN_DESTROY');
 
@@ -672,7 +672,7 @@ class UsersController extends Controller {
              
                   
     }
-    public function uploadfoto (Request $request,$id)
+    public function uploadfoto (Request $request, $id)
     {
         $user = User::find($id); 
         
@@ -729,7 +729,7 @@ class UsersController extends Controller {
             }
         }
     }
-    public function resetfoto(Request $request,$id)
+    public function resetfoto(Request $request, $id)
     {
         $user = User::find($id); 
         
@@ -765,7 +765,7 @@ class UsersController extends Controller {
                                     ], 200); 
         }
     }
-    public function usersprodi (Request $request,$id)
+    public function usersprodi (Request $request, $id)
     {
         $user = User::find($id); 
 

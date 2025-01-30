@@ -3,7 +3,8 @@
 namespace App\Helpers;
 use Carbon\Carbon;
 use URL;
-class Helper {
+class Helper 
+{
   /**
    * daftar bulan
    */
@@ -127,24 +128,25 @@ class Helper {
       $tanggal = Carbon::parse($date)->format($format);
     }
     $result = str_replace([
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday'
-              ],
-              [
-                'Minggu',
-                'Senin',
-                'Selasa',
-                'Rabu',
-                'Kamis',
-                'Jumat',
-                'Sabtu'
-              ],
-              $tanggal);
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ],
+      [
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+      ],
+      $tanggal
+    );
 
     return str_replace([
               'January',

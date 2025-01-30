@@ -188,7 +188,7 @@ class NilaiKonversiController  extends Controller
                                     'message' => "Nilai (".$data_konversi['jumlah_matkul'].") matakuliah telah tersimpan dengan berhasil" 
                                 ], 200);
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_UPDATE');
 
@@ -226,7 +226,7 @@ class NilaiKonversiController  extends Controller
             ]);
             $jumlah_matkul=\DB::transaction(function () use ($request,$data_konversi) {
                 $data_konversi->nim_asal=$request->input('nim_asal');
-                $data_konversi->nama_mhs=$request->input('nama_mhs');
+                $data_konversi->nama_mhs = $request->input('nama_mhs');
                 $data_konversi->alamat=$request->input('alamat');
                 $data_konversi->no_telp=$request->input('no_telp');
                 $data_konversi->email=$request->input('email');
@@ -282,7 +282,7 @@ class NilaiKonversiController  extends Controller
                                     ], 200);
         }
     }
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_SHOW');
 
@@ -430,7 +430,7 @@ class NilaiKonversiController  extends Controller
         
      
     }
-    public function destroy (Request $request,$id)
+    public function destroy (Request $request, $id)
     { 
         $this->hasPermissionTo('AKADEMIK-NILAI-KONVERSI_DESTROY');
 
@@ -461,7 +461,7 @@ class NilaiKonversiController  extends Controller
         }
                   
     }   
-    public function printpdf1(Request $request,$id)
+    public function printpdf1(Request $request, $id)
     {
         if ($this->hasRole('mahasiswa'))
         {

@@ -31,7 +31,7 @@ class ProgramStudiController extends Controller
   /**
    * detail program studi
    */
-  public function show(Request $request,$id)
+  public function show(Request $request, $id)
   {
     $prodi = ProgramStudiModel::select(\DB::raw('id,kode_prodi,nama_prodi,CONCAT(nama_prodi,\' (\',nama_jenjang,\')\') AS nama_prodi2,nama_prodi_alias,kode_jenjang,nama_jenjang,pe3_fakultas.kode_fakultas,nama_fakultas,pe3_prodi.config'))
     ->leftJoin('pe3_fakultas', 'pe3_fakultas.kode_fakultas', 'pe3_prodi.kode_fakultas')
@@ -88,7 +88,7 @@ class ProgramStudiController extends Controller
         'kode_jenjang' => 'required|exists:pe3_jenjang_studi,kode_jenjang',
         'nama_jenjang' => 'required',
       ];
-      $kode_fakultas=$request->input('kode_fakultas');
+      $kode_fakultas = $request->input('kode_fakultas');
     }
     $this->validate($request, $rule);
        
@@ -135,7 +135,7 @@ class ProgramStudiController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function updateconfig (Request $request,$id)
+  public function updateconfig (Request $request, $id)
   {
     $this->hasPermissionTo('DMASTER-PRODI_UPDATE');
 
@@ -166,7 +166,7 @@ class ProgramStudiController extends Controller
   /**
    * detail jumlah sks lulus dari program studi
    */
-  public function skslulus(Request $request,$id)
+  public function skslulus(Request $request, $id)
   {
     $skslulus = ProgramStudiDetail1Model::where('prodi_id',$id)
     ->orderBy('ta', 'desc')
@@ -183,7 +183,7 @@ class ProgramStudiController extends Controller
   /**
    * detail jumlah matakuliah skripsi dari program studi
    */
-  public function matkulskripsi(Request $request,$id)
+  public function matkulskripsi(Request $request, $id)
   {
     $matkulskripsi = ProgramStudiDetail1Model::select(\DB::raw('
                         pe3_prodi_detail1.id,
@@ -385,11 +385,11 @@ class ProgramStudiController extends Controller
       'jumlah_sks' => 'required'
     ]);
     $id = $request->input('id');
-    $jumlah_sks=$request->input('jumlah_sks');
+    $jumlah_sks = $request->input('jumlah_sks');
     
     $detail1=ProgramStudiDetail1Model::find($id);
-    $old_sks=$detail1->jumlah_sks;
-    $detail1->jumlah_sks=$jumlah_sks;
+    $old_sks = $detail1->jumlah_sks;
+    $detail1->jumlah_sks = $jumlah_sks;
     $detail1->save();
     
     \App\Models\System\ActivityLog::log($request,[
@@ -437,7 +437,7 @@ class ProgramStudiController extends Controller
   /**
    * daftar program studi
    */
-  public function programstudi(Request $request,$id)
+  public function programstudi(Request $request, $id)
   {
     $prodi=ProgramStudiModel::find($id);
     if (is_null($prodi))
@@ -466,7 +466,7 @@ class ProgramStudiController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   { 
     $this->hasPermissionTo('DMASTER-PRODI_DESTROY');
 

@@ -46,7 +46,7 @@ class PMBPersyaratanController extends Controller {
     foreach ($data as $item)
     {
       $item->persyaratan=\DB::table('pe3_pmb_persyaratan')->where('user_id',$item->id)->count();
-      $item->status=$item->persyaratan < $jumlah_persyaratan ? 'BELUM LENGKAP':'LENGKAP';
+      $item->status = $item->persyaratan < $jumlah_persyaratan ? 'BELUM LENGKAP':'LENGKAP';
     }
     return Response()->json([
       'status' => 1,
@@ -59,7 +59,7 @@ class PMBPersyaratanController extends Controller {
   /**
    * digunakan untuk mendapatkan daftar persyaratan mahasiswa baru
    */
-  public function show(Request $request,$id)
+  public function show(Request $request, $id)
   {
     $this->hasPermissionTo('SPMB-PMB-PERSYARATAN_SHOW');
 
@@ -102,7 +102,7 @@ class PMBPersyaratanController extends Controller {
       ], 200); 
     }
   }
-  public function upload (Request $request,$id)
+  public function upload (Request $request, $id)
   {
     $this->hasPermissionTo('SPMB-PMB-PERSYARATAN_STORE');
 
@@ -182,7 +182,7 @@ class PMBPersyaratanController extends Controller {
       }
     }
   }
-  public function hapusfilepersyaratan(Request $request,$id)
+  public function hapusfilepersyaratan(Request $request, $id)
   {
     $this->hasPermissionTo('SPMB-PMB-PERSYARATAN_DESTROY');
 
@@ -218,7 +218,7 @@ class PMBPersyaratanController extends Controller {
       ], 200);
     }
   }
-  public function verifikasipersyaratan(Request $request,$id)
+  public function verifikasipersyaratan(Request $request, $id)
   {
     $this->hasPermissionTo('SPMB-PMB-PERSYARATAN_UPDATE');
 

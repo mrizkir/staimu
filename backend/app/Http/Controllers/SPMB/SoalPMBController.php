@@ -22,8 +22,8 @@ class SoalPMBController extends Controller {
             'tahun_pendaftaran' => 'required',
             'semester_pendaftaran' => 'required'
         ]);
-        $tahun_pendaftaran=$request->input('tahun_pendaftaran');
-        $semester_pendaftaran=$request->input('semester_pendaftaran');
+        $tahun_pendaftaran = $request->input('tahun_pendaftaran');
+        $semester_pendaftaran = $request->input('semester_pendaftaran');
 
         $soal=SoalPMBModel::where('ta',$tahun_pendaftaran)
                             ->where('semester',$semester_pendaftaran)
@@ -117,7 +117,7 @@ class SoalPMBController extends Controller {
     /**
      * daftar soal
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $this->hasPermissionTo('SPMB-PMB-SOAL_SHOW');
 
@@ -145,7 +145,7 @@ class SoalPMBController extends Controller {
     /**
      * update soal baru
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->hasPermissionTo('SPMB-PMB-SOAL_UPDATE');
 
@@ -196,7 +196,7 @@ class SoalPMBController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $this->hasPermissionTo('SPMB-PMB-SOAL_DESTROY');
 

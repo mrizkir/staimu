@@ -51,7 +51,7 @@ class UjianMunaqasahController extends Controller
 
 		if ($this->hasRole('mahasiswa'))
 		{
-			$daftar_ujian=$daftar_ujian->where('A.user_id', $this->getUserid())
+			$daftar_ujian = $daftar_ujian->where('A.user_id', $this->getUserid())
 										->get();
 		}
 		else
@@ -61,7 +61,7 @@ class UjianMunaqasahController extends Controller
 				'prodi_id' => 'required'
 			]);
 
-			$daftar_ujian=$daftar_ujian->where('A.ta', $request->input('ta'))
+			$daftar_ujian = $daftar_ujian->where('A.ta', $request->input('ta'))
 										->where('A.prodi_id', $request->input('prodi_id'))
 										->get();
 		}        
@@ -147,7 +147,7 @@ class UjianMunaqasahController extends Controller
 								'message' => 'Daftar persyaratan mahasiswa berhasil diperoleh' 
 							], 200);
 	}
-	public function detail (Request $request,$id)
+	public function detail (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -227,7 +227,7 @@ class UjianMunaqasahController extends Controller
 		
 
 	}
-	public function show (Request $request,$id)
+	public function show (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -277,7 +277,7 @@ class UjianMunaqasahController extends Controller
 							], 200);
 		}        
 	}  
-	public function upload (Request $request,$id)
+	public function upload (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -375,7 +375,7 @@ class UjianMunaqasahController extends Controller
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
 	 */
-	public function update (Request $request,$id)
+	public function update (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -441,7 +441,7 @@ class UjianMunaqasahController extends Controller
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
 	 */
-	public function verifikasi (Request $request,$id)
+	public function verifikasi (Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_UPDATE');
 		
@@ -506,7 +506,7 @@ class UjianMunaqasahController extends Controller
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
 	 */
-	public function updatepersyaratan (Request $request,$id)
+	public function updatepersyaratan (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -542,7 +542,7 @@ class UjianMunaqasahController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-UJIAN-MUNAQASAH_STORE');

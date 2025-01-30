@@ -101,18 +101,18 @@ class UsersDosenController extends Controller {
 				'created_at' => $now, 
 				'updated_at' => $now
 			]);       
-			$role='dosen';   
+			$role = 'dosen';   
 			$user->assignRole($role);          
 			
 			$permission = Role::findByName('dosen')->permissions;
-			$permissions=$permission->pluck('name');
+			$permissions = $permission->pluck('name');
 			$user->givePermissionTo($permissions);
 			
 			if (filter_var($request->input('is_dw'),FILTER_VALIDATE_BOOLEAN))
 			{
 				$user->assignRole('dosenwali'); 
 				$permission = Role::findByName('dosenwali')->permissions;
-				$permissions=$permission->pluck('name');
+				$permissions = $permission->pluck('name');
 				$user->givePermissionTo($permissions);
 			}
 			
@@ -196,7 +196,7 @@ class UsersDosenController extends Controller {
 				$user->save();
 
 				$user_dosen=UserDosen::find($user->id);
-				$user_dosen->nama_dosen=$request->input('name');
+				$user_dosen->nama_dosen = $request->input('name');
 				$user_dosen->nidn = $request->input('nidn');
 				$user_dosen->nipy = $request->input('nipy');
 				$user_dosen->is_dw = $request->input('is_dw');                                        
@@ -205,14 +205,14 @@ class UsersDosenController extends Controller {
 				{
 					$user->assignRole('dosenwali'); 
 					$permission = Role::findByName('dosenwali')->permissions;
-					$permissions=$permission->pluck('name');
+					$permissions = $permission->pluck('name');
 					$user->givePermissionTo($permissions);
 				}
 				else
 				{
 					$user->removeRole('dosenwali');
 					$permission = Role::findByName('dosenwali')->permissions;
-					$permissions=$permission->pluck('name');
+					$permissions = $permission->pluck('name');
 					$user->revokePermissionTo($permissions);
 				}
 				$user_dosen->save();   
@@ -250,7 +250,7 @@ class UsersDosenController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function biodatadiri(Request $request,$id)
+	public function biodatadiri(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('SYSTEM-USERS-DOSEN_SHOW');
 
@@ -306,7 +306,7 @@ class UsersDosenController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function updatebiodatadiri(Request $request,$id)
+	public function updatebiodatadiri(Request $request, $id)
 	{
 		$this->hasPermissionTo('SYSTEM-USERS-DOSEN_UPDATE');
 
@@ -349,28 +349,28 @@ class UsersDosenController extends Controller {
 				'alamat_rumah' => 'required',
 			]); 
 
-			$biodatadiri->nidn=$request->input('nidn');      
+			$biodatadiri->nidn = $request->input('nidn');      
 			$biodatadiri->nipy=$request->input('nipy');      
-			$biodatadiri->gelar_depan=$request->input('gelar_depan');                          
-			$biodatadiri->nama_dosen=$request->input('nama_dosen');      
+			$biodatadiri->gelar_depan = $request->input('gelar_depan');                          
+			$biodatadiri->nama_dosen = $request->input('nama_dosen');      
 			$biodatadiri->gelar_belakang=$request->input('gelar_belakang');      
 
-			$biodatadiri->tempat_lahir=$request->input('tempat_lahir');      
-			$biodatadiri->tanggal_lahir=$request->input('tanggal_lahir');      
+			$biodatadiri->tempat_lahir = $request->input('tempat_lahir');      
+			$biodatadiri->tanggal_lahir = $request->input('tanggal_lahir');      
 			$biodatadiri->jk=$request->input('jk');                 
 			   
 			$biodatadiri->address1_provinsi_id = $request->input('address1_provinsi_id');
 			$biodatadiri->address1_provinsi=$request->input('address1_provinsi');
 			$biodatadiri->address1_kabupaten_id = $request->input('address1_kabupaten_id');
-			$biodatadiri->address1_kabupaten=$request->input('address1_kabupaten');
+			$biodatadiri->address1_kabupaten = $request->input('address1_kabupaten');
 			$biodatadiri->address1_kecamatan_id = $request->input('address1_kecamatan_id');
-			$biodatadiri->address1_kecamatan=$request->input('address1_kecamatan');
+			$biodatadiri->address1_kecamatan = $request->input('address1_kecamatan');
 			$biodatadiri->address1_desa_id = $request->input('address1_desa_id');
-			$biodatadiri->address1_kelurahan=$request->input('address1_kelurahan');
-			$biodatadiri->alamat_rumah=$request->input('alamat_rumah');   
+			$biodatadiri->address1_kelurahan = $request->input('address1_kelurahan');
+			$biodatadiri->alamat_rumah = $request->input('alamat_rumah');   
 
 			$biodatadiri->save();
-			$user=$biodatadiri->user;
+			$user = $biodatadiri->user;
 			$user->email=$request->input('email');
 			$user->nomor_hp=$request->input('nomor_hp');
 			$user->save();
@@ -398,7 +398,7 @@ class UsersDosenController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('SYSTEM-USERS-DOSEN_DESTROY');
 

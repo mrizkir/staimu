@@ -65,7 +65,9 @@ class FormulirPendaftaranModel extends Model {
 		'asal_slta',
 		'status_slta',
 		'nomor_ijazah',
-
+		'id_channel_marketing',
+		'id_rekomendasi_dari',
+		'nama_pemberi_rekomendasi',
 		'kode_fakultas', 
 		'nama_fakultas', 
 		'kjur1', 
@@ -89,6 +91,7 @@ class FormulirPendaftaranModel extends Model {
 	 */
 	public $timestamps = true;
 
+	
 	public function user()
 	{
 		return $this->belongsTo('App\Models\User', 'user_id', 'id');

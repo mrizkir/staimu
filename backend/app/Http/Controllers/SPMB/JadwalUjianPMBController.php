@@ -23,8 +23,8 @@ class JadwalUjianPMBController extends Controller {
 			'tahun_pendaftaran' => 'required',
 			'semester_pendaftaran' => 'required'
 		]);
-		$tahun_pendaftaran=$request->input('tahun_pendaftaran');
-		$semester_pendaftaran=$request->input('semester_pendaftaran');
+		$tahun_pendaftaran = $request->input('tahun_pendaftaran');
+		$semester_pendaftaran = $request->input('semester_pendaftaran');
 		
 		\DB::table('pe3_jadwal_ujian_pmb')
 			->whereDate('tanggal_ujian', '<', \DB::raw('CURDATE()'))
@@ -150,7 +150,7 @@ class JadwalUjianPMBController extends Controller {
 	/**
 	 * detail jadwal ujian pmb
 	 */
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 		$this->hasPermissionTo('SPMB-PMB-JADWAL-UJIAN_SHOW');
 
@@ -207,7 +207,7 @@ class JadwalUjianPMBController extends Controller {
 	/**
 	 * update jadwal ujian pmb
 	 */
-	public function update(Request $request,$id)
+	public function update(Request $request, $id)
 	{
 		$this->hasPermissionTo('SPMB-PMB-JADWAL-UJIAN_UPDATE');
 
@@ -233,13 +233,13 @@ class JadwalUjianPMBController extends Controller {
 				'ruangkelas_id' => 'required',    
 			]);       
 				
-			$jadwal_ujian->nama_kegiatan=$request->input('nama_kegiatan');
+			$jadwal_ujian->nama_kegiatan = $request->input('nama_kegiatan');
 			$jadwal_ujian->jumlah_soal=$request->input('jumlah_soal');
-			$jadwal_ujian->tanggal_ujian=$request->input('tanggal_ujian');
-			$jadwal_ujian->jam_mulai_ujian=$request->input('jam_mulai_ujian');
-			$jadwal_ujian->jam_selesai_ujian=$request->input('jam_selesai_ujian');
-			$jadwal_ujian->tanggal_akhir_daftar=$request->input('tanggal_akhir_daftar');
-			$jadwal_ujian->durasi_ujian=$request->input('durasi_ujian');
+			$jadwal_ujian->tanggal_ujian = $request->input('tanggal_ujian');
+			$jadwal_ujian->jam_mulai_ujian = $request->input('jam_mulai_ujian');
+			$jadwal_ujian->jam_selesai_ujian = $request->input('jam_selesai_ujian');
+			$jadwal_ujian->tanggal_akhir_daftar = $request->input('tanggal_akhir_daftar');
+			$jadwal_ujian->durasi_ujian = $request->input('durasi_ujian');
 			$jadwal_ujian->ruangkelas_id = $request->input('ruangkelas_id');
 			$jadwal_ujian->save();
 				 
@@ -254,7 +254,7 @@ class JadwalUjianPMBController extends Controller {
 	/**
 	 * update status ujian jadwal ujian pmb
 	 */
-	public function updatestatusujian(Request $request,$id)
+	public function updatestatusujian(Request $request, $id)
 	{
 		$jadwal_ujian=JadwalUjianPMBModel::find($id);
 		if (is_null($jadwal_ujian))
@@ -270,9 +270,9 @@ class JadwalUjianPMBController extends Controller {
 			$this->validate($request, [           
 				'status_ujian' => 'required|integer|digits_between:0,3',                   
 			]);       
-			$status_ujian=$request->input('status_ujian');
+			$status_ujian = $request->input('status_ujian');
 			$jadwal_ujian->status_pendaftaran=1;       
-			$jadwal_ujian->status_ujian=$status_ujian;       
+			$jadwal_ujian->status_ujian = $status_ujian;       
 			$jadwal_ujian->save();
 			
 			if ($status_ujian == 2)
@@ -301,7 +301,7 @@ class JadwalUjianPMBController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('SPMB-PMB-JADWAL-UJIAN_DESTROY');
 
@@ -317,7 +317,7 @@ class JadwalUjianPMBController extends Controller {
 		}
 		else
 		{
-			$nama_kegiatan=$jadwal_ujian->nama_kegiatan;
+			$nama_kegiatan = $jadwal_ujian->nama_kegiatan;
 			$jadwal_ujian->delete();
 
 			\App\Models\System\ActivityLog::log($request,[

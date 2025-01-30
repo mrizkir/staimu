@@ -180,9 +180,9 @@ class TransaksiPPLPKLController extends Controller {
 				->where('nim', $nim)
 				->first();
 
-		  $tahun=$mahasiswa->tahun;
-		  $idkelas=$mahasiswa->idkelas;
-		  $kjur=$mahasiswa->kjur;
+		  $tahun = $mahasiswa->tahun;
+		  $idkelas = $mahasiswa->idkelas;
+		  $kjur = $mahasiswa->kjur;
 		  
 		  $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
 												  ->where('idkelas',$idkelas)
@@ -319,7 +319,7 @@ class TransaksiPPLPKLController extends Controller {
 		  ], 422); 
 	  }        
   }
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   {
 	$this->hasPermissionTo('KEUANGAN-TRANSAKSI-PKL_DESTROY');
 

@@ -41,7 +41,7 @@ class NilaiMatakuliahController extends Controller
 									'message' => 'Fetch data penyelenggaraan matakuliah berhasil.'
 								], 200); 
 	}
-	public function pesertakelas (Request $request,$id)
+	public function pesertakelas (Request $request, $id)
 	{
 		$pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id', $this->getUserid())->find($id):PembagianKelasModel::find($id);           
 		
@@ -92,7 +92,7 @@ class NilaiMatakuliahController extends Controller
 							], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
 		}
 	}
-	public function perkrs (Request $request,$id)
+	public function perkrs (Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 
@@ -251,13 +251,13 @@ class NilaiMatakuliahController extends Controller
 				}
 				elseif($nilai->bydosen)
 				{
-					$nilai->nilai_absen=$nilai_absen;
+					$nilai->nilai_absen = $nilai_absen;
 					$nilai->nilai_tugas_individu=$nilai_tugas_individu;
-					$nilai->nilai_uts=$nilai_uts;
-					$nilai->nilai_uas=$nilai_uas;
+					$nilai->nilai_uts = $nilai_uts;
+					$nilai->nilai_uas = $nilai_uas;
 					$n_kuan_lama=$nilai->n_kuan;
 					$n_kual_lama=$nilai->n_kual;
-					$nilai->n_kuan=$n_kuan;
+					$nilai->n_kuan = $n_kuan;
 					$nilai->n_kual=$n_kual;
 					$nilai->n_mutu=\App\Helpers\HelperAkademik::getNilaiMutu($n_kual);
 					
@@ -372,7 +372,7 @@ class NilaiMatakuliahController extends Controller
 				{
 					$n_kuan_lama=$nilai->n_kuan;
 					$n_kual_lama=$nilai->n_kual;
-					$nilai->n_kuan=$n_kuan;
+					$nilai->n_kuan = $n_kuan;
 					$nilai->n_kual=$n_kual;
 					$nilai->n_mutu=\App\Helpers\HelperAkademik::getNilaiMutu($n_kual);
 					
@@ -485,7 +485,7 @@ class NilaiMatakuliahController extends Controller
 				{
 					$n_kuan_lama=$nilai->n_kuan;
 					$n_kual_lama=$nilai->n_kual;
-					$nilai->n_kuan=$n_kuan;
+					$nilai->n_kuan = $n_kuan;
 					$nilai->n_kual=$n_kual;
 					$nilai->n_mutu=\App\Helpers\HelperAkademik::getNilaiMutu($n_kual);
 					

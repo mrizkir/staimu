@@ -45,13 +45,13 @@ class BukaNilaiController extends Controller
     
     if ($request->has('search'))
     {
-      $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
+      $daftar_krs = $daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
             ->orderBy('tasmt', 'desc')
             ->get();
     }  
     else
     {
-      $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
+      $daftar_krs = $daftar_krs->where('pe3_krs.kjur',$prodi_id)
                   ->where('pe3_krs.tahun',$ta)
                   ->where('pe3_krs.idsmt',$semester_akademik)
                   ->get();
@@ -72,7 +72,7 @@ class BukaNilaiController extends Controller
 								], 200);  
 		
 	}
-	public function update (Request $request,$id)
+	public function update (Request $request, $id)
 	{
 		$this->hasPermissionTo('KEUANGAN-BUKA-NILAI_UPDATE');
 

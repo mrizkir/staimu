@@ -35,7 +35,7 @@ class StatusTransaksiController extends Controller {
             'id_status' => 'required|exists:pe3_status_transaksi,id_status',
             'style' => 'required'
         ]);
-        $id_status=$request->input('id_status');
+        $id_status = $request->input('id_status');
         $style=$request->input('style');
         
         $status=StatusTransaksiModel::find($id_status);

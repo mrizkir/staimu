@@ -313,7 +313,7 @@ class PindahKelasController  extends Controller
       }     
     }
   }
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   { 
     $this->hasPermissionTo('KEMAHASISWAAN-PINDAH-KELAS_DESTROY');    
 

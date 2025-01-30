@@ -81,7 +81,7 @@ class TranskripKurikulumController  extends Controller
                     'message' => 'Fetch data daftar mahasiswa berhasil.'
                   ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
   }
-  public function show(Request $request,$id)
+  public function show(Request $request, $id)
   {
     $is_mhs = false;
     if ($this->hasRole('mahasiswa'))
@@ -284,7 +284,7 @@ class TranskripKurikulumController  extends Controller
         else
         {
           $rekap->jumlah_matkul=$jumlah_matkul;
-          $rekap->jumlah_sks=$jumlah_sks_nilai;
+          $rekap->jumlah_sks = $jumlah_sks_nilai;
           $rekap->jumlah_am=$jumlah_am;
           $rekap->jumlah_m=$jumlah_m;
           $rekap->ipk=$ipk;
@@ -308,7 +308,7 @@ class TranskripKurikulumController  extends Controller
       ], 200); 
     }
   }
-  public function history(Request $request,$id)
+  public function history(Request $request, $id)
   {
     $matakuliah = MatakuliahModel::find($id);
     if (is_null($matakuliah))
@@ -356,7 +356,7 @@ class TranskripKurikulumController  extends Controller
       ], 200); 
     }
   }
-  public function printpdf1(Request $request,$id)
+  public function printpdf1(Request $request, $id)
   {
     $is_mhs = false;
     if ($this->hasRole('mahasiswa'))
@@ -618,7 +618,7 @@ class TranskripKurikulumController  extends Controller
         else
         {
           $rekap->jumlah_matkul=$jumlah_matkul_all;
-          $rekap->jumlah_sks=$jumlah_sks_all;
+          $rekap->jumlah_sks = $jumlah_sks_all;
           $rekap->jumlah_am=$jumlah_am_all;
           $rekap->jumlah_m=$jumlah_m_all;
           $rekap->ipk=$ipk;
@@ -666,7 +666,7 @@ class TranskripKurikulumController  extends Controller
       ], 200);
     }
   }
-  public function printpdf2(Request $request,$id)
+  public function printpdf2(Request $request, $id)
   {
     $is_mhs = false;
     if ($this->hasRole('mahasiswa'))
@@ -1254,7 +1254,7 @@ class TranskripKurikulumController  extends Controller
       else
       {
         $rekap->jumlah_matkul=$totalMatkul;
-        $rekap->jumlah_sks=$totalSks;
+        $rekap->jumlah_sks = $totalSks;
         $rekap->jumlah_am=$totalAM;
         $rekap->jumlah_m=$totalM;
         $rekap->ipk=$ipk;

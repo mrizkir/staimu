@@ -58,13 +58,13 @@ class NilaiKHSController extends Controller
 
       if ($request->has('search'))
       {
-        $daftar_khs=$daftar_khs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
+        $daftar_khs = $daftar_khs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
               ->orderBy('tasmt', 'desc')
               ->get();
       }  
       else
       {
-        $daftar_khs=$daftar_khs->where('pe3_krs.kjur',$prodi_id)
+        $daftar_khs = $daftar_khs->where('pe3_krs.kjur',$prodi_id)
                     ->where('pe3_krs.tahun',$ta)
                     ->where('pe3_krs.idsmt',$semester_akademik)
                     ->get();
@@ -115,7 +115,7 @@ class NilaiKHSController extends Controller
                 ], 200);  
     
   }
-  public function show (Request $request,$id)
+  public function show (Request $request, $id)
   {
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 
@@ -285,7 +285,7 @@ class NilaiKHSController extends Controller
       $krs->jumlah_am_1=$jumlah_am;
       $krs->jumlah_m_1=$jumlah_m;
 
-      $krs->ips=$ips;
+      $krs->ips = $ips;
       $nilai = new LogicNilai (RegisterMahasiswaModel::find($krs->user_id));						
       $data = $nilai->getIPKByLastTASMT($krs->tasmt);
       $krs->ipk = $data['ipk'];
@@ -308,7 +308,7 @@ class NilaiKHSController extends Controller
                   ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);  
     }        
   }		
-  public function printpdf(Request $request,$id)
+  public function printpdf(Request $request, $id)
   {
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 

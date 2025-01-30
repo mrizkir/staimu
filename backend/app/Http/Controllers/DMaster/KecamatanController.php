@@ -24,7 +24,7 @@ class KecamatanController extends Controller {
     /**
      * daftar kecamatan
      */
-    public function desa(Request $request,$id)
+    public function desa(Request $request, $id)
     {
         $kecamatan=KecamatanModel::find($id);
         if (is_null($kecamatan))

@@ -69,7 +69,7 @@ class PPLPKLController extends Controller
 								], 200);  
 		
 	}	
-	public function show (Request $request,$id)
+	public function show (Request $request, $id)
 	{
 		if ($this->hasRole('mahasiswa'))
 		{
@@ -163,9 +163,9 @@ class PPLPKLController extends Controller
 			  throw new Exception ("Tambah PPL / PKL a.n mahasiswa dengan NIM ($nim) gagal karena belum melakukan transaksi atau membayar transaksi pada $ta semester $semester_akademik.");  
 		  }			
 			
-			$tahun=$mahasiswa->tahun;
-		  $idkelas=$mahasiswa->idkelas;
-		  $kjur=$mahasiswa->kjur;
+			$tahun = $mahasiswa->tahun;
+		  $idkelas = $mahasiswa->idkelas;
+		  $kjur = $mahasiswa->kjur;
 
 			$syarat_matkul = \DB::table('pe3_matakuliah')
 				->select(\DB::raw('id, kmatkul, nmatkul'))
@@ -274,7 +274,7 @@ class PPLPKLController extends Controller
 	/**
 	 * digunakan untul menyimpan ujian munaqasah mahasiswa
 	 */
-	public function update (Request $request,$id)
+	public function update (Request $request, $id)
 	{
 		if (!$this->hasRole('mahasiswa'))
 		{
@@ -354,7 +354,7 @@ class PPLPKLController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		if (!$this->hasRole('mahasiswa'))
 		{

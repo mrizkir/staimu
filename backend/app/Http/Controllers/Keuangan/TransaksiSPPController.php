@@ -132,7 +132,7 @@ class TransaksiSPPController extends Controller {
                                     'message' => 'Fetch data daftar transaksi berhasil.'
                                 ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
-    public function show (Request $request,$id)
+    public function show (Request $request, $id)
     {
         try 
         {
@@ -222,7 +222,7 @@ class TransaksiSPPController extends Controller {
             $transaksi_detail=[];
             for($i=$awal_ganjil;$i<= 12;$i++)
             {
-                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
+                $status = $this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
                                     'id' => $i,
                                     'no_bulan' => $i,
@@ -235,7 +235,7 @@ class TransaksiSPPController extends Controller {
             }
             for($i=1;$i<$awal_ganjil;$i++)
             {
-                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
+                $status = $this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
                                     'id' => $i,
                                     'no_bulan' => $i,
@@ -320,9 +320,9 @@ class TransaksiSPPController extends Controller {
                 throw new Exception ("Mahasiswa dengan NIM ($nim) telah ".$mahasiswa->n_status. ' jadi tidak bisa membuat transaksi baru');  
             }
             
-            $tahun=$mahasiswa->tahun;
-            $idkelas=$mahasiswa->idkelas;
-            $kjur=$mahasiswa->kjur;
+            $tahun = $mahasiswa->tahun;
+            $idkelas = $mahasiswa->idkelas;
+            $kjur = $mahasiswa->kjur;
 
             $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
                                                     ->where('idkelas',$idkelas)
@@ -461,7 +461,7 @@ class TransaksiSPPController extends Controller {
                                     'message'=>(count($bulan_spp)). ' Bulan SPP telah berhasil ditambahkan'
                                 ], 200);  
     }
-    public function destroy (Request $request,$id)
+    public function destroy (Request $request, $id)
     {
         $this->hasPermissionTo('KEUANGAN-TRANSAKSI-SPP_DESTROY');
 
@@ -524,7 +524,7 @@ class TransaksiSPPController extends Controller {
     /**
      * digunakan untuk mendapatkan seluruh transaksi spp mahasiswa
      */
-    public function sppmahasiswa (Request $request,$id)
+    public function sppmahasiswa (Request $request, $id)
     {
         $daftar_transaksi = [];
         if ($this->hasRole(['mahasiswa', 'mahasiswabaru']))

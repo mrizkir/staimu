@@ -31,7 +31,7 @@ class SystemMigrationController extends Controller {
         $ta = $request->input('ta');
         $daftar_tasmt=[];
         
-        for ($tahun=$ta;$tahun < 2020; $tahun++)
+        for ($tahun = $ta;$tahun < 2020; $tahun++)
         {
             $daftar_tasmt[]=[
                 'id' => $tahun.'1',
@@ -139,7 +139,7 @@ class SystemMigrationController extends Controller {
                 'idkelas' => $formulir->idkelas,
             ]);
             
-            $role='mahasiswa';   
+            $role = 'mahasiswa';   
             $user->assignRole($role);
             $permission = Role::findByName('mahasiswa')->permissions;
             $user->givePermissionTo($permission->pluck('name'));       
@@ -153,9 +153,9 @@ class SystemMigrationController extends Controller {
                 'tahun' => $ta,
                 'idsmt' => 1
             ]);
-            $status_mhs=$request->input('status_mhs');       
+            $status_mhs = $request->input('status_mhs');       
             $i=0;
-            for ($tahun=$ta;$tahun < 2020; $tahun++)
+            for ($tahun = $ta;$tahun < 2020; $tahun++)
             {
                 if (isset($status_mhs[$i]) && isset($status_mhs[$i+1]))
                 {

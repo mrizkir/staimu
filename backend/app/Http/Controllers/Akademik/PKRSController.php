@@ -59,13 +59,13 @@ class PKRSController extends Controller
         
         if ($request->has('search'))
         {
-            $daftar_pkrs=$daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
+            $daftar_pkrs = $daftar_pkrs->whereRaw('(pe3_pkrs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
                         ->orderBy('tasmt', 'desc')
                         ->get();
         }  
         else
         {
-            $daftar_pkrs=$daftar_pkrs->where('pe3_penyelenggaraan.kjur',$prodi_id)
+            $daftar_pkrs = $daftar_pkrs->where('pe3_penyelenggaraan.kjur',$prodi_id)
                                     ->where('pe3_penyelenggaraan.tahun',$ta)
                                     ->where('pe3_penyelenggaraan.idsmt',$semester_akademik)
                                     ->get();
@@ -92,7 +92,7 @@ class PKRSController extends Controller
                                 ], 200);  
         
     }
-    public function show (Request $request,$id)
+    public function show (Request $request, $id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_SHOW');
         try
@@ -346,7 +346,7 @@ class PKRSController extends Controller
                                     'message'=>(count($daftar_matkul)). ' Matakuliah baru telah berhasil ditambahkan'
                                 ], 200);  
     }  
-    public function updatestatus (Request $request,$id)
+    public function updatestatus (Request $request, $id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_UPDATE');
 
@@ -420,7 +420,7 @@ class PKRSController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroymatkul(Request $request,$id)
+    public function destroymatkul(Request $request, $id)
     { 
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_DESTROY');
 
@@ -470,7 +470,7 @@ class PKRSController extends Controller
         }
                   
     }
-    public function printpdf(Request $request,$id)
+    public function printpdf(Request $request, $id)
     {
         $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PKRS_SHOW');
 

@@ -97,15 +97,15 @@ class MahasiswaBelumPunyaNIMController extends Controller
 				'idkelas' => $formulir->idkelas,
 			]);
 			
-			$user=$formulir->user;
+			$user = $formulir->user;
 			$user->username=$request->input('username');
 			$user->password=Hash::make('12345678');
-			$user->default_role='mahasiswa';
+			$user->default_role = 'mahasiswa';
 			$user->save();
 
 			$user->syncRoles(['mahasiswa']); 
 			$permission = Role::findByName('mahasiswa')->permissions;
-			$permissions=$permission->pluck('name');
+			$permissions = $permission->pluck('name');
 			$user->givePermissionTo($permissions);
 			
 			$spp=TransaksiDetailModel::select(\DB::raw('pe3_transaksi.status'))  

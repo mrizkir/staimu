@@ -95,7 +95,7 @@ class PMBPassingGradeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update (Request $request,$id)
+    public function update (Request $request, $id)
     {   
         $this->hasPermissionTo('SPMB-PMB-PASSING-GRADE_STORE');
 

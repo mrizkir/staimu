@@ -195,7 +195,7 @@ class TransaksiController extends Controller {
           {
             $transaksi=$konfirmasi->transaksi;                   
           }
-          $transaksi->no_faktur=$no_ref;
+          $transaksi->no_faktur = $no_ref;
           $transaksi->status=1;
           $transaksi->save();
           
@@ -212,8 +212,8 @@ class TransaksiController extends Controller {
             {
               case 101: //biaya formulir pendaftaran
                 $formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($transaksi->user_id);                   
-                $no_formulir=$formulir->idsmt.mt_rand();
-                $formulir->no_formulir=$no_formulir;
+                $no_formulir = $formulir->idsmt.mt_rand();
+                $formulir->no_formulir = $no_formulir;
                 $formulir->save();
               break;
               case 202:

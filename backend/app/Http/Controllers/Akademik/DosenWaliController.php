@@ -47,7 +47,7 @@ class DosenWaliController extends Controller {
                 'message' => 'Fetch data dosen wali berhasil diperoleh'
               ], 200);  
   }    
-  public function show(Request $request,$id)
+  public function show(Request $request, $id)
   {
     $this->hasPermissionTo('SYSTEM-USERS-DOSEN-WALI_SHOW');
 
@@ -126,18 +126,18 @@ class DosenWaliController extends Controller {
         'created_at' => $now, 
         'updated_at' => $now
       ]);       
-      $role='dosen';   
+      $role = 'dosen';   
       $user->assignRole($role);          
       
       $permission = Role::findByName('dosen')->permissions;
-      $permissions=$permission->pluck('name');
+      $permissions = $permission->pluck('name');
       $user->givePermissionTo($permissions);
       
       if ($request->input('is_dw')=='true')
       {
         $user->assignRole('dosenwali'); 
         $permission = Role::findByName('dosenwali')->permissions;
-        $permissions=$permission->pluck('name');
+        $permissions = $permission->pluck('name');
         $user->givePermissionTo($permissions);
       }
       
@@ -194,13 +194,13 @@ class DosenWaliController extends Controller {
                     'pid' => 'required',
                     'user_id' => 'required|:users,email, ' . $user->id,        
                   ]);        
-      $message='no pid';
+      $message = 'no pid';
       switch($request->input('pid'))
       {
         case 'alihkan_mhs' ://digunakan untuk mengalihkan mahasiswa dari dw ini ke dw lain
           $dw_id = $request->input('user_id');
 
-          $message='Mengalihkan mahasiswa data dosen wali (' . $user->nama_dosen. ') ini berhasil';
+          $message = 'Mengalihkan mahasiswa data dosen wali (' . $user->nama_dosen. ') ini berhasil';
           \App\Models\System\ActivityLog::log($request,[
                                   'object' => $this->guard()->user(), 
                                   'object_id' => $dw_id, 
@@ -224,7 +224,7 @@ class DosenWaliController extends Controller {
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   { 
     $this->hasPermissionTo('SYSTEM-USERS-DOSEN-WALI_DESTROY');
 

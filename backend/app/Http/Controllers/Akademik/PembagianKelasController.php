@@ -57,12 +57,12 @@ class PembagianKelasController extends Controller
 						
 		if ($this->hasRole('dosen'))
 		{
-			$pembagiankelas=$pembagiankelas->where('pe3_dosen.user_id', $this->getUserid())
+			$pembagiankelas = $pembagiankelas->where('pe3_dosen.user_id', $this->getUserid())
 								->get();
 		}
 		else
 		{
-			$pembagiankelas=$pembagiankelas->get();
+			$pembagiankelas = $pembagiankelas->get();
 		}
 		$pembagiankelas->transform(function ($item, $key) {
 			$item->nama_hari=\App\Helpers\Helper::getNamaHari($item->hari);
@@ -139,7 +139,7 @@ class PembagianKelasController extends Controller
 								'message' => 'Pembagian Kelas berhasil ditambahkan.'
 							], 200);
 	}
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_SHOW');
 
@@ -250,7 +250,7 @@ class PembagianKelasController extends Controller
 								], 200);
 		}
 	}
-	public function matakuliah (Request $request,$id)
+	public function matakuliah (Request $request, $id)
 	{
 		$pembagian = PembagianKelasModel::find($id);
 
@@ -287,7 +287,7 @@ class PembagianKelasController extends Controller
 							], 200);
 		}
 	}
-	public function peserta (Request $request,$id)
+	public function peserta (Request $request, $id)
 	{
 
 		$pembagian = $this->hasRole('dosen')?PembagianKelasModel::where('user_id', $this->getUserid())->find($id):PembagianKelasModel::find($id);
@@ -326,7 +326,7 @@ class PembagianKelasController extends Controller
 							], 200);
 		}
 	}
-	public function penyelenggaraan (Request $request,$id)
+	public function penyelenggaraan (Request $request, $id)
 	{
 		$daftar_kelas=PembagianKelasPenyelenggaraanModel::select(\DB::raw('
 													pe3_kelas_mhs.id,
@@ -357,7 +357,7 @@ class PembagianKelasController extends Controller
 		]);
 
 		$data=[];
-		$idpenyelenggaraan=$request->input('idpenyelenggaraan');
+		$idpenyelenggaraan = $request->input('idpenyelenggaraan');
 		switch($request->input('pid'))
 		{
 			case 'belumterdaftar':
@@ -484,7 +484,7 @@ class PembagianKelasController extends Controller
 								], 200);
 	}
 
-	public function update(Request $request,$id)
+	public function update(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_UPDATE');
 
@@ -514,11 +514,11 @@ class PembagianKelasController extends Controller
 				$pembagiankelas->zoom_id = $request->input('zoom_id');
 				$pembagiankelas->kmatkul=$request->input('kmatkul');
 				$pembagiankelas->nmatkul=$request->input('nmatkul');
-				$pembagiankelas->sks=$request->input('sks');
-				$pembagiankelas->idkelas=$request->input('idkelas');
+				$pembagiankelas->sks = $request->input('sks');
+				$pembagiankelas->idkelas = $request->input('idkelas');
 				$pembagiankelas->hari=$request->input('hari');
 				$pembagiankelas->jam_masuk=$request->input('jam_masuk');
-				$pembagiankelas->jam_keluar=$request->input('jam_keluar');
+				$pembagiankelas->jam_keluar = $request->input('jam_keluar');
 				$pembagiankelas->ruang_kelas_id = $request->input('ruang_kelas_id');
 				$pembagiankelas->save();
 
@@ -559,7 +559,7 @@ class PembagianKelasController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 
@@ -596,7 +596,7 @@ class PembagianKelasController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroymatkul(Request $request,$id)
+	public function destroymatkul(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 
@@ -655,7 +655,7 @@ class PembagianKelasController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroypeserta(Request $request,$id)
+	public function destroypeserta(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PEMBAGIAN-KELAS_DESTROY');
 

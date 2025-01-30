@@ -28,7 +28,7 @@ class KelompokPertanyaanController extends Controller
 	/**
 	 * detail kelompok pertanyaan
 	 */
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 			$kelompokpertanyaan=KelompokPertanyaanModel::find($id);
 
@@ -164,7 +164,7 @@ class KelompokPertanyaanController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 			$this->hasPermissionTo('DMASTER-KUISIONER_DESTROY');
 

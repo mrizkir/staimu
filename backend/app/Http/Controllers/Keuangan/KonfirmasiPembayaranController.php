@@ -121,7 +121,7 @@ class KonfirmasiPembayaranController extends Controller {
                                     'message' => 'Fetch data daftar transaksi berhasil.'
                                 ], 200);
     }  
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $konfirmasi=KonfirmasiPembayaranModel::select(\DB::raw('
                                                 transaksi_id,
@@ -177,7 +177,7 @@ class KonfirmasiPembayaranController extends Controller {
         ]);
         $transaksi_id = $request->input('transaksi_id');
         $transaksi=TransaksiModel::find($transaksi_id);
-        $bukti_bayar=$request->file('bukti_bayar');
+        $bukti_bayar = $request->file('bukti_bayar');
         $mime_type=$bukti_bayar->getMimeType();
         if ($mime_type=='image/png' || $mime_type=='image/jpeg')
         {
@@ -226,7 +226,7 @@ class KonfirmasiPembayaranController extends Controller {
     /**
      * digunakan untuk merubah status transaksi menjadi paid
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE');
 

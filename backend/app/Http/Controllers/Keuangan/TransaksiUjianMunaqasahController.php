@@ -177,9 +177,9 @@ class TransaksiUjianMunaqasahController extends Controller {
                                               ->where('nim',$nim)
                                               ->first();
 
-          $tahun=$mahasiswa->tahun;
-          $idkelas=$mahasiswa->idkelas;
-          $kjur=$mahasiswa->kjur;
+          $tahun = $mahasiswa->tahun;
+          $idkelas = $mahasiswa->idkelas;
+          $kjur = $mahasiswa->kjur;
           
           $biaya_kombi=BiayaKomponenPeriodeModel::where('tahun',$tahun)
                                                   ->where('idkelas',$idkelas)
@@ -247,7 +247,7 @@ class TransaksiUjianMunaqasahController extends Controller {
           ], 422); 
       }        
   }
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   {
       $this->hasPermissionTo('KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH_DESTROY');
 

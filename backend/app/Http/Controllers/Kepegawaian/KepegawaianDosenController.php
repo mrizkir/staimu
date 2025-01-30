@@ -117,9 +117,9 @@ class KepegawaianDosenController extends Controller {
         $user->updated_at = \Carbon\Carbon::now()->toDateTimeString();           
         $user->save();
         
-        $user_dosen->nama_dosen=$request->input('name');           
-        $user_dosen->id_jabatan=$request->input('id_jabatan');
-        $user_dosen->gelar_depan=$request->input('gelar_depan');
+        $user_dosen->nama_dosen = $request->input('name');           
+        $user_dosen->id_jabatan = $request->input('id_jabatan');
+        $user_dosen->gelar_depan = $request->input('gelar_depan');
         $user_dosen->gelar_belakang=$request->input('gelar_belakang');
         $user_dosen->nidn = $request->input('nidn');
         $user_dosen->nipy = $request->input('nipy');                                                      

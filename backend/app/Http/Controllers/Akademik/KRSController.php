@@ -56,13 +56,13 @@ class KRSController extends Controller
       
       if ($request->has('search'))
       {
-        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
+        $daftar_krs = $daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
           ->orderBy('tasmt', 'desc')
           ->get();
       }  
       else
       {
-        $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
+        $daftar_krs = $daftar_krs->where('pe3_krs.kjur',$prodi_id)
           ->where('pe3_krs.tahun',$ta)
           ->where('pe3_krs.idsmt',$semester_akademik)
           ->get();
@@ -107,12 +107,12 @@ class KRSController extends Controller
       
       if ($request->has('search'))
       {
-        $daftar_krs=$daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
+        $daftar_krs = $daftar_krs->whereRaw('(pe3_krs.nim LIKE \'' . $request->input('search').'%\' OR pe3_formulir_pendaftaran.nama_mhs LIKE \'%' . $request->input('search').'%\')')        
           ->get();
       }  
       else
       {
-        $daftar_krs=$daftar_krs->where('pe3_krs.kjur',$prodi_id)
+        $daftar_krs = $daftar_krs->where('pe3_krs.kjur',$prodi_id)
           ->where('pe3_krs.tahun',$ta)
           ->where('pe3_krs.idsmt',$semester_akademik)
           ->get();
@@ -161,7 +161,7 @@ class KRSController extends Controller
     ], 200);  
     
   }
-  public function show (Request $request,$id)
+  public function show (Request $request, $id)
   {
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 
@@ -398,7 +398,7 @@ class KRSController extends Controller
                   'message'=>(count($daftar_matkul)). ' Matakuliah baru telah berhasil ditambahkan'
                 ], 200);  
   }
-  public function verifikasi (Request $request,$id)
+  public function verifikasi (Request $request, $id)
   {
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-VERIFIKASI-KRS_UPDATE');
 
@@ -467,7 +467,7 @@ class KRSController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Request $request,$id)
+  public function destroy(Request $request, $id)
   { 
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
 
@@ -504,7 +504,7 @@ class KRSController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroymatkul(Request $request,$id)
+  public function destroymatkul(Request $request, $id)
   { 
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_DESTROY');
 
@@ -535,7 +535,7 @@ class KRSController extends Controller
     }
           
   }
-  public function printpdf(Request $request,$id)
+  public function printpdf(Request $request, $id)
   {
     $this->hasPermissionTo('AKADEMIK-PERKULIAHAN-KRS_SHOW');
 

@@ -44,7 +44,7 @@ class TahunAkademikController extends Controller {
     /**
      * digunakan untuk mendapatkan daftar bulan berdasarkan awal semester
      */
-    public function daftarbulan(Request $request,$id)
+    public function daftarbulan(Request $request, $id)
     {
         $ta=TAModel::find($id);    
         if (is_null($ta))
@@ -61,7 +61,7 @@ class TahunAkademikController extends Controller {
             if (Helper::checkformattanggal($ta->awal_ganjil))
             {
                 $awal_ganjil=Helper::getNomorBulan($ta->awal_ganjil);
-                $tahun=$ta->tahun;
+                $tahun = $ta->tahun;
                 for($i=$awal_ganjil;$i<= 12;$i++)
                 {
                     $daftar_bulan[]=[
@@ -226,7 +226,7 @@ class TahunAkademikController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $this->hasPermissionTo('DMASTER-TA_DESTROY');
 

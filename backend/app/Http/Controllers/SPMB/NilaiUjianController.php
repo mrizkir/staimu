@@ -87,7 +87,7 @@ class NilaiUjianController extends Controller {
     {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_STORE']);
 
-        $kjur=$request->input('kjur');
+        $kjur = $request->input('kjur');
         $this->validate($request, [
             'user_id' => [
                         'required',
@@ -108,7 +108,7 @@ class NilaiUjianController extends Controller {
         ]);
         $data_nilai = \DB::transaction(function () use ($request) {
             $user_id = $request->input('user_id');
-            $ket_lulus=$request->input('ket_lulus');
+            $ket_lulus = $request->input('ket_lulus');
             $data_nilai=NilaiUjianPMBModel::create([
                 'user_id' => $user_id,
                 'jadwal_ujian_id'=>null,
@@ -123,7 +123,7 @@ class NilaiUjianController extends Controller {
                 'ket_lulus' => $ket_lulus,
                 'desc' => $request->input('desc'),
             ]);     
-            $keterangan=$ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
+            $keterangan = $ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
 
             \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $data_nilai, 
@@ -133,7 +133,7 @@ class NilaiUjianController extends Controller {
                                                         ]);
             if ($ket_lulus==1)
             {        
-                $formulir=$data_nilai->formulir;  
+                $formulir = $data_nilai->formulir;  
                 $this->createTransaksiDulang($formulir);
                 $this->createTransaksiSPP($formulir);
                 
@@ -141,7 +141,7 @@ class NilaiUjianController extends Controller {
 
             return $data_nilai;
         });   
-        $keterangan=$data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
+        $keterangan = $data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
         return Response()->json([
                                     'status' => 1,
                                     'pid' => 'store',
@@ -156,7 +156,7 @@ class NilaiUjianController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
 
@@ -193,7 +193,7 @@ class NilaiUjianController extends Controller {
             if (!is_null($transaksi_detail))
             {
                 $no_transaksi=$transaksi_detail->no_transaksi;
-                $transaksi_status=$transaksi_detail->status;
+                $transaksi_status = $transaksi_detail->status;
             }   
             $daftar_prodi[]=['prodi_id' => $formulir->kjur1, 'nama_prodi' => $formulir->nama_prodi];
             $data_nilai_ujian=NilaiUjianPMBModel::select(\DB::raw('
@@ -239,7 +239,7 @@ class NilaiUjianController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_UPDATE']);
 
@@ -267,14 +267,14 @@ class NilaiUjianController extends Controller {
                 'ket_lulus' => 'required',
             ]);
             $data_nilai = \DB::transaction(function () use ($request,$data_nilai) {
-                $ket_lulus=$request->input('ket_lulus');
+                $ket_lulus = $request->input('ket_lulus');
                 $data_nilai->nilai=$request->input('nilai');
-                $data_nilai->kjur=$request->input('kjur');
-                $data_nilai->ket_lulus=$ket_lulus;
+                $data_nilai->kjur = $request->input('kjur');
+                $data_nilai->ket_lulus = $ket_lulus;
                 $data_nilai->desc=$request->input('desc');
                 $data_nilai->save();
                 
-                $keterangan=$ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
+                $keterangan = $ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
 
                 \App\Models\System\ActivityLog::log($request,[
                                                             'object' => $data_nilai, 
@@ -284,14 +284,14 @@ class NilaiUjianController extends Controller {
                                                         ]);
                 if ($ket_lulus==1)
                 {        
-                    $formulir=$data_nilai->formulir;  
+                    $formulir = $data_nilai->formulir;  
                     $this->createTransaksiDulang($formulir);
                     $this->createTransaksiSPP($formulir);
                     
                 }   
                 return $data_nilai;
             });
-            $keterangan=$data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
+            $keterangan = $data_nilai->ket_lulus == 0 ? 'TIDAK LULUS' : 'LULUS';
             return Response()->json([
                                         'status' => 1,
                                         'pid' => 'store',
@@ -306,7 +306,7 @@ class NilaiUjianController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_DESTROY']);
 

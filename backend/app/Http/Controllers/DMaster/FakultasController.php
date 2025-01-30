@@ -138,7 +138,7 @@ class FakultasController extends Controller {
     /**
      * daftar program studi
      */
-    public function programstudi(Request $request,$id)
+    public function programstudi(Request $request, $id)
     {
       $fakultas = FakultasModel::find($id);
       if (is_null($fakultas))
@@ -166,7 +166,7 @@ class FakultasController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
       $this->hasPermissionTo('DMASTER-FAKULTAS_DESTROY');
 

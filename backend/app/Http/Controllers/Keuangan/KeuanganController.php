@@ -107,7 +107,7 @@ class KeuanganController extends Controller {
         $total_transaction_unpaid = $total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
         $total_transaction_cancelled=$total_kombi_ganjil_cancelled+$total_kombi_genap_cancelled;
 
-        $total_transaction=$total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;
+        $total_transaction = $total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;
 
         return Response()->json([
                                     'status' => 1,
@@ -217,7 +217,7 @@ class KeuanganController extends Controller {
         $total_transaction_unpaid = $total_kombi_ganjil_unpaid+$total_kombi_genap_unpaid;
         $total_transaction_cancelled=$total_kombi_ganjil_cancelled+$total_kombi_genap_cancelled;
 
-        $total_transaction=$total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;
+        $total_transaction = $total_transaction_paid+$total_transaction_unpaid+$total_transaction_cancelled;
 
         return Response()->json([
                                     'status' => 1,

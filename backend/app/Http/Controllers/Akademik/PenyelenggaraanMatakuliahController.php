@@ -138,7 +138,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 								'message' => 'Penyelenggaraan matakuliah berhasil ditambahkan.'
 							], 200);
 	}
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_SHOW');
 
@@ -161,7 +161,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 								], 200);
 		}
 	}
-	public function member(Request $request,$id)
+	public function member(Request $request, $id)
 	{
 		
 	}
@@ -226,7 +226,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 				$this->validate($request, [                                
 					'idpenyelenggaraan' => 'required|exists:pe3_penyelenggaraan,id'           
 				]);
-				$idpenyelenggaraan=$request->input('idpenyelenggaraan');
+				$idpenyelenggaraan = $request->input('idpenyelenggaraan');
 				$data=UserDosen::select(\DB::raw('
 									user_id,
 									nidn,
@@ -245,7 +245,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 				$this->validate($request, [            
 					'idpenyelenggaraan' => 'required|exists:pe3_penyelenggaraan,id'             
 				]);
-				$idpenyelenggaraan=$request->input('idpenyelenggaraan');
+				$idpenyelenggaraan = $request->input('idpenyelenggaraan');
 				$data=UserDosen::select(\DB::raw('
 									pe3_penyelenggaraan_dosen.id,
 									pe3_penyelenggaraan_dosen.penyelenggaraan_id,
@@ -344,7 +344,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 			'dosen_id' => 'required|exists:pe3_dosen,user_id',
 			'is_ketua' => 'required'
 		]);
-		$idpenyelenggaraan=$request->input('penyelenggaraan_id');
+		$idpenyelenggaraan = $request->input('penyelenggaraan_id');
 		$is_ketua=$request->input('is_ketua');
 		if ($is_ketua)
 		{
@@ -359,7 +359,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 		]);
 		if ($is_ketua)
 		{
-			$penyelenggaraan=$dosen->penyelenggaraan;
+			$penyelenggaraan = $dosen->penyelenggaraan;
 			$penyelenggaraan->user_id = $request->input('dosen_id');
 			$penyelenggaraan->save();
 		}
@@ -371,7 +371,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 							], 200);
 	}
 
-	public function updateketua(Request $request,$id)
+	public function updateketua(Request $request, $id)
 	{
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_UPDATE');
 		
@@ -390,7 +390,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 			$this->validate($request, [                                     
 				'is_ketua' => 'required'
 			]);
-			$idpenyelenggaraan=$request->input('penyelenggaraan_id');
+			$idpenyelenggaraan = $request->input('penyelenggaraan_id');
 
 			PenyelenggaraanDosenModel::where('penyelenggaraan_id',$idpenyelenggaraan)
 									->update(['is_ketua'=>false]);
@@ -398,7 +398,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 			$dosen->is_ketua=$request->input('is_ketua');
 			$dosen->save();
 
-			$penyelenggaraan=$dosen->penyelenggaraan;
+			$penyelenggaraan = $dosen->penyelenggaraan;
 			$penyelenggaraan->user_id = $dosen->user_id;
 			$penyelenggaraan->save();
 			
@@ -422,7 +422,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
 
@@ -459,7 +459,7 @@ class PenyelenggaraanMatakuliahController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroypengampu(Request $request,$id)
+	public function destroypengampu(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('AKADEMIK-PERKULIAHAN-PENYELENGGARAAN_DESTROY');
 

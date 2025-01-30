@@ -48,7 +48,7 @@ class SPMBController extends Controller
       })
       ->get();
                     
-      $subquery_isi_formulir=$subquery->whereNotNull('idkelas');
+      $subquery_isi_formulir = $subquery->whereNotNull('idkelas');
       $daftar_isi_formulir=ProgramStudiModel::select(\DB::raw('id AS prodi_id,nama_prodi,nama_prodi_alias,nama_jenjang,COALESCE(jumlah,0) AS jumlah'))
       ->leftJoinSub($subquery_isi_formulir, 'pe3_formulir_pendaftaran',function($join) {
         $join->on('pe3_formulir_pendaftaran.kjur1', '=', 'pe3_prodi.id');
@@ -86,9 +86,9 @@ class SPMBController extends Controller
             ->get();
             
       $total_registrasi=$daftar_registrasi->sum('jumlah');
-      $total_isi_formulir=$daftar_isi_formulir->sum('jumlah');
-      $total_lulus=$daftar_lulus->sum('jumlah');
-      $total_tidak_lulus=$daftar_tidak_lulus->sum('jumlah');
+      $total_isi_formulir = $daftar_isi_formulir->sum('jumlah');
+      $total_lulus = $daftar_lulus->sum('jumlah');
+      $total_tidak_lulus = $daftar_tidak_lulus->sum('jumlah');
     }
     else if ($this->hasRole('pmb'))
     {
@@ -106,7 +106,7 @@ class SPMBController extends Controller
             ->where('user_id', $this->getUserid())
             ->get();
 
-      $subquery_isi_formulir=$subquery->whereNotNull('idkelas');
+      $subquery_isi_formulir = $subquery->whereNotNull('idkelas');
       $daftar_isi_formulir=\DB::table('usersprodi')
                 ->select(\DB::raw('
                   prodi_id,
@@ -156,9 +156,9 @@ class SPMBController extends Controller
         ->get();
 
       $total_registrasi=$daftar_registrasi->sum('jumlah');
-      $total_isi_formulir=$daftar_isi_formulir->sum('jumlah');
-      $total_lulus=$daftar_lulus->sum('jumlah');
-      $total_tidak_lulus=$daftar_tidak_lulus->sum('jumlah');
+      $total_isi_formulir = $daftar_isi_formulir->sum('jumlah');
+      $total_lulus = $daftar_lulus->sum('jumlah');
+      $total_tidak_lulus = $daftar_tidak_lulus->sum('jumlah');
     }
 
     return Response()->json([

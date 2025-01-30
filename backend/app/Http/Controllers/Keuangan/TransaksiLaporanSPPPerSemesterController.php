@@ -32,7 +32,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
       ]);
       $ta = $request->input('ta');
       $prodi_id = $request->input('prodi_id');
-      $tahun_pendaftaran=$request->input('tahun_pendaftaran');
+      $tahun_pendaftaran = $request->input('tahun_pendaftaran');
       $semester_akademik=$request->input('semester_akademik');
 
 			switch($semester_akademik)
@@ -157,7 +157,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
                                     'message' => 'Fetch data daftar transaksi spp mahasiswa berhasil diperoleh.'
                                 ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);    
     }
-    public function show (Request $request,$id)
+    public function show (Request $request, $id)
     {
         try 
         {
@@ -247,7 +247,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             $transaksi_detail=[];
             for($i=$awal_ganjil;$i<= 12;$i++)
             {
-                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
+                $status = $this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
                                     'id' => $i,
                                     'no_bulan' => $i,
@@ -260,7 +260,7 @@ class TransaksiLaporanSPPPerSemesterController extends Controller {
             }
             for($i=1;$i<$awal_ganjil;$i++)
             {
-                $status=$this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
+                $status = $this->checkPembayaranSPP($i,$transaksi->ta,$transaksi->user_id);
                 $transaksi_detail[]=[
                                     'id' => $i,
                                     'no_bulan' => $i,

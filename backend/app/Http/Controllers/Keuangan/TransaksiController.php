@@ -110,7 +110,7 @@ class TransaksiController extends Controller {
 	/**
 	 * digunakan untuk mendapatkan detail transaksi
 	 */
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 		$transaksi=TransaksiModel::select(\DB::raw('
 										pe3_transaksi.id,
@@ -217,7 +217,7 @@ class TransaksiController extends Controller {
 
 		try 
 		{
-			$mhs=$jenis_id == 'nim' ? RegisterMahasiswaModel::where('nim', $id)->first() : RegisterMahasiswaModel::find($id);
+			$mhs = $jenis_id == 'nim' ? RegisterMahasiswaModel::where('nim', $id)->first() : RegisterMahasiswaModel::find($id);
 			if (is_null($mhs))
 			{
 				throw new Exception ('Data Mahasiswa Baru gagal DIPEROLEH. ');
@@ -308,7 +308,7 @@ class TransaksiController extends Controller {
 	/**
 	 * digunakan untuk merubah status transaksi menjadi paid
 	 */
-	public function verifikasi(Request $request,$id)
+	public function verifikasi(Request $request, $id)
 	{
 		$this->hasPermissionTo('KEUANGAN-KONFIRMASI-PEMBAYARAN_UPDATE');
 
@@ -344,8 +344,8 @@ class TransaksiController extends Controller {
 					{
 						case 101: //biaya formulir pendaftaran
 							$formulir=\App\Models\SPMB\FormulirPendaftaranModel::find($konfirmasi->user_id);                   
-							$no_formulir=$formulir->idsmt.mt_rand();
-							$formulir->no_formulir=$no_formulir;
+							$no_formulir = $formulir->idsmt.mt_rand();
+							$formulir->no_formulir = $no_formulir;
 							$formulir->save();
 						break;
 						case 202:

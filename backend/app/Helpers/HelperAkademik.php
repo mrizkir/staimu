@@ -4,7 +4,8 @@ namespace App\Helpers;
 
 use App\Models\DMaster\ProgramStudiModel;
 
-class HelperAkademik {      
+class HelperAkademik 
+{      
   /**
    * daftar semester
    */

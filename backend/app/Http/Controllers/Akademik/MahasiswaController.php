@@ -12,7 +12,7 @@ class MahasiswaController extends Controller
     /**
      * digunakan untuk mendapatkan data mahasiswa [nim,nirm,nama_prodi,nama_kelas,dosen_wali]
      */
-    public function biodatamhs1 (Request $request,$id)
+    public function biodatamhs1 (Request $request, $id)
     {
         $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                     pe3_register_mahasiswa.user_id,
@@ -56,7 +56,7 @@ class MahasiswaController extends Controller
     /**
      * digunakan untuk mendapatkan data mahasiswa [nim,nirm,nama_prodi,nama_kelas,dosen_wali]
      */
-    public function biodatamhs2 (Request $request,$id)
+    public function biodatamhs2 (Request $request, $id)
     {
         $mahasiswa=RegisterMahasiswaModel::select(\DB::raw('
                                     pe3_register_mahasiswa.user_id,

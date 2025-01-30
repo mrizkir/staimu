@@ -22,7 +22,7 @@ class PMBUjianOnlineController extends Controller {
 	/**
 	 * daftar soal berdasarkan user id
 	 */
-	public function soal(Request $request,$id)
+	public function soal(Request $request, $id)
 	{
 		$this->hasPermissionTo('SPMB-PMB-UJIAN-ONLINE_BROWSE');
 				
@@ -97,8 +97,8 @@ class PMBUjianOnlineController extends Controller {
 			'tahun_pendaftaran' => 'required',
 			'semester_pendaftaran' => 'required'
 		]);
-		$tahun_pendaftaran=$request->input('tahun_pendaftaran');
-		$semester_pendaftaran=$request->input('semester_pendaftaran');
+		$tahun_pendaftaran = $request->input('tahun_pendaftaran');
+		$semester_pendaftaran = $request->input('semester_pendaftaran');
 
 		$jadwal_ujian=JadwalUjianPMBModel::select(\DB::raw('pe3_jadwal_ujian_pmb.id,
 												pe3_jadwal_ujian_pmb.nama_kegiatan, 
@@ -136,7 +136,7 @@ class PMBUjianOnlineController extends Controller {
 	/**
 	 * digunakan untuk mendapatkan profil peserta ujian
 	 */
-	public function peserta (Request $request,$id)
+	public function peserta (Request $request, $id)
 	{   
 		$peserta = PesertaUjianPMBModel::select(\DB::raw('
 				pe3_peserta_ujian_pmb.*,
@@ -158,7 +158,7 @@ class PMBUjianOnlineController extends Controller {
 		}
 		else
 		{   
-			$jadwal_ujian=$peserta->jadwalujian;
+			$jadwal_ujian = $peserta->jadwalujian;
 			$nilai = $peserta->nilaiujian;
 
 			if ($peserta->isfinish == 1 && is_null($nilai))
@@ -405,14 +405,14 @@ class PMBUjianOnlineController extends Controller {
 			{
 				$nilai_ujian->jadwal_ujian_id = $jadwal_ujian_id;
 				$nilai_ujian->jumlah_soal=$jumlah_soal;
-				$nilai_ujian->jawaban_benar=$benar;
-				$nilai_ujian->jawaban_salah=$salah;
+				$nilai_ujian->jawaban_benar = $benar;
+				$nilai_ujian->jawaban_salah = $salah;
 				$nilai_ujian->soal_tidak_terjawab=$jumlah_soal - ($benar+$salah);
 				$nilai_ujian->passing_grade_1=$nilai_passing_grade;
 				$nilai_ujian->passing_grade_2=0;
 				$nilai_ujian->nilai=$nilai;
-				$nilai_ujian->ket_lulus=$ket_lulus;
-				$nilai_ujian->kjur=$kjur;
+				$nilai_ujian->ket_lulus = $ket_lulus;
+				$nilai_ujian->kjur = $kjur;
 				$nilai_ujian->desc='Dihitung otomatis oleh sistem';
 				$nilai_ujian->save();
 			}

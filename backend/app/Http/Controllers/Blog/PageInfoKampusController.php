@@ -54,7 +54,7 @@ class PageInfoKampusController extends Controller {
                                     'message' => 'Fetch data konfigurasi Page Info Kampus berhasil diperoleh'
                                 ], 200);
     }
-    public function show (Request $request,$id)
+    public function show (Request $request, $id)
     {
         $this->hasPermissionTo('BLOG-POST_SHOW');
 
@@ -142,7 +142,7 @@ class PageInfoKampusController extends Controller {
                                     'message' => 'Data post berhasil disimpan.'
                                 ], 200);
     }
-    public function update (Request $request,$id)
+    public function update (Request $request, $id)
     {
         $this->hasPermissionTo('BLOG-POST_UPDATE');
 
@@ -174,7 +174,7 @@ class PageInfoKampusController extends Controller {
                                 ], 200); 
         }
     }
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('BLOG-POST_DESTROY');
 

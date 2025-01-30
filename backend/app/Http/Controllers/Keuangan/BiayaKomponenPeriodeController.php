@@ -92,9 +92,9 @@ class BiayaKomponenPeriodeController extends Controller {
         $daftar_kelas=KelasModel::all();
         foreach ($daftar_kelas as $kelas)
         {
-            $idkelas=$kelas->idkelas;
+            $idkelas = $kelas->idkelas;
             $sql = "INSERT INTO pe3_kombi_periode (id,kombi_id,nama_kombi,periode,idkelas,kjur,tahun,biaya,created_at,updated_at)
-                    SELECT UUID(),id,nama AS nama_kombi,periode, '$idkelas' AS idkelas,$prodi_id AS kjur,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND kjur=$prodi_id AND idkelas='$idkelas')";           
+                    SELECT UUID(),id,nama AS nama_kombi,periode, '$idkelas' AS idkelas,$prodi_id AS kjur,$ta AS tahun,0 AS biaya,NOW() AS created_at,NOW() AS updated_at FROM pe3_kombi WHERE id NOT IN (SELECT kombi_id FROM pe3_kombi_periode WHERE tahun='$ta' AND kjur = $prodi_id AND idkelas='$idkelas')";           
                     
             \DB::statement($sql);
         }        

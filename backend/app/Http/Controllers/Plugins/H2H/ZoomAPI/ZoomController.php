@@ -74,7 +74,7 @@ class ZoomController extends Controller {
     /**
      * digunakan untuk testing
      */
-    public function testing(Request $request,$id)
+    public function testing(Request $request, $id)
     {
         $this->hasPermissionTo('PLUGINS-H2H-ZOOMAPI_UPDATE');
 
@@ -116,8 +116,8 @@ class ZoomController extends Controller {
                 if (isset($result['id']))
                 {
                     $zoom->zoom_id = $result['id'];
-                    $zoom->jwt_token=$jwt;
-                    $zoom->status=$result['type'];   
+                    $zoom->jwt_token = $jwt;
+                    $zoom->status = $result['type'];   
                     $desc=$result['status']=='active'?'AKTIF - ':'TIDAK AKTIF - ';
                     switch ($zoom->status)
                     {
@@ -270,7 +270,7 @@ class ZoomController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('PLUGINS-H2H-ZOOMAPI_DESTROY');
 

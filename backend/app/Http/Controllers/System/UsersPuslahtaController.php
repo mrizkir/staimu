@@ -65,11 +65,11 @@ class UsersPuslahtaController extends Controller {
                 'created_at' => $now, 
                 'updated_at' => $now
             ]);       
-            $role='puslahta';   
+            $role = 'puslahta';   
             $user->assignRole($role);          
             
             $permission = Role::findByName('puslahta')->permissions;
-            $permissions=$permission->pluck('name');
+            $permissions = $permission->pluck('name');
             $user->givePermissionTo($permissions);
 
             $user_id = $user->id;
@@ -113,7 +113,7 @@ class UsersPuslahtaController extends Controller {
                 {
                     $user->assignRole($v);          
                     $permission = Role::findByName($v)->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
                     if ($v=='dosen')
@@ -225,14 +225,14 @@ class UsersPuslahtaController extends Controller {
                 {
                     $user->assignRole('dosen'); 
                     $permission = Role::findByName('dosen')->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->givePermissionTo($permissions);
                 }
                 elseif ($user->hasRole('dosen'))
                 {
                     $user->removeRole('dosen');
                     $permission = Role::findByName('dosen')->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->revokePermissionTo($permissions);
                 }    
                 $user_id = $user->id;
@@ -285,7 +285,7 @@ class UsersPuslahtaController extends Controller {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
                         $permission = Role::findByName($v)->permissions;
-                        $permissions=$permission->pluck('name');
+                        $permissions = $permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
                         if ($v=='dosen' && is_null($dosen))
@@ -344,7 +344,7 @@ class UsersPuslahtaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('SYSTEM-USERS-PUSLAHTA_DESTROY');
 

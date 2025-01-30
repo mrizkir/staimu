@@ -103,7 +103,7 @@ class MatakuliahController extends Controller {
 	{
 		$this->hasPermissionTo('AKADEMIK-MATAKULIAH_STORE');
 
-		$kjur=$request->input('kjur');
+		$kjur = $request->input('kjur');
 		$ta = $request->input('ta');
 
 		$rule = [            
@@ -134,13 +134,13 @@ class MatakuliahController extends Controller {
 		
 		$id_group=$request->input('id_group');
 		$nama_group=$request->input('nama_group');
-		$group_alias=$request->input('group_alias');
+		$group_alias = $request->input('group_alias');
 
 		$group_matakuliah=GroupMatakuliahModel::find($id_group);
 		if(!is_null($group_matakuliah))
 		{
 			$nama_group=$group_matakuliah->nama_group;
-			$group_alias=$group_matakuliah->group_alias;
+			$group_alias = $group_matakuliah->group_alias;
 		}
 
 		$matakuliah=MatakuliahModel::create([
@@ -184,7 +184,7 @@ class MatakuliahController extends Controller {
 	/**
 	 * digunakan untuk menyalin matakuliah
 	 */
-	public function salinmatkul (Request $request,$id)
+	public function salinmatkul (Request $request, $id)
 	{
 		$this->validate($request, [           
 			'dari_tahun_akademik' => 'required',  
@@ -242,14 +242,14 @@ class MatakuliahController extends Controller {
 				FROM pe3_matakuliah 
 				WHERE 
 					ta=$dari_tahun_akademik AND 
-					kjur=$prodi_id AND 
+					kjur = $prodi_id AND 
 					kmatkul 
 						NOT IN (
 						SELECT 
 							kmatkul 
 						FROM pe3_matakuliah 
 						WHERE ta=$id AND 
-							kjur=$prodi_id
+							kjur = $prodi_id
 			)";           
 			\DB::statement($sql);
 			
@@ -307,7 +307,7 @@ class MatakuliahController extends Controller {
 		}
 		else
 		{
-			$kjur=$matakuliah->kjur;
+			$kjur = $matakuliah->kjur;
 			$ta = $matakuliah->ta;
 			$this->validate($request, [
 										'id_group' => 'required',
@@ -336,13 +336,13 @@ class MatakuliahController extends Controller {
 			
 			$id_group=$request->input('id_group');
 			$nama_group=$request->input('nama_group');
-			$group_alias=$request->input('group_alias');
+			$group_alias = $request->input('group_alias');
 			
 			$group_matakuliah=GroupMatakuliahModel::find($id_group);
 			if(!is_null($group_matakuliah))
 			{
 				$nama_group=$group_matakuliah->nama_group;
-				$group_alias=$group_matakuliah->group_alias;
+				$group_alias = $group_matakuliah->group_alias;
 			}
 
 			$matakuliah->id_group = $id_group;
@@ -397,7 +397,7 @@ class MatakuliahController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Request $request,$id)
+	public function destroy(Request $request, $id)
 	{ 
 		$this->hasPermissionTo('AKADEMIK-MATAKULIAH_DESTROY');
 

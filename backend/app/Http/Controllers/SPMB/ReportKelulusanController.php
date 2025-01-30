@@ -30,7 +30,7 @@ class ReportKelulusanController extends Controller {
 		
 		$ta = $request->input('ta');
 		$prodi_id = $request->input('prodi_id');
-		$filter_status=$request->input('filter_status');
+		$filter_status = $request->input('filter_status');
 
 		$data = FormulirPendaftaranModel::select(\DB::raw('
 						users.id,
@@ -74,7 +74,7 @@ class ReportKelulusanController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Request $request,$id)
+	public function show(Request $request, $id)
 	{
 		$this->hasAnyPermission(['SPMB-PMB-NILAI-UJIAN_SHOW']);
 
@@ -107,7 +107,7 @@ class ReportKelulusanController extends Controller {
 			if (!is_null($transaksi_detail))
 			{
 				$no_transaksi=$transaksi_detail->no_transaksi;
-				$transaksi_status=$transaksi_detail->status;
+				$transaksi_status = $transaksi_detail->status;
 			}   
 			$daftar_prodi[]=['prodi_id' => $formulir->kjur1, 'nama_prodi' => $formulir->nama_prodi];
 			$data_nilai_ujian=NilaiUjianPMBModel::find($id);                

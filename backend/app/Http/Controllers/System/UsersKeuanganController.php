@@ -66,11 +66,11 @@ class UsersKeuanganController extends Controller {
                 'created_at' => $now, 
                 'updated_at' => $now
             ]);       
-            $role='keuangan';   
+            $role = 'keuangan';   
             $user->assignRole($role);          
             
             $permission = Role::findByName('keuangan')->permissions;
-            $permissions=$permission->pluck('name');
+            $permissions = $permission->pluck('name');
             $user->givePermissionTo($permissions);
 
             $user_id = $user->id;
@@ -114,7 +114,7 @@ class UsersKeuanganController extends Controller {
                 {
                     $user->assignRole($v);          
                     $permission = Role::findByName($v)->permissions;
-                    $permissions=$permission->pluck('name');
+                    $permissions = $permission->pluck('name');
                     $user->givePermissionTo($permissions);
 
                     if ($v=='dosen')
@@ -243,7 +243,7 @@ class UsersKeuanganController extends Controller {
                     if ($v=='dosen'||$v=='dosenwali') // sementara seperti ini karena kalau bertambah tinggal diganti
                     {              
                         $permission = Role::findByName($v)->permissions;
-                        $permissions=$permission->pluck('name');
+                        $permissions = $permission->pluck('name');
                         $user->givePermissionTo($permissions);
 
                         if ($v=='dosen' && is_null($dosen))
@@ -301,7 +301,7 @@ class UsersKeuanganController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     { 
         $this->hasPermissionTo('SYSTEM-USERS-KEUANGAN_DESTROY');
 
