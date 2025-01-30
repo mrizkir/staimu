@@ -448,7 +448,7 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
   //akademik - kemahasiswaan - daftar mahasiswa
   $router->put('/akademik/kemahasiswaan/updatestatus/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatestatus','as'=>'kemahasiswaan.updatestatus']);
   $router->put('/kemahasiswaan/biodata/{id}/update',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|mahasiswa'],'uses'=>'Akademik\KemahasiswaanController@updatebiodata','as'=>'kemahasiswaan.updatebiodata']);
-  $router->put('/akademik/kemahasiswaan/updatedw/{id}',['middleware'=>['role:superadmin|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatedw','as'=>'kemahasiswaan.updatedw']);
+  $router->put('/akademik/kemahasiswaan/updatedw/{id}',['middleware'=>['role:superadmin|akademik|pmb'],'uses'=>'Akademik\KemahasiswaanController@updatedw','as'=>'kemahasiswaan.updatedw']);
   $router->post('/kemahasiswaan/daftarmhs',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|keuangan'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@index','as'=>'daftarmhs.index']);
   $router->post('/kemahasiswaan/daftarmhs/printtoexcel',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|keuangan'],'uses'=>'Akademik\KemahasiswaanDaftarMahasiswaController@printtoexcel','as'=>'daftarmhs.printtoexcel']);
 

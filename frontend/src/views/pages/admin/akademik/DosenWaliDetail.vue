@@ -289,7 +289,7 @@ export default {
      },
     formdefault: {
       dosen_id: "",         
-     },
+    },
 
     rule_dw: [
       value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
@@ -341,8 +341,7 @@ export default {
         this.formdata.dosen_id = this.dosen_id;
       }); 
      }, 
-    changeDosenWali ()
-    {
+    changeDosenWali() {
       this.btnLoading = true;
       this.$ajax.post('/akademik/kemahasiswaan/updatedw/'+this.data_mhs.user_id,
         {

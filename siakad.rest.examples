@@ -1,0 +1,10 @@
+### 
+post https://api.iaimutanjungpinang.ac.id/v3/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "okimas123",  
+}
+
+###
