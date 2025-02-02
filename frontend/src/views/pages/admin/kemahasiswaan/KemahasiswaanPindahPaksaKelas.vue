@@ -271,7 +271,7 @@ export default {
 	},
 	components: {
 		KemahasiswaanLayout,
-		ModuleHeader, 
+		ModuleHeader,
 		Filter1, 
 	},
 }

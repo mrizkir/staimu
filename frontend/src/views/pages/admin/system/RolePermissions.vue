@@ -84,7 +84,7 @@
 								<v-tooltip color="info" bottom>
 									<template v-slot:activator="{on,attrs}">
 										<v-btn 
-											icon                                        
+											icon                                     
 											
 											:disabled="btnLoading"
 											v-bind="attrs"

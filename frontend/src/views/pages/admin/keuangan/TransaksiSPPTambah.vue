@@ -35,7 +35,7 @@
                         <v-card-title>
                             <span class="headline">DATA TRANSAKSI <v-chip :color="data_transaksi.style" dark>{{data_transaksi.nama_status}}</v-chip></span>
                             <v-spacer></v-spacer>
-                            <v-icon                
+                            <v-icon             
                                 @click.stop="closeTambahTransaksi(transaksi_id)">
                                 mdi-close-thick
                             </v-icon>

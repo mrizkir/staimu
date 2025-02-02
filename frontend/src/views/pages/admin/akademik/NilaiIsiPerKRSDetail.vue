@@ -302,7 +302,7 @@
 		},
 		components: {
 			AkademikLayout,
-			ModuleHeader, 
+			ModuleHeader,
 			VAngkaNilai,
 		},
 	}

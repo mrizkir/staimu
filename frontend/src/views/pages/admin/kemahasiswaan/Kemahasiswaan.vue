@@ -238,7 +238,7 @@
     },
     components: {
       KemahasiswaanLayout,
-      ModuleHeader, 
+      ModuleHeader,
       Filter1, 
     },
   }

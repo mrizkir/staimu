@@ -94,7 +94,7 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="primary" 
-                                        icon                                         
+                                        icon                                      
                                         x-small 
                                         class="ma-1" 
                                         @click.stop="viewItem(item)"
@@ -111,7 +111,7 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="primary" 
-                                        icon                                         
+                                        icon                                      
                                         x-small 
                                         class="ma-1" 
                                         @click.stop="editItem(item)"
@@ -128,7 +128,7 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="primary" 
-                                        icon                                         
+                                        icon                                      
                                         x-small 
                                         class="ma-1" 
                                         @click.stop="printpdf1(item)"
@@ -145,7 +145,7 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         color="warning" 
-                                        icon                                         
+                                        icon                                      
                                         x-small 
                                         class="ma-1" 
                                         @click.stop="deleteItem(item)"

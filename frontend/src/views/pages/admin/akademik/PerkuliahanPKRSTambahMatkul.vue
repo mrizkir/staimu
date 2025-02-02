@@ -238,7 +238,7 @@ export default {
    },
 	components: {
 		AkademikLayout,
-		ModuleHeader, 
+		ModuleHeader,
 		DataKRS           
    },
 	};

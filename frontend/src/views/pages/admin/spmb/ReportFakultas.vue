@@ -272,7 +272,7 @@ export default {
    },
     components: {
         SPMBLayout,
-        ModuleHeader, 
+        ModuleHeader,
         Filter20    
    },
 }

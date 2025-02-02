@@ -428,7 +428,7 @@ export default {
    },
     components: {
         SystemUserLayout,
-        ModuleHeader, 
+        ModuleHeader,
    },
 }
 </script>

@@ -29,14 +29,16 @@ class KemahasiswaanDaftarMahasiswaController  extends Controller
       pe3_register_mahasiswa.nim,
       pe3_register_mahasiswa.nirm,
       pe3_formulir_pendaftaran.nama_mhs,
-      pe3_register_mahasiswa.dosen_id,   
+      pe3_register_mahasiswa.dosen_id,
       pe3_register_mahasiswa.idkelas,         
       pe3_register_mahasiswa.k_status,
       pe3_formulir_pendaftaran.ta,
+      COALESCE(pe3_dosen.nama_dosen, "N.A") AS nama_dosen,
       pe3_register_mahasiswa.created_at,      
       pe3_register_mahasiswa.updated_at                                      
     '))
     ->join('pe3_formulir_pendaftaran', 'pe3_register_mahasiswa.user_id', 'pe3_formulir_pendaftaran.user_id')
+    ->leftJoin('pe3_dosen', 'pe3_dosen.user_id', 'pe3_register_mahasiswa.dosen_id')
     ->orderBy('nama_mhs', 'asc');                       
     
     if ($request->has('search'))

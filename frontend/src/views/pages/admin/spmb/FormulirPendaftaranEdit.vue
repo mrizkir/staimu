@@ -515,7 +515,7 @@
     },
     components: {
       SPMBLayout,
-      ModuleHeader, 
+      ModuleHeader,
     },
   };
 </script>

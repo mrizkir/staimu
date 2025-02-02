@@ -331,7 +331,7 @@ export default {
    
     components: {
         AkademikLayout,
-        ModuleHeader, 
+        ModuleHeader,
         DataMatakuliahPenyelenggaraan           
    },
 }

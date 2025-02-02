@@ -331,7 +331,7 @@
     },
     components: {
       SPMBLayout,
-      ModuleHeader, 
+      ModuleHeader,
       Filter9, 
     },
   };

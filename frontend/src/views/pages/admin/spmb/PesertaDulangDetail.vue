@@ -239,7 +239,7 @@ export default {
 	},
 	components: {
 		SPMBLayout,
-		ModuleHeader, 
+		ModuleHeader,
    },
 }
 </script>

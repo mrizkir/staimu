@@ -8,7 +8,7 @@
                 vertical
             ></v-divider>
             <v-spacer></v-spacer>
-            <v-icon                
+            <v-icon             
                 @click.stop="exit">
                 mdi-close-thick
             </v-icon>

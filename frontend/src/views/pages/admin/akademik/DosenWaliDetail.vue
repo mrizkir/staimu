@@ -82,7 +82,7 @@
                           vertical
                         ></v-divider>
                         <v-spacer></v-spacer>
-                        <v-icon                
+                        <v-icon             
                           @click.stop="closedialogfrm()">
                           mdi-close-thick
                         </v-icon>
@@ -191,7 +191,7 @@
                     v-bind="attrs"
                     v-on="on"
                     color="primary" 
-                    icon                                         
+                    icon                                      
                     x-small 
                     class="ma-2" 
                     :disabled="btnLoading"
@@ -285,10 +285,10 @@ export default {
     daftar_dw: [],
 
     formdata: {
-      dosen_id: "",         
+      dosen_id: "",  
      },
     formdefault: {
-      dosen_id: "",         
+      dosen_id: "",  
     },
 
     rule_dw: [

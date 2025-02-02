@@ -148,7 +148,7 @@
     },
     components: {
       ProfilMahasiswaLayout,
-      ModuleHeader, 
+      ModuleHeader,
       ProfilMahasiswa            
     },
   };

@@ -99,7 +99,7 @@
                 <v-dialog v-model="dialogfrm" max-width="750px" persistent>
                   <v-form ref="frmdata" v-model="form_valid" lazy-validation>
                     <v-card>
-                      <v-toolbar elevation="2"> 
+                      <v-toolbar elevation="2">
                         <v-toolbar-title>GANTI DOSEN WALI MAHASISWA</v-toolbar-title>
                         <v-divider
                           class="mx-4"
@@ -107,12 +107,12 @@
                           vertical
                         ></v-divider>
                         <v-spacer></v-spacer>
-                        <v-icon                
+                        <v-icon             
                           @click.stop="closedialogfrm()">
                           mdi-close-thick
                         </v-icon>
                       </v-toolbar>
-                      <v-card-text>                       
+                      <v-card-text>                      
                         <v-row no-gutters>
                           <v-col xs="12">
                             <v-select
@@ -123,7 +123,7 @@
                               item-value="id"
                               :rules="rule_dw"
                               outlined
-                            /> 
+                            />
                           </v-col>
                         </v-row>
                       </v-card-text>
@@ -159,23 +159,24 @@
 							>
 								mdi-eye
 							</v-icon>
-              <v-tooltip bottom> 
-                <template v-slot:activator="{ on, attrs }"> 
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
                   <v-btn 
                     v-bind="attrs"
                     v-on="on"
                     color="primary" 
-                    icon                                         
-                    x-small 
-                    class="ma-2" 
+                    icon                                      
+                    x-small
+                    class="ma-2"
                     :disabled="btnLoading"
-                    @click.stop="showDialogChangeDW(item)">
+                    @click.stop="showDialogChangeDW(item)"
+                  >
                     <v-icon>mdi-file-replace-outline</v-icon>
-                  </v-btn> 
+                  </v-btn>
                 </template>
                 <span>Ganti Dosen Wali</span>
               </v-tooltip>
-						</template>
+            </template>
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length" class="text-center">
                 <v-col cols="12">
@@ -266,6 +267,7 @@
         { text: "NAMA MAHASISWA", value: "nama_mhs", sortable: true },
         { text: "KELAS", value: "idkelas", sortable: true, width: 120 },
         { text: "TAHUN MASUK", value: "ta", sortable: true, width: 100 },
+        { text: "DOSEN WALI", value: "nama_dosen", sortable: true, width: 100 },
         { text: "STATUS", value: "k_status", sortable: true, width: 100 },
         { text: "AKSI", value: "actions", sortable: false, width: 100 },
       ],
@@ -273,16 +275,16 @@
 
       //formdata
       dialogfrm: false,
-      form_valid: true, 
+      form_valid: true,
       formdata: {
-        dosen_id: "",         
+        dosen_id: "",
       },
       formdefault: {
-        dosen_id: "",         
+        dosen_id: "",
       },
 
       rule_dw: [
-        value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!"
+        value => !!value || "Mohon dipilih Dosen Wali untuk Mahasiswa ini !!!",
       ],
     }),
     methods: {
@@ -325,46 +327,49 @@
         }
       },
       viewItem: async function(item) {
-				this.$router.push("/kemahasiswaan/profil/" + item.user_id);
-			},
-      async showDialogChangeDW(item)
-      {
+        this.$router.push("/kemahasiswaan/profil/" + item.user_id);
+      },
+      async showDialogChangeDW(item) {
         this.data_mhs = item;
-        await this.$ajax.get('/akademik/dosenwali',{
-          headers: {
-            Authorization: this.$store.getters["auth/Token"]
-          }
-        }).then(({ data }) => {
-          this.dialogfrm = true;
-          this.daftar_dw = data.users; 
-          this.formdata.dosen_id = item.dosen_id;
-        }); 
-      }, 
+        await this.$ajax
+          .get("/akademik/dosenwali", {
+            headers: {
+              Authorization: this.$store.getters["auth/Token"],
+            },
+          })
+          .then(({ data }) => {
+            this.dialogfrm = true;
+            this.daftar_dw = data.users;
+            this.formdata.dosen_id = item.dosen_id;
+          });
+      },
       changeDosenWali() {
         this.btnLoading = true;
-        this.$ajax.post('/akademik/kemahasiswaan/updatedw/'+this.data_mhs.user_id,
-          {
-            _method: 'PUT',
-            'dosen_id': this.formdata.dosen_id,
-          },
-          {
-            headers: {
-              Authorization: this.TOKEN
+        this.$ajax
+          .post(
+            "/akademik/kemahasiswaan/updatedw/" + this.data_mhs.user_id,
+            {
+              _method: "PUT",
+              dosen_id: this.formdata.dosen_id,
+            },
+            {
+              headers: {
+                Authorization: this.$store.getters["auth/Token"],
+              },
             }
-          }
-        )
-        .then(() => {
-          this.$router.go();
-          this.btnLoading = false;
-        })
-        .catch(() => {
-          this.btnLoading = false;
-        });
+          )
+          .then(() => {
+            this.$router.go();
+            this.btnLoading = false;
+          })
+          .catch(() => {
+            this.btnLoading = false;
+          });
       },
       closedialogfrm() {
-        this.dialogfrm = false; 
+        this.dialogfrm = false;
         setTimeout(() => {
-          this.formdata = Object.assign({}, this.formdefault);           
+          this.formdata = Object.assign({}, this.formdefault);
         }, 300);
       },
       printtoexcel: async function() {

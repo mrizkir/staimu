@@ -78,7 +78,7 @@
                         vertical
                       ></v-divider>
                       <v-spacer></v-spacer>
-                      <v-icon                
+                      <v-icon             
                         @click.stop="closedialogfrm()">
                         mdi-close-thick
                       </v-icon>
@@ -255,12 +255,12 @@ export default {
     formdata: {
       nim: "",
       nirm: "",
-      dosen_id: "",         
+      dosen_id: "",  
      },
     formdefault: {
       nim: "",
       nirm: "",
-      dosen_id: "",         
+      dosen_id: "",  
      },
     rule_nim: [
       value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
