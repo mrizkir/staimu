@@ -214,9 +214,13 @@
           })
           .then(({ data }) => {
             this.daftar_dosen = data.users;
-            var config = JSON.parse(this.data_prodi.config);
-            this.dosen_id = config.kaprodi;
-            this.nama_jabatan = this.dosen_id.nama_jabatan;
+            if (this.data_prodi.config) {
+              var config = JSON.parse(this.data_prodi.config);
+              if (config.kaprodi) {
+                this.dosen_id = config.kaprodi;
+                this.nama_jabatan = this.dosen_id.nama_jabatan;
+              }
+            }
             this.btnLoading = false;
           });
         this.firstloading = false;

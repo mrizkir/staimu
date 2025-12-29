@@ -183,7 +183,11 @@ class HelperAkademik
     }
     else
     {
-      $config = json_decode($prodi->config);            
+      $config = json_decode($prodi->config);
+      if (is_null($config) || !isset($config->kaprodi))
+      {
+        return null;
+      }
       return $config->kaprodi;
     }        
   }
