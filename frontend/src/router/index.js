@@ -1276,6 +1276,16 @@ const routes = [
       import("../views/pages/admin/kemahasiswaan/ProfilBiodataMHS.vue"),
   },
   {
+    path: "/kemahasiswaan/profil/aktivitaskuliah/:user_id",
+    name: "KemahasiswaanProfilAktivitasKuliahMHS",
+    meta: {
+      title: "KEMAHASISWAAN - AKTIVITAS KULIAH MAHASISWA",
+      requiresAuth: true,
+    },
+    component: () =>
+      import("../views/pages/admin/kemahasiswaan/ProfilAktivitasKuliahMHS.vue"),
+  },
+  {
     path: "/kemahasiswaan/daftarmahasiswa",
     name: "KemahasiswaanDaftarMahasiswa",
     meta: {
