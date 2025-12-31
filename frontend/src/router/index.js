@@ -608,6 +608,44 @@ const routes = [
       import("../views/pages/admin/keuangan/TransaksiInvoice.vue"),
   },
   {
+    path: "/keuangan/transaksi-seminar",
+    name: "KeuanganTransaksiSeminar",
+    meta: {
+      title: "KEUANGAN - TRANSAKSI SEMINAR",
+      requiresAuth: true,
+    },
+    component: () => import("../views/pages/admin/keuangan/TransaksiSeminar.vue"),
+  },
+  {
+    path: "/keuangan/transaksi-seminar/:transaksi_id",
+    name: "KeuanganTransaksiSeminarDetail",
+    meta: {
+      title: "KEUANGAN - TRANSAKSI SEMINAR",
+      requiresAuth: true,
+    },
+    component: () =>
+      import("../views/pages/admin/keuangan/TransaksiInvoice.vue"),
+  },
+  {
+    path: "/keuangan/transaksi-wisuda",
+    name: "KeuanganTransaksiWisuda",
+    meta: {
+      title: "KEUANGAN - TRANSAKSI WISUDA",
+      requiresAuth: true,
+    },
+    component: () => import("../views/pages/admin/keuangan/TransaksiWisuda.vue"),
+  },
+  {
+    path: "/keuangan/transaksi-wisuda/:transaksi_id",
+    name: "KeuanganTransaksiWisudaDetail",
+    meta: {
+      title: "KEUANGAN - TRANSAKSI WISUDA",
+      requiresAuth: true,
+    },
+    component: () =>
+      import("../views/pages/admin/keuangan/TransaksiInvoice.vue"),
+  },
+  {
     path: "/keuangan/transaksi-ujianmunaqasah",
     name: "KeuanganTransaksiUjianMunaqasah",
     meta: {

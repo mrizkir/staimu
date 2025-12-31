@@ -181,6 +181,58 @@ class DulangController extends Controller
     }        
   }
   /**
+   * digunakan untuk mengambil aktivitas kuliah mahasiswa berdasarkan user_id
+   */
+  public function aktivitaskuliah (Request $request, $user_id)
+  {
+    $this->hasPermissionTo('AKADEMIK-KEMAHASISWAAN-DAFTAR-MAHASISWA_BROWSE');
+
+    $daftar_aktivitas = DulangModel::select(\DB::raw('
+      pe3_dulang.id,
+      pe3_dulang.user_id,
+      pe3_dulang.nim,
+      pe3_dulang.tahun,
+      pe3_dulang.idsmt,
+      pe3_dulang.tasmt,
+      pe3_dulang.idkelas,
+      pe3_dulang.status_sebelumnya,
+      pe3_dulang.k_status,
+      A.n_status AS n_status,
+      B.n_status AS n_status_sebelumnya,
+      pe3_dulang.update_info,
+      pe3_dulang.descr,
+      pe3_dulang.created_at,
+      pe3_dulang.updated_at
+    '))
+    ->leftJoin('pe3_status_mahasiswa AS A', 'pe3_dulang.k_status', '=', 'A.k_status')
+    ->leftJoin('pe3_status_mahasiswa AS B', 'pe3_dulang.status_sebelumnya', '=', 'B.k_status')
+    ->where('pe3_dulang.user_id', $user_id)
+    ->orderBy('pe3_dulang.tahun', 'DESC')
+    ->orderBy('pe3_dulang.idsmt', 'DESC')
+    ->get();
+
+    // Get mahasiswa info
+    $mahasiswa = FormulirPendaftaranModel::where('user_id', $user_id)
+      ->first();
+
+    if (is_null($mahasiswa)) {
+      return Response()->json([
+        'status' => 0,
+        'pid' => 'fetchdata',
+        'message' => 'Data mahasiswa tidak ditemukan'
+      ], 422);
+    }
+
+    return Response()->json([
+      'status' => 1,
+      'pid' => 'fetchdata',
+      'mahasiswa' => $mahasiswa,
+      'aktivitas_kuliah' => $daftar_aktivitas,
+      'message' => 'Data aktivitas kuliah mahasiswa berhasil diperoleh'
+    ], 200)->setEncodingOptions(JSON_NUMERIC_CHECK);
+  }
+
+  /**
    * Remove the specified resource from storage.
    *
    * @param  int  $id

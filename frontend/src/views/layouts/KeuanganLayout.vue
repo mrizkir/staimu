@@ -281,6 +281,34 @@
 				</v-list-item>
 				<v-list-item
 					link
+					v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-SEMINAR_BROWSE')"
+					to="/keuangan/transaksi-seminar"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							SEMINAR
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
+					v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-WISUDA_BROWSE')"
+					to="/keuangan/transaksi-wisuda"
+				>
+					<v-list-item-icon class="mr-2">
+						<v-icon>mdi-account-cash</v-icon>
+					</v-list-item-icon>
+					<v-list-item-content>
+						<v-list-item-title>
+							WISUDA
+						</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-list-item
+					link
 					v-if="CAN_ACCESS('KEUANGAN-TRANSAKSI-UJIAN-MUNAQASAH_BROWSE')"
 					to="/keuangan/transaksi-ujianmunaqasah"
 				>

@@ -337,6 +337,16 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
   $router->post('/keuangan/transaksi-kkn/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiKKNController@store','as'=>'transaksi-kkn.store']);
   $router->delete('/keuangan/transaksi-kkn/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiKKNController@destroy','as'=>'transaksi-kkn.destroy']);
   
+  //keuangan - transaksi seminar
+  $router->post('/keuangan/transaksi-seminar',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSeminarController@index','as'=>'transaksi-seminar.index']);
+  $router->post('/keuangan/transaksi-seminar/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSeminarController@store','as'=>'transaksi-seminar.store']);
+  $router->delete('/keuangan/transaksi-seminar/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiSeminarController@destroy','as'=>'transaksi-seminar.destroy']);
+  
+  //keuangan - transaksi wisuda
+  $router->post('/keuangan/transaksi-wisuda',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiWisudaController@index','as'=>'transaksi-wisuda.index']);
+  $router->post('/keuangan/transaksi-wisuda/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiWisudaController@store','as'=>'transaksi-wisuda.store']);
+  $router->delete('/keuangan/transaksi-wisuda/{id}',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiWisudaController@destroy','as'=>'transaksi-wisuda.destroy']);
+  
   //keuangan - transaksi ujian munaqasah
   $router->post('/keuangan/transaksi-ujianmunaqasah',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@index','as'=>'transaksi-ujianmunaqasah.index']);
   $router->post('/keuangan/transaksi-ujianmunaqasah/store',['middleware'=>['role:superadmin|keuangan|mahasiswa'],'uses'=>'Keuangan\TransaksiUjianMunaqasahController@store','as'=>'transaksi-ujianmunaqasah.store']);
@@ -378,6 +388,8 @@ $router->group(['prefix'=>'v3','middleware'=>'auth:api'], function () use ($rout
   $router->post('/akademik/dulang/cekdulangkrs',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\DulangController@cekdulangkrs','as'=>'dulang.cekdulangkrs']);
   //id disini adalah dulang_id
   $router->put('/akademik/dulang/{id}/updatebiodata',['middleware'=>['role:superadmin|akademik|programstudi|mahasiswa'],'uses'=>'Akademik\DulangController@updatebiodata','as'=>'dulang.updatebiodata']);
+  //aktivitas kuliah mahasiswa
+  $router->get('/akademik/dulang/aktivitaskuliah/{user_id}',['middleware'=>['role:superadmin|akademik|programstudi|puslahta|mahasiswa'],'uses'=>'Akademik\DulangController@aktivitaskuliah','as'=>'dulang.aktivitaskuliah']);
 
 
   //akademik - daftar ulang - mahasiswa belum punya nim

@@ -2,7 +2,7 @@
   <KeuanganLayout>
     <ModuleHeader>
       <template v-slot:icon> mdi-account-cash </template>
-      <template v-slot:name> TRANSAKSI KKN </template>
+      <template v-slot:name> TRANSAKSI SEMINAR </template>
       <template v-slot:subtitle>
         TAHUN AKADEMIK {{ tahun_akademik }} SEMESTER
         {{ $store.getters["uiadmin/getNamaSemester"](semester_akademik) }} -
@@ -17,8 +17,8 @@
       </template>
       <template v-slot:desc>
         <v-alert color="cyan" border="left" colored-border type="info">
-          Halaman ini digunakan untuk melakukan transaksi KKN (KULIAH KERJA
-          NYATA) mahasiswa lama.
+          Halaman ini digunakan untuk melakukan transaksi SEMINAR mahasiswa
+          lama.
         </v-alert>
       </template>
     </ModuleHeader>
@@ -185,7 +185,8 @@
                   {{
                     (totaltransaksi_canceled +
                       totaltransaksi_paid +
-                      totaltransaksi_unpaid) | formatUang
+                      totaltransaksi_unpaid) |
+                      formatUang
                   }}
                 </td>
                 <td></td>
@@ -217,13 +218,17 @@
               </v-icon>
             </template>
             <template v-slot:no-data>
-              Data transaksi KKN belum tersedia
+              Data transaksi SEMINAR belum tersedia
             </template>
           </v-data-table>
         </v-col>
       </v-row>
     </v-container>
-    <dialog-printout pid="KKN" title="KKN" ref="dialogprint"></dialog-printout>
+    <dialog-printout
+      pid="SEMINAR"
+      title="SEMINAR"
+      ref="dialogprint"
+    ></dialog-printout>
   </KeuanganLayout>
 </template>
 <script>
@@ -232,14 +237,15 @@
   import Filter6 from "@/components/sidebar/FilterMode6";
   import DialogPrintoutKeuangan from "@/components/DialogPrintoutKeuangan";
   export default {
-    name: "TransaksiKKN",
+    name: "TransaksiSeminar",
     created() {
       this.dashboard = this.$store.getters["uiadmin/getDefaultDashboard"];
       this.breadcrumbs = [
         {
           text: "HOME",
           disabled: false,
-          href: "/dashboard/" + this.$store.getters["auth/AccessToken"],
+          href:
+            "/dashboard/" + this.$store.getters["auth/AccessToken"],
         },
         {
           text: "KEUANGAN",
@@ -247,14 +253,16 @@
           href: "/keuangan",
         },
         {
-          text: "TRANSAKSI KKN",
+          text: "TRANSAKSI SEMINAR",
           disabled: true,
           href: "#",
         },
       ];
       let prodi_id = this.$store.getters["uiadmin/getProdiID"];
       this.prodi_id = prodi_id;
-      this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](prodi_id);
+      this.nama_prodi = this.$store.getters["uiadmin/getProdiName"](
+        prodi_id
+      );
       this.tahun_akademik = this.$store.getters["uiadmin/getTahunAkademik"];
       this.semester_akademik = this.$store.getters[
         "uiadmin/getSemesterAkademik"
@@ -328,7 +336,9 @@
         semester_akademik: "",
       },
       rule_nim: [
-        value => !!value || "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
+        value =>
+          !!value ||
+          "Nomor Induk Mahasiswa (NIM) mohon untuk diisi !!!",
         value =>
           /^[0-9]+$/.test(value) ||
           "Nomor Induk Mahasiswa (NIM) hanya boleh angka",
@@ -351,7 +361,7 @@
         this.datatableLoading = true;
         await this.$ajax
           .post(
-            "/keuangan/transaksi-kkn",
+            "/keuangan/transaksi-seminar",
             {
               ta: this.tahun_akademik,
               semester_akademik: this.semester_akademik,
@@ -388,14 +398,14 @@
         this.dialogfrm = true;
       },
       viewItem(item) {
-        this.$router.push("/keuangan/transaksi-kkn/" + item.transaksi_id);
+        this.$router.push("/keuangan/transaksi-seminar/" + item.transaksi_id);
       },
       save: async function() {
         if (this.$refs.frmdata.validate()) {
           this.btnLoading = true;
           await this.$ajax
             .post(
-              "/keuangan/transaksi-kkn/store",
+              "/keuangan/transaksi-seminar/store",
               {
                 nim: this.formdata.nim,
                 semester_akademik: this.formdata.semester_akademik,
@@ -431,7 +441,7 @@
         this.$root.$confirm
           .open(
             "Delete",
-            "Apakah Anda ingin menghapus data transaksi kkn dengan ID " +
+            "Apakah Anda ingin menghapus data transaksi seminar dengan ID " +
               item.id +
               " ?",
             { color: "red", width: "500px" }
@@ -441,7 +451,7 @@
               this.btnLoading = true;
               this.$ajax
                 .post(
-                  "/keuangan/transaksi-kkn/" + item.transaksi_id,
+                  "/keuangan/transaksi-seminar/" + item.transaksi_id,
                   {
                     _method: "DELETE",
                   },
@@ -516,7 +526,7 @@
               this.datatableLoading = true;
               await this.$ajax
                 .post(
-                  "/keuangan/transaksi-kkn",
+                  "/keuangan/transaksi-seminar",
                   {
                     ta: this.tahun_akademik,
                     semester_akademik: this.semester_akademik,
