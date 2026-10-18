@@ -1,0 +1,76 @@
+/* Global Card Styling - Gradient Header Design */
+.v-application .v-card {
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:not(.v-sheet):not(.v-card--flat):not(.v-card--outlined) {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  &:hover:not(.v-sheet):not(.v-card--flat):not(.v-card--outlined) {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-2px);
+  }
+}
+
+/* Gradient Header untuk Toolbar di dalam Card - menggunakan selector dengan .v-application untuk specificity tinggi */
+.v-application .v-card .v-toolbar,
+.v-application .v-card > .v-toolbar {
+  background: linear-gradient(135deg, #4B49AC 0%, #6B69BC 50%, #7B79CC 100%) !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+// Override semua Vuetify color classes dengan selector yang lebih spesifik
+.v-application .v-card .v-toolbar.primary,
+.v-application .v-card .v-toolbar[class*="primary"],
+.v-application .v-card > .v-toolbar.primary,
+.v-application .v-card > .v-toolbar[class*="primary"],
+.v-application .v-card .v-toolbar.grey,
+.v-application .v-card .v-toolbar[class*="grey"],
+.v-application .v-card > .v-toolbar.grey,
+.v-application .v-card > .v-toolbar[class*="grey"],
+.v-application .v-card .v-toolbar.blue,
+.v-application .v-card .v-toolbar[class*="blue"],
+.v-application .v-card > .v-toolbar.blue,
+.v-application .v-card > .v-toolbar[class*="blue"],
+.v-application .v-card .v-toolbar.green,
+.v-application .v-card .v-toolbar[class*="green"],
+.v-application .v-card > .v-toolbar.green,
+.v-application .v-card > .v-toolbar[class*="green"] {
+  background: linear-gradient(135deg, #4B49AC 0%, #6B69BC 50%, #7B79CC 100%) !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.v-application .v-card .v-toolbar .v-toolbar__title,
+.v-application .v-card .v-toolbar .v-toolbar__content .v-toolbar__title,
+.v-application .v-card > .v-toolbar .v-toolbar__title,
+.v-application .v-card > .v-toolbar .v-toolbar__content .v-toolbar__title {
+  color: white !important;
+  font-weight: 600;
+}
+
+.v-application .v-card .v-toolbar .v-icon,
+.v-application .v-card .v-toolbar .v-btn .v-icon,
+.v-application .v-card .v-toolbar button .v-icon,
+.v-application .v-card > .v-toolbar .v-icon,
+.v-application .v-card > .v-toolbar .v-btn .v-icon,
+.v-application .v-card > .v-toolbar button .v-icon {
+  color: white !important;
+}
+
+.v-application .v-card .v-toolbar .v-btn,
+.v-application .v-card > .v-toolbar .v-btn {
+  color: white !important;
+  
+  .v-icon {
+    color: white !important;
+  }
+}
+
+/* Flat cards tetap tanpa shadow */
+.v-application .v-card--flat {
+  box-shadow: none !important;
+}

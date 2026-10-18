@@ -201,3 +201,11 @@
 		margin: 1rem;
 	}
 </style>
+<style>
+/* Additional global styles to ensure gradient header works */
+.v-card .v-toolbar[style*="background-color"],
+.v-card > .v-toolbar[style*="background-color"] {
+	background: linear-gradient(135deg, #4B49AC 0%, #6B69BC 50%, #7B79CC 100%) !important;
+	background-color: transparent !important;
+}
+</style>

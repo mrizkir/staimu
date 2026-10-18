@@ -14,21 +14,33 @@ Vue.use(Vuetify);
 // tiptap
 const vuetify = new Vuetify();
 Vue.use(TiptapVuetifyPlugin,{
-	vuetify,
-	iconsGroup: "mdi",
+  vuetify,
+  iconsGroup: "mdi",
 });
 
 // currency
 Vue.component("v-text-field", VTextField);
 Vue.use(VCurrencyField, { 
-	decimalLength: 0,
-	autoDecimalMode: true,
-	min: null,
-	max: null,
-	valueAsInteger: true,
-	defaultValue: 0
+  decimalLength: 0,
+  autoDecimalMode: true,
+  min: null,
+  max: null,
+  valueAsInteger: true,
+  defaultValue: 0
 });
 
 export default new Vuetify({
-
+  theme: {
+    themes: {
+      light: {
+        primary: '#4B49AC',
+        secondary: '#98BEFF',
+        accent: '#7978E9',
+        info: '#7DA0FA',
+        warning: '#F3797E',
+        error: '#F44336',
+        success: '#4CAF50'
+      }
+    }
+  }
 });

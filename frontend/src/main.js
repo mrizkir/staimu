@@ -6,6 +6,9 @@ import vuetify from "./plugins/vuetify";
 import VNumeric from "vuetify-numeric/vuetify-numeric.umd.min";
 import api from "./plugins/api";
 
+// Import global card styles (setelah vuetify agar bisa override)
+import "@/assets/styles/cards.scss";
+
 Vue.use(api);
 Vue.use(VNumeric);
 import "@/plugins/Dayjs";
