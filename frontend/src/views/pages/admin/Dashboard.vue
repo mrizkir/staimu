@@ -267,22 +267,25 @@
 		}),
 		methods: {
 			initialize: async function() {
-				await this.$ajax
-					.get("/auth/me", {
+				try {
+					const { data } = await this.$ajax.get("/auth/me", {
 						headers: {
 							Authorization: "Bearer " + this.TOKEN,
 						},
-					})
-					.then(({ data }) => {
-						this.dashboard = data.role[0];
-						this.$store.dispatch("uiadmin/changeDashboard", this.dashboard);
-					})
-					.catch(error => {
-						if (error.response.status == 401) {
-							this.$router.push("/login");
-						}
 					});
-				this.$store.dispatch("uiadmin/init", this.$ajax);
+					try {
+						await this.$store.dispatch("uiadmin/init", this.$ajax);
+					} catch (initError) {
+						// Kartu tetap ditampilkan. Halaman yang butuh tahun akademik
+						// mengulang init sebelum mengirim request.
+					}
+					this.dashboard = data.role[0];
+					this.$store.dispatch("uiadmin/changeDashboard", this.dashboard);
+				} catch (error) {
+					if (error.response && error.response.status == 401) {
+						this.$router.push("/login");
+					}
+				}
 			},
 		},
 		components: {

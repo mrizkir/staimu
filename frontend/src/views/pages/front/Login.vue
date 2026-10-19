@@ -78,35 +78,30 @@
 		}),
 		methods: {
 			doLogin: async function() {
-				if (this.$refs.frmlogin.validate()) {
-					this.btnLoading = true;
-					await this.$ajax
-						.post("/auth/login", {
-							username: this.formlogin.username,
-							password: this.formlogin.password,
-						})
-						.then(({ data }) => {
-							this.$ajax
-								.get("/auth/me", {
-									headers: {
-										Authorization: data.token_type + " " + data.access_token,
-									},
-								})
-								.then(response => {
-									var data_user = {
-										token: data,
-										user: response.data,
-									};
-									this.$store.dispatch("auth/afterLoginSuccess", data_user);
-								});
-							this.btnLoading = false;
-							this.form_error = false;
-							this.$router.push("/dashboard/" + data.access_token);
-						})
-						.catch(() => {
-							this.form_error = true;
-							this.btnLoading = false;
-						});
+				if (!this.$refs.frmlogin.validate()) {
+					return;
+				}
+				this.btnLoading = true;
+				try {
+					const { data } = await this.$ajax.post("/auth/login", {
+						username: this.formlogin.username,
+						password: this.formlogin.password,
+					});
+					const response = await this.$ajax.get("/auth/me", {
+						headers: {
+							Authorization: data.token_type + " " + data.access_token,
+						},
+					});
+					await this.$store.dispatch("auth/afterLoginSuccess", {
+						token: data,
+						user: response.data,
+					});
+					this.form_error = false;
+					this.$router.push("/dashboard/" + data.access_token);
+				} catch (error) {
+					this.form_error = true;
+				} finally {
+					this.btnLoading = false;
 				}
 			},
 		},

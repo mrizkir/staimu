@@ -290,7 +290,15 @@
       },
       initialize: async function()
       {	
-        this.datatableLoading = true; 
+        this.datatableLoading = true;
+        if (!Number.isFinite(this.tahun_pendaftaran)) {
+          await this.$store.dispatch("uiadmin/init", this.$ajax);
+          this.tahun_pendaftaran = this.$store.getters["uiadmin/getTahunPendaftaran"];
+        }
+        if (!Number.isFinite(this.tahun_pendaftaran)) {
+          this.datatableLoading = false;
+          return;
+        }
         await this.$ajax.post("/dashboard/pmb",
         {
           ta: this.tahun_pendaftaran, 
